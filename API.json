@@ -1,0 +1,7 @@
+{
+    "$schema": "http://json-schema.org/draft-03/schema#",
+    "title": "Plugin Ginger API",
+    "description": "Json schema for Kimchi's Ginger Plugin API",
+    "type": "object",
+    "properties": {}
+}
