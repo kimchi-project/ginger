@@ -3,5 +3,16 @@
     "title": "Plugin Ginger API",
     "description": "Json schema for Kimchi's Ginger Plugin API",
     "type": "object",
-    "properties": {}
+    "properties": {
+        "powerprofile_update": {
+            "type": "object",
+            "properties": {
+                "active": {
+                    "description": "State of the profile",
+                    "type": "boolean",
+                    "required" : true
+                }
+            }
+        }
+    }
 }
