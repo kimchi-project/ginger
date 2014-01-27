@@ -22,6 +22,7 @@
 
 models_PYTHON = \
 	__init__.py \
-	model.py
+	model.py \
+	powermanagement.py
 
 modelsdir = $(pythondir)/kimchi/plugins/ginger/models

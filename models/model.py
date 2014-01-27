@@ -21,6 +21,7 @@
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 
+from powermanagement import PowerProfilesModel, PowerProfileModel
 
 # RootModel is taken from Zhengsheng's patch for kimchi upstream.
 # We could remove it from here when it's merged there.
@@ -56,4 +57,7 @@ class GingerModel(RootModel):
 
     def __init__(self):
         sub_models = []
+        powerprofiles = PowerProfilesModel()
+        powerprofile = PowerProfileModel()
+        sub_models = [powerprofiles, powerprofile]
         super(GingerModel, self).__init__(sub_models)

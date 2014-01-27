@@ -21,6 +21,7 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 controls_PYTHON = \
-	__init__.py
+	__init__.py \
+	powermanagement.py
 
 controlsdir = $(pythondir)/kimchi/plugins/ginger/controls

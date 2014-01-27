@@ -23,6 +23,7 @@
 import json
 import os
 
+from controls import PowerProfiles
 from kimchi.control.base import Collection
 from models import GingerModel
 
@@ -31,5 +32,6 @@ class Ginger(Collection):
     def __init__(self):
         self.model = GingerModel()
         super(Ginger, self).__init__(self.model)
+        self.powerprofiles = PowerProfiles(self.model)
         self.api_schema = json.load(open(os.path.join(os.path.dirname(
                                     os.path.abspath(__file__)), 'API.json')))
