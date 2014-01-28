@@ -22,6 +22,7 @@
 
 controls_PYTHON = \
 	__init__.py \
-	powermanagement.py
+	powermanagement.py \
+	users.py
 
 controlsdir = $(pythondir)/kimchi/plugins/ginger/controls

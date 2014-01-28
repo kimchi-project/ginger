@@ -4,7 +4,7 @@
 # Copyright IBM, Corp. 2014
 #
 # Authors:
-#  Mark Wu <wudxw@linux.vnet.ibm.com>
+#  Rodrigo Trujillo <rodrigo.trujillo@linux.vnet.ibm.com>
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -20,8 +20,18 @@
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 
-from powermanagement import PowerProfiles
-from users import Users
+
+from kimchi.control.base import Collection, Resource
 
 
-__all__ = [PowerProfiles, Users]
+class Users(Collection):
+    def __init__(self, model):
+        super(Users, self).__init__(model)
+        self.resource = User
+
+
+class User(Resource):
+
+    @property
+    def data(self):
+        return self.info

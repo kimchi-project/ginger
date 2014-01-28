@@ -1,7 +1,7 @@
 {
     "$schema": "http://json-schema.org/draft-03/schema#",
-    "title": "Plugin Ginger API",
-    "description": "Json schema for Kimchi's Ginger Plugin API",
+    "title": "Ginger Plugin API",
+    "description": "JSON schema for Kimchi's Ginger Plugin API",
     "type": "object",
     "properties": {
         "powerprofile_update": {
@@ -11,6 +11,26 @@
                     "description": "State of the profile",
                     "type": "boolean",
                     "required" : true
+                }
+            }
+        },
+        "users_create": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "description": "The login name of the new user",
+                    "type": "string",
+                    "required": true
+                },
+                "password": {
+                    "description": "The new user password",
+                    "type": "string",
+                    "required": true
+                },
+                "group": {
+                    "description": "The group name of the new user",
+                    "type": "string",
+                    "required": true
                 }
             }
         }

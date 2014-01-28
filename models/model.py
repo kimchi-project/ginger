@@ -23,6 +23,9 @@
 
 from powermanagement import PowerProfilesModel, PowerProfileModel
 
+from users import UsersModel, UserModel
+
+
 # RootModel is taken from Zhengsheng's patch for kimchi upstream.
 # We could remove it from here when it's merged there.
 
@@ -59,5 +62,8 @@ class GingerModel(RootModel):
         sub_models = []
         powerprofiles = PowerProfilesModel()
         powerprofile = PowerProfileModel()
-        sub_models = [powerprofiles, powerprofile]
+        users = UsersModel()
+        user = UserModel()
+        sub_models = [powerprofiles, powerprofile,
+                      users, user]
         super(GingerModel, self).__init__(sub_models)
