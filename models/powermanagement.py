@@ -53,11 +53,11 @@ class PowerProfileModel():
     def _get_active_powersaving_profile(self):
         tuned_cmd = ["tuned-adm", "active"]
         output, error, returncode = run_command(tuned_cmd)
+        # This is a possible scenario where tuned is running
+        # but there is no active profile yet. No need to
+        # report/issue an error.
         if returncode != 0:
-            kimchi_log.error('Could not retrieve active power profile, '
-                             'error: %s', error)
-            raise OperationFailed('Error while retrieving active '
-                                  'power saving profiles.')
+            return None
         output = output.split()
         return output[-1].rstrip()
 
