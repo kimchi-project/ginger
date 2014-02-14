@@ -1,10 +1,7 @@
 #
 # Project Kimchi
 #
-# Copyright IBM, Corp. 2014
-#
-# Authors:
-#  Mark Wu <wudxw@linux.vnet.ibm.com>
+# Copyright IBM, Corp. 2013
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -20,9 +17,24 @@
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 
-from network import Network
-from powermanagement import PowerProfiles
-from users import Users
+from kimchi.control.base import Collection, Resource
 
 
-__all__ = [Network, PowerProfiles, Users]
+class Interfaces(Collection):
+    def __init__(self, model):
+        super(Interfaces, self).__init__(model)
+        self.resource = Interface
+
+
+class Interface(Resource):
+    def __init__(self, model, ident):
+        super(Interface, self).__init__(model, ident)
+        self.update_params = ['ipaddr', 'netmask', 'gateway']
+
+    @property
+    def data(self):
+        return {'name': self.ident,
+                'type': self.info['type'],
+                'ipaddr': self.info['ipaddr'],
+                'netmask': self.info['netmask'],
+                'status': self.info['status']}

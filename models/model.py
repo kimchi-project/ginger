@@ -21,8 +21,9 @@
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 
+from interfaces import InterfacesModel, InterfaceModel
+from network import NetworkModel
 from powermanagement import PowerProfilesModel, PowerProfileModel
-
 from users import UsersModel, UserModel
 
 
@@ -64,6 +65,11 @@ class GingerModel(RootModel):
         powerprofile = PowerProfileModel()
         users = UsersModel()
         user = UserModel()
-        sub_models = [powerprofiles, powerprofile,
+        interfaces = InterfacesModel()
+        interface = InterfaceModel()
+        network = NetworkModel()
+        sub_models = [interfaces, interface,
+                      network,
+                      powerprofiles, powerprofile,
                       users, user]
         super(GingerModel, self).__init__(sub_models)

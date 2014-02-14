@@ -33,6 +33,47 @@
                     "required": true
                 }
             }
+        },
+        "network_update": {
+            "type": "object",
+            "properties": {
+                "nameservers": {
+                    "description": "DNS Servers",
+                    "type": "array",
+                    "items": {
+                        "type": "string",
+                        "format": "ip-address"
+                    },
+                    "minItems": 1,
+                    "uniqueItems": true,
+                    "error": "GINNET0005E"
+                }
+            }
+        },
+        "interface_update": {
+            "type": "object",
+            "properties": {
+                "ipaddr": {
+                    "description": "Interface IP address",
+                    "type": "string",
+                    "format": "ip-address",
+                    "required": true,
+                    "error": "GINNET0006E"
+                },
+                "netmask": {
+                    "description": "Interface netmask",
+                    "type": "string",
+                    "format": "ip-address",
+                    "required": true,
+                    "error": "GINNET0007E"
+                },
+                "gateway": {
+                    "description": "Network gateway",
+                    "type": "string",
+                    "format": "ip-address",
+                    "error": "GINNET0008E"
+                }
+            }
         }
     }
 }

@@ -24,5 +24,15 @@ from kimchi.i18n import messages as kmessages
 _ = gettext.gettext
 
 
-messages = {}
+messages = {
+    "GINNET0001E": _("Failed to read /etc/resolv.conf because %(reason)s"),
+    "GINNET0002E": _("Failed to write /etc/resolv.conf because %(reason)s"),
+    "GINNET0003E": _("Invalid network parameters. Details: %(err)s"),
+    "GINNET0004E": _("Unable to update interface configuration. "
+                     "Details: %(err)s"),
+    "GINNET0005E": _("Invalid parameter for DNS servers"),
+    "GINNET0006E": _("Invalid parameter for interface ip address"),
+    "GINNET0007E": _("Invalid parameter for interface netmask"),
+    "GINNET0008E": _("Invalid parameter for network gateway")
+}
 messages.update(kmessages)

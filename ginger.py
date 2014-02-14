@@ -23,7 +23,7 @@
 import json
 import os
 
-from controls import PowerProfiles, Users
+from controls import Network, PowerProfiles, Users
 from i18n import messages
 from kimchi.config import PluginPaths
 from kimchi.control.base import Collection
@@ -36,6 +36,7 @@ class Ginger(Collection):
         super(Ginger, self).__init__(self.model)
         self.powerprofiles = PowerProfiles(self.model)
         self.users = Users(self.model)
+        self.network = Network(self.model)
         self.api_schema = json.load(open(os.path.join(os.path.dirname(
                                     os.path.abspath(__file__)), 'API.json')))
         self.paths = PluginPaths('ginger')
