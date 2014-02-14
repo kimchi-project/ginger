@@ -1,10 +1,7 @@
 #
-# Kimchi
+# Project Kimchi
 #
-# Copyright IBM Corp, 2014
-#
-# Authors:
-#  Mark Wu <wudxw@linux.vnet.ibm.com>
+# Copyright IBM, Corp. 2013
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -20,22 +17,12 @@
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 
-SUBDIRS=controls models
+import gettext
 
-ginger_PYTHON = \
-	__init__.py \
-	ginger.py \
-	i18n.py \
-	$(NULL)
+from kimchi.i18n import messages as kmessages
 
-gingerdir = $(pythondir)/kimchi/plugins/ginger
+_ = gettext.gettext
 
-confdir = $(sysconfdir)/kimchi/plugins.d/ginger
-dist_conf_DATA = ginger.conf
 
-EXTRA_DIST = \
-	API.json
-
-install-data-local:
-	$(MKDIR_P) $(DESTDIR)$(gingerdir)
-	$(INSTALL_DATA) API.json $(DESTDIR)$(gingerdir)/API.json
+messages = {}
+messages.update(kmessages)

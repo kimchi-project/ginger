@@ -24,6 +24,7 @@ import json
 import os
 
 from controls import PowerProfiles, Users
+from i18n import messages
 from kimchi.config import PluginPaths
 from kimchi.control.base import Collection
 from models import GingerModel
@@ -38,3 +39,5 @@ class Ginger(Collection):
         self.api_schema = json.load(open(os.path.join(os.path.dirname(
                                     os.path.abspath(__file__)), 'API.json')))
         self.paths = PluginPaths('ginger')
+        self.domain = "ginger"
+        self.messages = messages
