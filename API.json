@@ -10,27 +10,38 @@
                 "active": {
                     "description": "State of the profile",
                     "type": "boolean",
-                    "required" : true
+                    "required": true
                 }
             }
         },
         "users_create": {
             "type": "object",
+            "error": "GINUSER0001E",
             "properties": {
                 "name": {
                     "description": "The login name of the new user",
                     "type": "string",
-                    "required": true
+                    "required": true,
+                    "error": "GINUSER0002E"
                 },
                 "password": {
                     "description": "The new user password",
                     "type": "string",
-                    "required": true
+                    "required": true,
+                    "error": "GINUSER0003E"
                 },
                 "group": {
                     "description": "The group name of the new user",
                     "type": "string",
-                    "required": true
+                    "required": true,
+                    "error": "GINUSER0004E"
+                },
+                "profile": {
+                    "description": "The profile of the new user",
+                    "type": "string",
+                    "pattern": "^kimchiuser|virtuser|admin$",
+                    "required": true,
+                    "error": "GINUSER0005E"
                 }
             }
         },

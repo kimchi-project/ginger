@@ -33,6 +33,22 @@ messages = {
     "GINNET0005E": _("Invalid parameter for DNS servers"),
     "GINNET0006E": _("Invalid parameter for interface ip address"),
     "GINNET0007E": _("Invalid parameter for interface netmask"),
-    "GINNET0008E": _("Invalid parameter for network gateway")
+    "GINNET0008E": _("Invalid parameter for network gateway"),
+
+    "GINUSER0001E": _("Specify name, password, group and profile for the new "
+                      "user."),
+    "GINUSER0002E": _("User name is a required string."),
+    "GINUSER0003E": _("User password is a required string."),
+    "GINUSER0004E": _("User group is a required string."),
+    "GINUSER0005E": _("User profile is required and should be one among "
+                      "kimchiuser, virtuser or admin."),
+    "GINUSER0006E": _("Could not add user '%(user)s' to kvm group."),
+    "GINUSER0007E": _("Could not add user '%(user)s' to sudoers list."),
+    "GINUSER0008E": _("The user name '%(user)s' is already in use'."),
+    "GINUSER0009E": _("Could not create user '%(user)s'."),
+    "GINUSER0010E": _("Could not delete user '%(user)s'."),
+    "GINUSER0011E": _("User '%(user)s' does not exist."),
+    "GINUSER0012E": _("Could not delete group '%(group)s'"),
+    "GINUSER0013E": _("Group for user '%(user)s' does not exist for removal.")
 }
 messages.update(kmessages)
