@@ -30,7 +30,7 @@ ginger_PYTHON = \
 
 gingerdir = $(pythondir)/kimchi/plugins/ginger
 
-confdir = $(sysconfdir)/kimchi/plugins.d/ginger
+confdir = $(sysconfdir)/kimchi/plugins.d
 dist_conf_DATA = ginger.conf
 
 EXTRA_DIST = \
