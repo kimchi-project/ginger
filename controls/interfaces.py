@@ -29,7 +29,9 @@ class Interfaces(Collection):
 class Interface(Resource):
     def __init__(self, model, ident):
         super(Interface, self).__init__(model, ident)
+        self.uri_fmt = '/network/interfaces/%s'
         self.update_params = ['ipaddr', 'netmask', 'gateway']
+        self.confirm_change = self.generate_action_handler('confirm_change')
 
     @property
     def data(self):

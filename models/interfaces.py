@@ -21,6 +21,7 @@ import ipaddr
 import libvirt
 import lxml.etree as ET
 from lxml.builder import E
+from threading import Timer
 
 from kimchi import netinfo
 from kimchi.exception import InvalidParameter, NotFoundError, OperationFailed
@@ -34,6 +35,10 @@ class InterfacesModel(object):
 
 
 class InterfaceModel(object):
+    _confirm_timout = 10.0  # Second
+
+    def __init__(self):
+        self._rollback_timer = None
 
     def lookup(self, name):
         try:
@@ -64,14 +69,38 @@ class InterfaceModel(object):
 
     def _create_libvirt_network_iface(self, iface_xml):
         conn = LibvirtConnection("qemu:///system").get()
+        # Only one active transaction is allowed in the system level.
+        # It implies that we can use changeBegin() as a synchronized point.
         conn.changeBegin()
         try:
             iface = conn.interfaceDefineXML(iface_xml)
+            self._rollback_timer = Timer(
+                self._confirm_timout, self._rollback_on_failure, args=[iface])
             if iface.isActive():
                 iface.destroy()
             iface.create()
-        except libvirt.libvirtError as e:
+            self._rollback_timer.start()
+        except Exception as e:
             conn.changeRollback()
             raise OperationFailed('GINNET0004E', {'err': e.message})
-        else:
-            conn.changeCommit()
+
+    def _rollback_on_failure(self, iface):
+        ''' Called by the Timer in a new thread to cancel wrong network
+        configuration and rollback to previous configuration. '''
+        conn = LibvirtConnection("qemu:///system").get()
+        try:
+            conn.changeRollback()
+            if iface.isActive():
+                iface.destroy()
+                iface.create()
+        except libvirt.libvirtError as e:
+            # In case the timeout thread is preempted, and confirm_change() is
+            # called before our changeRollback(), we can just ignore the
+            # VIR_ERR_OPERATION_INVALID error.
+            if e.get_error_code() != libvirt.VIR_ERR_OPERATION_INVALID:
+                raise
+
+    def confirm_change(self, _name):
+        conn = LibvirtConnection("qemu:///system").get()
+        self._rollback_timer.cancel()
+        conn.changeCommit()
