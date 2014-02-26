@@ -27,10 +27,11 @@ from controls import Network, PowerProfiles, Users
 from i18n import messages
 from kimchi.config import PluginPaths
 from kimchi.control.base import Collection
+from kimchi.root import Root
 from models import GingerModel
 
 
-class Ginger(Collection):
+class Ginger(Root):
     def __init__(self):
         self.model = GingerModel()
         super(Ginger, self).__init__(self.model)
