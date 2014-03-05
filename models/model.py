@@ -21,6 +21,7 @@
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 
+from firmware import FirmwareModel
 from interfaces import InterfacesModel, InterfaceModel
 from kimchi.basemodel import BaseModel
 from network import NetworkModel
@@ -32,6 +33,7 @@ class GingerModel(BaseModel):
 
     def __init__(self):
         sub_models = []
+        firmware = FirmwareModel()
         powerprofiles = PowerProfilesModel()
         powerprofile = PowerProfileModel()
         users = UsersModel()
@@ -39,7 +41,8 @@ class GingerModel(BaseModel):
         interfaces = InterfacesModel()
         interface = InterfaceModel()
         network = NetworkModel()
-        sub_models = [interfaces, interface,
+        sub_models = [firmware,
+                      interfaces, interface,
                       network,
                       powerprofiles, powerprofile,
                       users, user]

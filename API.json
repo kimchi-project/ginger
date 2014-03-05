@@ -4,6 +4,16 @@
     "description": "JSON schema for Kimchi's Ginger Plugin API",
     "type": "object",
     "properties": {
+        "firmware_update": {
+            "type": "object",
+            "properties": {
+                "path": {
+                    "description": "The full path to the firmware archive",
+                    "type": "string",
+                    "required": true
+                }
+            }
+        },
         "powerprofile_update": {
             "type": "object",
             "properties": {

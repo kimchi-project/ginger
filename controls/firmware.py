@@ -1,10 +1,10 @@
 #
-# Kimchi
+# Project Kimchi
 #
-# Copyright IBM Corp, 2014
+# Copyright IBM, Corp. 2014
 #
 # Authors:
-#  Mark Wu <wudxw@linux.vnet.ibm.com>
+#   Christy Perez <christy@linux.vnet.ibm.com>
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -18,15 +18,16 @@
 #
 # You should have received a copy of the GNU Lesser General Public
 # License along with this library; if not, write to the Free Software
-# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 
-controls_PYTHON = \
-	__init__.py \
-	firmware.py \
-	interfaces.py \
-	network.py \
-	powermanagement.py \
-	users.py \
-	$(NULL)
+from kimchi.control.base import Resource
 
-controlsdir = $(pythondir)/kimchi/plugins/ginger/controls
+
+class Firmware(Resource):
+    def __init__(self, model, id=None):
+        super(Firmware, self).__init__(model, id)
+        self.update_params = ['path']
+
+    @property
+    def data(self):
+        return self.info

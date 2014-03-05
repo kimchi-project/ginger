@@ -49,6 +49,14 @@ messages = {
     "GINUSER0010E": _("Could not delete user '%(user)s'."),
     "GINUSER0011E": _("User '%(user)s' does not exist."),
     "GINUSER0012E": _("Could not delete group '%(group)s'"),
-    "GINUSER0013E": _("Group for user '%(user)s' does not exist for removal.")
+    "GINUSER0013E": _("Group for user '%(user)s' does not exist for removal."),
+
+    "GINFW0001E": _("Cannot update system firmware while running VMs."),
+    "GINFW0002E": _("Firmware image unpack failed: rc = %(rc)s. "
+                    "Details: %(err)s"),
+    "GINFW0003E": _("FW update failed: "
+                    "No image file found in the package file."),
+    "GINFW0004E": _("Invalid firmware update image. rc = %(rc)s"),
+    "GINFW0005E": _("update_flash failed: rc = %(rc)s")
 }
 messages.update(kmessages)

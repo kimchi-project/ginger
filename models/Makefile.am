@@ -22,6 +22,7 @@
 
 models_PYTHON = \
 	__init__.py \
+	firmware.py \
 	interfaces.py \
 	model.py \
 	network.py \
