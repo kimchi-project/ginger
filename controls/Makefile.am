@@ -22,6 +22,7 @@
 
 controls_PYTHON = \
 	__init__.py \
+	backup.py \
 	firmware.py \
 	interfaces.py \
 	network.py \

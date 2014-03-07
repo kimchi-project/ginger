@@ -21,9 +21,12 @@
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 
+from backup import ArchiveModel, ArchivesModel, BackupModel
 from firmware import FirmwareModel
 from interfaces import InterfacesModel, InterfaceModel
+from kimchi import config
 from kimchi.basemodel import BaseModel
+from kimchi.objectstore import ObjectStore
 from network import NetworkModel
 from powermanagement import PowerProfilesModel, PowerProfileModel
 from users import UsersModel, UserModel
@@ -32,6 +35,9 @@ from users import UsersModel, UserModel
 class GingerModel(BaseModel):
 
     def __init__(self):
+        objstore_loc = config.get_object_store() + '_ginger'
+        self._objstore = ObjectStore(objstore_loc)
+
         sub_models = []
         firmware = FirmwareModel()
         powerprofiles = PowerProfilesModel()
@@ -41,9 +47,15 @@ class GingerModel(BaseModel):
         interfaces = InterfacesModel()
         interface = InterfaceModel()
         network = NetworkModel()
-        sub_models = [firmware,
-                      interfaces, interface,
-                      network,
-                      powerprofiles, powerprofile,
-                      users, user]
+        archives = ArchivesModel(objstore=self._objstore)
+        archive = ArchiveModel(objstore=self._objstore)
+        backup = BackupModel(objstore=self._objstore, archives_model=archives,
+                             archive_model=archive)
+        sub_models = [
+            backup, archives, archive,
+            firmware,
+            interfaces, interface,
+            network,
+            powerprofiles, powerprofile,
+            users, user]
         super(GingerModel, self).__init__(sub_models)

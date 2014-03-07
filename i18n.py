@@ -57,6 +57,19 @@ messages = {
     "GINFW0003E": _("FW update failed: "
                     "No image file found in the package file."),
     "GINFW0004E": _("Invalid firmware update image. rc = %(rc)s"),
-    "GINFW0005E": _("update_flash failed: rc = %(rc)s")
+    "GINFW0005E": _("update_flash failed: rc = %(rc)s"),
+
+    "GINHBK0001E": _('Failed to create tar archive "%(name)s", cmd: '
+                     '"%(cmd)s". Inspect error log for more information.'),
+    "GINHBK0002E": _('Failed to delete archive file "%(name)s".'),
+    "GINHBK0003E": _('Failed to create archive dir "%(dir)s". '
+                     'Inspect error log for more information.'),
+    "GINHBK0004E": _('Description too long.'),
+    "GINHBK0005E": _('Please check the uniqueness of the paths or patterns.'),
+    "GINHBK0006E": _('Path or pattern is too long or too short.'),
+    "GINHBK0007E": _('Invalid days_ago number.'),
+    "GINHBK0008E": _('Invalid counts_ago number.'),
+    "GINHBK0009E": _('Failed to create archive "%(ident)". '
+                     'Inspect error log for more information.'),
 }
 messages.update(kmessages)

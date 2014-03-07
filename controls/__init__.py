@@ -20,10 +20,11 @@
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 
+from backup import Backup
 from firmware import Firmware
 from network import Network
 from powermanagement import PowerProfiles
 from users import Users
 
 
-__all__ = [Firmware, Network, PowerProfiles, Users]
+__all__ = [Backup, Firmware, Network, PowerProfiles, Users]

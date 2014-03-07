@@ -95,6 +95,64 @@
                     "error": "GINNET0008E"
                 }
             }
+        },
+        "archives_create": {
+            "type": "object",
+            "properties": {
+                "description": {
+                    "description": "Comments for the archive",
+                    "type": "string",
+                    "maxLength": 4096,
+                    "error": "GINHBK0004E"
+                },
+                "include": {
+                    "description": "Array of paths or patterns to include.",
+                    "type": "array",
+                    "uniqueItems": true,
+                    "error": "GINHBK0005E",
+                    "items": {
+                        "description": "Full path of a directory or file, or a pattern.",
+                        "minLength": 1,
+                        "maxLength": 1024,
+                        "type": "string",
+                        "error": "GINHBK0006E"
+                    }
+                },
+                "exclude": {
+                    "description": "Array of paths or patterns to exclude.",
+                    "type": "array",
+                    "uniqueItems": true,
+                    "error": "GINHBK0005E",
+                    "items": {
+                        "description": "Full path of a directory or file, or a pattern.",
+                        "minLength": 1,
+                        "maxLength": 1024,
+                        "type": "string",
+                        "error": "GINHBK0006E"
+                    }
+                }
+            }
+        },
+        "backup_discard_archives": {
+            "type": "object",
+            "properties": {
+                "days_ago": {
+                    "description": "Discard all archives older than some days ago. 0 means don't count the days.",
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 65535,
+                    "required": true,
+                    "error": "GINHBK0007E"
+                },
+                "counts_ago": {
+                    "description": "Discard all archives older than some counts ago. 0 means don't count the counts.",
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 65535,
+                    "required": true,
+                    "error": "GINHBK0008E"
+                }
+            }
         }
     }
 }
