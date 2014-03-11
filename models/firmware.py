@@ -83,7 +83,7 @@ class FirmwareModel():
                              'No image file found in the package file.')
             raise OperationFailed('GINFW0003E')
         command = ['update_flash', '-f',
-                   os.path.join('/tmp/fwupdate', image_file)]
+                   os.path.join('/tmp/fwupdate', '%s.img' % image_file)]
         kimchi_log.info('FW update: System will reboot to flash the firmware.')
         output, error, rc = run_command(command)
         if rc < 0:
