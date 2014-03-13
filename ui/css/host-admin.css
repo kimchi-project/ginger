@@ -1,0 +1,86 @@
+.ginger .host-admin {
+    font-size: 12px;
+    font-weight: bold;
+    margin: 10px;
+}
+
+.ginger .host-admin h3 {
+    font-weight: bold;
+    font-size: 14px;
+    border-radius: 2px 2px 0 0;
+}
+
+.ginger .host-admin .content-area {
+    background: linear-gradient(to bottom, #FFFFFF 0%, #E5E5E5 100%) repeat scroll 0 0 transparent;
+    border-radius: 0px 0px 2px 2px;
+    color: #666666;
+}
+
+.ginger .host-admin .content-area .section {
+    margin: 10px;
+}
+
+.ginger .host-admin .content-area .section .firmware-ver {
+    margin-left: 10px;
+}
+
+.ginger .host-admin .content-area .section .pack-path-label {
+    display: inline-block;
+    vertical-align: top;
+}
+
+.ginger .host-admin .content-area .section .pack-path-content {
+    display: inline-block;
+    margin: 0 10px 0 13px;
+}
+
+.ginger .host-admin .content-area .section .pack-path-input {
+    width: 400px;
+    height:30px;
+    border: 1px solid grey;
+}
+
+.ginger .host-admin .message-area {
+    display: inline-block;
+    background-color: #CCFFFF;
+    border-radius: 5px 5px 5px 5px;
+    margin-bottom: 10px;
+    padding: 10px 40px 10px 10px;
+    font-weight: normal;
+    font-size: 14px;
+}
+
+.ginger .host-admin .progress-icon {
+    background-image: url("base/images/progress48.gif");
+    display: inline-block;
+    background-size: 20px 20px;
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+    vertical-align: middle;
+}
+
+.ginger .host-admin input.invalid-field[type="text"] {
+    border: 1px solid #FF4444 !important;
+}
+
+.ginger .host-admin .input-hint-icon {
+    background-image: url("base/images/ui-icons_888888_256x240.png");
+    display: inline-block;
+}
+
+.ginger .host-admin .input-hint {
+    font-weight: normal;
+    margin-top: 1px;
+}
+
+.ginger .host-admin .input-hint-text {
+    vertical-align: top;
+}
+
+.ginger .host-admin button{
+    font-weight: bold;
+    height: 35px;
+    width: 80px;
+    vertical-align: top;
+}

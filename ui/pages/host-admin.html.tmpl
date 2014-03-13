@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="plugins/ginger/css/ginger.css">
+<script type="text/javascript" src="plugins/ginger/js/util.js"></script>
+<script type="text/javascript" src="plugins/ginger/js/host-admin.js"></script>
+</head>
+<body>
+<div class="ginger">
+<div id="gingerHostAdmin" class="host-admin">
+    <h3>Firmware Update</h3>
+    <div class="content-area">
+        <div id="gingerFWUpdateMess" class="message-area" style="display: none;">
+            <span class="progress-icon"></span>
+            <span>Firmware update is initializing. System will reboot in order to flash the firmware.</span>
+        </div>
+        <div class="section">
+            <span>Firmware Version: </span>
+            <span id="gingerFWVer" class="firmware-ver"></span>
+        </div>
+        <div class="section">
+            <div class="pack-path-label">Package Path: </div>
+            <div class="pack-path-content">
+                <input type="text" id="gingerPackPath" class="pack-path-input">
+                <div class="input-hint">
+                    <span class="ui-icon ui-icon-info input-hint-icon"></span>
+                    <span class="input-hint-text">The absolute path to the firmware rpm.</span>
+                    </div>
+            </div>
+            <button id="gingerPackPathSub">Update</button>
+        </div>
+    </div>
+</div>
+</div>
+<script>
+    ginger.initAdmin();
+</script>
+</body>
+</html>
