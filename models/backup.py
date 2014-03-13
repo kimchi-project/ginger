@@ -35,30 +35,40 @@ class BackupModel(object):
         self._archives_model = kargs['archives_model']
         self._archive_model = kargs['archive_model']
 
-    def discard_archives(self, _ident, days_ago=0, counts_ago=0):
-        ''' Discard archives older than some days ago, or some counts ago. '''
+    def _get_archives_to_discard(self, archives, days_ago, counts_ago):
+        if days_ago == 0 or counts_ago == 0:
+            return archives[:]
+
         to_remove = []
+
+        # Older archive comes first.
+        archives.sort(lambda l, r: cmp(l['timestamp'], r['timestamp']))
+
+        if counts_ago != -1:
+            to_remove.extend(archives[:-counts_ago])
+            archives = archives[-counts_ago:]
+
+        if days_ago != -1:
+            expire = time.time() - 3600 * 24 * days_ago
+            to_remove.extend(
+                itertools.takewhile(
+                    lambda ar: ar['timestamp'] < expire, archives))
+
+        return to_remove
+
+    def discard_archives(self, _ident, days_ago=-1, counts_ago=-1):
+        ''' Discard archives older than some days ago, or some counts ago. '''
         with self._objstore as session:
             archives = [
                 session.get(ArchivesModel._objstore_type, ar_id)
                 for ar_id in self._archives_model._session_get_list(session)]
 
-            # Older archive comes first.
-            archives.sort(lambda l, r: cmp(l['timestamp'], r['timestamp']))
-
-            if counts_ago != 0:
-                to_remove.extend(archives[:-counts_ago])
-                archives = archives[-counts_ago:]
-
-            if days_ago != 0:
-                expire = time.time() - 3600 * 24 * days_ago
-                to_remove.extend(
-                    itertools.takewhile(
-                        lambda ar: ar['timestamp'] < expire, archives))
+            to_remove = self._get_archives_to_discard(
+                archives, days_ago, counts_ago)
 
             for ar in to_remove:
                 self._archive_model._session_delete_archive(session,
-                                                            ar['ident'])
+                                                            ar['identity'])
 
 
 def _tar_create_archive(directory_path, archive_id, include, exclude):
@@ -120,24 +130,24 @@ class ArchivesModel(object):
     def _create_archive(self, params):
         try:
             params['file'] = _tar_create_archive(
-                self._archive_dir, params['ident'], params['include'],
+                self._archive_dir, params['identity'], params['include'],
                 params['exclude'])
             params['checksum'] = {'algorithm': 'sha256',
                                   'value': _sha256sum(params['file'])}
 
             with self._objstore as session:
-                session.store(self._objstore_type, params['ident'], params)
+                session.store(self._objstore_type, params['identity'], params)
         except Exception as e:
-            msg = 'Error creating archive %s: %s' % (params['ident'], e)
+            msg = 'Error creating archive %s: %s' % (params['identity'], e)
             kimchi_log.error(msg)
 
             try:
                 with self._objstore as session:
-                    session.delete(self._objstore_type, params['ident'],
+                    session.delete(self._objstore_type, params['identity'],
                                    ignore_missing=True)
             except Exception as e_session:
                 kimchi_log.error('Error cleaning archive meta data %s. '
-                                 'Error: %s', params['ident'], e_session)
+                                 'Error: %s', params['identity'], e_session)
 
             if params['file'] != '':
                 try:
@@ -146,14 +156,27 @@ class ArchivesModel(object):
                     kimchi_log.error('Error cleaning archive file %s. '
                                      'Error: %s', params['file'], e_file)
 
-            raise OperationFailed('GINHBK0009E', {'ident': params['ident']})
+            raise OperationFailed('GINHBK0009E', {'identity':
+                                                  params['identity']})
 
     def create(self, params):
         archive_id = str(uuid.uuid4())
         stamp = int(time.mktime(time.localtime()))
-        ar_params = {'ident': archive_id,
-                     'include': params.get('include', self._default_include),
-                     'exclude': params.get('exclude', self._default_exclude),
+
+        # Though formally we ask front-end to not send "include" at all when
+        # it's empty, but in implementation we try to be tolerant.
+        # Front-end can also send [] to indicate the "include" is empty.
+        include = params.get('include')
+        if not include:
+            include = self._default_include
+
+        exclude = params.get('exclude')
+        if not exclude:
+            exclude = self._default_exclude
+
+        ar_params = {'identity': archive_id,
+                     'include': include,
+                     'exclude': exclude,
                      'description': params.get('description', ''),
                      'checksum': {},
                      'timestamp': stamp,

@@ -45,7 +45,7 @@ class Archive(Resource):
 
     @property
     def data(self):
-        info = {'ident': self.ident}
+        info = {'identity': self.ident}
         info.update(self.info)
         del info['basename']
         return info

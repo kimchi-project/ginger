@@ -69,7 +69,7 @@ messages = {
     "GINHBK0006E": _('Path or pattern is too long or too short.'),
     "GINHBK0007E": _('Invalid days_ago number.'),
     "GINHBK0008E": _('Invalid counts_ago number.'),
-    "GINHBK0009E": _('Failed to create archive "%(ident)". '
+    "GINHBK0009E": _('Failed to create archive "%(identity)s". '
                      'Inspect error log for more information.'),
 }
 messages.update(kmessages)
