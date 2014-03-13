@@ -84,3 +84,169 @@
     width: 80px;
     vertical-align: top;
 }
+
+.ginger .host-admin .content-area .action-bar {
+    height: 30px;
+    position: relative;
+}
+
+.ginger .host-admin .content-area .action-bar .item {
+    position: absolute;
+}
+
+.ginger .host-admin .content-area .action-bar .bat-del {
+    right: 0px;
+}
+
+.ginger .host-admin .content-area .action-bar .new-custom-bak {
+    right: 102px;
+}
+
+.ginger .host-admin .content-area .action-bar .new-default-bak {
+    right: 247px;
+}
+
+.ginger .host-admin .content-area .bak-grid-header {
+    margin: 20px 0 10px 0px;
+    font-size: 14px;
+    border-bottom: 1px solid #AAAAAA;
+}
+
+.ginger .host-admin .content-area .bak-grid-item {
+    padding: 5px 0;
+    font-weight: normal;
+    cursor: pointer;
+}
+
+.ginger .host-admin .content-area .cell {
+    display: inline-block;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    padding-right: 20px;
+}
+
+.ginger .host-admin .content-area .file-col {
+    width: 530px;
+    max-width: 530px;
+}
+
+.ginger .host-admin .content-area .file-col:hover {
+    text-decoration: underline;
+}
+
+.ginger .host-admin .content-area .time-col {
+    width: 300px;
+    max-width: 300px;
+}
+
+.ginger .host-admin .content-area .time-col:hover {
+    text-decoration: underline;
+}
+
+.ginger .host-admin .content-area .bak-grid-body {
+    margin-bottom: 20px;
+    min-height: 50px;
+}
+
+.ginger .host-admin .content-area .bak-grid-body .cell {
+    vertical-align: middle;
+    text-overflow: ellipsis;
+}
+
+.ginger .host-admin .content-area .bak-grid-body .act-button {
+    height: 20px;
+    width: 20px;
+    padding-right: 0;
+}
+
+.ginger-dialog {
+    display: none;
+    margin: 20px;
+    font-size: 12px;
+}
+
+.ginger-dialog input.invalid-field[type="text"] {
+    border: 1px solid #FF4444 !important;
+}
+
+.ginger-dialog input.invalid-field[type="text"][disabled] {
+    border: 1px solid #aaaaaa !important;
+}
+
+.ginger-dialog .del-option {
+    height: 25px;
+    margin-bottom: 5px;
+}
+
+.ginger-dialog .del-option input[type="radio"] {
+    margin-bottom: 7px;
+    margin-right: 5px;
+    vertical-align: middle;
+}
+
+.ginger-dialog .del-option input[type="text"] {
+    width: 50px;
+    vertical-align: middle;
+}
+
+.ginger-dialog .crt-bak-section {
+    height: 25px;
+    margin-bottom: 10px;
+}
+
+.ginger-dialog .crt-bak-section .desc {
+    width: 500px;
+}
+
+.ginger-dialog .crt-bak-section .path-pick {
+    display: inline-block;
+    width: 49%;
+    float: left;
+    margin-right: 5px;
+}
+
+.ginger-dialog .crt-bak-section .path-pick .box {
+    height: 350px;
+    border: 1px solid grey;
+    border-radius: 3px;
+}
+
+.ginger-dialog .crt-bak-section .path-pick .box .path-item {
+    margin: 5px;
+}
+
+.ginger-dialog .crt-bak-section .path-pick .box .path-item input {
+    vertical-align: bottom;
+    width: 260px;
+    margin-right: 5px;
+}
+
+.ginger-dialog .crt-bak-section .path-pick .box .path-item button {
+    height: 20px;
+}
+
+.ui-tooltip {
+    width: "";
+    display: inline-block;
+    max-width: 100%;
+}
+
+.ginger-dialog .ui-tooltip-content {
+    width: 600px;
+    padding: 10px 0 20px 20px;
+    overflow: hidden;
+}
+
+.ginger-dialog .ui-tooltip-content .header {
+    font-weight: bold;
+}
+
+.ginger-dialog .ui-tooltip-content .sub-content {
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.ginger-dialog .ui-tooltip-content .sub-content .path-item {
+    padding-bottom: 10px;
+}

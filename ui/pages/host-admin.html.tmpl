@@ -7,6 +7,7 @@
 </head>
 <body>
 <div class="ginger">
+
 <div id="gingerHostAdmin" class="host-admin">
     <h3>Firmware Update</h3>
     <div class="content-area">
@@ -30,8 +31,64 @@
             <button id="gingerPackPathSub">Update</button>
         </div>
     </div>
+    <h3>Configuration Backup</h3>
+    <div class="content-area">
+        <div class="action-bar">
+            <span id="newDefaultBakBtn" class="item new-default-bak">Generate Default Backup</span>
+            <span id="newCustomBakBtn" class="item new-custom-bak">New Custom Backup</span>
+            <span id="batDelBtn" class="item bat-del">Batch Delete</span>
+        </div>
+        <div class="bak-grid-header">
+            <div class="cell file-col">File</div>
+            <div class="cell time-col">Timestamp</div>
+        </div>
+        <div id="bakGridBody" class="bak-grid-body"></div>
+    </div>
 </div>
+
+<div id="newBakDialog" title="Create a backup" class="ginger-dialog">
+    <div>Description</div>
+    <div class="crt-bak-section"><input type="text" class="desc"></div>
+    <div class="crt-bak-section">
+        <div class="path-pick">
+            <div>Path Included</div>
+            <div class="box" id="includeBox"></div>
+        </div>
+        <div class="path-pick">
+            <div>Path Excluded</div>
+            <div class="box" id="excludeBox"></div>
+        </div>
+    </div>
 </div>
+<div id="batDelDialog" title="Delete backups in batch" class="ginger-dialog">
+    <div class="del-option">
+        <input type="radio" name="batDelType" value="counts_ago" checked>Reserve the latest <input type="text" class=""> backups
+    </div>
+    <div class="del-option">
+        <input type="radio" name="batDelType" value="days_ago">Reserve the latest <input type="text" class="" disabled> days of backups
+    </div>
+</div>
+
+</div>
+<script id="backupItem" type="text/html">
+<div class="bak-grid-item" id="{identity}">
+    <div class="cell file-col">{file}</div>
+    <div class="cell time-col">{timestamp}</div>
+    <span class="cell act-button download"></span>
+    <span class="cell act-button delete"></span>
+</div>
+</script>
+<script id="backupTooltip" type="text/html">
+<div class="header">Description</div>
+<div class="sub-content">{description}</div>
+<div class="crt-bak-section">
+    <div class="path-pick"><div class="header">Path Included</div><div class="sub-content">includePlaceHodler</div></div>
+    <div class="path-pick"><div class="header">Path Excluded</div><div class="sub-content">excludePlaceHodler</div></div>
+</div>
+</script>
+<script id="pathItem" type="text/html">
+<div class="path-item"><input type="text"><button class="add"></button><button class="delete"></button></div>
+</script>
 <script>
     ginger.initAdmin();
 </script>
