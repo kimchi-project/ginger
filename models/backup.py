@@ -201,7 +201,6 @@ class ArchiveModel(object):
     def lookup(self, archive_id):
         with self._objstore as session:
             info = session.get(ArchivesModel._objstore_type, archive_id)
-        info['basename'] = os.path.basename(info['file'])
         return info
 
     def _session_delete_archive(self, session, archive_id):

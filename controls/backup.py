@@ -18,9 +18,9 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 
 import cherrypy
+from cherrypy.lib.static import serve_file
 
 from kimchi.control.base import Collection, Resource
-from kimchi.control.utils import internal_redirect
 
 
 class Backup(Resource):
@@ -47,11 +47,10 @@ class Archive(Resource):
     def data(self):
         info = {'identity': self.ident}
         info.update(self.info)
-        del info['basename']
         return info
 
     @cherrypy.expose
     def file(self):
         self.lookup()
-        raise internal_redirect('/data/ginger_backups/' +
-                                self.info['basename'])
+        return serve_file(self.info['file'], disposition='attachment',
+                          debug=True)
