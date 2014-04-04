@@ -167,12 +167,11 @@ class ArchivesModel(object):
         # it's empty, but in implementation we try to be tolerant.
         # Front-end can also send [] to indicate the "include" is empty.
         include = params.get('include')
+        exclude = params.get('exclude', [])
         if not include:
             include = self._default_include
-
-        exclude = params.get('exclude')
-        if not exclude:
-            exclude = self._default_exclude
+            if not exclude:
+                exclude = self._default_exclude
 
         ar_params = {'identity': archive_id,
                      'include': include,
