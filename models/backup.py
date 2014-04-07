@@ -24,6 +24,8 @@ import os
 import time
 import uuid
 
+import cherrypy
+
 from kimchi.config import PluginPaths
 from kimchi.exception import NotFoundError, OperationFailed
 from kimchi.utils import kimchi_log, run_command
@@ -119,13 +121,12 @@ class ArchivesModel(object):
         # This function builds a new copy of the list for each invocation,
         # so that the caller can modify the returned list as wish without
         # worrying about changing the original reference.
-        return ['/etc', '/var/lib/libvirt']
+        return list(cherrypy.request.app.config['backup']['default_include'])
 
     @property
     def _default_exclude(self):
         # See _default_include() comments for explanation.
-        return ['/etc/init.d', '/etc/rc.d', '/etc/rc?.d',
-                '/var/lib/libvirt/images']
+        return list(cherrypy.request.app.config['backup']['default_exclude'])
 
     def _create_archive(self, params):
         try:
