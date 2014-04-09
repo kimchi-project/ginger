@@ -86,5 +86,5 @@ class FirmwareModel():
                    os.path.join('/tmp/fwupdate', '%s.img' % image_file)]
         kimchi_log.info('FW update: System will reboot to flash the firmware.')
         output, error, rc = run_command(command)
-        if rc :
+        if rc:
             raise OperationFailed('GINFW0004E', {'rc': rc})
