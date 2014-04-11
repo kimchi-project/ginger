@@ -187,7 +187,7 @@ class ArchivesModel(object):
 
     def _session_get_list(self, session):
         # Assume session is already locked.
-        return session.get_list(self._objstore_type)
+        return session.get_list(self._objstore_type, sort_key='timestamp')
 
     def get_list(self):
         with self._objstore as session:
