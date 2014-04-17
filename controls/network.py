@@ -26,7 +26,9 @@ class Network(Resource):
     def __init__(self, model):
         super(Network, self).__init__(model, None)
         self.interfaces = Interfaces(model)
-        self.update_params = ['nameservers']
+        self.uri_fmt = '/network/%s'
+        self.update_params = ['nameservers', 'gateway']
+        self.confirm_change = self.generate_action_handler('confirm_change')
 
     @property
     def data(self):

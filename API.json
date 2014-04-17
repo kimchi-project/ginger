@@ -68,6 +68,12 @@
                     "minItems": 1,
                     "uniqueItems": true,
                     "error": "GINNET0005E"
+                },
+                "gateway": {
+                    "description": "Default network gateway",
+                    "type": "string",
+                    "format": "ip-address",
+                    "error": "GINNET0008E"
                 }
             }
         },
@@ -87,12 +93,6 @@
                     "format": "ip-address",
                     "required": true,
                     "error": "GINNET0007E"
-                },
-                "gateway": {
-                    "description": "Network gateway",
-                    "type": "string",
-                    "format": "ip-address",
-                    "error": "GINNET0008E"
                 }
             }
         },
