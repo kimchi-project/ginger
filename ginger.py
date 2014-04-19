@@ -23,7 +23,8 @@
 import json
 import os
 
-from controls import Backup, Firmware, Network, PowerProfiles, Users
+from controls import Backup, Firmware, Network, PowerProfiles, SanAdapters
+from controls import Users
 from i18n import messages
 from kimchi.config import PluginPaths
 from kimchi.control.base import Collection
@@ -45,3 +46,4 @@ class Ginger(Root):
         self.paths = PluginPaths('ginger')
         self.domain = "ginger"
         self.messages = messages
+        self.san_adapters = SanAdapters(self.model)

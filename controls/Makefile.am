@@ -28,6 +28,7 @@ controls_PYTHON = \
 	network.py \
 	powermanagement.py \
 	users.py \
+	sanadapters.py \
 	$(NULL)
 
 controlsdir = $(pythondir)/kimchi/plugins/ginger/controls

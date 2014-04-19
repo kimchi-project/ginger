@@ -71,5 +71,8 @@ messages = {
     "GINHBK0008E": _('Invalid counts_ago number.'),
     "GINHBK0009E": _('Failed to create archive "%(identity)s". '
                      'Inspect error log for more information.'),
+
+    "GINADAP0001E": _("SAN adapter '%(adapter)s' does not exist in the system."
+                      )
 }
 messages.update(kmessages)

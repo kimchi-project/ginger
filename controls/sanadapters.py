@@ -3,9 +3,6 @@
 #
 # Copyright IBM, Corp. 2014
 #
-# Authors:
-#  Mark Wu <wudxw@linux.vnet.ibm.com>
-#
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
 # License as published by the Free Software Foundation; either
@@ -20,12 +17,21 @@
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 
-from backup import Backup
-from firmware import Firmware
-from network import Network
-from powermanagement import PowerProfiles
-from users import Users
-from sanadapters import SanAdapters
+from kimchi.control.base import Collection, Resource
 
 
-__all__ = [Backup, Firmware, Network, PowerProfiles, Users, SanAdapters]
+class SanAdapters(Collection):
+    def __init__(self, model):
+        super(SanAdapters, self).__init__(model)
+        self.resource = SanAdapter
+
+
+class SanAdapter(Resource):
+    def __init__(self, model, ident):
+        super(SanAdapter, self).__init__(model, ident)
+        self.uri_fmt = '/san_adapters/%s'
+
+    @property
+    def data(self):
+        self.info.update({'name': self.ident})
+        return self.info
