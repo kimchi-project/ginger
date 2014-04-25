@@ -91,19 +91,11 @@
 }
 
 .ginger .host-admin .content-area .action-bar .item {
-    position: absolute;
+    float: right;
 }
 
-.ginger .host-admin .content-area .action-bar .bat-del {
-    right: 0px;
-}
-
-.ginger .host-admin .content-area .action-bar .new-custom-bak {
-    right: 102px;
-}
-
-.ginger .host-admin .content-area .action-bar .new-default-bak {
-    right: 247px;
+.ginger .host-admin .content-area .action-bar .item:not(:first-child) {
+    margin-right: 5px;
 }
 
 .ginger .host-admin .content-area .bak-grid-header {
