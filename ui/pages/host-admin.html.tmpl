@@ -44,6 +44,26 @@
         </div>
         <div id="bakGridBody" class="bak-grid-body"></div>
     </div>
+    <h3>Network Configuration</h3>
+    <div class="content-area nw-config">
+        <div class="pane interface">
+            <div class="sec-label"><span>Interface</span></div>
+            <div class="sec-content">
+                <div class="grid-head"><span class="cell name">Name</span><span class="cell ip">IP</span><span class="cell mask">Mask</span></div>
+                <div class="grid-body" id="gingerInterface"></div>
+            </div>
+        </div>
+        <div class="pane global">
+            <div class="vertical-separator">
+                <div class="sec-label"><span>DNS</span><button id="gingerDnsAdd" class="addBtn"></button></div>
+                <div id="gingerDNS"></div>
+            </div>
+            <div>
+                <div class="sec-label"><span>Gateway</span></div>
+                <div id="gingerGateway"></div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <div id="newBakDialog" title="Create a backup" class="ginger-dialog">
@@ -88,6 +108,26 @@
 </script>
 <script id="pathItem" type="text/html">
 <div class="path-item"><input type="text"><button class="add"></button><button class="delete"></button></div>
+</script>
+<script id="nicItem" type="text/html">
+<div class="item">
+    <span class="cell name">{name}</span><!--
+    --><span class="cell ip"><label class="{viewMode}">{ipaddr}</label><input type="text" class="{editMode}" value="{ipaddr}"></span><!--
+    --><span class="cell mask"><label class="{viewMode}">{netmask}</label><input type="text" class="{editMode}" value="{netmask}"></span>
+    <span class="action-area">
+    <button class="edit {viewMode}"></button>
+    <button class="save {editMode}"></button>
+    <button class="cancel hide"></button>
+    </span>
+</div>
+</script>
+<script id="nwGlobalItem" type="text/html">
+<div class="sec-content">
+    <input type="text" value="{ip}">
+    <button class="edit {viewMode}"></button>
+    <button class="save {editMode}"></button>
+    <button class="cancel hide"></button>
+</div>
 </script>
 <script>
     ginger.initAdmin();

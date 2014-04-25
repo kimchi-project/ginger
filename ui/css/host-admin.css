@@ -62,6 +62,7 @@
 
 .ginger .host-admin input.invalid-field[type="text"] {
     border: 1px solid #FF4444 !important;
+    padding: 2px;
 }
 
 .ginger .host-admin .input-hint-icon {
@@ -241,4 +242,106 @@
 
 .ginger-dialog .ui-tooltip-content .sub-content .path-item {
     padding-bottom: 10px;
+}
+
+.ginger .host-admin .nw-config {
+    min-height: 170px;
+    padding-bottom: 30px;
+}
+
+.ginger .host-admin .nw-config .pane {
+    display: inline-block;
+    float: left;
+    margin-top: 5px;
+    padding-bottom: 5px;
+}
+
+.ginger .host-admin .nw-config .pane .sec-label {
+    margin-bottom: 3px;
+    text-decoration: underline;
+}
+
+.ginger .host-admin .nw-config .pane .sec-content {
+    padding: 10px 10px 0px 10px;
+}
+
+.ginger .host-admin .nw-config .pane .vertical-separator {
+    margin-bottom: 20px;
+}
+
+.ginger .host-admin .nw-config .interface {
+    width: 60%;
+}
+
+.ginger .host-admin .nw-config .interface .sec-content {
+    padding-right: 40px;
+}
+
+.ginger .host-admin .nw-config .interface .cell {
+    display: inline-block;
+    padding-right: 0px;
+    vertical-align: middle;
+}
+
+.ginger .host-admin .nw-config .interface .name {
+    width: 150px;
+}
+
+.ginger .host-admin .nw-config .interface .ip {
+    width: 140px;
+}
+
+.ginger .host-admin .nw-config .interface .mask {
+    width: 140px;
+}
+
+.ginger .host-admin .nw-config .interface .grid-head {
+    margin-bottom: 10px;
+    color:#888888;
+    border-bottom: solid 1px #BBBBBB;
+}
+
+.ginger .host-admin .nw-config .interface .grid-body {
+    font-weight: normal;
+}
+
+.ginger .host-admin .nw-config .interface .grid-body input {
+    width: 120px;
+}
+
+.ginger .host-admin .nw-config .interface .item {
+    margin-bottom: 5px;
+    overflow: hidden;
+}
+
+.ginger .host-admin .nw-config .interface .action-area {
+    float: right;
+    padding-right: 5px;
+}
+
+.ginger .host-admin .nw-config .global {
+    width: 30%;
+    margin-left: 30px;
+}
+
+.ginger .host-admin .nw-config .global input {
+    width: 200px;
+    margin-right: 5px;
+    vertical-align: middle;
+}
+
+.ginger .host-admin .nw-config .global .addBtn {
+    float: right;
+    margin-right: 40px;
+    border-radius: 10px;
+}
+
+.ginger .host-admin .nw-config button {
+    width: 20px;
+    height: 20px;
+    vertical-align: middle;
+}
+
+.ginger .hide {
+    display: none;
 }

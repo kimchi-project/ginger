@@ -189,6 +189,174 @@ ginger.initConfigBak = function() {
     ginger.initBatDelDialog();
 };
 
+ginger.initNetworkConfig = function() {
+    var toggleBtnEdit = function(item, on){
+        $("button", item).toggleClass("hide");
+        $(".cancel", item).toggleClass("hide", !on);
+    };
+    var attachBtnEvt = function(node, editFunc, saveFunc, cancelFunc){
+        $("input", node).each(function(){
+            $(this).on("keyup", function(){
+                var isValid = ginger.validateIp($(this).val());
+                if($(this).parent().hasClass("mask")){
+                    isValid = isValid && ginger.validateMask($(this).val());
+                }
+                isValid = isValid || $(this).val().trim()=="";
+                $(this).toggleClass("invalid-field", !isValid);
+                $(".save", node).prop("disabled", !isValid);
+            });
+        });
+        $(".edit", node).button({
+            icons: { primary: "ui-icon-pencil" },
+            text: false
+        }).click(editFunc);
+        $(".save", node).button({
+            icons: { primary: "ui-icon-disk" },
+            text: false
+        }).click(saveFunc);
+        $(".cancel", node).button({
+            icons: { primary: "ui-icon-arrowreturnthick-1-w" },
+            text: false
+        }).click(cancelFunc);
+    };
+    kimchi.getInterfaces(function(data){
+        var toggleInterfaceEdit = function(item, on){
+            $("label", item).toggleClass("hide", on);
+            $("input", item).toggleClass("hide", !on)
+            toggleBtnEdit(item, on);
+        };
+        for(var i=0;i<data.length;i++){
+            var isEdit = data[i].ipaddr=="" || data[i].netmask=="";
+            data[i].viewMode = isEdit ? "hide" : "";
+            data[i].editMode = isEdit ? "" : "hide";
+            var tempNode = $.parseHTML(kimchi.template($("#nicItem").html(), data[i]));
+            $("#gingerInterface").append(tempNode);
+            attachBtnEvt(tempNode, function(){
+                var item = $(this).parent().parent();
+                toggleInterfaceEdit(item, true);
+            }, function(){
+                var item = $(this).parent().parent();
+                var name = $("span", item).first().html();
+                var ip = $(".ip", item);
+                var mask = $(".mask", item);
+                var interface = {
+                    ipaddr: $("input", ip).val(),
+                    netmask: $("input", mask).val()
+                };
+                ginger.updateInterface(name, interface, function(){
+                    ginger.confirmInterfaceUpdate(name, function(){
+                        $("label", ip).text(interface.ipaddr);
+                        $("label", mask).text(interface.netmask);
+                        toggleInterfaceEdit(item, false);
+                    });
+                });
+            }, function(){
+                var item = $(this).parent().parent();
+                $("input", item).removeClass("invalid-field");
+                $("button", item).prop("disabled", false);
+                var ip = $(".ip", item);
+                var mask = $(".mask", item);
+                $("input", ip).val($("label", ip).text());
+                $("input", mask).val($("label", mask).text());
+                toggleInterfaceEdit(item, false);
+            });
+        }
+    });
+    ginger.getNetworkGlobals(function(data){
+        var toggleNWGlobalsEdit = function(item, on){
+            $("input", item).prop("disabled", !on);
+            toggleBtnEdit(item, on);
+        };
+        var attachNWGlobalBtnEvt = function(node, saveFunc){
+            attachBtnEvt(node, function(){
+                toggleNWGlobalsEdit($(this).parent(), true);
+            }, function(){
+                saveFunc();
+            }, function(){
+                toggleNWGlobalsEdit($(this).parent(), false);
+            });
+        };
+        if(!data.nameservers || data.nameservers.length==0){
+            data.nameservers = [""];
+        }
+        var addGlobalItem = function(container, itemValue, saveFunc){
+            var ip = itemValue;
+            var tempNode = $.parseHTML(kimchi.template($("#nwGlobalItem").html(), {
+                ip: ip,
+                viewMode: ip=="" ? "hide" : "",
+                editMode: ip=="" ? "": "hide"
+            }));
+            $("input", tempNode).prop("disabled", ip!="");
+            $("#"+container).append(tempNode);
+            $("input", tempNode).prop("oriVal", ip);
+            attachBtnEvt(tempNode, function(){
+                toggleNWGlobalsEdit($(this).parent(), true);
+            }, function(){
+                saveFunc($(this).parent(), function(item){
+                    var input = $("input", item);
+                    if(input.val()=="" && $(".sec-content", "#"+container).length!=1){
+                        item.remove();
+                    }else{
+                        input.prop("oriVal", input.val());
+                        toggleNWGlobalsEdit(item, false);
+                    }
+                });
+            }, function(){
+                var input = $("input", $(this).parent());
+                input.removeClass("invalid-field");
+                $("button", $(this).parent()).prop("disabled", false);
+                input.val(input.prop("oriVal"));
+                if(input.prop("oriVal")==""){
+                    $(this).parent().remove();
+                }else{
+                    toggleNWGlobalsEdit($(this).parent(), false);
+                }
+            });
+            return tempNode;
+        };
+        var addDnsItem = function(dnsVal){
+            return addGlobalItem("gingerDNS", dnsVal, function(item, postSave){
+                if(!($("input", item).val().trim()==""&&$("input", item).prop("oriVal").trim()=="")){
+                    var nwGol = {nameservers:[]};
+                    $("input", item.parent()).each(function(){
+                        if($(this).val().trim()!=""){
+                            nwGol.nameservers.push($(this).val());
+                        }
+                    });
+                    if(nwGol.nameservers.length==0){
+                        delete nwGol.nameservers;
+                    }
+                    ginger.updateNetworkGlobals(nwGol, function(){
+                        postSave(item);
+                    });
+                }
+            });
+        };
+        $("#gingerDnsAdd").button({
+            icons: { primary: "ui-icon-plusthick" },
+            text: false
+        }).click(function(){
+            var item = addDnsItem("");
+            $(".cancel", item).removeClass("hide");
+        });
+        for(var i=0;i<data.nameservers.length;i++){
+            addDnsItem(data.nameservers[i]);
+        }
+        addGlobalItem("gingerGateway", data.gateway ? data.gateway : "", function(item, postSave){
+            var gateway = $("input", item.parent()).val();
+            if(gateway.trim()!=""){
+                ginger.updateNetworkGlobals({
+                    gateway: gateway
+                }, function(){
+                    ginger.confirmNetworkUpdate(function(){
+                        postSave(item);
+                    });
+                });
+            }
+        });
+    });
+};
+
 ginger.initAdmin = function(){
     $("#gingerHostAdmin").accordion();
     $(".content-area", "#gingerHostAdmin").css("height", "100%");
@@ -216,4 +384,5 @@ ginger.initAdmin = function(){
         }, null);
     });
     ginger.initConfigBak();
+    ginger.initNetworkConfig();
 };

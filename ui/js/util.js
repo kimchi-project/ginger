@@ -96,3 +96,88 @@ ginger.deleteBackupArchives = function(content, suc, err) {
         }
     });
 };
+
+ginger.updateInterface = function(name, content, suc, err){
+    $.ajax({
+        url : kimchi.url + 'plugins/ginger/network/interfaces/' + encodeURIComponent(name),
+        type : 'PUT',
+        contentType : 'application/json',
+        dataType : 'json',
+        data : JSON.stringify(content),
+        success: suc,
+        error: err || function(data) {
+            kimchi.message.error(data.responseJSON.reason);
+        }
+    });
+};
+
+ginger.getNetworkGlobals = function(suc, err){
+    kimchi.requestJSON({
+        url : kimchi.url + 'plugins/ginger/network',
+        type : 'GET',
+        contentType : 'application/json',
+        dataType : 'json',
+        resend : true,
+        success : suc,
+        error : err || function(data) {
+            kimchi.message.error(data.responseJSON.reason);
+        }
+    });
+};
+
+ginger.updateNetworkGlobals = function(content, suc, err){
+    $.ajax({
+        url : kimchi.url + 'plugins/ginger/network',
+        type : 'PUT',
+        contentType : 'application/json',
+        dataType : 'json',
+        data : JSON.stringify(content),
+        success: suc,
+        error: err || function(data) {
+            kimchi.message.error(data.responseJSON.reason);
+        }
+    });
+};
+
+ginger.confirmNetworkUpdate = function(suc, err) {
+    kimchi.requestJSON({
+        url : kimchi.url + 'plugins/ginger/network/confirm_change',
+        type : 'POST',
+        contentType : 'application/json',
+        dataType : 'json',
+        success : suc,
+        error : err || function(data) {
+            kimchi.message.error(data.responseJSON.reason);
+        }
+    });
+};
+
+ginger.confirmInterfaceUpdate = function(name, suc, err) {
+    kimchi.requestJSON({
+        url : kimchi.url + 'plugins/ginger/network/interfaces/' + encodeURIComponent(name) + '/confirm_change',
+        type : 'POST',
+        contentType : 'application/json',
+        dataType : 'json',
+        success : suc,
+        error : err || function(data) {
+            kimchi.message.error(data.responseJSON.reason);
+        }
+    });
+};
+
+ginger.validateIp = function(ip){
+    var ipReg = /^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/;
+    return ipReg.test(ip);
+};
+
+ginger.validateMask = function(mask){
+    if(mask.indexOf('.')!=-1){
+        var secs = mask.split('.');
+        var binMask = "";
+        for(var i=0; i<secs.length; i++)
+            binMask += parseInt(secs[i]).toString(2);
+        return /^1+0+$/.test(binMask);
+    }else{
+        return mask > 0 && mask < 32;
+    }
+}
