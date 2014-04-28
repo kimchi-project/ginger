@@ -26,12 +26,23 @@ from threading import Timer
 from kimchi import netinfo
 from kimchi.exception import InvalidParameter, NotFoundError, OperationFailed
 from kimchi.model.libvirtconnection import LibvirtConnection
+from kimchi.utils import run_command
 
 
 class InterfacesModel(object):
 
     def get_list(self):
-        return netinfo.all_favored_interfaces()
+        return [nic for nic in netinfo.bare_nics()
+                if not self._is_vlan_slave(nic)]
+
+    def _is_vlan_slave(self, iface):
+        def _get_vlan_device(vlan):
+            out, _, _ = run_command(['ip', 'link', 'show', 'dev', vlan])
+            # output example for vlan link:
+            # 9: em1.4@em1: <BROADCAST,MULTICAST> mtu 1500...
+            return out.split(':')[1].strip().split('@')[1]
+
+        return any(_get_vlan_device(vlan) == iface for vlan in netinfo.vlans())
 
 
 class InterfaceModel(object):

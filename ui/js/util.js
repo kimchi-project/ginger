@@ -97,6 +97,20 @@ ginger.deleteBackupArchives = function(content, suc, err) {
     });
 };
 
+ginger.getInterfaces = function(suc, err) {
+    kimchi.requestJSON({
+        url : kimchi.url + 'plugins/ginger/network/interfaces',
+        type : 'GET',
+        contentType : 'application/json',
+        dataType : 'json',
+        resend : true,
+        success : suc,
+        error : err || function(data) {
+            kimchi.message.error(data.responseJSON.reason);
+        }
+    });
+};
+
 ginger.updateInterface = function(name, content, suc, err){
     $.ajax({
         url : kimchi.url + 'plugins/ginger/network/interfaces/' + encodeURIComponent(name),

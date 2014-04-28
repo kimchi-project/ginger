@@ -219,7 +219,7 @@ ginger.initNetworkConfig = function() {
             text: false
         }).click(cancelFunc);
     };
-    kimchi.getInterfaces(function(data){
+    ginger.getInterfaces(function(data){
         var toggleInterfaceEdit = function(item, on){
             $("label", item).toggleClass("hide", on);
             $("input", item).toggleClass("hide", !on)
