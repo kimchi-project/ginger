@@ -357,6 +357,44 @@ ginger.initNetworkConfig = function() {
     });
 };
 
+ginger.initPowerMgmt = function(){
+    var selectedClass = "ui-icon-check";
+    var toSelectClass = "ui-icon-radio-off";
+    var onSelectClass = "ui-icon-radio-on";
+    $(".actBtn", "#gingerPowerMgmt").button({disabled: true}).click(function(){
+        var currentSelected = $('.'+selectedClass, $(".body", "#gingerPowerMgmt"));
+        var toBeSelected = $('.'+onSelectClass, $(".body", "#gingerPowerMgmt"));
+        var optName = $(":last-child", toBeSelected.parent()).html();
+        ginger.activatePowerProfile(optName, function(){
+            currentSelected.removeClass(selectedClass).addClass(toSelectClass);
+            currentSelected.next().addClass("to-select");
+            toBeSelected.removeClass(onSelectClass).addClass(selectedClass);
+            toBeSelected.next().removeClass("to-select");
+            $(".actBtn", "#gingerPowerMgmt").button("option", "disabled", true);
+        });
+    });
+    ginger.getPowerProfiles(function(data){
+        for(var i=0;i<data.length;i++){
+            data[i].selected = data[i].active ? selectedClass : toSelectClass;
+            data[i].toSelect = data[i].active ? "" : "to-select";
+            var tempNode = $.parseHTML(kimchi.template($("#pwMgmtItem").html(), data[i]));
+            $(".body", "#gingerPowerMgmt").append(tempNode);
+            $(tempNode).on("click", function(){
+                $(".item :first-child", $(this).parent()).each(function(){
+                    if($(this).hasClass(onSelectClass)){
+                        $(this).removeClass(onSelectClass).addClass(toSelectClass);
+                    }
+                });
+                var iconNode = $(":first-child", $(this));
+                if(iconNode.hasClass(toSelectClass)){
+                    iconNode.removeClass(toSelectClass).addClass(onSelectClass);
+                    $(".actBtn", "#gingerPowerMgmt").button("option", "disabled", false);
+                }
+            });
+        }
+    });
+};
+
 ginger.initAdmin = function(){
     $("#gingerHostAdmin").accordion();
     $(".content-area", "#gingerHostAdmin").css("height", "100%");
@@ -385,4 +423,5 @@ ginger.initAdmin = function(){
     });
     ginger.initConfigBak();
     ginger.initNetworkConfig();
+    ginger.initPowerMgmt();
 };

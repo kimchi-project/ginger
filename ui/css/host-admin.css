@@ -345,3 +345,45 @@
 .ginger .hide {
     display: none;
 }
+
+.ginger .host-admin .pw-opt {
+    padding: 10px;
+}
+
+.ginger .host-admin .pw-opt .header {
+    padding-left: 5px;
+    padding-right: 30px;
+    margin-bottom: 20px;
+    overflow: hidden;
+}
+
+.ginger .host-admin .pw-opt .header .legend {
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 2px;
+    font-weight: normal;
+}
+
+.ginger .host-admin .pw-opt .header .separator {
+    margin-right: 15px;
+}
+
+.ginger .host-admin .pw-opt .header .actBtn {
+    float: right;
+}
+
+.ginger .host-admin .pw-opt .body .item {
+    display: inline-block;
+    width: 33%;
+}
+
+.ginger .host-admin .pw-opt .body .item span {
+    display: inline-block;
+    vertical-align: middle;
+    margin: 3px;
+}
+
+.ginger .host-admin .pw-opt .body .item .to-select:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}

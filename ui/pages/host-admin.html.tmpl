@@ -64,6 +64,18 @@
             </div>
         </div>
     </div>
+    <h3>Power Options</h3>
+    <div class="content-area" id="gingerPowerMgmt">
+        <div class="pw-opt">
+        <div class="header">
+            <span class="ui-icon ui-icon-check legend"></span><span class="legend separator">activated option</span>
+            <span class="ui-icon ui-icon-radio-on legend"></span><span class="legend separator">selected option</span>
+            <span class="ui-icon ui-icon-radio-off legend"></span><span class="legend">unselected option</span>
+            <span class="actBtn">Activate</span>
+        </div>
+        <div class="body"></div>
+        </div>
+    </div>
 </div>
 
 <div id="newBakDialog" title="Create a backup" class="ginger-dialog">
@@ -128,6 +140,9 @@
     <button class="save {editMode}"></button>
     <button class="cancel hide"></button>
 </div>
+</script>
+<script id="pwMgmtItem" type="text/html">
+<div class="item"><span class="ui-icon {selected}"></span><span class="{toSelect}">{name}</span></div>
 </script>
 <script>
     ginger.initAdmin();

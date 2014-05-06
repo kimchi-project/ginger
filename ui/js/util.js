@@ -195,3 +195,31 @@ ginger.validateMask = function(mask){
         return mask > 0 && mask < 32;
     }
 }
+
+ginger.getPowerProfiles = function(suc, err){
+    kimchi.requestJSON({
+        url : kimchi.url + 'plugins/ginger/powerprofiles',
+        type : 'GET',
+        contentType : 'application/json',
+        dataType : 'json',
+        resend : true,
+        success : suc,
+        error : err || function(data) {
+            kimchi.message.error(data.responseJSON.reason);
+        }
+    });
+};
+
+ginger.activatePowerProfile = function(name, suc, err){
+    $.ajax({
+        url : kimchi.url + "plugins/ginger/powerprofiles/" + encodeURIComponent(name),
+        type : 'PUT',
+        contentType : 'application/json',
+        dataType : 'json',
+        data : JSON.stringify({ active: true }),
+        success: suc,
+        error: err || function(data) {
+            kimchi.message.error(data.responseJSON.reason);
+        }
+    });
+};
