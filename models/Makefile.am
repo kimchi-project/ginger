@@ -28,6 +28,7 @@ models_PYTHON = \
 	model.py \
 	network.py \
 	powermanagement.py \
+	sanadapters.py \
 	users.py \
 	$(NULL)
 
