@@ -223,3 +223,17 @@ ginger.activatePowerProfile = function(name, suc, err){
         }
     });
 };
+
+ginger.getSANAdapters = function(suc, err){
+    kimchi.requestJSON({
+        url : kimchi.url + 'plugins/ginger/san_adapters',
+        type : 'GET',
+        contentType : 'application/json',
+        dataType : 'json',
+        resend : true,
+        success : suc,
+        error : err || function(data) {
+            kimchi.message.error(data.responseJSON.reason);
+        }
+    });
+};

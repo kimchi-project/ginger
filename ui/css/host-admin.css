@@ -387,3 +387,19 @@
     text-decoration: underline;
     cursor: pointer;
 }
+
+.ginger .host-admin .san-adapter {
+    padding-right: 0px;
+}
+
+.ginger .host-admin .san-adapter .head {
+    margin-bottom: 10px;
+}
+
+.ginger .host-admin .san-adapter .body {
+    font-weight: normal;
+}
+
+.ginger .host-admin .san-adapter .item {
+    margin-bottom: 5px;
+}

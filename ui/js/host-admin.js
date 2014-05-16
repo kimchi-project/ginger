@@ -395,6 +395,21 @@ ginger.initPowerMgmt = function(){
     });
 };
 
+ginger.initSANAdapter = function(){
+    ginger.getSANAdapters(function(data){
+        var temStr = "<div class='item'>{value}</div>";
+        for(var i=0; i<data.length; i++){
+            $(".body", $(".name", ".san-adapter")).append(kimchi.template(temStr, {value: data[i].name}));
+            $(".body", $(".wwpn", ".san-adapter")).append(kimchi.template(temStr, {value: data[i].wwpn}));
+            $(".body", $(".wwnn", ".san-adapter")).append(kimchi.template(temStr, {value: data[i].wwnn}));
+            $(".body", $(".state", ".san-adapter")).append(kimchi.template(temStr, {value: data[i].state}));
+            $(".body", $(".port", ".san-adapter")).append(kimchi.template(temStr, {value: data[i].vports_inuse+"/"+data[i].max_vports}));
+            $(".body", $(".speed", ".san-adapter")).append(kimchi.template(temStr, {value: data[i].speed}));
+            $(".body", $(".symbolic", ".san-adapter")).append(kimchi.template(temStr, {value: data[i].symbolic_name}));
+        }
+    });
+};
+
 ginger.initAdmin = function(){
     $("#gingerHostAdmin").accordion();
     $(".content-area", "#gingerHostAdmin").css("height", "100%");
@@ -424,4 +439,5 @@ ginger.initAdmin = function(){
     ginger.initConfigBak();
     ginger.initNetworkConfig();
     ginger.initPowerMgmt();
+    ginger.initSANAdapter();
 };
