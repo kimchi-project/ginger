@@ -139,7 +139,7 @@ ginger.setupBakGrid = function() {
     ginger.listBackupArchives(function(data){
         for(var i=0;i<data.length;i++){
             data[i].timestamp = new Date(data[i].timestamp*1000).toLocaleString();
-            var tempNode = $.parseHTML(kimchi.template($("#backupItem").html(), data[i]));
+            var tempNode = $.parseHTML(kimchi.substitute($("#backupItem").html(), data[i]));
             $("#bakGridBody").append(tempNode);
             var parts = ["include", "exclude"];
             for(var x=0;x<parts.length;x++){
@@ -149,7 +149,7 @@ ginger.setupBakGrid = function() {
                 }
                 data[i][parts[x]] = path;
             }
-            var tooltipContent = kimchi.template($("#backupTooltip").html(), data[i]);
+            var tooltipContent = kimchi.substitute($("#backupTooltip").html(), data[i]);
             tooltipContent = tooltipContent.replace("includePlaceHodler", data[i].include);
             tooltipContent = tooltipContent.replace("excludePlaceHodler", data[i].exclude);
             $(".file-col,.time-col", tempNode).tooltip({
@@ -229,7 +229,7 @@ ginger.initNetworkConfig = function() {
             var isEdit = data[i].ipaddr=="" || data[i].netmask=="";
             data[i].viewMode = isEdit ? "hide" : "";
             data[i].editMode = isEdit ? "" : "hide";
-            var tempNode = $.parseHTML(kimchi.template($("#nicItem").html(), data[i]));
+            var tempNode = $.parseHTML(kimchi.substitute($("#nicItem").html(), data[i]));
             $("#gingerInterface").append(tempNode);
             attachBtnEvt(tempNode, function(){
                 var item = $(this).parent().parent();
@@ -281,7 +281,7 @@ ginger.initNetworkConfig = function() {
         }
         var addGlobalItem = function(container, itemValue, saveFunc){
             var ip = itemValue;
-            var tempNode = $.parseHTML(kimchi.template($("#nwGlobalItem").html(), {
+            var tempNode = $.parseHTML(kimchi.substitute($("#nwGlobalItem").html(), {
                 ip: ip,
                 viewMode: ip=="" ? "hide" : "",
                 editMode: ip=="" ? "": "hide"
@@ -377,7 +377,7 @@ ginger.initPowerMgmt = function(){
         for(var i=0;i<data.length;i++){
             data[i].selected = data[i].active ? selectedClass : toSelectClass;
             data[i].toSelect = data[i].active ? "" : "to-select";
-            var tempNode = $.parseHTML(kimchi.template($("#pwMgmtItem").html(), data[i]));
+            var tempNode = $.parseHTML(kimchi.substitute($("#pwMgmtItem").html(), data[i]));
             $(".body", "#gingerPowerMgmt").append(tempNode);
             $(tempNode).on("click", function(){
                 $(".item :first-child", $(this).parent()).each(function(){
@@ -399,13 +399,13 @@ ginger.initSANAdapter = function(){
     ginger.getSANAdapters(function(data){
         var temStr = "<div class='item'>{value}</div>";
         for(var i=0; i<data.length; i++){
-            $(".body", $(".name", ".san-adapter")).append(kimchi.template(temStr, {value: data[i].name}));
-            $(".body", $(".wwpn", ".san-adapter")).append(kimchi.template(temStr, {value: data[i].wwpn}));
-            $(".body", $(".wwnn", ".san-adapter")).append(kimchi.template(temStr, {value: data[i].wwnn}));
-            $(".body", $(".state", ".san-adapter")).append(kimchi.template(temStr, {value: data[i].state}));
-            $(".body", $(".port", ".san-adapter")).append(kimchi.template(temStr, {value: data[i].vports_inuse+"/"+data[i].max_vports}));
-            $(".body", $(".speed", ".san-adapter")).append(kimchi.template(temStr, {value: data[i].speed}));
-            $(".body", $(".symbolic", ".san-adapter")).append(kimchi.template(temStr, {value: data[i].symbolic_name}));
+            $(".body", $(".name", ".san-adapter")).append(kimchi.substitute(temStr, {value: data[i].name}));
+            $(".body", $(".wwpn", ".san-adapter")).append(kimchi.substitute(temStr, {value: data[i].wwpn}));
+            $(".body", $(".wwnn", ".san-adapter")).append(kimchi.substitute(temStr, {value: data[i].wwnn}));
+            $(".body", $(".state", ".san-adapter")).append(kimchi.substitute(temStr, {value: data[i].state}));
+            $(".body", $(".port", ".san-adapter")).append(kimchi.substitute(temStr, {value: data[i].vports_inuse+"/"+data[i].max_vports}));
+            $(".body", $(".speed", ".san-adapter")).append(kimchi.substitute(temStr, {value: data[i].speed}));
+            $(".body", $(".symbolic", ".san-adapter")).append(kimchi.substitute(temStr, {value: data[i].symbolic_name}));
         }
     });
 };
