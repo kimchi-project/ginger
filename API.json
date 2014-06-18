@@ -11,7 +11,22 @@
                     "description": "The full path to the firmware archive",
                     "type": "string",
                     "required": true
+                },
+                "overwrite-perm-ok": {
+                    "description": "Give permission to overwrite the permanent image area if necessary. Valid inputs: 'True'|'False' Default is True, if unspecified.",
+                    "type": "boolean",
+                    "required": false
                 }
+            }
+        },
+        "firmware_commit": {
+            "type": "null",
+            "properties": {
+            }
+        },
+        "firmware_reject": {
+            "type": "null",
+            "properties": {
             }
         },
         "powerprofile_update": {

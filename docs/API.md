@@ -30,6 +30,44 @@ please consider the following general conventions (from Kimchi documentation):
     * Variable segments in the URI begin with a ':' and should replaced with the
       appropriate resource identifier.
 
+### Resource: Firmware (Power System firmware)
+
+**URI:** /plugins/ginger/firmware
+
+**Methods:**
+
+* **GET**: Retrieve the current firmware levels.
+    * level: The firmware levels (MI and ML, or Maint. Level)
+             The final group is the currently booted firmware.
+* **PUT**: Update the firmware level of the booted side.
+    * path: The remote file path pointing to the firmware image
+            file.
+    * overwrite-perm-ok: Indicate whether possibly overwriting the
+            permanent boot side while updating the fw is acceptable.
+            * Required: No
+            * Default: True
+            * A value of 'False' guarantees the current perm side image
+              remains untouched.
+              Note: If running permanent image, this will result in
+              an error.
+
+**URI:** /plugins/ginger/firmware/commit
+
+** Methods**
+
+* **POST**: Commit the image running on the temp side to the perm side.
+            In order to do this, the machine must be running the temp
+            image.
+
+**URI:** /plugins/ginger/firmware/reject
+
+** Methods**
+
+* **POST**: Reject the image on the temp side, overwriting it with
+            the image from the perm side. In order to do this,
+            the machine must be running the permanent image.
+
+
 ### Collection: SAN Adapters (Fibre Channel SCSI Hosts - HBAs)
 
 **URI:** /plugins/ginger/san_adapters

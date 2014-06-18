@@ -28,44 +28,38 @@ from kimchi.utils import kimchi_log
 from kimchi.utils import run_command
 
 
+# FIXME: When model is restructured, use
+# vms_get_list_by_state('running') instead
+def detect_live_vm():
+    with open('/proc/modules') as f:
+        for line in f:
+            column = line.split()
+            if column[0].startswith('kvm_') and column[2] != '0':
+                return True
+    return False
+
 class FirmwareModel():
     """
     The model class for viewing and updating the Power firmware level
     """
 
     def lookup(self, params=None):
-        def parse_fw_levels():
-            FW_INFO_DIR = '/proc/device-tree/ibm,opal/firmware'
-            fw_info = []
-            for name in ('ml-version', 'mi-version'):
-                with open(os.path.join(FW_INFO_DIR, name)) as f:
-                            fw_info.append(f.readline().split()[1])
-            return fw_info
-
-        level = 'Unknown'
-        try:
-            levels = parse_fw_levels()
-            level = '%s (%s)' % (levels[0], levels[1])
-        except IOError as e:
-            kimchi_log.error('Error parsing firmware level: %s' % e.message)
-        return {'level': level}
+        output, error, rc = run_command('lsmcode')
+        if rc:
+            kimchi_log.error('Unable to retreive firmware level.')
+            return {'level': 'Unknown'}
+        # Cut out the chatter from the command output
+        levels = output.split()[5:]
+        levels = " ".join(levels)
+        return {'level': levels}
 
     def update(self, name, params):
-
-        # FIXME: When model is restructured, use
-        # vms_get_list_by_state('running') instead
-        def detect_live_vm():
-            with open('/proc/modules') as f:
-                for line in f:
-                    column = line.split()
-                    if column[0].startswith('kvm_') and column[2] != '0':
-                        return True
-            return False
-
-        fw_path = params['path']
         if detect_live_vm():
             kimchi_log.error('Cannot update system fw while running VMs.')
             raise OperationFailed('GINFW0001E')
+
+        fw_path = params['path']
+        pow_ok = params.get('overwrite-perm-ok', True)
 
         # First unpack the rpm to get the fw img file
         # FIXME: When there's a .deb package available, add support for that
@@ -84,7 +78,25 @@ class FirmwareModel():
             raise OperationFailed('GINFW0003E')
         command = ['update_flash', '-f',
                    os.path.join('/tmp/fwupdate', '%s.img' % image_file)]
+        if not pow_ok:
+            command.insert(1, '-n')
         kimchi_log.info('FW update: System will reboot to flash the firmware.')
         output, error, rc = run_command(command)
         if rc:
             raise OperationFailed('GINFW0004E', {'rc': rc})
+
+    def commit(self, name):
+        command = ['update_flash', '-c']
+        output, error, rc = run_command(command)
+        if rc:
+            raise OperationFailed('GINFW0005E', {'rc': rc})
+        # update_flash returns a message on success, so log it.
+        kimchi_log.info(output)
+
+    def reject(self, name):
+        command = ['update_flash', '-r']
+        output, error, rc = run_command(command)
+        if rc:
+            raise OperationFailed('GINFW0006E', {'rc': rc})
+        # update_flash returns a message on success, so log it.
+        kimchi_log.info(output)

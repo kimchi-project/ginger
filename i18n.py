@@ -61,6 +61,10 @@ messages = {
                     "No image file found in the package file."),
     "GINFW0004E": _("Error flashing firmware. rc = %(rc)s. \
                      Please see /usr/sbin/update_flash for rc reasons."),
+    "GINFW0005E": _("Error commiting firmware. rc = %(rc)s. \
+                     Ensure you are booted to the temporary side."),
+    "GINFW0006E": _("Error rejecting firmware. rc = %(rc)s. \
+                     Ensure you are booted to the permanent side."),
 
     "GINHBK0001E": _('Failed to create tar archive "%(name)s", cmd: '
                      '"%(cmd)s". Inspect error log for more information.'),
