@@ -70,7 +70,7 @@ class NetworkModel(object):
             else:
                 return None
         else:
-            raise OperationFailed('GINNET0009E', {'reason': err})
+            raise OperationFailed('GINNET0009E', {'err': err})
 
     def _get_default_gateway(self):
         route = self._get_default_route_entry()
