@@ -1,21 +1,70 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# Brazilian Portuguese translations for Ginger package.
+# Copyright (C) 2014 IBM, Corp.
+# This file is distributed under the same license as the Ginger package.
+# Zhou Zheng Sheng <zhshzhou@linux.vnet.ibm.com>, 2014.
 #
-#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: Ginger 1.2.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-04-17 17:26+0800\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"POT-Creation-Date: 2014-06-22 14:00+0800\n"
+"PO-Revision-Date: 2014-06-22 14:00+0800\n"
+"Last-Translator: Paulo Vital <pvital@linux.vnet.ibm.com>\n"
+"Language-Team: Paulo Vital <pvital@linux.vnet.ibm.com>\n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+
+msgid "Firmware Update"
+msgstr ""
+
+msgid ""
+"Firmware update is initializing. System will reboot in order to flash the "
+"firmware."
+msgstr ""
+
+msgid "Firmware Version: "
+msgstr ""
+
+msgid "Package Path: "
+msgstr ""
+
+msgid "The absolute path to the firmware rpm."
+msgstr ""
+
+msgid "Update"
+msgstr ""
+
+msgid "Configuration Backup"
+msgstr ""
+
+msgid "File"
+msgstr ""
+
+msgid "Timestamp"
+msgstr ""
+
+msgid "Description"
+msgstr ""
+
+msgid "Path Included"
+msgstr ""
+
+msgid "Path Excluded"
+msgstr ""
+
+msgid "Preserve the latest"
+msgstr ""
+
+msgid "backups"
+msgstr ""
+
+msgid "days of backups"
+msgstr ""
+
+msgid "Administration"
+msgstr ""
 
 #, python-format
 msgid "Failed to read /etc/resolv.conf because %(reason)s"
@@ -43,6 +92,18 @@ msgid "Invalid parameter for interface netmask"
 msgstr ""
 
 msgid "Invalid parameter for network gateway"
+msgstr ""
+
+#, python-format
+msgid "Unable to get default gateway: %(err)s"
+msgstr ""
+
+#, python-format
+msgid "Unable to delete default gateway: %(err)s"
+msgstr ""
+
+#, python-format
+msgid "Unable to set default gateway: %(err)s"
 msgstr ""
 
 msgid "Specify name, password, group and profile for the new user."
@@ -112,6 +173,18 @@ msgstr ""
 
 #, python-format
 msgid ""
+"Error commiting firmware. rc = %(rc)s.                      Ensure you are "
+"booted to the temporary side."
+msgstr ""
+
+#, python-format
+msgid ""
+"Error rejecting firmware. rc = %(rc)s.                      Ensure you are "
+"booted to the permanent side."
+msgstr ""
+
+#, python-format
+msgid ""
 "Failed to create tar archive \"%(name)s\", cmd: \"%(cmd)s\". Inspect error "
 "log for more information."
 msgstr ""
@@ -145,4 +218,8 @@ msgstr ""
 msgid ""
 "Failed to create archive \"%(identity)s\". Inspect error log for more "
 "information."
+msgstr ""
+
+#, python-format
+msgid "SAN adapter '%(adapter)s' does not exist in the system."
 msgstr ""
