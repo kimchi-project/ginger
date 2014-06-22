@@ -1,0 +1,83 @@
+Name:		kimchi-ginger
+Version:	@PACKAGE_VERSION@
+Release:	@PACKAGE_RELEASE@%{?dist}
+Summary:	Host management plugin for the Kimchi server
+BuildRoot:	%{_topdir}/BUILD/%{name}-%{version}-%{release}
+Group:		System Environment/Base
+License:	LGPL/ASL2
+Source0:	%{name}-%{version}.tar.gz
+BuildRequires:	gettext-devel >= 0.18
+BuildRequires:	python-cheetah
+Requires:	gettext >= 0.18
+Requires:	kimchi = %{version}
+Requires:	tuned
+Requires:	libuser-python
+
+%ifarch ppc64 ppc
+Requires:	powerpc-utils
+%endif
+
+
+%description
+Kimchi is a web server application application to manage KVM/Qemu
+virtual machines. Kimchi-ginger is a plugin to provide host management
+functions.
+
+
+%prep
+%setup
+
+
+%build
+%configure
+make
+
+
+%install
+rm -rf %{buildroot}
+make DESTDIR=%{buildroot} install
+
+
+%clean
+rm -rf $RPM_BUILD_ROOT
+
+
+%post
+%if 0%{?with_systemd}
+install -dm 0755 /usr/lib/systemd/system/kimchid.service.requires
+ln -sf ../tuned.service /usr/lib/systemd/system/kimchid.service.requires
+/bin/systemctl daemon-reload >/dev/null 2>&1 || :
+service kimchid restart
+%endif
+
+
+%postun
+%if 0%{?with_systemd}
+rm -f /usr/lib/systemd/system/kimchid.service.requires/tuned.service
+/bin/systemctl daemon-reload >/dev/null 2>&1 || :
+service kimchid restart
+%endif
+
+
+%files
+%attr(-,root,root)
+%{python_sitelib}/kimchi/plugins/ginger/*.py*
+%{python_sitelib}/kimchi/plugins/ginger/API.json
+%{python_sitelib}/kimchi/plugins/ginger/controls/*.py*
+%{python_sitelib}/kimchi/plugins/ginger/models/*.py*
+%{_datadir}/kimchi/plugins/ginger/mo/*/LC_MESSAGES/ginger.mo
+%{_datadir}/kimchi/plugins/ginger/ui/config/tab-ext.xml
+%{_datadir}/kimchi/plugins/ginger/ui/css/base/images/*.gif
+%{_datadir}/kimchi/plugins/ginger/ui/css/base/images/*.png
+%{_datadir}/kimchi/plugins/ginger/ui/css/ginger.css
+%{_datadir}/kimchi/plugins/ginger/ui/css/host-admin.css
+%{_datadir}/kimchi/plugins/ginger/ui/js/host-admin.js
+%{_datadir}/kimchi/plugins/ginger/ui/js/util.js
+%{_datadir}/kimchi/plugins/ginger/ui/pages/host-admin.html.tmpl
+%{_datadir}/kimchi/plugins/ginger/ui/pages/i18n.html.tmpl
+%{_sysconfdir}/kimchi/plugins.d/ginger.conf
+
+
+%changelog
+* Wed Apr 16 2014 Zhou Zheng Sheng <zhshzhou@linux.vnet.ibm.com> 1.2.0
+- Initial release of Kimchi-ginger dedicated RPM package.

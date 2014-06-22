@@ -1,5 +1,5 @@
 #
-# Kimchi
+# Kimchi-ginger
 #
 # Copyright IBM Corp, 2014
 #
@@ -20,7 +20,14 @@
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 
-SUBDIRS=controls models ui
+SUBDIRS= po controls models ui
+
+ACLOCAL_AMFLAGS = --install -I m4
+
+PEP8_WHITELIST = \
+	controls \
+	models \
+	$(NULL)
 
 ginger_PYTHON = \
 	__init__.py \
@@ -34,8 +41,61 @@ confdir = $(sysconfdir)/kimchi/plugins.d
 dist_conf_DATA = ginger.conf
 
 EXTRA_DIST = \
-	API.json
+	API.json \
+	VERSION \
+	build-aux/config.rpath \
+	build-aux/pkg-version \
+	$(NULL)
+
+CLEANFILES = \
+	$(ginger_PYTHON:%.py=%.pyc) \
+	$(NULL)
+
+
+check-local:
+	find . -path './.git' -prune -type f -o \
+		-name '*.py' -o -name '*.py.in'  | xargs $(PYFLAKES) | \
+		while read LINE; do echo "$$LINE"; false; done
+	$(PEP8) --version
+	$(PEP8) --filename '*.py,*.py.in' $(PEP8_WHITELIST)
+
+
+# Link built mo files in the source tree to enable use of translations from
+# within the source tree
+all-local:
+	while read L && test -n "$$L"; do                  \
+		dir=mo/$$L/LC_MESSAGES ;                       \
+		$(MKDIR_P) $$dir ;                             \
+		ln -sf ../../../po/$$L.gmo $$dir/ginger.mo ;   \
+	done < po/LINGUAS
+
 
 install-data-local:
 	$(MKDIR_P) $(DESTDIR)$(gingerdir)
 	$(INSTALL_DATA) API.json $(DESTDIR)$(gingerdir)/API.json
+
+
+rpm: dist kimchi-ginger.spec
+	$(MKDIR_P) rpm/BUILD rpm/RPMS rpm/SOURCES rpm/SPECS rpm/SRPMS
+	cp $(top_srcdir)/kimchi-ginger.spec rpm/SPECS/kimchi-ginger.spec
+	cp $(DIST_ARCHIVES) rpm/SOURCES
+	rpmbuild -ba --define "_topdir `pwd`/rpm" rpm/SPECS/kimchi-ginger.spec
+
+
+ChangeLog:
+	@if test -d .git; then                                   \
+		$(top_srcdir)/build-aux/genChangelog --release > $@; \
+	fi
+
+
+VERSION:
+	@if test -d .git; then                                \
+		git describe --abbrev=0 > $@;                     \
+	fi
+
+
+clean-local:
+	rm -rf rpm
+
+
+.PHONY: rpm ChangeLog VERSION

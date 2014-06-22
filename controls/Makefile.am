@@ -32,3 +32,7 @@ controls_PYTHON = \
 	$(NULL)
 
 controlsdir = $(pythondir)/kimchi/plugins/ginger/controls
+
+CLEANFILES = \
+	$(controls_PYTHON:%.py=%.pyc) \
+	$(NULL)

@@ -1,0 +1,148 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-04-17 17:26+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#, python-format
+msgid "Failed to read /etc/resolv.conf because %(reason)s"
+msgstr ""
+
+#, python-format
+msgid "Failed to write /etc/resolv.conf because %(reason)s"
+msgstr ""
+
+#, python-format
+msgid "Invalid network parameters. Details: %(err)s"
+msgstr ""
+
+#, python-format
+msgid "Unable to update interface configuration. Details: %(err)s"
+msgstr ""
+
+msgid "Invalid parameter for DNS servers"
+msgstr ""
+
+msgid "Invalid parameter for interface ip address"
+msgstr ""
+
+msgid "Invalid parameter for interface netmask"
+msgstr ""
+
+msgid "Invalid parameter for network gateway"
+msgstr ""
+
+msgid "Specify name, password, group and profile for the new user."
+msgstr ""
+
+msgid "User name is a required string."
+msgstr ""
+
+msgid "User password is a required string."
+msgstr ""
+
+msgid "User group is a required string."
+msgstr ""
+
+msgid ""
+"User profile is required and should be one among kimchiuser, virtuser or "
+"admin."
+msgstr ""
+
+#, python-format
+msgid "Could not add user '%(user)s' to kvm group."
+msgstr ""
+
+#, python-format
+msgid "Could not add user '%(user)s' to sudoers list."
+msgstr ""
+
+#, python-format
+msgid "The user name '%(user)s' is already in use'."
+msgstr ""
+
+#, python-format
+msgid "Could not create user '%(user)s'."
+msgstr ""
+
+#, python-format
+msgid "Could not delete user '%(user)s'."
+msgstr ""
+
+#, python-format
+msgid "User '%(user)s' does not exist."
+msgstr ""
+
+#, python-format
+msgid "Could not delete group '%(group)s'"
+msgstr ""
+
+#, python-format
+msgid "Group for user '%(user)s' does not exist for removal."
+msgstr ""
+
+msgid "Cannot update system firmware while running VMs."
+msgstr ""
+
+#, python-format
+msgid "Firmware image unpack failed: rc = %(rc)s. Details: %(err)s"
+msgstr ""
+
+msgid "FW update failed: No image file found in the package file."
+msgstr ""
+
+#, python-format
+msgid ""
+"Error flashing firmware. rc = %(rc)s.                      Please see /usr/"
+"sbin/update_flash for rc reasons."
+msgstr ""
+
+#, python-format
+msgid ""
+"Failed to create tar archive \"%(name)s\", cmd: \"%(cmd)s\". Inspect error "
+"log for more information."
+msgstr ""
+
+#, python-format
+msgid "Failed to delete archive file \"%(name)s\"."
+msgstr ""
+
+#, python-format
+msgid ""
+"Failed to create archive dir \"%(dir)s\". Inspect error log for more "
+"information."
+msgstr ""
+
+msgid "Description too long."
+msgstr ""
+
+msgid "Please check the uniqueness of the paths or patterns."
+msgstr ""
+
+msgid "Path or pattern is too long or too short."
+msgstr ""
+
+msgid "Invalid days_ago number."
+msgstr ""
+
+msgid "Invalid counts_ago number."
+msgstr ""
+
+#, python-format
+msgid ""
+"Failed to create archive \"%(identity)s\". Inspect error log for more "
+"information."
+msgstr ""

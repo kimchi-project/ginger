@@ -33,3 +33,7 @@ models_PYTHON = \
 	$(NULL)
 
 modelsdir = $(pythondir)/kimchi/plugins/ginger/models
+
+CLEANFILES = \
+	$(models_PYTHON:%.py=%.pyc) \
+	$(NULL)
