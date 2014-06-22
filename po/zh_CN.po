@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ginger 1.2.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-06-22 14:00+0800\n"
+"POT-Creation-Date: 2014-06-22 16:26+0800\n"
 "PO-Revision-Date: 2014-06-22 14:00+0800\n"
 "Last-Translator: Zhou Zheng Sheng <zhshzhou@linux.vnet.ibm.com>\n"
 "Language-Team: Zhou Zheng Sheng <zhshzhou@linux.vnet.ibm.com>\n"
@@ -17,209 +17,213 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 msgid "Firmware Update"
-msgstr ""
+msgstr "固件更新"
 
 msgid ""
 "Firmware update is initializing. System will reboot in order to flash the "
 "firmware."
-msgstr ""
+msgstr "正在初始化固件更新。系统会重新引导以刷新固件。"
 
 msgid "Firmware Version: "
-msgstr ""
+msgstr "固件版本："
 
 msgid "Package Path: "
-msgstr ""
+msgstr "软件包路径："
 
 msgid "The absolute path to the firmware rpm."
-msgstr ""
+msgstr "固件 rpm 的绝对路径。"
 
 msgid "Update"
-msgstr ""
+msgstr "更新"
 
 msgid "Configuration Backup"
-msgstr ""
+msgstr "配置备份"
 
 msgid "File"
-msgstr ""
+msgstr "文件"
 
 msgid "Timestamp"
-msgstr ""
+msgstr "时间戳"
 
 msgid "Description"
-msgstr ""
+msgstr "描述"
 
 msgid "Path Included"
-msgstr ""
+msgstr "包含路径"
 
 msgid "Path Excluded"
-msgstr ""
+msgstr "排除路径"
 
 msgid "Preserve the latest"
 msgstr ""
 
 msgid "backups"
-msgstr ""
+msgstr "个备份"
 
 msgid "days of backups"
-msgstr ""
+msgstr "天备份"
 
 msgid "Administration"
-msgstr ""
+msgstr "管理"
 
 #, python-format
 msgid "Failed to read /etc/resolv.conf because %(reason)s"
-msgstr ""
+msgstr "未能读取 /etc/resolv.conf，原因为 %(reason)s"
 
 #, python-format
 msgid "Failed to write /etc/resolv.conf because %(reason)s"
-msgstr ""
+msgstr "未能写入 /etc/resolv.conf，原因为 %(reason)s"
 
 #, python-format
 msgid "Invalid network parameters. Details: %(err)s"
-msgstr ""
+msgstr "网络参数无效。详细信息：%(err)s"
 
 #, python-format
 msgid "Unable to update interface configuration. Details: %(err)s"
-msgstr ""
+msgstr "无法更新接口配置。详细信息：%(err)s"
 
 msgid "Invalid parameter for DNS servers"
-msgstr ""
+msgstr "DNS 服务器参数无效"
 
 msgid "Invalid parameter for interface ip address"
-msgstr ""
+msgstr "接口 IP 地址参数无效"
 
 msgid "Invalid parameter for interface netmask"
-msgstr ""
+msgstr "接口网络掩码参数无效"
 
 msgid "Invalid parameter for network gateway"
-msgstr ""
+msgstr "网络网关参数无效"
 
 #, python-format
 msgid "Unable to get default gateway: %(err)s"
-msgstr ""
+msgstr "无法获得默认网关配置。详细信息：%(err)s"
 
 #, python-format
 msgid "Unable to delete default gateway: %(err)s"
-msgstr ""
+msgstr "无法删除默认网关。详细信息：%(err)s"
 
 #, python-format
 msgid "Unable to set default gateway: %(err)s"
-msgstr ""
+msgstr "无法设置默认网关。详细信息：%(err)s"
 
 msgid "Specify name, password, group and profile for the new user."
-msgstr ""
+msgstr "指定新用户的名称、密码、组和概要文件。"
 
 msgid "User name is a required string."
-msgstr ""
+msgstr "用户名是必需字符串。"
 
 msgid "User password is a required string."
-msgstr ""
+msgstr "用户密码是必需字符串。"
 
 msgid "User group is a required string."
-msgstr ""
+msgstr "用户组是必需字符串。"
 
 msgid ""
 "User profile is required and should be one among kimchiuser, virtuser or "
 "admin."
 msgstr ""
+"用户概要文件为必需项，并且应该是 kimchiuser、virtuser 或admin 中的一个。"
 
 #, python-format
 msgid "Could not add user '%(user)s' to kvm group."
-msgstr ""
+msgstr "无法将用户“%(user)s”添加到 kvm 组。"
 
 #, python-format
 msgid "Could not add user '%(user)s' to sudoers list."
-msgstr ""
+msgstr "无法将用户“%(user)s”添加到 sudoers 列表。"
 
 #, python-format
 msgid "The user name '%(user)s' is already in use'."
-msgstr ""
+msgstr "用户名“%(user)s”已在使用中。"
 
 #, python-format
 msgid "Could not create user '%(user)s'."
-msgstr ""
+msgstr "无法创建用户“%(user)s”。"
 
 #, python-format
 msgid "Could not delete user '%(user)s'."
-msgstr ""
+msgstr "无法删除用户“%(user)s”。"
 
 #, python-format
 msgid "User '%(user)s' does not exist."
-msgstr ""
+msgstr "用户“%(user)s”不存在。"
 
 #, python-format
 msgid "Could not delete group '%(group)s'"
-msgstr ""
+msgstr "无法删除组“%(group)s”"
 
 #, python-format
 msgid "Group for user '%(user)s' does not exist for removal."
-msgstr ""
+msgstr "删除时用户“%(user)s”的组不存在。"
 
 msgid "Cannot update system firmware while running VMs."
-msgstr ""
+msgstr "运行 VM 时无法更新系统固件。"
 
 #, python-format
 msgid "Firmware image unpack failed: rc = %(rc)s. Details: %(err)s"
-msgstr ""
+msgstr "固件映像解包失败：rc = %(rc)s。详细信息：%(err)s"
 
 msgid "FW update failed: No image file found in the package file."
-msgstr ""
+msgstr "FW 更新失败：软件包文件中未发现任何映像文件。"
 
 #, python-format
 msgid ""
 "Error flashing firmware. rc = %(rc)s.                      Please see /usr/"
 "sbin/update_flash for rc reasons."
 msgstr ""
+"刷新固件时发生错误。rc = %(rc)s。                      请参阅 /usr/sbin/"
+"update_flash 以理解 rc 原因。"
 
 #, python-format
 msgid ""
 "Error commiting firmware. rc = %(rc)s.                      Ensure you are "
 "booted to the temporary side."
-msgstr ""
+msgstr "提交固件时发生错误。rc = %(rc)s。请确保机器是从临时固件启动的。"
 
 #, python-format
 msgid ""
 "Error rejecting firmware. rc = %(rc)s.                      Ensure you are "
 "booted to the permanent side."
-msgstr ""
+msgstr "弹出固件时发生错误。rc = %(rc)s。请确保机器是从持久固件启动的。"
 
 #, python-format
 msgid ""
 "Failed to create tar archive \"%(name)s\", cmd: \"%(cmd)s\". Inspect error "
 "log for more information."
 msgstr ""
+"未能创建 tar 归档“%(name)s”，命令：“%(cmd)s。检查错误日志以了解更多信息。"
 
 #, python-format
 msgid "Failed to delete archive file \"%(name)s\"."
-msgstr ""
+msgstr "未能删除归档文件“%(name)s”。"
 
 #, python-format
 msgid ""
 "Failed to create archive dir \"%(dir)s\". Inspect error log for more "
 "information."
-msgstr ""
+msgstr "未能创建归档 dir“%(dir)s”。检查错误日志以了解更多信息。"
 
 msgid "Description too long."
-msgstr ""
+msgstr "描述内容太长。"
 
 msgid "Please check the uniqueness of the paths or patterns."
-msgstr ""
+msgstr "请检查路径或模式的唯一性。"
 
 msgid "Path or pattern is too long or too short."
-msgstr ""
+msgstr "路径或模式太长或太短。"
 
 msgid "Invalid days_ago number."
-msgstr ""
+msgstr "无效 days_ago 数目。"
 
 msgid "Invalid counts_ago number."
-msgstr ""
+msgstr "无效 counts_ago 数目。"
 
 #, python-format
 msgid ""
 "Failed to create archive \"%(identity)s\". Inspect error log for more "
 "information."
-msgstr ""
+msgstr "未能创建归档“%(identity)s”。检查错误日志以了解更多信息。"
 
 #, python-format
 msgid "SAN adapter '%(adapter)s' does not exist in the system."
-msgstr ""
+msgstr "SAN适配器“%(adapter)s”不存在。"

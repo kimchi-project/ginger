@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ginger 1.2.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-06-22 14:00+0800\n"
+"POT-Creation-Date: 2014-06-22 16:26+0800\n"
 "PO-Revision-Date: 2014-06-22 14:00+0800\n"
 "Last-Translator: Paulo Vital <pvital@linux.vnet.ibm.com>\n"
 "Language-Team: Paulo Vital <pvital@linux.vnet.ibm.com>\n"
@@ -17,82 +17,85 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 msgid "Firmware Update"
-msgstr ""
+msgstr "Atualização de Firmware"
 
 msgid ""
 "Firmware update is initializing. System will reboot in order to flash the "
 "firmware."
 msgstr ""
+"A atualização de firmware está sendo inicializada. O sistema será "
+"reinicializado para atualizar o firmware."
 
 msgid "Firmware Version: "
-msgstr ""
+msgstr "Versão de Firmware: "
 
 msgid "Package Path: "
-msgstr ""
+msgstr "Caminho do Pacote: "
 
 msgid "The absolute path to the firmware rpm."
-msgstr ""
+msgstr "O caminho absoluto para o rpm do firmware."
 
 msgid "Update"
-msgstr ""
+msgstr "Atualizar"
 
 msgid "Configuration Backup"
-msgstr ""
+msgstr "Backup de configuração"
 
 msgid "File"
-msgstr ""
+msgstr "Arquivo"
 
 msgid "Timestamp"
-msgstr ""
+msgstr "Registro de data e hora"
 
 msgid "Description"
-msgstr ""
+msgstr "Descrição"
 
 msgid "Path Included"
-msgstr ""
+msgstr "Caminho incluído"
 
 msgid "Path Excluded"
-msgstr ""
+msgstr "Caminho excluído"
 
 msgid "Preserve the latest"
 msgstr ""
 
 msgid "backups"
-msgstr ""
+msgstr "backups"
 
 msgid "days of backups"
-msgstr ""
+msgstr "dias de backups"
 
 msgid "Administration"
-msgstr ""
+msgstr "Administração"
 
 #, python-format
 msgid "Failed to read /etc/resolv.conf because %(reason)s"
-msgstr ""
+msgstr "Falha ao ler /etc/resolv.conf por causa de %(reason)s"
 
 #, python-format
 msgid "Failed to write /etc/resolv.conf because %(reason)s"
-msgstr ""
+msgstr "Falha ao gravar /etc/resolv.conf por causa de %(reason)s"
 
 #, python-format
 msgid "Invalid network parameters. Details: %(err)s"
-msgstr ""
+msgstr "Parâmetros de rede inválidos. Detalhes: %(err)s"
 
 #, python-format
 msgid "Unable to update interface configuration. Details: %(err)s"
 msgstr ""
+"Não é possível atualizar a configuração da interface. Detalhes: %(err)s"
 
 msgid "Invalid parameter for DNS servers"
-msgstr ""
+msgstr "Parâmetro inválido para servidores do Sistema de Nomes de Domínio"
 
 msgid "Invalid parameter for interface ip address"
-msgstr ""
+msgstr "Parâmetro inválido para o endereço IP da interface"
 
 msgid "Invalid parameter for interface netmask"
-msgstr ""
+msgstr "Parâmetro inválido para a máscara de rede da interface"
 
 msgid "Invalid parameter for network gateway"
-msgstr ""
+msgstr "Parâmetro inválido para o gateway de rede"
 
 #, python-format
 msgid "Unable to get default gateway: %(err)s"
@@ -107,69 +110,76 @@ msgid "Unable to set default gateway: %(err)s"
 msgstr ""
 
 msgid "Specify name, password, group and profile for the new user."
-msgstr ""
+msgstr "Especifique o nome, a senha, o grupo e o perfil para o novo usuário."
 
 msgid "User name is a required string."
-msgstr ""
+msgstr "Nome de usuário é uma sequência necessária."
 
 msgid "User password is a required string."
-msgstr ""
+msgstr "Senha do usuário é uma sequência necessária."
 
 msgid "User group is a required string."
-msgstr ""
+msgstr "Grupo de usuários é uma sequência necessária."
 
 msgid ""
 "User profile is required and should be one among kimchiuser, virtuser or "
 "admin."
 msgstr ""
+"O perfil do usuário é necessário e deve ser um entre kimchiuser, virtuser ou "
+"admin."
 
 #, python-format
 msgid "Could not add user '%(user)s' to kvm group."
-msgstr ""
+msgstr "Não foi possível incluir o usuário '%(user)s' no grupo kvm."
 
 #, python-format
 msgid "Could not add user '%(user)s' to sudoers list."
-msgstr ""
+msgstr "Não foi possível incluir o usuário '%(user)s' na lista de sudoers."
 
 #, python-format
 msgid "The user name '%(user)s' is already in use'."
-msgstr ""
+msgstr "O nome de usuário '%(user)s' já está sendo usado."
 
 #, python-format
 msgid "Could not create user '%(user)s'."
-msgstr ""
+msgstr "Não foi possível criar o usuário '%(user)s'."
 
 #, python-format
 msgid "Could not delete user '%(user)s'."
-msgstr ""
+msgstr "Não foi possível excluir o usuário '%(user)s'."
 
 #, python-format
 msgid "User '%(user)s' does not exist."
-msgstr ""
+msgstr "O usuário '%(user)s' não existe."
 
 #, python-format
 msgid "Could not delete group '%(group)s'"
-msgstr ""
+msgstr "Não foi possível excluir o grupo '%(group)s'"
 
 #, python-format
 msgid "Group for user '%(user)s' does not exist for removal."
-msgstr ""
+msgstr "O grupo para o usuário '%(user)s' não existe para remoção."
 
 msgid "Cannot update system firmware while running VMs."
-msgstr ""
+msgstr "Não é possível atualizar o firmware do sistema ao executar VMs."
 
 #, python-format
 msgid "Firmware image unpack failed: rc = %(rc)s. Details: %(err)s"
 msgstr ""
+"Falha na descompactação da imagem de firmware: rc = %(rc)s. Detalhes: %(err)s"
 
 msgid "FW update failed: No image file found in the package file."
 msgstr ""
+"Falha na atualização do FW: Nenhum arquivo de imagem localizado no arquivo "
+"do pacote."
 
 #, python-format
 msgid ""
 "Error flashing firmware. rc = %(rc)s.                      Please see /usr/"
 "sbin/update_flash for rc reasons."
 msgstr ""
+"Erro ao atualizar o firmware. rc = %(rc)s.                      Consulte /"
+"usr/sbin/update_flash para obter os motivos dos códigos de retorno."
 
 #, python-format
 msgid ""
@@ -188,37 +198,43 @@ msgid ""
 "Failed to create tar archive \"%(name)s\", cmd: \"%(cmd)s\". Inspect error "
 "log for more information."
 msgstr ""
+"Falha ao criar o archive tar \"%(name)s\", cmd: \"%(cmd)s\". Inspecione o "
+"log de erro para obter mais informações."
 
 #, python-format
 msgid "Failed to delete archive file \"%(name)s\"."
-msgstr ""
+msgstr "Falha ao excluir o archive \"%(name)s\"."
 
 #, python-format
 msgid ""
 "Failed to create archive dir \"%(dir)s\". Inspect error log for more "
 "information."
 msgstr ""
+"Falha ao criar o dir do archive \"%(dir)s\". Inspecione o log de erro para "
+"obter mais informações."
 
 msgid "Description too long."
-msgstr ""
+msgstr "Descrição muito longa."
 
 msgid "Please check the uniqueness of the paths or patterns."
-msgstr ""
+msgstr "Verifique a exclusividade dos caminhos ou padrões."
 
 msgid "Path or pattern is too long or too short."
-msgstr ""
+msgstr "O caminho ou o padrão é muito longo ou muito curto."
 
 msgid "Invalid days_ago number."
-msgstr ""
+msgstr "Número de days_ago inválido."
 
 msgid "Invalid counts_ago number."
-msgstr ""
+msgstr "Número de counts_ago inválido."
 
 #, python-format
 msgid ""
 "Failed to create archive \"%(identity)s\". Inspect error log for more "
 "information."
 msgstr ""
+"Falha ao criar o archive \"%(identity)s\". Inspecione o log de erro para "
+"obter mais informações."
 
 #, python-format
 msgid "SAN adapter '%(adapter)s' does not exist in the system."
