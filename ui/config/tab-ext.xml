@@ -3,6 +3,5 @@
     <tab>
         <title>Administration</title>
         <path>plugins/ginger/host-admin.html</path>
-        <nls>plugins/ginger/i18n.html</nls>
     </tab>
 </tabs-ext>

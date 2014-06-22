@@ -74,7 +74,7 @@ service kimchid restart
 %{_datadir}/kimchi/plugins/ginger/ui/js/host-admin.js
 %{_datadir}/kimchi/plugins/ginger/ui/js/util.js
 %{_datadir}/kimchi/plugins/ginger/ui/pages/host-admin.html.tmpl
-%{_datadir}/kimchi/plugins/ginger/ui/pages/i18n.html.tmpl
+%{_datadir}/kimchi/plugins/ginger/ui/pages/i18n.json.tmpl
 %{_sysconfdir}/kimchi/plugins.d/ginger.conf
 
 
