@@ -1,4 +1,10 @@
 <!DOCTYPE html>
+#unicode UTF-8
+#import gettext
+#from kimchi.cachebust import href
+#silent t = gettext.translation($lang.domain, $lang.localedir, languages=$lang.lang)
+#silent _ = t.gettext
+#silent _t = t.gettext
 <html>
 <head>
 <link rel="stylesheet" type="text/css" href="plugins/ginger/css/ginger.css">
@@ -9,38 +15,38 @@
 <div class="ginger">
 
 <div id="gingerHostAdmin" class="host-admin">
-    <h3>Firmware Update</h3>
+    <h3>$_("Firmware Update")</h3>
     <div class="content-area">
         <div id="gingerFWUpdateMess" class="message-area" style="display: none;">
             <span class="progress-icon"></span>
-            <span>Firmware update is initializing. System will reboot in order to flash the firmware.</span>
+            <span>$_("Firmware update is initializing. System will reboot in order to flash the firmware.")</span>
         </div>
         <div class="section">
-            <span>Firmware Version: </span>
+            <span>$_("Firmware Version: ")</span>
             <span id="gingerFWVer" class="firmware-ver"></span>
         </div>
         <div class="section">
-            <div class="pack-path-label">Package Path: </div>
+            <div class="pack-path-label">$_("Package Path: ")</div>
             <div class="pack-path-content">
                 <input type="text" id="gingerPackPath" class="pack-path-input">
                 <div class="input-hint">
                     <span class="ui-icon ui-icon-info input-hint-icon"></span>
-                    <span class="input-hint-text">The absolute path to the firmware rpm.</span>
+                    <span class="input-hint-text">$_("The absolute path to the firmware rpm.")</span>
                     </div>
             </div>
-            <button id="gingerPackPathSub">Update</button>
+            <button id="gingerPackPathSub">$_("Update")</button>
         </div>
     </div>
-    <h3>Configuration Backup</h3>
+    <h3>$_("Configuration Backup")</h3>
     <div class="content-area">
         <div class="action-bar">
-            <span id="batDelBtn" class="item">Batch Delete</span>
-            <span id="newCustomBakBtn" class="item">New Custom Backup</span>
-            <span id="newDefaultBakBtn" class="item">Generate Default Backup</span>
+            <span id="batDelBtn" class="item">$_("Batch Delete")</span>
+            <span id="newCustomBakBtn" class="item">$_("New Custom Backup")</span>
+            <span id="newDefaultBakBtn" class="item">$_("Generate Default Backup")</span>
         </div>
         <div class="bak-grid-header">
-            <div class="cell file-col">File</div>
-            <div class="cell time-col">Timestamp</div>
+            <div class="cell file-col">$_("File")</div>
+            <div class="cell time-col">$_("Timestamp")</div>
         </div>
         <div id="bakGridBody" class="bak-grid-body"></div>
     </div>
@@ -89,25 +95,25 @@
 </div>
 
 <div id="newBakDialog" title="Create a backup" class="ginger-dialog">
-    <div>Description</div>
+    <div>$_("Description")</div>
     <div class="crt-bak-section"><input type="text" class="desc"></div>
     <div class="crt-bak-section">
         <div class="path-pick">
-            <div>Path Included</div>
+            <div>$_("Path Included")</div>
             <div class="box" id="includeBox"></div>
         </div>
         <div class="path-pick">
-            <div>Path Excluded</div>
+            <div>$_("Path Excluded")</div>
             <div class="box" id="excludeBox"></div>
         </div>
     </div>
 </div>
 <div id="batDelDialog" title="Delete backups in batch" class="ginger-dialog">
     <div class="del-option">
-        <input type="radio" name="batDelType" value="counts_ago" checked>Preserve the latest <input type="text" class=""> backups
+        <input type="radio" name="batDelType" value="counts_ago" checked>$_("Preserve the latest") <input type="text" class=""> $_("backups")
     </div>
     <div class="del-option">
-        <input type="radio" name="batDelType" value="days_ago">Preserve the latest <input type="text" class="" disabled> days of backups
+        <input type="radio" name="batDelType" value="days_ago">$_("Preserve the latest") <input type="text" class="" disabled> $_("days of backups")
     </div>
 </div>
 
@@ -121,11 +127,11 @@
 </div>
 </script>
 <script id="backupTooltip" type="text/html">
-<div class="header">Description</div>
+<div class="header">$_("Description")</div>
 <div class="sub-content">{description}</div>
 <div class="crt-bak-section">
-    <div class="path-pick"><div class="header">Path Included</div><div class="sub-content">includePlaceHodler</div></div>
-    <div class="path-pick"><div class="header">Path Excluded</div><div class="sub-content">excludePlaceHodler</div></div>
+    <div class="path-pick"><div class="header">$_("Path Included")</div><div class="sub-content">includePlaceHodler</div></div>
+    <div class="path-pick"><div class="header">$_("Path Excluded")</div><div class="sub-content">excludePlaceHodler</div></div>
 </div>
 </script>
 <script id="pathItem" type="text/html">

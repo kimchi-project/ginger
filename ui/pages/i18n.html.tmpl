@@ -1,3 +1,10 @@
+#unicode UTF-8
+#import gettext
+#from kimchi.cachebust import href
+#silent t = gettext.translation($lang.domain, $lang.localedir, languages=$lang.lang)
+#silent _ = t.gettext
+#silent _t = t.gettext
+
 <!DOCTYPE html>
 <html class="no-js" lang=$lang.lang[0]>
 <head>
@@ -7,7 +14,8 @@
 </head>
 <body>
 <script>
-i18n["Administration"] = "Administration";
+var i18n = {
+    'Administration': "$_("Administration")"};
 </script>
 </body>
 </html>
