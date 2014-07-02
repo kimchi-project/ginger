@@ -1,5 +1,5 @@
 #
-# Project Kimchi
+# Project Ginger
 #
 # Copyright IBM, Corp. 2013
 #

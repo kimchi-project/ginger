@@ -15,8 +15,8 @@ build-aux/py-compile
 config.log
 config.status
 configure
-kimchi-ginger-*.tar.gz
-kimchi-ginger.spec
+ginger-*.tar.gz
+ginger.spec
 po/POTFILES
 po/gen-pot
 rpm

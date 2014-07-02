@@ -1,5 +1,5 @@
 #
-# Kimchi-ginger
+# Ginger
 #
 # Copyright IBM Corp, 2014
 #
@@ -75,11 +75,11 @@ install-data-local:
 	$(INSTALL_DATA) API.json $(DESTDIR)$(gingerdir)/API.json
 
 
-rpm: dist kimchi-ginger.spec
+rpm: dist ginger.spec
 	$(MKDIR_P) rpm/BUILD rpm/RPMS rpm/SOURCES rpm/SPECS rpm/SRPMS
-	cp $(top_srcdir)/kimchi-ginger.spec rpm/SPECS/kimchi-ginger.spec
+	cp $(top_srcdir)/ginger.spec rpm/SPECS/ginger.spec
 	cp $(DIST_ARCHIVES) rpm/SOURCES
-	rpmbuild -ba --define "_topdir `pwd`/rpm" rpm/SPECS/kimchi-ginger.spec
+	rpmbuild -ba --define "_topdir `pwd`/rpm" rpm/SPECS/ginger.spec
 
 
 ChangeLog:

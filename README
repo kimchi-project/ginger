@@ -1,9 +1,15 @@
-Kimchi-ginger
-==============
+Ginger
+======
+
+Ginger is an open source host management plugin to Kimchi, that provides an
+intuitive web panel with common tools for configuring and operating Linux
+systems.
+
+The current features include:
+ + user login account management,
+ + network interface configuration,
+ + configuration backup,
+ + Power (ppc) firmware update.
 
 Kimchi is an HTML5 based management tool for KVM. It is designed to make it as
 easy as possible to get started with KVM and create your first guest.
-
-Kimchi-ginger is a plugin for Kimchi for managing host. Current features
-include user login account management, network interface configuration,
-configuration backup, firmware update.

@@ -1,7 +1,7 @@
 {
     "$schema": "http://json-schema.org/draft-03/schema#",
     "title": "Ginger Plugin API",
-    "description": "JSON schema for Kimchi's Ginger Plugin API",
+    "description": "JSON schema for Ginger Plugin API",
     "type": "object",
     "properties": {
         "firmware_update": {

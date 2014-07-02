@@ -1,4 +1,4 @@
-# Kimchi-ginger
+# Ginger
 #
 # Copyright IBM Corp, 2014
 #
@@ -17,7 +17,7 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 
 AC_PREREQ([2.63])
-AC_INIT([kimchi-ginger], [m4_esyscmd([./build-aux/pkg-version --version])])
+AC_INIT([ginger], [m4_esyscmd([./build-aux/pkg-version --version])])
 
 AC_SUBST([PACKAGE_VERSION],
          [m4_esyscmd([./build-aux/pkg-version --version])])
@@ -51,7 +51,7 @@ fi
 AC_CONFIG_FILES([
     Makefile
     controls/Makefile
-    kimchi-ginger.spec
+    ginger.spec
     models/Makefile
     po/Makefile.in
     po/gen-pot

@@ -17,32 +17,32 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 
 # tags and output versions:
-#   - kimchi-ginger-1.2.0   => 1.2.0 (upstream clean)
-#   - kimchi-ginger-1.2.0-1 => 1.2.0 (downstream clean)
-#   - kimchi-ginger-1.2.0-2-g34e62f   => 1.2.0 (upstream dirty)
-#   - kimchi-ginger-1.2.0-1-2-g34e62f => 1.2.0 (downstream dirty)
+#   - ginger-1.2.0   => 1.2.0 (upstream clean)
+#   - ginger-1.2.0-1 => 1.2.0 (downstream clean)
+#   - ginger-1.2.0-2-g34e62f   => 1.2.0 (upstream dirty)
+#   - ginger-1.2.0-1-2-g34e62f => 1.2.0 (downstream dirty)
 AWK_VERSION='
     BEGIN { FS="-" }
-    /^kimchi-ginger-[0-9]/ {
-      sub(/^kimchi-ginger-/,"") ; print $1
+    /^ginger-[0-9]/ {
+      sub(/^ginger-/,"") ; print $1
     }'
 
 # tags and output releases:
-#   - kimchi-ginger-1.2.0   => 0 (upstream clean)
-#   - kimchi-ginger-1.2.0-1 => 1 (downstream clean)
-#   - kimchi-ginger-1.2.0-2-g34e62f1   => 2.git34e62f1 (upstream dirty)
-#   - kimchi-ginger-1.2.0-1-2-g34e62f1 => 1.2.git34e62f1 (downstream dirty)
+#   - ginger-1.2.0   => 0 (upstream clean)
+#   - ginger-1.2.0-1 => 1 (downstream clean)
+#   - ginger-1.2.0-2-g34e62f1   => 2.git34e62f1 (upstream dirty)
+#   - ginger-1.2.0-1-2-g34e62f1 => 1.2.git34e62f1 (downstream dirty)
 AWK_RELEASE='
     BEGIN { FS="-"; OFS="." }
-    /^kimchi-ginger-[0-9]/ {
-      sub(/^kimchi-ginger-/,"")
+    /^ginger-[0-9]/ {
+      sub(/^ginger-/,"")
       if (NF == 1) print 0
       else if (NF == 2) print $2
       else if (NF == 3) print $2, "git" substr($3, 2)
       else if (NF == 4) print $2, $3, "git" substr($4, 2)
     }'
 
-PKG_VERSION=`git describe --tags --match "kimchi-ginger-[0-9]*" 2> /dev/null || cat VERSION 2> /dev/null`
+PKG_VERSION=`git describe --tags --match "ginger-[0-9]*" 2> /dev/null || cat VERSION 2> /dev/null`
 
 if test "x$1" = "x--full"; then
     echo $PKG_VERSION | tr -d '[:space:]'
