@@ -24,6 +24,8 @@ from kimchi.control.base import Collection, Resource
 class Users(Collection):
     def __init__(self, model):
         super(Users, self).__init__(model)
+        self.role_key = "administration"
+        self.admin_methods = ['GET', 'POST', 'DELETE']
         self.resource = User
 
 

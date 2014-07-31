@@ -23,6 +23,8 @@ from kimchi.control.base import Collection, Resource
 class SanAdapters(Collection):
     def __init__(self, model):
         super(SanAdapters, self).__init__(model)
+        self.role_key = "administration"
+        self.admin_methods = ['GET']
         self.resource = SanAdapter
 
 

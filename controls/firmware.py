@@ -23,6 +23,8 @@ from kimchi.control.base import Resource
 class Firmware(Resource):
     def __init__(self, model, id=None):
         super(Firmware, self).__init__(model, id)
+        self.role_key = "administration"
+        self.admin_methods = ['PUT', 'POST']
         self.uri_fmt = "/firmware/%s"
         self.update_params = ['path', 'overwrite-perm-ok']
         self.commit = self.generate_action_handler('commit')

@@ -25,6 +25,8 @@ class Network(Resource):
 
     def __init__(self, model):
         super(Network, self).__init__(model, None)
+        self.role_key = "administration"
+        self.admin_methods = ['PUT']
         self.interfaces = Interfaces(model)
         self.uri_fmt = '/network/%s'
         self.update_params = ['nameservers', 'gateway']

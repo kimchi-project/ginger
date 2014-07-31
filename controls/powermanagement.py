@@ -23,6 +23,8 @@ from kimchi.control.base import Resource, Collection
 class PowerProfiles(Collection):
     def __init__(self, model):
         super(PowerProfiles, self).__init__(model)
+        self.role_key = "administration"
+        self.admin_methods = ['PUT']
         self.resource = PowerProfile
 
 
