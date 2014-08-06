@@ -17,6 +17,11 @@ config.status
 configure
 ginger-*.tar.gz
 ginger.spec
+mo/
 po/POTFILES
+po/en_US.gmo
 po/gen-pot
+po/pt_BR.gmo
+po/stamp-po
+po/zh_CN.gmo
 rpm
