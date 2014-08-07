@@ -65,14 +65,14 @@ class PowerProfileModel():
         is_active = self.active_powerprofile == powerprofile
         return {"name": powerprofile, "active": is_active}
 
-    def update(self, profile, params):
-        if params['active'] and self.active_powerprofile != profile:
-            self.active_powerprofile = profile
-            tuned_cmd = ["tuned-adm", "profile", profile]
+    def update(self, powerprofile, params):
+        if params['active'] and self.active_powerprofile != powerprofile:
+            self.active_powerprofile = powerprofile
+            tuned_cmd = ["tuned-adm", "profile", powerprofile]
             output, error, returncode = run_command(tuned_cmd)
             if returncode != 0:
                 kimchi_log.error('Could not activate power profile %s, '
                                  'error: %s', powerprofile, error)
                 raise OperationFailed('Error while activating power '
                                       'saving profile %s.', powerprofile)
-        return profile
+        return powerprofile

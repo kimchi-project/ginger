@@ -24,7 +24,6 @@ from controls import Backup, Firmware, Network, PowerProfiles, SanAdapters
 from controls import Users
 from i18n import messages
 from kimchi.config import PluginPaths
-from kimchi.control.base import Collection
 from kimchi.root import Root
 from models import GingerModel
 
