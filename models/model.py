@@ -25,8 +25,9 @@ from kimchi.basemodel import BaseModel
 from kimchi.objectstore import ObjectStore
 from network import NetworkModel
 from powermanagement import PowerProfilesModel, PowerProfileModel
+from sanadapters import SanAdapterModel, SanAdaptersModel
+from sensors import SensorsModel
 from users import UsersModel, UserModel
-from sanadapters import SanAdaptersModel, SanAdapterModel
 
 
 class GingerModel(BaseModel):
@@ -50,6 +51,7 @@ class GingerModel(BaseModel):
                              archive_model=archive)
         san_adapters = SanAdaptersModel()
         san_adapter = SanAdapterModel()
+        sensors = SensorsModel()
 
         sub_models = [
             backup, archives, archive,
@@ -58,5 +60,6 @@ class GingerModel(BaseModel):
             network,
             powerprofiles, powerprofile,
             users, user,
-            san_adapters, san_adapter]
+            san_adapters, san_adapter,
+            sensors]
         super(GingerModel, self).__init__(sub_models)

@@ -21,7 +21,7 @@ import json
 import os
 
 from controls import Backup, Firmware, Network, PowerProfiles, SanAdapters
-from controls import Users
+from controls import Sensors, Users
 from i18n import messages
 from kimchi.config import PluginPaths
 from kimchi.root import Root
@@ -35,6 +35,7 @@ class Ginger(Root):
         self.backup = Backup(self.model)
         self.firmware = Firmware(self.model)
         self.powerprofiles = PowerProfiles(self.model)
+        self.sensors = Sensors(self.model)
         self.users = Users(self.model)
         self.network = Network(self.model)
         self.api_schema = json.load(open(os.path.join(os.path.dirname(

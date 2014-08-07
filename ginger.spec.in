@@ -12,6 +12,8 @@ Requires:	gettext >= 0.17
 Requires:	kimchi = %{version}
 Requires:	tuned
 Requires:	libuser-python
+Requires:	lm_sensors
+Requires:	hddtemp
 
 %ifarch ppc64 ppc
 Requires:	powerpc-utils

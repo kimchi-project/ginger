@@ -95,3 +95,34 @@ please consider the following general conventions (from Kimchi documentation):
     * speed: Transfer speed being used by the adapter (eg. 1 Gbit, 2 Gbit, 4
              Gbit, 8 Gbit, or more).
     * symbolic_name: HBA overview information.
+
+### Resource: Sensors
+
+**URI:** /plugins/ginger/sensors
+
+**Methods:**
+
+* **GET**: Get sensors data for devices on the system, including
+            CPU temperatures, fan speeds, and hard disk temperatures.
+            This command uses lm-sensors, so it will return all
+            sensor data located in sysfs files, or in the sensors.conf
+            file, if it has been created by the system admin.
+
+            Note: The default unit for temperature is Celsius. This
+            can be changed to Fahrenheit in ginger.conf.
+
+            Due to the large number of sensors in existence, and the
+            user's ability to customize sensor names, the output
+            will vary greatly from system to system. The only consistency
+            will be the json items named 'sensors' and 'hdds'
+    * sensors: Each sensor or sensor group returned by 'sensors', depending on
+            whether there are multiple sensors on a chip. For example, a CPU
+            may return a package temperature reading (along with a min, max,
+            critical, and alarm temps) and additional readings for each core.
+            If fan speeds are reported by lm-sensors, these will be returned
+            as well. The last element of each device will be its unit, instead
+            of appending a unit to each value.
+            Note: Power supplies may report a negative value, which is valid.
+    * hdds: The temperatures for disk drives in the system, returned by hddtemp.
+            These will be in the format { "/dev/sda":102.0 } for each drive.
+            The last item in the list will be a the temperature unit.

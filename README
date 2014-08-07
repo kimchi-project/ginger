@@ -6,6 +6,7 @@ intuitive web panel with common tools for configuring and operating Linux
 systems.
 
 The current features include:
+ + retreive system health (sensors) stats
  + user login account management,
  + network interface configuration,
  + configuration backup,

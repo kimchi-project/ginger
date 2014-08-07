@@ -21,8 +21,16 @@ from backup import Backup
 from firmware import Firmware
 from network import Network
 from powermanagement import PowerProfiles
-from users import Users
 from sanadapters import SanAdapters
+from sensors import Sensors
+from users import Users
 
-
-__all__ = [Backup, Firmware, Network, PowerProfiles, Users, SanAdapters]
+__all__ = [
+    Backup,
+    Firmware,
+    Network,
+    PowerProfiles,
+    SanAdapters,
+    Sensors,
+    Users
+    ]
