@@ -10,7 +10,35 @@ The current features include:
  + user login account management,
  + network interface configuration,
  + configuration backup,
- + Power (ppc) firmware update.
+ + Power (ppc) firmware update,
+ + Power policy management.
 
 Kimchi is an HTML5 based management tool for KVM. It is designed to make it as
 easy as possible to get started with KVM and create your first guest.
+
+- Notes on Power policy management feature:
+
+The power policy management feature uses the 'tuned' service to control the
+power policies of the host. Problems have been reported with this package,
+depending on the host configuration, such as SELinux denials and trouble
+to communicate using DBUS with the 'tuned' service started from systemd.
+
+If you find any problems with the power policy management feature, we
+recommend following these steps (all steps requires 'sudo' privileges):
+
+- put SELinux in permissive mode for 'tuned' (required if the version of the
+package 'selinux-policy' is < 3.11):
+
+$ semanage permissive -a tuned_t
+
+- disable the 'tuned' service from systemd and restart it by hand:
+
+$ systemctl stop tuned.service
+$ tuned -l -P -d
+
+Remember to restart kimchid service after these changes:
+
+$ systemctl restart kimchid.service
+
+If these steps do not solve the problem, try to update all 'tuned' related
+packages and the packages'selinux-policy' and 'selinux-policy-targeted'.
