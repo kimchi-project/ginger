@@ -92,6 +92,9 @@
         <div class="cell speed"><div class="head">Speed</div><div class="body"></div></div>
         <div class="cell symbolic"><div class="head">Symbolic Name</div><div class="body"></div></div>
     </div>
+    <h3>$_("Sensor Monitor")</h3>
+    <div class="content-area sensor-panel">
+    </div>
 </div>
 
 <div id="newBakDialog" title="Create a backup" class="ginger-dialog">
@@ -159,6 +162,15 @@
 </script>
 <script id="pwMgmtItem" type="text/html">
 <div class="item"><span class="ui-icon {selected}"></span><span class="{toSelect}">{name}</span></div>
+</script>
+<script id="sensorBody" type="text/html">
+<div class="sensor-inline">
+    <div class="sensor-head">{labelHead}</div>
+    <div class="sensor-body" id={labelHead}></div>
+</div>
+</script>
+<script id="sensorUnit" type="text/html">
+<div class="sensor-body-label">{labelBody}:  {labelNumber}   {labelUnit}</div>
 </script>
 <script>
     ginger.initAdmin();

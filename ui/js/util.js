@@ -237,3 +237,17 @@ ginger.getSANAdapters = function(suc, err){
         }
     });
 };
+
+ginger.getSensors = function(suc, err){
+    kimchi.requestJSON({
+        url : kimchi.url + 'plugins/ginger/sensors',
+        type : 'GET',
+        contentType : 'application/json',
+        dataType : 'json',
+        resend : true,
+        success : suc,
+        error : err || function(data) {
+            kimchi.message.error(data.responseJSON.reason);
+        }
+    });
+};

@@ -410,6 +410,62 @@ ginger.initSANAdapter = function(){
     });
 };
 
+ginger.listSensors = function() {
+    ginger.getSensors(function(result) {
+        if($(".ginger .host-admin .sensor-inline").length > 0) {
+            $(".ginger .host-admin .sensor-inline").remove();
+        }
+        $.each(result, function(i1, d1) {
+            if(d1 && d1 != null && i1 != "hdds") {
+                $.each(d1, function(i2, d2) {
+                    var pathNode = $.parseHTML(kimchi.substitute($("#sensorBody").html(), {
+                        labelHead : i2
+                    }));
+                    $(".sensor-panel").append(pathNode);
+                    if(d2 && d2 != null) {
+                        $.each(d2, function(i3, d3) {
+                            if(i3 && d3 != null && i3 != "unit") {
+                                $.each(d3, function(i4, d4) {
+                                    if(i4.match("input")) {
+                                        var pathNodeU = $.parseHTML(kimchi.substitute($("#sensorUnit").html(), {
+                                            labelBody : i3,
+                                            labelNumber : d4,
+                                            labelUnit : d2["unit"]
+                                        }));
+                                        $("#" + i2).append(pathNodeU);
+                                    }
+                                });
+                            }
+                        });
+                    }
+                });
+            } else {
+                if(d1 != null) {
+                    var pathNode = $.parseHTML(kimchi.substitute($("#sensorBody").html(), {
+                        labelHead : i1
+                    }));
+                    $(".sensor-panel").append(pathNode);
+                    $.each(d1, function(i5, d5) {
+                        if(i5 != "unit") {
+                            var pathNodeU = $.parseHTML(kimchi.substitute($("#sensorUnit").html(), {
+                                labelBody : i5,
+                                labelNumber : d5,
+                                labelUnit : d1["unit"]
+                            }));
+                           $("#" + i1).append(pathNodeU);
+                        }
+                    });
+                }
+            }
+        });
+        setTimeout(ginger.listSensors, 5000);
+    });
+}
+
+ginger.initSensorsMonitor = function() {
+    ginger.listSensors();
+}
+
 ginger.initAdmin = function(){
     $("#gingerHostAdmin").accordion();
     $(".content-area", "#gingerHostAdmin").css("height", "100%");
@@ -440,4 +496,5 @@ ginger.initAdmin = function(){
     ginger.initNetworkConfig();
     ginger.initPowerMgmt();
     ginger.initSANAdapter();
+    ginger.initSensorsMonitor();
 };

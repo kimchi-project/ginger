@@ -403,3 +403,25 @@
 .ginger .host-admin .san-adapter .item {
     margin-bottom: 5px;
 }
+
+.ginger .host-admin .sensor-panel {
+    min-height: 100px;
+    max-height: 170px;
+}
+
+.ginger .host-admin .sensor-inline {
+    display: inline-block;
+    margin-left: 20px;
+    vertical-align: top;
+}
+
+.ginger .host-admin .sensor-head {
+    margin-top: 15px;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.ginger .host-admin .sensor-inline .sensor-body {
+    font-weight: normal;
+    font-size: 12px;
+}
