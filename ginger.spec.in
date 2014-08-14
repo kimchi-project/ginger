@@ -17,6 +17,7 @@ Requires:	hddtemp
 
 %ifarch ppc64 ppc
 Requires:	powerpc-utils
+Requires:	serviceable.event.provider
 %endif
 
 
