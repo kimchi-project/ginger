@@ -425,3 +425,27 @@
     font-weight: normal;
     font-size: 12px;
 }
+
+.ginger .host-admin .sep-config .sep-field {
+    display: inline-block;
+    margin-right: 15px;
+}
+
+.ginger .host-admin .sep-config .sep-buttons {
+    float: right;
+    vertical-align: bottom;
+    margin-top: 65px;
+}
+
+.ginger .host-admin .sep-config .actBtn {
+    min-width: 90px;
+}
+
+.ginger .host-admin .sep-config .sep-label {
+    margin-bottom: 8.5px;
+}
+
+.ginger .host-admin .sep-config .sep-input {
+    margin-bottom: 2px;
+    width: 200px;
+}

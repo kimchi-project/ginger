@@ -194,7 +194,7 @@ ginger.validateMask = function(mask){
     }else{
         return mask > 0 && mask < 32;
     }
-}
+};
 
 ginger.getPowerProfiles = function(suc, err){
     kimchi.requestJSON({
@@ -242,6 +242,63 @@ ginger.getSensors = function(suc, err){
     kimchi.requestJSON({
         url : kimchi.url + 'plugins/ginger/sensors',
         type : 'GET',
+        contentType : 'application/json',
+        dataType : 'json',
+        resend : true,
+        success : suc,
+        error : err || function(data) {
+            kimchi.message.error(data.responseJSON.reason);
+        }
+    });
+};
+
+ginger.getSEPContent = function(suc, err){
+    kimchi.requestJSON({
+        url : kimchi.url + 'plugins/ginger/ibm_sep',
+        type : 'GET',
+        contentType : 'application/json',
+        dataType : 'json',
+        resend : true,
+        success : suc,
+        error : err || function(data) {
+            kimchi.message.error(data.responseJSON.reason);
+        }
+    });
+};
+
+ginger.updateSEPContent = function(sep, suc, err){
+    kimchi.requestJSON({
+        url : kimchi.url + 'plugins/ginger/ibm_sep',
+        type : 'PUT',
+        contentType : 'application/json',
+        dataType : 'json',
+        data : JSON.stringify(sep),
+        resend : true,
+        success : suc,
+        error : err || function(data) {
+            kimchi.message.error(data.responseJSON.reason);
+        }
+    });
+};
+
+ginger.startSEP = function(suc, err){
+    kimchi.requestJSON({
+        url : kimchi.url + 'plugins/ginger/ibm_sep/start',
+        type : 'POST',
+        contentType : 'application/json',
+        dataType : 'json',
+        resend : true,
+        success : suc,
+        error : err || function(data) {
+            kimchi.message.error(data.responseJSON.reason);
+        }
+    });
+};
+
+ginger.stopSEP = function(suc, err){
+    kimchi.requestJSON({
+        url : kimchi.url + 'plugins/ginger/ibm_sep/stop',
+        type : 'POST',
         contentType : 'application/json',
         dataType : 'json',
         resend : true,

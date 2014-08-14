@@ -175,7 +175,7 @@ ginger.setupBakGrid = function() {
             });
         }
     });
-}
+};
 
 ginger.initConfigBak = function() {
     $("#newDefaultBakBtn").button().click(function(){ginger.createBackupArchive({}, function(){
@@ -460,11 +460,83 @@ ginger.listSensors = function() {
         });
         setTimeout(ginger.listSensors, 5000);
     });
-}
+};
 
 ginger.initSensorsMonitor = function() {
     ginger.listSensors();
-}
+};
+
+ginger.initSEPConfig = function() {
+    var listSEPContent = function() {
+        ginger.getSEPContent(function(result) {
+            $("#sepStatusLog").val(result.status)
+            $("#sepHostName").val(result["subscription"].hostname);
+            $("#sepPort").val(result["subscription"].port);
+            $("#sepSNMPCommunity").val(result["subscription"].community);
+            if(result.status != "running") {
+                $("#sepStart").button().attr("style", "display");
+                $("#sepStop").button().attr("style", "display:none");
+            } else {
+                $("#sepStart").button().attr("style","display:none");
+                $("#sepStop").button().attr("style","display");
+            }
+        }, function() {
+            kimchi.message.error.code('GINSEP0005E');
+        });
+    };
+    var sepSubscription = function(sepHostName, sepPort, sepCommunity) {
+        var data = {
+            hostname : sepHostName,
+            port : sepPort,
+            community : sepCommunity
+        };
+        ginger.updateSEPContent(data, function() {
+            listSEPContent();
+        }, function() {
+            kimchi.message.error.code('GINSEP0006E');
+        });
+
+    };
+    var sepStart = function() {
+        ginger.startSEP(function() {
+            $("#sepStart").val("style", "display:none");
+            $("#sepStop").val("style", "display");
+            listSEPContent();
+        }, function(){
+            kimchi.message.error.code('GINSEP0007E');
+        });
+    };
+    var sepStop = function() {
+        ginger.stopSEP(function() {
+            $("#sepStart").val("style", "display");
+            $("#sepStop").val("style", "display:none");
+            listSEPContent();
+        }, function(){
+            kimchi.message.error.code('GINSEP0008E');
+        });
+    };
+    $("#sepSubscribe").button().click(function() {
+        if($("#sepHostName").val() === "") {
+            kimchi.message.error.code("GINSEP0001E");
+            listSEPContent();
+        } else if($("#sepPort").val() === "") {
+            kimchi.message.error.code("GINSEP0002E");
+            listSEPContent();
+        } else if($("#sepSNMPCommunity").val() === "") {
+            kimchi.message.error.code("GINSEP0003E");
+            listSEPContent();
+        } else {
+            sepSubscription($("#sepHostName").val(), $("#sepPort").val(), $("#sepSNMPCommunity").val());
+        }
+    });
+    $("#sepStart").button().click(function() {
+        sepStart();
+    });
+    $("#sepStop").button().click(function() {
+        sepStop();
+    });
+    listSEPContent();
+};
 
 ginger.initAdmin = function(){
     $("#gingerHostAdmin").accordion();
@@ -497,4 +569,5 @@ ginger.initAdmin = function(){
     ginger.initPowerMgmt();
     ginger.initSANAdapter();
     ginger.initSensorsMonitor();
+    ginger.initSEPConfig();
 };

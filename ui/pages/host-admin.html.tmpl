@@ -95,8 +95,27 @@
     <h3>$_("Sensor Monitor")</h3>
     <div class="content-area sensor-panel">
     </div>
+    <h3>$_("SEP Configuration")</h3>
+    <div class="content-area sep-config">
+        <div class="sep-field">
+            <div class="sep-label">$_("Status:")</div>
+            <div class="sep-label">$_("Host Name:")</div>
+            <div class="sep-label">$_("Port:")</div>
+            <div class="sep-label">$_("SNMP Community:")</div>
+        </div>
+        <div class="sep-field">
+            <input id="sepStatusLog" class="sep-input" disabled="disabled" value="Disabled"><br />
+            <input id="sepHostName" class="sep-input" /><br />
+            <input id="sepPort" class="sep-input" /><br />
+            <input id="sepSNMPCommunity" class="sep-input" />
+        </div>
+        <div class="sep-field sep-buttons">
+            <span id="sepSubscribe" class="actBtn" >$_("Subscribe")</span>
+            <span id="sepStart" class="actBtn">$_("Start")</span>
+            <span id="sepStop" class="actBtn" style="display:none">$_("Stop")</span>
+        </div>
+    </div>
 </div>
-
 <div id="newBakDialog" title="Create a backup" class="ginger-dialog">
     <div>$_("Description")</div>
     <div class="crt-bak-section"><input type="text" class="desc"></div>
