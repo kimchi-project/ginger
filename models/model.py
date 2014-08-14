@@ -19,6 +19,7 @@
 
 from backup import ArchiveModel, ArchivesModel, BackupModel
 from firmware import FirmwareModel
+from ibm_sep import SepModel
 from interfaces import InterfacesModel, InterfaceModel
 from kimchi import config
 from kimchi.basemodel import BaseModel
@@ -52,6 +53,7 @@ class GingerModel(BaseModel):
         san_adapters = SanAdaptersModel()
         san_adapter = SanAdapterModel()
         sensors = SensorsModel()
+        ibm_sep = SepModel()
 
         sub_models = [
             backup, archives, archive,
@@ -61,5 +63,6 @@ class GingerModel(BaseModel):
             powerprofiles, powerprofile,
             users, user,
             san_adapters, san_adapter,
-            sensors]
+            sensors,
+            ibm_sep]
         super(GingerModel, self).__init__(sub_models)

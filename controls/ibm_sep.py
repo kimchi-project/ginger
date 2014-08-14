@@ -17,22 +17,19 @@
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 
-from backup import Backup
-from firmware import Firmware
-from ibm_sep import Sep
-from network import Network
-from powermanagement import PowerProfiles
-from sanadapters import SanAdapters
-from sensors import Sensors
-from users import Users
+from kimchi.control.base import Resource
 
-__all__ = [
-    Backup,
-    Firmware,
-    Network,
-    PowerProfiles,
-    SanAdapters,
-    Sensors,
-    Sep,
-    Users
-    ]
+
+class Sep(Resource):
+    def __init__(self, model, id=None):
+        super(Sep, self).__init__(model, id)
+        self.update_params = ['hostname', 'port', 'community']
+        self.role_key = "administration"
+        self.admin_methods = ['GET', 'POST', 'PUT']
+        self.uri_fmt = '/ibm_sep/%s'
+        self.start = self.generate_action_handler('start')
+        self.stop = self.generate_action_handler('stop')
+
+    @property
+    def data(self):
+        return self.info

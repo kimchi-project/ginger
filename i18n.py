@@ -80,6 +80,12 @@ messages = {
                      'Inspect error log for more information.'),
 
     "GINADAP0001E": _("SAN adapter '%(adapter)s' does not exist in the system."
-                      )
+                      ),
+
+    "GINSEP0001E": _("System hostname is a required parameter."),
+    "GINSEP0002E": _("System port number is a required parameter."),
+    "GINSEP0003E": _("SNMP community is a required parameter."),
+    "GINSEP0004E": _("SEP command execution error: '%(cmd)s' - rc: '%(rc)s' \
+                     - error: '%(error)s'.")
 }
 messages.update(kmessages)
