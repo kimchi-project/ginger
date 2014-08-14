@@ -168,6 +168,29 @@
                     "error": "GINHBK0008E"
                 }
             }
+        },
+        "ibm_sep_update":{
+            "type": "object",
+            "properties": {
+                "hostname": {
+                    "description": "Specifies the hostname of the system.",
+                    "type": "string",
+                    "required": true,
+                    "error": "GINSEP0001E"
+                },
+                "port": {
+                    "description": "Specifies the port of the system.",
+                    "type": "string",
+                    "required": true,
+                    "error": "GINSEP0002E"
+                },
+                "community": {
+                    "description": "Specifies the SNMP community.",
+                    "type": "string",
+                    "required": true,
+                    "error": "GINSEP0003E"
+                }
+            }
         }
     }
 }
