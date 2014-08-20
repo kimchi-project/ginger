@@ -33,13 +33,13 @@ class SepModel(object):
     def _get_subscriber(self):
         cmd = ['/opt/ibm/seprovider/bin/getSubscriber']
         output, error, rc = run_command(cmd)
-        if rc != 0:
+        if rc > 1:
             kimchi_log.error('SEP execution error: %s - %s - %s' % (cmd, rc,
                              error))
             raise OperationFailed('GINSEP0004E', {'cmd': cmd, 'rc': rc,
                                   'error': error})
 
-        if len(output) < 1:
+        if (len(output) < 1) or (rc == 1):
             self._activation_info['hostname'] = ''
             self._activation_info['port'] = ''
             self._activation_info['community'] = ''
