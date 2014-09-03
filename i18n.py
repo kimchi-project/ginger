@@ -78,6 +78,8 @@ messages = {
     "GINHBK0008E": _('Invalid counts_ago number.'),
     "GINHBK0009E": _('Failed to create archive "%(identity)s". '
                      'Inspect error log for more information.'),
+    "GINHBK0010E": _('Timeout while creating archive "%(identity)s", the '
+                     'files might be too large for a configuration backup.'),
 
     "GINADAP0001E": _("SAN adapter '%(adapter)s' does not exist in the system."
                       ),

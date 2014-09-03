@@ -27,7 +27,7 @@ import uuid
 import cherrypy
 
 from kimchi.config import PluginPaths
-from kimchi.exception import NotFoundError, OperationFailed
+from kimchi.exception import NotFoundError, OperationFailed, TimeoutExpired
 from kimchi.utils import kimchi_log, run_command
 
 
@@ -79,7 +79,8 @@ def _tar_create_archive(directory_path, archive_id, include, exclude):
     cmd = ['tar', '--create', '--gzip',
            '--absolute-names', '--file', archive_file,
            '--selinux', '--acl', '--xattrs'] + exclude + include
-    out, err, rc = run_command(cmd)
+    timeout = int(cherrypy.request.app.config['backup']['timeout'])
+    out, err, rc = run_command(cmd, timeout)
     if rc != 0:
         raise OperationFailed(
             'GINHBK0001E', {'name': archive_file, 'cmd': ' '.join(cmd)})
@@ -129,6 +130,7 @@ class ArchivesModel(object):
         return list(cherrypy.request.app.config['backup']['default_exclude'])
 
     def _create_archive(self, params):
+        error = None
         try:
             params['file'] = _tar_create_archive(
                 self._archive_dir, params['identity'], params['include'],
@@ -138,8 +140,15 @@ class ArchivesModel(object):
 
             with self._objstore as session:
                 session.store(self._objstore_type, params['identity'], params)
+        except TimeoutExpired as e:
+            error = e
+            reason = 'GINHBK0010E'
         except Exception as e:
-            msg = 'Error creating archive %s: %s' % (params['identity'], e)
+            error = e
+            reason = 'GINHBK0009E'
+
+        if error is not None:
+            msg = 'Error creating archive %s: %s' % (params['identity'], error)
             kimchi_log.error(msg)
 
             try:
@@ -157,8 +166,7 @@ class ArchivesModel(object):
                     kimchi_log.error('Error cleaning archive file %s. '
                                      'Error: %s', params['file'], e_file)
 
-            raise OperationFailed('GINHBK0009E', {'identity':
-                                                  params['identity']})
+            raise OperationFailed(reason, {'identity': params['identity']})
 
     def create(self, params):
         archive_id = str(uuid.uuid4())
