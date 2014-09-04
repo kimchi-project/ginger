@@ -368,6 +368,11 @@
     margin-right: 15px;
 }
 
+.ginger .host-admin .pw-opt .header #progressIndicator {
+    float: right;
+    margin-top: 2px;
+}
+
 .ginger .host-admin .pw-opt .header .actBtn {
     float: right;
 }

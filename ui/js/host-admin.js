@@ -365,12 +365,15 @@ ginger.initPowerMgmt = function(){
         var currentSelected = $('.'+selectedClass, $(".body", "#gingerPowerMgmt"));
         var toBeSelected = $('.'+onSelectClass, $(".body", "#gingerPowerMgmt"));
         var optName = $(":last-child", toBeSelected.parent()).html();
+        $("#progressIndicator", ".ginger .host-admin").addClass("progress-icon");
+        $(".actBtn", "#gingerPowerMgmt").button("option", "disabled", true);
         ginger.activatePowerProfile(optName, function(){
             currentSelected.removeClass(selectedClass).addClass(toSelectClass);
             currentSelected.next().addClass("to-select");
             toBeSelected.removeClass(onSelectClass).addClass(selectedClass);
             toBeSelected.next().removeClass("to-select");
-            $(".actBtn", "#gingerPowerMgmt").button("option", "disabled", true);
+            $(".actBtn", "#gingerPowerMgmt").button("option", "disabled", false);
+            $("#progressIndicator", ".ginger .host-admin").removeClass("progress-icon");
         });
     });
     ginger.getPowerProfiles(function(data){
