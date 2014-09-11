@@ -40,6 +40,7 @@ dist_conf_DATA = ginger.conf
 EXTRA_DIST = \
 	API.json \
 	VERSION \
+	autogen.sh \
 	build-aux/config.rpath \
 	build-aux/pkg-version \
 	$(NULL)
