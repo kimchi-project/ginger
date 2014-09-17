@@ -47,10 +47,14 @@ ginger.initBakDialog = function() {
             attachEvent($(tempNode));
         },
         beforeClose: function(){
+            $("body").css('cursor', 'default');
             $(".desc", "#newBakDialog").prop("value", null);
             $("#includeBox").empty();
             $("#excludeBox").empty();
-            $("#newBakFormBtn").button("enable");
+            $("body input").prop("readonly", false);
+            $("body button").prop("disabled", false);
+            $("body input").css("cursor", "text");
+            $("body button").css("cursor", "pointer");
         },
         buttons : [{
             id: "newBakFormBtn",
@@ -72,10 +76,24 @@ ginger.initBakDialog = function() {
                 if(content.description=="") delete content.description;
                 if(content.include.length==0) delete content.include;
                 if(content.exclude.length==0) delete content.exclude;
+                // Disable Ok button and changing cursor
+                // while processing.
+                $("body").css("cursor", "wait");
+                $("body input").prop("readonly", "readonly");
+                $("body button").prop("disabled", "disabled");
+                $("body input").css("cursor", "wait");
+                $("body button").css("cursor", "wait");
                 ginger.createBackupArchive(content, function(){
                     $("#newBakDialog").dialog("close");
                     $("#bakGridBody").empty();
                     ginger.setupBakGrid();
+                }, function(result) {
+                    $("body").css('cursor', 'default');
+                    $("body input").prop("readonly", false);
+                    $("body button").prop("disabled", false);
+                    $("body input").css("cursor", "text");
+                    $("body button").css("cursor", "pointer");
+                    kimchi.message.error(result.responseJSON.reason);
                 });
             }
         }]
