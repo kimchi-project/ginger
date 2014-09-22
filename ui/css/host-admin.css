@@ -454,3 +454,20 @@
     margin-bottom: 2px;
     width: 200px;
 }
+
+.ginger .host-admin .sep-config .sep-dot-active {
+    display: inline-block;
+    height: 16px;
+    width: 16px;
+    border-radius: 8px;
+}
+
+.ginger .host-admin .sep-config .up {
+    background: linear-gradient(to bottom, #BFD255 0%, #8EB92A 50%,
+                #72AA00 51%, #9ECB2D 100%) repeat scroll 0 0 transparent;
+}
+
+.ginger .host-admin .sep-config .down {
+    background: linear-gradient(to bottom, #AFAFAF 0%, #AFAFAF 50%,
+                #AFAFAF 51%, #AFAFAF 100%) repeat scroll 0 0 transparent;
+}

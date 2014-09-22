@@ -490,7 +490,13 @@ ginger.initSensorsMonitor = function() {
 ginger.initSEPConfig = function() {
     var listSEPContent = function() {
         ginger.getSEPContent(function(result) {
-            $("#sepStatusLog").val(result.status)
+            if(result.status === "running") {
+                $("#sepStatusLog").removeClass("down");
+                $("#sepStatusLog").addClass("up");
+            } else {
+                $("#sepStatusLog").removeClass("up");
+                $("#sepStatusLog").addClass("down");
+            }
             $("#sepHostName").val(result["subscription"].hostname);
             $("#sepPort").val(result["subscription"].port);
             $("#sepSNMPCommunity").val(result["subscription"].community);
@@ -520,8 +526,8 @@ ginger.initSEPConfig = function() {
     };
     var sepStart = function() {
         ginger.startSEP(function() {
-            $("#sepStart").val("style", "display:none");
-            $("#sepStop").val("style", "display");
+            $("#sepStart").hide();
+            $("#sepStop").show();
             listSEPContent();
         }, function(){
             kimchi.message.error.code('GINSEP0007E');
@@ -529,8 +535,8 @@ ginger.initSEPConfig = function() {
     };
     var sepStop = function() {
         ginger.stopSEP(function() {
-            $("#sepStart").val("style", "display");
-            $("#sepStop").val("style", "display:none");
+            $("#sepStart").show();
+            $("#sepStop").hide();
             listSEPContent();
         }, function(){
             kimchi.message.error.code('GINSEP0008E');
