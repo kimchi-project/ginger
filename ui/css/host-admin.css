@@ -82,7 +82,7 @@
 .ginger .host-admin button{
     font-weight: bold;
     height: 35px;
-    width: 80px;
+    min-width: 80px;
     vertical-align: top;
 }
 
