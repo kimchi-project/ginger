@@ -140,9 +140,9 @@ class SensorsModel(object):
             return devices
 
         def parse_hdds(temperature_unit):
-            # hddtemp has no issues with F <-> C conversion
-            out, error, rc = run_command(['hddtemp', '-u', '%s' %
-                                         str(temperature_unit)])
+            # hddtemp will strangely convert a non-number (see error case
+            #   below) to 32 deg F. So just always ask for C and convert later.
+            out, error, rc = run_command(['hddtemp'])
             if rc:
                 kimchi_log.error("Error retrieving HD temperatures: rc %s."
                                  "output: %s" % (rc, error))
@@ -151,13 +151,26 @@ class SensorsModel(object):
             hdds = OrderedDict()
 
             for hdd in out.splitlines():
+                hdd_name = ''
+                hdd_temp = 0.0
                 try:
                     hdd_items = hdd.split(':')
                     hdd_name, hdd_temp = hdd_items[0], hdd_items[2]
-                    hdds[hdd_name] = \
-                        float(re.sub('°[C|F]', '', hdd_temp).strip())
-                except Exception:
-                    pass
+                    hdd_temp = re.sub('°[C|F]', '', hdd_temp).strip()
+                except Exception as e:
+                    kimchi_log.error('Sensors hdd parse error: %s' % e.message)
+                    continue
+                try:
+                    # Try to convert the number to a float. If it fails,
+                    # don't add this disk to the list.
+                    hdd_temp = float(hdd_temp)
+                    if(temperature_unit == 'F'):
+                        hdd_temp = 9.0/5.0 * hdd_temp + 32
+                    hdds[hdd_name] = hdd_temp
+                except ValueError:
+                    # If no sensor data, parse float will fail. For example:
+                    # "/dev/sda: IBM IPR-10 5D831200: S.M.A.R.T. not available"
+                    kimchi_log.warning("Sensors hdd: %s" % hdd)
             hdds['unit'] = temperature_unit
             return hdds
 
