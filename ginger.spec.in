@@ -9,7 +9,7 @@ Source0:	%{name}-%{version}.tar.gz
 BuildRequires:	gettext-devel >= 0.17
 BuildRequires:	python-cheetah
 Requires:	gettext >= 0.17
-Requires:	kimchi = %{version}
+Requires:	kimchi >= %{version}
 Requires:	tuned
 Requires:	libuser-python
 Requires:	lm_sensors
