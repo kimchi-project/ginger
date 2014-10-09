@@ -77,12 +77,19 @@ service kimchid restart
 %{_datadir}/kimchi/plugins/ginger/ui/css/host-admin.css
 %{_datadir}/kimchi/plugins/ginger/ui/js/host-admin.js
 %{_datadir}/kimchi/plugins/ginger/ui/js/util.js
+%{_datadir}/kimchi/plugins/ginger/ui/pages/help/en_US/host-admin.html
+%{_datadir}/kimchi/plugins/ginger/ui/pages/help/pt_BR/host-admin.html
+%{_datadir}/kimchi/plugins/ginger/ui/pages/help/zh_CN/host-admin.html
 %{_datadir}/kimchi/plugins/ginger/ui/pages/host-admin.html.tmpl
 %{_datadir}/kimchi/plugins/ginger/ui/pages/i18n.json.tmpl
 %{_sysconfdir}/kimchi/plugins.d/ginger.conf
 
 
 %changelog
+* Thu Oct 2 2014 Rodrigo Trujillo <rodrigo.trujillo@linux.vnet.ibm.com>
+- Add Help pages for Ginger
+- Change build system to enable and release Help pages
+
 * Wed Jul  2 2014 Paulo Vital <pvital@linux.vnet.ibm.com> 1.2.1
 - Changed the package name from kimchi-ginger to ginger.
 

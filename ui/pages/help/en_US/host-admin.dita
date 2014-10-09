@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Arbortext, Inc., 1988-2011, v.4002-->
+<!DOCTYPE cshelp PUBLIC "-//IBM//DTD DITA CSHelp//EN"
+ "..\dtd\cshelp.dtd">
+<?Pub Sty _display FontColor="red"?>
+<?Pub Inc?>
+<!--This DITA specialized document type is not supported by the Authoring Tools development team.
+Press the F1 key for online help on the tags and see the DITA XML Guide and Reference for how to use this document type.
+For support please see:
+https://w3.opensource.ibm.com/projects/dita-cshelp/-->
+<cshelp id="administration" xml:lang="en-us">
+<title>Administration</title>
+<shortdesc>The <wintitle>Administration</wintitle> page shows information
+about your firmware and backup configuration files.</shortdesc>
+<csbody>
+<p>The Firmware Updates section displays the current firmware version.
+You can update this version by downloading the RPM file from Fix Central,
+providing the path to the RPM file, and clicking <uicontrol>Update</uicontrol>.</p><?Pub
+Caret 124?>
+<p>The Configuration Backup section displays configuration backup
+files. Hovering over the name displays the paths that are included
+and excluded. The files are saved as tar files. You can download a
+file by clicking the down arrow.</p>
+<p>Click the following to generate new files or delete them.</p>
+<dl><dlentry>
+<dt>Generate Default Backup</dt>
+<dd>Generates a new default backup file. The default paths that are
+saved are <filepath>/etc</filepath> and <filepath>/var/lib/libvirt</filepath>.</dd>
+</dlentry><dlentry>
+<dt>New Custom Backup</dt>
+<dd>Generates a custom backup file. To specify which paths that you
+want to save, enter a path that you want included under Path Include
+or a path that you want excluded under Path Exclude. To add more than
+one path to either field, click the <uicontrol>plus (+)</uicontrol>.
+Optionally, you can enter a description for the backup file. Click <uicontrol>OK</uicontrol> to
+generate the file.</dd>
+</dlentry><dlentry>
+<dt>Batch Delete</dt>
+<dd>Use this option to delete a range of backup files.</dd>
+</dlentry></dl>
+</csbody>
+</cshelp>
+<?Pub *0000002075?>

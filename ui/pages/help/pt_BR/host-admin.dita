@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Arbortext, Inc., 1988-2011, v.4002-->
+<!DOCTYPE cshelp PUBLIC "-//IBM//DTD DITA CSHelp//EN"
+ "..\dtd\cshelp.dtd">
+
+
+<!--This DITA specialized document type is not supported by the Authoring Tools development team.
+Press the F1 key for online help on the tags and see the DITA XML Guide and Reference for how to use this document type.
+For support please see:
+https://w3.opensource.ibm.com/projects/dita-cshelp/-->
+<cshelp id="administration" xml:lang="pt-br">
+<title>Administração</title>
+<shortdesc>A página <wintitle>Administração</wintitle> mostra informações
+sobre seu firmware e arquivos de configuração de backup.</shortdesc>
+<csbody>
+<p>A seção Atualizações de firmware exibe a versão de firmware atual.
+É possível atualizar essa versão fazendo o download do arquivo RPM a partir do Fix Central,
+fornecendo o caminho para o arquivo RPM e clicando em <uicontrol>Atualizar</uicontrol>.</p>
+
+<p>A seção Backup de configuração exibe arquivos de backup de
+configuração. Passar o mouse sobre o nome exibe os caminhos incluídos
+e excluídos. Os arquivos são salvos como arquivos tar. É possível fazer o download de um
+arquivo clicando na seta para baixo.</p>
+<p>Clique nos itens a seguir para gerar novos arquivos ou para excluí-los.</p>
+<dl><dlentry>
+<dt>Gerar backup padrão</dt>
+<dd>Gera um novo arquivo de backup padrão. Os caminhos padrão que são
+salvos são <filepath>/etc</filepath> e <filepath>/var/lib/libvirt</filepath>.</dd>
+</dlentry><dlentry>
+<dt>Novo backup customizado</dt>
+<dd>Gera um arquivo de backup customizado. Para especificar quais caminhos
+deseja salvar, insira um caminho que deseja incluir em Inclusão de caminho
+ou um caminho que deseja excluir em Exclusão de caminho. Para incluir mais de
+um caminho em um dos campos, clique em <uicontrol>mais (+)</uicontrol>.
+Opcionalmente, é possível inserir uma descrição para o arquivo de backup. Clique em <uicontrol>OK</uicontrol> para
+gerar o arquivo.</dd>
+</dlentry><dlentry>
+<dt>Exclusão em lote</dt>
+<dd>Use essa opção para excluir um intervalo de arquivos de backup.</dd>
+</dlentry></dl>
+</csbody>
+</cshelp>
+
+
+<!-- ENGL1SH_VERS10N 02809_3 DO NOT REMOVE OR CHANGE THIS LINE -->
+<!-- T9N_SRC_ID 244 -->
+<!-- T9N_SH1P_STR1NG KVM21AAP001 4 -->

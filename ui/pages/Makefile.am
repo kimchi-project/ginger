@@ -15,6 +15,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+SUBDIRS = help
+
 htmldir = $(datadir)/kimchi/plugins/ginger/ui/pages
 
 dist_html_DATA = \
