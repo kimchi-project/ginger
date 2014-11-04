@@ -98,14 +98,12 @@
                 "ipaddr": {
                     "description": "Interface IP address",
                     "type": "string",
-                    "format": "ip-address",
                     "required": true,
                     "error": "GINNET0006E"
                 },
                 "netmask": {
                     "description": "Interface netmask",
                     "type": "string",
-                    "format": "ip-address",
                     "required": true,
                     "error": "GINNET0007E"
                 }

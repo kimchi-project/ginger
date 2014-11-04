@@ -27,6 +27,7 @@ from kimchi import netinfo
 from kimchi.exception import InvalidParameter, NotFoundError, OperationFailed
 from kimchi.model.libvirtconnection import LibvirtConnection
 from kimchi.utils import run_command
+from kimchi.xmlutils.utils import xpath_get_text
 
 
 class InterfacesModel(object):
@@ -52,10 +53,42 @@ class InterfaceModel(object):
         self._rollback_timer = None
 
     def lookup(self, name):
+        return self._get_interface_info(name)
+
+    def _get_interface_info(self, name):
         try:
-            return netinfo.get_interface_info(name)
+            info = netinfo.get_interface_info(name)
         except ValueError:
             raise NotFoundError("KCHIFACE0001E", {'name': name})
+        if not info['ipaddr']:
+            info['ipaddr'], info['netmask'] = \
+                self._get_static_config_interface_address(name)
+        return info
+
+    def _get_static_config_interface_address(self, name):
+        def _get_ipaddr_info(libvirt_interface_xml):
+            search_ip = \
+                xpath_get_text(libvirt_interface_xml,
+                               "/interface/protocol[@family='ipv4']"
+                               "/ip/@address")
+
+            if not len(search_ip):
+                return '', ''
+
+            search_prefix = \
+                xpath_get_text(libvirt_interface_xml,
+                               "/interface/protocol[@family='ipv4']"
+                               "/ip/@prefix")
+
+            ip_obj = ipaddr.IPv4Network('%s/%s' % (search_ip[0],
+                                                   search_prefix[0]))
+            return str(ip_obj.ip), str(ip_obj.netmask)
+
+        conn = LibvirtConnection("qemu:///system").get()
+        iface_obj = conn.interfaceLookupByName(name)
+        iface_libvirt_xml = \
+            iface_obj.XMLDesc(libvirt.VIR_INTERFACE_XML_INACTIVE)
+        return _get_ipaddr_info(iface_libvirt_xml)
 
     def update(self, name, params):
         try:
@@ -65,17 +98,25 @@ class InterfaceModel(object):
         self._create_libvirt_network_iface(iface_xml)
 
     def _create_iface_xml(self, iface, net_params):
-        n = ipaddr.IPv4Network('%s/%s' %
-                               (net_params['ipaddr'], net_params['netmask']))
         m = E.interface(
             E.start(mode='onboot'),
-            E.protocol(
-                E.ip(address=str(n.ip), prefix=str(n.prefixlen)),
-                family='ipv4'),
             type='ethernet',
             name=iface)
-        if 'gateway' in net_params:
-            m.find('protocol').append(E.route(gateway=net_params['gateway']))
+
+        if net_params['ipaddr'] and net_params['netmask']:
+            n = ipaddr.IPv4Network('%s/%s' % (net_params['ipaddr'],
+                                   net_params['netmask']))
+            protocol_elem = E.protocol(E.ip(address=str(n.ip),
+                                       prefix=str(n.prefixlen)),
+                                       family='ipv4')
+
+            if 'gateway' in net_params:
+                protocol_elem.append((E.route(gateway=net_params['gateway'])))
+            m.append(protocol_elem)
+
+        elif net_params['ipaddr'] or net_params['netmask']:
+            raise InvalidParameter('GINNET0012E')
+
         return ET.tostring(m)
 
     def _create_libvirt_network_iface(self, iface_xml):
@@ -89,10 +130,10 @@ class InterfaceModel(object):
                 self._confirm_timout, self._rollback_on_failure, args=[iface])
             if iface.isActive():
                 iface.destroy()
-            iface.create()
+                iface.create()
             self._rollback_timer.start()
         except Exception as e:
-            conn.changeRollback()
+            self._rollback_on_failure(iface)
             raise OperationFailed('GINNET0004E', {'err': e.message})
 
     def _rollback_on_failure(self, iface):
