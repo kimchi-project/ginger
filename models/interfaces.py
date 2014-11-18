@@ -33,17 +33,8 @@ from kimchi.xmlutils.utils import xpath_get_text
 class InterfacesModel(object):
 
     def get_list(self):
-        return [nic for nic in netinfo.bare_nics()
-                if not self._is_vlan_slave(nic)]
-
-    def _is_vlan_slave(self, iface):
-        def _get_vlan_device(vlan):
-            out, _, _ = run_command(['ip', 'link', 'show', 'dev', vlan])
-            # output example for vlan link:
-            # 9: em1.4@em1: <BROADCAST,MULTICAST> mtu 1500...
-            return out.split(':')[1].strip().split('@')[1]
-
-        return any(_get_vlan_device(vlan) == iface for vlan in netinfo.vlans())
+        nics = [nic for nic in netinfo.all_interfaces()]
+        return sorted(nics)
 
 
 class InterfaceModel(object):
@@ -53,7 +44,20 @@ class InterfaceModel(object):
         self._rollback_timer = None
 
     def lookup(self, name):
-        return self._get_interface_info(name)
+        try:
+            info = netinfo.get_interface_info(name)
+        except ValueError:
+            raise NotFoundError("KCHIFACE0001E", {'name': name})
+
+        info['editable'] = self._is_interface_editable(name)
+        return info
+
+    def _is_interface_editable(self, iface):
+        return iface in _get_all_libvirt_interfaces()
+
+    def _get_all_libvirt_interfaces(self):
+        conn = LibvirtConnection("qemu:///system").get()
+        return [iface.name() for iface in conn.listAllInterfaces()]
 
     def _get_interface_info(self, name):
         try:
@@ -91,6 +95,9 @@ class InterfaceModel(object):
         return _get_ipaddr_info(iface_libvirt_xml)
 
     def update(self, name, params):
+        if not self._is_interface_editable(name):
+            raise InvalidParameter('GINNET0013E', {'name': name})
+
         try:
             iface_xml = self._create_iface_xml(name, params)
         except (ipaddr.AddressValueError, ipaddr.NetmaskValueError) as e:

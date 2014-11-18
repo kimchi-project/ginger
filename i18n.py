@@ -40,6 +40,7 @@ messages = {
     "GINNET0012E": _("Invalid ip/netmask inputs. Both fields must be valids "
                      "ip/netmask values or both must be blank (will erase "
                      "the current IP/netmask)."),
+    "GINNET0013E": _("Interface %(name)s is not editable because it belongs to a vlan or bridge"),
 
     "GINUSER0001E": _("Specify name, password, group and profile for the new "
                       "user."),
