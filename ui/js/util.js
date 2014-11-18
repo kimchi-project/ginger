@@ -308,3 +308,46 @@ ginger.stopSEP = function(suc, err){
         }
     });
 };
+
+ginger.getUsers = function(suc, err) {
+    kimchi.requestJSON({
+        url : kimchi.url + 'plugins/ginger/users',
+        type : 'GET',
+        contentType : 'application/json',
+        dataType : 'json',
+        resend : true,
+        success : suc,
+        error : function(data) {
+            kimchi.message.error(data.responseJSON.reason);
+        }
+    });
+}
+
+ginger.addUser = function(username, suc, err) {
+    kimchi.requestJSON({
+        url : kimchi.url + 'plugins/ginger/users',
+        type : 'POST',
+        contentType : 'application/json',
+        data : JSON.stringify(username),
+        dataType : 'json',
+        resend : true,
+        success : suc,
+        error : function(data) {
+            kimchi.message.error(data.responseJSON.reason);
+            err();
+        }
+    });
+}
+
+ginger.deleteUser = function (username, suc, err) {
+    kimchi.requestJSON({
+        url : kimchi.url + 'plugins/ginger/users/' + username,
+        type : 'DELETE',
+        contentType : 'application/json',
+        dataType : 'json',
+        success : suc,
+        error : function(data) {
+            kimchi.message.error(data.responseJSON.reason);
+        }
+    });
+}

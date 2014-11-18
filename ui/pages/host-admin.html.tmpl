@@ -118,6 +118,16 @@
             <span id="sepStop" class="actBtn" style="display:none">$_("Stop")</span>
         </div>
     </div>
+    <h3>$_("User Management")</h3>
+    <div class="content-area user-manage">
+        <div class="content-header">
+            <span>$_("Name")</span>
+            <span>$_("Group")</span>
+            <span>$_("Profile")</span>
+            <button class="add-user"></button>
+        </div>
+        <div class="content-body"></div>
+    </div>
 </div>
 <div id="newBakDialog" title="Create a backup" class="ginger-dialog">
     <div>$_("Description")</div>
@@ -141,6 +151,33 @@
         <input type="radio" name="batDelType" value="days_ago">$_("Preserve the latest") <input type="text" class="" disabled> $_("days of backups")
     </div>
 </div>
+<div id="hostUserAdd" title="Add User" class="ginger-dialog">
+    <div class="user-add-body">
+        <div class="user-add-label user-colume">
+            <div class="user-label">$_("User Name")</div>
+            <div class="user-label">$_("Password")</div>
+            <div class="user-label">$_("Confirm Password")</div>
+            <div class="user-label">$_("Group")</div>
+            <div class="user-label">$_("Profile")</div>
+        </div>
+        <div class="user-add-content user-colume">
+            <input class="user-input inputbox" name="userName" /><br>
+            <input class="user-input inputbox" name="userPasswd" type="password" /><br>
+            <input class="user-input inputbox" name="userConfirmPasswd" type="password" /><br>
+            <input class="user-input inputbox" name="userGroup" disabled /><input class="enable-combobox" id="enableEditGroup" type="checkbox" value=""><label class="enable-combobox">$_("Use Other")</label><br>
+            <div class="user-input">
+                <input id="kimchiuser" type="radio" name="userProfile" value="kimchiuser" /><label for="kimchiuser">$_("Kimchi User")</label>
+                <input id="virtuser" type="radio" name="userProfile" value="virtuser" /><label for="virtuser">$_("Virt User")</label>
+                <input id="admin" type="radio" name="userProfile" value="admin" /><label for="admin">$_("Administrator")</label>
+            </div>
+        </div>
+        <div class="user-manage-footer">
+            <button id="user-submit" disabled>$_("Submit")</button>
+            <button id="user-cancel">$_("Cancel")</button>
+        </div>
+    </div>
+</div>
+
 
 </div>
 <script id="backupItem" type="text/html">
@@ -194,8 +231,17 @@
 <script id="sensorUnit" type="text/html">
 <div class="sensor-body-label">{labelBody}:  {labelNumber}   {labelUnit}</div>
 </script>
+<script id="userItem" type="text/html">
+<div class="user-item">
+    <div class="user-manage-column" data-type="name">{userName}</div>
+    <div class="user-manage-column" data-type="group">{userGroup}</div>
+    <div class="user-manage-column" data-type="profile">{userProfile}</div>
+    <button class="detach"></button>
+</div>
+</script>
 <script>
     ginger.initAdmin();
 </script>
+<script id="userManagement" type="text/javascript"></script>
 </body>
 </html>

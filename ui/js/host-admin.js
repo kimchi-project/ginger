@@ -565,6 +565,128 @@ ginger.initSEPConfig = function() {
     listSEPContent();
 };
 
+ginger.initUserManagement = function() {
+    var listUsers = function() {
+        $(".content-body", ".ginger .host-admin .user-manage").empty();
+        ginger.getUsers(function(result) {
+            for (var i=0; i<result.length; i++) {
+                var nodeNameItem = $.parseHTML(kimchi.substitute($("#userItem").html(), {
+                    userName : result[i]["name"],
+                    userGroup : result[i]["group"],
+                    userProfile : result[i]["profile"]
+                }));
+                $(".ginger .host-admin .user-manage .content-body").append(nodeNameItem);
+            }
+            $(".detach", ".ginger .host-admin .user-manage").button({
+                icons: {
+                    primary: "ui-icon-trash"
+                },
+                text: false
+            }).click(function(event) {
+                var that = $(this).parent();
+                ginger.deleteUser($("div[data-type='name']", that).text(), function() {
+                    that.remove();
+                }, function() {});
+            });
+        }, function() {});
+    };
+    $(".add-user", ".ginger .host-admin .user-manage").button({
+        icons: {
+            primary: "ui-icon-plusthick"
+        },
+        text: false
+    }).click(function(event) {
+        var clearUMSubmit = function() {
+            $("#kimchiuser").prop("checked", true);
+            $("#enableEditGroup").prop("checked", false);
+            $(".user-add-body .user-add-content .user-input", "#hostUserAdd").val("");
+            $(".user-add-content .user-input").attr("disabled", false);
+            $(".user-add-content .user-input[name='userGroup']").attr("disabled", true);
+            $("input", ".user-add-content .user-input").attr("disabled", false);
+            $("#user-submit").button("option", "disabled", true);
+            $("#user-cancel").button("option", "disabled", false);
+        };
+        $("#hostUserAdd").dialog({
+            modal : true,
+            width : 500,
+            draggable : false,
+            resizable : false,
+            closeText: "X",
+            open : function() {
+                $("#kimchiuser").prop("checked", true);
+                $(".user-input[name='userName']", ".user-add-content").keyup(function() {
+                    var tmpVal = $(this).val();
+                    $(".user-input[name='userGroup']", ".user-add-content").val(tmpVal);
+                });
+                $("#enableEditGroup").click(function() {
+                    if($(this).prop("checked")) {
+                        $(".user-input[name='userGroup']", ".user-add-content").attr("disabled", false);
+                    } else {
+                        $(".user-input[name='userGroup']", ".user-add-content").attr("disabled", true);
+                    }
+                });
+                $(".user-add-content .inputbox").keyup(function() {
+                    var sum = 0;
+                    $(".user-add-content .inputbox").each(function(index, data) {
+                        if($(data).val() === "") {
+                            sum += 1;
+                        }
+                    })
+                    if(sum != 0) {
+                        $("#user-submit").button("option", "disabled", true);
+                    } else {
+                        $("#user-submit").button("option", "disabled", false);
+                    }
+                });
+                $("#user-submit", $(this)).button().click(function(event) {
+                    $(".user-add-content .user-input").attr("disabled", true);
+                    $("input", ".user-add-content .user-input").attr("disabled", true);
+                    $("#user-submit").button("option", "disabled", true);
+                    $("#user-cancel").button("option", "disabled", true);
+                    var userName = $(".user-add-content .user-input[name='userName']", ".user-add-body").val();
+                    var userPasswd = $(".user-add-content .user-input[name='userPasswd']", ".user-add-body").val();
+                    var userConfirmPasswd = $(".user-add-content .user-input[name='userConfirmPasswd']", ".user-add-body").val();
+                    var userGroup = $(".user-add-content .user-input[name='userGroup']", ".user-add-body").val();
+                    var userProfile = $(".user-add-content .user-input>[type='radio']:checked", ".user-add-body").val();
+                    var dataSubmit = {
+                        name : userName,
+                        password : userPasswd,
+                        group : userGroup,
+                        profile : userProfile
+                    };
+                    if (userPasswd === userConfirmPasswd) {
+                        ginger.addUser(dataSubmit, function() {
+                            $("#hostUserAdd").dialog("close");
+                            listUsers();
+                        }, function() {
+                            clearUMSubmit();
+                        });
+                    } else {
+                        kimchi.confirm({
+                            title : i18n['KCHAPI6006M'],
+                            content : i18n['GINUM0002E'],
+                            confirm : i18n['KCHAPI6002M'],
+                            cancel : i18n['KCHAPI6003M']
+                        }, function() {
+                            clearUMSubmit();
+                        }, function() {
+                            clearUMSubmit();
+                        });
+                    }
+                });
+                $("#user-cancel", $(this)).button().click(function(event) {
+                    $("#hostUserAdd").dialog("close");
+                });
+            },
+            beforeClose : function() {
+                clearUMSubmit();
+                $("#user-submit").unbind("click");
+            }
+        });
+    });
+    listUsers();
+};
+
 ginger.initAdmin = function(){
     $("#gingerHostAdmin").accordion();
     $(".content-area", "#gingerHostAdmin").css("height", "100%");
@@ -597,4 +719,5 @@ ginger.initAdmin = function(){
     ginger.initSANAdapter();
     ginger.initSensorsMonitor();
     ginger.initSEPConfig();
+    ginger.initUserManagement();
 };

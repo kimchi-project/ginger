@@ -82,7 +82,7 @@
 .ginger .host-admin button{
     font-weight: bold;
     height: 35px;
-    min-width: 80px;
+    width: 80px;
     vertical-align: top;
 }
 
@@ -470,4 +470,52 @@
 .ginger .host-admin .sep-config .down {
     background: linear-gradient(to bottom, #AFAFAF 0%, #AFAFAF 50%,
                 #AFAFAF 51%, #AFAFAF 100%) repeat scroll 0 0 transparent;
+}
+
+.ginger .host-admin .user-manage .content-header {
+    border-bottom: 1px solid #aaa;
+    height: 22px;
+}
+
+.ginger .host-admin .user-manage .content-header>span {
+    display: inline-block;
+    width: 230px;
+}
+
+.ginger .host-admin .user-manage button {
+    width: 20px;
+    height: 20px;
+    float: right;
+}
+
+.ginger .host-admin .user-manage .content-body .user-item {
+    height: 25px;
+    margin: 2px 0;
+}
+
+.ginger .host-admin .user-manage .content-body .user-manage-column {
+    display: inline-block;
+    width: 230px;
+    font-weight: 400;
+}
+
+#hostUserAdd .user-colume {
+    display: inline-block;
+}
+
+#hostUserAdd .user-add-label>div {
+    margin-top: 14px;
+}
+
+#hostUserAdd .user-add-content .user-input {
+    margin: 7px 0 0 3px;
+}
+
+#hostUserAdd .user-manage-footer {
+    float: right;
+    margin-top: 10px;
+}
+
+.user-add-body .user-add-content .enable-combobox {
+    vertical-align: middle;
 }
