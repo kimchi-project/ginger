@@ -36,7 +36,7 @@ def detect_live_vm():
     return False
 
 
-class FirmwareModel():
+class FirmwareModel(object):
     """
     The model class for viewing and updating the Power firmware level
     """
