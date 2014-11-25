@@ -139,7 +139,12 @@ class UserModel():
                 raise OperationFailed('GINUSER0012E', {'group': group})
 
     def lookup(self, user):
-        user_info = pwd.getpwnam(user)
+        try:
+            user_info = pwd.getpwnam(user)
+        except Exception:
+            kimchi_log.error('User "%s" does not exist', user)
+            raise OperationFailed('GINUSER0011E', {'user': user})
+
         return {"name": user,
                 "uid": user_info.pw_uid,
                 "gid": user_info.pw_gid,
