@@ -66,6 +66,9 @@ AC_CONFIG_FILES([
     ui/pages/help/en_US/Makefile
     ui/pages/help/pt_BR/Makefile
     ui/pages/help/zh_CN/Makefile
+    contrib/Makefile
+    contrib/DEBIAN/Makefile
+    contrib/DEBIAN/control
 ],[
     chmod +x po/gen-pot
 ])

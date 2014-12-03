@@ -25,3 +25,5 @@ po/pt_BR.gmo
 po/stamp-po
 po/zh_CN.gmo
 rpm
+contrib/make-deb.sh
+contrib/DEBIAN/control

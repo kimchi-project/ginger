@@ -1,0 +1,9 @@
+Package: @PACKAGE_NAME@
+Version: @PACKAGE_VERSION@
+Section: base
+Priority: optional
+Architecture: all
+Depends: kimchi,
+         python-libuser
+Maintainer: Daniel Henrique Barboza <dhbarboza82@gmail.com>
+Description: Ginger plug-in for Kimchi web server

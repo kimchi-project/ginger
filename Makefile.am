@@ -17,7 +17,7 @@
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 
-SUBDIRS= po controls models ui
+SUBDIRS= po controls models ui contrib
 
 ACLOCAL_AMFLAGS = --install -I m4
 
@@ -56,6 +56,15 @@ check-local:
 		while read LINE; do echo "$$LINE"; false; done
 	$(PEP8) --version
 	$(PEP8) --filename '*.py,*.py.in' $(PEP8_WHITELIST)
+
+#
+# Packaging helpers
+#
+install-deb: install
+	cp -R $(top_srcdir)/contrib/DEBIAN $(DESTDIR)/
+
+deb: contrib/make-deb.sh
+	$(top_srcdir)/contrib/make-deb.sh
 
 
 # Link built mo files in the source tree to enable use of translations from
