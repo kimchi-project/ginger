@@ -22,7 +22,7 @@ from kimchi.utils import kimchi_log
 from kimchi.utils import run_command
 
 
-class PowerProfilesModel():
+class PowerProfilesModel(object):
     """
     The model class for power saving profiles of the host
     """
@@ -42,8 +42,12 @@ class PowerProfilesModel():
                 profiles.append(line)
         return profiles
 
+    def is_feature_available(self):
+        output, error, returncode = run_command(['tuned-adm'])
+        return returncode == 0
 
-class PowerProfileModel():
+
+class PowerProfileModel(object):
     """
     The model class to represent a single power saving profile.
     """

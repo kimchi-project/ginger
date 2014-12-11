@@ -188,3 +188,7 @@ class SensorsModel(object):
         sensors = parse_sensors(cur_unit)
         hdds = parse_hdds(cur_unit)
         return {'sensors': sensors, 'hdds': hdds}
+
+    def is_feature_available(self):
+        output, error, returncode = run_command(['sensors', '-u'])
+        return returncode == 0

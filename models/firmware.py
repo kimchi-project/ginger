@@ -19,6 +19,7 @@
 
 
 import os
+import platform
 
 from kimchi.exception import OperationFailed
 from kimchi.utils import kimchi_log
@@ -98,3 +99,6 @@ class FirmwareModel(object):
             raise OperationFailed('GINFW0006E', {'rc': rc})
         # update_flash returns a message on success, so log it.
         kimchi_log.info(output)
+
+    def is_feature_available(self):
+        return platform.machine() in ['ppc', 'ppc64']

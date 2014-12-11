@@ -32,7 +32,7 @@ SUDOERS_FILE = '/etc/sudoers.d/%s_conf'
 SUDOERS_LINE = '%s\tALL=(ALL)\tALL\n'
 
 
-class UsersModel():
+class UsersModel(object):
     """
     The model class for basic management of users in the host system
     """
@@ -105,7 +105,7 @@ class UsersModel():
         return [user.pw_name for user in pwd.getpwall() if user.pw_uid >= 1000]
 
 
-class UserModel():
+class UserModel(object):
     def delete(self, user):
         adm = libuser.admin()
         user_obj = adm.lookupUserByName(user)
