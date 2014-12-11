@@ -18,17 +18,19 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 
 from backup import ArchiveModel, ArchivesModel, BackupModel
+from capabilities import CapabilitiesModel
 from firmware import FirmwareModel
 from ibm_sep import SepModel
 from interfaces import InterfacesModel, InterfaceModel
-from kimchi import config
-from kimchi.basemodel import BaseModel
-from kimchi.objectstore import ObjectStore
 from network import NetworkModel
 from powermanagement import PowerProfilesModel, PowerProfileModel
 from sanadapters import SanAdapterModel, SanAdaptersModel
 from sensors import SensorsModel
 from users import UsersModel, UserModel
+
+from kimchi import config
+from kimchi.basemodel import BaseModel
+from kimchi.objectstore import ObjectStore
 
 
 class GingerModel(BaseModel):
@@ -55,6 +57,10 @@ class GingerModel(BaseModel):
         sensors = SensorsModel()
         ibm_sep = SepModel()
 
+        features = [firmware, backup, network, powerprofiles, san_adapters,
+                    sensors, ibm_sep, users]
+        capabilities = CapabilitiesModel(features)
+
         sub_models = [
             backup, archives, archive,
             firmware,
@@ -64,5 +70,5 @@ class GingerModel(BaseModel):
             users, user,
             san_adapters, san_adapter,
             sensors,
-            ibm_sep]
+            ibm_sep, capabilities]
         super(GingerModel, self).__init__(sub_models)

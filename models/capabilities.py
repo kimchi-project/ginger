@@ -17,25 +17,20 @@
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 
-from backup import Backup
-from capabilities import Capabilities
-from firmware import Firmware
-from ibm_sep import Sep
-from network import Network
-from powermanagement import PowerProfiles
-from sanadapters import SanAdapters
-from sensors import Sensors
-from users import Users
-from capabilities import Capabilities
 
-__all__ = [
-    Backup,
-    Capabilities,
-    Firmware,
-    Network,
-    PowerProfiles,
-    SanAdapters,
-    Sensors,
-    Sep,
-    Users
-    ]
+class CapabilitiesModel(object):
+    def __init__(self, features):
+        self.features_enabled = {}
+        self._set_capabilities(features)
+
+    def lookup(self, *ident):
+        return self.features_enabled
+
+    def _set_capabilities(self, features):
+        for feat in features:
+            feat_name = type(feat).__name__.replace('Model', '')
+            try:
+                self.features_enabled[feat_name] = \
+                    feat.is_feature_available()
+            except AttributeError:
+                self.features_enabled[feat_name] = True

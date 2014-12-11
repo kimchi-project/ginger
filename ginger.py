@@ -20,8 +20,8 @@
 import json
 import os
 
-from controls import Backup, Firmware, Network, PowerProfiles, SanAdapters
-from controls import Sensors, Sep, Users
+from controls import Backup, Capabilities, Firmware, Network, PowerProfiles
+from controls import SanAdapters, Sensors, Sep, Users
 from i18n import messages
 from kimchi.config import PluginPaths
 from kimchi.root import Root
@@ -33,6 +33,7 @@ class Ginger(Root):
         self.model = GingerModel()
         super(Ginger, self).__init__(self.model)
         self.backup = Backup(self.model)
+        self.capabilities = Capabilities(self.model)
         self.firmware = Firmware(self.model)
         self.powerprofiles = PowerProfiles(self.model)
         self.sensors = Sensors(self.model)

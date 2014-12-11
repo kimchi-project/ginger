@@ -17,25 +17,13 @@
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 
-from backup import Backup
-from capabilities import Capabilities
-from firmware import Firmware
-from ibm_sep import Sep
-from network import Network
-from powermanagement import PowerProfiles
-from sanadapters import SanAdapters
-from sensors import Sensors
-from users import Users
-from capabilities import Capabilities
+from kimchi.control.base import Resource
 
-__all__ = [
-    Backup,
-    Capabilities,
-    Firmware,
-    Network,
-    PowerProfiles,
-    SanAdapters,
-    Sensors,
-    Sep,
-    Users
-    ]
+
+class Capabilities(Resource):
+    def __init__(self, model):
+        super(Capabilities, self).__init__(model)
+
+    @property
+    def data(self):
+        return self.info
