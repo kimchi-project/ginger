@@ -687,9 +687,7 @@ ginger.initUserManagement = function() {
     listUsers();
 };
 
-ginger.initAdmin = function(){
-    $("#gingerHostAdmin").accordion();
-    $(".content-area", "#gingerHostAdmin").css("height", "100%");
+ginger.initFirmware = function() {
     ginger.getFirmware(function(data){
         $("#gingerFWVer").html(data.level);
     });
@@ -713,11 +711,49 @@ ginger.initAdmin = function(){
             });
         }, null);
     });
-    ginger.initConfigBak();
-    ginger.initNetworkConfig();
-    ginger.initPowerMgmt();
-    ginger.initSANAdapter();
-    ginger.initSensorsMonitor();
-    ginger.initSEPConfig();
-    ginger.initUserManagement();
+};
+
+ginger.initAdmin = function(){
+    $("#gingerHostAdmin").accordion({
+        collapsible: true,
+        active: 1
+    });
+    $(".content-area", "#gingerHostAdmin").css("height", "100%");
+
+    ginger.getCapabilities(function(result) {
+        $.each(result, function(enableItem, capability) {
+            var itemLowCase = enableItem.toLowerCase();
+            if (capability) {
+                $("." + itemLowCase + "-ppc-enabled").show();
+                switch(itemLowCase) {
+                    case "firmware":
+                        ginger.initFirmware();
+                        break;
+                    case "backup":
+                        ginger.initConfigBak();
+                        break;
+                    case "network":
+                        ginger.initNetworkConfig();
+                        break;
+                    case "powerprofiles":
+                        ginger.initPowerMgmt();
+                        break;
+                    case "sanadapters":
+                        ginger.initSANAdapter();
+                        break;
+                    case "sensors":
+                        ginger.initSensorsMonitor();
+                        break;
+                    case "sep":
+                        ginger.initSEPConfig();
+                        break;
+                    case "users":
+                        ginger.initUserManagement();
+                        break;
+                }
+            } else {
+                $("." + itemLowCase + "-ppc-enabled").hide();
+            }
+        });
+    });
 };

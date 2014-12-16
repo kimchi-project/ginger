@@ -351,3 +351,16 @@ ginger.deleteUser = function (username, suc, err) {
         }
     });
 }
+
+ginger.getCapabilities = function(suc, err) {
+    kimchi.requestJSON({
+        url : kimchi.url + 'plugins/ginger/capabilities',
+        type : 'GET',
+        contentType : 'application/json',
+        dataType : 'json',
+        success : suc,
+        error : function(data) {
+            kimchi.message.error(data.responseJSON.reason);
+        }
+    });
+}
