@@ -53,7 +53,7 @@ class InterfaceModel(object):
         return info
 
     def _is_interface_editable(self, iface):
-        return iface in _get_all_libvirt_interfaces()
+        return iface in self._get_all_libvirt_interfaces()
 
     def _get_all_libvirt_interfaces(self):
         conn = LibvirtConnection("qemu:///system").get()
