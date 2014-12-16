@@ -137,3 +137,10 @@ class SepModel(object):
             raise OperationFailed('GINSEP0004E', {'cmd': cmd, 'rc': rc,
                                   'error': error})
         self._sep_status = 'running'
+
+    def is_feature_available(self):
+        cmd = ['/opt/ibm/seprovider/bin/getSubscriber']
+        _, _, rc1 = run_command(cmd)
+        cmd = ['/opt/ibm/seprovider/bin/sepcli', 'status']
+        _, _, rc2 = run_command(cmd)
+        return rc1 > 1 and rc2 == 0
