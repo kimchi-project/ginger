@@ -16,6 +16,12 @@ The current features include:
 Kimchi is an HTML5 based management tool for KVM. It is designed to make it as
 easy as possible to get started with KVM and create your first guest.
 
+- Note on Ubuntu/Debian:
+
+To run the source code in Ubuntu/Debian an extra package is required:
+
+$ sudo apt-get install python-libuser
+
 - Notes on Power policy management feature:
 
 The power policy management feature uses the 'tuned' service to control the
