@@ -26,7 +26,6 @@ from powermanagement import PowerProfiles
 from sanadapters import SanAdapters
 from sensors import Sensors
 from users import Users
-from capabilities import Capabilities
 
 __all__ = [
     Backup,

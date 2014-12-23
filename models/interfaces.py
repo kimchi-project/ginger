@@ -26,7 +26,6 @@ from threading import Timer
 from kimchi import netinfo
 from kimchi.exception import InvalidParameter, NotFoundError, OperationFailed
 from kimchi.model.libvirtconnection import LibvirtConnection
-from kimchi.utils import run_command
 from kimchi.xmlutils.utils import xpath_get_text
 
 
