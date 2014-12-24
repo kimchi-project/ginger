@@ -1,7 +1,6 @@
 *.pyc
 *~
 .*.swp
-ChangeLog
 Makefile
 Makefile.in
 VERSION
