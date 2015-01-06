@@ -92,6 +92,14 @@ messages = {
     "GINSEP0002E": _("System port number is a required parameter."),
     "GINSEP0003E": _("SNMP community is a required parameter."),
     "GINSEP0004E": _("SEP command execution error: '%(cmd)s' - rc: '%(rc)s' \
-                     - error: '%(error)s'.")
+                     - error: '%(error)s'."),
+
+    "GINPOWER001E": _("Failed to retrieve power management profiles: \
+                       Host OS does not support the tuned-adm package."),
+    "GINPOWER002E": _("Failed to retrieve power management profiles: \
+                       Daemon 'tuned-adm' is not active."),
+    "GINPOWER003E": _("Failed to retrieve power management profiles: \
+                       Package 'tuned-adm' is not installed."),
+    "GINPOWER004E": _("Error activating power saving profile %(profile)s.")
 }
 messages.update(kmessages)
