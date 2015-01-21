@@ -19,7 +19,6 @@
 
 import gettext
 
-from kimchi.i18n import messages as kmessages
 
 _ = gettext.gettext
 
@@ -40,7 +39,8 @@ messages = {
     "GINNET0012E": _("Invalid ip/netmask inputs. Both fields must be valids "
                      "ip/netmask values or both must be blank (will erase "
                      "the current IP/netmask)."),
-    "GINNET0013E": _("Interface %(name)s is not editable because it belongs to a vlan or bridge"),
+    "GINNET0013E": _("Interface %(name)s is not editable because it belongs "
+                     "to a vlan or bridge"),
 
     "GINUSER0001E": _("Specify name, password, group and profile for the new "
                       "user."),
@@ -102,4 +102,3 @@ messages = {
                        Package 'tuned-adm' is not installed."),
     "GINPOWER004E": _("Error activating power saving profile %(profile)s.")
 }
-messages.update(kmessages)
