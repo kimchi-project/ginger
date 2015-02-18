@@ -17,32 +17,35 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 
 # tags and output versions:
-#   - ginger-1.2.0   => 1.2.0 (upstream clean)
-#   - ginger-1.2.0-1 => 1.2.0 (downstream clean)
-#   - ginger-1.2.0-2-g34e62f   => 1.2.0 (upstream dirty)
-#   - ginger-1.2.0-1-2-g34e62f => 1.2.0 (downstream dirty)
+#   - 1.2.0   => 1.2.0 (upstream clean)
+#   - 1.2.0-1 => 1.2.0 (downstream clean)
+#   - 1.2.0-2-g34e62f   => 1.2.0 (upstream dirty)
+#   - 1.2.0-1-2-g34e62f => 1.2.0 (downstream dirty)
 AWK_VERSION='
     BEGIN { FS="-" }
-    /^ginger-[0-9]/ {
-      sub(/^ginger-/,"") ; print $1
+    /^[0-9]/ {
+      print $1
     }'
 
 # tags and output releases:
-#   - ginger-1.2.0   => 0 (upstream clean)
-#   - ginger-1.2.0-1 => 1 (downstream clean)
-#   - ginger-1.2.0-2-g34e62f1   => 2.git34e62f1 (upstream dirty)
-#   - ginger-1.2.0-1-2-g34e62f1 => 1.2.git34e62f1 (downstream dirty)
+#   - 1.2.0   => 0 (upstream clean)
+#   - 1.2.0-1 => 1 (downstream clean)
+#   - 1.2.0-2-g34e62f1   => 2.git34e62f1 (upstream dirty)
+#   - 1.2.0-1-2-g34e62f1 => 1.2.git34e62f1 (downstream dirty)
 AWK_RELEASE='
     BEGIN { FS="-"; OFS="." }
-    /^ginger-[0-9]/ {
-      sub(/^ginger-/,"")
+    /^[0-9]/ {
       if (NF == 1) print 0
       else if (NF == 2) print $2
       else if (NF == 3) print $2, "git" substr($3, 2)
       else if (NF == 4) print $2, $3, "git" substr($4, 2)
     }'
 
-PKG_VERSION=`git describe --tags --match "ginger-[0-9]*" 2> /dev/null || cat VERSION 2> /dev/null`
+if [ ! -d .git ]; then
+    PKG_VERSION=`cat VERSION`
+else
+    PKG_VERSION=`git describe --tags --match "[0-9]*" || cat VERSION`
+fi
 
 if test "x$1" = "x--full"; then
     echo $PKG_VERSION | tr -d '[:space:]'
