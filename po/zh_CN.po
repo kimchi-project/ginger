@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ginger 1.2.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-06-22 16:26+0800\n"
+"POT-Creation-Date: 2015-03-03 12:21-0300\n"
 "PO-Revision-Date: 2014-06-22 14:00+0800\n"
 "Last-Translator: Zhou Zheng Sheng <zhshzhou@linux.vnet.ibm.com>\n"
 "Language-Team: Zhou Zheng Sheng <zhshzhou@linux.vnet.ibm.com>\n"
@@ -39,11 +39,115 @@ msgstr "更新"
 msgid "Configuration Backup"
 msgstr "配置备份"
 
+msgid "Batch Delete"
+msgstr ""
+
+msgid "New Custom Backup"
+msgstr ""
+
+msgid "Generate Default Backup"
+msgstr ""
+
 msgid "File"
 msgstr "文件"
 
 msgid "Timestamp"
 msgstr "时间戳"
+
+#, fuzzy
+msgid "Network Configuration"
+msgstr "配置备份"
+
+msgid "Interface"
+msgstr ""
+
+msgid "Name"
+msgstr ""
+
+msgid "IP"
+msgstr ""
+
+msgid "Mask"
+msgstr ""
+
+msgid "DNS"
+msgstr ""
+
+msgid "Gateway"
+msgstr ""
+
+msgid "Power Options"
+msgstr ""
+
+msgid "Activated Option"
+msgstr ""
+
+msgid "Selected Option"
+msgstr ""
+
+msgid "Unselected Option"
+msgstr ""
+
+msgid "Activate"
+msgstr ""
+
+msgid "SAN Adapters"
+msgstr ""
+
+msgid "WWPN"
+msgstr ""
+
+msgid "WWNN"
+msgstr ""
+
+msgid "State"
+msgstr ""
+
+msgid "In-Use/Max Ports"
+msgstr ""
+
+msgid "Speed"
+msgstr ""
+
+msgid "Symbolic Name"
+msgstr ""
+
+msgid "Sensor Monitor"
+msgstr ""
+
+#, fuzzy
+msgid "SEP Configuration"
+msgstr "配置备份"
+
+msgid "Status:"
+msgstr ""
+
+msgid "Host Name:"
+msgstr ""
+
+msgid "Port:"
+msgstr ""
+
+msgid "SNMP Community:"
+msgstr ""
+
+msgid "Subscribe"
+msgstr ""
+
+msgid "Start"
+msgstr ""
+
+msgid "Stop"
+msgstr ""
+
+msgid "User Management"
+msgstr ""
+
+msgid "Group"
+msgstr ""
+
+msgid "Profile"
+msgstr ""
 
 msgid "Description"
 msgstr "描述"
@@ -62,6 +166,34 @@ msgstr "个备份"
 
 msgid "days of backups"
 msgstr "天备份"
+
+msgid "User Name"
+msgstr ""
+
+msgid "Password"
+msgstr ""
+
+msgid "Confirm Password"
+msgstr ""
+
+msgid "Use Other"
+msgstr ""
+
+msgid "Kimchi User"
+msgstr ""
+
+msgid "Virt User"
+msgstr ""
+
+#, fuzzy
+msgid "Administrator"
+msgstr "管理"
+
+msgid "Submit"
+msgstr ""
+
+msgid "Cancel"
+msgstr ""
 
 msgid "Administration"
 msgstr "管理"
@@ -105,6 +237,16 @@ msgstr "无法删除默认网关。详细信息：%(err)s"
 #, python-format
 msgid "Unable to set default gateway: %(err)s"
 msgstr "无法设置默认网关。详细信息：%(err)s"
+
+msgid ""
+"Invalid ip/netmask inputs. Both fields must be valid ip/netmask values or "
+"both must be blank (will erase the current IP/netmask)."
+msgstr ""
+
+#, python-format
+msgid ""
+"Interface %(name)s is not editable because it belongs to a vlan or bridge"
+msgstr ""
 
 msgid "Specify name, password, group and profile for the new user."
 msgstr "指定新用户的名称、密码、组和概要文件。"
@@ -224,6 +366,48 @@ msgid ""
 "information."
 msgstr "未能创建归档“%(identity)s”。检查错误日志以了解更多信息。"
 
+#, fuzzy, python-format
+msgid ""
+"Timeout while creating archive \"%(identity)s\", the files might be too "
+"large for a configuration backup."
+msgstr "未能创建归档“%(identity)s”。检查错误日志以了解更多信息。"
+
 #, python-format
 msgid "SAN adapter '%(adapter)s' does not exist in the system."
 msgstr "SAN适配器“%(adapter)s”不存在。"
+
+#, fuzzy
+msgid "System hostname is a required parameter."
+msgstr "用户名是必需字符串。"
+
+#, fuzzy
+msgid "System port number is a required parameter."
+msgstr "用户名是必需字符串。"
+
+msgid "SNMP community is a required parameter."
+msgstr ""
+
+#, python-format
+msgid ""
+"SEP command execution error: '%(cmd)s' - rc: '%(rc)s'                      - "
+"error: '%(error)s'."
+msgstr ""
+
+msgid ""
+"Failed to retrieve power management profiles:                        Host OS "
+"does not support the tuned-adm package."
+msgstr ""
+
+msgid ""
+"Failed to retrieve power management profiles:                        Daemon "
+"'tuned-adm' is not active."
+msgstr ""
+
+msgid ""
+"Failed to retrieve power management profiles:                        Package "
+"'tuned-adm' is not installed."
+msgstr ""
+
+#, python-format
+msgid "Error activating power saving profile %(profile)s."
+msgstr ""

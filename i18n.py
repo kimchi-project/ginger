@@ -36,7 +36,7 @@ messages = {
     "GINNET0009E": _("Unable to get default gateway: %(err)s"),
     "GINNET0010E": _("Unable to delete default gateway: %(err)s"),
     "GINNET0011E": _("Unable to set default gateway: %(err)s"),
-    "GINNET0012E": _("Invalid ip/netmask inputs. Both fields must be valids "
+    "GINNET0012E": _("Invalid ip/netmask inputs. Both fields must be valid "
                      "ip/netmask values or both must be blank (will erase "
                      "the current IP/netmask)."),
     "GINNET0013E": _("Interface %(name)s is not editable because it belongs "
