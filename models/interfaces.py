@@ -25,7 +25,6 @@ from threading import Timer
 
 from kimchi import netinfo
 from kimchi.exception import InvalidParameter, NotFoundError, OperationFailed
-from kimchi.model.libvirtconnection import LibvirtConnection
 from kimchi.xmlutils.utils import xpath_get_text
 
 
@@ -38,6 +37,7 @@ class InterfacesModel(object):
 
 class InterfaceModel(object):
     _confirm_timout = 10.0  # Second
+    _conn = libvirt.open("qemu:///system")
 
     def __init__(self):
         self._rollback_timer = None
@@ -55,7 +55,7 @@ class InterfaceModel(object):
         return iface in self._get_all_libvirt_interfaces()
 
     def _get_all_libvirt_interfaces(self):
-        conn = LibvirtConnection("qemu:///system").get()
+        conn = self._conn
         return [iface.name() for iface in conn.listAllInterfaces()]
 
     def _get_interface_info(self, name):
@@ -87,7 +87,7 @@ class InterfaceModel(object):
                                                    search_prefix[0]))
             return str(ip_obj.ip), str(ip_obj.netmask)
 
-        conn = LibvirtConnection("qemu:///system").get()
+        conn = self._conn
         iface_obj = conn.interfaceLookupByName(name)
         iface_libvirt_xml = \
             iface_obj.XMLDesc(libvirt.VIR_INTERFACE_XML_INACTIVE)
@@ -126,7 +126,7 @@ class InterfaceModel(object):
         return ET.tostring(m)
 
     def _create_libvirt_network_iface(self, iface_xml):
-        conn = LibvirtConnection("qemu:///system").get()
+        conn = self._conn
         # Only one active transaction is allowed in the system level.
         # It implies that we can use changeBegin() as a synchronized point.
         conn.changeBegin()
@@ -145,7 +145,7 @@ class InterfaceModel(object):
     def _rollback_on_failure(self, iface):
         ''' Called by the Timer in a new thread to cancel wrong network
         configuration and rollback to previous configuration. '''
-        conn = LibvirtConnection("qemu:///system").get()
+        conn = self._conn
         try:
             conn.changeRollback()
             if iface.isActive():
@@ -159,6 +159,6 @@ class InterfaceModel(object):
                 raise
 
     def confirm_change(self, _name):
-        conn = LibvirtConnection("qemu:///system").get()
+        conn = self._conn
         self._rollback_timer.cancel()
         conn.changeCommit()
