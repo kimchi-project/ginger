@@ -25,7 +25,6 @@ from threading import Timer
 
 from interfaces import InterfaceModel
 from kimchi.exception import OperationFailed
-from kimchi.model.libvirtconnection import LibvirtConnection
 from kimchi.network import get_dev_netaddr
 from kimchi.utils import run_command
 
@@ -37,6 +36,7 @@ Route = namedtuple('Route', ['prefix', 'gateway', 'dev'])
 
 class NetworkModel(object):
     _confirm_timeout = 10.0
+    _conn = libvirt.open("qemu:///system")
 
     def lookup(self, name):
         return {'nameservers': self._get_nameservers(),
@@ -106,7 +106,7 @@ class NetworkModel(object):
         route = self._get_default_route_entry()
         gateway = route.gateway
         new_iface = route.dev
-        conn = LibvirtConnection("qemu:///system").get()
+        conn = self._conn
         conn.changeBegin()
         save_config(conn, new_iface, gateway)
         if old_iface and new_iface != old_iface:
@@ -133,7 +133,7 @@ class NetworkModel(object):
             if rc:
                 raise OperationFailed('GINNET0011E', {'reason': err})
 
-        conn = LibvirtConnection("qemu:///system").get()
+        conn = self._conn
         try:
             conn.changeRollback()
         except libvirt.libvirtError as e:
@@ -145,5 +145,5 @@ class NetworkModel(object):
 
     def confirm_change(self, _name):
         self._rollback_timer.cancel()
-        conn = LibvirtConnection("qemu:///system").get()
+        conn = self._conn
         conn.changeCommit()
