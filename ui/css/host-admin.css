@@ -431,45 +431,85 @@
     font-size: 12px;
 }
 
-.ginger .host-admin .sep-config .sep-field {
+.ginger .host-admin .subsc-manage .content-body .subsc-item {
+    height: 25px;
+    margin: 2px 0;
+}
+
+.ginger .host-admin .subsc-manage .content-header {
+    border-bottom: 1px solid #aaa;
+    height: 22px;
+}
+
+.ginger .host-admin .subsc-manage .content-header>span {
     display: inline-block;
-    margin-right: 15px;
+    width: 230px;
 }
 
-.ginger .host-admin .sep-config .sep-buttons {
+.ginger .host-admin .subsc-manage button {
+    width: 20px;
+    height: 20px;
     float: right;
-    vertical-align: bottom;
-    margin-top: 65px;
 }
 
-.ginger .host-admin .sep-config .actBtn {
-    min-width: 90px;
+.ginger .host-admin .subsc-manage .content-body .subsc-manage-column {
+    display: inline-block;
+    width: 230px;
+    font-weight: 400;
 }
 
-.ginger .host-admin .sep-config .sep-label {
-    margin-bottom: 8.5px;
-}
-
-.ginger .host-admin .sep-config .sep-input {
-    margin-bottom: 2px;
-    width: 200px;
-}
-
-.ginger .host-admin .sep-config .sep-dot-active {
+.ginger .host-admin .subsc-manage .status-header .sep-dot-active {
     display: inline-block;
     height: 16px;
     width: 16px;
     border-radius: 8px;
+    vertical-align: middle;
 }
 
-.ginger .host-admin .sep-config .up {
+.ginger .host-admin .subsc-manage .status-header .up {
     background: linear-gradient(to bottom, #BFD255 0%, #8EB92A 50%,
                 #72AA00 51%, #9ECB2D 100%) repeat scroll 0 0 transparent;
 }
 
-.ginger .host-admin .sep-config .down {
+.ginger .host-admin .subsc-manage .status-header .down {
     background: linear-gradient(to bottom, #AFAFAF 0%, #AFAFAF 50%,
                 #AFAFAF 51%, #AFAFAF 100%) repeat scroll 0 0 transparent;
+}
+
+#subscriptionAdd .subsc-colume {
+    display: inline-block;
+}
+
+#subscriptionAdd .subsc-add-label>div {
+    margin-top: 14px;
+}
+
+#subscriptionAdd .subsc-add-content .subsc-input {
+    margin: 7px 0 0 3px;
+}
+
+#subscriptionAdd .subsc-manage-footer {
+    float: right;
+    margin-top: 20px;
+}
+
+.ginger .host-admin .subsc-manage .status-header {
+    margin-bottom: 10px;
+}
+
+.ginger .host-admin .subsc-manage .status-header .sep-label {
+    display: inline-block;
+    margin-right: 10px;
+    vertical-align: middle;
+}
+
+.ginger .host-admin .subsc-manage .status-header .sep-buttons {
+    display: inline-block;
+    margin-left: 10px;
+}
+
+.ginger .host-admin .subsc-manage .status-header .actBtn {
+    min-width: 90px;
 }
 
 .ginger .host-admin .user-manage .content-header {

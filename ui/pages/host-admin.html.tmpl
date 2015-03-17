@@ -97,26 +97,22 @@
     <div class="content-area sensor-panel">
     </div>
     <h3 class="sep-ppc-enabled">$_("SEP Configuration")</h3>
-    <div class="content-area sep-config">
-        <div class="sep-field">
+    <div class="content-area subsc-manage">
+        <div class="status-header">
             <div class="sep-label">$_("Status:")</div>
-            <div class="sep-label">$_("Host Name:")</div>
-            <div class="sep-label">$_("Port:")</div>
-            <div class="sep-label">$_("SNMP Community:")</div>
-        </div>
-        <div class="sep-field">
             <div id="sepStatusLog" class="sep-dot-active down"></div>
-            <div>
-                <input id="sepHostName" class="sep-input" /><br />
-                <input id="sepPort" class="sep-input" /><br />
-                <input id="sepSNMPCommunity" class="sep-input" />
+            <div class="sep-field sep-buttons">
+                <span id="sepStart" class="actBtn">$_("Start")</span>
+                <span id="sepStop" class="actBtn" style="display:none">$_("Stop")</span>
             </div>
         </div>
-        <div class="sep-field sep-buttons">
-            <span id="sepSubscribe" class="actBtn" >$_("Subscribe")</span>
-            <span id="sepStart" class="actBtn">$_("Start")</span>
-            <span id="sepStop" class="actBtn" style="display:none">$_("Stop")</span>
+        <div class="content-header">
+            <span>$_("Hostname")</span>
+            <span>$_("Port")</span>
+            <span>$_("Community")</span>
+            <button class="add-subscription"></button>
         </div>
+        <div class="content-body"></div>
     </div>
     <h3 class="users-ppc-enabled">$_("User Management")</h3>
     <div class="content-area user-manage">
@@ -129,6 +125,7 @@
         <div class="content-body"></div>
     </div>
 </div>
+
 <div id="newBakDialog" title="Create a backup" class="ginger-dialog">
     <div>$_("Description")</div>
     <div class="crt-bak-section"><input type="text" class="desc"></div>
@@ -143,6 +140,7 @@
         </div>
     </div>
 </div>
+
 <div id="batDelDialog" title="Delete backups in batch" class="ginger-dialog">
     <div class="del-option">
         <input type="radio" name="batDelType" value="counts_ago" checked>$_("Preserve the latest") <input type="text" class=""> $_("backups")
@@ -151,6 +149,26 @@
         <input type="radio" name="batDelType" value="days_ago">$_("Preserve the latest") <input type="text" class="" disabled> $_("days of backups")
     </div>
 </div>
+
+<div id="subscriptionAdd" title="Add Subscription" class="ginger-dialog">
+    <div class="subsc-add-body">
+        <div class="subsc-add-label subsc-colume">
+            <div class="subsc-label">$_("Hostname")</div>
+            <div class="subsc-label">$_("Port")</div>
+            <div class="subsc-label">$_("Community")</div>
+        </div>
+        <div class="subsc-add-content subsc-colume">
+            <input class="subsc-input inputbox" name="hostname" /><br>
+            <input class="subsc-input inputbox" name="port" /><br>
+            <input class="subsc-input inputbox" name="community" /><br>
+        </div>
+        <div class="subsc-manage-footer">
+            <button id="subsc-submit" disabled>$_("Submit")</button>
+            <button id="subsc-cancel">$_("Cancel")</button>
+        </div>
+    </div>
+</div>
+
 <div id="hostUserAdd" title="Add User" class="ginger-dialog">
     <div class="user-add-body">
         <div class="user-add-label user-colume">
@@ -236,6 +254,14 @@
     <div class="user-manage-column" data-type="name">{userName}</div>
     <div class="user-manage-column" data-type="group">{userGroup}</div>
     <div class="user-manage-column" data-type="profile">{userProfile}</div>
+    <button class="detach"></button>
+</div>
+</script>
+<script id="subscItem" type="text/html">
+<div class="subsc-item">
+    <div class="subsc-manage-column" data-type="hostname">{hostname}</div>
+    <div class="subsc-manage-column" data-type="port">{port}</div>
+    <div class="subsc-manage-column" data-type="community">{community}</div>
     <button class="detach"></button>
 </div>
 </script>

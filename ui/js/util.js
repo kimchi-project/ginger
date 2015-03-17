@@ -252,9 +252,9 @@ ginger.getSensors = function(suc, err){
     });
 };
 
-ginger.getSEPContent = function(suc, err){
+ginger.getSEPSubscriptions = function(suc, err){
     kimchi.requestJSON({
-        url : kimchi.url + 'plugins/ginger/ibm_sep',
+        url : kimchi.url + 'plugins/ginger/ibm_sep/subscribers',
         type : 'GET',
         contentType : 'application/json',
         dataType : 'json',
@@ -266,13 +266,40 @@ ginger.getSEPContent = function(suc, err){
     });
 };
 
-ginger.updateSEPContent = function(sep, suc, err){
+ginger.deleteSubscription = function (hostname, suc, err) {
     kimchi.requestJSON({
-        url : kimchi.url + 'plugins/ginger/ibm_sep',
-        type : 'PUT',
+        url : kimchi.url + 'plugins/ginger/ibm_sep/subscribers/' + hostname,
+        type : 'DELETE',
         contentType : 'application/json',
         dataType : 'json',
-        data : JSON.stringify(sep),
+        success : suc,
+        error : err || function(data) {
+            kimchi.message.error(data.responseJSON.reason);
+        }
+    });
+}
+
+ginger.addSEPSubscription = function(subscription, suc, err){
+    kimchi.requestJSON({
+        url : kimchi.url + 'plugins/ginger/ibm_sep/subscribers',
+        type : 'POST',
+        contentType : 'application/json',
+        dataType : 'json',
+        data : JSON.stringify(subscription),
+        resend : true,
+        success : suc,
+        error : err || function(data) {
+            kimchi.message.error(data.responseJSON.reason);
+        }
+    });
+};
+
+ginger.getSEPStatus = function(suc, err){
+    kimchi.requestJSON({
+        url : kimchi.url + 'plugins/ginger/ibm_sep',
+        type : 'GET',
+        contentType : 'application/json',
+        dataType : 'json',
         resend : true,
         success : suc,
         error : err || function(data) {

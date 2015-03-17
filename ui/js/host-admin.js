@@ -488,73 +488,126 @@ ginger.initSensorsMonitor = function() {
 };
 
 ginger.initSEPConfig = function() {
-    var listSEPContent = function() {
-        ginger.getSEPContent(function(result) {
+    var sepStatus = function() {
+        ginger.getSEPStatus(function(result) {
             if(result.status === "running") {
                 $("#sepStatusLog").removeClass("down");
                 $("#sepStatusLog").addClass("up");
+                $("#sepStart").button().attr("style","display:none");
+                $("#sepStop").button().attr("style","display");
             } else {
                 $("#sepStatusLog").removeClass("up");
                 $("#sepStatusLog").addClass("down");
-            }
-            $("#sepHostName").val(result["subscription"].hostname);
-            $("#sepPort").val(result["subscription"].port);
-            $("#sepSNMPCommunity").val(result["subscription"].community);
-            if(result.status != "running") {
                 $("#sepStart").button().attr("style", "display");
                 $("#sepStop").button().attr("style", "display:none");
-            } else {
-                $("#sepStart").button().attr("style","display:none");
-                $("#sepStop").button().attr("style","display");
             }
-        }, function() {
-            kimchi.message.error.code('GINSEP0005E');
         });
     };
-    var sepSubscription = function(sepHostName, sepPort, sepCommunity) {
-        var data = {
-            hostname : sepHostName,
-            port : sepPort,
-            community : sepCommunity
-        };
-        ginger.updateSEPContent(data, function() {
-            listSEPContent();
-        }, function() {
-            kimchi.message.error.code('GINSEP0006E');
+    var listSubscriptions = function() {
+        sepStatus();
+        $(".content-body", ".ginger .host-admin .subsc-manage").empty();
+        ginger.getSEPSubscriptions(function(result) {
+            for (var i=0; i<result.length; i++) {
+                var subscItem = $.parseHTML(kimchi.substitute($("#subscItem").html(), {
+                    hostname : result[i]["hostname"],
+                    port : result[i]["port"],
+                    community : result[i]["community"]
+                }));
+                $(".ginger .host-admin .subsc-manage .content-body").append(subscItem);
+            }
+            $(".detach", ".ginger .host-admin .subsc-manage").button({
+                icons: {
+                    primary: "ui-icon-trash"
+                },
+                text: false
+            }).click(function(event) {
+                var that = $(this).parent();
+                ginger.deleteSubscription($("div[data-type='hostname']", that).text(), function() {
+                    that.remove();
+                });
+            });
         });
-
     };
     var sepStart = function() {
         ginger.startSEP(function() {
             $("#sepStart").hide();
             $("#sepStop").show();
-            listSEPContent();
-        }, function(){
-            kimchi.message.error.code('GINSEP0007E');
+            listSubscriptions();
         });
     };
     var sepStop = function() {
         ginger.stopSEP(function() {
             $("#sepStart").show();
             $("#sepStop").hide();
-            listSEPContent();
-        }, function(){
-            kimchi.message.error.code('GINSEP0008E');
+            listSubscriptions();
         });
     };
-    $("#sepSubscribe").button().click(function() {
-        if($("#sepHostName").val() === "") {
-            kimchi.message.error.code("GINSEP0001E");
-            listSEPContent();
-        } else if($("#sepPort").val() === "") {
-            kimchi.message.error.code("GINSEP0002E");
-            listSEPContent();
-        } else if($("#sepSNMPCommunity").val() === "") {
-            kimchi.message.error.code("GINSEP0003E");
-            listSEPContent();
-        } else {
-            sepSubscription($("#sepHostName").val(), $("#sepPort").val(), $("#sepSNMPCommunity").val());
-        }
+
+    $(".add-subscription", ".ginger .host-admin .subsc-manage").button({
+        icons: {
+            primary: "ui-icon-plusthick"
+        },
+        text: false
+    }).click(function(event) {
+        var clearSubscriptionSubmit = function(clear) {
+            if (clear) {
+                $(".subsc-add-body .subsc-add-content .subsc-input", "#subscriptionAdd").val("");
+            }
+            $(".subsc-add-content .subsc-input").attr("disabled", false);
+            $("input", ".subsc-add-content .subsc-input").attr("disabled", false);
+            $("#subsc-submit").button("option", "disabled", true);
+            $("#subsc-cancel").button("option", "disabled", false);
+        };
+        $("#subscriptionAdd").dialog({
+            modal : true,
+            width : 350,
+            draggable : false,
+            resizable : false,
+            closeText: "X",
+            open : function() {
+                $(".subsc-add-content .inputbox").keyup(function() {
+                    var sum = 0;
+                    $(".subsc-add-content .inputbox").each(function(index, data) {
+                        if($(data).val() === "") {
+                            sum += 1;
+                        }
+                    })
+                    if(sum != 0) {
+                        $("#subsc-submit").button("option", "disabled", true);
+                    } else {
+                        $("#subsc-submit").button("option", "disabled", false);
+                    }
+                });
+                $("#subsc-submit", $(this)).button().click(function(event) {
+                    $(".subsc-add-content .subsc-input").attr("disabled", true);
+                    $("input", ".subsc-add-content .subsc-input").attr("disabled", true);
+                    $("#subsc-submit").button("option", "disabled", true);
+                    $("#subsc-cancel").button("option", "disabled", true);
+                    var hostname = $(".subsc-add-content .subsc-input[name='hostname']", ".subsc-add-body").val();
+                    var port = parseInt($(".subsc-add-content .subsc-input[name='port']", ".subsc-add-body").val());
+                    var community = $(".subsc-add-content .subsc-input[name='community']", ".subsc-add-body").val();
+                    var dataSubmit = {
+                        hostname : hostname,
+                        port : port,
+                        community : community,
+                    };
+                    ginger.addSEPSubscription(dataSubmit, function() {
+                        $("#subscriptionAdd").dialog("close");
+                        listSubscriptions();
+                    }, function(error) {
+                        kimchi.message.error(error.responseJSON.reason);
+                        clearSubscriptionSubmit(false);
+                    });
+                });
+                $("#subsc-cancel", $(this)).button().click(function(event) {
+                    $("#subscriptionAdd").dialog("close");
+                });
+            },
+            beforeClose : function() {
+                clearSubscriptionSubmit(true);
+                $("#subsc-submit").unbind("click");
+            }
+        });
     });
     $("#sepStart").button().click(function() {
         sepStart();
@@ -562,7 +615,7 @@ ginger.initSEPConfig = function() {
     $("#sepStop").button().click(function() {
         sepStop();
     });
-    listSEPContent();
+    listSubscriptions();
 };
 
 ginger.initUserManagement = function() {
