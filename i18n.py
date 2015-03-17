@@ -88,11 +88,19 @@ messages = {
     "GINADAP0001E": _("SAN adapter '%(adapter)s' does not exist in the system."
                       ),
 
-    "GINSEP0001E": _("System hostname is a required parameter."),
-    "GINSEP0002E": _("System port number is a required parameter."),
-    "GINSEP0003E": _("SNMP community is a required parameter."),
-    "GINSEP0004E": _("SEP command execution error: '%(cmd)s' - rc: '%(rc)s' \
-                     - error: '%(error)s'."),
+    "GINSEP0001E": _("Provide required parameters: hostname, port, community."
+                     ),
+    "GINSEP0002E": _("System hostname must be a valid string."),
+    "GINSEP0003E": _("System port number must be an integer between 1 and \
+                     65535."),
+    "GINSEP0004E": _("SNMP community name must be a single word."),
+    "GINSEP0005E": _("Error retrieving SEP subscribers data: '%(error)s'."),
+    "GINSEP0006E": _("Hostname %(hostname)s not found."),
+    "GINSEP0007E": _("Error loading SEP subscriptions data from server."),
+    "GINSEP0008E": _("Error starting SEP service: '%(error)s'."),
+    "GINSEP0009E": _("Error stopping SEP service: '%(error)s'."),
+    "GINSEP0010E": _("Error subscribing SEP data to server: '%(error)s'."),
+    "GINSEP0011E": _("Error deleting subscription: '%(error)s'."),
 
     "GINPOWER001E": _("Failed to retrieve power management profiles: \
                        Host OS does not support the tuned-adm package."),

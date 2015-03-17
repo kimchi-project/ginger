@@ -167,26 +167,57 @@
                 }
             }
         },
-        "ibm_sep_update":{
+        "subscribers_create":{
             "type": "object",
+            "error": "GINSEP0001E",
             "properties": {
                 "hostname": {
                     "description": "Specifies the hostname of the system.",
                     "type": "string",
                     "required": true,
-                    "error": "GINSEP0001E"
+                    "error": "GINSEP0002E"
                 },
                 "port": {
                     "description": "Specifies the port of the system.",
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 65535,
+                    "required": true,
+                    "error": "GINSEP0003E"
+                },
+                "community": {
+                    "description": "Specifies the SNMP community.",
+                    "pattern": "^[^ ]+[^ ]*$",
+                    "type": "string",
+                    "required": true,
+                    "error": "GINSEP0004E"
+                }
+            }
+        },
+        "subscription_update":{
+            "type": "object",
+            "error": "GINSEP0001E",
+            "properties": {
+                "hostname": {
+                    "description": "Specifies the hostname of the system.",
                     "type": "string",
                     "required": true,
                     "error": "GINSEP0002E"
                 },
-                "community": {
-                    "description": "Specifies the SNMP community.",
-                    "type": "string",
+                "port": {
+                    "description": "Specifies the port of the system.",
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 65535,
                     "required": true,
                     "error": "GINSEP0003E"
+                },
+                "community": {
+                    "description": "Specifies the SNMP community.",
+                    "pattern": "^[^ ]+[^ ]*$",
+                    "type": "string",
+                    "required": true,
+                    "error": "GINSEP0004E"
                 }
             }
         }
