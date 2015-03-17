@@ -17,18 +17,40 @@
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 
-from kimchi.control.base import Resource
+from kimchi.control.base import Collection, Resource
 
 
 class Sep(Resource):
-    def __init__(self, model, id=None):
-        super(Sep, self).__init__(model, id)
-        self.update_params = ['hostname', 'port', 'community']
+    def __init__(self, model):
+        super(Sep, self).__init__(model)
+        self.admin_methods = ['GET', 'POST']
         self.role_key = "administration"
-        self.admin_methods = ['GET', 'POST', 'PUT']
-        self.uri_fmt = '/ibm_sep/%s'
+        self.uri_fmt = "/ibm_sep/%s"
         self.start = self.generate_action_handler('start')
         self.stop = self.generate_action_handler('stop')
+        self.subscribers = Subscribers(model)
+
+    @property
+    def data(self):
+        return self.info
+
+
+class Subscribers(Collection):
+    def __init__(self, model):
+        super(Subscribers, self).__init__(model)
+        self.resource = Subscription
+        self.admin_methods = ['GET', 'POST', 'PUT']
+        self.update_params = ['hostname', 'port', 'community']
+        self.uri_fmt = "/ibm_sep/subscribers/%s"
+
+    @property
+    def data(self):
+        return self.info
+
+
+class Subscription(Resource):
+    def __init__(self, model, ident):
+        super(Subscription, self).__init__(model, ident)
 
     @property
     def data(self):

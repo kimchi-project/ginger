@@ -17,130 +17,173 @@
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 
+import os
+import re
 
-from kimchi.exception import OperationFailed
+from kimchi.exception import OperationFailed, NotFoundError
 from kimchi.utils import kimchi_log, run_command
+
+SUBSCRIBER = re.compile("(Subscriber_[0-9]*: hostname=)(?P<hostname>.*)\
+(,port=)(?P<port>.*)(,community=)(?P<community>.*)")
+
+
+def addSEP(params):
+    """
+    Add a subscription hostname to IBM SEP tool.
+    """
+    #  add a new one.
+    cmd = ['/opt/ibm/seprovider/bin/subscribe',
+           '-h', params['hostname'],
+           '-p', str(params['port']),
+           '-c', params['community']]
+    output, error, rc = run_command(cmd)
+    if rc != 0:
+        kimchi_log.error('SEP execution error: %s - %s - %s' % (cmd, rc,
+                         error))
+        raise OperationFailed('GINSEP0010E', {'error': error})
+
+    return params['hostname']
 
 
 class SepModel(object):
     """
     The IBM Serviceable Event Provider (SEP) class for model
     """
-    def __init__(self, **kargs):
-        self._activation_info = {}
-        self._sep_status = None
 
-    def _get_subscriber(self):
-        cmd = ['/opt/ibm/seprovider/bin/getSubscriber']
-        output, error, rc = run_command(cmd)
-        if rc > 1:
-            kimchi_log.error('SEP execution error: %s - %s - %s' % (cmd, rc,
-                             error))
-            raise OperationFailed('GINSEP0004E', {'cmd': cmd, 'rc': rc,
-                                  'error': error})
-
-        if (len(output) < 1) or (rc == 1):
-            self._activation_info['hostname'] = ''
-            self._activation_info['port'] = ''
-            self._activation_info['community'] = ''
-        else:
-            # parse the output and return the content
-            (hostname, port, community) = output.split()[1].split(',')
-
-            self._activation_info['hostname'] = hostname.split('=')[1]
-            self._activation_info['port'] = port.split('=')[1]
-            self._activation_info['community'] = community.split('=')[1]
-
-        return self._activation_info
-
-    def start(self, params=None):
-        cmd = ['/opt/ibm/seprovider/bin/sepcli', 'start']
-        output, error, rc = run_command(cmd)
-        if rc != 0:
-            kimchi_log.error('SEP execution error: %s - %s - %s' % (cmd, rc,
-                             error))
-            raise OperationFailed('GINSEP0004E', {'cmd': cmd, 'rc': rc,
-                                  'error': error})
-        self._sep_status = 'running'
-
-    def stop(self, params=None):
-        cmd = ['/opt/ibm/seprovider/bin/sepcli', 'stop']
-        output, error, rc = run_command(cmd)
-        if rc != 10:
-            kimchi_log.error('SEP execution error: %s - %s - %s' % (cmd, rc,
-                             error))
-            raise OperationFailed('GINSEP0004E', {'cmd': cmd, 'rc': rc,
-                                  'error': error})
-        self._sep_status = 'not running'
-
-    def _status(self):
-        cmd = ['/opt/ibm/seprovider/bin/sepcli', 'status']
+    def lookup(self, params):
+        cmd = ['systemctl', 'status', "sepctl"]
         output, error, rc = run_command(cmd)
 
         # workarround to get the correct output from this command
-        if len(output) == 0:
-            output = error
+        if rc == 0:
+            return {"status": "running"}
 
-        if rc == 10:
-            # sep is ** officially** not running
-            self._sep_status = 'not running'
-            kimchi_log.error(output)
-        elif rc != 0:
-            # command not success
-            self._sep_status = 'not running'
+        return {"status": "not running"}
+
+    def start(self, params=None):
+        cmd = ['systemctl', 'start', 'sepctl']
+        output, error, rc = run_command(cmd)
+        if rc != 0:
+            kimchi_log.error('SEP service initialization error: %s - %s - %s'
+                             % (cmd, rc, error))
+            raise OperationFailed('GINSEP0008E', {'error': error})
+
+    def stop(self, params=None):
+        cmd = ['systemctl', 'stop', 'sepctl']
+        output, error, rc = run_command(cmd)
+        if rc != 0:
+            kimchi_log.error('Error stopping SEP service: %s - %s - %s' % (cmd,
+                             rc, error))
+            raise OperationFailed('GINSEP0009E', {'error': error})
+
+    def is_feature_available(self):
+        return (os.path.isfile('/opt/ibm/seprovider/bin/getSubscriber')
+                and os.path.isfile('/opt/ibm/seprovider/bin/subscribe')
+                and os.path.isfile('/opt/ibm/seprovider/bin/unsubscribe'))
+
+
+class SubscribersModel(object):
+    """
+    Manages subscriptions of IBM Service Provider
+    """
+
+    def _get_subscriber(self):
+
+        activation_info = []
+        entry = {}
+        cmd = ['/opt/ibm/seprovider/bin/getSubscriber']
+        output, error, rc = run_command(cmd)
+
+        # no subscriber: return empty
+        if rc == 1:
+            return activation_info
+
+        # error: report
+        if rc != 0:
             kimchi_log.error('SEP execution error: %s - %s - %s' % (cmd, rc,
                              error))
-            raise OperationFailed('GINSEP0004E', {'cmd': cmd, 'rc': rc,
-                                  'error': error})
-        else:
-            # sep is running
-            self._sep_status = 'running'
-            kimchi_log.error(output)
+            raise OperationFailed('GINSEP0007E')
 
-    def lookup(self, params=None):
+        if len(output) > 1:
+
+            # iterate over lines and parse to dict
+            for line in output.splitlines():
+                if len(line) > 0:
+                    entry = SUBSCRIBER.search(line).groupdict()
+                    activation_info.append(entry["hostname"])
+
+        return activation_info
+
+    def create(self, params):
+        """
+        Create a subscription machine at IBM SEP tool.
+        """
+        return addSEP(params)
+
+    def get_list(self):
+        return self._get_subscriber()
+
+
+class SubscriptionModel(object):
+    """
+    Represents a subscription
+    """
+
+    def lookup(self, subscription):
         """
         Returns a dictionary with all SEP information.
         """
-        info = {}
-        self._status()
-        info['status'] = self._sep_status
-        info['subscription'] = self._get_subscriber()
-        return info
+        cmd = ['/opt/ibm/seprovider/bin/getSubscriber']
+        output, error, rc = run_command(cmd)
+
+        # error: report
+        if rc != 0:
+            kimchi_log.error('SEP execution error: %s - %s - %s' % (cmd, rc,
+                             error))
+            raise OperationFailed('GINSEP0005E', {'error': error})
+
+        if len(output) > 1:
+
+            # iterate over lines and parse to dict
+            for line in output.splitlines():
+                if len(line) > 0:
+                    entry = SUBSCRIBER.search(line).groupdict()
+
+                    # subscriber found
+                    if entry["hostname"] == subscription:
+                        return entry
+
+        raise NotFoundError("GINSEP0006E", {'hostname': subscription})
 
     def update(self, name, params):
         """
         Update/add a subscription machine at IBM SEP tool.
         """
-        # check if the hostname to update is the same of the current
-        # subscription and unsubscribe it if not - we are working with
-        # only one subscription at the moment.
-        if ((self._activation_info['hostname'] != '') and
-           (params['hostname'] != self._activation_info['hostname'])):
-            cmd = ['/opt/ibm/seprovider/bin/unsubscribe',
-                   '-h', self._activation_info['hostname']]
-            output, error, rc = run_command(cmd)
-            if rc != 0:
-                kimchi_log.error('SEP execution error: %s - %s - %s' % (cmd,
-                                 rc, error))
-                raise OperationFailed('GINSEP0004E', {'cmd': cmd, 'rc': rc,
-                                      'error': error})
+        bkp_params = self.lookup(name)
+        if len(bkp_params) == 0:
+            raise NotFoundError("GINSEP0006E", {'hostname': name})
 
-        # update the current subscription info, or add a new one.
-        cmd = ['/opt/ibm/seprovider/bin/subscribe',
-               '-h', params['hostname'],
-               '-p', params['port'],
-               '-c', params['community']]
+        self.delete(name)
+        try:
+            addSEP(params)
+        except Exception as e:
+            # Rollback on error
+            addSEP(bkp_params)
+            raise e
+
+    def delete(self, host):
+        """
+        Removes a SEP subscription
+        """
+        # subscription not found: raise exception
+        if len(self.lookup(host)) == 0:
+            raise NotFoundError("GINSEP0006E", {'hostname': host})
+
+        # unsubscribe
+        cmd = ['/opt/ibm/seprovider/bin/unsubscribe', '-h', host]
         output, error, rc = run_command(cmd)
+
         if rc != 0:
             kimchi_log.error('SEP execution error: %s - %s - %s' % (cmd, rc,
-                             error))
-            raise OperationFailed('GINSEP0004E', {'cmd': cmd, 'rc': rc,
-                                  'error': error})
-        self._sep_status = 'running'
-
-    def is_feature_available(self):
-        cmd = ['/opt/ibm/seprovider/bin/getSubscriber']
-        _, _, rc1 = run_command(cmd)
-        cmd = ['/opt/ibm/seprovider/bin/sepcli', 'status']
-        _, _, rc2 = run_command(cmd)
-        return rc1 > 1 and rc2 == 0
+                                                                    error))
+            raise OperationFailed('GINSEP0011E', {'error': error})

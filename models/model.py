@@ -20,7 +20,7 @@
 from backup import ArchiveModel, ArchivesModel, BackupModel
 from capabilities import CapabilitiesModel
 from firmware import FirmwareModel
-from ibm_sep import SepModel
+from ibm_sep import SepModel, SubscribersModel, SubscriptionModel
 from interfaces import InterfacesModel, InterfaceModel
 from network import NetworkModel
 from powermanagement import PowerProfilesModel, PowerProfileModel
@@ -56,6 +56,8 @@ class GingerModel(BaseModel):
         san_adapter = SanAdapterModel()
         sensors = SensorsModel()
         ibm_sep = SepModel()
+        subscription = SubscriptionModel()
+        subscriber = SubscribersModel()
 
         features = [firmware, backup, network, powerprofiles, san_adapters,
                     sensors, ibm_sep, users]
@@ -70,5 +72,6 @@ class GingerModel(BaseModel):
             users, user,
             san_adapters, san_adapter,
             sensors,
-            ibm_sep, capabilities]
+            ibm_sep, subscription, subscriber,
+            capabilities]
         super(GingerModel, self).__init__(sub_models)
