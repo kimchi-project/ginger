@@ -101,4 +101,4 @@ class FirmwareModel(object):
         kimchi_log.info(output)
 
     def is_feature_available(self):
-        return platform.machine() in ['ppc', 'ppc64']
+        return platform.machine().startswith('ppc')
