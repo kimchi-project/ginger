@@ -6,4 +6,4 @@ for src in $@; do
     else
         cat $src | @CHEETAH@ compile -
     fi
-done | xgettext --no-location -o ginger.pot -L Python -
+done | xgettext --sort-output --no-location -o ginger.pot -L Python -
