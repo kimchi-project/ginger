@@ -1,4 +1,4 @@
-# English translations for Ginger package.
+# French translations for Ginger package.
 # Copyright (C) 2014 IBM, Corp.
 # This file is distributed under the same license as the Ginger package.
 #
@@ -10,79 +10,84 @@ msgstr ""
 "PO-Revision-Date: 2014-06-22 14:00+0800\n"
 "Last-Translator: Zhou Zheng Sheng <zhshzhou@linux.vnet.ibm.com>\n"
 "Language-Team: Zhou Zheng Sheng <zhshzhou@linux.vnet.ibm.com>\n"
-"Language: en_US\n"
+"Language: fr_FR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 msgid "Activate"
-msgstr ""
+msgstr "Activer"
 
 msgid "Activated Option"
-msgstr ""
+msgstr "Option activée"
 
 msgid "Administration"
-msgstr ""
+msgstr "Administration"
 
 msgid "Administrator"
 msgstr ""
 
 msgid "Batch Delete"
-msgstr ""
+msgstr "Supprimer"
 
 msgid "Cancel"
 msgstr ""
 
 msgid "Cannot update system firmware while running VMs."
 msgstr ""
+"Impossible de mettre à jour le microprogramme du système lors de l'exécution "
+"de machines virtuelles."
 
 msgid "Community"
 msgstr ""
 
 msgid "Configuration Backup"
-msgstr ""
+msgstr "Sauvegarde de configuration"
 
 msgid "Confirm Password"
 msgstr ""
 
 #, python-format
 msgid "Could not add user '%(user)s' to kvm group."
-msgstr ""
+msgstr "Impossible d'ajouter l'utilisateur '%(user)s' au groupe kvm."
 
 #, python-format
 msgid "Could not add user '%(user)s' to sudoers list."
-msgstr ""
+msgstr "Impossible d'ajouter l'utilisateur '%(user)s' à la liste sudoers."
 
 #, python-format
 msgid "Could not create user '%(user)s'."
-msgstr ""
+msgstr "Impossible de créer l'utilisateur '%(user)s'."
 
 #, python-format
 msgid "Could not delete group '%(group)s'"
-msgstr ""
+msgstr "Impossible de supprimer le groupe '%(group)s'."
 
 #, python-format
 msgid "Could not delete user '%(user)s'."
-msgstr ""
+msgstr "Impossible de supprimer l'utilisateur '%(user)s'."
 
 msgid "DNS"
-msgstr ""
+msgstr "DNS"
 
 msgid "Description"
-msgstr ""
+msgstr "Description"
 
 msgid "Description too long."
-msgstr ""
+msgstr "Description trop longue."
 
 #, python-format
 msgid "Error activating power saving profile %(profile)s."
-msgstr ""
+msgstr "Erreur d'activation du profil d'économie d'énergie %(profile)s."
 
 #, python-format
 msgid ""
 "Error commiting firmware. rc = %(rc)s.                      Ensure you are "
 "booted to the temporary side."
 msgstr ""
+"Erreur de validation du microprogramme. Code retour = "
+"%(rc)s.                      Vérifiez que vous avez amorcé sur le côté "
+"temporaire."
 
 #, python-format
 msgid "Error deleting subscription: '%(error)s'."
@@ -93,6 +98,9 @@ msgid ""
 "Error flashing firmware. rc = %(rc)s.                      Please see /usr/"
 "sbin/update_flash for rc reasons."
 msgstr ""
+"Erreur lors de la copie instantanée du microprogramme. Code retour = "
+"%(rc)s.                      Voir /usr/sbin/update_flash pour les motifs du "
+"code retour."
 
 msgid "Error loading SEP subscriptions data from server."
 msgstr ""
@@ -102,6 +110,9 @@ msgid ""
 "Error rejecting firmware. rc = %(rc)s.                      Ensure you are "
 "booted to the permanent side."
 msgstr ""
+"Erreur de rejet du microprogramme. Code retour = "
+"%(rc)s.                      Vérifiez que vous avez amorcé sur le côté "
+"permanent."
 
 #, python-format
 msgid "Error retrieving SEP subscribers data: '%(error)s'."
@@ -121,82 +132,100 @@ msgstr ""
 
 msgid "FW update failed: No image file found in the package file."
 msgstr ""
+"Echec de mise à jour du microprogramme : Fichier image introuvable dans le "
+"fichier de module."
 
 #, python-format
 msgid ""
 "Failed to create archive \"%(identity)s\". Inspect error log for more "
 "information."
 msgstr ""
+"Echec de création de l'archive \"%(identity)s\". Consultez le journal des "
+"erreurs pour plus d'informations."
 
 #, python-format
 msgid ""
 "Failed to create archive dir \"%(dir)s\". Inspect error log for more "
 "information."
 msgstr ""
+"Echec de création du répertoire d'archivage \"%(dir)s\". Consultez le "
+"journal des erreurs pour plus d'informations."
 
 #, python-format
 msgid ""
 "Failed to create tar archive \"%(name)s\", cmd: \"%(cmd)s\". Inspect error "
 "log for more information."
 msgstr ""
+"Echec de création due l'archive tar \"%(name)s\", commande : \"%(cmd)s\". "
+"Consultez le journal des erreurs pour plus d'informations."
 
 #, python-format
 msgid "Failed to delete archive file \"%(name)s\"."
-msgstr ""
+msgstr "Echec de suppression du fichier archive \"%(name)s\"."
 
 #, python-format
 msgid "Failed to read /etc/resolv.conf because %(reason)s"
-msgstr ""
+msgstr "Echec de lecture de /etc/resolv.conf. Motif : %(reason)s"
 
 msgid ""
 "Failed to retrieve power management profiles:                        Daemon "
 "'tuned-adm' is not active."
 msgstr ""
+"Echec d'extraction des profils de gestion d'alimentation :          Le démon "
+"'tuned-adm' n'est pas actif."
 
 msgid ""
 "Failed to retrieve power management profiles:                        Host OS "
 "does not support the tuned-adm package."
 msgstr ""
+"Echec d'extraction des profils de gestion d'alimentation :          Le "
+"système d'exploitation de l'hôte ne prend pas en charge le module tuned-adm."
 
 msgid ""
 "Failed to retrieve power management profiles:                        Package "
 "'tuned-adm' is not installed."
 msgstr ""
+"Echec d'extraction des profils de gestion d'alimentation :          Le "
+"module 'tuned-adm' n'est pas installé."
 
 #, python-format
 msgid "Failed to write /etc/resolv.conf because %(reason)s"
-msgstr ""
+msgstr "Echec d'écriture de /etc/resolv.conf. Motif : %(reason)s"
 
 msgid "File"
-msgstr ""
+msgstr "Fichier"
 
 msgid "Firmware Update"
-msgstr ""
+msgstr "Mise à jour du microprogramme"
 
 msgid "Firmware Version: "
-msgstr ""
+msgstr "Version de microprogramme : "
 
 #, python-format
 msgid "Firmware image unpack failed: rc = %(rc)s. Details: %(err)s"
 msgstr ""
+"Echec de la décompression de l'image du microprogramme : code de retour = "
+"%(rc)s. Détails : %(err)s"
 
 msgid ""
 "Firmware update is initializing. System will reboot in order to flash the "
 "firmware."
 msgstr ""
+"Mise à jour du microcode en cours d'initialisation. Le système va redémarrer "
+"afin de copier instantanément le microcode du système."
 
 msgid "Gateway"
-msgstr ""
+msgstr "Passerelle"
 
 msgid "Generate Default Backup"
-msgstr ""
+msgstr "Générer la sauvegarde par défaut"
 
 msgid "Group"
 msgstr ""
 
 #, python-format
 msgid "Group for user '%(user)s' does not exist for removal."
-msgstr ""
+msgstr "Le groupe de l'utilisateur '%(user)s' ne peut pas être retiré."
 
 msgid "Hostname"
 msgstr ""
@@ -206,13 +235,13 @@ msgid "Hostname %(hostname)s not found."
 msgstr ""
 
 msgid "IP"
-msgstr ""
+msgstr "IP"
 
 msgid "In-Use/Max Ports"
-msgstr ""
+msgstr "Ports utilisés/max"
 
 msgid "Interface"
-msgstr ""
+msgstr "Interface"
 
 #, python-format
 msgid ""
@@ -220,10 +249,10 @@ msgid ""
 msgstr ""
 
 msgid "Invalid counts_ago number."
-msgstr ""
+msgstr "Nombre d'occurrences_écoulées non valide."
 
 msgid "Invalid days_ago number."
-msgstr ""
+msgstr "Nombre de jours_écoulés non valide."
 
 msgid ""
 "Invalid ip/netmask inputs. Both fields must be valid ip/netmask values or "
@@ -232,61 +261,61 @@ msgstr ""
 
 #, python-format
 msgid "Invalid network parameters. Details: %(err)s"
-msgstr ""
+msgstr "Paramètres réseau non valides. Détails : %(err)s"
 
 msgid "Invalid parameter for DNS servers"
-msgstr ""
+msgstr "Paramètre non valide pour des serveurs DNS"
 
 msgid "Invalid parameter for interface ip address"
-msgstr ""
+msgstr "Paramètre non valide pour l'adresse IP de l'interface"
 
 msgid "Invalid parameter for interface netmask"
-msgstr ""
+msgstr "Paramètre non valide pour le masque de réseau de l'interface"
 
 msgid "Invalid parameter for network gateway"
-msgstr ""
+msgstr "Paramètre non valide pour la passerelle réseau"
 
 msgid "Kimchi User"
 msgstr ""
 
 msgid "Mask"
-msgstr ""
+msgstr "Masque"
 
 msgid "Name"
-msgstr ""
+msgstr "Nom"
 
 msgid "Network Configuration"
-msgstr ""
+msgstr "Configuration de réseau"
 
 msgid "New Custom Backup"
-msgstr ""
+msgstr "Nouvelle sauvegarde personnalisée"
 
 msgid "Package Path: "
-msgstr ""
+msgstr "Chemin d'accès au module : "
 
 msgid "Password"
 msgstr ""
 
 msgid "Path Excluded"
-msgstr ""
+msgstr "Chemin exclu"
 
 msgid "Path Included"
-msgstr ""
+msgstr "Chemin inclus"
 
 msgid "Path or pattern is too long or too short."
-msgstr ""
+msgstr "Chemin ou motif trop long ou trop court."
 
 msgid "Please check the uniqueness of the paths or patterns."
-msgstr ""
+msgstr "Assurez-vous de l'unicité des chemins et motifs."
 
 msgid "Port"
 msgstr ""
 
 msgid "Power Options"
-msgstr ""
+msgstr "Options d'alimentation"
 
 msgid "Preserve the latest"
-msgstr ""
+msgstr "Conserver les"
 
 msgid "Profile"
 msgstr ""
@@ -295,47 +324,49 @@ msgid "Provide required parameters: hostname, port, community."
 msgstr ""
 
 msgid "SAN Adapters"
-msgstr ""
+msgstr "Adaptateurs SAN"
 
 #, python-format
 msgid "SAN adapter '%(adapter)s' does not exist in the system."
-msgstr ""
+msgstr "L'adaptateur SAN '%(adapter)s' n'existe pas sur le système."
 
 msgid "SEP Configuration"
-msgstr ""
+msgstr "Configuration SEP"
 
 msgid "SNMP community name must be a single word."
 msgstr ""
 
 msgid "Selected Option"
-msgstr ""
+msgstr "Option sélectionnée"
 
 msgid "Sensor Monitor"
-msgstr ""
+msgstr "Moniteur de détecteur"
 
 msgid "Specify name, password, group and profile for the new user."
 msgstr ""
+"Indiquez un nom, un mot de passe, un groupe et un profil pour les nouveaux "
+"utilisateurs."
 
 msgid "Speed"
-msgstr ""
+msgstr "Vitesse"
 
 msgid "Start"
-msgstr ""
+msgstr "Démarrer"
 
 msgid "State"
-msgstr ""
+msgstr "Etat"
 
 msgid "Status:"
-msgstr ""
+msgstr "Etat :"
 
 msgid "Stop"
-msgstr ""
+msgstr "Arrêter"
 
 msgid "Submit"
 msgstr ""
 
 msgid "Symbolic Name"
-msgstr ""
+msgstr "Nom symbolique"
 
 msgid "System hostname must be a valid string."
 msgstr ""
@@ -346,49 +377,54 @@ msgid ""
 msgstr ""
 
 msgid "The absolute path to the firmware rpm."
-msgstr ""
+msgstr "Chemin d'accès absolu au fichier RPM du microprogramme."
 
 #, python-format
 msgid "The user name '%(user)s' is already in use'."
-msgstr ""
+msgstr "Le nom d'utilisateur '%(user)s' est déjà utilisé."
 
 #, python-format
 msgid ""
 "Timeout while creating archive \"%(identity)s\", the files might be too "
 "large for a configuration backup."
 msgstr ""
+"Dépassement du délai d'attente lors de la création de l'archive "
+"\"%(identity)s\". Les fichiers sont peut-être trop volumineux pour une "
+"sauvegarde de configuration."
 
 msgid "Timestamp"
-msgstr ""
+msgstr "Horodatage"
 
 #, python-format
 msgid "Unable to delete default gateway: %(err)s"
-msgstr ""
+msgstr "Impossible de supprimer la passerelle par défaut : %(err)s"
 
 #, python-format
 msgid "Unable to get default gateway: %(err)s"
-msgstr ""
+msgstr "Impossible d'obtenir la passerelle par défaut : %(err)s"
 
 #, python-format
 msgid "Unable to set default gateway: %(err)s"
-msgstr ""
+msgstr "Impossible de définir la passerelle par défaut : %(err)s"
 
 #, python-format
 msgid "Unable to update interface configuration. Details: %(err)s"
 msgstr ""
+"Impossible de mettre à jour la configuration de l'interface. Détails : "
+"%(err)s"
 
 msgid "Unselected Option"
-msgstr ""
+msgstr "Option désélectionnée"
 
 msgid "Update"
-msgstr ""
+msgstr "Mettre à jour"
 
 msgid "Use Other"
 msgstr ""
 
 #, python-format
 msgid "User '%(user)s' does not exist."
-msgstr ""
+msgstr "L'utilisateur '%(user)s' n'existe pas."
 
 msgid "User Management"
 msgstr ""
@@ -397,30 +433,60 @@ msgid "User Name"
 msgstr ""
 
 msgid "User group is a required string."
-msgstr ""
+msgstr "Le groupe d'utilisateurs est une chaîne obligatoire."
 
 msgid "User name is a required string."
-msgstr ""
+msgstr "Le nom d'utilisateur est une chaîne obligatoire."
 
 msgid "User password is a required string."
-msgstr ""
+msgstr "Le mot de passe utilisateur est une chaîne obligatoire."
 
 msgid ""
 "User profile is required and should be one among kimchiuser, virtuser or "
 "admin."
 msgstr ""
+"Le profil utilisateur est obligatoire et doit être kimchiuser, virtuser ou "
+"admin."
 
 msgid "Virt User"
 msgstr ""
 
 msgid "WWNN"
-msgstr ""
+msgstr "WWNN"
 
 msgid "WWPN"
-msgstr ""
+msgstr "WWPN"
 
 msgid "backups"
-msgstr ""
+msgstr "dernières sauvegardes"
 
 msgid "days of backups"
-msgstr ""
+msgstr "derniers jours de sauvegarde"
+
+#~ msgid "Host Name:"
+#~ msgstr "Nom d'hôte :"
+
+#~ msgid "Port:"
+#~ msgstr "Port :"
+
+#~ msgid ""
+#~ "SEP command execution error: '%(cmd)s' - rc: "
+#~ "'%(rc)s'                      - error: '%(error)s'."
+#~ msgstr ""
+#~ "Erreur d'exécution de commande SEP : '%(cmd)s' - Code retour : "
+#~ "'%(rc)s'                      - erreur : '%(error)s'."
+
+#~ msgid "SNMP Community:"
+#~ msgstr "Communauté SNMP :"
+
+#~ msgid "SNMP community is a required parameter."
+#~ msgstr "La communauté SNMP est un paramètre obligatoire."
+
+#~ msgid "Subscribe"
+#~ msgstr "S'abonner"
+
+#~ msgid "System hostname is a required parameter."
+#~ msgstr "Le nom d'hôte système est un paramètre obligatoire."
+
+#~ msgid "System port number is a required parameter."
+#~ msgstr "Le numéro de port système est un paramètre obligatoire."

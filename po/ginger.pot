@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-03-03 12:21-0300\n"
+"POT-Creation-Date: 2015-03-24 18:54-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,7 +17,169 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
+msgid "Activate"
+msgstr ""
+
+msgid "Activated Option"
+msgstr ""
+
+msgid "Administration"
+msgstr ""
+
+msgid "Administrator"
+msgstr ""
+
+msgid "Batch Delete"
+msgstr ""
+
+msgid "Cancel"
+msgstr ""
+
+msgid "Cannot update system firmware while running VMs."
+msgstr ""
+
+msgid "Community"
+msgstr ""
+
+msgid "Configuration Backup"
+msgstr ""
+
+msgid "Confirm Password"
+msgstr ""
+
+#, python-format
+msgid "Could not add user '%(user)s' to kvm group."
+msgstr ""
+
+#, python-format
+msgid "Could not add user '%(user)s' to sudoers list."
+msgstr ""
+
+#, python-format
+msgid "Could not create user '%(user)s'."
+msgstr ""
+
+#, python-format
+msgid "Could not delete group '%(group)s'"
+msgstr ""
+
+#, python-format
+msgid "Could not delete user '%(user)s'."
+msgstr ""
+
+msgid "DNS"
+msgstr ""
+
+msgid "Description"
+msgstr ""
+
+msgid "Description too long."
+msgstr ""
+
+#, python-format
+msgid "Error activating power saving profile %(profile)s."
+msgstr ""
+
+#, python-format
+msgid ""
+"Error commiting firmware. rc = %(rc)s.                      Ensure you are "
+"booted to the temporary side."
+msgstr ""
+
+#, python-format
+msgid "Error deleting subscription: '%(error)s'."
+msgstr ""
+
+#, python-format
+msgid ""
+"Error flashing firmware. rc = %(rc)s.                      Please see /usr/"
+"sbin/update_flash for rc reasons."
+msgstr ""
+
+msgid "Error loading SEP subscriptions data from server."
+msgstr ""
+
+#, python-format
+msgid ""
+"Error rejecting firmware. rc = %(rc)s.                      Ensure you are "
+"booted to the permanent side."
+msgstr ""
+
+#, python-format
+msgid "Error retrieving SEP subscribers data: '%(error)s'."
+msgstr ""
+
+#, python-format
+msgid "Error starting SEP service: '%(error)s'."
+msgstr ""
+
+#, python-format
+msgid "Error stopping SEP service: '%(error)s'."
+msgstr ""
+
+#, python-format
+msgid "Error subscribing SEP data to server: '%(error)s'."
+msgstr ""
+
+msgid "FW update failed: No image file found in the package file."
+msgstr ""
+
+#, python-format
+msgid ""
+"Failed to create archive \"%(identity)s\". Inspect error log for more "
+"information."
+msgstr ""
+
+#, python-format
+msgid ""
+"Failed to create archive dir \"%(dir)s\". Inspect error log for more "
+"information."
+msgstr ""
+
+#, python-format
+msgid ""
+"Failed to create tar archive \"%(name)s\", cmd: \"%(cmd)s\". Inspect error "
+"log for more information."
+msgstr ""
+
+#, python-format
+msgid "Failed to delete archive file \"%(name)s\"."
+msgstr ""
+
+#, python-format
+msgid "Failed to read /etc/resolv.conf because %(reason)s"
+msgstr ""
+
+msgid ""
+"Failed to retrieve power management profiles:                        Daemon "
+"'tuned-adm' is not active."
+msgstr ""
+
+msgid ""
+"Failed to retrieve power management profiles:                        Host OS "
+"does not support the tuned-adm package."
+msgstr ""
+
+msgid ""
+"Failed to retrieve power management profiles:                        Package "
+"'tuned-adm' is not installed."
+msgstr ""
+
+#, python-format
+msgid "Failed to write /etc/resolv.conf because %(reason)s"
+msgstr ""
+
+msgid "File"
+msgstr ""
+
 msgid "Firmware Update"
+msgstr ""
+
+msgid "Firmware Version: "
+msgstr ""
+
+#, python-format
+msgid "Firmware image unpack failed: rc = %(rc)s. Details: %(err)s"
 msgstr ""
 
 msgid ""
@@ -25,191 +187,53 @@ msgid ""
 "firmware."
 msgstr ""
 
-msgid "Firmware Version: "
-msgstr ""
-
-msgid "Package Path: "
-msgstr ""
-
-msgid "The absolute path to the firmware rpm."
-msgstr ""
-
-msgid "Update"
-msgstr ""
-
-msgid "Configuration Backup"
-msgstr ""
-
-msgid "Batch Delete"
-msgstr ""
-
-msgid "New Custom Backup"
+msgid "Gateway"
 msgstr ""
 
 msgid "Generate Default Backup"
 msgstr ""
 
-msgid "File"
+msgid "Group"
 msgstr ""
 
-msgid "Timestamp"
+#, python-format
+msgid "Group for user '%(user)s' does not exist for removal."
 msgstr ""
 
-msgid "Network Configuration"
+msgid "Hostname"
 msgstr ""
 
-msgid "Interface"
-msgstr ""
-
-msgid "Name"
+#, python-format
+msgid "Hostname %(hostname)s not found."
 msgstr ""
 
 msgid "IP"
 msgstr ""
 
-msgid "Mask"
-msgstr ""
-
-msgid "DNS"
-msgstr ""
-
-msgid "Gateway"
-msgstr ""
-
-msgid "Power Options"
-msgstr ""
-
-msgid "Activated Option"
-msgstr ""
-
-msgid "Selected Option"
-msgstr ""
-
-msgid "Unselected Option"
-msgstr ""
-
-msgid "Activate"
-msgstr ""
-
-msgid "SAN Adapters"
-msgstr ""
-
-msgid "WWPN"
-msgstr ""
-
-msgid "WWNN"
-msgstr ""
-
-msgid "State"
-msgstr ""
-
 msgid "In-Use/Max Ports"
 msgstr ""
 
-msgid "Speed"
-msgstr ""
-
-msgid "Symbolic Name"
-msgstr ""
-
-msgid "Sensor Monitor"
-msgstr ""
-
-msgid "SEP Configuration"
-msgstr ""
-
-msgid "Status:"
-msgstr ""
-
-msgid "Host Name:"
-msgstr ""
-
-msgid "Port:"
-msgstr ""
-
-msgid "SNMP Community:"
-msgstr ""
-
-msgid "Subscribe"
-msgstr ""
-
-msgid "Start"
-msgstr ""
-
-msgid "Stop"
-msgstr ""
-
-msgid "User Management"
-msgstr ""
-
-msgid "Group"
-msgstr ""
-
-msgid "Profile"
-msgstr ""
-
-msgid "Description"
-msgstr ""
-
-msgid "Path Included"
-msgstr ""
-
-msgid "Path Excluded"
-msgstr ""
-
-msgid "Preserve the latest"
-msgstr ""
-
-msgid "backups"
-msgstr ""
-
-msgid "days of backups"
-msgstr ""
-
-msgid "User Name"
-msgstr ""
-
-msgid "Password"
-msgstr ""
-
-msgid "Confirm Password"
-msgstr ""
-
-msgid "Use Other"
-msgstr ""
-
-msgid "Kimchi User"
-msgstr ""
-
-msgid "Virt User"
-msgstr ""
-
-msgid "Administrator"
-msgstr ""
-
-msgid "Submit"
-msgstr ""
-
-msgid "Cancel"
-msgstr ""
-
-msgid "Administration"
+msgid "Interface"
 msgstr ""
 
 #, python-format
-msgid "Failed to read /etc/resolv.conf because %(reason)s"
+msgid ""
+"Interface %(name)s is not editable because it belongs to a vlan or bridge"
 msgstr ""
 
-#, python-format
-msgid "Failed to write /etc/resolv.conf because %(reason)s"
+msgid "Invalid counts_ago number."
+msgstr ""
+
+msgid "Invalid days_ago number."
+msgstr ""
+
+msgid ""
+"Invalid ip/netmask inputs. Both fields must be valid ip/netmask values or "
+"both must be blank (will erase the current IP/netmask)."
 msgstr ""
 
 #, python-format
 msgid "Invalid network parameters. Details: %(err)s"
-msgstr ""
-
-#, python-format
-msgid "Unable to update interface configuration. Details: %(err)s"
 msgstr ""
 
 msgid "Invalid parameter for DNS servers"
@@ -224,140 +248,110 @@ msgstr ""
 msgid "Invalid parameter for network gateway"
 msgstr ""
 
-#, python-format
-msgid "Unable to get default gateway: %(err)s"
+msgid "Kimchi User"
 msgstr ""
 
-#, python-format
-msgid "Unable to delete default gateway: %(err)s"
+msgid "Mask"
 msgstr ""
 
-#, python-format
-msgid "Unable to set default gateway: %(err)s"
+msgid "Name"
 msgstr ""
 
-msgid ""
-"Invalid ip/netmask inputs. Both fields must be valid ip/netmask values or "
-"both must be blank (will erase the current IP/netmask)."
+msgid "Network Configuration"
 msgstr ""
 
-#, python-format
-msgid ""
-"Interface %(name)s is not editable because it belongs to a vlan or bridge"
+msgid "New Custom Backup"
 msgstr ""
 
-msgid "Specify name, password, group and profile for the new user."
+msgid "Package Path: "
 msgstr ""
 
-msgid "User name is a required string."
+msgid "Password"
 msgstr ""
 
-msgid "User password is a required string."
+msgid "Path Excluded"
 msgstr ""
 
-msgid "User group is a required string."
-msgstr ""
-
-msgid ""
-"User profile is required and should be one among kimchiuser, virtuser or "
-"admin."
-msgstr ""
-
-#, python-format
-msgid "Could not add user '%(user)s' to kvm group."
-msgstr ""
-
-#, python-format
-msgid "Could not add user '%(user)s' to sudoers list."
-msgstr ""
-
-#, python-format
-msgid "The user name '%(user)s' is already in use'."
-msgstr ""
-
-#, python-format
-msgid "Could not create user '%(user)s'."
-msgstr ""
-
-#, python-format
-msgid "Could not delete user '%(user)s'."
-msgstr ""
-
-#, python-format
-msgid "User '%(user)s' does not exist."
-msgstr ""
-
-#, python-format
-msgid "Could not delete group '%(group)s'"
-msgstr ""
-
-#, python-format
-msgid "Group for user '%(user)s' does not exist for removal."
-msgstr ""
-
-msgid "Cannot update system firmware while running VMs."
-msgstr ""
-
-#, python-format
-msgid "Firmware image unpack failed: rc = %(rc)s. Details: %(err)s"
-msgstr ""
-
-msgid "FW update failed: No image file found in the package file."
-msgstr ""
-
-#, python-format
-msgid ""
-"Error flashing firmware. rc = %(rc)s.                      Please see /usr/"
-"sbin/update_flash for rc reasons."
-msgstr ""
-
-#, python-format
-msgid ""
-"Error commiting firmware. rc = %(rc)s.                      Ensure you are "
-"booted to the temporary side."
-msgstr ""
-
-#, python-format
-msgid ""
-"Error rejecting firmware. rc = %(rc)s.                      Ensure you are "
-"booted to the permanent side."
-msgstr ""
-
-#, python-format
-msgid ""
-"Failed to create tar archive \"%(name)s\", cmd: \"%(cmd)s\". Inspect error "
-"log for more information."
-msgstr ""
-
-#, python-format
-msgid "Failed to delete archive file \"%(name)s\"."
-msgstr ""
-
-#, python-format
-msgid ""
-"Failed to create archive dir \"%(dir)s\". Inspect error log for more "
-"information."
-msgstr ""
-
-msgid "Description too long."
-msgstr ""
-
-msgid "Please check the uniqueness of the paths or patterns."
+msgid "Path Included"
 msgstr ""
 
 msgid "Path or pattern is too long or too short."
 msgstr ""
 
-msgid "Invalid days_ago number."
+msgid "Please check the uniqueness of the paths or patterns."
 msgstr ""
 
-msgid "Invalid counts_ago number."
+msgid "Port"
+msgstr ""
+
+msgid "Power Options"
+msgstr ""
+
+msgid "Preserve the latest"
+msgstr ""
+
+msgid "Profile"
+msgstr ""
+
+msgid "Provide required parameters: hostname, port, community."
+msgstr ""
+
+msgid "SAN Adapters"
 msgstr ""
 
 #, python-format
+msgid "SAN adapter '%(adapter)s' does not exist in the system."
+msgstr ""
+
+msgid "SEP Configuration"
+msgstr ""
+
+msgid "SNMP community name must be a single word."
+msgstr ""
+
+msgid "Selected Option"
+msgstr ""
+
+msgid "Sensor Monitor"
+msgstr ""
+
+msgid "Specify name, password, group and profile for the new user."
+msgstr ""
+
+msgid "Speed"
+msgstr ""
+
+msgid "Start"
+msgstr ""
+
+msgid "State"
+msgstr ""
+
+msgid "Status:"
+msgstr ""
+
+msgid "Stop"
+msgstr ""
+
+msgid "Submit"
+msgstr ""
+
+msgid "Symbolic Name"
+msgstr ""
+
+msgid "System hostname must be a valid string."
+msgstr ""
+
 msgid ""
-"Failed to create archive \"%(identity)s\". Inspect error log for more "
-"information."
+"System port number must be an integer between 1 and                      "
+"65535."
+msgstr ""
+
+msgid "The absolute path to the firmware rpm."
+msgstr ""
+
+#, python-format
+msgid "The user name '%(user)s' is already in use'."
 msgstr ""
 
 #, python-format
@@ -366,40 +360,69 @@ msgid ""
 "large for a configuration backup."
 msgstr ""
 
-#, python-format
-msgid "SAN adapter '%(adapter)s' does not exist in the system."
-msgstr ""
-
-msgid "System hostname is a required parameter."
-msgstr ""
-
-msgid "System port number is a required parameter."
-msgstr ""
-
-msgid "SNMP community is a required parameter."
+msgid "Timestamp"
 msgstr ""
 
 #, python-format
-msgid ""
-"SEP command execution error: '%(cmd)s' - rc: '%(rc)s'                      - "
-"error: '%(error)s'."
-msgstr ""
-
-msgid ""
-"Failed to retrieve power management profiles:                        Host OS "
-"does not support the tuned-adm package."
-msgstr ""
-
-msgid ""
-"Failed to retrieve power management profiles:                        Daemon "
-"'tuned-adm' is not active."
-msgstr ""
-
-msgid ""
-"Failed to retrieve power management profiles:                        Package "
-"'tuned-adm' is not installed."
+msgid "Unable to delete default gateway: %(err)s"
 msgstr ""
 
 #, python-format
-msgid "Error activating power saving profile %(profile)s."
+msgid "Unable to get default gateway: %(err)s"
+msgstr ""
+
+#, python-format
+msgid "Unable to set default gateway: %(err)s"
+msgstr ""
+
+#, python-format
+msgid "Unable to update interface configuration. Details: %(err)s"
+msgstr ""
+
+msgid "Unselected Option"
+msgstr ""
+
+msgid "Update"
+msgstr ""
+
+msgid "Use Other"
+msgstr ""
+
+#, python-format
+msgid "User '%(user)s' does not exist."
+msgstr ""
+
+msgid "User Management"
+msgstr ""
+
+msgid "User Name"
+msgstr ""
+
+msgid "User group is a required string."
+msgstr ""
+
+msgid "User name is a required string."
+msgstr ""
+
+msgid "User password is a required string."
+msgstr ""
+
+msgid ""
+"User profile is required and should be one among kimchiuser, virtuser or "
+"admin."
+msgstr ""
+
+msgid "Virt User"
+msgstr ""
+
+msgid "WWNN"
+msgstr ""
+
+msgid "WWPN"
+msgstr ""
+
+msgid "backups"
+msgstr ""
+
+msgid "days of backups"
 msgstr ""
