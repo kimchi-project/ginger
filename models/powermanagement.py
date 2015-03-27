@@ -20,6 +20,7 @@
 from kimchi.exception import OperationFailed
 from kimchi.utils import kimchi_log
 from kimchi.utils import run_command
+from psutil import pid_exists
 
 
 class PowerProfilesModel(object):
@@ -62,8 +63,20 @@ class PowerProfilesModel(object):
         return profiles
 
     def is_feature_available(self):
-        output, error, returncode = run_command(['tuned-adm'])
-        return returncode == 0
+        # To make this feature available we need tuned service
+        # running.
+        try:
+            with open('/run/tuned/tuned.pid', 'r') as file:
+                tunedpid = int(file.read().rstrip('\n'))
+                if pid_exists(tunedpid):
+                    return True
+        # Don't need to handle any possible exception raised
+        # in the code above. If that fails for any reason we
+        # assume the service is not running.
+        except:
+            pass
+
+        return False
 
 
 class PowerProfileModel(object):
