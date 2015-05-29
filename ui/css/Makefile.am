@@ -17,7 +17,7 @@
 
 SUBDIRS = base
 
-cssdir = $(datadir)/kimchi/plugins/ginger/ui/css
+cssdir = $(datadir)/wok/plugins/ginger/ui/css
 
 dist_css_DATA = \
 	ginger.css \

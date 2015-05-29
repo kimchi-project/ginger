@@ -24,8 +24,8 @@ import pwd
 
 import libuser
 
-from kimchi.exception import OperationFailed
-from kimchi.utils import kimchi_log
+from wok.exception import OperationFailed
+from wok.utils import wok_log
 
 
 SUDOERS_FILE = '/etc/sudoers.d/%s_conf'
@@ -71,14 +71,14 @@ def delete_group(groupname):
     )
 
     if group_obj is None:
-        kimchi_log.error('Could not delete group "%s"', groupname)
+        wok_log.error('Could not delete group "%s"', groupname)
         raise OperationFailed('GINUSER0012E', {'group': groupname})
 
     if not adm.enumerateUsersByGroup(groupname):
         try:
             adm.deleteGroup(group_obj)
         except Exception as e:
-            kimchi_log.error('Could not delete group "%s": %s', groupname, e)
+            wok_log.error('Could not delete group "%s": %s', groupname, e)
             raise OperationFailed('GINUSER0012E', {'group': groupname})
 
 
@@ -111,18 +111,18 @@ def create_user(name, plain_passwd, profile=None):
     user = adm.lookupUserByName(name)
     if user:
         msg = 'User/Login "%s" already in use' % name
-        kimchi_log.error(msg)
+        wok_log.error(msg)
         raise OperationFailed('GINUSER0008E', {'user': name})
 
     try:
         new_user = adm.initUser(name)
-        if profile == "kimchiuser":
+        if profile == "wokuser":
             new_user[libuser.LOGINSHELL] = '/sbin/nologin'
         adm.addUser(new_user)
         enc_pwd = crypt.crypt(plain_passwd)
         adm.setpassUser(new_user, enc_pwd, True)
     except Exception as e:
-        kimchi_log.error('Could not create user %s', name, e)
+        wok_log.error('Could not create user %s', name, e)
         raise OperationFailed('GINUSER0009E', {'user': name})
 
     return new_user
@@ -133,12 +133,12 @@ def delete_user(username):
     user_obj = adm.lookupUserByName(username)
 
     if user_obj is None:
-        kimchi_log.error('User "%s" does not exist', username)
+        wok_log.error('User "%s" does not exist', username)
         raise OperationFailed('GINUSER0011E', {'user': username})
     try:
         adm.deleteUser(user_obj, True, True)
     except Exception as e:
-        kimchi_log.error('Could not delete user %s: %s', username, e)
+        wok_log.error('Could not delete user %s: %s', username, e)
         raise OperationFailed('GINUSER0010E', {'user': username})
 
 
@@ -178,7 +178,7 @@ class UsersModel(object):
             os.chmod(SUDOERS_FILE % user, 0440)
         except Exception as e:
             UserModel().delete(user)
-            kimchi_log.error('Could not add user %s to sudoers: %s',
+            wok_log.error('Could not add user %s to sudoers: %s',
                              user, e.message)
             raise OperationFailed('GINUSER0007E', {'user': user})
 
@@ -192,7 +192,7 @@ class UsersModel(object):
             UserModel().delete(user)
             msg = ('Could not add user %s to kvm group. Operation failed.'
                    % user)
-            kimchi_log.error(msg)
+            wok_log.error(msg)
             raise OperationFailed('GINUSER0006E', {'user': user})
 
     def get_list(self):
@@ -217,7 +217,7 @@ class UserModel(object):
         try:
             user_info = pwd.getpwnam(user)
         except Exception:
-            kimchi_log.error('User "%s" does not exist', user)
+            wok_log.error('User "%s" does not exist', user)
             raise OperationFailed('GINUSER0011E', {'user': user})
 
         return {"name": user,
@@ -236,11 +236,11 @@ class UserModel(object):
         if user in kvmgrp.get('gr_mem'):
             return 'virtuser'
         # KIMCHIUSER: If not any before
-        return 'kimchiuser'
+        return 'wokuser'
 
     def _delete_profile_settings(self, user):
         profile = self._get_user_profile(user)
-        if profile == 'kimchiuser':
+        if profile == 'wokuser':
             return
         # Removing from sudoers
         elif profile == 'admin':
@@ -248,7 +248,7 @@ class UserModel(object):
             try:
                 os.unlink(f)
             except Exception as e:
-                kimchi_log.error('Error removing file "%s": %s', f, e)
+                wok_log.error('Error removing file "%s": %s', f, e)
 
         # Finally remove from kvm group
         try:
@@ -259,4 +259,4 @@ class UserModel(object):
             kvmgrp.set('gr_mem', list(members))
             adm.modifyGroup(kvmgrp)
         except Exception as e:
-            kimchi_log.error('Error while removing user from kvm group: %s', e)
+            wok_log.error('Error while removing user from kvm group: %s', e)

@@ -24,9 +24,9 @@ from ipaddr import IPv4Network
 from threading import Timer
 
 from interfaces import InterfaceModel
-from kimchi.exception import OperationFailed
-from kimchi.network import get_dev_netaddr
-from kimchi.utils import run_command
+from wok.exception import OperationFailed
+from wok.network import get_dev_netaddr
+from wok.utils import run_command
 
 
 RESOLV_CONF = '/etc/resolv.conf'

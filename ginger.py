@@ -23,8 +23,8 @@ import os
 from controls import Backup, Capabilities, Firmware, Network, PowerProfiles
 from controls import SanAdapters, Sensors, Sep, Users
 from i18n import messages
-from kimchi.config import PluginPaths
-from kimchi.root import Root
+from wok.config import PluginPaths
+from wok.root import Root
 from models import GingerModel
 
 

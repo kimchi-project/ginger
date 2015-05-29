@@ -32,7 +32,7 @@ models_PYTHON = \
 	users.py \
 	$(NULL)
 
-modelsdir = $(pythondir)/kimchi/plugins/ginger/models
+modelsdir = $(pythondir)/wok/plugins/ginger/models
 
 CLEANFILES = \
 	$(models_PYTHON:%.py=%.pyc) \

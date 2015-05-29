@@ -28,9 +28,9 @@ from sanadapters import SanAdapterModel, SanAdaptersModel
 from sensors import SensorsModel
 from users import UsersModel, UserModel
 
-from kimchi import config
-from kimchi.basemodel import BaseModel
-from kimchi.objectstore import ObjectStore
+from wok import config
+from wok.basemodel import BaseModel
+from wok.objectstore import ObjectStore
 
 
 class GingerModel(BaseModel):

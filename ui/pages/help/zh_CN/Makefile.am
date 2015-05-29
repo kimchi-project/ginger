@@ -14,7 +14,7 @@
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 
-zh_CN_helpdir = $(datadir)/kimchi/plugins/ginger/ui/pages/help/zh_CN
+zh_CN_helpdir = $(datadir)/wok/plugins/ginger/ui/pages/help/zh_CN
 
 dist_zh_CN_help_DATA = $(wildcard *.html) $(NULL)
 

@@ -26,9 +26,9 @@ import uuid
 
 import cherrypy
 
-from kimchi.config import PluginPaths
-from kimchi.exception import NotFoundError, OperationFailed, TimeoutExpired
-from kimchi.utils import kimchi_log, run_command
+from wok.config import PluginPaths
+from wok.exception import NotFoundError, OperationFailed, TimeoutExpired
+from wok.utils import wok_log, run_command
 
 
 class BackupModel(object):
@@ -112,7 +112,7 @@ class ArchivesModel(object):
         except OSError as e:
             # It's OK if archive_dir already exists
             if e.errno != errno.EEXIST:
-                kimchi_log.error('Error creating archive dir %s: %s',
+                wok_log.error('Error creating archive dir %s: %s',
                                  cls._archive_dir, e)
                 raise OperationFailed('GINHBK0003E',
                                       {'dir': cls._archive_dir})
@@ -149,21 +149,21 @@ class ArchivesModel(object):
 
         if error is not None:
             msg = 'Error creating archive %s: %s' % (params['identity'], error)
-            kimchi_log.error(msg)
+            wok_log.error(msg)
 
             try:
                 with self._objstore as session:
                     session.delete(self._objstore_type, params['identity'],
                                    ignore_missing=True)
             except Exception as e_session:
-                kimchi_log.error('Error cleaning archive meta data %s. '
+                wok_log.error('Error cleaning archive meta data %s. '
                                  'Error: %s', params['identity'], e_session)
 
             if params['file'] != '':
                 try:
                     os.unlink(params['file'])
                 except Exception as e_file:
-                    kimchi_log.error('Error cleaning archive file %s. '
+                    wok_log.error('Error cleaning archive file %s. '
                                      'Error: %s', params['file'], e_file)
 
             raise OperationFailed(reason, {'identity': params['identity']})

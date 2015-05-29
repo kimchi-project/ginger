@@ -20,8 +20,8 @@
 import os
 import re
 
-from kimchi.exception import OperationFailed, NotFoundError
-from kimchi.utils import kimchi_log, run_command
+from wok.exception import OperationFailed, NotFoundError
+from wok.utils import wok_log, run_command
 
 SUBSCRIBER = re.compile("(Subscriber_[0-9]*: hostname=)(?P<hostname>.*)\
 (,port=)(?P<port>.*)(,community=)(?P<community>.*)")
@@ -38,7 +38,7 @@ def addSEP(params):
            '-c', params['community']]
     output, error, rc = run_command(cmd)
     if rc != 0:
-        kimchi_log.error('SEP execution error: %s - %s - %s' % (cmd, rc,
+        wok_log.error('SEP execution error: %s - %s - %s' % (cmd, rc,
                          error))
         raise OperationFailed('GINSEP0010E', {'error': error})
 
@@ -64,7 +64,7 @@ class SepModel(object):
         cmd = ['systemctl', 'start', 'sepctl']
         output, error, rc = run_command(cmd)
         if rc != 0:
-            kimchi_log.error('SEP service initialization error: %s - %s - %s'
+            wok_log.error('SEP service initialization error: %s - %s - %s'
                              % (cmd, rc, error))
             raise OperationFailed('GINSEP0008E', {'error': error})
 
@@ -72,7 +72,7 @@ class SepModel(object):
         cmd = ['systemctl', 'stop', 'sepctl']
         output, error, rc = run_command(cmd)
         if rc != 0:
-            kimchi_log.error('Error stopping SEP service: %s - %s - %s' % (cmd,
+            wok_log.error('Error stopping SEP service: %s - %s - %s' % (cmd,
                              rc, error))
             raise OperationFailed('GINSEP0009E', {'error': error})
 
@@ -100,7 +100,7 @@ class SubscribersModel(object):
 
         # error: report
         if rc != 0:
-            kimchi_log.error('SEP execution error: %s - %s - %s' % (cmd, rc,
+            wok_log.error('SEP execution error: %s - %s - %s' % (cmd, rc,
                              error))
             raise OperationFailed('GINSEP0007E')
 
@@ -138,7 +138,7 @@ class SubscriptionModel(object):
 
         # error: report
         if rc != 0:
-            kimchi_log.error('SEP execution error: %s - %s - %s' % (cmd, rc,
+            wok_log.error('SEP execution error: %s - %s - %s' % (cmd, rc,
                              error))
             raise OperationFailed('GINSEP0005E', {'error': error})
 
@@ -184,6 +184,6 @@ class SubscriptionModel(object):
         output, error, rc = run_command(cmd)
 
         if rc != 0:
-            kimchi_log.error('SEP execution error: %s - %s - %s' % (cmd, rc,
+            wok_log.error('SEP execution error: %s - %s - %s' % (cmd, rc,
                                                                     error))
             raise OperationFailed('GINSEP0011E', {'error': error})

@@ -14,7 +14,7 @@
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 
-en_US_helpdir = $(datadir)/kimchi/plugins/ginger/ui/pages/help/en_US
+en_US_helpdir = $(datadir)/wok/plugins/ginger/ui/pages/help/en_US
 
 dist_en_US_help_DATA = $(wildcard *.html) $(NULL)
 
