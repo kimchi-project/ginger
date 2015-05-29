@@ -20,7 +20,7 @@ ginger = {};
 
 ginger.getFirmware = function(suc, err){
     wok.requestJSON({
-        url : wok.url + 'plugins/ginger/firmware',
+        url : 'plugins/ginger/firmware',
         type : 'GET',
         contentType : 'application/json',
         dataType : 'json',
@@ -34,7 +34,7 @@ ginger.getFirmware = function(suc, err){
 
 ginger.updateFirmware = function(content, suc, err){
     $.ajax({
-        url : wok.url + "plugins/ginger/firmware",
+        url : "plugins/ginger/firmware",
         type : 'PUT',
         contentType : 'application/json',
         dataType : 'json',
@@ -48,7 +48,7 @@ ginger.updateFirmware = function(content, suc, err){
 
 ginger.listBackupArchives = function(suc, err){
     wok.requestJSON({
-        url : wok.url + 'plugins/ginger/backup/archives',
+        url : 'plugins/ginger/backup/archives',
         type : 'GET',
         contentType : 'application/json',
         dataType : 'json',
@@ -62,7 +62,7 @@ ginger.listBackupArchives = function(suc, err){
 
 ginger.createBackupArchive = function(bak, suc, err) {
     wok.requestJSON({
-        url : wok.url + 'plugins/ginger/backup/archives',
+        url : 'plugins/ginger/backup/archives',
         type : 'POST',
         contentType : 'application/json',
         dataType : 'json',
@@ -76,7 +76,7 @@ ginger.createBackupArchive = function(bak, suc, err) {
 
 ginger.getBackupArchiveFile = function(id, suc, err){
     wok.requestJSON({
-        url : wok.url + 'plugins/ginger/backup/archives/' + encodeURIComponent(id) + '/file',
+        url : 'plugins/ginger/backup/archives/' + encodeURIComponent(id) + '/file',
         type : 'GET',
         contentType : 'application/json',
         dataType : 'json',
@@ -90,7 +90,7 @@ ginger.getBackupArchiveFile = function(id, suc, err){
 
 ginger.deleteBackupArchive = function(id, suc, err) {
     wok.requestJSON({
-        url : wok.url + 'plugins/ginger/backup/archives/' + encodeURIComponent(id),
+        url : 'plugins/ginger/backup/archives/' + encodeURIComponent(id),
         type : 'DELETE',
         contentType : 'application/json',
         dataType : 'json',
@@ -103,7 +103,7 @@ ginger.deleteBackupArchive = function(id, suc, err) {
 
 ginger.deleteBackupArchives = function(content, suc, err) {
     wok.requestJSON({
-        url : wok.url + 'plugins/ginger/backup/discard_archives',
+        url : 'plugins/ginger/backup/discard_archives',
         type : 'POST',
         contentType : 'application/json',
         dataType : 'json',
@@ -117,7 +117,7 @@ ginger.deleteBackupArchives = function(content, suc, err) {
 
 ginger.getInterfaces = function(suc, err) {
     wok.requestJSON({
-        url : wok.url + 'plugins/ginger/network/interfaces',
+        url : 'plugins/ginger/network/interfaces',
         type : 'GET',
         contentType : 'application/json',
         dataType : 'json',
@@ -131,7 +131,7 @@ ginger.getInterfaces = function(suc, err) {
 
 ginger.updateInterface = function(name, content, suc, err){
     $.ajax({
-        url : wok.url + 'plugins/ginger/network/interfaces/' + encodeURIComponent(name),
+        url : 'plugins/ginger/network/interfaces/' + encodeURIComponent(name),
         type : 'PUT',
         contentType : 'application/json',
         dataType : 'json',
@@ -145,7 +145,7 @@ ginger.updateInterface = function(name, content, suc, err){
 
 ginger.getNetworkGlobals = function(suc, err){
     wok.requestJSON({
-        url : wok.url + 'plugins/ginger/network',
+        url : 'plugins/ginger/network',
         type : 'GET',
         contentType : 'application/json',
         dataType : 'json',
@@ -159,7 +159,7 @@ ginger.getNetworkGlobals = function(suc, err){
 
 ginger.updateNetworkGlobals = function(content, suc, err){
     $.ajax({
-        url : wok.url + 'plugins/ginger/network',
+        url : 'plugins/ginger/network',
         type : 'PUT',
         contentType : 'application/json',
         dataType : 'json',
@@ -173,7 +173,7 @@ ginger.updateNetworkGlobals = function(content, suc, err){
 
 ginger.confirmNetworkUpdate = function(suc, err) {
     wok.requestJSON({
-        url : wok.url + 'plugins/ginger/network/confirm_change',
+        url : 'plugins/ginger/network/confirm_change',
         type : 'POST',
         contentType : 'application/json',
         dataType : 'json',
@@ -186,7 +186,7 @@ ginger.confirmNetworkUpdate = function(suc, err) {
 
 ginger.confirmInterfaceUpdate = function(name, suc, err) {
     wok.requestJSON({
-        url : wok.url + 'plugins/ginger/network/interfaces/' + encodeURIComponent(name) + '/confirm_change',
+        url : 'plugins/ginger/network/interfaces/' + encodeURIComponent(name) + '/confirm_change',
         type : 'POST',
         contentType : 'application/json',
         dataType : 'json',
@@ -216,7 +216,7 @@ ginger.validateMask = function(mask){
 
 ginger.getPowerProfiles = function(suc, err){
     wok.requestJSON({
-        url : wok.url + 'plugins/ginger/powerprofiles',
+        url : 'plugins/ginger/powerprofiles',
         type : 'GET',
         contentType : 'application/json',
         dataType : 'json',
@@ -230,7 +230,7 @@ ginger.getPowerProfiles = function(suc, err){
 
 ginger.activatePowerProfile = function(name, suc, err){
     $.ajax({
-        url : wok.url + "plugins/ginger/powerprofiles/" + encodeURIComponent(name),
+        url : "plugins/ginger/powerprofiles/" + encodeURIComponent(name),
         type : 'PUT',
         contentType : 'application/json',
         dataType : 'json',
@@ -244,7 +244,7 @@ ginger.activatePowerProfile = function(name, suc, err){
 
 ginger.getSANAdapters = function(suc, err){
     wok.requestJSON({
-        url : wok.url + 'plugins/ginger/san_adapters',
+        url : 'plugins/ginger/san_adapters',
         type : 'GET',
         contentType : 'application/json',
         dataType : 'json',
@@ -258,7 +258,7 @@ ginger.getSANAdapters = function(suc, err){
 
 ginger.getSensors = function(suc, err){
     wok.requestJSON({
-        url : wok.url + 'plugins/ginger/sensors',
+        url : 'plugins/ginger/sensors',
         type : 'GET',
         contentType : 'application/json',
         dataType : 'json',
@@ -272,7 +272,7 @@ ginger.getSensors = function(suc, err){
 
 ginger.getSEPSubscriptions = function(suc, err){
     wok.requestJSON({
-        url : wok.url + 'plugins/ginger/ibm_sep/subscribers',
+        url : 'plugins/ginger/ibm_sep',
         type : 'GET',
         contentType : 'application/json',
         dataType : 'json',
@@ -314,7 +314,7 @@ ginger.addSEPSubscription = function(subscription, suc, err){
 
 ginger.getSEPStatus = function(suc, err){
     wok.requestJSON({
-        url : wok.url + 'plugins/ginger/ibm_sep',
+        url : 'plugins/ginger/ibm_sep',
         type : 'GET',
         contentType : 'application/json',
         dataType : 'json',
@@ -328,7 +328,7 @@ ginger.getSEPStatus = function(suc, err){
 
 ginger.startSEP = function(suc, err){
     wok.requestJSON({
-        url : wok.url + 'plugins/ginger/ibm_sep/start',
+        url : 'plugins/ginger/ibm_sep/start',
         type : 'POST',
         contentType : 'application/json',
         dataType : 'json',
@@ -342,7 +342,7 @@ ginger.startSEP = function(suc, err){
 
 ginger.stopSEP = function(suc, err){
     wok.requestJSON({
-        url : wok.url + 'plugins/ginger/ibm_sep/stop',
+        url : 'plugins/ginger/ibm_sep/stop',
         type : 'POST',
         contentType : 'application/json',
         dataType : 'json',
@@ -356,7 +356,7 @@ ginger.stopSEP = function(suc, err){
 
 ginger.getUsers = function(suc, err) {
     wok.requestJSON({
-        url : wok.url + 'plugins/ginger/users',
+        url : 'plugins/ginger/users',
         type : 'GET',
         contentType : 'application/json',
         dataType : 'json',
@@ -370,7 +370,7 @@ ginger.getUsers = function(suc, err) {
 
 ginger.addUser = function(username, suc, err) {
     wok.requestJSON({
-        url : wok.url + 'plugins/ginger/users',
+        url : 'plugins/ginger/users',
         type : 'POST',
         contentType : 'application/json',
         data : JSON.stringify(username),
@@ -386,7 +386,7 @@ ginger.addUser = function(username, suc, err) {
 
 ginger.deleteUser = function (username, suc, err) {
     wok.requestJSON({
-        url : wok.url + 'plugins/ginger/users/' + username,
+        url : 'plugins/ginger/users/' + username,
         type : 'DELETE',
         contentType : 'application/json',
         dataType : 'json',
@@ -399,7 +399,7 @@ ginger.deleteUser = function (username, suc, err) {
 
 ginger.getCapabilities = function(suc, err) {
     wok.requestJSON({
-        url : wok.url + 'plugins/ginger/capabilities',
+        url : 'plugins/ginger/capabilities',
         type : 'GET',
         contentType : 'application/json',
         dataType : 'json',

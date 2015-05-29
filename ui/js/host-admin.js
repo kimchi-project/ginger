@@ -200,7 +200,7 @@ ginger.setupBakGrid = function() {
                 text: false
             }).click(function(){
                 var bakItem = $(this).parent();
-                window.open(wok.url + 'plugins/ginger/backup/archives/'+encodeURIComponent(bakItem.prop("id"))+'/file');
+                window.open('plugins/ginger/backup/archives/'+encodeURIComponent(bakItem.prop("id"))+'/file');
             });
             $(".delete", $(tempNode)).button({
                 icons: { primary: "ui-icon ui-icon-close" },
