@@ -69,7 +69,7 @@ service wokd restart
 %{python_sitelib}/wok/plugins/ginger/API.json
 %{python_sitelib}/wok/plugins/ginger/controls/*.py*
 %{python_sitelib}/wok/plugins/ginger/models/*.py*
-%{_datadir}/wok/plugins/ginger/mo/*/LC_MESSAGES/ginger.mo
+%{_prefix}/share/locale/*/LC_MESSAGES/ginger.mo
 %{_datadir}/wok/plugins/ginger/ui/config/tab-ext.xml
 %{_datadir}/wok/plugins/ginger/ui/css/base/images/*.gif
 %{_datadir}/wok/plugins/ginger/ui/css/base/images/*.png
