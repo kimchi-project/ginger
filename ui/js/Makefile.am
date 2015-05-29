@@ -15,7 +15,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-jsdir = $(datadir)/kimchi/plugins/ginger/ui/js
+jsdir = $(datadir)/wok/plugins/ginger/ui/js
 
 dist_js_DATA = \
 	host-admin.js \

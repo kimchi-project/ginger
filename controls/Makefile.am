@@ -31,7 +31,7 @@ controls_PYTHON = \
 	users.py \
 	$(NULL)
 
-controlsdir = $(pythondir)/kimchi/plugins/ginger/controls
+controlsdir = $(pythondir)/wok/plugins/ginger/controls
 
 CLEANFILES = \
 	$(controls_PYTHON:%.py=%.pyc) \

@@ -17,7 +17,7 @@
 
 SUBDIRS = help
 
-htmldir = $(datadir)/kimchi/plugins/ginger/ui/pages
+htmldir = $(datadir)/wok/plugins/ginger/ui/pages
 
 dist_html_DATA = \
 	host-admin.html.tmpl \

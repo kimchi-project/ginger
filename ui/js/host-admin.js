@@ -111,7 +111,7 @@ ginger.initBakDialog = function() {
                     $("body button").prop("disabled", false);
                     $("body input").css("cursor", "text");
                     $("body button").css("cursor", "pointer");
-                    kimchi.message.error(result.responseJSON.reason);
+                    wok.message.error(result.responseJSON.reason);
                 });
             }
         }]
@@ -175,7 +175,7 @@ ginger.setupBakGrid = function() {
     ginger.listBackupArchives(function(data){
         for(var i=0;i<data.length;i++){
             data[i].timestamp = new Date(data[i].timestamp*1000).toLocaleString();
-            var tempNode = $.parseHTML(kimchi.substitute($("#backupItem").html(), data[i]));
+            var tempNode = $.parseHTML(wok.substitute($("#backupItem").html(), data[i]));
             $("#bakGridBody").append(tempNode);
             var parts = ["include", "exclude"];
             for(var x=0;x<parts.length;x++){
@@ -185,7 +185,7 @@ ginger.setupBakGrid = function() {
                 }
                 data[i][parts[x]] = path;
             }
-            var tooltipContent = kimchi.substitute($("#backupTooltip").html(), data[i]);
+            var tooltipContent = wok.substitute($("#backupTooltip").html(), data[i]);
             tooltipContent = tooltipContent.replace("includePlaceHodler", data[i].include);
             tooltipContent = tooltipContent.replace("excludePlaceHodler", data[i].exclude);
             $(".file-col,.time-col", tempNode).tooltip({
@@ -200,7 +200,7 @@ ginger.setupBakGrid = function() {
                 text: false
             }).click(function(){
                 var bakItem = $(this).parent();
-                window.open(kimchi.url + 'plugins/ginger/backup/archives/'+encodeURIComponent(bakItem.prop("id"))+'/file');
+                window.open('plugins/ginger/backup/archives/'+encodeURIComponent(bakItem.prop("id"))+'/file');
             });
             $(".delete", $(tempNode)).button({
                 icons: { primary: "ui-icon ui-icon-close" },
@@ -265,7 +265,7 @@ ginger.initNetworkConfig = function() {
             var isEdit = data[i].ipaddr=="" || data[i].netmask=="";
             data[i].viewMode = isEdit ? "hide" : "";
             data[i].editMode = isEdit ? "" : "hide";
-            var tempNode = $.parseHTML(kimchi.substitute($("#nicItem").html(), data[i]));
+            var tempNode = $.parseHTML(wok.substitute($("#nicItem").html(), data[i]));
             $("#gingerInterface").append(tempNode);
             attachBtnEvt(tempNode, function(){
                 var item = $(this).parent().parent();
@@ -317,7 +317,7 @@ ginger.initNetworkConfig = function() {
         }
         var addGlobalItem = function(container, itemValue, saveFunc){
             var ip = itemValue;
-            var tempNode = $.parseHTML(kimchi.substitute($("#nwGlobalItem").html(), {
+            var tempNode = $.parseHTML(wok.substitute($("#nwGlobalItem").html(), {
                 ip: ip,
                 viewMode: ip=="" ? "hide" : "",
                 editMode: ip=="" ? "": "hide"
@@ -416,7 +416,7 @@ ginger.initPowerMgmt = function(){
         for(var i=0;i<data.length;i++){
             data[i].selected = data[i].active ? selectedClass : toSelectClass;
             data[i].toSelect = data[i].active ? "" : "to-select";
-            var tempNode = $.parseHTML(kimchi.substitute($("#pwMgmtItem").html(), data[i]));
+            var tempNode = $.parseHTML(wok.substitute($("#pwMgmtItem").html(), data[i]));
             $(".body", "#gingerPowerMgmt").append(tempNode);
             $(tempNode).on("click", function(){
                 $(".item :first-child", $(this).parent()).each(function(){
@@ -438,13 +438,13 @@ ginger.initSANAdapter = function(){
     ginger.getSANAdapters(function(data){
         var temStr = "<div class='item'>{value}</div>";
         for(var i=0; i<data.length; i++){
-            $(".body", $(".name", ".san-adapter")).append(kimchi.substitute(temStr, {value: data[i].name}));
-            $(".body", $(".wwpn", ".san-adapter")).append(kimchi.substitute(temStr, {value: data[i].wwpn}));
-            $(".body", $(".wwnn", ".san-adapter")).append(kimchi.substitute(temStr, {value: data[i].wwnn}));
-            $(".body", $(".state", ".san-adapter")).append(kimchi.substitute(temStr, {value: data[i].state}));
-            $(".body", $(".port", ".san-adapter")).append(kimchi.substitute(temStr, {value: data[i].vports_inuse+"/"+data[i].max_vports}));
-            $(".body", $(".speed", ".san-adapter")).append(kimchi.substitute(temStr, {value: data[i].speed}));
-            $(".body", $(".symbolic", ".san-adapter")).append(kimchi.substitute(temStr, {value: data[i].symbolic_name}));
+            $(".body", $(".name", ".san-adapter")).append(wok.substitute(temStr, {value: data[i].name}));
+            $(".body", $(".wwpn", ".san-adapter")).append(wok.substitute(temStr, {value: data[i].wwpn}));
+            $(".body", $(".wwnn", ".san-adapter")).append(wok.substitute(temStr, {value: data[i].wwnn}));
+            $(".body", $(".state", ".san-adapter")).append(wok.substitute(temStr, {value: data[i].state}));
+            $(".body", $(".port", ".san-adapter")).append(wok.substitute(temStr, {value: data[i].vports_inuse+"/"+data[i].max_vports}));
+            $(".body", $(".speed", ".san-adapter")).append(wok.substitute(temStr, {value: data[i].speed}));
+            $(".body", $(".symbolic", ".san-adapter")).append(wok.substitute(temStr, {value: data[i].symbolic_name}));
         }
     });
 };
@@ -457,7 +457,7 @@ ginger.listSensors = function() {
         $.each(result, function(i1, d1) {
             if(d1 && d1 != null && i1 != "hdds") {
                 $.each(d1, function(i2, d2) {
-                    var pathNode = $.parseHTML(kimchi.substitute($("#sensorBody").html(), {
+                    var pathNode = $.parseHTML(wok.substitute($("#sensorBody").html(), {
                         labelHead : i2
                     }));
                     $(".sensor-panel").append(pathNode);
@@ -466,7 +466,7 @@ ginger.listSensors = function() {
                             if(i3 && d3 != null && i3 != "unit") {
                                 $.each(d3, function(i4, d4) {
                                     if(i4.match("input")) {
-                                        var pathNodeU = $.parseHTML(kimchi.substitute($("#sensorUnit").html(), {
+                                        var pathNodeU = $.parseHTML(wok.substitute($("#sensorUnit").html(), {
                                             labelBody : i3,
                                             labelNumber : d4,
                                             labelUnit : d2["unit"]
@@ -480,13 +480,13 @@ ginger.listSensors = function() {
                 });
             } else {
                 if(d1 != null) {
-                    var pathNode = $.parseHTML(kimchi.substitute($("#sensorBody").html(), {
+                    var pathNode = $.parseHTML(wok.substitute($("#sensorBody").html(), {
                         labelHead : i1
                     }));
                     $(".sensor-panel").append(pathNode);
                     $.each(d1, function(i5, d5) {
                         if(i5 != "unit") {
-                            var pathNodeU = $.parseHTML(kimchi.substitute($("#sensorUnit").html(), {
+                            var pathNodeU = $.parseHTML(wok.substitute($("#sensorUnit").html(), {
                                 labelBody : i5,
                                 labelNumber : d5,
                                 labelUnit : d1["unit"]
@@ -526,7 +526,7 @@ ginger.initSEPConfig = function() {
         $(".content-body", ".ginger .host-admin .subsc-manage").empty();
         ginger.getSEPSubscriptions(function(result) {
             for (var i=0; i<result.length; i++) {
-                var subscItem = $.parseHTML(kimchi.substitute($("#subscItem").html(), {
+                var subscItem = $.parseHTML(wok.substitute($("#subscItem").html(), {
                     hostname : result[i]["hostname"],
                     port : result[i]["port"],
                     community : result[i]["community"]
@@ -613,7 +613,7 @@ ginger.initSEPConfig = function() {
                         $("#subscriptionAdd").dialog("close");
                         listSubscriptions();
                     }, function(error) {
-                        kimchi.message.error(error.responseJSON.reason);
+                        wok.message.error(error.responseJSON.reason);
                         clearSubscriptionSubmit(false);
                     });
                 });
@@ -641,7 +641,7 @@ ginger.initUserManagement = function() {
         $(".content-body", ".ginger .host-admin .user-manage").empty();
         ginger.getUsers(function(result) {
             for (var i=0; i<result.length; i++) {
-                var nodeNameItem = $.parseHTML(kimchi.substitute($("#userItem").html(), {
+                var nodeNameItem = $.parseHTML(wok.substitute($("#userItem").html(), {
                     userName : result[i]["name"],
                     userGroup : result[i]["group"],
                     userProfile : result[i]["profile"]
@@ -734,7 +734,7 @@ ginger.initUserManagement = function() {
                             clearUMSubmit();
                         });
                     } else {
-                        kimchi.confirm({
+                        wok.confirm({
                             title : i18n['KCHAPI6006M'],
                             content : i18n['GINUM0002E'],
                             confirm : i18n['KCHAPI6002M'],
@@ -770,7 +770,7 @@ ginger.initFirmware = function() {
         $("#gingerPackPathSub").button(isValid ? "enable" : "disable");
     });
     $("#gingerPackPathSub").button({disabled: true}).click(function(){
-        kimchi.confirm({
+        wok.confirm({
             title : i18n['KCHAPI6006M'],
             content : "The system will be immediately reset to flash the firmware. It may take longer than normal for it to reboot.",
             confirm : i18n['KCHAPI6002M'],

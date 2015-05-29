@@ -19,14 +19,14 @@
 
 from collections import namedtuple
 
+import ethtool
 import libvirt
 from ipaddr import IPv4Network
 from threading import Timer
 
 from interfaces import InterfaceModel
-from kimchi.exception import OperationFailed
-from kimchi.network import get_dev_netaddr
-from kimchi.utils import run_command
+from wok.exception import OperationFailed
+from wok.utils import run_command
 
 
 RESOLV_CONF = '/etc/resolv.conf'
@@ -95,7 +95,11 @@ class NetworkModel(object):
 
     def _save_gateway_changes(self, old_iface, old_gateway):
         def save_config(conn, iface, gateway=None):
-            n = IPv4Network(get_dev_netaddr(iface))
+            nic_info = ethtool.get_interfaces_info(iface)[0]
+            ipv4 = ''
+            if nic_info.ipv4_address:
+                ipv4 = "%s/%s" % (nic_info.ipv4_address, nic_info.ipv4_netmask)
+            n = IPv4Network(ipv4)
             net_params = {'ipaddr': str(n.ip), 'netmask': str(n.netmask)}
             if gateway:
                 net_params['gateway'] = gateway

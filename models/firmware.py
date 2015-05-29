@@ -21,9 +21,9 @@
 import os
 import platform
 
-from kimchi.exception import OperationFailed
-from kimchi.utils import kimchi_log
-from kimchi.utils import run_command
+from wok.exception import OperationFailed
+from wok.utils import wok_log
+from wok.utils import run_command
 
 
 # FIXME: When model is restructured, use
@@ -45,7 +45,7 @@ class FirmwareModel(object):
     def lookup(self, params=None):
         output, error, rc = run_command('lsmcode')
         if rc:
-            kimchi_log.error('Unable to retreive firmware level.')
+            wok_log.error('Unable to retreive firmware level.')
             return {'level': 'Unknown'}
         # Cut out the chatter from the command output
         levels = output.split()[5:]
@@ -54,7 +54,7 @@ class FirmwareModel(object):
 
     def update(self, name, params):
         if detect_live_vm():
-            kimchi_log.error('Cannot update system fw while running VMs.')
+            wok_log.error('Cannot update system fw while running VMs.')
             raise OperationFailed('GINFW0001E')
 
         fw_path = params['path']
@@ -72,14 +72,14 @@ class FirmwareModel(object):
         # and match the rpm name.
         image_file, ext = os.path.splitext(os.path.basename(fw_path))
         if image_file is None:
-            kimchi_log.error('FW update failed: '
+            wok_log.error('FW update failed: '
                              'No image file found in the package file.')
             raise OperationFailed('GINFW0003E')
         command = ['update_flash', '-f',
                    os.path.join('/tmp/fwupdate', '%s.img' % image_file)]
         if not pow_ok:
             command.insert(1, '-n')
-        kimchi_log.info('FW update: System will reboot to flash the firmware.')
+        wok_log.info('FW update: System will reboot to flash the firmware.')
         output, error, rc = run_command(command)
         if rc:
             raise OperationFailed('GINFW0004E', {'rc': rc})
@@ -90,7 +90,7 @@ class FirmwareModel(object):
         if rc:
             raise OperationFailed('GINFW0005E', {'rc': rc})
         # update_flash returns a message on success, so log it.
-        kimchi_log.info(output)
+        wok_log.info(output)
 
     def reject(self, name):
         command = ['update_flash', '-r']
@@ -98,7 +98,7 @@ class FirmwareModel(object):
         if rc:
             raise OperationFailed('GINFW0006E', {'rc': rc})
         # update_flash returns a message on success, so log it.
-        kimchi_log.info(output)
+        wok_log.info(output)
 
     def is_feature_available(self):
         return platform.machine().startswith('ppc')

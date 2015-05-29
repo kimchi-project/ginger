@@ -23,8 +23,8 @@ import cherrypy
 
 from collections import OrderedDict
 
-from kimchi.utils import kimchi_log
-from kimchi.utils import run_command
+from wok.utils import wok_log
+from wok.utils import run_command
 
 
 class SensorsModel(object):
@@ -59,7 +59,7 @@ class SensorsModel(object):
             command = ['sensors', '-u']
             sens_out, error, rc = run_command(command)
             if rc:
-                kimchi_log.error("Error retrieving sensors data: %s: %s." %
+                wok_log.error("Error retrieving sensors data: %s: %s." %
                                  (error, rc))
 
             devices = OrderedDict()
@@ -144,7 +144,7 @@ class SensorsModel(object):
             #   below) to 32 deg F. So just always ask for C and convert later.
             out, error, rc = run_command(['hddtemp'])
             if rc:
-                kimchi_log.error("Error retrieving HD temperatures: rc %s."
+                wok_log.error("Error retrieving HD temperatures: rc %s."
                                  "output: %s" % (rc, error))
                 return None
 
@@ -158,7 +158,7 @@ class SensorsModel(object):
                     hdd_name, hdd_temp = hdd_items[0], hdd_items[2]
                     hdd_temp = re.sub('°[C|F]', '', hdd_temp).strip()
                 except Exception as e:
-                    kimchi_log.error('Sensors hdd parse error: %s' % e.message)
+                    wok_log.error('Sensors hdd parse error: %s' % e.message)
                     continue
                 try:
                     # Try to convert the number to a float. If it fails,
@@ -170,7 +170,7 @@ class SensorsModel(object):
                 except ValueError:
                     # If no sensor data, parse float will fail. For example:
                     # "/dev/sda: IBM IPR-10 5D831200: S.M.A.R.T. not available"
-                    kimchi_log.warning("Sensors hdd: %s" % hdd)
+                    wok_log.warning("Sensors hdd: %s" % hdd)
             hdds['unit'] = temperature_unit
             return hdds
 

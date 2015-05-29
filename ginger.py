@@ -23,13 +23,13 @@ import os
 from controls import Backup, Capabilities, Firmware, Network, PowerProfiles
 from controls import SanAdapters, Sensors, Sep, Users
 from i18n import messages
-from kimchi.config import PluginPaths
-from kimchi.root import Root
+from wok.config import PluginPaths
+from wok.root import WokRoot
 from models import GingerModel
 
 
-class Ginger(Root):
-    def __init__(self):
+class Ginger(WokRoot):
+    def __init__(self, wok_options=None):
         self.model = GingerModel()
         super(Ginger, self).__init__(self.model)
         self.backup = Backup(self.model)

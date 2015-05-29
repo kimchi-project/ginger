@@ -23,9 +23,9 @@ import lxml.etree as ET
 from lxml.builder import E
 from threading import Timer
 
-from kimchi import netinfo
-from kimchi.exception import InvalidParameter, NotFoundError, OperationFailed
-from kimchi.xmlutils.utils import xpath_get_text
+import netinfo
+from wok.exception import InvalidParameter, NotFoundError, OperationFailed
+from wok.xmlutils.utils import xpath_get_text
 
 
 class InterfacesModel(object):

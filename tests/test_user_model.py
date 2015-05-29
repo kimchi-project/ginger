@@ -23,8 +23,8 @@ import unittest
 
 from models.users import UserModel, UsersModel
 
-from kimchi.exception import OperationFailed
-from kimchi.rollbackcontext import RollbackContext
+from wok.exception import OperationFailed
+from wok.rollbackcontext import RollbackContext
 
 
 class UserModelTests(unittest.TestCase):

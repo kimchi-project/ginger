@@ -3,9 +3,10 @@
 The Ginger API provides all functionalities of the plugin that may be used
 directly by external tools. In the following sections you will find the
 specification of all Collections and Resource types that are supported and
-URIs where they can be accessed. As Ginger API uses Kimchi framework, it uses
-the same general conventions of Kimchi. In order to use the API effectively,
-please consider the following general conventions (from Kimchi documentation):
+URIs where they can be accessed. As Ginger API uses Wok (Webserver Originated
+from Kimchi) framework, it uses the same general conventions of Kimchi. In order
+to use the API effectively, please consider the following general conventions
+(from Kimchi documentation):
 
 * The **Content Type** of the API is JSON.  When making HTTP requests to this
   API you should specify the following headers:

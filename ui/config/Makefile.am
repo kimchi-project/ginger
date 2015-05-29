@@ -15,7 +15,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-xmldir = $(datadir)/kimchi/plugins/ginger/ui/config
+xmldir = $(datadir)/wok/plugins/ginger/ui/config
 
 dist_xml_DATA = \
 	tab-ext.xml \

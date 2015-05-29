@@ -33,9 +33,9 @@ ginger_PYTHON = \
 	i18n.py \
 	$(NULL)
 
-gingerdir = $(pythondir)/kimchi/plugins/ginger
+gingerdir = $(pythondir)/wok/plugins/ginger
 
-confdir = $(sysconfdir)/kimchi/plugins.d
+confdir = $(sysconfdir)/wok/plugins.d
 dist_conf_DATA = ginger.conf
 
 EXTRA_DIST = \

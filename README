@@ -1,9 +1,9 @@
 Ginger
 ======
 
-Ginger is an open source host management plugin to Kimchi, that provides an
-intuitive web panel with common tools for configuring and operating Linux
-systems.
+Ginger is an open source host management plugin to Wok, Web Server Originated
+from Kimchi, that provides an intuitive web panel with common tools for
+configuring and operating Linux systems.
 
 The current features include:
  + retreive system health (sensors) stats
@@ -42,9 +42,9 @@ $ semanage permissive -a tuned_t
 $ systemctl stop tuned.service
 $ tuned -l -P -d
 
-Remember to restart kimchid service after these changes:
+Remember to restart wokd service after these changes:
 
-$ systemctl restart kimchid.service
+$ systemctl restart wokd.service
 
 If these steps do not solve the problem, try to update all 'tuned' related
 packages and the packages'selinux-policy' and 'selinux-policy-targeted'.

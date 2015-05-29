@@ -27,7 +27,7 @@ prefix = @prefix@
 exec_prefix = @exec_prefix@
 datarootdir = @datarootdir@
 datadir = @datadir@
-localedir = @datadir@/kimchi/plugins/ginger/mo
+localedir = @prefix@/share/locale
 gettextsrcdir = $(datadir)/gettext/po
 
 INSTALL = @INSTALL@

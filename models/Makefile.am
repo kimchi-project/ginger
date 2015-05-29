@@ -25,6 +25,7 @@ models_PYTHON = \
 	ibm_sep.py \
 	interfaces.py \
 	model.py \
+	netinfo.py \
 	network.py \
 	powermanagement.py \
 	sanadapters.py \
@@ -32,7 +33,7 @@ models_PYTHON = \
 	users.py \
 	$(NULL)
 
-modelsdir = $(pythondir)/kimchi/plugins/ginger/models
+modelsdir = $(pythondir)/wok/plugins/ginger/models
 
 CLEANFILES = \
 	$(models_PYTHON:%.py=%.pyc) \

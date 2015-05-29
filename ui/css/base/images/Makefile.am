@@ -15,7 +15,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-imgdir = $(datadir)/kimchi/plugins/ginger/ui/css/base/images
+imgdir = $(datadir)/wok/plugins/ginger/ui/css/base/images
 
 dist_img_DATA = \
 	progress48.gif \

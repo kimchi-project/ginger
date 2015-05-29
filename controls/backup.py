@@ -20,7 +20,7 @@
 import cherrypy
 from cherrypy.lib.static import serve_file
 
-from kimchi.control.base import Collection, Resource
+from wok.control.base import Collection, Resource
 
 
 class Backup(Resource):

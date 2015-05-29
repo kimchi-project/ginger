@@ -18,7 +18,7 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 
 from interfaces import Interfaces
-from kimchi.control.base import Resource
+from wok.control.base import Resource
 
 
 class Network(Resource):

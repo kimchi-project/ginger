@@ -3,7 +3,7 @@ Version: @PACKAGE_VERSION@
 Section: base
 Priority: optional
 Architecture: all
-Depends: kimchi,
+Depends: wok,
          python-libuser
 Maintainer: Daniel Henrique Barboza <dhbarboza82@gmail.com>
-Description: Ginger plug-in for Kimchi web server
+Description: Ginger plug-in for Wok - Webserver Originated from Kimchi

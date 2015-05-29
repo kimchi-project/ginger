@@ -20,7 +20,7 @@
 import os
 
 
-from kimchi.exception import NotFoundError
+from wok.exception import NotFoundError
 
 
 FC_HOST_SYS_PATH = '/sys/class/fc_host/%s'
