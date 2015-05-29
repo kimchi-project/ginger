@@ -24,11 +24,11 @@ from controls import Backup, Capabilities, Firmware, Network, PowerProfiles
 from controls import SanAdapters, Sensors, Sep, Users
 from i18n import messages
 from wok.config import PluginPaths
-from wok.root import Root
+from wok.root import WokRoot
 from models import GingerModel
 
 
-class Ginger(Root):
+class Ginger(WokRoot):
     def __init__(self):
         self.model = GingerModel()
         super(Ginger, self).__init__(self.model)
