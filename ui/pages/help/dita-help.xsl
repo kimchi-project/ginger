@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
                 <title><xsl:value-of select="/cshelp/title" /></title>
                 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
                 <link rel="shortcut icon" href="/images/logo.ico" />
-                <link rel="stylesheet" type="text/css" href="/help/kimchi.css" />
+                <link rel="stylesheet" type="text/css" href="../ginger-help.css" />
             </head>
             <body>
                 <xsl:apply-templates select="//cshelp" />

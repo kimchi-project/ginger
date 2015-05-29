@@ -77,6 +77,7 @@ service wokd restart
 %{_datadir}/wok/plugins/ginger/ui/css/host-admin.css
 %{_datadir}/wok/plugins/ginger/ui/js/host-admin.js
 %{_datadir}/wok/plugins/ginger/ui/js/util.js
+%{_datadir}/wok/plugins/ginger/ui/pages/help/ginger-help.css
 %{_datadir}/wok/plugins/ginger/ui/pages/help/en_US/host-admin.html
 %{_datadir}/wok/plugins/ginger/ui/pages/help/pt_BR/host-admin.html
 %{_datadir}/wok/plugins/ginger/ui/pages/help/zh_CN/host-admin.html

@@ -25,6 +25,10 @@ DITA_XSL_FILE = dita-help.xsl
 
 EXTRA_DIST = $(DITA_XSL_FILE)
 
+helpdir = $(datadir)/wok/plugins/ginger/ui/pages/help
+
+dist_help_DATA = ginger-help.css
+
 all: $(HTML_FILES) $(wildcard */*.dita)
 
 %.html: %.dita $(DITA_XSL_FILE)
