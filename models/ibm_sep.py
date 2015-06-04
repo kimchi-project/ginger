@@ -77,9 +77,9 @@ class SepModel(object):
             raise OperationFailed('GINSEP0009E', {'error': error})
 
     def is_feature_available(self):
-        return (os.path.isfile('/opt/ibm/seprovider/bin/getSubscriber')
-                and os.path.isfile('/opt/ibm/seprovider/bin/subscribe')
-                and os.path.isfile('/opt/ibm/seprovider/bin/unsubscribe'))
+        return (os.path.isfile('/opt/ibm/seprovider/bin/getSubscriber') and
+                os.path.isfile('/opt/ibm/seprovider/bin/subscribe') and
+                os.path.isfile('/opt/ibm/seprovider/bin/unsubscribe'))
 
 
 class SubscribersModel(object):
