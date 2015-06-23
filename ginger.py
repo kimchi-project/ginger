@@ -29,7 +29,7 @@ from models import GingerModel
 
 
 class Ginger(WokRoot):
-    def __init__(self):
+    def __init__(self, wok_options=None):
         self.model = GingerModel()
         super(Ginger, self).__init__(self.model)
         self.backup = Backup(self.model)
