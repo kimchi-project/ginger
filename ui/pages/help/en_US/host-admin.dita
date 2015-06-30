@@ -9,12 +9,12 @@ version 2.1 of the License, or (at your option) any later version.
 
 This library is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
 Lesser General Public License for more details.
 
 You should have received a copy of the GNU Lesser General Public
 License along with this library; if not, write to the Free Software
-Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
 -->
 <!--Arbortext, Inc., 1988-2011, v.4002-->
 <!DOCTYPE cshelp PUBLIC "-//IBM//DTD DITA CSHelp//EN"
@@ -28,18 +28,22 @@ https://w3.opensource.ibm.com/projects/dita-cshelp/-->
 <cshelp id="administration" xml:lang="en-us">
 <title>Administration</title>
 <shortdesc>The <wintitle>Administration</wintitle> page shows information
-about your firmware and backup configuration files.</shortdesc>
+about your system.</shortdesc>
 <csbody>
-<p>The Firmware Updates section displays the current firmware version.
-You can update this version by downloading the RPM file from Fix Central,
-providing the path to the RPM file, and clicking <uicontrol>Update</uicontrol>.</p><?Pub
-Caret 124?>
-<p>The Configuration Backup section displays configuration backup
-files. Hovering over the name displays the paths that are included
-and excluded. The files are saved as tar files. You can download a
-file by clicking the down arrow.</p>
-<p>Click the following to generate new files or delete them.</p>
+<p>Use these sections to update firmware, create backup files, and
+configure network, power options, users, and more.</p>
 <dl><dlentry>
+<dt>Firmware Update</dt>
+<dd>The Firmware Updates section displays the current firmware version.
+You can update this version by downloading the RPM file from Fix Central,
+providing the path to the RPM file, and clicking <uicontrol>Update</uicontrol>.</dd>
+</dlentry><dlentry>
+<dt>Configuration Backup</dt>
+<dd>The Configuration Backup section displays configuration backup
+files.<p>Hovering over the name displays the paths that are included
+and excluded. The files are saved as tar files. You can download a
+file by clicking the down arrow.</p><p>Select one the following to
+generate new files or delete them.</p><dl><dlentry>
 <dt>Generate Default Backup</dt>
 <dd>Generates a new default backup file. The default paths that are
 saved are <filepath>/etc</filepath> and <filepath>/var/lib/libvirt</filepath>.</dd>
@@ -54,7 +58,39 @@ generate the file.</dd>
 </dlentry><dlentry>
 <dt>Batch Delete</dt>
 <dd>Use this option to delete a range of backup files.</dd>
-</dlentry></dl>
+</dlentry></dl></dd>
+</dlentry><dlentry>
+<dt>Network Configuration</dt>
+<dd>Use Network Configuration to set up networking for your host server.
+Enter an IP address and subnet mask for each interface that you want
+to use. Then, click <uicontrol>Save</uicontrol>. You can edit your
+entries by selecting <uicontrol>Edit</uicontrol>.</dd>
+</dlentry><dlentry>
+<dt>Power Options</dt>
+<dd>Use Power Options to select the options that you want to use to
+manage power on your host system.</dd>
+</dlentry><dlentry>
+<dt>SAN Adapters</dt>
+<dd>The SAN Adapters section lists all of the SAN Adapters that are
+available to the server.</dd>
+</dlentry><dlentry>
+<dt>Sensor Monitor</dt>
+<dd>Use the Sensor Monitor to display sensor information for your
+server.</dd>
+</dlentry><dlentry>
+<dt>SEP Configuration</dt>
+<dd>Use SEP Configuration to configure your IBM Serviceable Event
+Provider (SEP). The IBM Serviceable Event Provider monitors problems,
+collects, and sends service information. To configure this service,
+click the plus (+). Then, add a subscription by entering a host name,
+port, and community for your provider. After the subscription is submitted,
+you can start the service.</dd>
+</dlentry><dlentry>
+<dt>User Management</dt>
+<dd>User Management allows you to easily add and remove users from
+your host system. Click plus (+) to add a user. Specify name, password,
+group (if any) and what profile you want the user to have. Then, click <uicontrol>Submit</uicontrol>. </dd>
+</dlentry></dl><?Pub Caret 2101?>
 </csbody>
 </cshelp>
-<?Pub *0000002075?>
+<?Pub *0000003732?>
