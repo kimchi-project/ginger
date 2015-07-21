@@ -9,12 +9,12 @@ version 2.1 of the License, or (at your option) any later version.
 
 This library is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
 Lesser General Public License for more details.
 
 You should have received a copy of the GNU Lesser General Public
 License along with this library; if not, write to the Free Software
-Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
 -->
 <!--Arbortext, Inc., 1988-2011, v.4002-->
 <!DOCTYPE cshelp PUBLIC "-//IBM//DTD DITA CSHelp//EN"
@@ -27,19 +27,20 @@ For support please see:
 https://w3.opensource.ibm.com/projects/dita-cshelp/-->
 <cshelp id="administration" xml:lang="pt-br">
 <title>Administração</title>
-<shortdesc>A página <wintitle>Administração</wintitle> mostra informações
-sobre seu firmware e arquivos de configuração de backup.</shortdesc>
+<shortdesc>A página <wintitle>Administração</wintitle> mostra informações sobre o seu sistema.</shortdesc>
 <csbody>
-<p>A seção Atualizações de firmware exibe a versão de firmware atual.
-É possível atualizar essa versão fazendo o download do arquivo RPM a partir do Fix Central,
-fornecendo o caminho para o arquivo RPM e clicando em <uicontrol>Atualizar</uicontrol>.</p>
-
-<p>A seção Backup de configuração exibe arquivos de backup de
-configuração. Passar o mouse sobre o nome exibe os caminhos incluídos
-e excluídos. Os arquivos são salvos como arquivos tar. É possível fazer o download de um
-arquivo clicando na seta para baixo.</p>
-<p>Clique nos itens a seguir para gerar novos arquivos ou para excluí-los.</p>
+<p>Use essas seções para atualizar firmware, criar arquivos de backup e configurar rede, opções de energia, usuários e mais.</p>
 <dl><dlentry>
+<dt>Atualização de Firmware</dt>
+<dd>A seção Atualizações de firmware exibe a versão de firmware atual.
+É possível atualizar essa versão fazendo o download do arquivo RPM a partir do Fix Central,
+fornecendo o caminho para o arquivo RPM e clicando em <uicontrol>Atualizar</uicontrol>.</dd>
+</dlentry><dlentry>
+<dt>Backup de configuração</dt>
+<dd>A seção Backup de configuração exibe arquivos de backup de
+configuração.<p>Passar o mouse sobre o nome exibe os caminhos incluídos
+e excluídos. Os arquivos são salvos como arquivos tar. É possível fazer o download de um
+arquivo clicando na seta para baixo.</p><p>Selecione um dos seguintes para gerar novos arquivos ou excluí-los.</p><dl><dlentry>
 <dt>Gerar backup padrão</dt>
 <dd>Gera um novo arquivo de backup padrão. Os caminhos padrão que são
 salvos são <filepath>/etc</filepath> e <filepath>/var/lib/libvirt</filepath>.</dd>
@@ -54,11 +55,33 @@ gerar o arquivo.</dd>
 </dlentry><dlentry>
 <dt>Exclusão em lote</dt>
 <dd>Use essa opção para excluir um intervalo de arquivos de backup.</dd>
+</dlentry></dl></dd>
+</dlentry><dlentry>
+<dt>Configuração de rede</dt>
+<dd>Use a Configuração de rede para configurar rede para o seu servidor host.
+Insira um endereço IP e uma máscara de sub-rede para cada interface que desejar usar. Depois, clique em <uicontrol>Salvar</uicontrol>. É possível editar suas entradas selecionando <uicontrol>Editar</uicontrol>.</dd>
+</dlentry><dlentry>
+<dt>Opções de Energia</dt>
+<dd>Use Opções de Energia para selecionar as opções que você deseja usar para gerenciar energia em seu sistema host.</dd>
+</dlentry><dlentry>
+<dt>Adaptadores SAN (rede de área de armazenamento)</dt>
+<dd>A seção Adaptadores SAN lista todos os Adaptadores SAN que estão disponíveis ao servidor.</dd>
+</dlentry><dlentry>
+<dt>Monitor Sensor</dt>
+<dd>Use o Monitor de Sensor para exibir informações sobre o sensor para o seu servidor.</dd>
+</dlentry><dlentry>
+<dt>Configuração SEP</dt>
+<dd>Use Configuração SEP para configurar o seu IBM Serviceable Event Provider (SEP). O IBM Serviceable Event Provider monitora problemas,
+coleta e envia informações sobre serviço. Para configurar esse serviço, clique no sinal de mais (+). Depois, inclua uma assinatura inserindo um nome do host, porta e comunidade para o seu provedor. Após o envio da assinatura, é possível iniciar o serviço.</dd>
+</dlentry><dlentry>
+<dt>Gerenciamento de usuários </dt>
+<dd>O Gerenciamento de usuários permite facilmente incluir e remover usuários do seu sistema host. Clique em mais (+) para incluir um usuário. Especifique nome, senha, grupo (se houver) e qual perfil deseja que o usuário tenha. Em seguida,
+clique em <uicontrol>Enviar</uicontrol>.</dd>
 </dlentry></dl>
 </csbody>
 </cshelp>
 
 
-<!-- ENGL1SH_VERS10N 02809_3 DO NOT REMOVE OR CHANGE THIS LINE -->
+<!-- ENGL1SH_VERS10N 07772_5 DO NOT REMOVE OR CHANGE THIS LINE -->
 <!-- T9N_SRC_ID 244 -->
-<!-- T9N_SH1P_STR1NG KVM21AAP001 4 -->
+<!-- T9N_SH1P_STR1NG KV310AAP001 1 -->

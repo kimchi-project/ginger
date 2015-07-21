@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Copyright IBM Corp, 2015
+
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
+-->
+<!--Arbortext, Inc., 1988-2011, v.4002-->
+<!DOCTYPE cshelp PUBLIC "-//IBM//DTD DITA CSHelp//EN"
+ "..\dtd\cshelp.dtd">
+
+
+<!--This DITA specialized document type is not supported by the Authoring Tools development team.
+Press the F1 key for online help on the tags and see the DITA XML Guide and Reference for how to use this document type.
+For support please see:
+https://w3.opensource.ibm.com/projects/dita-cshelp/-->
+<cshelp id="administration" xml:lang="ru-ru">
+<title>Администрирование</title>
+<shortdesc>Страница <wintitle>Администрирование</wintitle> содержит информацию о системе.</shortdesc>
+<csbody>
+<p>В следующих разделах можно обновить встроенное ПО, создать файлы резервных копий и настроить сеть, параметры управления питанием, пользователями и пр.
+</p>
+<dl><dlentry>
+<dt>Обновление встроенного ПО</dt>
+<dd>В разделе Обновления встроенного ПО показывается текущая версия встроенного ПО.
+Версию можно обновить, для этого загрузите файл RPM из Центра доставки исправлений, укажите путь к этому файлу и щелкните на <uicontrol>Обновить</uicontrol>.</dd>
+</dlentry><dlentry>
+<dt>Резервная копия конфигурации</dt>
+<dd>В разделе Резервная копия конфигурации показываются файлы резервных копий конфигурации.<p>При наведении курсора мыши на имя показываются включаемые и исключаемые пути. Файлы сохраняются в архивах tar. Архив можно загрузить щелчком на стрелке вниз.</p><p>Выберите одну из следующих команд, чтобы создать новые файлы или удалить.</p><dl><dlentry>
+<dt>Создать резервную копию по умолчанию</dt>
+<dd>Создать новый файл резервной копии по умолчанию. По умолчанию сохраняются каталоги <filepath>/etc</filepath> и <filepath>/var/lib/libvirt</filepath>.</dd>
+</dlentry><dlentry>
+<dt>Создать пользовательскую резервную копию</dt>
+<dd>Создать пользовательский файл резервной копии. Для того чтобы указать пути для сохранения, введите путь, который требуется включить, в поле Включаемый путь, или путь, который требуется исключить, в поле Исключаемый путь. Для добавления дополнительных путей щелкните на знаке <uicontrol>плюса (+)</uicontrol>.
+Также можно ввести описание файла резервной копии. Нажмите кнопку <uicontrol>OK</uicontrol>, чтобы создать файл.</dd>
+</dlentry><dlentry>
+<dt>Пакетное удаление</dt>
+<dd>Эта команда используется для удаления диапазона файлов резервных копий.</dd>
+</dlentry></dl></dd>
+</dlentry><dlentry>
+<dt>Настройка сети</dt>
+<dd>В разделе Настройка сети настраиваются параметры сети для сервера хоста. Введите IP-адрес и маску подсети для каждого интерфейса, который будет использоваться. Затем нажмите кнопку <uicontrol>Сохранить</uicontrol>. Значения можно отредактировать командой <uicontrol>Изменить</uicontrol>.</dd>
+</dlentry><dlentry>
+<dt>Параметры питания</dt>
+<dd>В разделе Параметры питания настраиваются параметры управления питанием системы хоста.</dd>
+</dlentry><dlentry>
+<dt>Адаптеры SAN</dt>
+<dd>В разделе Адаптеры SAN перечислены все адаптеры SAN, доступные серверу.</dd>
+</dlentry><dlentry>
+<dt>Монитор датчика</dt>
+<dd>Раздел Монитор датчика содержит информацию датчиков для сервера.
+</dd>
+</dlentry><dlentry>
+<dt>Конфигурация SEP</dt>
+<dd>В разделе Конфигурация SEP настраивается IBM Serviceable Event Provider (SEP). IBM Serviceable Event Provider следит за неполадками, собирает и отправляет служебную информацию. Для настройки этой службы щелкните на плюсе (+). Затем добавьте подписку, введя имя хоста, порт и сообщества для провайдера. После отправки подписки службу можно запустить.
+</dd>
+</dlentry><dlentry>
+<dt>Управление пользователями</dt>
+<dd>Раздел Управление пользователями позволяет легко добавлять и удалять пользователей системы хоста. Щелкните на плюсе (+), чтобы добавить пользователя. Укажите имя, пароль, группу (если есть) и профайл для пользователя. Затем нажмите кнопку <uicontrol>Отправить</uicontrol>. </dd>
+</dlentry></dl>
+</csbody>
+</cshelp>
+
+
+<!-- ENGL1SH_VERS10N 07772_5 DO NOT REMOVE OR CHANGE THIS LINE -->
+<!-- T9N_SRC_ID 244 -->
+<!-- T9N_SH1P_STR1NG KV310AAP001 1 -->

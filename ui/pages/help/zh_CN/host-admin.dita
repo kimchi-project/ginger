@@ -9,12 +9,12 @@ version 2.1 of the License, or (at your option) any later version.
 
 This library is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
 Lesser General Public License for more details.
 
 You should have received a copy of the GNU Lesser General Public
 License along with this library; if not, write to the Free Software
-Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
 -->
 <!--Arbortext, Inc., 1988-2011, v.4002-->
 <!DOCTYPE cshelp PUBLIC "-//IBM//DTD DITA CSHelp//EN"
@@ -27,29 +27,54 @@ For support please see:
 https://w3.opensource.ibm.com/projects/dita-cshelp/-->
 <cshelp id="administration" xml:lang="zh-cn">
 <title>管理</title>
-<shortdesc>“<wintitle>管理</wintitle>”页面显示有关固件和备份配置的信息。</shortdesc>
+<shortdesc>“<wintitle>管理</wintitle>”页面显示有关系统的信息。</shortdesc>
 <csbody>
-<p>“固件更新”部分显示当前固件版本。
-您可以通过从 Fix Central 下载 RPM 文件，将路径提供给 RPM 文件，然后单击<uicontrol>更新</uicontrol>来更新此版本。</p>
-
-<p>“配置备份”部分显示配置备份文件。将鼠标悬浮在名称上将显示要包括和要排除的路径。将这些文件保存为 tar 文件。您可以通过单击向下箭头下载文件。</p>
-<p>单击以下内容以生成新文件或将它们删除。</p>
+<p>使用以下部分来更新固件、创建备份文件以及配置网络、电源选项和用户等。
+</p>
 <dl><dlentry>
+<dt>固件更新</dt>
+<dd>“固件更新”部分显示当前固件版本。
+您可以通过从 Fix Central 下载 RPM 文件，将路径提供给 RPM 文件，然后单击<uicontrol>更新</uicontrol>来更新此版本。</dd>
+</dlentry><dlentry>
+<dt>配置备份</dt>
+<dd>“配置备份”部分显示配置备份文件。<p>将鼠标悬浮在名称上将显示要包括和要排除的路径。将这些文件保存为 tar 文件。您可以通过单击向下箭头下载文件。</p><p>选择以下其中一项以生成新文件或删除已生成的文件。</p><dl><dlentry>
 <dt>生成缺省备份</dt>
 <dd>生成新的缺省备份文件。保存的缺省路径为
 <filepath>/etc</filepath> 和 <filepath>/var/lib/libvirt</filepath>。</dd>
 </dlentry><dlentry>
 <dt>新建定制备份</dt>
-<dd>生成定制备份文件。要指定您想要保存的路径，请在“包含路径”下输入您想要包含的路径或者在“排除路径”下输入您想要排除的路径。要在以上任意字段中添加多个路径，请单击<uicontrol>加号键 (+)</uicontrol>。
+<dd>生成定制备份文件。要指定您想要保存的路径，请在“包含路径”下输入您想要包含的路径或者在“排除路径”下输入您想要排除的路径。要在以上任意字段中添加多个路径，请单击<uicontrol>加号 (+)</uicontrol>。
 可选，您可以为备份文件输入描述。单击<uicontrol>确定</uicontrol>以生成文件。</dd>
 </dlentry><dlentry>
 <dt>批量删除</dt>
 <dd>使用此选项可删除一系列备份文件。</dd>
+</dlentry></dl></dd>
+</dlentry><dlentry>
+<dt>网络配置</dt>
+<dd>使用“网络配置”来设置主机服务器的联网。输入要使用的每个接口的 IP 地址和子网掩码。然后，单击<uicontrol>保存</uicontrol>。可以通过选择<uicontrol>编辑</uicontrol>来编辑您输入的内容。</dd>
+</dlentry><dlentry>
+<dt>电源选项</dt>
+<dd>使用“电源选项”来选择要用来管理主机系统上的电源的选项。</dd>
+</dlentry><dlentry>
+<dt>SAN 适配器</dt>
+<dd>“SAN 适配器”部分列示可供服务器使用的所有 SAN 适配器。</dd>
+</dlentry><dlentry>
+<dt>传感器监视器</dt>
+<dd>使用“传感器监视器”来显示服务器的传感器信息。</dd>
+</dlentry><dlentry>
+<dt>SEP 配置</dt>
+<dd>使用“SEP 配置”来配置 IBM Serviceable Event
+Provider (SEP)。IBM Serviceable Event Provider 将监视问题以及收集和发送服务信息。要配置此服务，请单击加号 (+)。然后，通过输入提供程序的主机名、端口和社区来添加预订。在提交预订之后，您可以启动该服务。
+</dd>
+</dlentry><dlentry>
+<dt>用户管理</dt>
+<dd>“用户管理”便于您在主机系统中添加和移除用户。单击加号 (+) 以添加用户。指定名称、密码、组（如果有的话）以及您希望用户具有的概要文件。
+然后，单击<uicontrol>提交</uicontrol>。</dd>
 </dlentry></dl>
 </csbody>
 </cshelp>
 
 
-<!-- ENGL1SH_VERS10N 02809_3 DO NOT REMOVE OR CHANGE THIS LINE -->
+<!-- ENGL1SH_VERS10N 07772_5 DO NOT REMOVE OR CHANGE THIS LINE -->
 <!-- T9N_SRC_ID 244 -->
-<!-- T9N_SH1P_STR1NG KVM21AAP001 4 -->
+<!-- T9N_SH1P_STR1NG KV310AAP001 1 -->

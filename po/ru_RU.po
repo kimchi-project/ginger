@@ -1,4 +1,4 @@
-# Russian translations for Ginger package.
+# English translations for Ginger package.
 # Copyright (C) 2014 IBM, Corp.
 # This file is distributed under the same license as the Ginger package.
 #
@@ -10,28 +10,34 @@ msgstr ""
 "PO-Revision-Date: 2014-06-22 14:00+0800\n"
 "Last-Translator: Zhou Zheng Sheng <zhshzhou@linux.vnet.ibm.com>\n"
 "Language-Team: Zhou Zheng Sheng <zhshzhou@linux.vnet.ibm.com>\n"
-"Language: ru_RU\n"
+"Language: en_US\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 msgid "Activate"
-msgstr "Активировать"
+msgstr ""
+"Активировать"
 
 msgid "Activated Option"
-msgstr "Опция Активировано"
+msgstr ""
+"Опция Активировано"
 
 msgid "Administration"
-msgstr "Администрирование"
+msgstr ""
+"Администрирование"
 
 msgid "Administrator"
 msgstr ""
+"Администратор"
 
 msgid "Batch Delete"
-msgstr "Пакетное удаление"
+msgstr ""
+"Пакетное удаление"
 
 msgid "Cancel"
 msgstr ""
+"Отмена"
 
 msgid "Cannot update system firmware while running VMs."
 msgstr ""
@@ -39,93 +45,110 @@ msgstr ""
 
 msgid "Community"
 msgstr ""
+"Сообщество"
 
 msgid "Configuration Backup"
-msgstr "Резервная копия конфигурации"
+msgstr ""
+"Резервная копия конфигурации"
 
 msgid "Confirm Password"
 msgstr ""
+"Подтверждение пароля"
 
 #, python-format
 msgid "Could not add user '%(user)s' to kvm group."
-msgstr "Не удалось добавить пользователя %(user)s в группу kvm."
+msgstr ""
+"Не удалось добавить пользователя '%(user)s' в группу kvm."
 
 #, python-format
 msgid "Could not add user '%(user)s' to sudoers list."
-msgstr "Не удалось добавить пользователя %(user)s в список sudoers."
+msgstr ""
+"Не удалось добавить пользователя '%(user)s' в список sudoers."
 
 #, python-format
 msgid "Could not create user '%(user)s'."
-msgstr "Не удалось создать пользователя %(user)s."
+msgstr ""
+"Не удалось создать пользователя '%(user)s'."
 
 #, python-format
 msgid "Could not delete group '%(group)s'"
-msgstr "Не удалось удалить группу %(group)s"
+msgstr ""
+"Не удалось удалить группу '%(user)s'"
 
 #, python-format
 msgid "Could not delete user '%(user)s'."
-msgstr "Не удалось удалить пользователя %(user)s."
+msgstr ""
+"Не удалось удалить пользователя '%(user)s'."
 
 msgid "DNS"
-msgstr "DNS"
+msgstr ""
+"DNS"
 
 msgid "Description"
-msgstr "Описание"
+msgstr ""
+"Описание"
 
 msgid "Description too long."
-msgstr "Слишком длинное описание."
+msgstr ""
+"Слишком длинное описание."
 
 #, python-format
 msgid "Error activating power saving profile %(profile)s."
-msgstr "Ошибка активации энергосберегающего %(profile)s."
+msgstr ""
+"Ошибка активации энергосберегающего профайла %(profile)s."
 
 #, python-format
 msgid ""
 "Error commiting firmware. rc = %(rc)s.                      Ensure you are "
 "booted to the temporary side."
 msgstr ""
-"Ошибка подтверждения встроенного ПО. Код возврата = "
-"%(rc)s.                      Убедитесь, что вы загрузились на временной "
-"основе."
+"Ошибка фиксации встроенного ПО. rc = %(rc)s.                      Убедитесь, что "
+"загрузка была во временную область."
 
 #, python-format
 msgid "Error deleting subscription: '%(error)s'."
 msgstr ""
+"Ошибка удаления подписки: '%(error)s'."
 
 #, python-format
 msgid ""
 "Error flashing firmware. rc = %(rc)s.                      Please see /usr/"
 "sbin/update_flash for rc reasons."
 msgstr ""
-"Ошибка записи встроенного ПО во флэш-память. Код возврата = %(rc)s. См. в "
-"файле /usr/sbin/update_flash описание кодов возврата."
+"Ошибка записи встроенного ПО во флэш-память. rc = %(rc)s.                      См. в /usr/"
+"sbin/update_flash описание кодов возврата."
 
 msgid "Error loading SEP subscriptions data from server."
 msgstr ""
+"Ошибка загрузки подписок SEP с сервера."
 
 #, python-format
 msgid ""
 "Error rejecting firmware. rc = %(rc)s.                      Ensure you are "
 "booted to the permanent side."
 msgstr ""
-"Ошибка запрета встроенного ПО. Код возврат = %(rc)s.                      "
-"Убедитесь, что вы загрузились на постоянной основе."
+"Ошибка отклонения встроенного ПО. rc = %(rc)s.                      Убедитесь, что "
+"загрузка была в постоянную область."
 
 #, python-format
 msgid "Error retrieving SEP subscribers data: '%(error)s'."
 msgstr ""
+"Ошибка получения данных подписчиков SEP: '%(error)s'."
 
 #, python-format
 msgid "Error starting SEP service: '%(error)s'."
 msgstr ""
+"Ошибка запуска службы SEP: '%(error)s'."
 
 #, python-format
 msgid "Error stopping SEP service: '%(error)s'."
 msgstr ""
+"Ошибка остановки службы SEP: '%(error)s'."
 
 #, python-format
 msgid "Error subscribing SEP data to server: '%(error)s'."
 msgstr ""
+"Ошибка подписки на данные SEP на сервере: '%(error)s'."
 
 msgid "FW update failed: No image file found in the package file."
 msgstr ""
@@ -136,16 +159,16 @@ msgid ""
 "Failed to create archive \"%(identity)s\". Inspect error log for more "
 "information."
 msgstr ""
-"Не удалось создать архив \"%(identity)s\". См. протокол ошибок для получения "
-"дополнительной информации."
+"Не удалось создать архив \"%(identity)s\". См. протокол ошибок "
+"для получения дополнительной информации."
 
 #, python-format
 msgid ""
 "Failed to create archive dir \"%(dir)s\". Inspect error log for more "
 "information."
 msgstr ""
-"Не удалось создать каталог архива \"%(dir)s\". См. протокол ошибок для "
-"получения дополнительной информации."
+"Не удалось создать каталог архивов \"%(dir)s\". См. протокол ошибок "
+"для получения дополнительной информации."
 
 #, python-format
 msgid ""
@@ -157,327 +180,381 @@ msgstr ""
 
 #, python-format
 msgid "Failed to delete archive file \"%(name)s\"."
-msgstr "Не удалось удалить файл архива \"%(name)s\"."
+msgstr ""
+"Не удалось удалить файл архива \"%(name)s\"."
 
 #, python-format
 msgid "Failed to read /etc/resolv.conf because %(reason)s"
-msgstr "Не удалось прочитать файл /etc/resolv.conf. Причина: %(reason)s"
+msgstr ""
+"Не удалось прочитать файл /etc/resolv.conf. Причина: %(reason)s"
 
 msgid ""
 "Failed to retrieve power management profiles:                        Daemon "
 "'tuned-adm' is not active."
 msgstr ""
-"Не удалось загрузить профили управления питанием:                        "
-"Демон 'tuned-adm' не активен."
+"Не удалось загрузить профили управления питанием:                        Демон "
+"'tuned-adm' не активен."
 
 msgid ""
 "Failed to retrieve power management profiles:                        Host OS "
 "does not support the tuned-adm package."
 msgstr ""
-"Не удалось загрузить профили управления питанием:                        OС "
-"хоста не поддерживает пакеты tuned-adm."
+"Не удалось загрузить профили управления питанием:                        OС хоста "
+"не поддерживает пакеты tuned-adm."
 
 msgid ""
 "Failed to retrieve power management profiles:                        Package "
 "'tuned-adm' is not installed."
 msgstr ""
-"Не удалось загрузить профили управления питанием:                        "
-"Пакет 'tuned-adm' не установлен."
+"Не удалось загрузить профили управления питанием:                        Пакет "
+"'tuned-adm' не установлен."
 
 #, python-format
 msgid "Failed to write /etc/resolv.conf because %(reason)s"
-msgstr "Не удалось записать файл /etc/resolv.conf. Причина: %(reason)s"
+msgstr ""
+"Не удалось записать данные в файл /etc/resolv.conf. Причина: %(reason)s"
 
 msgid "File"
-msgstr "Файл"
+msgstr ""
+"Файл"
 
 msgid "Firmware Update"
-msgstr "Обновление встроенного ПО"
+msgstr ""
+"Обновление встроенного ПО"
 
 msgid "Firmware Version: "
-msgstr "Версия встроенного ПО: "
+msgstr ""
+"Версия встроенного ПО: "
 
 #, python-format
 msgid "Firmware image unpack failed: rc = %(rc)s. Details: %(err)s"
 msgstr ""
-"Не удалось распаковать образ встроенного ПО: код возврата = %(rc)s. "
-"Сведения: %(err)s"
+"Не удалось распаковать образ встроенного ПО: rc = %(rc)s. Сведения: %(err)s"
 
 msgid ""
 "Firmware update is initializing. System will reboot in order to flash the "
 "firmware."
 msgstr ""
-"Выполняется обновление встроенного ПО. Система перезагрузится для записи во "
-"флэш-память встроенного ПО."
+"Выполняется обновление встроенного ПО. Система перезагрузится для записи во флэш-память "
+"встроенного ПО."
 
 msgid "Gateway"
-msgstr "Шлюз"
+msgstr ""
+"Шлюз"
 
 msgid "Generate Default Backup"
-msgstr "Создать резервную копию по умолчанию"
+msgstr ""
+"Создать резервную копию по умолчанию"
 
 msgid "Group"
 msgstr ""
+"Группа"
 
 #, python-format
 msgid "Group for user '%(user)s' does not exist for removal."
-msgstr "Группа пользователя %(user)s не существует для удаления."
+msgstr ""
+"Группа пользователя '%(user)s' не существует для удаления."
 
 msgid "Hostname"
 msgstr ""
+"Имя хоста"
 
 #, python-format
 msgid "Hostname %(hostname)s not found."
 msgstr ""
+"Имя хоста %(hostname)s не найдено."
 
 msgid "IP"
-msgstr "IP"
+msgstr ""
+"IP"
 
 msgid "In-Use/Max Ports"
-msgstr "Используется/Максимальное число портов"
+msgstr ""
+"Используется/Максимальное число портов"
 
 msgid "Interface"
-msgstr "Интерфейс"
+msgstr ""
+"Интерфейс"
 
 #, python-format
 msgid ""
 "Interface %(name)s is not editable because it belongs to a vlan or bridge"
 msgstr ""
+"Интерфейс %(name)s нельзя изменить, поскольку он принадлежит VLAN или мосту"
 
 msgid "Invalid counts_ago number."
-msgstr "Недопустимое значение counts_ago."
+msgstr ""
+"Недопустимое значение counts_ago."
 
 msgid "Invalid days_ago number."
-msgstr "Недопустимое значение days_ago."
+msgstr ""
+"Недопустимое значение days_ago."
 
 msgid ""
 "Invalid ip/netmask inputs. Both fields must be valid ip/netmask values or "
 "both must be blank (will erase the current IP/netmask)."
 msgstr ""
+"Недопустимые значения IP-адреса и маски сети. Оба поля должны содержать допустимые значения IP-адреса и маски сети, или "
+"оба должны быть пустыми (это приведет к удалению текущих значений IP-адреса и маски сети)."
 
 #, python-format
 msgid "Invalid network parameters. Details: %(err)s"
-msgstr "Недопустимые сетевые параметры. Сведения: %(err)s"
+msgstr ""
+"Недопустимые параметры сети. Сведения: %(err)s"
 
 msgid "Invalid parameter for DNS servers"
-msgstr "Недопустимый параметр серверов DNS"
+msgstr ""
+"Недопустимый параметр серверов DNS"
 
 msgid "Invalid parameter for interface ip address"
-msgstr "Недопустимый параметр IP-адреса интерфейса"
+msgstr ""
+"Недопустимый параметр IP-адреса интерфейса"
 
 msgid "Invalid parameter for interface netmask"
-msgstr "Недопустимый параметр маски сети интерфейса"
+msgstr ""
+"Недопустимый параметр маски сети интерфейса"
 
 msgid "Invalid parameter for network gateway"
-msgstr "Недопустимый параметр сетевого шлюза"
+msgstr ""
+"Недопустимый параметр сетевого шлюза"
 
 msgid "Kimchi User"
 msgstr ""
+"Пользователь Kimchi"
 
 msgid "Mask"
-msgstr "Маска"
+msgstr ""
+"Маска"
 
 msgid "Name"
-msgstr "Имя"
+msgstr ""
+"Имя"
 
 msgid "Network Configuration"
-msgstr "Настройка сети"
+msgstr ""
+"Настройка сети"
 
 msgid "New Custom Backup"
-msgstr "Создать пользовательскую резервную копию"
+msgstr ""
+"Создать пользовательскую резервную копию"
 
 msgid "Package Path: "
-msgstr "Путь к пакету: "
+msgstr ""
+"Путь к пакету: "
 
 msgid "Password"
 msgstr ""
+"Пароль"
 
 msgid "Path Excluded"
-msgstr "Исключаемый путь"
+msgstr ""
+"Исключаемый путь"
 
 msgid "Path Included"
-msgstr "Включаемый путь"
+msgstr ""
+"Включаемый путь"
 
 msgid "Path or pattern is too long or too short."
-msgstr "Путь или шаблон слишком длинный или слишком короткий."
+msgstr ""
+"Путь или шаблон слишком длинный или слишком короткий."
 
 msgid "Please check the uniqueness of the paths or patterns."
-msgstr "Проверьте уникальность путей или шаблонов."
+msgstr ""
+"Проверьте уникальность путей или шаблонов."
 
 msgid "Port"
 msgstr ""
+"Порт"
 
 msgid "Power Options"
-msgstr "Параметры питания"
+msgstr ""
+"Параметры питания"
 
 msgid "Preserve the latest"
-msgstr "Сохранить последние"
+msgstr ""
+"Сохранить последние"
 
 msgid "Profile"
 msgstr ""
+"Профайл"
 
 msgid "Provide required parameters: hostname, port, community."
 msgstr ""
+"Укажите обязательные параметры: имя хоста, порт, сообщество."
 
 msgid "SAN Adapters"
-msgstr "Адаптеры SAN"
+msgstr ""
+"Адаптеры SAN"
 
 #, python-format
 msgid "SAN adapter '%(adapter)s' does not exist in the system."
-msgstr "Адаптер SAN '%(adapter)s' в системе не существует."
+msgstr ""
+"Адаптер SAN '%(adapter)s' не существует в системе."
 
 msgid "SEP Configuration"
-msgstr "Конфигурация SEP"
+msgstr ""
+"Конфигурация SEP"
 
 msgid "SNMP community name must be a single word."
 msgstr ""
+"Имя сообщества SNMP должно состоять из одного слова."
 
 msgid "Selected Option"
-msgstr "Опция Выбрано"
+msgstr ""
+"Опция Выбрано"
 
 msgid "Sensor Monitor"
-msgstr "Монитор датчика"
+msgstr ""
+"Монитор датчика"
 
 msgid "Specify name, password, group and profile for the new user."
-msgstr "Укажите имя, пароль и профайл для нового пользователя."
+msgstr ""
+"Укажите имя, пароль и профайл для нового пользователя."
 
 msgid "Speed"
-msgstr "Скорость"
+msgstr ""
+"Скорость"
 
 msgid "Start"
-msgstr "Запустить"
+msgstr ""
+"Запустить"
 
 msgid "State"
-msgstr "Состояние"
+msgstr ""
+"Состояние"
 
 msgid "Status:"
-msgstr "Состояние:"
+msgstr ""
+"Состояние:"
 
 msgid "Stop"
-msgstr "Завершить"
+msgstr ""
+"Завершить"
 
 msgid "Submit"
 msgstr ""
+"Отправить"
 
 msgid "Symbolic Name"
-msgstr "Символьное имя"
+msgstr ""
+"Символьное имя"
 
 msgid "System hostname must be a valid string."
 msgstr ""
+"Имя хоста системы должно быть допустимой строкой."
 
 msgid ""
 "System port number must be an integer between 1 and                      "
 "65535."
 msgstr ""
+"Номер порта системы должен быть целым числом от 1 до "
+"65535."
 
 msgid "The absolute path to the firmware rpm."
-msgstr "Полный путь к rpm встроенного ПО."
+msgstr ""
+"Полный путь к rpm встроенного ПО."
 
 #, python-format
 msgid "The user name '%(user)s' is already in use'."
-msgstr "Имя пользователя %(user)s уже занято."
+msgstr ""
+"Имя пользователя '%(user)s' уже занято."
 
 #, python-format
 msgid ""
 "Timeout while creating archive \"%(identity)s\", the files might be too "
 "large for a configuration backup."
 msgstr ""
-"Превышено время ожидания при создании архива \"%(identity)s\". Возможно, "
+"Истек тайм-аут создания архива \"%(identity)s\". Возможно, "
 "файлы слишком большие для резервного копирования конфигурации."
 
 msgid "Timestamp"
-msgstr "Системное время"
+msgstr ""
+"Системное время"
 
 #, python-format
 msgid "Unable to delete default gateway: %(err)s"
-msgstr "Не удалось удалить шлюз по умолчанию: %(err)s"
+msgstr ""
+"Не удалось удалить шлюз по умолчанию: %(err)s"
 
 #, python-format
 msgid "Unable to get default gateway: %(err)s"
-msgstr "Не удалось загрузить шлюз по умолчанию: %(err)s"
+msgstr ""
+"Не удалось получить шлюз по умолчанию: %(err)s"
 
 #, python-format
 msgid "Unable to set default gateway: %(err)s"
-msgstr "Не удалось задать шлюз по умолчанию: %(err)s"
+msgstr ""
+"Не удалось задать шлюз по умолчанию: %(err)s"
 
 #, python-format
 msgid "Unable to update interface configuration. Details: %(err)s"
-msgstr "Не удалось обновить конфигурацию интерфейса. Сведения: %(err)s"
+msgstr ""
+"Не удалось обновить конфигурацию интерфейса. Сведения: %(err)s"
 
 msgid "Unselected Option"
-msgstr "Опция Не выбрано"
+msgstr ""
+"Опция Не выбрано"
 
 msgid "Update"
-msgstr "Обновить"
+msgstr ""
+"Обновить"
 
 msgid "Use Other"
 msgstr ""
+"Использовать другой"
 
 #, python-format
 msgid "User '%(user)s' does not exist."
-msgstr "Пользователь %(user)s не существует."
+msgstr ""
+"Пользователь '%(user)s' не существует."
 
 msgid "User Management"
 msgstr ""
+"Управление пользователями"
 
 msgid "User Name"
 msgstr ""
+"Имя пользователя"
 
 msgid "User group is a required string."
-msgstr "Группа пользователя обязательная."
+msgstr ""
+"Группа пользователя обязательная."
 
 msgid "User name is a required string."
-msgstr "Имя пользователя обязательное."
+msgstr ""
+"Имя пользователя обязательное."
 
 msgid "User password is a required string."
-msgstr "Пароль пользователя обязательный."
+msgstr ""
+"Пароль пользователя обязательный."
 
 msgid ""
 "User profile is required and should be one among kimchiuser, virtuser or "
 "admin."
 msgstr ""
-"Профайл пользователя обязательный и должен быть одним из следующих: "
-"kimchiuser, virtuser или admin."
+"Профайл пользователя обязательный и должен быть одним из следующих: kimchiuser, virtuser или "
+"admin."
 
 msgid "Virt User"
 msgstr ""
+"Виртуальный пользователь"
 
 msgid "WWNN"
-msgstr "Глобальное имя узла (WWNN)"
+msgstr ""
+"Глобальное имя узла (WWNN)"
 
 msgid "WWPN"
-msgstr "Глобальное имя порта (WWPN)"
+msgstr ""
+"Глобальное имя порта (WWPN)"
 
 msgid "backups"
-msgstr "резервные копии"
+msgstr ""
+"резервные копии"
 
 msgid "days of backups"
-msgstr "дни резервных копий"
+msgstr ""
+"дни резервных копий"
 
-#~ msgid "Host Name:"
-#~ msgstr "Имя хоста:"
-
-#~ msgid "Port:"
-#~ msgstr "Порт:"
-
-#~ msgid ""
-#~ "SEP command execution error: '%(cmd)s' - rc: "
-#~ "'%(rc)s'                      - error: '%(error)s'."
-#~ msgstr ""
-#~ "Ошибка выполнения команды SEP: '%(cmd)s' - rc: "
-#~ "'%(rc)s'                      - ошибка: '%(error)s'."
-
-#~ msgid "SNMP Community:"
-#~ msgstr "Сообщество SNMP:"
-
-#~ msgid "SNMP community is a required parameter."
-#~ msgstr "Сообщество SNMP является обязательным параметром."
-
-#~ msgid "Subscribe"
-#~ msgstr "Подписаться"
-
-#~ msgid "System hostname is a required parameter."
-#~ msgstr "Имя хоста системы является обязательным параметром."
-
-#~ msgid "System port number is a required parameter."
-#~ msgstr "Число портов системы является обязательным параметром."
+# ENGL1SH_VERS10N 01434_8 DO NOT REMOVE OR CHANGE THIS LINE
+# T9N_SRC_ID 249
+# T9N_SH1P_STR1NG KV310AAP001 1

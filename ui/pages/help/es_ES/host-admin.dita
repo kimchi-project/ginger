@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Copyright IBM Corp, 2015
+
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
+-->
+<!--Arbortext, Inc., 1988-2011, v.4002-->
+<!DOCTYPE cshelp PUBLIC "-//IBM//DTD DITA CSHelp//EN"
+ "..\dtd\cshelp.dtd">
+
+
+<!--This DITA specialized document type is not supported by the Authoring Tools development team.
+Press the F1 key for online help on the tags and see the DITA XML Guide and Reference for how to use this document type.
+For support please see:
+https://w3.opensource.ibm.com/projects/dita-cshelp/-->
+<cshelp id="administration" xml:lang="es-es">
+<title>Administración</title>
+<shortdesc>La página <wintitle>Administración</wintitle> muestra información sobre su sistema.</shortdesc>
+<csbody>
+<p>Utilice estas secciones para actualizar el firmware, crear archivos de copia de seguridad y configurar la red, las opciones de alimentación, los usuarios y demás. </p>
+<dl><dlentry>
+<dt>Actualización de firmware</dt>
+<dd>La sección Actualizaciones de firmware muestra la versión actual del firmware.
+Puede actualizar esta versión descargando el archivo RPM de Fix Central,
+proporcionando la vía de acceso del archivo RPM y pulsando <uicontrol>Actualizar</uicontrol>.</dd>
+</dlentry><dlentry>
+<dt>Copia de seguridad de configuración</dt>
+<dd>La sección Copia de seguridad de configuración muestra los archivos de copia
+de seguridad de la configuración. <p>Al pasar el cursor sobre el nombre se
+muestran las vías de acceso incluidas y excluidas. Los archivos se guardan como
+archivos tar. Puede descargar un archivo pulsando en la flecha hacia abajo.</p><p>Seleccione una de las opciones siguientes para generar archivos nuevos o suprimirlos. </p><dl><dlentry>
+<dt>Generar copia de seguridad predeterminada</dt>
+<dd>Genera un nuevo archivo de copia de seguridad predeterminada. Las vías de acceso predeterminadas que se guardan son
+<filepath>/etc</filepath> y <filepath>/var/lib/libvirt</filepath>.</dd>
+</dlentry><dlentry>
+<dt>Nueva copia de seguridad personalizada</dt>
+<dd>Genera archivo de copia de seguridad personalizada. Para especificar las
+vías de acceso que desea guardar, especifique la vía de acceso que desea
+incluir bajo Vía de acceso incluida o la vía de acceso que desea excluir bajo
+Vía de acceso excluida. Para añadir más de una vía de acceso en los campos, pulse el signo <uicontrol>más (+)</uicontrol>.
+Opcionalmente, puede especificar una descripción para el archivo de copia de seguridad. Pulse <uicontrol>Aceptar</uicontrol> para
+generar el archivo.</dd>
+</dlentry><dlentry>
+<dt>Suprimir por lotes</dt>
+<dd>Utilice esta opción para suprimir un rango de archivos de copia de seguridad.</dd>
+</dlentry></dl></dd>
+</dlentry><dlentry>
+<dt>Configuración de red</dt>
+<dd>Utilice Configuración de red para configurar la red de su servidor host.
+Especifique una dirección IP y una máscara de subred para cada interfaz que desee utilizar. A continuación, pulse <uicontrol>Guardar</uicontrol>. Puede editar las entradas seleccionando <uicontrol>Editar</uicontrol>.</dd>
+</dlentry><dlentry>
+<dt>Opciones de potencia</dt>
+<dd>Utilice Opciones de potencia para seleccionar las opciones que desee utilizar para gestionar la potencia de su sistema host. </dd>
+</dlentry><dlentry>
+<dt>Adaptadores SAN</dt>
+<dd>En la sección Adaptadores SAN se listan todos los adaptadores SAN que están disponibles en el servidor. </dd>
+</dlentry><dlentry>
+<dt>Supervisor de sensor</dt>
+<dd>Utilice Supervisor de sensor para visualizar información de sensor para su servidor. </dd>
+</dlentry><dlentry>
+<dt>Configuración de SEP</dt>
+<dd>Utilice Configuración de SEP para configurar su IBM Serviceable Event
+Provider (SEP). IBM Serviceable Event Provider supervisa problemas, recopilaciones y envía información de servicio. Para configurar este servicio, pulse el signo
+(+). A continuación, añada una suscripción especificando un nombre de host, un puerto y una comunidad para su proveedor. Tras enviar la suscripción, puede iniciar el servicio. </dd>
+</dlentry><dlentry>
+<dt>Gestión de usuarios</dt>
+<dd>Gestión de usuarios le permite añadir y eliminar fácilmente usuarios de su sistema host. Pulse más (+) para añadir un usuario. Especifique un nombre, una contraseña, un grupo (si lo hay) y qué perfil desea que tenga el usuario. Luego, pulse <uicontrol>Enviar</uicontrol>.</dd>
+</dlentry></dl>
+</csbody>
+</cshelp>
+
+
+<!-- ENGL1SH_VERS10N 07772_5 DO NOT REMOVE OR CHANGE THIS LINE -->
+<!-- T9N_SRC_ID 244 -->
+<!-- T9N_SH1P_STR1NG KV310AAP001 1 -->

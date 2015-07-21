@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Copyright IBM Corp, 2015
+
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
+-->
+<!--Arbortext, Inc., 1988-2011, v.4002-->
+<!DOCTYPE cshelp PUBLIC "-//IBM//DTD DITA CSHelp//EN"
+ "..\dtd\cshelp.dtd">
+
+
+<!--This DITA specialized document type is not supported by the Authoring Tools development team.
+Press the F1 key for online help on the tags and see the DITA XML Guide and Reference for how to use this document type.
+For support please see:
+https://w3.opensource.ibm.com/projects/dita-cshelp/-->
+<cshelp id="administration" xml:lang="zh-tw">
+<title>管理</title>
+<shortdesc>「<wintitle>管理</wintitle>」頁面顯示系統的相關資訊。</shortdesc>
+<csbody>
+<p>使用這些區段來更新韌體、建立備份檔以及配置網路、電源選項、使用者等。</p>
+<dl><dlentry>
+<dt>韌體更新</dt>
+<dd>「韌體更新項目」區段顯示現行韌體版本。
+如果要更新此版本，則從「修正中心」下載 RPM 檔，並提供 RPM 檔的路徑，然後按一下<uicontrol>更新</uicontrol>。</dd>
+</dlentry><dlentry>
+<dt>配置備份</dt>
+<dd>「配置備份」區段會顯示配置備份檔。<p>將滑鼠指標移至名稱，會顯示已併入及已排除的路徑。檔案將儲存為 TAR 檔。可以透過按下移鍵來下載檔案。</p><p>選取下列其中一項來產生新檔案或刪除檔案。</p><dl><dlentry>
+<dt>產生預設備份</dt>
+<dd>產生新的預設備份檔。儲存的預設路徑為 <filepath>/etc</filepath> 及 <filepath>/var/lib/libvirt</filepath>。</dd>
+</dlentry><dlentry>
+<dt>新建自訂備份</dt>
+<dd>產生自訂備份檔。如果要指定您想儲存的路徑，請輸入您想在「路徑併入」下已併入的路徑，或輸入您想在「路徑排除」下已排除的路徑。如果要給這兩個欄位中的每一個新增多個路徑，請按一下<uicontrol>加號 (+)</uicontrol>。
+您也可以選擇性地輸入備份檔的說明。按一下<uicontrol>確定</uicontrol>來產生檔案。</dd>
+</dlentry><dlentry>
+<dt>批次刪除</dt>
+<dd>使用此選項來刪除一系列的備份檔。</dd>
+</dlentry></dl></dd>
+</dlentry><dlentry>
+<dt>網路配置</dt>
+<dd>使用「網路配置」來設定主伺服器的網路。
+輸入您要使用之每一個介面的 IP 位址及子網路遮罩。
+然後，按一下<uicontrol>儲存</uicontrol>。您可以透過選取<uicontrol>編輯</uicontrol>來編輯項目。</dd>
+</dlentry><dlentry>
+<dt>電源選項</dt>
+<dd>使用「電源選項」來選取您要用來對主機系統上的電源進行管理的選項。
+</dd>
+</dlentry><dlentry>
+<dt>SAN 配接卡</dt>
+<dd>「SAN 配接卡」區段會列出可供伺服器使用的所有 SAN 配接卡。
+</dd>
+</dlentry><dlentry>
+<dt>感應器監視器</dt>
+<dd>使用「感應器監視器」來顯示伺服器的感應器資訊。
+</dd>
+</dlentry><dlentry>
+<dt>SEP 配置</dt>
+<dd>使用「SEP 配置」來配置 IBM Serviceable Event Provider (SEP)。IBM Serviceable Event Provider 會監視問題，收集並傳送服務資訊。
+如果要配置此服務，請按一下加號 (+)。然後，透過輸入提供者的主機名稱、埠和社群來新增訂閱。
+提交訂閱之後，您可以啟動服務。
+</dd>
+</dlentry><dlentry>
+<dt>使用者管理</dt>
+<dd>「使用者管理」容許您從主機系統中輕鬆新增和移除使用者。
+按一下加號 (+) 以新增使用者。指定您要讓該使用者具有的名稱、密碼、群組（如果有的話）以及設定檔。
+然後，按一下<uicontrol>提交</uicontrol>。</dd>
+</dlentry></dl>
+</csbody>
+</cshelp>
+
+
+<!-- ENGL1SH_VERS10N 07772_5 DO NOT REMOVE OR CHANGE THIS LINE -->
+<!-- T9N_SRC_ID 244 -->
+<!-- T9N_SH1P_STR1NG KV310AAP001 1 -->

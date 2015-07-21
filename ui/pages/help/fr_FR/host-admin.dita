@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Copyright IBM Corp, 2015
+
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
+-->
+<!--Arbortext, Inc., 1988-2011, v.4002-->
+<!DOCTYPE cshelp PUBLIC "-//IBM//DTD DITA CSHelp//EN"
+ "..\dtd\cshelp.dtd">
+
+
+<!--This DITA specialized document type is not supported by the Authoring Tools development team.
+Press the F1 key for online help on the tags and see the DITA XML Guide and Reference for how to use this document type.
+For support please see:
+https://w3.opensource.ibm.com/projects/dita-cshelp/-->
+<cshelp id="administration" xml:lang="fr-fr">
+<title>Administration</title>
+<shortdesc>La page <wintitle>Administration</wintitle> affiche les informations relatives à votre système.</shortdesc>
+<csbody>
+<p>Utilisez ces sections pour mettre à jour le microprogramme, créer des fichiers de sauvegarde, et configurer le réseau, les options d'alimentation, les utilisateurs, etc.</p>
+<dl><dlentry>
+<dt>Mise à jour du microprogramme</dt>
+<dd>La section Mises à jour du microcode affiche la version de microprogramme en cours.
+Vous pouvez mettre à jour cette version en téléchargeant le fichier RPM
+depuis Fix Central, en indiquant le chemin d'accès au fichier RPM puis en cliquant
+sur <uicontrol>Mettre à jour</uicontrol>.</dd>
+</dlentry><dlentry>
+<dt>Sauvegarde de configuration</dt>
+<dd>La section Sauvegarde de configuration affiche les fichiers
+de sauvegarde de configuration.<p>Lorsque vous survolez le nom,
+les chemins d'accès inclus et exclus s'affichent. Les fichiers
+sont sauvegardés sous forme de fichiers tar. Vous pouvez télécharger un fichier en cliquant sur la flèche vers le bas.</p><p>Sélectionnez l'un des éléments suivants pour générer de nouveaux fichiers ou les supprimer.</p><dl><dlentry>
+<dt>Générer la sauvegarde par défaut</dt>
+<dd>Génère un nouveau fichier de sauvegarde par défaut. Les chemins d'accès
+par défaut qui sont sauvegardés sont <filepath>/etc</filepath> et <filepath>/var/lib/libvirt</filepath>.</dd>
+</dlentry><dlentry>
+<dt>Nouvelle sauvegarde personnalisée</dt>
+<dd>Génère un fichier de sauvegarde personnalisé. Pour spécifier les chemins d'accès
+à sauvegarder, entrez un chemin à inclure sous Chemin inclus,
+ou un chemin à exclure sous Chemin exclu. Pour ajouter plusieurs chemin dans l'une
+ou l'autre de ces zones, cliquez sur <uicontrol>plus (+)</uicontrol>.
+Vous avez également la possibilité d'entrer une description
+du fichier de sauvegarde. Cliquez sur <uicontrol>OK</uicontrol> pour générer le fichier.</dd>
+</dlentry><dlentry>
+<dt>Supprimer</dt>
+<dd>Utilisez cette option pour supprimer une plage de fichiers de sauvegarde.</dd>
+</dlentry></dl></dd>
+</dlentry><dlentry>
+<dt>Configuration de réseau</dt>
+<dd>Utilisez cette option pour configurer la gestion de réseau pour le serveur hôte.
+Entrez une adresse IP et un masque de sous-réseau pour chaque interface que vous voulez utiliser. Cliquez ensuite sur <uicontrol>Enregistrer</uicontrol>. Vous pouvez modifier les entrées en sélectionnant <uicontrol>Editer</uicontrol>.</dd>
+</dlentry><dlentry>
+<dt>Options d'alimentation</dt>
+<dd>Utilisez les options d'alimentation pour sélectionner les options à utiliser pour gérer l'alimentation sur votre système hôte.</dd>
+</dlentry><dlentry>
+<dt>Adaptateurs SAN</dt>
+<dd>La section Adaptateurs SAN répertorie tous les adaptateurs SAN disponibles sur le serveur.</dd>
+</dlentry><dlentry>
+<dt>Moniteur de détecteur</dt>
+<dd>Utilisez cette option pour afficher les informations relatives au détecteur de votre serveur.</dd>
+</dlentry><dlentry>
+<dt>Configuration SEP</dt>
+<dd>Utilisez cette option pour configurer votre fournisseur IBM Serviceable Event
+Provider (SEP). Ce dernier surveille les problèmes, et collecte et envoie les informations de maintenance. Pour configurer ce service, cliquez sur l'icône plus (+). Ajoutez ensuite un abonnement en entrant un nom d'hôte, un port et une communauté pour le fournisseur. Après avoir soumis l'abonnement, vous pouvez démarrer le service.</dd>
+</dlentry><dlentry>
+<dt>Gestion des utilisateurs</dt>
+<dd>Cette option permet d'ajouter et de supprimer aisément des utilisateurs de votre système hôte. Cliquez sur l'icône plus (+) pour ajouter un utilisateur. Indiquez le nom, le mot de passe, le groupe (éventuellement) et le profil que l'utilisateur doit avoir. Cliquez ensuite sur <uicontrol>Soumettre</uicontrol>. </dd>
+</dlentry></dl>
+</csbody>
+</cshelp>
+
+
+<!-- ENGL1SH_VERS10N 07772_5 DO NOT REMOVE OR CHANGE THIS LINE -->
+<!-- T9N_SRC_ID 244 -->
+<!-- T9N_SH1P_STR1NG KV310AAP001 1 -->

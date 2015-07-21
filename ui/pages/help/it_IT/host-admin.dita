@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Copyright IBM Corp, 2015
+
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
+-->
+<!--Arbortext, Inc., 1988-2011, v.4002-->
+<!DOCTYPE cshelp PUBLIC "-//IBM//DTD DITA CSHelp//EN"
+ "..\dtd\cshelp.dtd">
+
+
+<!--This DITA specialized document type is not supported by the Authoring Tools development team.
+Press the F1 key for online help on the tags and see the DITA XML Guide and Reference for how to use this document type.
+For support please see:
+https://w3.opensource.ibm.com/projects/dita-cshelp/-->
+<cshelp id="administration" xml:lang="it-it">
+<title>Amministrazione</title>
+<shortdesc>La pagina <wintitle>Amministrazione</wintitle> mostra le informazioni sul
+sistema.</shortdesc>
+<csbody>
+<p>Utilizzare queste sezioni per aggiornare il firmware, creare file di backup e
+configurare opzioni di alimentazione, di rete, utenti e altro. </p>
+<dl><dlentry>
+<dt>Aggiornamento firmware</dt>
+<dd>La sezione Aggiornamento firmware mostra la versione firmware corrente.
+È possibile aggiornare questa versione scaricando il file RPM da Fix Central,
+fornendo il percorso al file RPM e facendo clic su <uicontrol>Aggiorna</uicontrol>.</dd>
+</dlentry><dlentry>
+<dt>Backup configurazione</dt>
+<dd>La sezione Backup configurazione visualizza i file di backup di
+configurazione.<p>Se si posiziona il puntatore del mouse sul nome,
+vengono visualizzati i percorsi inclusi ed esclusi. I file vengono
+salvato come file tar. È possibile scaricare un file facendo clic
+sulla freccia rivolta verso il basso.</p><p>Selezionare una delle opzioni riportate di seguito per generare nuovi file o per eliminarli.</p><dl><dlentry>
+<dt>Genera backup predefinito</dt>
+<dd>Genera un nuovo file di backup predefinito. I percorsi predefiniti che vengono
+salvati sono <filepath>/etc</filepath> e <filepath>/var/lib/libvirt</filepath>.</dd>
+</dlentry><dlentry>
+<dt>Nuovo backup personalizzato</dt>
+<dd>Genera un file di backup personalizzato. Per specificare i percorsi da
+salvare, immettere un percorso che si desidera includere in Percorso incluso
+oppure immettere un percorso che si desidera escludere in Percorso escluso. Per
+aggiungere più di un percorso nel campo, fare clic sul segno <uicontrol>più (+)</uicontrol>.
+Facoltativamente, è possibile immettere una descrizione per il file di backup. Fare clic su <uicontrol>OK</uicontrol>
+per generare il file.</dd>
+</dlentry><dlentry>
+<dt>Eliminazione in batch</dt>
+<dd>Utilizzare questa opzione per eliminare un intervallo di file di backup.</dd>
+</dlentry></dl></dd>
+</dlentry><dlentry>
+<dt>Configurazione di rete</dt>
+<dd>Utilizzare Configurazione di rete per configurare la rete per il server host.
+Immettere un indirizzo IP e una maschera di sottorete per ciascuna interfaccia che si desidera utilizzare. Quindi, fare clic su <uicontrol>Salva</uicontrol>. È possibile modificare le immissioni selezionado <uicontrol>Modifica</uicontrol>.</dd>
+</dlentry><dlentry>
+<dt>Opzioni di alimentazione</dt>
+<dd>Utilizzare Opzioni di alimentazione per selezionare le opzioni che si desidera utilizzare per gestire l'alimentazione sul sistema host. </dd>
+</dlentry><dlentry>
+<dt>Adattatori SAN</dt>
+<dd>La sezione Adattatori SAN, elenca tutti gli adattatori SAN disponibili per il server.</dd>
+</dlentry><dlentry>
+<dt>Controllo sensore</dt>
+<dd>Utilizzare Controllo sensore, per visualizzare le informazioni sul sensore per il proprio
+server.</dd>
+</dlentry><dlentry>
+<dt>Configurazione SEP</dt>
+<dd>Utilizzare Configurazione SEP per configurare il SEP (Serviceable Event
+Provider) IBM. Il SEP IBM monitora i problemi,
+raccoglie e invia informazioni di servizio. Per configurare questo servizio, fare clic sul segno più (+). Aggiungere quindi una sottoscrizione immettendo un nome host, una porta e la connettività per il proprio provider. Una volta inoltrata la sottoscrizione è possibile avviare il servizio. </dd>
+</dlentry><dlentry>
+<dt>Gestione utenti</dt>
+<dd>Gestione utenti consente di aggiungere e rimuovere semplicemente gli utenti sul sistema host. Fare clic sul segno più (+) per aggiungere un utente. Specificare nome, password,
+gruppo (se presente) e il profilo che si desidera assegnare all'utente. Quindi, fare clic su <uicontrol>Inoltra</uicontrol>. </dd>
+</dlentry></dl>
+</csbody>
+</cshelp>
+
+
+<!-- ENGL1SH_VERS10N 07772_5 DO NOT REMOVE OR CHANGE THIS LINE -->
+<!-- T9N_SRC_ID 244 -->
+<!-- T9N_SH1P_STR1NG KV310AAP001 1 -->

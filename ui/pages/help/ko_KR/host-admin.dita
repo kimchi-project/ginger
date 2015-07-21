@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Copyright IBM Corp, 2015
+
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
+-->
+<!--Arbortext, Inc., 1988-2011, v.4002-->
+<!DOCTYPE cshelp PUBLIC "-//IBM//DTD DITA CSHelp//EN"
+ "..\dtd\cshelp.dtd">
+
+
+<!--This DITA specialized document type is not supported by the Authoring Tools development team.
+Press the F1 key for online help on the tags and see the DITA XML Guide and Reference for how to use this document type.
+For support please see:
+https://w3.opensource.ibm.com/projects/dita-cshelp/-->
+<cshelp id="administration" xml:lang="ko-kr">
+<title>관리</title>
+<shortdesc><wintitle>관리</wintitle> 페이지에는 시스템에 대한
+정보가 표시됩니다.</shortdesc>
+<csbody>
+<p>이 섹션을 통해 펌웨어를 업데이트하고 백업 파일 및
+구성 네트워크, 전원 옵션, 사용자 등을 작성합니다.</p>
+<dl><dlentry>
+<dt>펌웨어 업데이트</dt>
+<dd>펌웨어 업데이트 섹션에는 현재 펌웨어 버전이 표시됩니다.
+RPM 파일에 대한 경로를 제공하고 <uicontrol>업데이트</uicontrol>를 클릭하여 Fix Central에서 RPM 파일을 다운로드함으로써 이 버전을 업데이트할 수 있습니다.</dd>
+</dlentry><dlentry>
+<dt>구성 백업</dt>
+<dd>구성 백업 섹션에는 구성 백업 파일이 표시됩니다. <p>이름 위에 마우스를 대면 포함 및 제외된 경로가 표시됩니다. 파일은 tar 파일로 저장됩니다. 아래로 화살표를 클릭하여 파일을 다운로드할 수 있습니다.</p><p>새 파일을 생성하거나 삭제하려면
+다음을 선택하십시오.</p><dl><dlentry>
+<dt>기본 백업 생성</dt>
+<dd>새로운 기본 백업 파일을 생성합니다. 저장된 기본 경로는 <filepath>/etc</filepath> 및 <filepath>/var/lib/libvirt</filepath>입니다.</dd>
+</dlentry><dlentry>
+<dt>새 사용자 정의 백업</dt>
+<dd>사용자 정의 백업 파일을 생성합니다. 저장할 경로를 지정하려면 경로 포함에 포함할 경로를 입력하거나 경로 제외에 제외할 경로를 입력합니다. 각 필드에 둘 이상의 경로를 추가하려면
+<uicontrol>더하기(+)</uicontrol>를 클릭합니다.
+선택적으로 백업 파일에 대한 설명을 입력할 수 있습니다. 파일을 생성하려면 <uicontrol>확인</uicontrol>을 클릭합니다.</dd>
+</dlentry><dlentry>
+<dt>삭제 일괄처리</dt>
+<dd>백업 파일의 범위를 삭제하려면 이 옵션을 사용합니다.</dd>
+</dlentry></dl></dd>
+</dlentry><dlentry>
+<dt>네트워크 구성</dt>
+<dd>네트워크 구성을 사용하여 호스트 서버의 네트워크를 설정합니다.
+사용할 각 인터페이스의 IP 주소 및 서브넷 마스크를
+입력하십시오. 그런 다음 <uicontrol>저장</uicontrol>을 클릭하십시오. <uicontrol>편집</uicontrol>을 선택하여 항목을
+편집할 수 있습니다.</dd>
+</dlentry><dlentry>
+<dt>전원 옵션</dt>
+<dd>전원 옵션을 사용하여 호스트 시스템에서 전원을 관리하는데 사용할
+옵션을 선택합니다.</dd>
+</dlentry><dlentry>
+<dt>SAN 어댑터</dt>
+<dd>SAN 어댑터 섹션에서는 서버에 사용할 수 있는 모든 SAN 어댑터를
+나열합니다.</dd>
+</dlentry><dlentry>
+<dt>센서 모니터</dt>
+<dd>센서 모니터를 사용하여 서버에 대한 센서 정보를
+표시합니다.</dd>
+</dlentry><dlentry>
+<dt>SEP 구성</dt>
+<dd>SEP 구성을 사용하여 IBM Serviceable Event
+Provider(SEP)를 구성합니다. IBM Serviceable Event Provider는 문제점을 모니터하고
+수집하며 서비스 정보를 전송합니다. 이 서비스를 구성하려면
+더하기(+)를 클릭하십시오. 그런 다음 제공자의 호스트 이름,
+포트 및 커뮤니티를 입력하여 등록을 추가하십시오. 등록을 제출한 후
+서비스를 시작할 수 있습니다.</dd>
+</dlentry><dlentry>
+<dt>사용자 관리</dt>
+<dd>사용자 관리를 통해 호스트 시스템에서 사용자를 쉽게 추가하고 제거할 수
+있습니다. 사용자를 추가하려면 더하기(+)를 클릭하십시오. 사용자가 원하는
+이름, 비밀번호, 그룹(있는 경우) 및 프로파일 종류를 지정하십시오. 그런 다음 <uicontrol>제출</uicontrol>을 클릭하십시오. </dd>
+</dlentry></dl>
+</csbody>
+</cshelp>
+
+
+<!-- ENGL1SH_VERS10N 07772_5 DO NOT REMOVE OR CHANGE THIS LINE -->
+<!-- T9N_SRC_ID 244 -->
+<!-- T9N_SH1P_STR1NG KV310AAP001 1 -->

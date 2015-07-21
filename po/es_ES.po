@@ -1,4 +1,4 @@
-# Spanish translations for Ginger package.
+# English translations for Ginger package.
 # Copyright (C) 2014 IBM, Corp.
 # This file is distributed under the same license as the Ginger package.
 #
@@ -10,28 +10,34 @@ msgstr ""
 "PO-Revision-Date: 2014-06-22 14:00+0800\n"
 "Last-Translator: Zhou Zheng Sheng <zhshzhou@linux.vnet.ibm.com>\n"
 "Language-Team: Zhou Zheng Sheng <zhshzhou@linux.vnet.ibm.com>\n"
-"Language: es_ES\n"
+"Language: en_US\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 msgid "Activate"
-msgstr "Activar"
+msgstr ""
+"Activar"
 
 msgid "Activated Option"
-msgstr "Opción activada"
+msgstr ""
+"Opción activada"
 
 msgid "Administration"
-msgstr "Administración"
+msgstr ""
+"Administración"
 
 msgid "Administrator"
 msgstr ""
+"Administrador "
 
 msgid "Batch Delete"
-msgstr "Suprimir por lotes"
+msgstr ""
+"Suprimir por lotes"
 
 msgid "Cancel"
 msgstr ""
+"Cancelar"
 
 msgid "Cannot update system firmware while running VMs."
 msgstr ""
@@ -39,129 +45,148 @@ msgstr ""
 
 msgid "Community"
 msgstr ""
+"Comunidad"
 
 msgid "Configuration Backup"
-msgstr "Copia de seguridad de configuración"
+msgstr ""
+"Copia de seguridad de configuración"
 
 msgid "Confirm Password"
 msgstr ""
+"Confirmar contraseña"
 
 #, python-format
 msgid "Could not add user '%(user)s' to kvm group."
-msgstr "No se ha podido añadir el usuario '%(user)s' al grupo kvm."
+msgstr ""
+"No se ha podido añadir el usuario '%(user)s' al grupo kvm. "
 
 #, python-format
 msgid "Could not add user '%(user)s' to sudoers list."
-msgstr "No se ha podido añadir el usuario '%(user)s' a la lista sudoers."
+msgstr ""
+"No se ha podido añadir el usuario '%(user)s' a la lista de sudoers. "
 
 #, python-format
 msgid "Could not create user '%(user)s'."
-msgstr "No se ha podido crear el usuario '%(user)s'."
+msgstr ""
+"No se ha podido crear el usuario '%(user)s'. "
 
 #, python-format
 msgid "Could not delete group '%(group)s'"
-msgstr "No se ha podido suprimir el grupo '%(group)s'"
+msgstr ""
+"No se ha podido suprimir el grupo '%(group)s'"
 
 #, python-format
 msgid "Could not delete user '%(user)s'."
-msgstr "No se ha podido suprimir el usuario '%(user)s'."
+msgstr ""
+"No se ha podido suprimir el usuario '%(user)s'. "
 
 msgid "DNS"
-msgstr "DNS"
+msgstr ""
+"DNS"
 
 msgid "Description"
-msgstr "Descripción"
+msgstr ""
+"Descripción"
 
 msgid "Description too long."
-msgstr "Descripción demasiado larga."
+msgstr ""
+"Descripción demasiado larga."
 
 #, python-format
 msgid "Error activating power saving profile %(profile)s."
-msgstr "Error al activar perfil de ahorro de energía %(profile)s."
+msgstr ""
+"Error al activar el perfil de ahorro de energía %(profile)s."
 
 #, python-format
 msgid ""
 "Error commiting firmware. rc = %(rc)s.                      Ensure you are "
 "booted to the temporary side."
 msgstr ""
-"Error al confirmar firmware. rc = %(rc)s.                 Asegúrese de que "
+"Error al confirmar el firmware. rc = %(rc)s.                      Asegúrese de que "
 "ha arrancado en el lado temporal."
 
 #, python-format
 msgid "Error deleting subscription: '%(error)s'."
 msgstr ""
+"Error al suprimir la suscripción: '%(error)s'."
 
 #, python-format
 msgid ""
 "Error flashing firmware. rc = %(rc)s.                      Please see /usr/"
 "sbin/update_flash for rc reasons."
 msgstr ""
-"Error al actualizar la memoria de firmware. rc = %(rc)s.    Consulte en /usr/"
+"Error al activar el flash del firmware. rc = %(rc)s.                      Consulte /usr/"
 "sbin/update_flash las razones del rc."
 
 msgid "Error loading SEP subscriptions data from server."
 msgstr ""
+"Error al cargar los datos de suscripciones SEP desde el servidor."
 
 #, python-format
 msgid ""
 "Error rejecting firmware. rc = %(rc)s.                      Ensure you are "
 "booted to the permanent side."
 msgstr ""
-"Error al rechazar firmware. rc = %(rc)s.                  Asegúrese de que "
+"Error al rechazar el firmware. rc = %(rc)s.                      Asegúrese de que "
 "ha arrancado en el lado permanente."
 
 #, python-format
 msgid "Error retrieving SEP subscribers data: '%(error)s'."
 msgstr ""
+"Error al recuperar los datos de suscriptores SEP: '%(error)s'."
 
 #, python-format
 msgid "Error starting SEP service: '%(error)s'."
 msgstr ""
+"Error al iniciar el servicio SEP: '%(error)s'."
 
 #, python-format
 msgid "Error stopping SEP service: '%(error)s'."
 msgstr ""
+"Error al detener el servicio SEP: '%(error)s'."
 
 #, python-format
 msgid "Error subscribing SEP data to server: '%(error)s'."
 msgstr ""
+"Error al suscribir datos SEP al servidor: '%(error)s'."
 
 msgid "FW update failed: No image file found in the package file."
 msgstr ""
-"Ha fallado la actualización de FW: No se ha encontrado ningún archivo de "
-"imagen en el paquete."
+"Ha fallado la actualización de FW: No se ha encontrado ningún archivo de imagen en el paquete."
 
 #, python-format
 msgid ""
 "Failed to create archive \"%(identity)s\". Inspect error log for more "
 "information."
 msgstr ""
-"No se ha podido crear el archivo \"%(identity)s\". Inspeccione el registro "
-"de errores para obtener más información."
+"No se ha podido crear el archivo \"%(identity)s\". Inspeccione el registro de errores para obtener "
+"más información."
 
 #, python-format
 msgid ""
 "Failed to create archive dir \"%(dir)s\". Inspect error log for more "
 "information."
 msgstr ""
-"No se ha podido crear el directorio de archivado \"%(dir)s\". Inspeccione el "
-"registro de errores para obtener más información."
+"No se ha podido crear el directorio de archivado \"%(dir)s\". Inspeccione el registro de errores para obtener "
+"más información."
 
 #, python-format
 msgid ""
 "Failed to create tar archive \"%(name)s\", cmd: \"%(cmd)s\". Inspect error "
 "log for more information."
 msgstr ""
-"No se ha podido crear el archivo tar \"%(name)s\", cmd: \"%(cmd)s\". "
-"Inspeccione el registro de errores para obtener más información."
+"No se ha podido crear el archivador tar \"%(name)s\", cmd: \"%(cmd)s\". Inspeccione "
+"el registro de errores para obtener más información."
 
 #, python-format
 msgid "Failed to delete archive file \"%(name)s\"."
-msgstr "No se ha podido suprimir el archivo de archivado \"%(name)s\"."
+msgstr ""
+"No se ha podido suprimir el archivo de archivado \"%(name)s\"."
 
 #, python-format
 msgid "Failed to read /etc/resolv.conf because %(reason)s"
-msgstr "No se ha podido leer /etc/resolv.conf porque %(reason)s"
+msgstr ""
+"No se ha podido leer /etc/resolv.conf debido a %(reason)s"
 
 msgid ""
 "Failed to retrieve power management profiles:                        Daemon "
@@ -186,298 +211,350 @@ msgstr ""
 
 #, python-format
 msgid "Failed to write /etc/resolv.conf because %(reason)s"
-msgstr "No se ha podido escribir /etc/resolv.conf porque %(reason)s"
+msgstr ""
+"No se ha podido escribir en /etc/resolv.conf debido a %(reason)s"
 
 msgid "File"
-msgstr "Archivo"
+msgstr ""
+"Archivo"
 
 msgid "Firmware Update"
-msgstr "Actualización de firmware"
+msgstr ""
+"Actualización de firmware"
 
 msgid "Firmware Version: "
-msgstr "Versión de firmware: "
+msgstr ""
+"Versión de firmware: "
 
 #, python-format
 msgid "Firmware image unpack failed: rc = %(rc)s. Details: %(err)s"
 msgstr ""
-"Ha fallado el desempaquetado de la imagen de firmware: rc = %(rc)s. "
-"Detalles: %(err)s"
+"Error al desempaquetar la imagen del firmware: rc = %(rc)s. Detalles: %(err)s"
 
 msgid ""
 "Firmware update is initializing. System will reboot in order to flash the "
 "firmware."
 msgstr ""
-"Inicializando actualización de firmware. El sistema rearrancará para "
-"actualizar la memoria de firmware."
+"Inicializando actualización de firmware. El sistema rearrancará para actualizar la memoria "
+"de firmware."
 
 msgid "Gateway"
-msgstr "Pasarela"
+msgstr ""
+"Pasarela"
 
 msgid "Generate Default Backup"
-msgstr "Generar copia de seguridad predeterminada"
+msgstr ""
+"Generar copia de seguridad predeterminada"
 
 msgid "Group"
 msgstr ""
+"Grupo"
 
 #, python-format
 msgid "Group for user '%(user)s' does not exist for removal."
-msgstr "El grupo del usuario '%(user)s' no existe para ser eliminado."
+msgstr ""
+"El grupo para el usuario '%(user)s' no existe para ser eliminado."
 
 msgid "Hostname"
 msgstr ""
+"Nombre de host"
 
 #, python-format
 msgid "Hostname %(hostname)s not found."
 msgstr ""
+"No se ha encontrado el nombre de host %(hostname)s."
 
 msgid "IP"
-msgstr "IP"
+msgstr ""
+"IP"
 
 msgid "In-Use/Max Ports"
-msgstr "Puertos en uso/máx"
+msgstr ""
+"Puertos en uso/máx"
 
 msgid "Interface"
-msgstr "Interfaz"
+msgstr ""
+"Interfaz"
 
 #, python-format
 msgid ""
 "Interface %(name)s is not editable because it belongs to a vlan or bridge"
 msgstr ""
+"La interfaz %(name)s no se puede editar porque pertenece a una vlan o a un puente"
 
 msgid "Invalid counts_ago number."
-msgstr "Número de counts_ago no válido."
+msgstr ""
+"Número de counts_ago no válido."
 
 msgid "Invalid days_ago number."
-msgstr "Número de days_ago no válido."
+msgstr ""
+"Número de days_ago no válido."
 
 msgid ""
 "Invalid ip/netmask inputs. Both fields must be valid ip/netmask values or "
 "both must be blank (will erase the current IP/netmask)."
 msgstr ""
+"Entradas IP/Máscara de red no válidas. Ambos campos deben contener valores IP/máscara de red válidos o "
+"ambos deben estar en blanco (se borrará el contenido actual de IP/máscara de red)."
 
 #, python-format
 msgid "Invalid network parameters. Details: %(err)s"
-msgstr "Parámetros de red incorrectos. Detalles: %(err)s"
+msgstr ""
+"Parámetros de red no válidos. Detalles: %(err)s"
 
 msgid "Invalid parameter for DNS servers"
-msgstr "Parámetro no válido para servidores DNS"
+msgstr ""
+"Parámetro no válido para servidores DNS"
 
 msgid "Invalid parameter for interface ip address"
-msgstr "Parámetro no válido para dirección IP de interfaz"
+msgstr ""
+"Parámetro no válido para dirección IP de interfaz"
 
 msgid "Invalid parameter for interface netmask"
-msgstr "Parámetro no válido para máscara de red de interfaz"
+msgstr ""
+"Parámetro no válido para máscara de red de interfaz"
 
 msgid "Invalid parameter for network gateway"
-msgstr "Parámetro no válido para pasarela de red"
+msgstr ""
+"Parámetro no válido para pasarela de red"
 
 msgid "Kimchi User"
 msgstr ""
+"Usuario Kimchi"
 
 msgid "Mask"
-msgstr "Máscara"
+msgstr ""
+"Máscara"
 
 msgid "Name"
-msgstr "Nombre"
+msgstr ""
+"Nombre"
 
 msgid "Network Configuration"
-msgstr "Configuración de red"
+msgstr ""
+"Configuración de red"
 
 msgid "New Custom Backup"
-msgstr "Nueva copia de seguridad personalizada"
+msgstr ""
+"Nueva copia de seguridad personalizada"
 
 msgid "Package Path: "
-msgstr "Vía de acceso del paquete: "
+msgstr ""
+"Vía de acceso del paquete: "
 
 msgid "Password"
 msgstr ""
+"Contraseña"
 
 msgid "Path Excluded"
-msgstr "Vía de acceso excluida"
+msgstr ""
+"Vía de acceso excluida"
 
 msgid "Path Included"
-msgstr "Vía de acceso incluida"
+msgstr ""
+"Vía de acceso incluida"
 
 msgid "Path or pattern is too long or too short."
-msgstr "La vía de acceso o el patrón son demasiado largos o demasiado cortos."
+msgstr ""
+"La vía de acceso o el patrón son demasiado largos o demasiado cortos."
 
 msgid "Please check the uniqueness of the paths or patterns."
-msgstr "Compruebe la exclusividad de las vías de acceso o patrones."
+msgstr ""
+"Compruebe la exclusividad de las vías de acceso o patrones."
 
 msgid "Port"
 msgstr ""
+"Puerto"
 
 msgid "Power Options"
-msgstr "Opciones de potencia"
+msgstr ""
+"Opciones de potencia"
 
 msgid "Preserve the latest"
-msgstr "Conservar"
+msgstr ""
+"Conservar"
 
 msgid "Profile"
 msgstr ""
+"Perfil"
 
 msgid "Provide required parameters: hostname, port, community."
 msgstr ""
+"Proporcione los parámetros necesarios: nombre de host, puerto, comunidad."
 
 msgid "SAN Adapters"
-msgstr "Adaptadores SAN"
+msgstr ""
+"Adaptadores SAN"
 
 #, python-format
 msgid "SAN adapter '%(adapter)s' does not exist in the system."
-msgstr "El adaptador SAN '%(adapter)s' no existe en el sistema."
+msgstr ""
+"El adaptador SAN '%(adapter)s' no existe en el sistema."
 
 msgid "SEP Configuration"
-msgstr "Configuración de SEP"
+msgstr ""
+"Configuración de SEP"
 
 msgid "SNMP community name must be a single word."
 msgstr ""
+"El nombre de comunidad SNMP debe ser una sola palabra."
 
 msgid "Selected Option"
-msgstr "Opción seleccionada"
+msgstr ""
+"Opción seleccionada"
 
 msgid "Sensor Monitor"
-msgstr "Supervisor de sensor"
+msgstr ""
+"Supervisor de sensor"
 
 msgid "Specify name, password, group and profile for the new user."
 msgstr ""
 "Especifique el nombre, contraseña, grupo y perfil para el nuevo usuario."
 
 msgid "Speed"
-msgstr "Velocidad"
+msgstr ""
+"Velocidad"
 
 msgid "Start"
-msgstr "Iniciar"
+msgstr ""
+"Iniciar"
 
 msgid "State"
-msgstr "Estado"
+msgstr ""
+"Estado"
 
 msgid "Status:"
-msgstr "Estado:"
+msgstr ""
+"Estado:"
 
 msgid "Stop"
-msgstr "Detener"
+msgstr ""
+"Detener"
 
 msgid "Submit"
 msgstr ""
+"Enviar"
 
 msgid "Symbolic Name"
-msgstr "Nombre simbólico"
+msgstr ""
+"Nombre simbólico"
 
 msgid "System hostname must be a valid string."
 msgstr ""
+"El nombre de host del sistema debe ser una cadena válida."
 
 msgid ""
 "System port number must be an integer between 1 and                      "
 "65535."
 msgstr ""
+"El número de puerto del sistema debe ser un entero entre 1 y "
+"65535."
 
 msgid "The absolute path to the firmware rpm."
-msgstr "Vía de acceso absoluta del rpm de firmware."
+msgstr ""
+"Vía de acceso absoluta del rpm de firmware."
 
 #, python-format
 msgid "The user name '%(user)s' is already in use'."
-msgstr "El nombre de usuario '%(user)s' ya está en uso."
+msgstr ""
+"El nombre de usuario '%(user)s' ya se está utilizando'."
 
 #, python-format
 msgid ""
 "Timeout while creating archive \"%(identity)s\", the files might be too "
 "large for a configuration backup."
 msgstr ""
-"Tiempo de espera excedido al crear archivo \"%(identity)s\", quizá los "
-"archivos sean demasiado grandes para copia de seguridad de configuración."
+"Tiempo de espera excedido al crear el archivado \"%(identity)s\"; puede que los archivos sean demasiado"
+"grandes para una copia de seguridad de configuración."
 
 msgid "Timestamp"
-msgstr "Indicación de fecha y hora"
+msgstr ""
+"Indicación de fecha y hora"
 
 #, python-format
 msgid "Unable to delete default gateway: %(err)s"
-msgstr "No se puede suprimir pasarela predeterminada: %(err)s"
+msgstr ""
+"No se ha podido suprimir la pasarela predeterminada: %(err)s"
 
 #, python-format
 msgid "Unable to get default gateway: %(err)s"
-msgstr "No se puede obtener pasarela predeterminada: %(err)s"
+msgstr ""
+"No se ha podido obtener la pasarela predeterminada: %(err)s"
 
 #, python-format
 msgid "Unable to set default gateway: %(err)s"
-msgstr "No se puede establecer pasarela predeterminada: %(err)s"
+msgstr ""
+"No se ha podido establecer la pasarela predeterminada: %(err)s"
 
 #, python-format
 msgid "Unable to update interface configuration. Details: %(err)s"
-msgstr "No se puede abrir la configuración de interfaz. Detalles: %(err)s"
+msgstr ""
+"No se ha podido actualizar la configuración de la interfaz. Detalles: %(err)s"
 
 msgid "Unselected Option"
-msgstr "Opción no seleccionada"
+msgstr ""
+"Opción no seleccionada"
 
 msgid "Update"
-msgstr "Actualizar"
+msgstr ""
+"Actualizar"
 
 msgid "Use Other"
 msgstr ""
+"Utilice Otro"
 
 #, python-format
 msgid "User '%(user)s' does not exist."
-msgstr "El usuario '%(user)s' no existe."
+msgstr ""
+"El usuario '%(user)s' no existe. "
 
 msgid "User Management"
 msgstr ""
+"Gestión de usuarios"
 
 msgid "User Name"
 msgstr ""
+"Nombre de usuario"
 
 msgid "User group is a required string."
-msgstr "El grupo de usuarios es una serie necesaria."
+msgstr ""
+"El grupo de usuarios es una serie necesaria."
 
 msgid "User name is a required string."
-msgstr "El nombre de usuario es una serie necesaria."
+msgstr ""
+"El nombre de usuario es una serie necesaria."
 
 msgid "User password is a required string."
-msgstr "La contraseña de usuario es una serie necesaria."
+msgstr ""
+"La contraseña de usuario es una serie necesaria."
 
 msgid ""
 "User profile is required and should be one among kimchiuser, virtuser or "
 "admin."
 msgstr ""
-"Se necesita el perfil de usuario y debería ser kimchiuser, virtuser o admin."
+"Se necesita el perfil de usuario y debería ser kimchiuser, virtuser o "
+"admin."
 
 msgid "Virt User"
 msgstr ""
+"Usuario virtual"
 
 msgid "WWNN"
-msgstr "WWNN"
+msgstr ""
+"WWNN"
 
 msgid "WWPN"
-msgstr "WWPN"
+msgstr ""
+"WWPN"
 
 msgid "backups"
-msgstr "últimas copias de seguridad"
+msgstr ""
+"últimas copias de seguridad"
 
 msgid "days of backups"
-msgstr "últimos días de copia de seguridad"
+msgstr ""
+"últimos días de copia de seguridad"
 
-#~ msgid "Host Name:"
-#~ msgstr "Nombre de host:"
-
-#~ msgid "Port:"
-#~ msgstr "Puerto:"
-
-#~ msgid ""
-#~ "SEP command execution error: '%(cmd)s' - rc: "
-#~ "'%(rc)s'                      - error: '%(error)s'."
-#~ msgstr ""
-#~ "Error de ejecución de mandatos SEP: '%(cmd)s' - rc: "
-#~ "'%(rc)s'                      - error: '%(error)s'."
-
-#~ msgid "SNMP Community:"
-#~ msgstr "Comunidad SNMP:"
-
-#~ msgid "SNMP community is a required parameter."
-#~ msgstr "La comunidad SNMP es un parámetro obligatorio."
-
-#~ msgid "Subscribe"
-#~ msgstr "Suscribirse"
-
-#~ msgid "System hostname is a required parameter."
-#~ msgstr "Nombre de host del sistema es un parámetro obligatorio."
-
-#~ msgid "System port number is a required parameter."
-#~ msgstr "Número de puerto del sistema es un parámetro obligatorio."
+# ENGL1SH_VERS10N 01434_8 DO NOT REMOVE OR CHANGE THIS LINE
+# T9N_SRC_ID 249
+# T9N_SH1P_STR1NG KV310AAP001 1

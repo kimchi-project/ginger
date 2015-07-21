@@ -1,4 +1,4 @@
-# Traditional Chinese translations for Ginger package.
+# English translations for Ginger package.
 # Copyright (C) 2014 IBM, Corp.
 # This file is distributed under the same license as the Ginger package.
 #
@@ -10,158 +10,190 @@ msgstr ""
 "PO-Revision-Date: 2014-06-22 14:00+0800\n"
 "Last-Translator: Zhou Zheng Sheng <zhshzhou@linux.vnet.ibm.com>\n"
 "Language-Team: Zhou Zheng Sheng <zhshzhou@linux.vnet.ibm.com>\n"
-"Language: zh_TW\n"
+"Language: en_US\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 msgid "Activate"
-msgstr "啟動"
+msgstr ""
+"啟動"
 
 msgid "Activated Option"
-msgstr "已啟動的選項"
+msgstr ""
+"已啟動的選項"
 
 msgid "Administration"
-msgstr "管理"
+msgstr ""
+"管理"
 
 msgid "Administrator"
 msgstr ""
+"管理者"
 
 msgid "Batch Delete"
-msgstr "批次刪除"
+msgstr ""
+"批次刪除"
 
 msgid "Cancel"
 msgstr ""
+"取消 "
 
 msgid "Cannot update system firmware while running VMs."
-msgstr "執行 VM 時，無法更新系統韌體。"
+msgstr ""
+"執行 VM 時，無法更新系統韌體。"
 
 msgid "Community"
 msgstr ""
+"社群"
 
 msgid "Configuration Backup"
-msgstr "配置備份"
+msgstr ""
+"配置備份"
 
 msgid "Confirm Password"
 msgstr ""
+"確認密碼"
 
 #, python-format
 msgid "Could not add user '%(user)s' to kvm group."
-msgstr "無法將使用者 '%(user)s' 新增至 kvm 群組。"
+msgstr ""
+"無法將使用者 '%(user)s' 新增至 kvm 群組。"
 
 #, python-format
 msgid "Could not add user '%(user)s' to sudoers list."
-msgstr "無法將使用者 '%(user)s' 新增至 sudoers 清單。"
+msgstr ""
+"無法將使用者 '%(user)s' 新增至 sudoers 清單。"
 
 #, python-format
 msgid "Could not create user '%(user)s'."
-msgstr "無法建立使用者 '%(user)s'。"
+msgstr ""
+"無法建立使用者 '%(user)s'。"
 
 #, python-format
 msgid "Could not delete group '%(group)s'"
-msgstr "無法刪除群組 '%(group)s'"
+msgstr ""
+"無法刪除群組 '%(group)s'"
 
 #, python-format
 msgid "Could not delete user '%(user)s'."
-msgstr "無法刪除使用者 '%(user)s'。"
+msgstr ""
+"無法刪除使用者 '%(user)s'。"
 
 msgid "DNS"
-msgstr "DNS"
+msgstr ""
+"DNS"
 
 msgid "Description"
-msgstr "說明"
+msgstr ""
+"說明"
 
 msgid "Description too long."
-msgstr "說明太長。"
+msgstr ""
+"說明太長。"
 
 #, python-format
 msgid "Error activating power saving profile %(profile)s."
-msgstr "啟動電源儲存設定檔 %(profile)s 時發生錯誤。"
+msgstr ""
+"啟動電源儲存設定檔 %(profile)s 時發生錯誤。"
 
 #, python-format
 msgid ""
 "Error commiting firmware. rc = %(rc)s.                      Ensure you are "
 "booted to the temporary side."
 msgstr ""
-"確定韌體時發生錯誤。rc = %(rc)s。                           請確保您已啟動至"
-"暫用端。"
+"確定韌體時發生錯誤。rc = %(rc)s。請確保"
+"已啟動至暫用端。"
 
 #, python-format
 msgid "Error deleting subscription: '%(error)s'."
 msgstr ""
+"刪除訂閱時發生錯誤：'%(error)s'。"
 
 #, python-format
 msgid ""
 "Error flashing firmware. rc = %(rc)s.                      Please see /usr/"
 "sbin/update_flash for rc reasons."
 msgstr ""
-"快閃儲存韌體時發生錯誤。rc = %(rc)s。                      請參閱 /usr/sbin/"
-"update_flash 以取得 rc 原因。"
+"快閃儲存韌體時發生錯誤。rc = %(rc)s。請參閱 /usr/"
+"sbin/update_flash 以取得 rc 原因。"
 
 msgid "Error loading SEP subscriptions data from server."
 msgstr ""
+"從伺服器載入 SEP 訂閱資料時發生錯誤。"
 
 #, python-format
 msgid ""
 "Error rejecting firmware. rc = %(rc)s.                      Ensure you are "
 "booted to the permanent side."
 msgstr ""
-"拒絕韌體時發生錯誤。rc = %(rc)s。                           請確保您已啟動至"
-"永久端。"
+"拒絕韌體時發生錯誤。rc = %(rc)s。請確保"
+"已啟動至永久端。"
 
 #, python-format
 msgid "Error retrieving SEP subscribers data: '%(error)s'."
 msgstr ""
+"擷取 SEP 訂閱者資料時發生錯誤：'%(error)s'。"
 
 #, python-format
 msgid "Error starting SEP service: '%(error)s'."
 msgstr ""
+"啟動 SEP 服務時發生錯誤：'%(error)s'。"
 
 #, python-format
 msgid "Error stopping SEP service: '%(error)s'."
 msgstr ""
+"停止 SEP 服務時發生錯誤：'%(error)s'。"
 
 #, python-format
 msgid "Error subscribing SEP data to server: '%(error)s'."
 msgstr ""
+"將 SEP 資料訂閱至伺服器時發生錯誤：'%(error)s'。"
 
 msgid "FW update failed: No image file found in the package file."
-msgstr "轉寄更新失敗：在套件檔中找不到印象檔。"
+msgstr ""
+"轉寄更新失敗：在套件檔中找不到印象檔。"
 
 #, python-format
 msgid ""
 "Failed to create archive \"%(identity)s\". Inspect error log for more "
 "information."
-msgstr "無法建立保存檔 \"%(identity)s\"。如需相關資訊，請檢查錯誤日誌。"
+msgstr ""
+"無法建立保存檔 \"%(identity)s\"。如需相關資訊，請檢查"
+"錯誤日誌。"
 
 #, python-format
 msgid ""
 "Failed to create archive dir \"%(dir)s\". Inspect error log for more "
 "information."
-msgstr "無法建立保存目錄 \"%(dir)s\"。如需相關資訊，請檢查錯誤日誌。"
+msgstr ""
+"無法建立保存檔目錄 \"%(dir)s\"。如需相關資訊，請檢查"
+"錯誤日誌。"
 
 #, python-format
 msgid ""
 "Failed to create tar archive \"%(name)s\", cmd: \"%(cmd)s\". Inspect error "
 "log for more information."
 msgstr ""
-"無法建立 TAR 保存檔 \"%(name)s\"，指令：\"%(cmd)s\"。如需相關資訊，請檢查錯誤"
-"日誌。"
+"無法建立 tar 保存檔 \"%(name)s\"，指令：\"%(cmd)s\"。如需相關資訊，"
+"請檢查錯誤日誌。"
 
 #, python-format
 msgid "Failed to delete archive file \"%(name)s\"."
-msgstr "無法刪除保存檔 \"%(name)s\"。"
+msgstr ""
+"無法刪除保存檔 \"%(name)s\"。"
 
 #, python-format
 msgid "Failed to read /etc/resolv.conf because %(reason)s"
-msgstr "無法讀取 /etc/resolv.conf，原因：%(reason)s"
+msgstr ""
+"無法讀取 /etc/resolv.conf，原因：%(reason)s"
 
 msgid ""
 "Failed to retrieve power management profiles:                        Daemon "
 "'tuned-adm' is not active."
 msgstr ""
-"無法擷取電源管理設定檔：                                             常駐程"
-"式'tuned-adm' 不在作用中。"
+"無法擷取電源管理設定檔：                                             常駐程式"
+"'tuned-adm' 不在作用中。"
 
 msgid ""
 "Failed to retrieve power management profiles:                        Host OS "
@@ -174,296 +206,355 @@ msgid ""
 "Failed to retrieve power management profiles:                        Package "
 "'tuned-adm' is not installed."
 msgstr ""
-"無法擷取電源管理設定檔：                                             套"
-"件'tuned-adm' 尚未安裝。"
+"無法擷取電源管理設定檔：                                             套件"
+"'tuned-adm' 尚未安裝。"
 
 #, python-format
 msgid "Failed to write /etc/resolv.conf because %(reason)s"
-msgstr "無法寫入 /etc/resolv.conf，原因：%(reason)s"
+msgstr ""
+"無法寫入 /etc/resolv.conf，原因：%(reason)s"
 
 msgid "File"
-msgstr "檔案"
+msgstr ""
+"檔案"
 
 msgid "Firmware Update"
-msgstr "韌體更新"
+msgstr ""
+"韌體更新"
 
 msgid "Firmware Version: "
-msgstr "韌體版本："
+msgstr ""
+"韌體版本："
 
 #, python-format
 msgid "Firmware image unpack failed: rc = %(rc)s. Details: %(err)s"
-msgstr "解壓縮韌體印象檔失敗：rc = %(rc)s。詳細資料：%(err)s"
+msgstr ""
+"韌體映像檔解壓縮失敗：rc = %(rc)s。詳細資料：%(err)s"
 
 msgid ""
 "Firmware update is initializing. System will reboot in order to flash the "
 "firmware."
-msgstr "正在起始設定韌體更新。系統將重新啟動以快閃儲存韌體。"
+msgstr ""
+"正在起始設定韌體更新。系統將重新啟動以快閃儲存"
+"韌體。"
 
 msgid "Gateway"
-msgstr "閘道"
+msgstr ""
+"閘道"
 
 msgid "Generate Default Backup"
-msgstr "產生預設備份"
+msgstr ""
+"產生預設備份"
 
 msgid "Group"
 msgstr ""
+"群組"
 
 #, python-format
 msgid "Group for user '%(user)s' does not exist for removal."
-msgstr "使用者 '%(user)s' 的群組由於已移除而不存在。"
+msgstr ""
+"使用者 '%(user)s' 的群組不存在，無法予以移除。"
 
 msgid "Hostname"
 msgstr ""
+"主機名稱"
 
 #, python-format
 msgid "Hostname %(hostname)s not found."
 msgstr ""
+"找不到主機名稱 %(hostname)s。"
 
 msgid "IP"
-msgstr "IP"
+msgstr ""
+"IP"
 
 msgid "In-Use/Max Ports"
-msgstr "使用中的埠數目/埠數目上限"
+msgstr ""
+"使用中的埠數目/埠數目上限"
 
 msgid "Interface"
-msgstr "介面"
+msgstr ""
+"介面"
 
 #, python-format
 msgid ""
 "Interface %(name)s is not editable because it belongs to a vlan or bridge"
 msgstr ""
+"介面 %(name)s 是不可編輯的，因為該介面屬於某個 VLAN 或橋接器"
 
 msgid "Invalid counts_ago number."
-msgstr "counts_ago 數目無效。"
+msgstr ""
+"counts_ago 數目無效。"
 
 msgid "Invalid days_ago number."
-msgstr "days_ago 數目無效。"
+msgstr ""
+"days_ago 數目無效。"
 
 msgid ""
 "Invalid ip/netmask inputs. Both fields must be valid ip/netmask values or "
 "both must be blank (will erase the current IP/netmask)."
 msgstr ""
+"IP/網路遮罩輸入無效。這兩個欄位都必須是有效的 IP/網路遮罩值，或者"
+"都必須為空白（將消除現行 IP/網路遮罩）。"
 
 #, python-format
 msgid "Invalid network parameters. Details: %(err)s"
-msgstr "網路參數無效。詳細資料：%(err)s"
+msgstr ""
+"網路參數無效。詳細資料：%(err)s"
 
 msgid "Invalid parameter for DNS servers"
-msgstr "DNS 伺服器的參數無效"
+msgstr ""
+"DNS 伺服器的參數無效"
 
 msgid "Invalid parameter for interface ip address"
-msgstr "介面 IP 位址的參數無效"
+msgstr ""
+"介面 IP 位址的參數無效"
 
 msgid "Invalid parameter for interface netmask"
-msgstr "介面網路遮罩的參數無效"
+msgstr ""
+"介面網路遮罩的參數無效"
 
 msgid "Invalid parameter for network gateway"
-msgstr "網路閘道的參數無效"
+msgstr ""
+"網路閘道的參數無效"
 
 msgid "Kimchi User"
 msgstr ""
+"Kimchi 使用者"
 
 msgid "Mask"
-msgstr "遮罩"
+msgstr ""
+"遮罩"
 
 msgid "Name"
-msgstr "名稱"
+msgstr ""
+"名稱"
 
 msgid "Network Configuration"
-msgstr "網路配置"
+msgstr ""
+"網路配置"
 
 msgid "New Custom Backup"
-msgstr "新建自訂備份"
+msgstr ""
+"新建自訂備份"
 
 msgid "Package Path: "
-msgstr "套件路徑："
+msgstr ""
+"套件路徑："
 
 msgid "Password"
 msgstr ""
+"密碼"
 
 msgid "Path Excluded"
-msgstr "已排除路徑"
+msgstr ""
+"已排除路徑"
 
 msgid "Path Included"
-msgstr "已併入路徑"
+msgstr ""
+"已併入路徑"
 
 msgid "Path or pattern is too long or too short."
-msgstr "路徑或型樣太長或太短。"
+msgstr ""
+"路徑或型樣太長或太短。"
 
 msgid "Please check the uniqueness of the paths or patterns."
-msgstr "請檢查路徑或型樣的唯一性。"
+msgstr ""
+"請檢查路徑或型樣的唯一性。"
 
 msgid "Port"
 msgstr ""
+"埠"
 
 msgid "Power Options"
-msgstr "電源選項"
+msgstr ""
+"電源選項"
 
 msgid "Preserve the latest"
-msgstr "保留最新的"
+msgstr ""
+"保留最新的"
 
 msgid "Profile"
 msgstr ""
+"設定檔"
 
 msgid "Provide required parameters: hostname, port, community."
 msgstr ""
+"提供必要的參數：hostname、port 和 community。"
 
 msgid "SAN Adapters"
-msgstr "SAN 配接卡"
+msgstr ""
+"SAN 配接卡"
 
 #, python-format
 msgid "SAN adapter '%(adapter)s' does not exist in the system."
-msgstr "SAN 配接卡 '%(adapter)s' 不在系統中。"
+msgstr ""
+"SAN 配接卡 '%(adapter)s' 不在系統中。"
 
 msgid "SEP Configuration"
-msgstr "SEP 配置"
+msgstr ""
+"SEP 配置"
 
 msgid "SNMP community name must be a single word."
 msgstr ""
+"SNMP 社群名稱必須是單字。"
 
 msgid "Selected Option"
-msgstr "已選取的選項"
+msgstr ""
+"已選取的選項"
 
 msgid "Sensor Monitor"
-msgstr "感應器監視器"
+msgstr ""
+"感應器監視器"
 
 msgid "Specify name, password, group and profile for the new user."
-msgstr "請指定新使用者的名稱、密碼、群組及設定檔。"
+msgstr ""
+"請指定新使用者的名稱、密碼、群組及設定檔。"
 
 msgid "Speed"
-msgstr "速度"
+msgstr ""
+"速度"
 
 msgid "Start"
-msgstr "開始"
+msgstr ""
+"開始"
 
 msgid "State"
-msgstr "狀態"
+msgstr ""
+"狀態"
 
 msgid "Status:"
-msgstr "狀態："
+msgstr ""
+"狀態："
 
 msgid "Stop"
-msgstr "停止"
+msgstr ""
+"停止"
 
 msgid "Submit"
 msgstr ""
+"提交"
 
 msgid "Symbolic Name"
-msgstr "符號名稱"
+msgstr ""
+"符號名稱"
 
 msgid "System hostname must be a valid string."
 msgstr ""
+"系統主機名稱必須是有效字串。"
 
 msgid ""
 "System port number must be an integer between 1 and                      "
 "65535."
 msgstr ""
+"系統埠號必須是介於 1 和 65535 之間的"
+"整數。"
 
 msgid "The absolute path to the firmware rpm."
-msgstr "韌體 RPM 的絕對路徑。"
+msgstr ""
+"韌體 RPM 的絕對路徑。"
 
 #, python-format
 msgid "The user name '%(user)s' is already in use'."
-msgstr "使用者名稱 '%(user)s' 已在使用中。"
+msgstr ""
+"使用者名稱 '%(user)s' 已在使用中。"
 
 #, python-format
 msgid ""
 "Timeout while creating archive \"%(identity)s\", the files might be too "
 "large for a configuration backup."
-msgstr "建立保存 \"%(identity)s\" 逾時， 配置備份的檔案可能太大。"
+msgstr ""
+"建立保存檔 \"%(identity)s\" 時逾時，"
+"配置備份的檔案可能太大。"
 
 msgid "Timestamp"
-msgstr "時間戳記"
+msgstr ""
+"時間戳記"
 
 #, python-format
 msgid "Unable to delete default gateway: %(err)s"
-msgstr "無法刪除預設閘道：%(err)s"
+msgstr ""
+"無法刪除預設閘道：%(err)s"
 
 #, python-format
 msgid "Unable to get default gateway: %(err)s"
-msgstr "無法取得預設閘道：%(err)s"
+msgstr ""
+"無法取得預設閘道：%(err)s"
 
 #, python-format
 msgid "Unable to set default gateway: %(err)s"
-msgstr "無法設定預設閘道：%(err)s"
+msgstr ""
+"無法設定預設閘道：%(err)s"
 
 #, python-format
 msgid "Unable to update interface configuration. Details: %(err)s"
-msgstr "無法更新介面配置。詳細資料：%(err)s"
+msgstr ""
+"無法更新介面配置。詳細資料：%(err)s"
 
 msgid "Unselected Option"
-msgstr "未選取的選項"
+msgstr ""
+"未選取的選項"
 
 msgid "Update"
-msgstr "更新"
+msgstr ""
+"更新"
 
 msgid "Use Other"
 msgstr ""
+"使用其他"
 
 #, python-format
 msgid "User '%(user)s' does not exist."
-msgstr "使用者 '%(user)s' 不存在。"
+msgstr ""
+"使用者 '%(user)s' 不存在。"
 
 msgid "User Management"
 msgstr ""
+"使用者管理"
 
 msgid "User Name"
 msgstr ""
+"使用者名稱"
 
 msgid "User group is a required string."
-msgstr "使用者群組是必要字串。"
+msgstr ""
+"使用者群組是必要字串。"
 
 msgid "User name is a required string."
-msgstr "使用者名稱是必要字串。"
+msgstr ""
+"使用者名稱是必要字串。"
 
 msgid "User password is a required string."
-msgstr "使用者密碼是必要字串。"
+msgstr ""
+"使用者密碼是必要字串。"
 
 msgid ""
 "User profile is required and should be one among kimchiuser, virtuser or "
 "admin."
 msgstr ""
-"使用者設定檔是必要的，且必須是 kimchiuser、virtuser 或admin 的其中之一。"
+"使用者設定檔是必要的，且必須是 kimchiuser、virtuser 或"
+"admin 的其中之一。"
 
 msgid "Virt User"
 msgstr ""
+"Virt 使用者"
 
 msgid "WWNN"
-msgstr "WWNN"
+msgstr ""
+"WWNN"
 
 msgid "WWPN"
-msgstr "WWPN"
+msgstr ""
+"WWPN"
 
 msgid "backups"
-msgstr "個備份"
+msgstr ""
+"個備份"
 
 msgid "days of backups"
-msgstr "日備份"
+msgstr ""
+"日備份"
 
-#~ msgid "Host Name:"
-#~ msgstr "主機名稱："
-
-#~ msgid "Port:"
-#~ msgstr "埠："
-
-#~ msgid ""
-#~ "SEP command execution error: '%(cmd)s' - rc: "
-#~ "'%(rc)s'                      - error: '%(error)s'."
-#~ msgstr ""
-#~ "SEP 指令執行錯誤：'%(cmd)s' - "
-#~ "rc：'%(rc)s'                                 - 錯誤：'%(error)s'。"
-
-#~ msgid "SNMP Community:"
-#~ msgstr "SNMP 社群："
-
-#~ msgid "SNMP community is a required parameter."
-#~ msgstr "SNMP 社群是必要參數。"
-
-#~ msgid "Subscribe"
-#~ msgstr "訂閱"
-
-#~ msgid "System hostname is a required parameter."
-#~ msgstr "系統主機名稱是必要參數。"
-
-#~ msgid "System port number is a required parameter."
-#~ msgstr "系統埠號是必要參數。"
+# ENGL1SH_VERS10N 01434_8 DO NOT REMOVE OR CHANGE THIS LINE
+# T9N_SRC_ID 249
+# T9N_SH1P_STR1NG KV310AAP001 1

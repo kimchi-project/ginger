@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Copyright IBM Corp, 2015
+
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
+-->
+<!--Arbortext, Inc., 1988-2011, v.4002-->
+<!DOCTYPE cshelp PUBLIC "-//IBM//DTD DITA CSHelp//EN"
+ "..\dtd\cshelp.dtd">
+
+
+<!--This DITA specialized document type is not supported by the Authoring Tools development team.
+Press the F1 key for online help on the tags and see the DITA XML Guide and Reference for how to use this document type.
+For support please see:
+https://w3.opensource.ibm.com/projects/dita-cshelp/-->
+<cshelp id="administration" xml:lang="de-de">
+<title>Administration</title>
+<shortdesc>Auf der Seite <wintitle>Administration</wintitle> werden Informationen zu Ihrem System angezeigt. </shortdesc>
+<csbody>
+<p>Verwenden Sie diese Abschnitte zum Aktualisieren der Firmware, zum Erstellen von Sicherungsdateien und zum Konfigurieren des Netzes, von Stromoptionen, Benutzern usw. </p>
+<dl><dlentry>
+<dt>Firmware-Update</dt>
+<dd>Im Abschnitt "Firmware-Update" werden die aktuellen Firmwareversionen angezeigt.
+Sie können diese Version aktualisieren, indem Sie die RPM-Datei in Fix Central herunterladen, den Pfad der RPM-Datei angeben und auf
+<uicontrol>Aktualisieren</uicontrol> klicken.</dd>
+</dlentry><dlentry>
+<dt>Konfigurationssicherung</dt>
+<dd>Im Abschnitt "Konfigurationssicherung" werden Konfigurationssicherungsdateien angezeigt. <p>Beim Bewegen des Mauszeigers auf den Namen werden die Pfade angezeigt, die einbezogen und ausgeschlossen werden. Die Dateien werden als TAR-Dateien gespeichert. Sie können eine Datei herunterladen, indem Sie auf den Abwärtspfeil klicken. </p><p>Wählen Sie eine der folgenden Optionen aus, um neue Dateien zu generieren oder um Dateien zu löschen. </p><dl><dlentry>
+<dt>Standardsicherung generieren</dt>
+<dd>Eine neue Standardsicherungsdatei wird generiert. Die gespeicherten Standardpfade sind <filepath>/etc</filepath> und <filepath>/var/lib/libvirt</filepath>.</dd>
+</dlentry><dlentry>
+<dt>Neue angepasste Sicherung</dt>
+<dd>Eine benutzerdefinierte Sicherungsdatei wird generiert. Um anzugeben, welchen Pfad Sie speichern möchten, müssen Sie einen Pfad eingeben, den Sie unter "Einbezogener Pfad" einbeziehen möchten, oder einen Pfad, den Sie unter "Ausgeschlossener Pfad" ausschließen möchten. Um mehr als einen Pfad zu jedem Feld hinzuzufügen, müssen Sie auf <uicontrol>Plus (+)</uicontrol> klicken. Sie können optional eine Beschreibung für die Sicherungsdatei eingeben.Klicken Sie auf <uicontrol>OK</uicontrol>, um die Datei zu generieren. </dd>
+</dlentry><dlentry>
+<dt>Löschen im Stapelbetrieb</dt>
+<dd>Verwenden Sie diese Option, um einen Bereich Sicherungsdateien zu löschen. </dd>
+</dlentry></dl></dd>
+</dlentry><dlentry>
+<dt>Netzkonfiguration</dt>
+<dd>Verwenden Sie die Netzkonfiguration zum Einrichten des Netzbetriebs für Ihren Host-Server.
+Geben Sie eine IP-Adresse und eine Teilnetzmaske für jede Schnittstelle ein, die verwendet werden soll. Klicken Sie dann auf <uicontrol>Speichern</uicontrol>. Zum Bearbeiten Ihrer Einträge können Sie <uicontrol>Bearbeiten</uicontrol> auswählen. </dd>
+</dlentry><dlentry>
+<dt>Stromoptionen</dt>
+<dd>Verwenden Sie die Stromoptionen, um die Optionen auszuwählen, die zum Verwalten der Stromversorgung Ihres Hostsystems verwendet werden sollen. </dd>
+</dlentry><dlentry>
+<dt>SAN-Adapter</dt>
+<dd>Der Abschnitt für SAN-Adapter enthält eine Auflistung aller SAN-Adapter, die für den Server verfügbar sind. </dd>
+</dlentry><dlentry>
+<dt>Sensorenmonitor</dt>
+<dd>Verwenden Sie den Sensorenmonitor zur Anzeige der Sensorinformationen für Ihren Server. </dd>
+</dlentry><dlentry>
+<dt>SEP-Konfiguration</dt>
+<dd>Verwenden Sie die SEP-Konfiguration zum Konfigurieren Ihres IBM Serviceable Event
+Provider (SEP). IBM Serviceable Event Provider überwacht Probleme, erfasst und sendet Serviceinformationen. Um diesen Service zu konfigurieren, müssen Sie auf das Pluszeichen (+) klicken. Fügen Sie dann eine Subskription hinzu, indem Sie einen Hostnamen, einen Port und eine Community für Ihren Provider eingeben. Nachdem die Subskription übergeben wurde, können Sie den Service starten. </dd>
+</dlentry><dlentry>
+<dt>Benutzerverwaltung</dt>
+<dd>Die Benutzerverwaltung ermöglicht Ihnen das einfache Hinzufügen und Entfernen von Benutzern zu bzw. von Ihrem Hostsystem. Klicken Sie auf das Pluszeichen (+), um einen Benutzer hinzuzufügen. Geben Sie den Namen, das Kennwort sowie die Gruppe (sofern vorhanden) an und legen Sie fest, welches Profil dem Benutzer zugeordnet werden soll. Klicken Sie dann auf <uicontrol>Übergeben</uicontrol>. </dd>
+</dlentry></dl>
+</csbody>
+</cshelp>
+
+
+<!-- ENGL1SH_VERS10N 07772_5 DO NOT REMOVE OR CHANGE THIS LINE -->
+<!-- T9N_SRC_ID 244 -->
+<!-- T9N_SH1P_STR1NG KV310AAP001 1 -->
