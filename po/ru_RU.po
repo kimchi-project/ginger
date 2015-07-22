@@ -73,7 +73,7 @@ msgstr ""
 #, python-format
 msgid "Could not delete group '%(group)s'"
 msgstr ""
-"Не удалось удалить группу '%(user)s'"
+"Не удалось удалить группу '%(group)s'"
 
 #, python-format
 msgid "Could not delete user '%(user)s'."
