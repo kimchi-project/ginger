@@ -42,6 +42,11 @@ AM_GNU_GETTEXT([external])
 AM_GNU_GETTEXT_VERSION([0.18])
 AC_PATH_PROG([CHEETAH], [cheetah], [/usr/bin/cheetah])
 
+AC_PYTHON_MODULE([unittest])
+AC_SUBST([HAVE_PYMOD_UNITTEST])
+AC_SUBST([PYTHON_VERSION])
+
+
 # Checking for pyflakes
 AC_PATH_PROG([PYFLAKES], [pyflakes])
 if test "x$PYFLAKES" = "x"; then
@@ -69,6 +74,7 @@ AC_CONFIG_FILES([
     contrib/Makefile
     contrib/DEBIAN/Makefile
     contrib/DEBIAN/control
+    tests/Makefile
 ],[
     chmod +x po/gen-pot
 ])

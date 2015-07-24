@@ -23,5 +23,6 @@ po/POTFILES
 po/gen-pot
 po/stamp-po
 po/*.gmo
+tests/run_tests.sh
 rpm
 ui/pages/help/*/*.html
