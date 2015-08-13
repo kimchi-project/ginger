@@ -60,7 +60,7 @@ class SensorsModel(object):
             sens_out, error, rc = run_command(command)
             if rc:
                 wok_log.error("Error retrieving sensors data: %s: %s." %
-                                 (error, rc))
+                              (error, rc))
 
             devices = OrderedDict()
             for section in sens_out.split('\n\n'):
@@ -145,7 +145,7 @@ class SensorsModel(object):
             out, error, rc = run_command(['hddtemp'])
             if rc:
                 wok_log.error("Error retrieving HD temperatures: rc %s."
-                                 "output: %s" % (rc, error))
+                              "output: %s" % (rc, error))
                 return None
 
             hdds = OrderedDict()

@@ -39,7 +39,7 @@ def addSEP(params):
     output, error, rc = run_command(cmd)
     if rc != 0:
         wok_log.error('SEP execution error: %s - %s - %s' % (cmd, rc,
-                         error))
+                      error))
         raise OperationFailed('GINSEP0010E', {'error': error})
 
     return params['hostname']
@@ -65,7 +65,7 @@ class SepModel(object):
         output, error, rc = run_command(cmd)
         if rc != 0:
             wok_log.error('SEP service initialization error: %s - %s - %s'
-                             % (cmd, rc, error))
+                          % (cmd, rc, error))
             raise OperationFailed('GINSEP0008E', {'error': error})
 
     def stop(self, params=None):
@@ -73,7 +73,7 @@ class SepModel(object):
         output, error, rc = run_command(cmd)
         if rc != 0:
             wok_log.error('Error stopping SEP service: %s - %s - %s' % (cmd,
-                             rc, error))
+                          rc, error))
             raise OperationFailed('GINSEP0009E', {'error': error})
 
     def is_feature_available(self):
@@ -101,7 +101,7 @@ class SubscribersModel(object):
         # error: report
         if rc != 0:
             wok_log.error('SEP execution error: %s - %s - %s' % (cmd, rc,
-                             error))
+                          error))
             raise OperationFailed('GINSEP0007E')
 
         if len(output) > 1:
@@ -139,7 +139,7 @@ class SubscriptionModel(object):
         # error: report
         if rc != 0:
             wok_log.error('SEP execution error: %s - %s - %s' % (cmd, rc,
-                             error))
+                          error))
             raise OperationFailed('GINSEP0005E', {'error': error})
 
         if len(output) > 1:
@@ -185,5 +185,5 @@ class SubscriptionModel(object):
 
         if rc != 0:
             wok_log.error('SEP execution error: %s - %s - %s' % (cmd, rc,
-                                                                    error))
+                                                                 error))
             raise OperationFailed('GINSEP0011E', {'error': error})

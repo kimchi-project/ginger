@@ -113,7 +113,7 @@ class ArchivesModel(object):
             # It's OK if archive_dir already exists
             if e.errno != errno.EEXIST:
                 wok_log.error('Error creating archive dir %s: %s',
-                                 cls._archive_dir, e)
+                              cls._archive_dir, e)
                 raise OperationFailed('GINHBK0003E',
                                       {'dir': cls._archive_dir})
 
@@ -157,14 +157,14 @@ class ArchivesModel(object):
                                    ignore_missing=True)
             except Exception as e_session:
                 wok_log.error('Error cleaning archive meta data %s. '
-                                 'Error: %s', params['identity'], e_session)
+                              'Error: %s', params['identity'], e_session)
 
             if params['file'] != '':
                 try:
                     os.unlink(params['file'])
                 except Exception as e_file:
                     wok_log.error('Error cleaning archive file %s. '
-                                     'Error: %s', params['file'], e_file)
+                                  'Error: %s', params['file'], e_file)
 
             raise OperationFailed(reason, {'identity': params['identity']})
 

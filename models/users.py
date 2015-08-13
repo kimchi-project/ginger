@@ -204,7 +204,7 @@ class UsersModel(object):
         except Exception as e:
             UserModel().delete(user)
             wok_log.error('Could not add user %s to sudoers: %s',
-                             user, e.message)
+                          user, e.message)
             raise OperationFailed('GINUSER0007E', {'user': user})
 
     def _add_user_to_kvm_group(self, user):
