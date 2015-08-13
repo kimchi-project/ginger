@@ -73,7 +73,7 @@ class FirmwareModel(object):
         image_file, ext = os.path.splitext(os.path.basename(fw_path))
         if image_file is None:
             wok_log.error('FW update failed: '
-                             'No image file found in the package file.')
+                          'No image file found in the package file.')
             raise OperationFailed('GINFW0003E')
         command = ['update_flash', '-f',
                    os.path.join('/tmp/fwupdate', '%s.img' % image_file)]

@@ -116,7 +116,7 @@ def create_user(name, plain_passwd, profile=None):
 
     try:
         new_user = adm.initUser(name)
-        if profile == "wokuser":
+        if profile == "kimchiuser":
             new_user[libuser.LOGINSHELL] = '/sbin/nologin'
         adm.addUser(new_user)
         enc_pwd = crypt.crypt(plain_passwd)
@@ -179,7 +179,7 @@ class UsersModel(object):
         except Exception as e:
             UserModel().delete(user)
             wok_log.error('Could not add user %s to sudoers: %s',
-                             user, e.message)
+                          user, e.message)
             raise OperationFailed('GINUSER0007E', {'user': user})
 
     def _add_user_to_kvm_group(self, user):
@@ -236,11 +236,11 @@ class UserModel(object):
         if user in kvmgrp.get('gr_mem'):
             return 'virtuser'
         # KIMCHIUSER: If not any before
-        return 'wokuser'
+        return 'kimchiuser'
 
     def _delete_profile_settings(self, user):
         profile = self._get_user_profile(user)
-        if profile == 'wokuser':
+        if profile == 'kimchiuser':
             return
         # Removing from sudoers
         elif profile == 'admin':

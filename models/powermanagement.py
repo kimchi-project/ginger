@@ -108,7 +108,7 @@ class PowerProfileModel(object):
             output, error, returncode = run_command(tuned_cmd)
             if returncode != 0:
                 wok_log.error('Could not activate power profile %s, '
-                                 'error: %s', powerprofile, error)
+                              'error: %s', powerprofile, error)
                 raise OperationFailed("GINPOWER004E",
                                       {'profile': powerprofile})
         return powerprofile
