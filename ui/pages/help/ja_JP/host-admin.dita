@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Copyright IBM Corp, 2015
+
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
+-->
+<!--Arbortext, Inc., 1988-2011, v.4002-->
+<!DOCTYPE cshelp PUBLIC "-//IBM//DTD DITA CSHelp//EN"
+ "..\dtd\cshelp.dtd">
+
+
+<!--This DITA specialized document type is not supported by the Authoring Tools development team.
+Press the F1 key for online help on the tags and see the DITA XML Guide and Reference for how to use this document type.
+For support please see:
+https://w3.opensource.ibm.com/projects/dita-cshelp/-->
+<cshelp id="administration" xml:lang="ja-jp">
+<title>管理</title>
+<shortdesc><wintitle>「管理」</wintitle>ページには、ご使用のシステムに関する情報が表示されます。</shortdesc>
+<csbody>
+<p>以下のセクションを使用して、ファームウェアの更新、バックアップ・ファイルの作成、およびネットワーク、電源オプション、ユーザーなどの構成を行います。</p>
+<dl><dlentry>
+<dt>ファームウェア更新</dt>
+<dd>「ファームウェア更新」セクションには、現行ファームウェア・バージョンが表示されます。
+このバージョンは、RPM ファイルを Fix Central からダウンロードし、RPM ファイルへのパスを指定し、<uicontrol>「更新」</uicontrol>をクリックすることで更新できます。
+</dd>
+</dlentry><dlentry>
+<dt>構成バックアップ</dt>
+<dd>「構成バックアップ」セクションには、構成バックアップ・ファイルが表示されます。
+<p>ファイル名にマウス・ポインターを置くと、組み込まれるパスと除外されるパスが表示されます。
+ファイルは tar ファイルとして保存されます。
+下矢印をクリックするとファイルをダウンロードできます。
+</p><p>以下のいずれかを選択して、新規ファイルを生成するか、ファイルを削除します。
+</p><dl><dlentry>
+<dt>デフォルト・バックアップの生成</dt>
+<dd>新規デフォルト・バックアップ・ファイルを生成します。
+保存されるデフォルト・パスは <filepath>/etc</filepath> and <filepath>/var/lib/libvirt</filepath> です。
+</dd>
+</dlentry><dlentry>
+<dt>新規カスタム・バックアップ</dt>
+<dd>カスタム・バックアップ・ファイルを生成します。
+保存したいパスを指定するには、組み込みたいパスを「組み込むパス」に、除外したいパスを「除外するパス」に入力します。
+複数のパスを両方のフィールドに追加するには、<uicontrol>正符号 (+)</uicontrol> をクリックします。
+オプションで、バックアップ・ファイルに関する説明を入力することができます。
+ファイルを生成するには<uicontrol>「OK」</uicontrol>をクリックします。
+</dd>
+</dlentry><dlentry>
+<dt>バッチ削除</dt>
+<dd>このオプションは、バックアップ・ファイルの範囲を削除するために使用します。
+</dd>
+</dlentry></dl></dd>
+</dlentry><dlentry>
+<dt>ネットワーク構成</dt>
+<dd>「ネットワーク構成」を使用して、ご使用のホスト・サーバーについてネットワーキングをセットアップします。
+使用するインターフェースごとに IP アドレスとサブネット・マスクを入力します。次に<uicontrol>「保存」</uicontrol>をクリックします。<uicontrol>「編集」</uicontrol>を選択することにより、入力項目を編集できます。</dd>
+</dlentry><dlentry>
+<dt>電源オプション</dt>
+<dd>「電源オプション」を使用して、ご使用のホスト・システムの電源管理に使用するオプションを選択します。</dd>
+</dlentry><dlentry>
+<dt>SAN アダプター</dt>
+<dd>「SAN アダプター」セクションには、サーバーで使用可能なすべての SAN アダプターがリストされます。</dd>
+</dlentry><dlentry>
+<dt>センサー・モニター</dt>
+<dd>「センサー・モニター」を使用して、ご使用のサーバーのセンサー情報を表示します。</dd>
+</dlentry><dlentry>
+<dt>SEP 構成</dt>
+<dd>「SEP 構成」を使用して、IBM 保守可能イベント・プロバイダー (SEP) を構成します。IBM 保守可能イベント・プロバイダーは、問題をモニターし、保守情報を収集して送信します。このサービスを構成するには、正符号 (+) をクリックします。次に、プロバイダーのホスト名、ポート、およびコミュニティーを入力することによって、サブスクリプションを追加します。サブスクリプションを実行依頼したら、このサービスを開始できます。</dd>
+</dlentry><dlentry>
+<dt>ユーザー管理</dt>
+<dd>「ユーザー管理」を使用すると、簡単にユーザーをホスト・システムに追加したりホスト・システムから削除したりすることができます。
+ユーザーを追加するには、正符号 (+) をクリックします。名前、パスワード、グループ (ある場合)、およびユーザーに設定するプロファイルを指定します。その後、<uicontrol>「実行依頼」</uicontrol>をクリックします。</dd>
+</dlentry></dl>
+</csbody>
+</cshelp>
+
+
+<!-- ENGL1SH_VERS10N 07772_5 DO NOT REMOVE OR CHANGE THIS LINE -->
+<!-- T9N_SRC_ID 244 -->
+<!-- T9N_SH1P_STR1NG KV310AAP001 1 -->

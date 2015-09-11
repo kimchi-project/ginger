@@ -68,7 +68,7 @@ Provider (SEP)。IBM Serviceable Event Provider 将监视问题以及收集和�
 </dd>
 </dlentry><dlentry>
 <dt>用户管理</dt>
-<dd>“用户管理”便于您在主机系统中添加和移除用户。单击加号 (+) 以添加用户。指定名称、密码、组（如果有的话）以及您希望用户具有的概要文件。
+<dd>“用户管理”允许您轻松地从主机系统中添加和移除用户。单击加号 (+) 以添加用户。指定名称、密码、组（如果有的话）以及您希望用户具有的概要文件。
 然后，单击<uicontrol>提交</uicontrol>。</dd>
 </dlentry></dl>
 </csbody>
