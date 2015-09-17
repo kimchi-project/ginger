@@ -570,8 +570,9 @@
 }
 
 #hostUserAdd .user-manage-footer {
-    float: right;
-    margin-top: 10px;
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
 }
 
 .user-add-body .user-add-content .enable-combobox {

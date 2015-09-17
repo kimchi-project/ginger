@@ -679,7 +679,8 @@ ginger.initUserManagement = function() {
         };
         $("#hostUserAdd").dialog({
             modal : true,
-            width : 500,
+            width : "auto",
+            height : 300,
             draggable : false,
             resizable : false,
             closeText: "X",
