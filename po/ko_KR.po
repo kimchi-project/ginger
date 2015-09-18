@@ -6,91 +6,85 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ginger 1.2.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-03-24 18:54-0300\n"
+"POT-Creation-Date: 2015-09-18 10:30-0300\n"
 "PO-Revision-Date: 2014-06-22 14:00+0800\n"
 "Last-Translator: Zhou Zheng Sheng <zhshzhou@linux.vnet.ibm.com>\n"
 "Language-Team: Zhou Zheng Sheng <zhshzhou@linux.vnet.ibm.com>\n"
-"Language: en_US\n"
+"Language: ko_KR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 msgid "Activate"
-msgstr ""
-"활성화"
+msgstr "활성화"
 
 msgid "Activated Option"
-msgstr ""
-"활성화한 옵션"
+msgstr "활성화한 옵션"
+
+msgid "Add Subscription"
+msgstr "등록 추가"
+
+msgid "Add User"
+msgstr "사용자 추가"
 
 msgid "Administration"
-msgstr ""
-"관리"
+msgstr "관리"
 
 msgid "Administrator"
-msgstr ""
-"관리자"
+msgstr "관리자"
 
 msgid "Batch Delete"
-msgstr ""
-"삭제 일괄처리"
+msgstr "삭제 일괄처리"
 
 msgid "Cancel"
-msgstr ""
-"취소"
+msgstr "취소"
 
 msgid "Cannot update system firmware while running VMs."
-msgstr ""
-"VM을 실행하는 중에 시스템 펌웨어를 업데이트할 수 없습니다."
+msgstr "VM을 실행하는 중에 시스템 펌웨어를 업데이트할 수 없습니다."
 
 msgid "Community"
-msgstr ""
-"커뮤니티"
+msgstr "커뮤니티"
 
 msgid "Configuration Backup"
-msgstr ""
-"구성 백업"
+msgstr "구성 백업"
 
 msgid "Confirm Password"
-msgstr ""
-"비밀번호 확인"
+msgstr "비밀번호 확인"
 
 #, python-format
 msgid "Could not add user '%(user)s' to kvm group."
-msgstr ""
-"'%(user)s' 사용자를 kvm 그룹에 추가하지 못했습니다."
+msgstr "'%(user)s' 사용자를 kvm 그룹에 추가하지 못했습니다."
 
 #, python-format
 msgid "Could not add user '%(user)s' to sudoers list."
-msgstr ""
-"'%(user)s' 사용자를 sudoers 목록에 추가하지 못했습니다."
+msgstr "'%(user)s' 사용자를 sudoers 목록에 추가하지 못했습니다."
 
 #, python-format
 msgid "Could not create user '%(user)s'."
-msgstr ""
-"'%(user)s' 사용자를 작성하지 못했습니다."
+msgstr "'%(user)s' 사용자를 작성하지 못했습니다."
 
 #, python-format
 msgid "Could not delete group '%(group)s'"
-msgstr ""
-"'%(group)s' 그룹을 삭제하지 못했습니다."
+msgstr "'%(group)s' 그룹을 삭제하지 못했습니다."
 
 #, python-format
 msgid "Could not delete user '%(user)s'."
-msgstr ""
-"'%(user)s' 사용자를 삭제하지 못했습니다."
+msgstr "'%(user)s' 사용자를 삭제하지 못했습니다."
+
+msgid "Create a backup"
+msgstr "백업 작성"
 
 msgid "DNS"
-msgstr ""
-"DNS"
+msgstr "DNS"
+
+msgid "Delete backups in batch"
+msgstr "일괄처리에서 백업 삭제"
 
 msgid "Description"
-msgstr ""
-"설명"
+msgstr "설명"
 
 msgid "Description too long."
-msgstr ""
-"설명이 너무 깁니다."
+msgstr "설명이 너무 깁니다."
 
 #, python-format
 msgid "Error activating power saving profile %(profile)s."
@@ -102,72 +96,65 @@ msgid ""
 "Error commiting firmware. rc = %(rc)s.                      Ensure you are "
 "booted to the temporary side."
 msgstr ""
-"펌웨어를 커미트하는 중에 오류가 발생했습니다. rc = %(rc)s.                      임시 측에"
-"부팅했는지 확인하십시오."
+"펌웨어를 커미트하는 중에 오류가 발생함. rc = %(rc)s.                      임"
+"시 측에 부팅했는지 확인하십시오."
 
 #, python-format
 msgid "Error deleting subscription: '%(error)s'."
-msgstr ""
-"등록을 삭제하는 중 오류 발생: '%(error)s'."
+msgstr "등록을 삭제하는 중 오류 발생: '%(error)s'."
 
 #, python-format
 msgid ""
 "Error flashing firmware. rc = %(rc)s.                      Please see /usr/"
 "sbin/update_flash for rc reasons."
 msgstr ""
-"펌웨어를 깜박이는 중에 오류가 발생했습니다. rc = %(rc)s.                      rc 원인은 /usr/"
-"sbin/update_flash를 참조하십시오. "
+"펌웨어를 깜박이는 중에 오류 발생함. rc = %(rc)s.                      rc 원인"
+"은 /usr/sbin/update_flash를 참조하십시오. "
 
 msgid "Error loading SEP subscriptions data from server."
-msgstr ""
-"서버에서 SEP 등록 데이터를 로드하는 중에 오류가 발생했습니다."
+msgstr "서버에서 SEP 등록 데이터를 로드하는 중에 오류가 발생했습니다."
 
 #, python-format
 msgid ""
 "Error rejecting firmware. rc = %(rc)s.                      Ensure you are "
 "booted to the permanent side."
 msgstr ""
-"펌웨어를 거부하는 중에 오류가 발생했습니다. rc = %(rc)s.                      영구 측에"
-"부팅했는지 확인하십시오."
+"펌웨어를 거부하는 중에 오류가 발생함. rc = %(rc)s.                      영구 "
+"측에부팅했는지 확인하십시오."
 
 #, python-format
 msgid "Error retrieving SEP subscribers data: '%(error)s'."
-msgstr ""
-"SEP 등록자 데이터를 검색하는 중 오류 발생: '%(error)s'."
+msgstr "SEP 등록자 데이터를 검색하는 중 오류 발생: '%(error)s'."
 
 #, python-format
 msgid "Error starting SEP service: '%(error)s'."
-msgstr ""
-"SEP 서비스를 시작하는 중 오류 발생: '%(error)s'."
+msgstr "SEP 서비스를 시작하는 중 오류 발생: '%(error)s'."
 
 #, python-format
 msgid "Error stopping SEP service: '%(error)s'."
-msgstr ""
-"SEP 서비스를 중지하는 중 오류 발생: '%(error)s'."
+msgstr "SEP 서비스를 중지하는 중 오류 발생: '%(error)s'."
 
 #, python-format
 msgid "Error subscribing SEP data to server: '%(error)s'."
-msgstr ""
-"SEP 데이터를 서버에 등록하는 중 오류 발생: '%(error)s'."
+msgstr "SEP 데이터를 서버에 등록하는 중 오류 발생: '%(error)s'."
 
 msgid "FW update failed: No image file found in the package file."
-msgstr ""
-"FW 업데이트 실패함: 패키지 파일에 이미지 파일이 없음."
+msgstr "FW 업데이트 실패함: 패키지 파일에 이미지 파일이 없음."
 
 #, python-format
 msgid ""
 "Failed to create archive \"%(identity)s\". Inspect error log for more "
 "information."
 msgstr ""
-"\"%(identity)s\" 아카이브를 작성하지 못했습니다. 자세한 정보를 보려면"
-"오류 로그를 검사하십시오."
+"아카이브 \"%(identity)s\"을(를) 작성하지 못했습니다. 자세한 정보를 보려면오"
+"류 로그를 검사하십시오."
 
 #, python-format
 msgid ""
 "Failed to create archive dir \"%(dir)s\". Inspect error log for more "
 "information."
 msgstr ""
-"아카이브 dir \"%(dir)s\"을(를) 작성하지 못했습니다. 자세한 정보를 보려면"
+"아카이브 디렉토리 \"%(dir)s\"을(를) 작성하지 못했습니다. 자세한 정보를 보려면"
 "오류 로그를 검사하십시오."
 
 #, python-format
@@ -175,106 +162,84 @@ msgid ""
 "Failed to create tar archive \"%(name)s\", cmd: \"%(cmd)s\". Inspect error "
 "log for more information."
 msgstr ""
-"tar 아카이브 \"%(name)s\", cmd: \"%(cmd)s\"을(를) 작성하지 못했습니다. 자세한 정보를 보려면"
-"오류 로그를 검사하십시오."
+"tar 아카이브 \"%(name)s\"을(를) 작성하지 못했습니다. cmd: \"%(cmd)s\". 자세"
+"한 정보를 보려면오류 로그를 검사하십시오."
 
 #, python-format
 msgid "Failed to delete archive file \"%(name)s\"."
-msgstr ""
-"아카이브 파일 \"%(name)s\"을(를) 삭제하지 못했습니다."
+msgstr "아카이브 파일 \"%(name)s\"을(를) 삭제하지 못했습니다."
 
 #, python-format
 msgid "Failed to read /etc/resolv.conf because %(reason)s"
-msgstr ""
-"%(reason)s때문에 /etc/resolv.conf를 읽지 못했습니다."
+msgstr "%(reason)s때문에 /etc/resolv.conf를 읽지 못했습니다."
 
 msgid ""
 "Failed to retrieve power management profiles:                        Daemon "
 "'tuned-adm' is not active."
 msgstr ""
-"전원 관리 프로파일을 검색하지 못함: "
-"디먼 'tuned-adm'이 활성이 아닙니다."
+"전원 관리 프로파일을 검색하지 못함: 디먼 'tuned-adm'이 활성이 아닙니다."
 
 msgid ""
 "Failed to retrieve power management profiles:                        Host OS "
 "does not support the tuned-adm package."
 msgstr ""
-"전원 관리 프로파일을 검색하지 못함: "
-"호스트 OS가 tuned-adm 패키지를 지원하지 않습니다."
+"전원 관리 프로파일을 검색하지 못함: 호스트 OS가 tuned-adm 패키지를 지원하지 "
+"않습니다."
 
 msgid ""
 "Failed to retrieve power management profiles:                        Package "
 "'tuned-adm' is not installed."
 msgstr ""
-"전원 관리 프로파일을 검색하지 못함: "
-"패키지 'tuned-adm'이 설치되지 않았습니다."
+"전원 관리 프로파일을 검색하지 못함: 패키지 'tuned-adm'이 설치되지 않았습니다."
 
 #, python-format
 msgid "Failed to write /etc/resolv.conf because %(reason)s"
-msgstr ""
-"%(reason)s때문에 /etc/resolv.conf를 쓰지 못했습니다."
+msgstr "%(reason)s때문에 /etc/resolv.conf를 쓰지 못했습니다."
 
 msgid "File"
-msgstr ""
-"파일"
+msgstr "파일"
 
 msgid "Firmware Update"
-msgstr ""
-"펌웨어 업데이트"
+msgstr "펌웨어 업데이트"
 
 msgid "Firmware Version: "
-msgstr ""
-"펌웨어 버전: "
+msgstr "펌웨어 버전: "
 
 #, python-format
 msgid "Firmware image unpack failed: rc = %(rc)s. Details: %(err)s"
-msgstr ""
-"펌웨어 이미지 압축 풀기 실패: rc = %(rc)s. 세부사항: %(err)s"
+msgstr "펌웨어 이미지 압축 풀기가 실패함: rc = %(rc)s. 세부사항: %(err)s"
 
 msgid ""
 "Firmware update is initializing. System will reboot in order to flash the "
 "firmware."
 msgstr ""
-"펌웨어 업데이트를 초기화하는 중입니다. 펌웨어를 깜박이기 위해 시스템이"
-"다시 부팅됩니다."
+"펌웨어 업데이트를 초기화하는 중입니다. 펌웨어를 깜박이기 위해 시스템이다시 부"
+"팅됩니다."
 
 msgid "Gateway"
-msgstr ""
-"게이트웨이"
+msgstr "게이트웨이"
 
 msgid "Generate Default Backup"
-msgstr ""
-"기본 백업 생성"
+msgstr "기본 백업 생성"
 
 msgid "Group"
-msgstr ""
-"그룹"
-
-#, python-format
-msgid "Group for user '%(user)s' does not exist for removal."
-msgstr ""
-"제거하기 위한 '%(user)s' 사용자의 그룹이 없습니다."
+msgstr "그룹"
 
 msgid "Hostname"
-msgstr ""
-"호스트 이름"
+msgstr "호스트 이름"
 
 #, python-format
 msgid "Hostname %(hostname)s not found."
-msgstr ""
-"%(hostname)s 호스트 이름을 찾지 못했습니다."
+msgstr "%(hostname)s 호스트 이름을 찾지 못했습니다."
 
 msgid "IP"
-msgstr ""
-"IP"
+msgstr "IP"
 
 msgid "In-Use/Max Ports"
-msgstr ""
-"사용 중/최대 포트 수"
+msgstr "사용 중/최대 포트 수"
 
 msgid "Interface"
-msgstr ""
-"인터페이스"
+msgstr "인터페이스"
 
 #, python-format
 msgid ""
@@ -283,278 +248,212 @@ msgstr ""
 "%(name)s 인터페이스가 vlan 또는 브릿지에 포함되어 있어 편집할 수 없습니다."
 
 msgid "Invalid counts_ago number."
-msgstr ""
-"counts_ago 숫자가 올바르지 않습니다."
+msgstr "counts_ago 숫자가 올바르지 않습니다."
 
 msgid "Invalid days_ago number."
-msgstr ""
-"days_ago 숫자가 올바르지 않습니다."
+msgstr "days_ago 숫자가 올바르지 않습니다."
 
 msgid ""
 "Invalid ip/netmask inputs. Both fields must be valid ip/netmask values or "
 "both must be blank (will erase the current IP/netmask)."
 msgstr ""
-"올바르지 않은 IP/넷마스크 입력입니다. 두 필드는 유효한 IP/넷마스크 값이거나 "
-"모두 비어있어야 합니다(현재 IIP/넷마스크는 지워짐)."
+"IP/넷마스크 입력이 올바르지 않습니다. 두 필드는 모두 유효한 IP/넷마스크 값이"
+"거나 모두 비어있어야 합니다(현재 IP/넷마스크는 지워짐)."
 
 #, python-format
 msgid "Invalid network parameters. Details: %(err)s"
-msgstr ""
-"올바르지 않은 네트워크 매개변수입니다. 세부사항: %(err)s"
+msgstr "네트워크 매개변수가 올바르지 않습니다. 세부사항: %(err)s"
 
 msgid "Invalid parameter for DNS servers"
-msgstr ""
-"DNS 서버에 올바르지 않은 매개변수입니다."
+msgstr "DNS 서버에 올바르지 않은 매개변수입니다."
 
 msgid "Invalid parameter for interface ip address"
-msgstr ""
-"인터페이스 IP 주소에 올바르지 않은 매개변수입니다."
+msgstr "인터페이스 IP 주소에 올바르지 않은 매개변수입니다."
 
 msgid "Invalid parameter for interface netmask"
-msgstr ""
-"인터페이스 넷마스크에 올바르지 않은 매개변수입니다."
+msgstr "인터페이스 넷마스크에 올바르지 않은 매개변수입니다."
 
 msgid "Invalid parameter for network gateway"
-msgstr ""
-"네트워크 게이트웨이에 올바르지 않은 매개변수입니다."
+msgstr "네트워크 게이트웨이에 올바르지 않은 매개변수입니다."
 
 msgid "Kimchi User"
-msgstr ""
-"Kimchi 사용자"
+msgstr "Kimchi 사용자"
 
 msgid "Mask"
-msgstr ""
-"마스크"
+msgstr "마스크"
 
 msgid "Name"
-msgstr ""
-"이름"
+msgstr "이름"
 
 msgid "Network Configuration"
-msgstr ""
-"네트워크 구성"
+msgstr "네트워크 구성"
 
 msgid "New Custom Backup"
-msgstr ""
-"새 사용자 정의 백업"
+msgstr "새 사용자 정의 백업"
 
 msgid "Package Path: "
-msgstr ""
-"패키지 경로: "
+msgstr "패키지 경로: "
 
 msgid "Password"
-msgstr ""
-"비밀번호"
+msgstr "비밀번호"
 
 msgid "Path Excluded"
-msgstr ""
-"제외 경로"
+msgstr "제외 경로"
 
 msgid "Path Included"
-msgstr ""
-"포함 경로"
+msgstr "포함 경로"
 
 msgid "Path or pattern is too long or too short."
-msgstr ""
-"경로 또는 패턴이 너무 길거나 너무 짧습니다."
+msgstr "경로 또는 패턴이 너무 길거나 너무 짧습니다."
 
 msgid "Please check the uniqueness of the paths or patterns."
-msgstr ""
-"경로 또는 패턴이 고유한지 확인하십시오."
+msgstr "경로 또는 패턴이 고유한지 확인하십시오."
 
 msgid "Port"
-msgstr ""
-"포트"
+msgstr "포트"
 
 msgid "Power Options"
-msgstr ""
-"전원 옵션"
+msgstr "전원 옵션"
 
 msgid "Preserve the latest"
-msgstr ""
-"최근 "
+msgstr "최근 "
 
 msgid "Profile"
-msgstr ""
-"프로파일"
+msgstr "프로파일"
 
 msgid "Provide required parameters: hostname, port, community."
-msgstr ""
-"필수 매개변수(호스트 이름, 포트, 커뮤니티)를 제공하십시오."
+msgstr "필수 매개변수(호스트 이름, 포트, 커뮤니티)를 제공하십시오."
 
 msgid "SAN Adapters"
-msgstr ""
-"SAN 어댑터"
+msgstr "SAN 어댑터"
 
 #, python-format
 msgid "SAN adapter '%(adapter)s' does not exist in the system."
-msgstr ""
-"SAN 어댑터 '%(adapter)s'이(가) 시스템에 없습니다."
+msgstr "SAN 어댑터 '%(adapter)s'이(가) 시스템에 없습니다."
 
 msgid "SEP Configuration"
-msgstr ""
-"SEP 구성"
+msgstr "SEP 구성"
 
 msgid "SNMP community name must be a single word."
-msgstr ""
-"SNMP 커뮤니티 이름은 하나의 단어여야 합니다."
+msgstr "SNMP 커뮤니티 이름은 하나의 단어여야 합니다."
 
 msgid "Selected Option"
-msgstr ""
-"선택한 옵션"
+msgstr "선택한 옵션"
 
 msgid "Sensor Monitor"
-msgstr ""
-"센서 모니터"
+msgstr "센서 모니터"
 
 msgid "Specify name, password, group and profile for the new user."
-msgstr ""
-"새 사용자에 대한 이름, 비밀번호, 그룹 및 프로파일을 지정하십시오."
+msgstr "새 사용자에 대한 이름, 비밀번호, 그룹 및 프로파일을 지정하십시오."
 
 msgid "Speed"
-msgstr ""
-"속도"
+msgstr "속도"
 
 msgid "Start"
-msgstr ""
-"시작"
+msgstr "시작"
 
 msgid "State"
-msgstr ""
-"상태"
+msgstr "상태"
 
 msgid "Status:"
-msgstr ""
-"상태:"
+msgstr "상태:"
 
 msgid "Stop"
-msgstr ""
-"중지"
+msgstr "중지"
 
 msgid "Submit"
-msgstr ""
-"제출"
+msgstr "제출"
 
 msgid "Symbolic Name"
-msgstr ""
-"기호 이름"
+msgstr "기호 이름"
 
 msgid "System hostname must be a valid string."
-msgstr ""
-"시스템 호스트 이름은 유효한 문자열이어야 합니다."
+msgstr "시스템 호스트 이름은 유효한 문자열이어야 합니다."
 
 msgid ""
 "System port number must be an integer between 1 and                      "
 "65535."
-msgstr ""
-"시스템 포트 번호는 1과 65535 사이의 정수여야"
-"합니다."
+msgstr "시스템 포트 번호는 1과 65535 사이의 정수여야합니다."
 
 msgid "The absolute path to the firmware rpm."
-msgstr ""
-"펌웨어 rpm에 대한 절대 경로입니다."
+msgstr "펌웨어 rpm에 대한 절대 경로입니다."
 
 #, python-format
 msgid "The user name '%(user)s' is already in use'."
-msgstr ""
-"'%(user)s' 사용자 이름을 이미 사용하고 있습니다'."
+msgstr "'%(user)s' 사용자 이름을 이미 사용하고 있습니다'."
 
 #, python-format
 msgid ""
 "Timeout while creating archive \"%(identity)s\", the files might be too "
 "large for a configuration backup."
 msgstr ""
-"\"%(identity)s\" 아카이브를 작성하는 중 제한시간이 초과되었습니다. 파일이 너무 커서"
-"구성 백업을 할 수 없습니다. "
+"\"%(identity)s\" 아카이브를 작성하는 중 제한시간이 초과되었습니다. 파일이 너"
+"무 커서구성 백업을 할 수 없습니다. "
 
 msgid "Timestamp"
-msgstr ""
-"시간소인"
+msgstr "시간소인"
 
 #, python-format
 msgid "Unable to delete default gateway: %(err)s"
-msgstr ""
-"기본 게이트웨이를 삭제할 수 없음: %(err)s"
+msgstr "기본 게이트웨이를 삭제할 수 없음: %(err)s"
 
 #, python-format
 msgid "Unable to get default gateway: %(err)s"
-msgstr ""
-"기본 게이트웨이를 가져올 수 없음: %(err)s"
+msgstr "기본 게이트웨이를 가져올 수 없음: %(err)s"
 
 #, python-format
 msgid "Unable to set default gateway: %(err)s"
-msgstr ""
-"기본 게이트웨이를 설정할 수 없음: %(err)s"
+msgstr "기본 게이트웨이를 설정할 수 없음: %(err)s"
 
 #, python-format
 msgid "Unable to update interface configuration. Details: %(err)s"
-msgstr ""
-"인터페이스 구성을 업데이트할 수 없습니다. 세부사항: %(err)s"
+msgstr "인터페이스 구성을 업데이트할 수 없습니다. 세부사항: %(err)s"
 
 msgid "Unselected Option"
-msgstr ""
-"선택 취소한 옵션"
+msgstr "선택 취소한 옵션"
 
 msgid "Update"
-msgstr ""
-"업데이트"
+msgstr "업데이트"
 
 msgid "Use Other"
-msgstr ""
-"기타 사용"
+msgstr "기타 사용"
 
 #, python-format
 msgid "User '%(user)s' does not exist."
-msgstr ""
-"'%(user)s' 사용자가 없습니다."
+msgstr "'%(user)s' 사용자가 없습니다."
 
 msgid "User Management"
-msgstr ""
-"사용자 관리"
+msgstr "사용자 관리"
 
 msgid "User Name"
-msgstr ""
-"사용자 이름"
+msgstr "사용자 이름"
 
 msgid "User group is a required string."
-msgstr ""
-"사용자 그룹은 필수 문자열입니다."
+msgstr "사용자 그룹은 필수 문자열입니다."
 
 msgid "User name is a required string."
-msgstr ""
-"사용자 이름은 필수 문자열입니다."
+msgstr "사용자 이름은 필수 문자열입니다."
 
 msgid "User password is a required string."
-msgstr ""
-"사용자 비밀번호는 필수 문자열입니다."
+msgstr "사용자 비밀번호는 필수 문자열입니다."
 
 msgid ""
 "User profile is required and should be one among kimchiuser, virtuser or "
 "admin."
 msgstr ""
-"사용자 프로파일은 필수이고 kimchiuser, virtuser 또는 admin 중"
-"하나여야 합니다."
+"사용자 프로파일은 필수이고 kimchiuser, virtuser 또는 admin 중하나여야 합니다."
 
 msgid "Virt User"
-msgstr ""
-"Virt 사용자"
+msgstr "Virt 사용자"
 
 msgid "WWNN"
-msgstr ""
-"WWNN"
+msgstr "WWNN"
 
 msgid "WWPN"
-msgstr ""
-"WWPN"
+msgstr "WWPN"
 
 msgid "backups"
-msgstr ""
-"개의 백업 유지"
+msgstr "개의 백업 유지"
 
 msgid "days of backups"
-msgstr ""
-"일의 백업 유지"
-
-# ENGL1SH_VERS10N 01434_8 DO NOT REMOVE OR CHANGE THIS LINE
-# T9N_SRC_ID 249
-# T9N_SH1P_STR1NG KV310AAP001 1
+msgstr "일의 백업 유지"

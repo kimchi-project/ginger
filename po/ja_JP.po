@@ -1,4 +1,4 @@
-# Japanese translations for Ginger package.
+# English translations for Ginger package.
 # Copyright (C) 2014 IBM, Corp.
 # This file is distributed under the same license as the Ginger package.
 #
@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ginger 1.2.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-03-24 18:54-0300\n"
+"POT-Creation-Date: 2015-09-18 10:30-0300\n"
 "PO-Revision-Date: 2014-06-22 14:00+0800\n"
 "Last-Translator: Zhou Zheng Sheng <zhshzhou@linux.vnet.ibm.com>\n"
 "Language-Team: Zhou Zheng Sheng <zhshzhou@linux.vnet.ibm.com>\n"
@@ -16,34 +16,40 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 msgid "Activate"
-msgstr "アクティブにする"
+msgstr "アクティブ化"
 
 msgid "Activated Option"
 msgstr "アクティブにされたオプション"
+
+msgid "Add Subscription"
+msgstr "サブスクリプションの追加"
+
+msgid "Add User"
+msgstr "ユーザーの追加"
 
 msgid "Administration"
 msgstr "管理"
 
 msgid "Administrator"
-msgstr ""
+msgstr "管理者"
 
 msgid "Batch Delete"
 msgstr "バッチ削除"
 
 msgid "Cancel"
-msgstr ""
+msgstr "取消"
 
 msgid "Cannot update system firmware while running VMs."
 msgstr "VM の稼働中はシステム・ファームウェアを更新できません。"
 
 msgid "Community"
-msgstr ""
+msgstr "コミュニティー"
 
 msgid "Configuration Backup"
 msgstr "構成バックアップ"
 
 msgid "Confirm Password"
-msgstr ""
+msgstr "確認パスワード"
 
 #, python-format
 msgid "Could not add user '%(user)s' to kvm group."
@@ -59,14 +65,20 @@ msgstr "ユーザー「%(user)s」を作成できませんでした。"
 
 #, python-format
 msgid "Could not delete group '%(group)s'"
-msgstr "グループ「%(group)s」を削除できませんでした。"
+msgstr "グループ「%(group)s」を削除できませんでした"
 
 #, python-format
 msgid "Could not delete user '%(user)s'."
 msgstr "ユーザー「%(user)s」を削除できませんでした。"
 
+msgid "Create a backup"
+msgstr "バックアップの作成"
+
 msgid "DNS"
 msgstr "DNS"
+
+msgid "Delete backups in batch"
+msgstr "バッチのバックアップを削除"
 
 msgid "Description"
 msgstr "説明"
@@ -90,6 +102,7 @@ msgstr ""
 #, python-format
 msgid "Error deleting subscription: '%(error)s'."
 msgstr ""
+"サブスクリプションを削除するときにエラーが発生しました: 「%(error)s」。"
 
 #, python-format
 msgid ""
@@ -101,6 +114,8 @@ msgstr ""
 
 msgid "Error loading SEP subscriptions data from server."
 msgstr ""
+"SEP サブスクリプション・データをサーバーからロードするときにエラーが発生しま"
+"した。"
 
 #, python-format
 msgid ""
@@ -113,18 +128,22 @@ msgstr ""
 #, python-format
 msgid "Error retrieving SEP subscribers data: '%(error)s'."
 msgstr ""
+"SEP サブスクライバー・データを取得するときにエラーが発生しました: "
+"「%(error)s」。"
 
 #, python-format
 msgid "Error starting SEP service: '%(error)s'."
-msgstr ""
+msgstr "SEP サービスを開始するときにエラーが発生しました: 「%(error)s」。"
 
 #, python-format
 msgid "Error stopping SEP service: '%(error)s'."
-msgstr ""
+msgstr "SEP サービスを停止するときにエラーが発生しました: 「%(error)s」。"
 
 #, python-format
 msgid "Error subscribing SEP data to server: '%(error)s'."
 msgstr ""
+"サーバーに対して SEP データをサブスクライブするときにエラーが発生しました: "
+"「%(error)s」。"
 
 msgid "FW update failed: No image file found in the package file."
 msgstr ""
@@ -161,8 +180,7 @@ msgstr "アーカイブ・ファイル「%(name)s」の削除に失敗しまし�
 
 #, python-format
 msgid "Failed to read /etc/resolv.conf because %(reason)s"
-msgstr ""
-"%(reason)s が原因で /etc/resolv.conf を読み取ることができませんでした。"
+msgstr "%(reason)s が原因で /etc/resolv.conf の読み取りに失敗しました。"
 
 msgid ""
 "Failed to retrieve power management profiles:                        Daemon "
@@ -187,8 +205,7 @@ msgstr ""
 
 #, python-format
 msgid "Failed to write /etc/resolv.conf because %(reason)s"
-msgstr ""
-"%(reason)s が原因で /etc/resolv.conf を書き込むことができませんでした。"
+msgstr "%(reason)s が原因で /etc/resolv.conf の書き込みに失敗しました。"
 
 msgid "File"
 msgstr "ファイル"
@@ -219,18 +236,14 @@ msgid "Generate Default Backup"
 msgstr "デフォルト・バックアップの生成"
 
 msgid "Group"
-msgstr ""
-
-#, python-format
-msgid "Group for user '%(user)s' does not exist for removal."
-msgstr "削除対象であるユーザー「%(user)s」のグループは存在しません。"
+msgstr "グループ"
 
 msgid "Hostname"
-msgstr ""
+msgstr "ホスト名"
 
 #, python-format
 msgid "Hostname %(hostname)s not found."
-msgstr ""
+msgstr "ホスト名 %(hostname)s が見つかりません。"
 
 msgid "IP"
 msgstr "IP"
@@ -245,6 +258,7 @@ msgstr "インターフェース"
 msgid ""
 "Interface %(name)s is not editable because it belongs to a vlan or bridge"
 msgstr ""
+"インターフェース %(name)s は、VLAN またはブリッジに属しているため編集不可です"
 
 msgid "Invalid counts_ago number."
 msgstr "counts_ago 数が無効です。"
@@ -256,6 +270,9 @@ msgid ""
 "Invalid ip/netmask inputs. Both fields must be valid ip/netmask values or "
 "both must be blank (will erase the current IP/netmask)."
 msgstr ""
+"IP/ネットマスクの入力が無効です。どちらのフィールドも有効な IP/ネットマスク値"
+"であるか、どちらもブランクにしなければなりません (現在の IP/ネットマスクは消"
+"去されます)。"
 
 #, python-format
 msgid "Invalid network parameters. Details: %(err)s"
@@ -274,7 +291,7 @@ msgid "Invalid parameter for network gateway"
 msgstr "ネットワーク・ゲートウェイのパラメーターが無効です"
 
 msgid "Kimchi User"
-msgstr ""
+msgstr "Kimchi ユーザー"
 
 msgid "Mask"
 msgstr "マスク"
@@ -292,7 +309,7 @@ msgid "Package Path: "
 msgstr "パッケージ・パス: "
 
 msgid "Password"
-msgstr ""
+msgstr "パスワード"
 
 msgid "Path Excluded"
 msgstr "除外するパス"
@@ -307,7 +324,7 @@ msgid "Please check the uniqueness of the paths or patterns."
 msgstr "パスまたはパターンの固有性を確認してください。"
 
 msgid "Port"
-msgstr ""
+msgstr "ポート"
 
 msgid "Power Options"
 msgstr "電源オプション"
@@ -316,10 +333,10 @@ msgid "Preserve the latest"
 msgstr "最新を保持"
 
 msgid "Profile"
-msgstr ""
+msgstr "プロファイル"
 
 msgid "Provide required parameters: hostname, port, community."
-msgstr ""
+msgstr "必須パラメーターのホスト名、ポート、コミュニティーを指定してください。"
 
 msgid "SAN Adapters"
 msgstr "SAN アダプター"
@@ -332,7 +349,7 @@ msgid "SEP Configuration"
 msgstr "SEP 構成"
 
 msgid "SNMP community name must be a single word."
-msgstr ""
+msgstr "SNMP コミュニティー名は単一のワードでなければなりません。"
 
 msgid "Selected Option"
 msgstr "選択されたオプション"
@@ -361,18 +378,18 @@ msgid "Stop"
 msgstr "停止"
 
 msgid "Submit"
-msgstr ""
+msgstr "実行依頼"
 
 msgid "Symbolic Name"
 msgstr "シンボル名"
 
 msgid "System hostname must be a valid string."
-msgstr ""
+msgstr "システム・ホスト名は有効なストリングでなければなりません。"
 
 msgid ""
 "System port number must be an integer between 1 and                      "
 "65535."
-msgstr ""
+msgstr "システム・ポート番号は 1 から 65535 までの整数でなければなりません。"
 
 msgid "The absolute path to the firmware rpm."
 msgstr "ファームウェア rpm への絶対パス。"
@@ -386,8 +403,8 @@ msgid ""
 "Timeout while creating archive \"%(identity)s\", the files might be too "
 "large for a configuration backup."
 msgstr ""
-"アーカイブ「%(identity)s」の生成中にタイムアウトしました。構成バックアップに"
-"はファイルが大きすぎる可能性があります。"
+"アーカイブ「%(identity)s」の作成中にタイムアウトになりました。構成バックアッ"
+"プにはファイルが大きすぎる可能性があります。"
 
 msgid "Timestamp"
 msgstr "タイム・スタンプ"
@@ -415,17 +432,17 @@ msgid "Update"
 msgstr "更新"
 
 msgid "Use Other"
-msgstr ""
+msgstr "その他を使用"
 
 #, python-format
 msgid "User '%(user)s' does not exist."
 msgstr "ユーザー「%(user)s」は存在しません。"
 
 msgid "User Management"
-msgstr ""
+msgstr "ユーザー管理"
 
 msgid "User Name"
-msgstr ""
+msgstr "ユーザー名"
 
 msgid "User group is a required string."
 msgstr "ユーザー・グループは必須ストリングです。"
@@ -444,7 +461,7 @@ msgstr ""
 "れかである必要があります。"
 
 msgid "Virt User"
-msgstr ""
+msgstr "Virt ユーザー"
 
 msgid "WWNN"
 msgstr "WWNN"
@@ -457,31 +474,3 @@ msgstr "バックアップ"
 
 msgid "days of backups"
 msgstr "日間のバックアップ"
-
-#~ msgid "Host Name:"
-#~ msgstr "ホスト名:"
-
-#~ msgid "Port:"
-#~ msgstr "ポート:"
-
-#~ msgid ""
-#~ "SEP command execution error: '%(cmd)s' - rc: "
-#~ "'%(rc)s'                      - error: '%(error)s'."
-#~ msgstr ""
-#~ "SEP コマンド実行エラー: 「%(cmd)s」 - rc: 「%(rc)s」 - エラー: "
-#~ "'%(error)s'。"
-
-#~ msgid "SNMP Community:"
-#~ msgstr "SNMP コミュニティー:"
-
-#~ msgid "SNMP community is a required parameter."
-#~ msgstr "SNMP コミュニティーは必須パラメーターです。"
-
-#~ msgid "Subscribe"
-#~ msgstr "サブスクライブ"
-
-#~ msgid "System hostname is a required parameter."
-#~ msgstr "システム・ホスト名は必須パラメーターです。"
-
-#~ msgid "System port number is a required parameter."
-#~ msgstr "システム・ポート番号は必須パラメーターです。"

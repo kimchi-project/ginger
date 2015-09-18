@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-03-24 18:54-0300\n"
+"POT-Creation-Date: 2015-09-18 10:30-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21,6 +21,12 @@ msgid "Activate"
 msgstr ""
 
 msgid "Activated Option"
+msgstr ""
+
+msgid "Add Subscription"
+msgstr ""
+
+msgid "Add User"
 msgstr ""
 
 msgid "Administration"
@@ -67,7 +73,13 @@ msgstr ""
 msgid "Could not delete user '%(user)s'."
 msgstr ""
 
+msgid "Create a backup"
+msgstr ""
+
 msgid "DNS"
+msgstr ""
+
+msgid "Delete backups in batch"
 msgstr ""
 
 msgid "Description"
@@ -194,10 +206,6 @@ msgid "Generate Default Backup"
 msgstr ""
 
 msgid "Group"
-msgstr ""
-
-#, python-format
-msgid "Group for user '%(user)s' does not exist for removal."
 msgstr ""
 
 msgid "Hostname"
