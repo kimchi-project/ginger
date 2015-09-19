@@ -51,19 +51,22 @@ def get_group_obj_by_gid(gid):
 
 def get_group_gid(groupname):
     adm = libuser.admin()
-    gid = adm.lookupGroupByName(groupname).get('pw_gid')[0]
-    return gid
+    group = adm.lookupGroupByName(groupname)
+    if group is None:
+        return None
+    return group.get('pw_gid')[0]
 
 
-def create_group(groupname):
+def create_group(groupname, gid):
     adm = libuser.admin()
     group = adm.lookupGroupByName(groupname)
     if not group:
         new_group = adm.initGroup(groupname)
-        gid = new_group[libuser.GIDNUMBER]
+        new_group.set(libuser.GIDNUMBER, gid)
         adm.addGroup(new_group)
-        return gid[0]
-    return group.get('pw_gid')[0]
+        return gid
+    else:
+        return group.get('pw_gid')[0]
 
 
 def delete_group(groupname):
@@ -113,7 +116,7 @@ def gen_salt():
     chars = string.letters + string.digits + './'
     return "$6$" + "".join([random.choice(chars) for x in range(16)])
 
-def create_user(name, plain_passwd, profile=None):
+def create_user(name, plain_passwd, profile=None, gid=None):
     adm = libuser.admin()
     user = adm.lookupUserByName(name)
     if user:
@@ -123,6 +126,14 @@ def create_user(name, plain_passwd, profile=None):
 
     try:
         new_user = adm.initUser(name)
+        # Ensure user is normal and not system user
+        if new_user[libuser.UIDNUMBER][0] < 1000:
+            new_user.set(libuser.UIDNUMBER, adm.getFirstUnusedUid(1000))
+            new_user.set(libuser.GIDNUMBER, adm.getFirstUnusedGid(1000))
+
+        if gid is not None:
+            new_user.set(libuser.GIDNUMBER, gid)
+
         if profile == "kimchiuser":
             new_user[libuser.LOGINSHELL] = '/sbin/nologin'
         adm.addUser(new_user)
@@ -158,11 +169,6 @@ def delete_user(username):
         raise OperationFailed('GINUSER0010E', {'user': username})
 
 
-def add_user_to_primary_group(username, groupname):
-    user_obj = get_user_obj(username)
-    user_obj[libuser.GIDNUMBER] = get_group_gid(groupname)
-
-
 class UsersModel(object):
     """
     The model class for basic management of users in the host system
@@ -174,9 +180,12 @@ class UsersModel(object):
         profile = params['profile']
         groupname = params['group']
 
-        create_user(username, passwd, profile=profile)
-        create_group(groupname)
-        add_user_to_primary_group(username, groupname)
+        gid = get_group_gid(groupname)
+        if gid is None:
+            user = create_user(username, passwd, profile=profile)
+            create_group(groupname, user[libuser.GIDNUMBER][0])
+        else:
+            user = create_user(username, passwd, profile=profile, gid=gid)
 
         # Handle profiles
         if profile in ["virtuser", "admin"]:
@@ -244,10 +253,18 @@ class UserModel(object):
 
     def _get_user_profile(self, user):
         # ADMIN: Check /etc/sudoers.d
+        adm = libuser.admin()
         if os.path.isfile(SUDOERS_FILE % user):
             return 'admin'
+        else:
+            wheelgrp = adm.lookupGroupByName('wheel')
+            if wheelgrp is not None and user in wheelgrp.get('gr_mem'):
+                return 'admin'
+            sudogrp = adm.lookupGroupByName('sudo')
+            if sudogrp is not None and user in sudogrp.get('gr_mem'):
+                return 'admin'
+
         # VIRTUSER: Check kvm group
-        adm = libuser.admin()
         kvmgrp = adm.lookupGroupByName('kvm')
         if user in kvmgrp.get('gr_mem'):
             return 'virtuser'
