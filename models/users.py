@@ -21,6 +21,8 @@ import crypt
 import grp
 import os
 import pwd
+import random
+import string
 
 import libuser
 
@@ -105,6 +107,11 @@ def get_user_obj(username):
     adm = libuser.admin()
     return adm.lookupUserByName(username)
 
+def gen_salt():
+    # Generate strongest encryption to user passwords:
+    # $6$ - SHA512, plus 16 bytes random SALT
+    chars = string.letters + string.digits + './'
+    return "$6$" + "".join([random.choice(chars) for x in range(16)])
 
 def create_user(name, plain_passwd, profile=None):
     adm = libuser.admin()
@@ -119,7 +126,16 @@ def create_user(name, plain_passwd, profile=None):
         if profile == "kimchiuser":
             new_user[libuser.LOGINSHELL] = '/sbin/nologin'
         adm.addUser(new_user)
-        enc_pwd = crypt.crypt(plain_passwd)
+
+        # Setting user password. Crypt in Python 3.3 and some 2.7 backports
+        # bring mksalt function, so, use it or use our self salt generator
+        # Creates strongest encryption (SHA512 + 16 bytes SALT)
+        if hasattr(crypt, "mksalt"):
+            salt = crypt.mksalt(crypt.METHOD_SHA512)
+        else:
+            salt = gen_salt()
+        enc_pwd = crypt.crypt(plain_passwd, salt)
+
         adm.setpassUser(new_user, enc_pwd, True)
     except Exception as e:
         kimchi_log.error('Could not create user %s', name, e)
