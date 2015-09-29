@@ -110,11 +110,13 @@ def get_user_obj(username):
     adm = libuser.admin()
     return adm.lookupUserByName(username)
 
+
 def gen_salt():
     # Generate strongest encryption to user passwords:
     # $6$ - SHA512, plus 16 bytes random SALT
     chars = string.letters + string.digits + './'
     return "$6$" + "".join([random.choice(chars) for x in range(16)])
+
 
 def create_user(name, plain_passwd, profile=None, gid=None):
     adm = libuser.admin()
