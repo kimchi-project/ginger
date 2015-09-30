@@ -78,6 +78,12 @@
     vertical-align: middle;
 }
 
+.ginger .host-admin .progress-icon-sensor {
+    background: url("base/images/progress48.gif") center no-repeat;
+    height: 50px;
+    margin-top: 20px;
+}
+
 .ginger .host-admin input.invalid-field[type="text"] {
     border: 1px solid #FF4444 !important;
     padding: 2px;

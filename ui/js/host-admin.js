@@ -450,10 +450,12 @@ ginger.initSANAdapter = function(){
 };
 
 ginger.listSensors = function() {
+    $(".progress-icon-sensor").show();
     ginger.getSensors(function(result) {
         if($(".ginger .host-admin .sensor-inline").length > 0) {
             $(".ginger .host-admin .sensor-inline").remove();
         }
+        $(".progress-icon-sensor").hide();
         $.each(result, function(i1, d1) {
             if(d1 && d1 != null && i1 != "hdds") {
                 $.each(d1, function(i2, d2) {
@@ -496,6 +498,7 @@ ginger.listSensors = function() {
                     });
                 }
             }
+        $(".progress-icon-sensor").hide();
         });
         setTimeout(ginger.listSensors, 5000);
     });
