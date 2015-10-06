@@ -392,8 +392,8 @@ msgstr ""
 "Le numéro de port système doit être un entier compris entre 1 "
 "et                      65535."
 
-msgid "The absolute path to the firmware rpm."
-msgstr "Chemin d'accès absolu au fichier RPM du microprogramme."
+msgid "The absolute path to the firmware rpm/hpm."
+msgstr "Chemin d'accès absolu au fichier RPM/HPM du microprogramme."
 
 #, python-format
 msgid "The user name '%(user)s' is already in use'."

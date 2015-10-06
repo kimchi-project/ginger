@@ -366,8 +366,8 @@ msgid ""
 "65535."
 msgstr "系统端口号必须是一个介于 1 到 65535 之间的整数。"
 
-msgid "The absolute path to the firmware rpm."
-msgstr "固件 rpm 的绝对路径。"
+msgid "The absolute path to the firmware rpm/hpm."
+msgstr "固件 rpm/hpm 的绝对路径。"
 
 #, python-format
 msgid "The user name '%(user)s' is already in use'."

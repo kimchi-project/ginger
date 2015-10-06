@@ -353,7 +353,7 @@ msgid ""
 "65535."
 msgstr ""
 
-msgid "The absolute path to the firmware rpm."
+msgid "The absolute path to the firmware rpm/hpm."
 msgstr ""
 
 #, python-format

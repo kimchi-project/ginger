@@ -369,8 +369,8 @@ msgid ""
 "65535."
 msgstr "系統埠號必須是介於 1 和 65535 之間的整數。"
 
-msgid "The absolute path to the firmware rpm."
-msgstr "韌體 RPM 的絕對路徑。"
+msgid "The absolute path to the firmware rpm/hpm."
+msgstr "韌體 RPM/hpm 的絕對路徑。"
 
 #, python-format
 msgid "The user name '%(user)s' is already in use'."

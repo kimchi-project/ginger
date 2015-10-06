@@ -391,8 +391,8 @@ msgid ""
 "65535."
 msgstr "システム・ポート番号は 1 から 65535 までの整数でなければなりません。"
 
-msgid "The absolute path to the firmware rpm."
-msgstr "ファームウェア rpm への絶対パス。"
+msgid "The absolute path to the firmware rpm/hpm."
+msgstr "ファームウェア rpm/hpm への絶対パス。"
 
 #, python-format
 msgid "The user name '%(user)s' is already in use'."

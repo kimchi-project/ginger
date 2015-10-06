@@ -375,8 +375,8 @@ msgid ""
 "65535."
 msgstr "시스템 포트 번호는 1과 65535 사이의 정수여야합니다."
 
-msgid "The absolute path to the firmware rpm."
-msgstr "펌웨어 rpm에 대한 절대 경로입니다."
+msgid "The absolute path to the firmware rpm/hpm."
+msgstr "펌웨어 rpm/hpm에 대한 절대 경로입니다."
 
 #, python-format
 msgid "The user name '%(user)s' is already in use'."

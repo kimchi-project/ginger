@@ -382,8 +382,8 @@ msgstr ""
 "O número da porta do sistema deve ser um número inteiro entre 1 "
 "e                      65535."
 
-msgid "The absolute path to the firmware rpm."
-msgstr "O caminho absoluto para o rpm do firmware."
+msgid "The absolute path to the firmware rpm/hpm."
+msgstr "O caminho absoluto para o rpm/hpm do firmware."
 
 #, python-format
 msgid "The user name '%(user)s' is already in use'."

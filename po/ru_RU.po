@@ -385,8 +385,8 @@ msgstr ""
 "Номер порта системы должен быть целым числом от 1 до                      "
 "65535."
 
-msgid "The absolute path to the firmware rpm."
-msgstr "Полный путь к rpm встроенного ПО."
+msgid "The absolute path to the firmware rpm/hpm."
+msgstr "Полный путь к rpm/hpm встроенного ПО."
 
 #, python-format
 msgid "The user name '%(user)s' is already in use'."
