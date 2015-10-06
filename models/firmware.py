@@ -20,6 +20,7 @@
 
 import os
 import platform
+import magic
 
 from wok.exception import OperationFailed
 from wok.utils import wok_log
@@ -60,23 +61,29 @@ class FirmwareModel(object):
         fw_path = params['path']
         pow_ok = params.get('overwrite-perm-ok', True)
 
-        # First unpack the rpm to get the fw img file
-        # FIXME: When there's a .deb package available, add support for that
-        command = ['rpm', '-U', '--force', '--ignoreos', fw_path]
-        output, error, rc = run_command(command)
-        if rc:
-            # rpm returns num failed pkgs on failure or neg for unknown
-            raise OperationFailed('GINFW0002E', {'rc': rc, 'err': error})
+        ms = magic.open(magic.NONE)
+        ms.load()
+        if ms.file(fw_path).lower().startswith('rpm'):
+            # First unpack the rpm to get the fw img file
+            command = ['rpm', '-U', '--force', '--ignoreos', fw_path]
+            output, error, rc = run_command(command)
+            if rc:
+                # rpm returns num failed pkgs on failure or neg for unknown
+                raise OperationFailed('GINFW0002E', {'rc': rc, 'err': error})
 
-        # The image file should now be in /tmp/fwupdate/
-        # and match the rpm name.
-        image_file, ext = os.path.splitext(os.path.basename(fw_path))
-        if image_file is None:
-            wok_log.error('FW update failed: '
-                          'No image file found in the package file.')
-            raise OperationFailed('GINFW0003E')
-        command = ['update_flash', '-f',
-                   os.path.join('/tmp/fwupdate', '%s.img' % image_file)]
+            # The image file should now be in /tmp/fwupdate/
+            # and match the rpm name.
+            image_file, ext = os.path.splitext(os.path.basename(fw_path))
+            if image_file is None:
+                wok_log.error('FW update failed: '
+                              'No image file found in the package file.')
+                raise OperationFailed('GINFW0003E')
+            image_file = os.path.join('/tmp/fwupdate', '%s.img' % image_file)
+        else:
+            image_file = fw_path
+        ms.close()
+
+        command = ['update_flash', '-f', image_file]
         if not pow_ok:
             command.insert(1, '-n')
         wok_log.info('FW update: System will reboot to flash the firmware.')
