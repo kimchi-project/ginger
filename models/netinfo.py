@@ -81,7 +81,12 @@ def is_bridge(iface):
 
 
 def all_interfaces():
-    return [d.rsplit("/", 1)[-1] for d in glob.glob(NET_PATH + '/*')]
+    """
+    This interface will return all the interfaces as seen by the ethtool.
+    This is equivalent to cat /proc/net/dev or ip addr show
+    :return:
+    """
+    return ethtool.get_devices()
 
 
 def slaves(bonding):
