@@ -21,7 +21,7 @@ import crypt
 import spwd
 import unittest
 
-from models.users import UserModel, UsersModel
+from plugins.ginger.models.users import UserModel, UsersModel
 
 from wok.exception import OperationFailed
 from wok.rollbackcontext import RollbackContext

@@ -21,7 +21,7 @@ import crypt
 import spwd
 import unittest
 
-import models.users as users
+import plugins.ginger.models.users as users
 
 from wok.exception import OperationFailed
 from wok.rollbackcontext import RollbackContext
@@ -76,26 +76,8 @@ class UserAdmTests(unittest.TestCase):
         groups = users.get_groups()
 
         with RollbackContext() as rollback:
-            users.create_group(groupname)
+            users.create_group(groupname, 9999)
             rollback.prependDefer(users.delete_group, groupname)
 
             new_groups = users.get_groups()
             self.assertEqual(len(new_groups), len(groups) + 1)
-
-    def test_add_user_to_primary_group(self):
-        user = 'unit_test_fake_user'
-        passwd = 'fakepass'
-        group = 'unit_test_fake_group'
-
-        with RollbackContext() as rollback:
-            users.create_group(group)
-            rollback.prependDefer(users.delete_group, group)
-
-            users.create_user(user, passwd)
-            rollback.prependDefer(users.delete_user, user)
-
-            users.add_user_to_primary_group(user, group)
-
-            users_group = users.get_users_from_group(group)
-            self.assertEqual(len(users_group), 1)
-            self.assertIn(user, users_group)
