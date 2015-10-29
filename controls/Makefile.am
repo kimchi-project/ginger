@@ -21,6 +21,7 @@ controls_PYTHON = \
 	__init__.py \
 	backup.py \
 	capabilities.py \
+	cfginterfaces.py \
 	firmware.py \
 	ibm_sep.py \
 	interfaces.py \

@@ -6,23 +6,32 @@ from Kimchi, that provides an intuitive web panel with common tools for
 configuring and operating Linux systems.
 
 The current features include:
- + retreive system health (sensors) stats
+ + retrieve system health (sensors) stats
  + user login account management,
  + network interface configuration,
  + configuration backup,
  + Power (ppc) firmware update,
  + Power policy management.
 
-Kimchi is an HTML5 based management tool for KVM. It is designed to make it as
-easy as possible to get started with KVM and create your first guest.
 
-- Note on Ubuntu/Debian:
+*** Dependencies for Ubuntu/Debian ***
 
 To run the source code in Ubuntu/Debian an extra package is required:
 
 $ sudo apt-get install python-libuser
 
-- Notes on Power policy management feature:
+This step is not required for installation using the .deb package.
+
+
+*** Dependencies for the unit tests ***
+
+To run the unit tests from the source code the python mock package
+is required:
+
+$ sudo pip install mock
+
+
+*** Notes on Power policy management feature ***
 
 The power policy management feature uses the 'tuned' service to control the
 power policies of the host. Problems have been reported with this package,
@@ -49,7 +58,8 @@ $ systemctl restart wokd.service
 If these steps do not solve the problem, try to update all 'tuned' related
 packages and the packages'selinux-policy' and 'selinux-policy-targeted'.
 
-Copyright notice:
+
+*** Copyright notice ***
 
 All the .gif and .png files in 'ui/css/base/images/' directory are licensed
 as follows:

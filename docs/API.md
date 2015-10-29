@@ -147,3 +147,65 @@ to use the API effectively, please consider the following general conventions
 * start: Start the SEP daemon on host server.
 * stop: Stop the SEP daemon on host server.
 
+### Resource: IBM Serviceable Event Provider (SEP)
+
+**URI:** /plugins/ginger/ibm_sep
+
+**Methods:**
+
+* **GET**: Retrieve a dictionary with the SEP status and subscription information:
+    * status: Status of the SEP agent. Can be 'running' or 'not running'.
+    * subscription: Dictionaries with the SEP subscription information:
+        * hostname: Hostname of the host server.
+        * port: Number of the network port used by the SEP agent.
+        * community: SNMP community name which host server is member.
+* **PUT**: Create and/or update a subscription
+
+*Actions (POST):**
+
+* start: Start the SEP daemon on host server.
+* stop: Stop the SEP daemon on host server.
+
+### Resource: Netork Inferface Configuration
+
+**URI:** /plugins/ginger/network/cfginterfaces/*:name*
+
+**Methods:**
+
+* **GET**: Retrieve the information available in network interface
+           file /etc/sysconfig/network-scripts/ifcfg-<name>
+    * BASIC_INFO: Basic information of network interface:
+        * NAME: Name of the interface.
+        * DEVICE: Device name of the interface.
+        * ONBOOT: 'Yes' if interface is to be brought up during boot,
+                  'No' if interface should not be brought up during boot.
+        * TYPE: Interface type (Ethernet,Bond,Vlan)
+        * MACADDR: Mac address of ethernet device.
+        * VLAN: 'Yes' If its vlan device.
+        * VLAN_ID: Vland of the vlan device.
+        * PHYSDEV: physical device associated with the vlan device.
+        * BONDING_OPTS: Bonding parameters of the Bond device.
+        * BONDING_MASTER: 'yes' if its bond device.
+        * SLAVES: Returns slaves associated with the bond.
+    * IPV4_INFO:IPV4 information of network interface:
+        * BOOTPROTO: Boot protocol for ipv4(dhcp,none,autoip)
+        * DEFROUTE: 'yes' Use default route
+        * DNS: 'DNS' ip
+        * PEERROUTES: 'yes' use PEERROUTES
+        * IPV4_FAILURE_FATAL: 'yes' ipv4 connections fails then
+                              interface is considered inactive
+        * PEERDNS: 'yes' use the peerdns configured
+        * IPADDR: ipv4 address of the interface
+        * NETMASK: netmask of the ipv4 address
+        * GATEWAY: Gateway assigned to the ipv4 address
+    * IPV6_INFO:IPV6 information of network interface:
+        * IPV6INIT: 'yes' to initalize ipv6 for the interface
+        * IPV6_AUTOCONF: 'yes' automatic mode for ipv6
+        * DHCPV6C: 'yes' dhcp automatic mode for ipv6
+        * IPV6_DEFROUTE: 'yes' Use default route
+        * IPV6_PEERROUTES: 'yes' use PEERROUTES
+        * IPV6_FAILURE_FATAL: 'yes' ipv6 connections fails then
+                              interface is considered inactive
+        * IPV6_PEERDNS: 'yes' use the peerdns configured
+        * IPV6ADDR: ipv6 address of the interface
+        * IPV6_DEFAULTGW: Gateway assigned to the ipv6 address
