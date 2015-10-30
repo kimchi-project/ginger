@@ -166,7 +166,37 @@ to use the API effectively, please consider the following general conventions
 * start: Start the SEP daemon on host server.
 * stop: Stop the SEP daemon on host server.
 
-### Resource: Netork Inferface Configuration
+### Collection: File Systems
+
+URI: /plugins/ginger/filesystems
+
+**Methods:**
+
+* **GET**: Retrieve a summarized list of all mounted filesystems
+
+* **POST**: Mount a file system
+       * blk_dev : Path of the device to be mounted.
+       * mount_point : Mount point for the filesystem
+
+### Resource: File System
+
+URI: /plugins/ginger/filesystems/*:mount_point*
+
+*Methods:**
+
+* **GET**: Retrieve the full description of the mounted filesystem
+
+       * use%: Percentage of the filesystem used
+       * used: Amount of space used in filesystem
+       * size:  Total size of the filesystem
+       * mounted_on: Mount point of the filesystem
+       * avail : Total space available on the filesystem
+       * device_name : Backing device name of the filesystem.
+       * type : Filesystem type.
+
+* **DELETE**: Unmount the Filesystem
+
+### Resource: Network Interface Configuration
 
 **URI:** /plugins/ginger/network/cfginterfaces/*:name*
 
