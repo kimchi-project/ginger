@@ -20,6 +20,7 @@
 from backup import ArchiveModel, ArchivesModel, BackupModel
 from capabilities import CapabilitiesModel
 from cfginterfaces import CfginterfaceModel, CfginterfacesModel
+from filesystem import FileSystemsModel, FileSystemModel
 from firmware import FirmwareModel
 from ibm_sep import SepModel, SubscribersModel, SubscriptionModel
 from interfaces import InterfacesModel, InterfaceModel
@@ -51,6 +52,8 @@ class GingerModel(BaseModel):
         cfginterface = CfginterfaceModel()
         cfginterfaces = CfginterfacesModel()
         network = NetworkModel()
+        filesystems = FileSystemsModel()
+        filesystem = FileSystemModel()
         archives = ArchivesModel(objstore=self._objstore)
         archive = ArchiveModel(objstore=self._objstore)
         backup = BackupModel(objstore=self._objstore, archives_model=archives,
@@ -63,7 +66,7 @@ class GingerModel(BaseModel):
         subscriber = SubscribersModel()
 
         features = [firmware, backup, network, powerprofiles, san_adapters,
-                    sensors, ibm_sep, users]
+                    sensors, ibm_sep, users, filesystems]
         capabilities = CapabilitiesModel(features)
 
         sub_models = [
@@ -72,6 +75,7 @@ class GingerModel(BaseModel):
             interfaces, interface,
             cfginterface, cfginterfaces,
             network,
+            filesystems, filesystem,
             powerprofiles, powerprofile,
             users, user,
             san_adapters, san_adapter,

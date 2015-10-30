@@ -26,6 +26,7 @@ from powermanagement import PowerProfiles
 from sanadapters import SanAdapters
 from sensors import Sensors
 from users import Users
+from filesystems import FileSystems
 
 __all__ = [
     Backup,
@@ -36,5 +37,6 @@ __all__ = [
     SanAdapters,
     Sensors,
     Sep,
-    Users
+    Users,
+    FileSystems
     ]

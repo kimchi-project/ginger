@@ -109,5 +109,20 @@ messages = {
                        Daemon 'tuned-adm' is not active."),
     "GINPOWER003E": _("Failed to retrieve power management profiles: \
                        Package 'tuned-adm' is not installed."),
-    "GINPOWER004E": _("Error activating power saving profile %(profile)s.")
+    "GINPOWER004E": _("Error activating power saving profile %(profile)s."),
+    "GINFS00001E": _("Failed to retrieve details of the specified filesystem"),
+    "GINFS00002E": _("Failed to unmount the filesystems"),
+    "GINFS00003E": _("Parsing df output failed."),
+    "GINFS00004E": _("error in filesystem get list util"),
+    "GINFS00005E": _("error in filesystem info fetch util"),
+    "GINFS00006E": _("Error in executing 'df -hT' command"),
+    "GINFS00007E": _("Failed to mount the filesystem"),
+    "GINFS00008E": _("error in unmount util"),
+    "GINFS00009E": _("Require block dev to mount a filesystem"),
+    "GINFS00010E": _("Require mount point to mount a filesystem"),
+    "GINFS00011E": _("Require persistant value to mount a filesystem"),
+    "GINFS00012E": _("Unable to open fstab"),
+    "GINFS00013E": _("Unable to write fstab"),
+    "GINFS00014E": _("value needs to be a boolean"),
+    "GINFS00015E": _("Failed to retrieve list of filesystems.")
 }
