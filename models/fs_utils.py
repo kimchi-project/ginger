@@ -1,0 +1,206 @@
+#
+# Project Kimchi
+#
+# Copyright IBM, Corp. 2015
+#
+# This library is free software; you can redistribute it and/or
+# modify it under the terms of the GNU Lesser General Public
+# License as published by the Free Software Foundation; either
+# version 2.1 of the License, or (at your option) any later version.
+#
+# This library is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# Lesser General Public License for more details.
+#
+# You should have received a copy of the GNU Lesser General Public
+# License along with this library; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
+
+from wok.exception import OperationFailed
+from wok.utils import run_command, wok_log
+
+
+def _parse_df_output(output):
+    """
+    This method parses the output of 'df -hT' command.
+    :param output: Parsed output of the 'df -hT' command
+    :return:list containing filesystems information
+    """
+
+    try:
+        output = output.splitlines()
+        out_list = []
+        for fs in output[1:]:
+            fs_dict = {}
+            fs_list = fs.split()
+            fs_dict['filesystem'] = fs_list[0]
+            fs_dict['type'] = fs_list[1]
+            fs_dict['size'] = fs_list[2]
+            fs_dict['used'] = fs_list[3]
+            fs_dict['avail'] = fs_list[4]
+            fs_dict['use%'] = fs_list[5]
+            fs_dict['mounted_on'] = fs_list[6]
+
+            out_list.append(fs_dict)
+    except:
+        wok_log.error("Parsing df output failed")
+        raise OperationFailed("GINFS00003E")
+
+    return out_list
+
+
+def _get_fs_names():
+    """
+    Fetches list of filesystems
+    :return: list of filesystem names
+    """
+    fs_name_list = []
+    try:
+        outlist = _get_df_output()
+        fs_name_list = [d['mounted_on'] for d in outlist]
+        return fs_name_list
+    except:
+        wok_log.error("Fetching list of filesystems failed")
+        raise OperationFailed("GINFS00004E")
+
+
+def _get_fs_info(mnt_pt):
+    """
+    Fetches information about the given filesystem
+    :param mnt_pt: mount point of the filesystem
+    :return: dictionary containing filesystem info
+    """
+    fs_info = {}
+    try:
+        fs_search_list = _get_df_output()
+        for i in fs_search_list:
+            if mnt_pt == i['mounted_on']:
+                fs_info['filesystem'] = i['filesystem']
+                fs_info['type'] = i['type']
+                fs_info['size'] = i['size']
+                fs_info['used'] = i['used']
+                fs_info['avail'] = i['avail']
+                fs_info['use%'] = i['use%']
+                fs_info['mounted_on'] = i['mounted_on']
+    except:
+        wok_log.error("Fetching fs %s info failed", mnt_pt)
+        raise OperationFailed("GINFS00005E", {'device': mnt_pt})
+    return fs_info
+
+
+def _get_df_output():
+    """
+    Executes 'df -hT' command and returns
+    :return: output of 'df -hT' command
+    """
+    command = ['df', '-hT']
+    dfout, err, rc = run_command(command)
+    if rc:
+        wok_log.error("df -hT failed")
+        raise OperationFailed("GINFS00006E", {'err': err})
+    return _parse_df_output(dfout)
+
+
+def _mount_a_blk_device(blk_dev, mount_point):
+    """
+    Mounts the given block device on the given mount point
+    :param blk_dev: path of the block device
+    :param mount_point: mount point
+    :return:
+    """
+    mnt_cmd = ['/bin/mount', blk_dev, mount_point]
+    mount_out, err, rc = run_command(mnt_cmd)
+    if rc:
+        wok_log.error("Mounting block device failed")
+        raise OperationFailed("GINFS00007E", {'err': err})
+    return
+
+
+def _umount_partition(mnt_pt):
+    """
+    Unmounts the given mount point (filesystem)
+    :param mnt_pt: mount point
+    :return:
+    """
+    umnt_cmd = ['/bin/umount', mnt_pt]
+    mount_out, err, rc = run_command(umnt_cmd)
+    if rc:
+        wok_log.error("Unmounting block device failed")
+        raise OperationFailed("GINFS00008E", {'err': err})
+    return
+
+
+def _mnt_exists(mount):
+    """
+    This method checks if the mount point already exists in fstab
+    :param mount: mount point to be checked
+    :return:
+    """
+
+    is_mnt_exist = False
+    fo = open("/etc/fstab", "r")
+    lines = fo.readlines()
+    for i in lines:
+        if not i.startswith("/"):
+            continue
+
+        columns = i.split()
+
+        mount_pt = columns[1]
+        if mount == mount_pt:
+            is_mnt_exist = True
+            break
+
+    return is_mnt_exist
+
+
+def make_persist(dev, mntpt):
+    """
+    This method persists the mounted filesystem by making an entry in fstab
+    :param dev: path of the device to be mounted
+    :param mntpt: mount point
+    :return:
+    """
+    try:
+        if _mnt_exists(mntpt):
+            wok_log.error("entry in fstab already exists")
+            raise OperationFailed("%s already mounted", mntpt)
+        else:
+            fs_info = _get_fs_info(mntpt)
+            fo = open("/etc/fstab", "a+")
+            fo.write(dev + " " + mntpt + " " + fs_info['type'] + " " +
+                     "defaults 1 2")
+            fo.close()
+    except:
+        wok_log.error("Unable to open fstab")
+        raise OperationFailed("GINFS00012E")
+
+
+def remove_persist(mntpt):
+    """
+    This method removes the fstab entry
+    :param mntpt: mount point
+    :return:
+    """
+    try:
+        fo = open("/etc/fstab", "r")
+        lines = fo.readlines()
+        output = []
+        fo.close()
+    except:
+        wok_log.error("Unable to open fstab")
+        raise OperationFailed("GINFS00012E")
+
+    try:
+        fo = open("/etc/fstab", "w")
+        for line in lines:
+            if mntpt in line:
+                continue
+            else:
+                output.append(line)
+        fo.writelines(output)
+        fo.close()
+    except:
+        wok_log.error("Unable to write fstab")
+        raise OperationFailed("GINFS00013E")
