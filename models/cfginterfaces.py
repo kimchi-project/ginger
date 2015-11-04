@@ -18,6 +18,7 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301 USA
 
+import atexit
 import augeas
 import ethtool
 import os
@@ -28,10 +29,17 @@ from wok.exception import InvalidParameter, OperationFailed
 from wok.utils import wok_log
 
 parser = augeas.Augeas("/")
+
+
+@atexit.register
+def augeas_cleanup():
+    global parser
+    del parser
+
+
 IFCFGPATH = 'etc/sysconfig/network-scripts/'
 filenameformat = 'ifcfg-<iname>'
 # cfgfile keys
-
 BASIC_INFO = "BASIC_INFO"
 NAME = 'NAME'
 DEVICE = 'DEVICE'
