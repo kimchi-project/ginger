@@ -20,16 +20,18 @@
 import ipaddr
 import libvirt
 import lxml.etree as ET
+
 from lxml.builder import E
 from threading import Timer
 
 import netinfo
+
 from wok.exception import InvalidParameter, NotFoundError, OperationFailed
+from wok.utils import wok_log, run_command
 from wok.xmlutils.utils import xpath_get_text
 
 
 class InterfacesModel(object):
-
     def get_list(self):
         nics = [nic for nic in netinfo.all_interfaces()]
         return sorted(nics)
@@ -46,7 +48,7 @@ class InterfaceModel(object):
         try:
             info = netinfo.get_interface_info(name)
         except ValueError:
-            raise NotFoundError("KCHIFACE0001E", {'name': name})
+            raise NotFoundError("GINNET0014E", {'name': name})
 
         info['editable'] = self._is_interface_editable(name)
         return info
@@ -62,7 +64,7 @@ class InterfaceModel(object):
         try:
             info = netinfo.get_interface_info(name)
         except ValueError:
-            raise NotFoundError("KCHIFACE0001E", {'name': name})
+            raise NotFoundError("GINNET0014E", {'name': name})
         if not info['ipaddr']:
             info['ipaddr'], info['netmask'] = \
                 self._get_static_config_interface_address(name)
@@ -111,9 +113,9 @@ class InterfaceModel(object):
 
         if net_params['ipaddr'] and net_params['netmask']:
             n = ipaddr.IPv4Network('%s/%s' % (net_params['ipaddr'],
-                                   net_params['netmask']))
+                                              net_params['netmask']))
             protocol_elem = E.protocol(E.ip(address=str(n.ip),
-                                       prefix=str(n.prefixlen)),
+                                            prefix=str(n.prefixlen)),
                                        family='ipv4')
 
             if 'gateway' in net_params:
@@ -157,6 +159,33 @@ class InterfaceModel(object):
             # VIR_ERR_OPERATION_INVALID error.
             if e.get_error_code() != libvirt.VIR_ERR_OPERATION_INVALID:
                 raise
+
+    def activate(self, ifacename):
+        wok_log.info('Activating an interface ' + ifacename)
+        cmd = ['ifup', '%s' % ifacename]
+        out, error, returncode = run_command(cmd)
+        if returncode != 0:
+            wok_log.error(
+                'Unable to activate the interface on ' + ifacename +
+                ', ' + error)
+            raise OperationFailed('GINNET0016E',
+                                  {'name': ifacename, 'error': error})
+        wok_log.info(
+            'Connection successfully activated for the interface ' + ifacename)
+
+    def deactivate(self, ifacename):
+        wok_log.info('Deactivating an interface ' + ifacename)
+        cmd = ['ifdown', '%s' % ifacename]
+        out, error, returncode = run_command(cmd)
+        if returncode != 0:
+            wok_log.error(
+                'Unable to deactivate the interface on ' + ifacename +
+                ', ' + error)
+            raise OperationFailed('GINNET0017E',
+                                  {'name': ifacename, 'error': error})
+        wok_log.info(
+            'Connection successfully deactivated for the interface ' +
+            ifacename)
 
     def confirm_change(self, _name):
         conn = self._conn

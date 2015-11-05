@@ -32,6 +32,8 @@ class Interface(Resource):
         self.uri_fmt = '/network/interfaces/%s'
         self.update_params = ['ipaddr', 'netmask', 'gateway']
         self.confirm_change = self.generate_action_handler('confirm_change')
+        self.activate = self.generate_action_handler('activate')
+        self.deactivate = self.generate_action_handler('deactivate')
 
     @property
     def data(self):

@@ -43,6 +43,10 @@ messages = {
                      "to a vlan or bridge"),
     "GINNET0014E": _("%(name)s is not valid network interface"),
     "GINNET0015E": _("Error getting information from ifcfg file: '%(error)s'."),
+    "GINNET0016E": _("Unable to activate the interface on '%(name)s', "
+                     "'%(error)s'."),
+    "GINNET0017E": _("Unable to deactivate the interface on '%(name)s', "
+                     "'%(error)s'."),
 
     "GINUSER0001E": _("Specify name, password, group and profile for the new "
                       "user."),

@@ -211,7 +211,9 @@ def get_interface_info(iface):
         pass
 
     iface_link_detected = link_detected(iface)
-    iface_status = 'active' if iface_link_detected != "n/a" else "inactive"
+    iface_status = \
+        'active' if iface_link_detected != "n/a" and \
+        iface_link_detected != "no" else "inactive"
 
     return {'name': iface,
             'type': get_interface_type(iface),
