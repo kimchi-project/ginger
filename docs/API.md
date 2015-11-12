@@ -239,3 +239,27 @@ URI: /plugins/ginger/filesystems/*:mount_point*
         * IPV6_PEERDNS: 'yes' use the peerdns configured
         * IPV6ADDR: ipv6 address of the interface
         * IPV6_DEFAULTGW: Gateway assigned to the ipv6 address
+
+* **PUT**: update the parameters in network interface file
+           /etc/sysconfig/network-scripts/ifcfg-<name>
+    * BASIC_INFO: Dictionary containing the basic information of interface
+                  to be updated
+        * DEVICE: Device name of the interface.
+        * NAME *(optional)*: Name of the interface.
+        * ONBOOT *(optional)*: 'Yes' if interface is to be brought up during boot,
+                                'No' if interface should not be brought up during boot.
+        * MTU *(optional)*: Maximum Transmission Unit
+        * ZONE *(optional)*: Firewall Zone for the interface
+    * IPV4_INFO *(optional)*: Dictionary containing the ipv4 information of interface
+                  to be updated
+        * IPV4INIT : Firewall Zone for the interface
+        * BOOTPROTO: Boot protocol for ipv4(dhcp,none,autoip)
+        * DEFROUTE(for BOOTPROTO none or dhcp) *(optional)*:  'yes' Use default route.
+        * IPV4Addresses(Needed if BootProto is none): Assign single or multiple ipv4
+                                                      address to interface
+            * IPADDR: ipv4 address of the interface
+            * NETMASK: netmask of the ipv4 address
+            * GATEWAY *(optional)*: Gateway assigned to the ipv4 address
+        * DNS *(optional)*: List of DNS ipv4 addresses
+        * PEERDNS  *(optional)*: 'yes' to modify /etc/resolv.conf
+        * PEERROUTES *(optional)*: 'yes' use PEERROUTES

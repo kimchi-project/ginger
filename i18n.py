@@ -47,6 +47,19 @@ messages = {
                      "'%(error)s'."),
     "GINNET0017E": _("Unable to deactivate the interface on '%(name)s', "
                      "'%(error)s'."),
+    "GINNET0018E": _("Invalid ipv4 address '%(ip)s', "
+                     "'%(error)s'."),
+    "GINNET0019E": _("Invalid netmask '%(NETMASK)s', "
+                     "'%(error)s'."),
+    "GINNET0020E": _("IP address is missing."),
+    "GINNET0021E": _("Subnet is missing."),
+    "GINNET0022E": _("Invalid boot protocol '%(mode)s', "),
+    "GINNET0023E": _("Boot protocol is missing."),
+    "GINNET0024E": _("Basic information of interface is missing."),
+    "GINNET0025E": _("Device name of interface is missing."),
+    "GINNET0026E": _("Missing ipv4 initialization key."),
+
+
 
     "GINUSER0001E": _("Specify name, password, group and profile for the new "
                       "user."),

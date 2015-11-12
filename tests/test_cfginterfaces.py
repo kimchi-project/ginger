@@ -21,6 +21,7 @@ import mock
 import unittest
 
 from plugins.ginger.models.cfginterfaces import CfginterfaceModel
+from wok.exception import MissingParameter
 
 
 class CfgInterfacesTests(unittest.TestCase):
@@ -73,3 +74,69 @@ class CfgInterfacesTests(unittest.TestCase):
         self.assertEquals('Vlan', ethinfo['BASIC_INFO']['TYPE'])
         self.assertEquals(0, ethinfo['BASIC_INFO']['REORDER_HDR'])
         self.assertEquals('testpd', ethinfo['BASIC_INFO']['PHYSDEV'])
+
+    @mock.patch('plugins.ginger.models.cfginterfaces.CfginterfaceModel.'
+                'read_ifcfg_file')
+    @mock.patch('plugins.ginger.models.cfginterfaces.CfginterfaceModel.'
+                'update_basic_info')
+    @mock.patch('plugins.ginger.models.cfginterfaces.CfginterfaceModel.'
+                'write')
+    def test_update(self, mock_write, mock_basic_info, mock_read):
+        cfgmap = {'BASIC_INFO': {'NAME': 'test_iface',
+                                 'DEVICE': 'testdevice',
+                                 'ONBOOT': 'Yes'}}
+        interface_name = "test_iface"
+        cfgmap_in_interfacefile = \
+            {'BASIC_INFO': {'DEVICE': 'testdevice',
+                            'BOOTPROTO': 'dhcp'}}
+        mock_read.return_value = cfgmap_in_interfacefile
+        updatedcfgmap = {'BASIC_INFO': {'NAME': 'testiface',
+                                        'DEVICE': 'testdevice',
+                                        'ONBOOT': 'Yes',
+                                        'BOOTPROTO': 'dhcp'}}
+        mock_basic_info.return_value = updatedcfgmap
+        CfginterfaceModel().update(interface_name, cfgmap)
+        mock_write.asser_called_once_with()
+        mock_basic_info.assert_called_once_with(cfgmap_in_interfacefile,
+                                                cfgmap)
+        mock_read.assert_called_once_with('test_iface')
+
+    @mock.patch('plugins.ginger.models.cfginterfaces.CfginterfaceModel'
+                '.read_ifcfg_file')
+    def test_update_missingbasic_info(self, mock_read):
+        cfgmap = {'NAME': 'testiface', 'DEVICE': 'testdevice',
+                  'ONBOOT': 'Yes'}
+        interface_name = "test_iface"
+        cfgmap_in_interfacefile = {'BASIC_INFO': {'DEVICE': 'testdevice',
+                                                  'BOOTPROTO': 'dhcp'}}
+        mock_read.return_value = cfgmap_in_interfacefile
+        self.assertRaises(MissingParameter, CfginterfaceModel().update,
+                          interface_name, cfgmap)
+
+    @mock.patch('plugins.ginger.models.cfginterfaces.os')
+    @mock.patch('plugins.ginger.models.cfginterfaces.parser')
+    def test_write(self, mock_parser, mock_os):
+        cfgmap = {'NAME': 'testiface', 'DEVICE': 'testdevice',
+                  'ONBOOT': 'Yes'}
+        interface_name = "test_iface"
+        mock_os.path.isfile.return_value = True
+        CfginterfaceModel().write(interface_name, cfgmap)
+        assert mock_parser.set.call_count == 3
+        mock_parser.load.assert_called_once_with()
+        mock_parser.save.assert_called_once_with()
+
+    @mock.patch('plugins.ginger.models.cfginterfaces.os')
+    @mock.patch('plugins.ginger.models.cfginterfaces.parser')
+    @mock.patch('plugins.ginger.models.cfginterfaces.open')
+    def test_write_create_interfacefile(self, mock_open, mock_parser, mock_os):
+        """Write attributes to interface file. This method tests
+        creation of interface file which does not exist"""
+        cfgmap = {'NAME': 'testiface', 'DEVICE': 'testdevice',
+                  'ONBOOT': 'Yes'}
+        interface_name = "test_iface"
+        mock_os.path.isfile.return_value = False
+        CfginterfaceModel().write(interface_name, cfgmap)
+        assert mock_parser.set.call_count == 3
+        mock_open.close.asser_called_once_with()
+        mock_parser.load.assert_called_once_with()
+        mock_parser.save.assert_called_once_with()
