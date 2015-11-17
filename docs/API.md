@@ -263,3 +263,31 @@ URI: /plugins/ginger/filesystems/*:mount_point*
         * DNS *(optional)*: List of DNS ipv4 addresses
         * PEERDNS  *(optional)*: 'yes' to modify /etc/resolv.conf
         * PEERROUTES *(optional)*: 'yes' use PEERROUTES
+
+### Collection: Swap devices**
+
+**URI:** /plugins/ginger/swaps
+
+**Methods:**
+
+* **GET**: Retrieve a summarized list of all swap devices
+* **POST**: Create a swap device
+   *type : Type could be either `device` or `file`.
+   *size : Only applicable if the swap device type is `file`.
+   *file_loc : Absolute path of the device.
+
+### Resource: Swap Device**
+
+**URI:** /plugins/ginger/swaps/*:device_name*
+
+**Methods:**
+
+* **GET**: Retrieve the full description of a Swap Device
+
+   *filename : File name of the Swap Device
+   *type : The type of the Swap Device. `partition` for the block device and `file` for the regular file.
+   *size : Size of the Swap Device
+   *used : Amount of Swap Device space used
+   *priority : Priority of the Swap Device
+
+* **DELETE**: Remove the Swap Device
