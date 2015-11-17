@@ -18,9 +18,10 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 
 import os
+import mock
 import unittest
 
-from wok.exception import OperationFailed
+from wok.exception import OperationFailed, MissingParameter, InvalidParameter
 from wok.rollbackcontext import RollbackContext
 from wok.utils import run_command
 
@@ -55,25 +56,25 @@ def delete_file(self):
 
 
 class FileSystemTests(unittest.TestCase):
-
     def test_get_fs_list(self):
         fs = filesystem.FileSystemsModel()
         fs_list = fs.get_list()
         self.assertGreaterEqual(len(fs_list), 0)
 
-    def test_mount_fs(self):
+    def test_mount_local_fs(self):
         fs = filesystem.FileSystemsModel()
         fsd = filesystem.FileSystemModel()
 
         create_file(self)
 
+        fstype = 'local'
         blkdev = '/testfile'
         mntpt = '/test'
         persistent = False
 
         fs_list = fs.get_list()
         with RollbackContext() as rollback:
-            fs.create({'blk_dev': blkdev, 'mount_point': mntpt,
+            fs.create({'type': fstype, 'blk_dev': blkdev, 'mount_point': mntpt,
                        'persistent': persistent})
             rollback.prependDefer(fsd.delete, mntpt)
 
@@ -88,17 +89,19 @@ class FileSystemTests(unittest.TestCase):
 
         create_file(self)
 
+        fstype = 'local'
         blkdev = '/testfile'
         mntpt = '/test'
         persistent = False
 
         with RollbackContext() as rollback:
-            fs.create({'blk_dev': blkdev, 'mount_point': mntpt,
+            fs.create({'type': fstype, 'blk_dev': blkdev, 'mount_point': mntpt,
                        'persistent': persistent})
             rollback.prependDefer(fsd.delete, mntpt)
 
             with self.assertRaises(OperationFailed):
-                fs.create({'blk_dev': blkdev, 'mount_point': mntpt,
+                fs.create({'type': fstype, 'blk_dev': blkdev,
+                           'mount_point': mntpt,
                            'persistent': persistent})
 
         delete_file(self)
@@ -127,3 +130,70 @@ tmpfs                   tmpfs     760M  8.0K  759M   1% /run/user/1000"""
             self.fail("Parsing of df failed : use%")
         if parse_out[0]['mounted_on'] != '/dev':
             self.fail("Parsing of df failed : mounted on")
+
+    @mock.patch('wok.plugins.ginger.models.fs_utils.nfsmount', autospec=True)
+    @mock.patch('wok.plugins.ginger.models.fs_utils.make_persist', autospec=True)
+    def test_nfs_mount(self, mock_make_persist, mock_nfsmount):
+        fs = filesystem.FileSystemsModel()
+        fstype = 'nfs'
+        server = 'localhost'
+        share = '/var/ftp/nfs1'
+        mntpt = '/test'
+
+        fs.create({'type': fstype, 'server': server,
+                   'share': share, 'mount_point': mntpt})
+
+        mock_nfsmount.assert_called_once_with(server, share, mntpt)
+        mock_make_persist.assert_called_once_with(server + ':' + share, mntpt)
+
+    def test_nfs_mount_missing_type(self):
+        fs = filesystem.FileSystemsModel()
+        server = 'localhost'
+        share = '/var/ftp/nfs1'
+        mntpt = '/test'
+
+        params = {'server': server, 'share': share, 'mount_point': mntpt}
+
+        self.assertRaises(MissingParameter, fs.create, params)
+
+    def test_nfs_mount_invalid_type(self):
+        fs = filesystem.FileSystemsModel()
+        fstype = 'invalid'
+        server = 'localhost'
+        share = '/var/ftp/nfs1'
+        mntpt = '/test'
+
+        params = {'type': fstype, 'server': server,
+                  'share': share, 'mount_point': mntpt}
+
+        self.assertRaises(InvalidParameter, fs.create, params)
+
+    def test_nfs_mount_missing_server(self):
+        fs = filesystem.FileSystemsModel()
+        fstype = 'nfs'
+        share = '/var/ftp/nfs1'
+        mntpt = '/test'
+
+        params = {'type': fstype, 'share': share, 'mount_point': mntpt}
+
+        self.assertRaises(MissingParameter, fs.create, params)
+
+    def test_nfs_mount_missing_share(self):
+        fs = filesystem.FileSystemsModel()
+        fstype = 'nfs'
+        server = 'localhost'
+        mntpt = '/test'
+
+        params = {'type': fstype, 'server': server, 'mount_point': mntpt}
+
+        self.assertRaises(MissingParameter, fs.create, params)
+
+    def test_nfs_mount_missing_mountpoint(self):
+        fs = filesystem.FileSystemsModel()
+        fstype = 'nfs'
+        server = 'localhost'
+        share = '/var/ftp/nfs1'
+
+        params = {'type': fstype, 'server': server, 'share': share}
+
+        self.assertRaises(MissingParameter, fs.create, params)
