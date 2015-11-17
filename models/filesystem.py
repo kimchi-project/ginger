@@ -1,5 +1,5 @@
 #
-# Project Kimchi
+# Project Ginger
 #
 # Copyright IBM, Corp. 2015
 #
@@ -31,33 +31,49 @@ class FileSystemsModel(object):
 
     def create(self, params):
 
-        if 'blk_dev' not in params:
-            raise MissingParameter("GINFS00009E")
+        if 'type' not in params:
+            raise MissingParameter("GINFS00016E")
 
-        blk_dev = params['blk_dev']
+        if params['type'] == 'local':
 
-        if 'mount_point' not in params:
-            raise MissingParameter("GINFS00010E")
+            if 'blk_dev' not in params:
+                raise MissingParameter("GINFS00009E")
 
-        mount_point = params['mount_point']
+            blk_dev = params['blk_dev']
 
-        if 'persistent' not in params:
-            raise MissingParameter("GINFS00011E")
+            if 'mount_point' not in params:
+                raise MissingParameter("GINFS00010E")
 
-        persistent = params['persistent']
-        if type(persistent) != bool:
-            if persistent == u'True':
-                persistent = True
-            elif persistent == u'False':
-                persistent = False
-            else:
-                raise InvalidParameter("GINFS00014E")
+            mount_point = params['mount_point']
 
-        fs_utils._mount_a_blk_device(blk_dev, mount_point)
-        if persistent:
+            fs_utils._mount_a_blk_device(blk_dev, mount_point)
             fs_utils.make_persist(blk_dev, mount_point)
 
-        return mount_point
+            return mount_point
+
+        elif params['type'] == 'nfs':
+
+            if 'server' not in params:
+                raise MissingParameter("GINFS00014E")
+
+            server = params['server']
+
+            if 'share' not in params:
+                raise MissingParameter("GINFS00015E")
+
+            share = params['share']
+
+            if 'mount_point' not in params:
+                raise MissingParameter("GINFS00010E")
+
+            mount_point = params['mount_point']
+
+            fs_utils.nfsmount(server, share, mount_point)
+            dev_info = server + ':' + share
+            fs_utils.make_persist(dev_info, mount_point)
+            return mount_point
+        else:
+            raise InvalidParameter("GINFS00017E")
 
     def get_list(self):
         try:
@@ -65,7 +81,7 @@ class FileSystemsModel(object):
 
         except OperationFailed as e:
             wok_log.error("Fetching list of filesystems failed")
-            raise OperationFailed("GINFS00015E",
+            raise OperationFailed("GINFS00013E",
                                   {'err': e})
 
         return fs_names

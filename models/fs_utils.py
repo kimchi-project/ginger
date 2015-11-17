@@ -17,6 +17,8 @@
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 
+import os
+
 from wok.exception import OperationFailed
 from wok.utils import run_command, wok_log
 
@@ -187,7 +189,7 @@ def unpersist_swap_dev(dev):
         fo.close()
     except:
         wok_log.error("Unable to open fstab")
-        raise OperationFailed("GINFS00012E")
+        raise OperationFailed("GINFS00011E")
 
     try:
         fo = open("/etc/fstab", "w")
@@ -246,7 +248,7 @@ def make_persist(dev, mntpt):
             fo.close()
     except:
         wok_log.error("Unable to open fstab")
-        raise OperationFailed("GINFS00012E")
+        raise OperationFailed("GINFS00011E")
 
 
 def remove_persist(mntpt):
@@ -275,4 +277,26 @@ def remove_persist(mntpt):
         fo.close()
     except:
         wok_log.error("Unable to write fstab")
-        raise OperationFailed("GINFS00013E")
+        raise OperationFailed("GINFS00012E")
+
+
+def nfsmount(server, share, mount_point):
+    """
+    This method mounts the remote nfs share on local system
+    :param server: ip address of the nfs server
+    :param share: remote share location
+    :param mount_point: mount point on local system
+    :return:
+    """
+    if not os.path.exists(mount_point):
+        d_cmd = ['mkdir', mount_point]
+        d_out, err, rc = run_command(d_cmd)
+        if rc:
+            wok_log.error("mkdir failed")
+
+    nfs_cmd = ['mount', server + ':' + share, mount_point]
+    nfs_out, err, rc = run_command(nfs_cmd)
+    if rc:
+        wok_log.error("nfs mount failed")
+        raise OperationFailed("GINFS00018E", err)
+    return

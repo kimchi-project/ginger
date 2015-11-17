@@ -1,5 +1,5 @@
 #
-# Project Kimchi
+# Project Ginger
 #
 # Copyright IBM, Corp. 2015
 #
@@ -40,7 +40,6 @@ class FileSystem(Resource):
         self.role_key = 'host'
         self.admin_methods = ['GET', 'POST', 'DELETE']
         self.uri_fmt = "/filesystems/%s"
-        self.format = self.generate_action_handler_task('format', ['disk'])
 
     @property
     def data(self):
