@@ -26,6 +26,7 @@ from powermanagement import PowerProfiles
 from sanadapters import SanAdapters
 from sensors import Sensors
 from users import Users
+from swaps import Swaps
 from filesystems import FileSystems
 
 __all__ = [
@@ -38,5 +39,6 @@ __all__ = [
     Sensors,
     Sep,
     Users,
+    Swaps,
     FileSystems
     ]

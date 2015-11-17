@@ -140,6 +140,25 @@ messages = {
     "GINFS00011E": _("Require persistant value to mount a filesystem"),
     "GINFS00012E": _("Unable to open fstab"),
     "GINFS00013E": _("Unable to write fstab"),
-    "GINFS00014E": _("value needs to be a boolean"),
-    "GINFS00015E": _("Failed to retrieve list of filesystems.")
+    "GINFS00014E": _("Value needs to be a boolean"),
+    "GINFS00015E": _("Failed to retrieve list of filesystems."),
+    "GINSP00001E": _("File location required for creating a swap device."),
+    "GINSP00002E": _("Type required for creating a swap device."),
+    "GINSP00003E": _("Size is mandatory while creating file type swap device."),
+    "GINSP00004E": _("Incorrect swap type, only 'device' and 'file' are allowed."),
+    "GINSP00005E": _("Type required for creating a swap device."),
+    "GINSP00006E": _("Error deleting a swap file."),
+    "GINSP00007E": _("Error deleting a swap device. %(err)s"),
+    "GINSP00008E": _("Swap device not found. %(name)s"),
+    "GINSP00009E": _("Error deleting a swap file. %(err)s"),
+    "GINSP00010E": _("Error parsing /proc/swaps file. %(err)s"),
+    "GINSP00011E": _("Error creating a flat file. %(err)s"),
+    "GINSP00012E": _("Unable to format swap device. %(err)s"),
+    "GINSP00013E": _("Unable to activate swap device. %(err)s"),
+    "GINSP00014E": _("Unable to parse 'swapon -s' output. %(err)s"),
+    "GINSP00015E": _("Unable to get single swap device info. %(err)s"),
+    "GINSP00016E": _("Unable to activate swap device. %(err)s"),
+    "GINSP00017E": _("No partitions found for disk . %(disk)s"),
+    "GINSP00018E": _("Unable to change the partition type.")
+
 }

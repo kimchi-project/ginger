@@ -1,5 +1,5 @@
 #
-# Project Kimchi
+# Project Ginger
 #
 # Copyright IBM, Corp. 2015
 #
@@ -129,6 +129,78 @@ def _umount_partition(mnt_pt):
         wok_log.error("Unmounting block device failed")
         raise OperationFailed("GINFS00008E", {'err': err})
     return
+
+
+def _fstab_dev_exists(dev):
+    """
+    This method checks if the device already exists in fstab
+    :param dev: device to be checked
+    :return:
+    """
+
+    dev_exist = False
+    fo = open("/etc/fstab", "r")
+    lines = fo.readlines()
+    for i in lines:
+        if not i.startswith("/"):
+            continue
+
+        columns = i.split()
+
+        device = columns[0]
+        if dev == device:
+            dev_exist = True
+            break
+
+    return dev_exist
+
+
+def persist_swap_dev(dev):
+    """
+    This method persists the swap device by making an entry in fstab
+    :param dev: path of the device
+    :return:
+    """
+    try:
+        if _fstab_dev_exists(dev):
+            wok_log.error("entry in fstab already exists")
+            raise OperationFailed("%s already used", dev)
+        else:
+            fo = open("/etc/fstab", "a+")
+            fo.write(dev + "    none    swap    sw      0   0\n")
+            fo.close()
+    except:
+        wok_log.error("Unable to open fstab")
+        raise OperationFailed("GINFS00012E")
+
+
+def unpersist_swap_dev(dev):
+    """
+    This method removes the fstab entry for swap device
+    :param dev: device
+    :return:
+    """
+    try:
+        fo = open("/etc/fstab", "r")
+        lines = fo.readlines()
+        output = []
+        fo.close()
+    except:
+        wok_log.error("Unable to open fstab")
+        raise OperationFailed("GINFS00012E")
+
+    try:
+        fo = open("/etc/fstab", "w")
+        for line in lines:
+            if dev in line:
+                continue
+            else:
+                output.append(line)
+        fo.writelines(output)
+        fo.close()
+    except:
+        wok_log.error("Unable to write fstab")
+        raise OperationFailed("GINFS00013E")
 
 
 def _mnt_exists(mount):

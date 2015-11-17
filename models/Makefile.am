@@ -32,6 +32,8 @@ models_PYTHON = \
 	sanadapters.py \
 	sensors.py \
 	users.py \
+	swaps.py \
+	utils.py \
 	filesystem.py \
 	fs_utils.py \
 	$(NULL)

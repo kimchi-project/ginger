@@ -30,6 +30,7 @@ controls_PYTHON = \
 	sanadapters.py \
 	sensors.py \
 	users.py \
+	swaps.py \
 	filesystems.py \
 	$(NULL)
 

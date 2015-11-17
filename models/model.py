@@ -29,6 +29,7 @@ from powermanagement import PowerProfilesModel, PowerProfileModel
 from sanadapters import SanAdapterModel, SanAdaptersModel
 from sensors import SensorsModel
 from users import UsersModel, UserModel
+from swaps import SwapsModel, SwapModel
 
 from wok import config
 from wok.basemodel import BaseModel
@@ -60,13 +61,15 @@ class GingerModel(BaseModel):
                              archive_model=archive)
         san_adapters = SanAdaptersModel()
         san_adapter = SanAdapterModel()
+        swaps = SwapsModel(objstore=self._objstore)
+        swap = SwapModel()
         sensors = SensorsModel()
         ibm_sep = SepModel()
         subscription = SubscriptionModel()
         subscriber = SubscribersModel()
 
-        features = [firmware, backup, network, powerprofiles, san_adapters,
-                    sensors, ibm_sep, users, filesystems]
+        features = [firmware, swaps, backup, network, powerprofiles,
+                    san_adapters, sensors, ibm_sep, users, filesystems]
         capabilities = CapabilitiesModel(features)
 
         sub_models = [
@@ -80,6 +83,7 @@ class GingerModel(BaseModel):
             users, user,
             san_adapters, san_adapter,
             sensors,
+            swaps, swap,
             ibm_sep, subscription, subscriber,
             capabilities]
         super(GingerModel, self).__init__(sub_models)
