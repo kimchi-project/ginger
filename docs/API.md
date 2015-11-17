@@ -174,8 +174,16 @@ URI: /plugins/ginger/filesystems
 
 * **GET**: Retrieve a summarized list of all mounted filesystems
 
-* **POST**: Mount a file system
+* **POST**: Mount a local or NFS file system
+       * type : type of filesystem. Value should be local or NFS.
+
+    For a local file system mount:
        * blk_dev : Path of the device to be mounted.
+       * mount_point : Mount point for the filesystem.
+
+    For NFS mount:
+       * server : ip address of the remote NFS server
+       * share : location of the remote share
        * mount_point : Mount point for the filesystem
 
 ### Resource: File System
