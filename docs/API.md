@@ -271,6 +271,21 @@ URI: /plugins/ginger/filesystems/*:mount_point*
         * DNS *(optional)*: List of DNS ipv4 addresses
         * PEERDNS  *(optional)*: 'yes' to modify /etc/resolv.conf
         * PEERROUTES *(optional)*: 'yes' use PEERROUTES
+    * IPV6_INFO *(optional)*: Dictionary containing the ipv6 information of interface
+                                      to be updated
+        * IPV6INIT: 'yes' to initalize ipv6 for the interface
+        * IPV6_AUTOCONF: 'yes' automatic mode for ipv6,''no' for other mode
+        * DHCPV6C: 'yes' dhcp automatic mode for ipv6
+        * IPV6_DEFROUTE *(optional)*: 'yes' Use default route.
+        * IPV6Addresses(Needed if IPV6_AUTOCONF is none and DHCPV6C is no ):
+                         Assign single or multiple ipv6 address to interface
+            * IPADDR:  address of the interface
+            * NETMASK: netmask of the address
+        * DNSAddresses *(optional)*: List of DNS ipv6 addresses stored as
+                                     DNS1,DNS2
+        * IPV6_PEERDNS *(optional)*: 'yes' use the peerdns configured
+        * IPV6_PEERROUTES *(optional)*: 'yes' use PEERROUTES
+        * IPV6_DEFAULTGW *(optional)*: Gateway assigned to the ipv6 address
 
 ### Collection: Swap devices**
 

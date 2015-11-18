@@ -109,13 +109,16 @@ IPV6_PEERROUTES = 'IPV6_PEERROUTES'
 IPV6_FAILURE_FATAL = 'IPV6_FAILURE_FATAL'
 DHCPV6C = 'DHCPV6C'
 IPV6ADDR = 'IPV6ADDR'
+IPV6ADDR_SECONDARIES = 'IPV6ADDR_SECONDARIES'
 IPV6_DEFAULTGW = 'IPV6_DEFAULTGW'
 IPV6_PRIVACY = 'IPV6_PRIVACY'
+IPV6Addresses = "IPV6Addresses"
 
 
 # other constants
 CONST_YES = 'yes'
 CONST_NO = 'no'
+CONST_SPACE = ' '
 
 
 class CfginterfacesModel(object):
@@ -188,7 +191,6 @@ class CfginterfaceModel(object):
         info.update(self.get_basic_info(cfgmap))
         info.update(self.get_ipv4_info(info, cfgmap))
         info.update(self.get_ipv6_info(info, cfgmap))
-        info.update(self.get_dnsv6_info(info, cfgmap))
         return info
 
     def get_basic_info(self, cfgmap):
@@ -255,24 +257,47 @@ class CfginterfaceModel(object):
                 info[IPV4_ID][IPV4Addresses] = self.get_ipv4_addresses(cfgmap)
             dnsaddresses = self.get_dnsv4_info(cfgmap)
             if len(dnsaddresses) > 0:
-                info[IPV4_ID][DNSAddresses] = self.get_dnsv4_info(cfgmap)
+                info[IPV4_ID][DNSAddresses] = dnsaddresses
         wok_log.debug('End get_ipv4_info')
         return info
 
-    # TODO Multiple ipv6 to be supported later.
     def get_ipv6_info(self, info, cfgmap):
         wok_log.debug('Begin get_ipv6_info')
         if info.__len__() != 0 and cfgmap.__len__() != 0:
             info[IPV6_ID] = {}
             ipv6_info_keys = [IPV6INIT, IPV6_AUTOCONF, IPV6_DEFROUTE,
                               IPV6_PEERDNS, IPV6_PEERROUTES,
-                              IPV6_FAILURE_FATAL, DHCPV6C, IPV6ADDR,
+                              IPV6_FAILURE_FATAL, DHCPV6C,
                               IPV6_DEFAULTGW, IPV6_PRIVACY]
             for key in ipv6_info_keys:
                 if key in cfgmap:
                     info[IPV6_ID][key] = cfgmap[key]
+            ipv6_addresses = self.get_ipv6_address(cfgmap)
+            if len(ipv6_addresses):
+                info[IPV6_ID][IPV6Addresses] = ipv6_addresses
+        dnsaddresses = self.get_dnsv6_info(cfgmap)
+        if len(dnsaddresses) > 0:
+            info[IPV6_ID][DNSAddresses] = dnsaddresses
         wok_log.debug('End get_ipv6_info')
         return info
+
+    def parse_ipv6prefix(self, ipv6_with_prefix):
+        dict = {}
+        splitout = ipv6_with_prefix.split('/')
+        dict.update(IPADDR=splitout[0])
+        dict.update(PREFIX=splitout[1])
+        return dict
+
+    def get_ipv6_address(self, cfgmap):
+        ipv6addresses = []
+        if IPV6ADDR in cfgmap:
+            ipv6addresses.append(self.parse_ipv6prefix(cfgmap[IPV6ADDR]))
+        if IPV6ADDR_SECONDARIES in cfgmap:
+            split_with_space_result = \
+                cfgmap[IPV6ADDR_SECONDARIES].split(CONST_SPACE)
+            for eachsecondaryipv6 in split_with_space_result:
+                ipv6addresses.append(self.parse_ipv6prefix(eachsecondaryipv6))
+        return ipv6addresses
 
     def get_dnsv4_info(self, cfgmap):
         dnsaddresses = []
@@ -293,12 +318,13 @@ class CfginterfaceModel(object):
                 index += 1
         return dnsaddresses
 
-    def get_dnsv6_info(self, info, cfgmap):
+    def get_dnsv6_info(self, cfgmap):
         wok_log.debug('Begin get_dns_info')
+        dnsaddresses = []
         if DNS in cfgmap:
             ip = IPAddress(cfgmap[DNS])
             if ip.version == 6:
-                info[IPV6_ID][DNS] = cfgmap[DNS]
+                dnsaddresses.append(cfgmap[DNS])
         else:
             flag = 0
             dnscount = 1
@@ -307,13 +333,13 @@ class CfginterfaceModel(object):
                 if dnsincrmnt in cfgmap:
                     ip = IPAddress(cfgmap[dnsincrmnt])
                     if ip.version == 6:
-                        info[IPV6_ID][dnsincrmnt] = cfgmap[dnsincrmnt]
+                        dnsaddresses.append(cfgmap[dnsincrmnt])
                     dnscount = dnscount + 1
                     dnsincrmnt = DNS + str(dnscount)
                 else:
                     flag = 1
         wok_log.debug('End get_dns_info')
-        return info
+        return dnsaddresses
 
     def get_architecture_specific_info(self, info, cfgmap):
         wok_log.debug('Begin get_architecture_specific_info')
@@ -502,6 +528,7 @@ class CfginterfaceModel(object):
 
     def update(self, name, params):
         cfgmap = self.read_ifcfg_file(name)
+        # TODO Remove old data that might not be required. Send RFC and handle
         if BASIC_INFO in params:
             cfgmap = self.update_basic_info(cfgmap, params)
         else:
@@ -509,6 +536,8 @@ class CfginterfaceModel(object):
             raise MissingParameter('GINNET0024E')
         if IPV4_ID in params:
             cfgmap = self.update_ipv4(cfgmap, params)
+        if IPV6_ID in params:
+            cfgmap = self.update_ipv6(cfgmap, params)
         self.write(name, cfgmap)
 
     def write(self, interface_name, cfgmap):
@@ -524,3 +553,166 @@ class CfginterfaceModel(object):
             path = ifcfg_file_pattern + key
             parser.set(path, str(value))
         parser.save()
+
+    def update_ipv6(self, cfgmap, params):
+        """
+        update ipv6 information in cfgmap read from ifcfg files
+        :param cfgmap: map containing the data from ifcfg files
+        :param params: input provided by user
+        :return:
+        """
+        if IPV6INIT in params[IPV6_ID] and params[IPV6_ID][IPV6INIT] == \
+                'yes':
+            if IPV6_FAILURE_FATAL in params[IPV6_ID]:
+                cfgmap[IPV6_FAILURE_FATAL] = \
+                    params[IPV6_ID][IPV6_FAILURE_FATAL]
+            if IPV6_PEERDNS in params[IPV6_ID]:
+                cfgmap[IPV6_PEERDNS] = params[IPV6_ID][IPV6_PEERDNS]
+            if IPV6_PEERROUTES in params[IPV6_ID]:
+                cfgmap[IPV6_PEERROUTES] = params[IPV6_ID][IPV6_PEERROUTES]
+            cfgmap = self.update_ipv6_bootproto(cfgmap, params)
+            cfgmap = self.update_dnsv6_info(cfgmap, params)
+        else:
+            wok_log.error(("IPV6INIT value is mandatory"))
+            raise MissingParameter('GINNET0027E')
+        return cfgmap
+
+    def update_ipv6_bootproto(self, cfgmap, params):
+        """
+        updated information based on boot protocol
+        :param cfgmap: map containing the data from ifcfg files
+        :param params:  input provided by user
+        :return:
+        """
+        if IPV6_AUTOCONF in params[IPV6_ID]:
+            if params[IPV6_ID][IPV6_AUTOCONF] == 'yes':
+                cfgmap[IPV6_AUTOCONF] = CONST_YES
+            elif params[IPV6_ID][IPV6_AUTOCONF] == 'no':
+                cfgmap[IPV6_AUTOCONF] = CONST_NO
+                if DHCPV6C in params[IPV6_ID]:
+                    if params[IPV6_ID][DHCPV6C] == 'yes':
+                        cfgmap[DHCPV6C] = CONST_YES
+                else:
+                    # Expecting manual mode values here
+                    self.assign_ipv6_address(cfgmap, params[IPV6_ID])
+        else:
+            wok_log.error(("IPV6_AUTOCONF not provided:"))
+            raise MissingParameter('GINNET0023E')
+        if IPV6_DEFROUTE in params[IPV6_ID]:
+            cfgmap[IPV6_DEFROUTE] = params[IPV6_ID][IPV6_DEFROUTE]
+        if IPV6_DEFAULTGW in params[IPV6_ID]:
+            self.validate_ipv6_address(params[IPV6_ID][IPV6_DEFAULTGW])
+            cfgmap[IPV6_DEFAULTGW] = params[IPV6_ID][IPV6_DEFAULTGW]
+        return cfgmap
+
+    def validate_ipv6_address(self, ip):
+        """
+        Check if ip provided is valid ipv6 address
+        :param ip: ipv6 address
+        :return:
+        """
+        try:
+            ip = IPAddress(ip)
+            if ip.version == 6:
+                return
+            raise Exception("Not an ipv6 address")
+        except Exception, e:
+            wok_log.error(("Invalid ipv6 address:" + str(e)))
+            raise InvalidParameter('GINNET0028E', {'ip': ip, 'error': e})
+
+    def get_ipv6_prefix(self, ip):
+        """
+        get netmask from ipv6 address
+        :param ip: ipv6 subnet provided bu user
+        :return:
+        """
+        try:
+            ip = IPAddress(ip)
+            return ip.netmask_bits()
+        except Exception, e:
+            wok_log.error(("Invalid netmask:" + str(e)))
+            raise InvalidParameter('GINNET0019E', {'NETMASK': ip, 'error': e})
+
+    def validateipinfo(self, ipaddrinfo):
+        """
+        validae ipv6 addresses info provided by user
+        :param ipaddrinfo:
+        :return:
+        """
+        if IPADDR in ipaddrinfo:
+            self.validate_ipv6_address(ipaddrinfo[IPADDR])
+        else:
+            wok_log.error(("No ip address provided"))
+            raise MissingParameter('GINNET0020E')
+        if NETMASK in ipaddrinfo:
+            self.validate_ipv6_address(ipaddrinfo[NETMASK])
+            ipaddrinfo[PREFIX] = self.get_ipv6_prefix(
+                ipaddrinfo[NETMASK])
+        elif PREFIX in ipaddrinfo:
+            ipaddrinfo[PREFIX] = ipaddrinfo[PREFIX]
+        else:
+            wok_log.error(("No netmask or prefix provided"))
+            raise MissingParameter('GINNET0021E')
+        return ipaddrinfo
+
+    def assign_ipv6_address(self, cfgmap, params):
+        """
+        assign ipv6 addresses to network directives
+        :param cfgmap: map containing the data from ifcfg files
+        :param params:  input provided by user
+        :return:
+        """
+        if IPV6Addresses in params:
+            primary = True
+            for ipaddrinfo in params[IPV6Addresses]:
+                if (primary):
+                    ipaddrinfo = self.validateipinfo(ipaddrinfo)
+                    cfgmap[IPV6ADDR] = \
+                        ipaddrinfo[IPADDR] + '/' + ipaddrinfo[PREFIX]
+                    primary = False
+                else:
+                    ipaddrinfo = self.validateipinfo(ipaddrinfo)
+                    if IPV6ADDR_SECONDARIES in cfgmap:
+                        cfgmap[IPV6ADDR_SECONDARIES] = \
+                            cfgmap[IPV6ADDR_SECONDARIES] + CONST_SPACE + \
+                            ipaddrinfo[IPADDR] + '/' + ipaddrinfo[PREFIX]
+                    else:
+                        cfgmap[IPV6ADDR_SECONDARIES] = \
+                            ipaddrinfo[IPADDR] + '/' + ipaddrinfo[PREFIX]
+        else:
+            wok_log.error(("For manual mode ipv6 addresses is needed"))
+            raise MissingParameter('GINNET0029E')
+        return cfgmap
+
+    def update_dnsv6_info(self, cfgmap, params):
+        """
+        Construct cfgmap with dns addresses information. If DNS={IPV61,IPV62}
+        cfgmap will be updated with DNS1=IPV61, DNS2=IPV62 if no ipv4DNS is
+        present in cfgmap. If ipv4 dns is present,the DNS increment
+        will be after DNSv4 addresses For ex :- DNS=ipv41, then cfgmap will
+        have DNS1=ipv41,DNS2=IPV61, DNS3=IPV62
+        :param cfgmap:
+        :param params:
+        :return:
+        """
+        if DNSAddresses in params[IPV6_ID]:
+            # initialize this feild based on ipv4 dns
+            dnsstartindexcount = 0
+            if DNS in cfgmap:
+                dnsstartindexcount += 1
+                cfgmap[DNS + str(dnsstartindexcount)] = cfgmap[DNS]
+            else:
+                dnsstartindexcount += 1
+                flag = 0
+                while flag == 0:
+                    dnsincrmnt = DNS + str(dnsstartindexcount)
+                    if dnsincrmnt in cfgmap:
+                        dnsstartindexcount += 1
+                    else:
+                        flag = 1
+
+            list_dns_addresses = params[IPV6_ID][DNSAddresses]
+            for addr in list_dns_addresses:
+                cfgmap[DNS + str(dnsstartindexcount)] = addr
+                dnsstartindexcount += 1
+        return cfgmap

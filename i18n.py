@@ -58,8 +58,10 @@ messages = {
     "GINNET0024E": _("Basic information of interface is missing."),
     "GINNET0025E": _("Device name of interface is missing."),
     "GINNET0026E": _("Missing ipv4 initialization key."),
-
-
+    "GINNET0027E": _("Missing ipv6 initialization key."),
+    "GINNET0028E": _("Invalid ipv6 address '%(ip)s', "
+                     "'%(error)s'."),
+    "GINNET0029E": _("Missing ipv6 address information"),
 
     "GINUSER0001E": _("Specify name, password, group and profile for the new "
                       "user."),
