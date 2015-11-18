@@ -49,8 +49,13 @@ class FirmwareModel(object):
             wok_log.error('Unable to retreive firmware level.')
             return {'level': 'Unknown'}
         # Cut out the chatter from the command output
-        levels = output.split()[5:]
-        levels = " ".join(levels)
+        # First, need check what type of output was returned due to diffs
+        # between some machine version
+        if output.split()[5] != 'Product':
+            levels = output.split()[5:]
+            levels = " ".join(levels)
+        else:
+            levels = output.split()[13]
         return {'level': levels}
 
     def update(self, name, params):
