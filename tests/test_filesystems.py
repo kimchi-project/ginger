@@ -132,7 +132,8 @@ tmpfs                   tmpfs     760M  8.0K  759M   1% /run/user/1000"""
             self.fail("Parsing of df failed : mounted on")
 
     @mock.patch('wok.plugins.ginger.models.fs_utils.nfsmount', autospec=True)
-    @mock.patch('wok.plugins.ginger.models.fs_utils.make_persist', autospec=True)
+    @mock.patch('wok.plugins.ginger.models.fs_utils.make_persist',
+                autospec=True)
     def test_nfs_mount(self, mock_make_persist, mock_nfsmount):
         fs = filesystem.FileSystemsModel()
         fstype = 'nfs'
