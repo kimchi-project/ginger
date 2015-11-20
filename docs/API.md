@@ -493,3 +493,33 @@ URI: /plugins/ginger/partitions/*:part_name*
     * type: Hex value of the new type (e.g 82 for swap type)
   * format: Format the partition with the specified filesystem type
     * fstype: type of the filesystem (e.g ext3)
+
+### Collection: Physical Volumes
+
+**URI:** /plugins/ginger/pvs
+
+**Methods:**
+
+* **GET**: Retrieve a summarized list of all physical volumes
+* **POST**: Create a physical volume
+   * pv_name : Path of the device to be used as a physical volume
+
+### Resource: Physical Volume
+
+**URI:** /plugins/ginger/pvs/*:pvname*
+
+**Methods:**
+
+* **GET**: Retrieve the full description of a Physical Volume
+
+   * PVName : Path of the physical volume.
+   * VGName : Name of the volume group to which the physical volume belongs.
+   * PVSize : Size of the physical volume.
+   * Allocatable : Specifies if the volume is allocatable.
+   * PESize : Size of each physical extent.
+   * TotalPE: Total physical extents on the volume.
+   * FreePE: Number of free physical extents.
+   * AllocatedPE : Number of allocated physical extents.
+   * PVUUID : UUID of the physical volume.
+
+* **DELETE**: Remove the Physical Volume.
