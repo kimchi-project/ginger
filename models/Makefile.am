@@ -32,6 +32,7 @@ models_PYTHON = \
 	model.py \
 	netinfo.py \
 	network.py \
+	physical_vol.py \
 	powermanagement.py \
 	sanadapters.py \
 	sensors.py \

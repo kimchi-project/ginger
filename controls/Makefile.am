@@ -29,6 +29,7 @@ controls_PYTHON = \
 	ibm_sep.py \
 	interfaces.py \
 	network.py \
+	physical_vol.py \
 	powermanagement.py \
 	sanadapters.py \
 	sensors.py \

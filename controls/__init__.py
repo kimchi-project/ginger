@@ -31,6 +31,7 @@ from sensors import Sensors
 from users import Users
 from swaps import Swaps
 from filesystems import FileSystems
+from physical_vol import PhysicalVolumes
 
 __all__ = [
     Backup,
@@ -40,6 +41,7 @@ __all__ = [
     Firmware,
     Network,
     Partitions,
+    PhysicalVolumes,
     PowerProfiles,
     SanAdapters,
     Sensors,

@@ -21,8 +21,8 @@ import json
 import os
 
 from controls import Backup, Capabilities, DASDdevs, DASDPartitions, Firmware
-from controls import FileSystems, Network, Partitions, PowerProfiles
-from controls import SanAdapters, Sensors, Sep, Swaps, Users
+from controls import FileSystems, Network, Partitions, PhysicalVolumes
+from controls import PowerProfiles, SanAdapters, Sensors, Sep, Swaps, Users
 from i18n import messages
 from wok.config import PluginPaths
 from wok.root import WokRoot
@@ -41,6 +41,7 @@ class Ginger(WokRoot):
         self.firmware = Firmware(self.model)
         self.partitions = Partitions(self.model)
         self.powerprofiles = PowerProfiles(self.model)
+        self.pvs = PhysicalVolumes(self.model)
         self.sensors = Sensors(self.model)
         self.users = Users(self.model)
         self.swaps = Swaps(self.model)

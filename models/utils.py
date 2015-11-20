@@ -18,6 +18,7 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 
 import os.path
+import re
 import subprocess
 
 from parted import Device as PDevice
@@ -288,3 +289,85 @@ def delete_part(partname):
     out, err = d2_out.communicate()
     if d2_out.returncode != 0:
         raise OperationFailed("GINPART00011E", err)
+
+
+def _get_pv_devices():
+    """
+    This method fetches the list of PV names
+    :return:
+    """
+    cmd = ["pvs", "-o", "pv_name"]
+    pvout, err, rc = run_command(cmd)
+    if rc != 0:
+        raise OperationFailed("GINPV00006E", {'err': err})
+    return parse_pvlist_output(pvout)
+
+
+def parse_pvlist_output(pvsout):
+    """
+    This method parses the output of 'pvs -o pv_name' command
+    :param pvsout: output of 'pvs -o pv_name
+    :return:
+    """
+    outlist = []
+    parsed_list = pvsout.splitlines()
+    for i in parsed_list[1:]:
+        outlist.append(i.strip())
+
+    return outlist
+
+
+def _pvdisplay_out(name):
+    """
+    This method fetches the details of particular PV
+    :param name: path of the PV
+    :return:
+    """
+    out, err, rc = run_command(["pvdisplay", name])
+    if rc != 0:
+        raise OperationFailed("GINPV00007E", {'err': err})
+    return parse_pvdisplay_output(out)
+
+
+def parse_pvdisplay_output(pvout):
+    """
+    This method parses the output of pvdisplay
+    :param pvout: output of pvdisplay
+    :return:
+    """
+    output = {}
+    p = re.compile("^\s*(\w(\s?\w+)*)\s*(.+)?")
+    parsed_out = pvout.splitlines()
+    for i in parsed_out[1:]:
+
+        m = p.match(i)
+        if not m:
+            continue
+
+        output[m.group(1)] = m.group(3)
+
+    return output
+
+
+def _create_pv(name):
+    """
+    This method creates the PV
+    :param name: path of the partition to be used as PV
+    :return:
+    """
+    out, err, rc = run_command(["pvcreate", "-f", name])
+    if rc != 0:
+        raise OperationFailed("GINPV00008E", {'err': err})
+    return
+
+
+def _remove_pv(name):
+    """
+    This method removes the PV
+    :param name: path of the pv to be removed
+    :return:
+    """
+    out, err, rc = run_command(["pvremove", "-f", name])
+    if rc != 0:
+        raise OperationFailed("GINPV00009E", {'err': err})
+    return

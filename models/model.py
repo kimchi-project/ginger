@@ -29,6 +29,7 @@ from ibm_sep import SepModel, SubscribersModel, SubscriptionModel
 from interfaces import InterfacesModel, InterfaceModel
 from network import NetworkModel
 from powermanagement import PowerProfilesModel, PowerProfileModel
+from physical_vol import PhysicalVolumesModel, PhysicalVolumeModel
 from sanadapters import SanAdapterModel, SanAdaptersModel
 from sensors import SensorsModel
 from users import UsersModel, UserModel
@@ -76,10 +77,12 @@ class GingerModel(BaseModel):
         ibm_sep = SepModel()
         subscription = SubscriptionModel()
         subscriber = SubscribersModel()
+        physical_vols = PhysicalVolumesModel(objstore=self._objstore)
+        physical_vol = PhysicalVolumeModel(objstore=self._objstore)
 
         features = [firmware, swaps, backup, network, powerprofiles,
                     san_adapters, sensors, ibm_sep, users, filesystems,
-                    dasddevs, dasdpartitions, partitions]
+                    dasddevs, dasdpartitions, partitions, physical_vols]
         capabilities = CapabilitiesModel(features)
 
         sub_models = [
@@ -92,6 +95,7 @@ class GingerModel(BaseModel):
             network,
             filesystems, filesystem,
             partitions, partition,
+            physical_vols, physical_vol,
             powerprofiles, powerprofile,
             users, user,
             san_adapters, san_adapter,

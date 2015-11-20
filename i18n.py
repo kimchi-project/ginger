@@ -200,6 +200,16 @@ messages = {
     "GINPART00012E": _("mkfs command failed"),
     "GINPART00013E": _("No partitions found"),
 
+    "GINPV00001E": _("Required pv_name parameter"),
+    "GINPV00002E": _("Failed to create PV"),
+    "GINPV00003E": _("Failed to fetch PV list"),
+    "GINPV00004E": _("Failed to fetch PV details"),
+    "GINPV00005E": _("Failed to delete PV"),
+    "GINPV00006E": _("pvs command failed"),
+    "GINPV00007E": _("pvdisplay command failed"),
+    "GINPV00008E": _("pvcreate command failed"),
+    "GINPV00009E": _("pvremove command failed"),
+
     "GINDASD0001E": _("Error in executing 'lsdasd -l' command"),
     "GINDASD0002E": _("Error in executing 'lsdasd -l bus_id' command"),
     "GINDASD0003E": _("Parsing lsdasd output failed"),
