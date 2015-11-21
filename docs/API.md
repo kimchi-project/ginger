@@ -271,8 +271,77 @@ URI: /plugins/ginger/filesystems/*:mount_point*
         * DNS *(optional)*: List of DNS ipv4 addresses
         * PEERDNS  *(optional)*: 'yes' to modify /etc/resolv.conf
         * PEERROUTES *(optional)*: 'yes' use PEERROUTES
-    * IPV6_INFO *(optional)*: Dictionary containing the ipv6 information of interface
-                                      to be updated
+
+* **POST**: Create an interface of types default interface, bond and vlan
+    * BASIC_INFO: Dictionary containing the basic information of interface
+    to be created
+        * DEVICE: Device name of the interface.
+        * NAME *(optional): Name of the interface.
+        * ONBOOT *(optional)*:
+                        'Yes' if interface is to be brought up during boot
+                        'No' if interface should not be brought up during boot.
+        * MTU *(optional)*: Maximum Transmission Unit
+        * ZONE *(optional)*: Firewall Zone for the interface
+        * BOND_INFO *(OPTIONAL)*: Dictionary containing the bond information
+         of interface to be created
+            * BONDING_MASTER *: 'yes' indicates that the device is a bonding
+             master device.  The only useful value is "yes."
+            * SLAVES *: List of slave interfaces
+            * BONDING_OPTS *(OPTIONAL)*: Dictionary of bonding options for
+            the keys
+                * ad_select *(OPTIONAL)*: value
+                    Possible values are: stable or 0, bandwidth or 1, count
+                    or 2
+                * arp_interval *(OPTIONAL)*: time_in_milliseconds
+                * arp_ip_target *(OPTIONAL)*:
+                    Possible values are:
+                        ip_address[,ip_address_2,... ip_address_16]
+                        Up to 16 IP addresses can be specified in a comma
+                        separated list
+                * arp_validate *(OPTIONAL)*: value
+                    Possible values are: none or 0, active or 1, backup or
+                    2, all or 3, filter or 4, filter_active or 5,
+                    filter_backup or 6, downdelay= time_in_milliseconds
+                * fail_over_mac= value *(OPTIONAL)*: value
+                    Possible values are: none or 0, active or 1, follow or 2
+                * lacp_rate *(OPTIONAL)*: value
+                    Possible values are: slow or 0, fast or 1
+                * miimon *(OPTIONAL)*: time_in_milliseconds
+                * mode *(OPTIONAL)*: value
+                    Possible values are: balance-rr or 0, active-backup or
+                    1, balance-xo r or 2, broadcast or 3, 802.3ad or 4,
+                    balance-tlb or 5, balance-alb or 6
+                * primary *(OPTIONAL)*: interface_name
+                * primary_reselect *(OPTIONAL)*: value
+                    Possible values are: always or 0, better or 1, failure or 2
+                * resend_igmp *(OPTIONAL)*: value
+                    The valid range is 0 to 255
+                * updelay *(OPTIONAL)*: time_in_milliseconds
+                * use_carrier *(OPTIONAL)*: number
+                    Possible values are: 0, 1
+                * xmit_hash_policy *(OPTIONAL)*: value
+                    Possible values are: layer2, layer2+3, layer3+4,
+                    encap2+3, encap3+4
+        * TYPE *: Type of an interface
+                Example: Ethernet, Bond, Vlan
+
+    * IPV4_INFO *(optional)*: Dictionary containing the ipv4 information of
+    interface to be created
+        * IPV4INIT : Firewall Zone for the interface
+        * BOOTPROTO: Boot protocol for ipv4(dhcp,none,autoip)
+        * DEFROUTE(for BOOTPROTO none or dhcp) *(optional)*: 'yes' Use
+        default route.
+        * IPV4Addresses(Needed if BootProto is none): Assign single or
+        multiple ipv4 address to interface
+            * IPADDR: ipv4 address of the interface
+            * NETMASK: netmask of the ipv4 address
+            * GATEWAY *(optional)*: Gateway assigned to the ipv4 address
+        * DNS *(optional)*: List of DNS ipv4 addresses
+        * PEERDNS  *(optional)*: 'yes' to modify /etc/resolv.conf
+        * PEERROUTES *(optional)*: 'yes' use PEERROUTES
+
+    * IPV6_INFO *(optional)*: Dictionary containing the ipv6 information of
+    interface to be updated
         * IPV6INIT: 'yes' to initalize ipv6 for the interface
         * IPV6_AUTOCONF: 'yes' automatic mode for ipv6,''no' for other mode
         * DHCPV6C: 'yes' dhcp automatic mode for ipv6
