@@ -34,6 +34,7 @@ from sanadapters import SanAdapterModel, SanAdaptersModel
 from sensors import SensorsModel
 from users import UsersModel, UserModel
 from swaps import SwapsModel, SwapModel
+from vol_group import VolumeGroupsModel, VolumeGroupModel
 
 from wok import config
 from wok.basemodel import BaseModel
@@ -79,10 +80,13 @@ class GingerModel(BaseModel):
         subscriber = SubscribersModel()
         physical_vols = PhysicalVolumesModel(objstore=self._objstore)
         physical_vol = PhysicalVolumeModel(objstore=self._objstore)
+        vol_groups = VolumeGroupsModel(objstore=self._objstore)
+        vol_group = VolumeGroupModel(objstore=self._objstore)
 
         features = [firmware, swaps, backup, network, powerprofiles,
                     san_adapters, sensors, ibm_sep, users, filesystems,
-                    dasddevs, dasdpartitions, partitions, physical_vols]
+                    dasddevs, dasdpartitions, partitions, physical_vols,
+                    vol_groups]
         capabilities = CapabilitiesModel(features)
 
         sub_models = [
@@ -101,6 +105,7 @@ class GingerModel(BaseModel):
             san_adapters, san_adapter,
             sensors,
             swaps, swap,
+            vol_groups, vol_group,
             ibm_sep, subscription, subscriber,
             capabilities]
         super(GingerModel, self).__init__(sub_models)

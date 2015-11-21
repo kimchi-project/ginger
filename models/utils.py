@@ -371,3 +371,123 @@ def _remove_pv(name):
     if rc != 0:
         raise OperationFailed("GINPV00009E", {'err': err})
     return
+
+
+def _get_vg_list():
+    """
+    This method gets a list of volume group names
+    :return:
+    """
+    cmd = ["vgs", "-o", "vg_name"]
+    out, err, rc = run_command(cmd)
+    if rc != 0:
+        raise OperationFailed("GINVG00007E")
+    return parse_pvlist_output(out)
+
+
+def _vgdisplay_out(name):
+    """
+    This method gets the details of particular volume group
+    :param name: Name of the volume group
+    :return:
+    """
+    cmd = ["vgs", "-o", "vg_name,vg_sysid,"
+                        "vg_fmt,vg_mda_count,vg_seqno,vg_permissions,"
+                        "vg_extendable,max_lv,lv_count,max_pv,pv_count,"
+                        "vg_size,vg_extent_size,pv_pe_count,"
+                        "pv_pe_alloc_count,pv_used,vg_free_count,pv_free,"
+                        "vg_uuid,pv_name", "--separator", ":", name]
+    out, err, rc = run_command(cmd)
+    if rc != 0:
+        raise OperationFailed("GINVG00008E")
+    return parse_vgdisplay_output(out)
+
+
+def parse_vgdisplay_output(vgout):
+    """
+    This method parses the output of vgs command
+    :param vgout: output of vgs command
+    :return:
+    """
+    output = {}
+    p = vgout.splitlines()
+    for i in p[1:]:
+        output['VG Name'] = i.split(':')[0]
+        output['System ID'] = i.split(':')[1]
+        output['Format'] = i.split(':')[2]
+        output['Metadata Areas'] = i.split(':')[3]
+        output['Metadata Sequence No'] = i.split(':')[4]
+        output['Permission'] = i.split(':')[5]
+        output['VG Status'] = i.split(':')[6]
+        output['Max LV'] = i.split(':')[7]
+        output['Cur LV'] = i.split(':')[8]
+        output['Max PV'] = i.split(':')[9]
+        output['Cur PV'] = i.split(':')[10]
+        output['VG Size'] = i.split(':')[11]
+        output['PE Size'] = i.split(':')[12]
+        output['Total PE'] = i.split(':')[13]
+        output['Alloc PE'] = i.split(':')[14]
+        output['Alloc PE Size'] = i.split(':')[15]
+        output['Free PE'] = i.split(':')[16]
+        output['Free PE Size'] = i.split(':')[17]
+        output['VG UUID'] = i.split(':')[18]
+        if 'PV Names' in output:
+            output['PV Names'].append(i.split(':')[19])
+        else:
+            output['PV Names'] = [i.split(':')[19]]
+    return output
+
+
+def _create_vg(name, path):
+    """
+    This method creates a volume group
+    :param name: Name of the volume group
+    :param path: list of PVs
+    :return:
+    """
+    cmd = ["vgcreate", name] + [path[i] for i in range(len(path))]
+    out, err, rc = run_command(cmd)
+    if rc != 0:
+        raise OperationFailed("GINVG00009E", {'err': err})
+    return
+
+
+def _remove_vg(name):
+    """
+    This method removes the volume group
+    :param name: Name of the volume group
+    :return:
+    """
+    cmd = ["vgremove", name]
+    out, err, rc = run_command(cmd)
+    if rc != 0:
+        raise OperationFailed("GINVG00010E")
+    return
+
+
+def _extend_vg(name, paths):
+    """
+    This method extends the volume group
+    :param name: Name of the volume group
+    :param paths: list of PVs to be added
+    :return:
+    """
+    cmd = ["vgextend", name] + [paths[i] for i in range(len(paths))]
+    out, err, rc = run_command(cmd)
+    if rc != 0:
+        raise OperationFailed("GINVG00011E")
+    return
+
+
+def _reduce_vg(name, paths):
+    """
+    This method reduces the volume group
+    :param name: Name of the volume group
+    :param paths: list of PVs to be removed
+    :return:
+    """
+    cmd = ["vgreduce", name] + [paths[i] for i in range(len(paths))]
+    out, err, rc = run_command(cmd)
+    if rc != 0:
+        raise OperationFailed("GINVG00012E")
+    return

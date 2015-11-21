@@ -41,6 +41,7 @@ models_PYTHON = \
 	utils.py \
 	filesystem.py \
 	fs_utils.py \
+	vol_group.py \
 	$(NULL)
 
 modelsdir = $(pythondir)/wok/plugins/ginger/models

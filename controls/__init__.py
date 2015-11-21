@@ -32,6 +32,7 @@ from users import Users
 from swaps import Swaps
 from filesystems import FileSystems
 from physical_vol import PhysicalVolumes
+from vol_group import VolumeGroups
 
 __all__ = [
     Backup,
@@ -48,5 +49,6 @@ __all__ = [
     Sep,
     Users,
     Swaps,
-    FileSystems
+    FileSystems,
+    VolumeGroups
     ]

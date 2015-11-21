@@ -23,6 +23,7 @@ import os
 from controls import Backup, Capabilities, DASDdevs, DASDPartitions, Firmware
 from controls import FileSystems, Network, Partitions, PhysicalVolumes
 from controls import PowerProfiles, SanAdapters, Sensors, Sep, Swaps, Users
+from controls import VolumeGroups
 from i18n import messages
 from wok.config import PluginPaths
 from wok.root import WokRoot
@@ -53,3 +54,4 @@ class Ginger(WokRoot):
         self.messages = messages
         self.san_adapters = SanAdapters(self.model)
         self.ibm_sep = Sep(self.model)
+        self.vgs = VolumeGroups(self.model)
