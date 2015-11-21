@@ -523,3 +523,51 @@ URI: /plugins/ginger/partitions/*:part_name*
    * PVUUID : UUID of the physical volume.
 
 * **DELETE**: Remove the Physical Volume.
+
+### Collection: Volume Groups
+
+**URI:** /plugins/ginger/vgs
+
+**Methods:**
+
+* **GET**: Retrieve a summarized list of all volume groups
+* **POST**: Create a volume group
+   * vg_name : Name of a volume group
+   * pv_paths : Paths of the physical volumes to be added to the volume group
+
+### Resource: Volume Groups
+
+**URI:** /plugins/ginger/vgs/*:vgname*
+
+**Methods:**
+
+* **GET**: Retrieve the full description of a volume group
+
+   * vgName : Name of the volume group.
+   * vgStatus : `extendable` if the VG is extendable.
+   * vgSize : Size of the volume group.
+   * maxLV : Maximum number of LVs allowed in VG or 0 if unlimited.
+   * freePESize : Size of free PE.
+   * format: Type of metadata.
+   * curLV: Number of LVs.
+   * metadataAreas : Number of metadata areas on this VG.
+   * permission : VG permissions.
+   * allocPE : Number of allocated PEs.
+   * pvNames : List of PVs in the VG.
+   * peSize : Size of each PE.
+   * systemID : System ID.
+   * curPV : Number of PVs.
+   * freePE : Amount of free PEs.
+   * maxPV : Maximum number of PVs allowed in VG or 0 if unlimited.
+   * totalPE : Total number of Physical Extents.
+   * vgUUID : UUID of the volume group.
+   * allocPESize : Size of allocated PE.
+   * metadataSequenceNo : Revision number of internal metadata.
+
+* **DELETE**: Remove the Volume Group.
+
+**Actions (POST):**
+  * extend: Extend the volume group with additional PVs.
+    * pv_paths: List of PV paths to be added to the VG.
+  * reduce: Reduce the volume group by removing PVs.
+    * pv_paths: List of PV paths to be added to the VG.
