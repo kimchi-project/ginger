@@ -57,11 +57,13 @@ class CfgInterfacesTests(unittest.TestCase):
         slaves = ['slave1', 'slave2']
         mock_slaves.return_value = slaves
         ethinfo = CfginterfaceModel().get_basic_info(cfgmap)
-        self.assertEquals('miimon=1 updelay=0 downdelay=0 mode=balance-rr',
-                          ethinfo['BASIC_INFO']['BONDING_OPTS'])
-        self.assertEquals('yes', ethinfo['BASIC_INFO']['BONDING_MASTER'])
+        self.assertEquals({'downdelay': '0', 'iimon': '1', 'mode': 'balance-r',
+                           'updelay': '0'},
+                          ethinfo['BASIC_INFO']['BONDINFO']['BONDING_OPTS'])
+        self.assertEquals('yes', ethinfo['BASIC_INFO']['BONDINFO'][
+            'BONDING_MASTER'])
 
-        self.assertEquals(slaves, ethinfo['BASIC_INFO']['SLAVES'])
+        self.assertEquals(slaves, ethinfo['BASIC_INFO']['BONDINFO']['SLAVES'])
 
     def test_get_basic_info_vlan(self):
         cfgmap = {'NAME': 'testiface', 'DEVICE': 'testdevice',
@@ -69,11 +71,11 @@ class CfgInterfacesTests(unittest.TestCase):
                   'REORDER_HDR': 0,
                   'PHYSDEV': 'testpd'}
         ethinfo = CfginterfaceModel().get_basic_info(cfgmap)
-        self.assertEquals(10,
-                          ethinfo['BASIC_INFO']['VLAN_ID'])
+        self.assertEquals(10, ethinfo['BASIC_INFO']['VLANINFO']['VLAN_ID'])
         self.assertEquals('Vlan', ethinfo['BASIC_INFO']['TYPE'])
-        self.assertEquals(0, ethinfo['BASIC_INFO']['REORDER_HDR'])
-        self.assertEquals('testpd', ethinfo['BASIC_INFO']['PHYSDEV'])
+        self.assertEquals(0, ethinfo['BASIC_INFO']['VLANINFO']['REORDER_HDR'])
+        self.assertEquals('testpd', ethinfo['BASIC_INFO']['VLANINFO'][
+            'PHYSDEV'])
 
     @mock.patch('plugins.ginger.models.cfginterfaces.CfginterfaceModel.'
                 'read_ifcfg_file')

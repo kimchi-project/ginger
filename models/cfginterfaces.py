@@ -66,6 +66,7 @@ IFACE_VLAN = 'Vlan'
 ARCH_S390 = 's390x'
 
 # Vlan parameters
+VLANINFO = 'VLANINFO'
 REORDER_HDR = 'REORDER_HDR'
 VLAN = 'VLAN'
 VLANID = 'VLAN_ID'
@@ -74,7 +75,13 @@ PHYSDEV = 'PHYSDEV'
 # Bond parameters
 BONDING_OPTS = 'BONDING_OPTS'
 BONDING_MASTER = 'BONDING_MASTER'
+BONDINFO = 'BONDINFO'
 SLAVES = 'SLAVES'
+BONDING_OPTS_LIST = ["ad_select", "arp_interval", "arp_ip_target",
+                     "arp_validate", "downdelay", "fail_over_mac",
+                     "lacp_rate", "miimon", "mode", "primary",
+                     "primary_reselect", "resend_igmp", "updelay",
+                     "use_carrier", "xmit_hash_policy"]
 
 # ipv4 parameters
 IPV4_ID = "IPV4_INFO"
@@ -126,6 +133,26 @@ class CfginterfacesModel(object):
         nics = ethtool.get_devices()
         return sorted(nics)
 
+    def create(self, params):
+        self.validate_minimal_info(params)
+        if params[BASIC_INFO][TYPE] == IFACE_BOND:
+            if params[BASIC_INFO][DEVICE]:
+                name = params[BASIC_INFO][DEVICE]
+                params[BASIC_INFO][NAME] = name
+                CfginterfaceModel().update(name, params)
+                return name
+            else:
+                wok_log.error("Device info is missing")
+                raise MissingParameter("GINNET0025E")
+
+    def validate_minimal_info(self, params):
+        if BASIC_INFO not in params:
+            wok_log.error("Basic info is missing")
+            raise MissingParameter("GINNET0024E")
+        if TYPE not in params[BASIC_INFO]:
+            wok_log.error("Type info is missing")
+            raise MissingParameter("GINNET0038E")
+
 
 class CfginterfaceModel(object):
     def __init__(self):
@@ -175,7 +202,7 @@ class CfginterfaceModel(object):
             return str(parser.get(file + "/" + str(token)))
 
     def token_exist(self, ifcfg_file, token):
-        l = parser.match(ifcfg_file + token)
+        l = parser.match(ifcfg_file + os.sep + token)
         if len(l) == 1:
             return True
 
@@ -198,7 +225,7 @@ class CfginterfaceModel(object):
         info = {}
         info[BASIC_INFO] = {}
         basic_info_keys = [NAME, DEVICE, ONBOOT, MACADDR,
-                           HWADDR, UUID, MTU, ZONE]
+                           HWADDR, UUID, MTU, ZONE, TYPE]
         for key in basic_info_keys:
             if key in cfgmap:
                 info[BASIC_INFO][key] = cfgmap[key]
@@ -353,22 +380,31 @@ class CfginterfaceModel(object):
 
     def get_vlan_info(self, info, cfgmap):
         wok_log.debug('Begin get_vlan_info')
+        info[BASIC_INFO][VLANINFO] = {}
         if info.__len__() != 0 and cfgmap.__len__() != 0:
-            basic_info_keys = [VLANID, VLAN, REORDER_HDR, PHYSDEV]
-            for key in basic_info_keys:
+            vlan_info_keys = [VLANID, VLAN, REORDER_HDR, PHYSDEV]
+            for key in vlan_info_keys:
                 if key in cfgmap:
-                    info[BASIC_INFO][key] = cfgmap[key]
+                    info[BASIC_INFO][VLANINFO][key] = cfgmap[key]
         wok_log.debug('End get_vlan_info')
         return info
 
     def get_bond_info(self, info, cfgmap):
         wok_log.debug('Begin get_bond_info')
+        info[BASIC_INFO][BONDINFO] = {}
+        info[BASIC_INFO][BONDINFO][BONDING_OPTS] = {}
         if info.__len__() != 0 and cfgmap.__len__() != 0:
-            basic_info_keys = [BONDING_OPTS, BONDING_MASTER]
-            for key in basic_info_keys:
-                if key in cfgmap:
-                    info[BASIC_INFO][key] = cfgmap[key]
-            info[BASIC_INFO][SLAVES] = self.get_slaves(cfgmap)
+            if BONDING_MASTER in cfgmap:
+                info[BASIC_INFO][BONDINFO][BONDING_MASTER] = cfgmap[
+                    BONDING_MASTER]
+            if BONDING_OPTS in cfgmap:
+                bonding_opts_str = cfgmap[BONDING_OPTS]
+                bonding_opts_str = bonding_opts_str[1:-1]
+                bonding_opts_str = bonding_opts_str.rstrip()
+                bonding_opts_dict = dict(
+                    x.split('=') for x in bonding_opts_str.split(' '))
+                info[BASIC_INFO][BONDINFO][BONDING_OPTS] = bonding_opts_dict
+            info[BASIC_INFO][BONDINFO][SLAVES] = self.get_slaves(cfgmap)
         wok_log.debug('End get_bond_info')
         return info
 
@@ -468,6 +504,9 @@ class CfginterfaceModel(object):
             cfgmap[MTU] = params[BASIC_INFO][MTU]
         if ZONE in params[BASIC_INFO]:
             cfgmap[ZONE] = params[BASIC_INFO][ZONE]
+        if TYPE in params[BASIC_INFO] \
+                and params[BASIC_INFO][TYPE] == IFACE_BOND:
+            cfgmap.update(self.validate_and_get_bond_info(params))
         return cfgmap
 
     def update_ipv4_bootproto(self, cfgmap, params):
@@ -716,3 +755,177 @@ class CfginterfaceModel(object):
                 cfgmap[DNS + str(dnsstartindexcount)] = addr
                 dnsstartindexcount += 1
         return cfgmap
+
+    def validate_and_get_bond_info(self, params):
+        bond_info = {}
+        wok_log.info('Validating bond info given for interface')
+        if DEVICE not in params[BASIC_INFO]:
+            wok_log.error("Missing parameter: DEVICE")
+            raise MissingParameter("GINNET0025E")
+        if BONDINFO not in params[BASIC_INFO]:
+            wok_log.error("Missing parameter: BONDINFO")
+            raise MissingParameter("GINNET0032E")
+        bondinfo = params[BASIC_INFO][BONDINFO]
+        if BONDING_MASTER in bondinfo:
+            if not bondinfo[BONDING_MASTER] == "yes":
+                wok_log.error("'yes' or 'no' is allowed value for the "
+                              "BONDING_MASTER")
+                raise MissingParameter("GINNET0033E")
+            else:
+                bond_info[BONDING_MASTER] = bondinfo[BONDING_MASTER]
+        else:
+            wok_log.error("Missing parameter: BONDING_MASTER")
+            raise MissingParameter("GINNET0034E")
+
+        if BONDING_OPTS not in params[BASIC_INFO][BONDINFO]:
+            wok_log.error("Missing parameter: BONDING OPTIONS")
+            raise MissingParameter("GINNET0035E")
+        else:
+            bond_opt_value = ""
+            bondopts = bondinfo[BONDING_OPTS]
+            if self.validate_bond_opts(bondopts, params):
+                for bond_opt_key in BONDING_OPTS_LIST:
+                    if bond_opt_key in bondinfo[BONDING_OPTS]:
+                        value = bondinfo[BONDING_OPTS][bond_opt_key]
+                        if type(value) is not list:
+                            bond_opt_value = \
+                                bond_opt_value + bond_opt_key + "=" + \
+                                str(bondinfo[BONDING_OPTS][
+                                        bond_opt_key]) + " "
+                        else:
+                            values_as_str = map(str, value)
+                            values_as_str = str(values_as_str)
+                            v = values_as_str.replace(" ", "")
+                            bond_opt_value = \
+                                bond_opt_value + bond_opt_key + "=" + v + " "
+                bond_opt_value = '"' + bond_opt_value + '"'
+                bond_info[BONDING_OPTS] = bond_opt_value
+        if SLAVES not in bondinfo:
+            wok_log.error("Missing parameter(s): SLAVE")
+            raise MissingParameter("GINNET0036E")
+        if len(bondinfo[SLAVES]) == 0:
+            wok_log.error("Minimum one slave has to be given for the bond "
+                          "interface")
+            raise MissingParameter("GINNET0037E")
+        name = params[BASIC_INFO][NAME]
+        self.create_slaves(name, params)
+        bond_info[TYPE] = params[BASIC_INFO][TYPE]
+        return bond_info
+
+    def validate_bond_opts(self, bondopts, params):
+        def validate_string(opt_value, possible_values):
+            if opt_value not in possible_values:
+                raise InvalidParameter("GINNET0040E")
+
+        def validate_integer(opt_value):
+            try:
+                value = int(opt_value)
+                if value < 0:
+                    raise InvalidParameter("GINNET0040E")
+            except ValueError:
+                raise InvalidParameter("GINNET0040E")
+
+        def validate_ad_select(opt_value):
+            possible_values = ["stable", "bandwidth", "count", "0", "1", "2"]
+            validate_string(opt_value, possible_values)
+
+        def validate_arp_interval(opt_value):
+            validate_integer(opt_value)
+
+        def validate_arp_ip_target(opt_value):
+            if type(opt_value) is list:
+                if len(bond_opt_value) <= 16:
+                    for key in bond_opt_value:
+                        self.validate_ipv4_address(key)
+                else:
+                    wok_log.error("Up to 16 IP addresses can be given as "
+                                  "arp_ip_target")
+                    raise InvalidParameter("GINNET0040E")
+            else:
+                self.validate_ipv4_address(bond_opt_value)
+
+        def validate_arp_validate(opt_value):
+            possible_values = ["none", "active", "backup", "all", "filter",
+                               "filter_active", "filter_backup", "0", "1",
+                               "2", "3", "4", "5"]
+            validate_string(opt_value, possible_values)
+
+        def validate_downdelay(opt_value):
+            validate_integer(opt_value)
+
+        def validate_fail_over_mac(opt_value):
+            possible_values = ["none", "active", "follow", "0", "1", "2"]
+            validate_string(opt_value, possible_values)
+
+        def validate_lacp_rate(opt_value):
+            possible_values = ["slow", "fast", "0", "1"]
+            validate_string(opt_value, possible_values)
+
+        def validate_miimon(opt_value):
+            validate_integer(opt_value)
+
+        def validate_mode(opt_value):
+            possible_values = ["balance-rr", "active-backup", "balance-xo",
+                               "broadcast", "802.3ad", "balance-tlb",
+                               "balance-alb", "0", "1", "2", "3", "4", "5",
+                               "6"]
+            validate_string(opt_value, possible_values)
+
+        def validate_primary(opt_value):
+            self.validate_interface(opt_value)
+
+        def validate_primary_reselect(opt_value):
+            possible_values = ["always", "better", "failure", "0", "1", "2"]
+            validate_string(opt_value, possible_values)
+
+        def validate_resend_igmp(opt_value):
+            try:
+                value = int(bond_opt_value)
+                if value < 0 and value > 255:
+                    raise InvalidParameter("GINNET0040E")
+            except ValueError:
+                raise InvalidParameter("GINNET0040E")
+
+        def validate_updelay(opt_value):
+            validate_integer(opt_value)
+
+        def validate_use_carrier(opt_value):
+            possible_values = ["0", "1"]
+            validate_string(opt_value, possible_values)
+
+        def validate_xmit_hash_policy(opt_value):
+            possible_values = ["layer2", "layer2+3", "layer3+4", "encap2+3",
+                               "encap3+4"]
+            validate_string(opt_value, possible_values)
+
+        bond_validate = \
+            dict(ad_select=validate_ad_select,
+                 arp_interval=validate_arp_interval,
+                 arp_ip_target=validate_arp_ip_target,
+                 arp_validate=validate_arp_validate,
+                 downdelay=validate_downdelay,
+                 fail_over_mac=validate_fail_over_mac,
+                 lacp_rate=validate_lacp_rate, miimon=validate_miimon,
+                 mode=validate_mode, primary=validate_primary,
+                 primary_reselect=validate_primary_reselect,
+                 resend_igmp=validate_resend_igmp, updelay=validate_updelay,
+                 use_carrier=validate_use_carrier,
+                 xmit_hash_policy=validate_xmit_hash_policy)
+        for bond_opt_key in BONDING_OPTS_LIST:
+            bondopts = params[BASIC_INFO][BONDINFO][BONDING_OPTS]
+            if bond_opt_key in bondopts:
+                bond_opt_value = bondopts[bond_opt_key]
+                bond_validate[bond_opt_key](bond_opt_value)
+        return True
+
+    def create_slaves(self, name, params):
+        for slave in params[BASIC_INFO][BONDINFO][SLAVES]:
+            slave_info = {SLAVE: "yes", MASTER: name}
+            filename = ifcfg_filename_format % slave
+            ifcfgFile = os.sep + network_configpath + filename
+            fileexist = os.path.isfile(ifcfgFile)
+            if fileexist:
+                self.write(slave, slave_info)
+            else:
+                wok_log.error("Slave file is not exist for " + slave)
+                raise OperationFailed("GINNET0053E", {'slave': slave})

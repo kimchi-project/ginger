@@ -62,6 +62,17 @@ messages = {
     "GINNET0028E": _("Invalid ipv6 address '%(ip)s', "
                      "'%(error)s'."),
     "GINNET0029E": _("Missing ipv6 address information"),
+    "GINNET0030E": _("Name is missing"),
+    "GINNET0032E": _("Bond info is missing"),
+    "GINNET0033E": _("'yes' or 'no' is allowed value for the BONDING_MASTER"),
+    "GINNET0034E": _("Bonding master is missing"),
+    "GINNET0035E": _("Bonding options are missing"),
+    "GINNET0036E": _("Slave(s) is missing"),
+    "GINNET0037E": _("Minimum one slave has to be given for the bond "
+                     "interface"),
+    "GINNET0038E": _("Type is missing"),
+    "GINNET0040E": _("Invalid bonding option parameter"),
+    "GINNET0053E": _("Persistent file for slave '%(slave)s' is missing"),
 
     "GINUSER0001E": _("Specify name, password, group and profile for the new "
                       "user."),

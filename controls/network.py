@@ -27,7 +27,7 @@ class Network(Resource):
     def __init__(self, model):
         super(Network, self).__init__(model, None)
         self.role_key = "administration"
-        self.admin_methods = ['PUT']
+        self.admin_methods = ['PUT', 'POST']
         self.interfaces = Interfaces(model)
         self.cfginterfaces = Cfginterfaces(model)
         self.uri_fmt = '/network/%s'
