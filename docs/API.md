@@ -571,3 +571,46 @@ URI: /plugins/ginger/partitions/*:part_name*
     * pv_paths: List of PV paths to be added to the VG.
   * reduce: Reduce the volume group by removing PVs.
     * pv_paths: List of PV paths to be added to the VG.
+
+### Collection: Logical Volumes
+
+**URI:** /plugins/ginger/lvs
+
+**Methods:**
+
+* **GET**: Retrieve a summarized list of all logical volumes
+* **POST**: Create a logical volume
+   * vg_name : Name of the volume group required to create the logical volume
+   * size : Size of the logical volume
+
+### Resource: Logical Volume
+
+**URI:** /plugins/ginger/lvs/*:lvpath*
+
+**Methods:**
+
+* **GET**: Retrieve the full description of a Logical Volume
+
+   * lvName : Name of the logical volume.
+   * vgName : Name of the volume group.
+   * lvPath : Path of the logical volume.
+   * segments : Number of segments in LV.
+   * #open : open count of LV.
+   * blockDevice : Maj:Min number of the LV.
+   * lvStatus : State of the LV.
+   * lvCreationhost, time : Details of the host creating the LV, time stamp of creating LV.
+   * -currentlySetTo : Internal logical volume number.
+   * allocation : Allocation policy of the LV.
+   * lvUUID : UUID of the LV.
+   * currentLE : Current logical extents associated with the LV.
+   * lvWriteAccess : Logical volume access.
+   * lvSize : Size of the LV.
+   * readAheadSectors : Read ahead sectors of LV.
+
+  Additional fields if LV contains snapshot:
+	* lvSnapshotStatus : Status of the snapshot.
+	* COW-tableLE : logical extents associated with COW-table.
+	* COW-tableSize : Size of COW-table.
+	* snapshotChunkSize : Size of each unit of data in snapshot.
+
+* **DELETE**: Remove the Logical Volume.
