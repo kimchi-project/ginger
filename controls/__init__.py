@@ -22,16 +22,17 @@ from capabilities import Capabilities
 from dasddevs import DASDdevs
 from dasdpartitions import DASDPartitions
 from diskparts import Partitions
+from filesystems import FileSystems
 from firmware import Firmware
 from ibm_sep import Sep
+from log_volumes import LogicalVolumes
 from network import Network
+from physical_vol import PhysicalVolumes
 from powermanagement import PowerProfiles
 from sanadapters import SanAdapters
 from sensors import Sensors
 from users import Users
 from swaps import Swaps
-from filesystems import FileSystems
-from physical_vol import PhysicalVolumes
 from vol_group import VolumeGroups
 
 __all__ = [
@@ -40,6 +41,7 @@ __all__ = [
     DASDdevs,
     DASDPartitions,
     Firmware,
+    LogicalVolumes,
     Network,
     Partitions,
     PhysicalVolumes,

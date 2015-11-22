@@ -37,6 +37,7 @@ controls_PYTHON = \
 	swaps.py \
 	filesystems.py \
 	vol_group.py \
+	log_volumes.py \
 	$(NULL)
 
 controlsdir = $(pythondir)/wok/plugins/ginger/controls

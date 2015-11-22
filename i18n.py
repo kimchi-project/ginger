@@ -225,6 +225,17 @@ messages = {
     "GINVG00013E": _("Required vg_name parameter"),
     "GINVG00014E": _("Required pv_paths parameter"),
 
+    "GINLV00001E": _("Required vg_name parameter"),
+    "GINLV00002E": _("Required size parameter"),
+    "GINLV00003E": _("Failed to create LV"),
+    "GINLV00004E": _("Failed to list LVs"),
+    "GINLV00005E": _("Failed to fetch LV details"),
+    "GINLV00006E": _("Failed to delete LV"),
+    "GINLV00007E": _("lvcreate command failed"),
+    "GINLV00008E": _("lvs command failed"),
+    "GINLV00009E": _("lvdisplay command failed"),
+    "GINLV00010E": _("lvremove command failed"),
+
     "GINDASD0001E": _("Error in executing 'lsdasd -l' command"),
     "GINDASD0002E": _("Error in executing 'lsdasd -l bus_id' command"),
     "GINDASD0003E": _("Parsing lsdasd output failed"),

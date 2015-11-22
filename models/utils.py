@@ -491,3 +491,81 @@ def _reduce_vg(name, paths):
     if rc != 0:
         raise OperationFailed("GINVG00012E")
     return
+
+
+def _create_lv(vgname, size):
+    """
+    This method creates the logical volume
+    :param vgname: Name of the volume group
+    :param size: Size of the logival volume
+    :return:
+    """
+    cmd = ["lvcreate", vgname, "-L", size]
+    out, err, rc = run_command(cmd)
+    if rc != 0:
+        raise OperationFailed("GINLV00007E")
+    return
+
+
+def _get_lv_list():
+    """
+    This method fetches the list of existing logical volumes
+    :return:
+    """
+    cmd = ["lvs", "-o", "lv_path"]
+    out, err, rc = run_command(cmd)
+    if rc != 0:
+        raise OperationFailed("GINLV00008E")
+    return parse_pvlist_output(out)
+
+
+def _lvdisplay_out(path):
+    """
+    This method fetches the details of the logical volume
+    :param path: Path of the particular logical volume
+    :return:
+    """
+    cmd = ["lvdisplay", path]
+    out, err, rc = run_command(cmd)
+    if rc != 0:
+        raise OperationFailed("GINLV00009E")
+    return parse_lvdisplay_output(out)
+
+
+def parse_lvdisplay_output(lvout):
+    """
+    This method parses the output of lvdisplay
+    :param lvout: output of lvdisplay command
+    :return:
+    """
+    output = {}
+    p = re.compile("^\s{0,2}((\w+|\S)(\s|\S)\w*(\s\w+)?(\S*\s\w+)?)\s*(.+)?$")
+    parsed_out = lvout.splitlines()
+    for i in parsed_out[1:]:
+
+        m = p.match(i)
+        if not m:
+            q = re.match("^\s*(\w+\s.+)$", i)
+            if not q:
+                continue
+            else:
+                out1 = output['LV snapshot status']
+                output['LV snapshot status'] = out1 + " " + q.group(1)
+                continue
+
+        output[m.group(1)] = m.group(6)
+
+    return output
+
+
+def _remove_lv(name):
+    """
+    This method removes the logical volume
+    :param name: Path of the logical volume
+    :return:
+    """
+    cmd = ["lvremove", "-f", name]
+    out, err, rc = run_command(cmd)
+    if rc != 0:
+        raise OperationFailed("GINLV00010E")
+    return

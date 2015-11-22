@@ -27,6 +27,7 @@ from filesystem import FileSystemsModel, FileSystemModel
 from firmware import FirmwareModel
 from ibm_sep import SepModel, SubscribersModel, SubscriptionModel
 from interfaces import InterfacesModel, InterfaceModel
+from log_volume import LogicalVolumesModel, LogicalVolumeModel
 from network import NetworkModel
 from powermanagement import PowerProfilesModel, PowerProfileModel
 from physical_vol import PhysicalVolumesModel, PhysicalVolumeModel
@@ -64,6 +65,8 @@ class GingerModel(BaseModel):
         network = NetworkModel()
         filesystems = FileSystemsModel()
         filesystem = FileSystemModel()
+        log_volumes = LogicalVolumesModel(objstore=self._objstore)
+        log_volume = LogicalVolumeModel(objstore=self._objstore)
         partitions = PartitionsModel()
         partition = PartitionModel(objstore=self._objstore)
         archives = ArchivesModel(objstore=self._objstore)
@@ -86,7 +89,7 @@ class GingerModel(BaseModel):
         features = [firmware, swaps, backup, network, powerprofiles,
                     san_adapters, sensors, ibm_sep, users, filesystems,
                     dasddevs, dasdpartitions, partitions, physical_vols,
-                    vol_groups]
+                    vol_groups, log_volumes]
         capabilities = CapabilitiesModel(features)
 
         sub_models = [
@@ -98,6 +101,7 @@ class GingerModel(BaseModel):
             dasdpartitions, dasdpartition,
             network,
             filesystems, filesystem,
+            log_volumes, log_volume,
             partitions, partition,
             physical_vols, physical_vol,
             powerprofiles, powerprofile,
