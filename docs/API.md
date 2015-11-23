@@ -458,3 +458,38 @@ URI: /plugins/ginger/dasdpartitions/*:name*
         * available: false, if the partition is in use by system; true, otherwise.
 
 * **DELETE**: Delete the DASD Partition
+
+### Collection: Partitions
+
+URI: /plugins/ginger/partitions
+
+**Methods:**
+
+* **GET**: Retrieve a summarized list of all partitions and disks
+
+* **POST**: Create a partition
+     * devname : Path of the device to be partitioned.
+     * partsize : Size of the partition
+
+### Resource: Partition
+
+URI: /plugins/ginger/partitions/*:part_name*
+
+**Methods:**
+
+* **GET**: Retrieve the full description of the partition or disk
+
+     * name: Name of the partition or disk
+     * fstype: Type of the filesystem on the partition or disk
+     * path:  Path of the partition or disk
+     * mountpoint: Mount point of the partition or disk
+     * type : Type of the device. `part` for partition, `disk` for disk and `mpath` for multipath devices
+     * size : Size of the partition or disk
+
+* **DELETE**: Delete the partition
+
+**Actions (POST):**
+  * change_type: Change the type of the partition
+    * type: Hex value of the new type (e.g 82 for swap type)
+  * format: Format the partition with the specified filesystem type
+    * fstype: type of the filesystem (e.g ext3)
