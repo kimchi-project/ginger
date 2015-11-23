@@ -50,13 +50,21 @@ CLEANFILES = \
 	$(ginger_PYTHON:%.py=%.pyc) \
 	$(NULL)
 
+I18N_FILES = ./i18n.py \
+        $(NULL)
 
+# '4b825dc642cb6eb9a060e54bf8d69288fbee4904' is the hash of an empty
+# Git tree calculated by:
+# $ git hash-object -t tree /dev/null
 check-local:
+	contrib/check_i18n.py $(I18N_FILES)
 	find . -path './.git' -prune -type f -o \
 		-name '*.py' -o -name '*.py.in'  | xargs $(PYFLAKES) | \
 		while read LINE; do echo "$$LINE"; false; done
 	$(PEP8) --version
 	$(PEP8) --filename '*.py,*.py.in' $(PEP8_WHITELIST)
+	$(GIT) diff --check
+	$(GIT) diff-tree --check '4b825dc642cb6eb9a060e54bf8d69288fbee4904' HEAD
 
 #
 # Packaging helpers
