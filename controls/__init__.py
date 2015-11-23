@@ -21,6 +21,7 @@ from backup import Backup
 from capabilities import Capabilities
 from dasddevs import DASDdevs
 from dasdpartitions import DASDPartitions
+from diskparts import Partitions
 from firmware import Firmware
 from ibm_sep import Sep
 from network import Network
@@ -38,6 +39,7 @@ __all__ = [
     DASDPartitions,
     Firmware,
     Network,
+    Partitions,
     PowerProfiles,
     SanAdapters,
     Sensors,

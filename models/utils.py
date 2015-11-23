@@ -25,8 +25,8 @@ from parted import Disk as PDisk
 
 from wok.exception import OperationFailed
 from wok.utils import run_command, wok_log
-from wok.plugins.kimchi.disks import _get_dev_major_min
-from wok.plugins.kimchi.disks import _get_dev_node_path
+from wok.plugins.gingerbase.disks import _get_dev_major_min
+from wok.plugins.gingerbase.disks import _get_dev_node_path
 
 
 def _get_swapdev_list_parser(output):
@@ -186,3 +186,105 @@ def change_part_type(part, type_hex):
         raise OperationFailed("change type failed", err)
 
     return part
+
+
+def create_disk_part(dev, size):
+    """
+    This method creates a partition on the specified device
+    :param dev: path of the device for which partition is to be created
+    :param size: size of the partition (e.g 10M)
+    :return:
+    """
+    p_str = _form_part_str(size)
+    p1_out = subprocess.Popen(["echo", "-e", "\'", p_str, "\'"],
+                              stdout=subprocess.PIPE)
+    p2_out = subprocess.Popen(["fdisk", dev], stdin=p1_out.stdout,
+                              stderr=subprocess.PIPE, stdout=subprocess.PIPE)
+    p1_out.stdout.close()
+    out, err = p2_out.communicate()
+    if p2_out.returncode != 0:
+        raise OperationFailed("GINPART00011E", err)
+    part_path = get_dev_part(dev)
+    return part_path.split('/')[2]
+
+
+def _form_part_str(size):
+    """
+    Forms the string containing the size to be used in fdisk command
+    :param size:size of the partition
+    :return:
+    """
+    part_str = '\nn\np\n\n\n' + '+' + size + '\n' + 'w\n'
+    return part_str
+
+
+def get_dev_part(dev):
+    """
+    This method fetches the path of newly created partition
+    :param dev: path of the device which is partitioned
+    :return:
+    """
+    part_paths = []
+    device = PDevice(dev)
+    disk = PDisk(device)
+    parts = disk.partitions
+    for part in parts:
+        part_paths.append(part.path)
+    return part_paths[len(part_paths) - 1]
+
+
+def _is_mntd(partition_name):
+    """
+    Checks if the partition is already mounted
+    :param partition_name: name of the partition
+    :return:
+    """
+    mtd_out, err, rc = run_command(["grep", "-w",
+                                    "^/dev/" + partition_name +
+                                    "\s", "/proc/mounts"])
+    if rc != 0:
+        return False
+    else:
+        return True
+
+
+def _makefs(fstype, name):
+    """
+    Formats the partition with the specified file system type
+    :param fstype: type of filesystem (e.g ext3, ext4)
+    :param name: name of the partition to be formatted (e.g sdb1)
+    :return:
+    """
+    fs_out, err, rc = run_command(["mkfs", "-t", fstype, "-F", name])
+    if rc != 0:
+        raise OperationFailed("GINPART00012E", {'err': err})
+    return
+
+
+def delete_part(partname):
+    """
+    Deletes the specified partition
+    :param partname: name of the partition to be deleted
+    :return:
+    """
+    devname = ''.join(i for i in partname if not i.isdigit())
+    majmin = _get_dev_major_min(devname)
+    dev_path = _get_dev_node_path(majmin)
+    partnum = ''.join(filter(lambda x: x.isdigit(), partname))
+    device = PDevice(dev_path)
+    disk = PDisk(device)
+    parts = disk.partitions
+    if len(parts) == 1:
+        typ_str = '\nd\nw\n'
+    elif len(parts) > 1:
+        typ_str = '\nd\n' + partnum + '\n' + 'w\n'
+    else:
+        raise OperationFailed("GINPART00013E")
+    d1_out = subprocess.Popen(["echo", "-e", "\'", typ_str, "\'"],
+                              stdout=subprocess.PIPE)
+    d2_out = subprocess.Popen(["fdisk", dev_path], stdin=d1_out.stdout,
+                              stderr=subprocess.PIPE, stdout=subprocess.PIPE)
+    d1_out.stdout.close()
+    out, err = d2_out.communicate()
+    if d2_out.returncode != 0:
+        raise OperationFailed("GINPART00011E", err)
