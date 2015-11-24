@@ -175,5 +175,26 @@ messages = {
     "GINSP00014E": _("Unable to parse 'swapon -s' output. %(err)s"),
     "GINSP00015E": _("Unable to get single swap device info. %(err)s"),
     "GINSP00016E": _("Unable to activate swap device. %(err)s"),
-    "GINSP00017E": _("No partitions found for disk . %(disk)s")
+    "GINSP00017E": _("No partitions found for disk . %(disk)s"),
+
+    "GINDASD0001E": _("Error in executing 'lsdasd -l' command"),
+    "GINDASD0002E": _("Error in executing 'lsdasd -l bus_id' command"),
+    "GINDASD0003E": _("Parsing lsdasd output failed"),
+    "GINDASD0004E": _("Formatting of DASD device failed"),
+    "GINDASD0005E": _("Failed to retrieve list of DASD devices"),
+    "GINDASD0006E": _("Failed to retrieve details of the specified DASD device"),
+    "GINDASD0007E": _("Failed to find specified DASD device"),
+    "GINDASD0008E": _("Failed to format DASD device"),
+    "GINDASD0009E": _("Require DASD device name to be formatted"),
+    "GINDASD0010E": _("Require block size for formatting DASD device"),
+
+    "GINDASDPAR0001E": _("Error in executing 'lsblk -Pbo' command"),
+    "GINDASDPAR0002E": _("Error while getting block device information"),
+    "GINDASDPAR0005E": _("Require name to create DASD device partition"),
+    "GINDASDPAR0006E": _("Require partition size to create DASD device partition"),
+    "GINDASDPAR0007E": _("Failed to create partition"),
+    "GINDASDPAR0008E": _("Failed to retrieve list of DASD partitions"),
+    "GINDASDPAR0009E": _("Failed to retrieve details of the specified DASD partition"),
+    "GINDASDPAR0010E": _("Failed to delete partition")
+
 }

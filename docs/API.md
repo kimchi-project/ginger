@@ -383,3 +383,72 @@ URI: /plugins/ginger/filesystems/*:mount_point*
    *priority : Priority of the Swap Device
 
 * **DELETE**: Remove the Swap Device
+
+### Collection: DASD Devices
+
+URI: /plugins/ginger/dasddevs
+
+**Methods:**
+
+* **GET**: Retrieve a detailed list of all DASD devices
+
+* **POST**: Format a DASD device
+        * blk_size: Block size to be used for formatting a DASD device.
+
+### Resource: DASD Device
+
+URI: /plugins/ginger/dasddevs/*:bus_id*
+
+**Methods:**
+
+* **GET**: Retrieve the description of a single DASD device
+
+        * status: Status of the DASD device:
+        * active: dasd device is in active state
+        * n/f: dasd device is in unformatted state
+        * blocks: Number of blocks.
+        * name:  Name of DASD device.
+        * uid: uid of DASD device.
+        * type: Device type.
+        * eer_enabled: Indicates whether the DASD is enabled for extended error reporting
+                        ('1' if enabled and '0' if it is not enabled).
+        * erplog: Indicates whether error recovery processing (ERP) logging is enabled
+                        ('1' if enabled and '0' if it is not enabled).
+        * use_diag: Indicates whether the DIAG access method is enabled
+                        ('1' if enabled and '0' if it is not enabled).
+        * readonly: '1' if the DASD is read-only, '0' if it can be written to.
+        * device: '1' if the DASD is read-only, '0' if it can be written to.
+        * blksz: Block size used for formatting DASD device.
+        * bus_id: Bus id of the DASD device.
+        * size: Size of DASD device in MB.
+
+### Collection: DASD Partitions
+
+URI: /plugins/ginger/dasdpartitions
+
+**Methods:**
+
+* **GET**: Retrieve a detailed list of all DASD Partitions of the host
+
+* **POST**: Create a DASD Partition
+        * dev_name: Name of DASD device.
+        * size: Size of the partition to be created.
+
+### Resource: DASD Partition
+
+URI: /plugins/ginger/dasdpartitions/*:name*
+
+**Methods:**
+
+* **GET**: Retrieve the description of a single DASD Partition
+
+        * name: Name of the dasd partition.
+        * fstype: The file system type of the partition.
+    * path: Path of the partition.
+        * mountpoint: If the partition is mounted, represents the mountpoint.
+      Otherwise blank.
+        * type: The type of the partition.
+        * size:  Total size of the partition, in bytes.
+        * available: false, if the partition is in use by system; true, otherwise.
+
+* **DELETE**: Delete the DASD Partition
