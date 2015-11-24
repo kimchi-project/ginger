@@ -175,7 +175,5 @@ messages = {
     "GINSP00014E": _("Unable to parse 'swapon -s' output. %(err)s"),
     "GINSP00015E": _("Unable to get single swap device info. %(err)s"),
     "GINSP00016E": _("Unable to activate swap device. %(err)s"),
-    "GINSP00017E": _("No partitions found for disk . %(disk)s"),
-    "GINSP00018E": _("Unable to change the partition type.")
-
+    "GINSP00017E": _("No partitions found for disk . %(disk)s")
 }
