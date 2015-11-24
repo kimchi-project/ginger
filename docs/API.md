@@ -322,6 +322,12 @@ URI: /plugins/ginger/filesystems/*:mount_point*
                 * xmit_hash_policy *(OPTIONAL)*: value
                     Possible values are: layer2, layer2+3, layer3+4,
                     encap2+3, encap3+4
+        * VLAN_INFO *(OPTIONAL)*: Dictionary containing the vlan information
+         of interface to be created
+            * PHYSDEV *: A previously configured interface can be selected.
+            * VLAN *: 'yes'
+            * VLANID *: The identification number to be used to tag the VLAN
+             network traffic.
         * TYPE *: Type of an interface
                 Example: Ethernet, Bond, Vlan
 

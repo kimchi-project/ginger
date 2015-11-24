@@ -25,8 +25,11 @@ import os
 import platform
 
 from netaddr import IPAddress
+
+import netinfo
+
 from wok.exception import InvalidParameter, MissingParameter, OperationFailed
-from wok.utils import wok_log
+from wok.utils import run_command, wok_log
 
 parser = augeas.Augeas("/")
 
@@ -69,8 +72,9 @@ ARCH_S390 = 's390x'
 VLANINFO = 'VLANINFO'
 REORDER_HDR = 'REORDER_HDR'
 VLAN = 'VLAN'
-VLANID = 'VLAN_ID'
+VLANID = 'VLANID'
 PHYSDEV = 'PHYSDEV'
+FAIL_OVER_MAC = '/sys/class/net/%s/bonding/fail_over_mac'
 
 # Bond parameters
 BONDING_OPTS = 'BONDING_OPTS'
@@ -136,14 +140,35 @@ class CfginterfacesModel(object):
     def create(self, params):
         self.validate_minimal_info(params)
         if params[BASIC_INFO][TYPE] == IFACE_BOND:
-            if params[BASIC_INFO][DEVICE]:
-                name = params[BASIC_INFO][DEVICE]
-                params[BASIC_INFO][NAME] = name
-                CfginterfaceModel().update(name, params)
-                return name
-            else:
-                wok_log.error("Device info is missing")
-                raise MissingParameter("GINNET0025E")
+            return self.create_bond(params)
+        elif params[BASIC_INFO][TYPE] == IFACE_VLAN:
+            return self.create_vlan(params)
+        else:
+            wok_log.error("Type is unkown")
+            raise InvalidParameter("GINNET0052E")
+
+    def create_bond(self, params):
+        if DEVICE in params[BASIC_INFO]:
+            name = params[BASIC_INFO][DEVICE]
+            params[BASIC_INFO][NAME] = name
+            CfginterfaceModel().update(name, params)
+            return name
+        else:
+            wok_log.error("Device info is missing")
+            raise MissingParameter("GINNET0025E")
+
+    def create_vlan(self, params):
+        self.validate_info_for_vlan(params)
+        self.validate_vlan_driver()
+        vlanid = str(params[BASIC_INFO][VLANINFO][VLANID])
+        name = "vlan" + vlanid.zfill(4)
+        params[BASIC_INFO][NAME] = name
+        params[BASIC_INFO][DEVICE] = name
+        parent_iface = params[BASIC_INFO][VLANINFO][PHYSDEV]
+        if netinfo.get_interface_type(parent_iface) == "bonding":
+            self.validate_bond_for_vlan(parent_iface)
+        CfginterfaceModel().update(name, params)
+        return name
 
     def validate_minimal_info(self, params):
         if BASIC_INFO not in params:
@@ -152,6 +177,74 @@ class CfginterfacesModel(object):
         if TYPE not in params[BASIC_INFO]:
             wok_log.error("Type info is missing")
             raise MissingParameter("GINNET0038E")
+
+    def validate_info_for_vlan(self, params):
+        if VLANINFO not in params[BASIC_INFO]:
+            wok_log.error("Vlan info is missing")
+            raise MissingParameter("GINNET0042E")
+        if PHYSDEV not in params[BASIC_INFO][VLANINFO]:
+            wok_log.error("Phydev is missing")
+            raise MissingParameter("GINNET0045E")
+        if VLANID not in params[BASIC_INFO][VLANINFO]:
+            wok_log.error("Vlan id is missing")
+            raise MissingParameter("GINNET0044E")
+        vlanid = params[BASIC_INFO][VLANINFO][VLANID]
+        if int(vlanid.zfill(4)) > 4096:
+            wok_log.error("VLAN id exceeds the ranges from '0' to '4096'")
+            raise InvalidParameter("GINNET0050E")
+
+    def validate_vlan_driver(self):
+        cmd = ['modprobe', '8021q']
+        out, error, returncode = run_command(cmd)
+        if returncode != 0:
+            wok_log.error('Module 802q is not loaded into kernel')
+            raise OperationFailed('GINNET0048E')
+        wok_log.info('Module 802q has already loaded into kernel')
+
+    def validate_bond_for_vlan(self, parent_iface):
+        """
+        method to validate in the case of VLANs over bonds, it is important
+        that the bond has slaves and that they are up, and vlan can not be
+        configured over bond with the fail_over_mac=follow option.
+        :param parent_iface:
+        """
+        if parent_iface in ethtool.get_devices():
+            try:
+                with open(FAIL_OVER_MAC % parent_iface) as dev_file:
+                    fail_over_mac = dev_file.readline().strip()
+            except IOError:
+                fail_over_mac = "n/a"
+            if fail_over_mac == "follow 2":
+                raise OperationFailed("GINNET0046E")
+        else:
+            """TODO: Need an investigation on, if parent of type bond is not
+            active whether we can still create vlan interface or not. If
+            'yes', then can include code to validate the fail_over_mac in
+            ifcfg persistant file"""
+            wok_log.error("Parent interface of type 'Bond' is not active")
+            raise OperationFailed("GINNET0051E")
+        cfgdata = CfginterfaceModel().get_cfginterface_info(parent_iface)
+        self.validate_dict_bond_for_vlan(cfgdata)
+        slave_list = cfgdata[BASIC_INFO][BONDINFO][SLAVES]
+        if len(slave_list) != 0:
+            for slave in slave_list:
+                if netinfo.operstate(slave) != "up":
+                    raise OperationFailed("GINNET0047E")
+        else:
+            wok_log.error("Minimum one slave has to be given for the bond")
+            raise OperationFailed("GINNET0037E")
+        return
+
+    def validate_dict_bond_for_vlan(self, cfgdata):
+        if BASIC_INFO not in cfgdata:
+            wok_log.error('Basic info is missing for the bond')
+            raise MissingParameter("GINNET0024E")
+        if BONDINFO not in cfgdata[BASIC_INFO]:
+            wok_log.error('Bond info is missing for the bond')
+            raise MissingParameter("GINNET0032E")
+        if SLAVES not in cfgdata[BASIC_INFO][BONDINFO]:
+            wok_log.error('Slave info is missing')
+            raise MissingParameter("GINNET0036E")
 
 
 class CfginterfaceModel(object):
@@ -507,6 +600,9 @@ class CfginterfaceModel(object):
         if TYPE in params[BASIC_INFO] \
                 and params[BASIC_INFO][TYPE] == IFACE_BOND:
             cfgmap.update(self.validate_and_get_bond_info(params))
+        if TYPE in params[BASIC_INFO] \
+                and params[BASIC_INFO][TYPE] == IFACE_VLAN:
+            cfgmap.update(self.validate_and_get_vlan_info(params))
         return cfgmap
 
     def update_ipv4_bootproto(self, cfgmap, params):
@@ -777,10 +873,7 @@ class CfginterfaceModel(object):
             wok_log.error("Missing parameter: BONDING_MASTER")
             raise MissingParameter("GINNET0034E")
 
-        if BONDING_OPTS not in params[BASIC_INFO][BONDINFO]:
-            wok_log.error("Missing parameter: BONDING OPTIONS")
-            raise MissingParameter("GINNET0035E")
-        else:
+        if BONDING_OPTS in params[BASIC_INFO][BONDINFO]:
             bond_opt_value = ""
             bondopts = bondinfo[BONDING_OPTS]
             if self.validate_bond_opts(bondopts, params):
@@ -929,3 +1022,37 @@ class CfginterfaceModel(object):
             else:
                 wok_log.error("Slave file is not exist for " + slave)
                 raise OperationFailed("GINNET0053E", {'slave': slave})
+
+    def validate_and_get_vlan_info(self, params):
+        vlan_info = {}
+        wok_log.info('Validating vlan info given for interface')
+        if DEVICE not in params[BASIC_INFO]:
+            wok_log.error("Missing parameter: DEVICE")
+            raise MissingParameter("GINNET0031E")
+        if VLANINFO not in params[BASIC_INFO]:
+            wok_log.error("Missing parameter: VLANINFO")
+            raise MissingParameter("GINNET0042E")
+        if VLAN in params[BASIC_INFO][VLANINFO]:
+            if not params[BASIC_INFO][VLANINFO][VLAN] == "yes":
+                wok_log.error("'yes' or 'no' is allowed value for the VLAN")
+                raise MissingParameter("GINNET0041E")
+            else:
+                vlan_info[VLAN] = params[BASIC_INFO][VLANINFO][VLAN]
+        else:
+            wok_log.error("Missing parameter: VLAN")
+            raise MissingParameter("GINNET0043E")
+
+        if VLANID not in params[BASIC_INFO][VLANINFO]:
+            wok_log.error("Missing parameter(s): VLANID")
+            raise MissingParameter("GINNET0044E")
+        else:
+            vlan_info[VLANID] = params[BASIC_INFO][VLANINFO][VLANID]
+
+        if PHYSDEV not in params[BASIC_INFO][VLANINFO]:
+            wok_log.error("Missing parameter(s): PHYSDEV")
+            raise MissingParameter("GINNET0045E")
+        else:
+            vlan_info[PHYSDEV] = params[BASIC_INFO][VLANINFO][PHYSDEV]
+        vlan_info[TYPE] = params[BASIC_INFO][TYPE]
+
+        return vlan_info

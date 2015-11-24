@@ -65,12 +65,22 @@ messages = {
     "GINNET0032E": _("Bond info is missing"),
     "GINNET0033E": _("'yes' or 'no' is allowed value for the BONDING_MASTER"),
     "GINNET0034E": _("Bonding master is missing"),
-    "GINNET0035E": _("Bonding options are missing"),
     "GINNET0036E": _("Slave(s) is missing"),
     "GINNET0037E": _("Minimum one slave has to be given for the bond "
                      "interface"),
     "GINNET0038E": _("Type is missing"),
     "GINNET0040E": _("Invalid bonding option parameter"),
+    "GINNET0041E": _("'yes' or 'no' is allowed value for the VLAN"),
+    "GINNET0042E": _("Vlan info is missing"),
+    "GINNET0043E": _("Vlan is missing"),
+    "GINNET0044E": _("Vlan id is missing"),
+    "GINNET0045E": _("Physical device name is missing"),
+    "GINNET0046E": _("A VLAN slave cannot be configured on a bond with the fail_over_mac=follow option"),
+    "GINNET0047E": _("For vlan creation over bond, slaves has to be up"),
+    "GINNET0048E": _("Module 802q is not loaded into kernel"),
+    "GINNET0050E": _("VLAN id exceeds the ranges from '0' to '4096'"),
+    "GINNET0051E": _("Parent interface of type 'Bond' is not active"),
+    "GINNET0052E": _("Type is unknown"),
     "GINNET0053E": _("Persistent file for slave '%(slave)s' is missing"),
 
     "GINUSER0001E": _("Specify name, password, group and profile for the new "
