@@ -62,7 +62,6 @@ messages = {
     "GINNET0028E": _("Invalid ipv6 address '%(ip)s', "
                      "'%(error)s'."),
     "GINNET0029E": _("Missing ipv6 address information"),
-    "GINNET0030E": _("Name is missing"),
     "GINNET0032E": _("Bond info is missing"),
     "GINNET0033E": _("'yes' or 'no' is allowed value for the BONDING_MASTER"),
     "GINNET0034E": _("Bonding master is missing"),
