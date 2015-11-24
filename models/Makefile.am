@@ -22,6 +22,9 @@ models_PYTHON = \
 	backup.py \
 	capabilities.py \
 	cfginterfaces.py \
+    dasddevs.py \
+    dasdpartitions.py \
+    dasd_utils.py \
 	firmware.py \
 	ibm_sep.py \
 	interfaces.py \

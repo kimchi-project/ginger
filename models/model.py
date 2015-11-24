@@ -20,6 +20,8 @@
 from backup import ArchiveModel, ArchivesModel, BackupModel
 from capabilities import CapabilitiesModel
 from cfginterfaces import CfginterfaceModel, CfginterfacesModel
+from dasddevs import DASDdevsModel, DASDdevModel
+from dasdpartitions import DASDPartitionsModel, DASDPartitionModel
 from filesystem import FileSystemsModel, FileSystemModel
 from firmware import FirmwareModel
 from ibm_sep import SepModel, SubscribersModel, SubscriptionModel
@@ -52,6 +54,10 @@ class GingerModel(BaseModel):
         interface = InterfaceModel()
         cfginterface = CfginterfaceModel()
         cfginterfaces = CfginterfacesModel()
+        dasddevs = DASDdevsModel()
+        dasddev = DASDdevModel(objstore=self._objstore)
+        dasdpartitions = DASDPartitionsModel()
+        dasdpartition = DASDPartitionModel()
         network = NetworkModel()
         filesystems = FileSystemsModel()
         filesystem = FileSystemModel()
@@ -69,7 +75,8 @@ class GingerModel(BaseModel):
         subscriber = SubscribersModel()
 
         features = [firmware, swaps, backup, network, powerprofiles,
-                    san_adapters, sensors, ibm_sep, users, filesystems]
+                    san_adapters, sensors, ibm_sep, users, filesystems,
+                    dasddevs, dasdpartitions]
         capabilities = CapabilitiesModel(features)
 
         sub_models = [
@@ -77,6 +84,8 @@ class GingerModel(BaseModel):
             firmware,
             interfaces, interface,
             cfginterface, cfginterfaces,
+            dasddevs, dasddev,
+            dasdpartitions, dasdpartition,
             network,
             filesystems, filesystem,
             powerprofiles, powerprofile,
