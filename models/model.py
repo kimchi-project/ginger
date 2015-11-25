@@ -17,6 +17,8 @@
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 
+import inspect
+
 from backup import ArchiveModel, ArchivesModel, BackupModel
 from capabilities import CapabilitiesModel
 from cfginterfaces import CfginterfaceModel, CfginterfacesModel
@@ -40,11 +42,23 @@ from vol_group import VolumeGroupsModel, VolumeGroupModel
 from wok import config
 from wok.basemodel import BaseModel
 from wok.objectstore import ObjectStore
+from wok.utils import import_module
 
 
 class GingerModel(BaseModel):
 
     def __init__(self):
+        def get_instances(module_name):
+            instances = []
+            module = import_module(module_name)
+            members = inspect.getmembers(module, inspect.isclass)
+            for cls_name, instance in members:
+                if inspect.getmodule(instance) == module and \
+                   cls_name.endswith('Model'):
+                    instances.append(instance)
+
+            return instances
+
         objstore_loc = config.get_object_store() + '_ginger'
         self._objstore = ObjectStore(objstore_loc)
 
@@ -112,4 +126,14 @@ class GingerModel(BaseModel):
             vol_groups, vol_group,
             ibm_sep, subscription, subscriber,
             capabilities]
+
+        # Import task model from Wok
+        kargs = {'objstore': self._objstore}
+        task_model_instances = []
+        instances = get_instances('wok.model.tasks')
+        for instance in instances:
+            task_model_instances.append(instance(**kargs))
+
+        sub_models += task_model_instances
+
         super(GingerModel, self).__init__(sub_models)

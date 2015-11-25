@@ -25,13 +25,20 @@ from controls import FileSystems, LogicalVolumes, Network, Partitions
 from controls import PhysicalVolumes, PowerProfiles, SanAdapters, Sensors, Sep
 from controls import Swaps, Users, VolumeGroups
 from i18n import messages
+
+from wok import config
 from wok.config import PluginPaths
+from wok.control.tasks import Tasks
 from wok.root import WokRoot
 from models import GingerModel
 
 
 class Ginger(WokRoot):
     def __init__(self, wok_options=None):
+        objstore_dir = os.path.dirname(os.path.abspath(config.get_object_store()))
+        if not os.path.isdir(objstore_dir):
+            os.makedirs(objstore_dir)
+
         self.model = GingerModel()
         super(Ginger, self).__init__(self.model)
         self.backup = Backup(self.model)
@@ -56,3 +63,4 @@ class Ginger(WokRoot):
         self.san_adapters = SanAdapters(self.model)
         self.ibm_sep = Sep(self.model)
         self.vgs = VolumeGroups(self.model)
+        self.tasks = Tasks(self.model)
