@@ -647,3 +647,11 @@ URI: /plugins/ginger/partitions/*:part_name*
 	* snapshotChunkSize : Size of each unit of data in snapshot.
 
 * **DELETE**: Remove the Logical Volume.
+
+### SimpleCollection: List of storage devices
+
+**URI:** /plugins/ginger/stgdevs
+
+**Methods:**
+
+* **GET**: Retrieve a summarized list of all storage devices
