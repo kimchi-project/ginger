@@ -42,7 +42,8 @@ messages = {
     "GINNET0013E": _("Interface %(name)s is not editable because it belongs "
                      "to a vlan or bridge"),
     "GINNET0014E": _("%(name)s is not valid network interface"),
-    "GINNET0015E": _("Error getting information from ifcfg file: '%(error)s'."),
+    "GINNET0015E": _("Error getting information from ifcfg file: "
+                     "'%(error)s'."),
     "GINNET0016E": _("Unable to activate the interface on '%(name)s', "
                      "'%(error)s'."),
     "GINNET0017E": _("Unable to deactivate the interface on '%(name)s', "
@@ -75,13 +76,22 @@ messages = {
     "GINNET0043E": _("Vlan is missing"),
     "GINNET0044E": _("Vlan id is missing"),
     "GINNET0045E": _("Physical device name is missing"),
-    "GINNET0046E": _("A VLAN slave cannot be configured on a bond with the fail_over_mac=follow option"),
+    "GINNET0046E": _("A VLAN slave cannot be configured on a bond with the "
+                     "fail_over_mac=follow option"),
     "GINNET0047E": _("For vlan creation over bond, slaves has to be up"),
     "GINNET0048E": _("Module 802q is not loaded into kernel"),
+    "GINNET0049E": _("Failed to delete ifcfg file, Error: '%(error)s'"),
     "GINNET0050E": _("VLAN id exceeds the ranges from '0' to '4096'"),
     "GINNET0051E": _("Parent interface of type 'Bond' is not active"),
     "GINNET0052E": _("Type is unknown"),
     "GINNET0053E": _("Persistent file for slave '%(slave)s' is missing"),
+    "GINNET0055E": _("Interface '%(name)s' is neither Vlan nor "
+                     "Bond to perform delete operation"),
+    "GINNET0056E": _("Failed to identify the type of interface"),
+    "GINNET0057E": _("Persistent file is not available for an interface, "
+                     "'%(name)s'"),
+    "GINNET0058E": _("Failed to a delete token from ifcfg file, Error: "
+                     "'%(error)s'"),
 
     "GINUSER0001E": _("Specify name, password, group and profile for the new "
                       "user."),

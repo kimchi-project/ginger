@@ -28,6 +28,7 @@ from netaddr import IPAddress
 
 import netinfo
 
+from interfaces import InterfaceModel
 from wok.exception import InvalidParameter, MissingParameter, OperationFailed
 from wok.utils import run_command, wok_log
 
@@ -255,6 +256,78 @@ class CfginterfaceModel(object):
         # self.validate_interface(name)
         info = self.get_cfginterface_info(name)
         return info
+
+    def delete(self, name):
+        self.deactivate_if_itis_active(name)
+        iface_type = self.get_type_from_cfg(name)
+        if iface_type == "Bond":
+            self.remove_bond_persistent(name)
+        elif iface_type == "Vlan":
+            self.remove_vlan_persistent(name)
+        elif iface_type == "n/a":
+            raise OperationFailed("GINNET0057E", {'name': name})
+        else:
+            wok_log.error("Interface is neither Vlan nor Bond to perform "
+                          "delete operation")
+            raise OperationFailed("GINNET0055E", {'name': name})
+
+    def deactivate_if_itis_active(self, name):
+        type = netinfo.get_interface_type(name)
+        allowed_active_types = ["bonding", "vlan"]
+        if type in allowed_active_types:
+            InterfaceModel().deactivate(name)
+
+    def get_type_from_cfg(self, name):
+        params = self.read_ifcfg_file(name)
+        if params:
+            if TYPE in params and params[TYPE] is not None:
+                return params[TYPE]
+            else:
+                wok_log.error("Failed to identify the type of interface")
+                raise OperationFailed("GINNET0056E")
+        else:
+            return "n/a"
+
+    def get_iface_cfg_fullpath(self, name):
+        filename = ifcfg_filename_format % name
+        ifcfg_file = network_configpath + filename
+        return ifcfg_file
+
+    def remove_vlan_persistent(self, name):
+        p_file = self.get_iface_cfg_fullpath(name)
+        self.delete_persist_file(os.sep + p_file)
+
+    def remove_bond_persistent(self, interface_name):
+        params = self.read_ifcfg_file(interface_name)
+        if params:
+            slave_list = self.get_slaves(params)
+            for each_slave in slave_list:
+                wok_log.info("Removing slave information from slave " +
+                             each_slave)
+                # TODO restart an interface or leave it as it is based on
+                # investigation
+                token_to_del = ["MASTER", "SLAVE"]
+                for each_token in token_to_del:
+                    self.delete_token_from_cfg(each_slave, each_token)
+        p_file = self.get_iface_cfg_fullpath(interface_name)
+        self.delete_persist_file(os.sep + p_file)
+
+    def delete_token_from_cfg(self, name, token):
+        filename = self.get_iface_cfg_fullpath(name)
+        try:
+            parser.remove(filename + os.sep + token)
+            parser.save()
+        except Exception, e:
+            wok_log.error("Augeas parser throw run time exception ", e)
+            raise OperationFailed("GINNET0058E", {'error': e})
+
+    def delete_persist_file(self, ifcfg_file):
+        wok_log.info('Deleting persist file ' + ifcfg_file)
+        try:
+            os.remove(ifcfg_file)
+        except OSError, e:
+            wok_log.error("Failed to delete persistent fail ", e)
+            raise OperationFailed("GINNET0049E", {'error': e})
 
     def validate_interface(self, name):
         if name not in ethtool.get_devices():

@@ -395,6 +395,8 @@ URI: /plugins/ginger/filesystems/*:mount_point*
         * IPV6_PEERROUTES *(optional)*: 'yes' use PEERROUTES
         * IPV6_DEFAULTGW *(optional)*: Gateway assigned to the ipv6 address
 
+* **DELETE**: Delete an interface of types bond and vlan
+
 ### Collection: Swap devices**
 
 **URI:** /plugins/ginger/swaps
