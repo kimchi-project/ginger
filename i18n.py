@@ -254,6 +254,11 @@ messages = {
     "GINDASDPAR0007E": _("Failed to create partition"),
     "GINDASDPAR0008E": _("Failed to retrieve list of DASD partitions"),
     "GINDASDPAR0009E": _("Failed to retrieve details of the specified DASD partition"),
-    "GINDASDPAR0010E": _("Failed to delete partition")
+    "GINDASDPAR0010E": _("Failed to delete partition"),
 
+    "GINSD00001E": _("Error executing 'ls -l /dev/disk/by-id, %(err)s"),
+    "GINSD00002E": _("Error executing 'lsblk -Po, %(err)s"),
+    "GINSD00003E": _("Error parsing 'ls -l /dev/disk/by-id', %(err)s"),
+    "GINSD00004E": _("Error parsing 'lsblk -Po', %(err)s"),
+    "GINSD00005E": _("Error getting list of storage devices")
 }

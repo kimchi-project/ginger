@@ -31,6 +31,7 @@ from physical_vol import PhysicalVolumes
 from powermanagement import PowerProfiles
 from sanadapters import SanAdapters
 from sensors import Sensors
+from storage_devs import StorageDevs
 from users import Users
 from swaps import Swaps
 from vol_group import VolumeGroups
@@ -49,6 +50,7 @@ __all__ = [
     SanAdapters,
     Sensors,
     Sep,
+    StorageDevs,
     Users,
     Swaps,
     FileSystems,

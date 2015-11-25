@@ -17,7 +17,7 @@
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 
-import os.path
+import os
 import re
 import subprocess
 
@@ -43,7 +43,7 @@ def _get_swapdev_list_parser(output):
         for swapdev in output[1:]:
             dev_name = swapdev.split()[0]
             output_list.append(dev_name)
-    except Exception, e:
+    except Exception as e:
         wok_log.error("Error parsing /proc/swaps file.")
         raise OperationFailed("GINSP00010E", {'err', e.message})
 
@@ -66,7 +66,7 @@ def _create_file(size, file_loc):
 
     # So that only root can see the content of the swap
     os.chown(file_loc, 0, 0)
-    os.chmod(file_loc, 0600)
+    os.chmod(file_loc, 0o600)
 
     return
 
@@ -112,7 +112,7 @@ def _parse_swapon_output(output):
         output_dict['size'] = output_list[2]
         output_dict['used'] = output_list[3]
         output_dict['priority'] = output_list[4]
-    except Exception, e:
+    except Exception as e:
         wok_log.error("Unable to parse 'swapon -s' output")
         raise OperationFailed("GINSP00014E", {'err': e.message})
 
@@ -569,3 +569,166 @@ def _remove_lv(name):
     if rc != 0:
         raise OperationFailed("GINLV00010E")
     return
+
+
+def get_disks_by_id_out():
+    """
+    Execute 'ls -l /dev/disk/by-id'
+    :return: Output of 'ls -l /dev/disk/by-id'
+    """
+    cmd = ['ls', '-l', '/dev/disk/by-id']
+    out, err, rc = run_command(cmd)
+    if rc != 0:
+        wok_log.error("Error executing 'ls -l /dev/disk/by-id.")
+        raise OperationFailed("GINSD000001", {'err': err})
+    return out
+
+
+def get_lsblk_keypair_out(transport=True):
+    """
+    Get the output of lsblk'
+    :param transport: True or False for getting transport information
+    :return: output of 'lsblk -Po <columns>'
+
+    """
+    if transport:
+        cmd = ['lsblk', '-Po', 'NAME,TRAN,TYPE,SIZE']
+    else:
+        # Some distributions don't ship 'lsblk' with transport
+        # support.
+        cmd = ['lsblk', '-Po', 'NAME,TYPE,SIZE']
+
+    out, err, rc = run_command(cmd)
+    if rc != 0:
+        wok_log.error("Error executing 'lsblk -Po")
+        raise OperationFailed("GINSD000002", {'err': err})
+    return out
+
+
+def parse_ll_out(ll_out):
+    """
+    Parse the output of 'ls -l /dev/disk/by-id' command
+    :param ll_out: output of 'ls -l /dev/disk/by-id'
+    :return: tuple containing dictionaries. First dictionary
+            contains devices as keys and the second dictionary
+            contains device ids as keys
+    """
+
+    return_dict = {}
+    return_id_dict = {}
+
+    try:
+        out = ll_out.splitlines()
+        for line in out[1:]:
+            ls_columns = line.split()
+            disk_id = ls_columns[-3]
+
+            if disk_id.startswith(
+                    'ccw-') and not re.search('ccw-.+\w{4}\.\w{2}$', disk_id):
+                continue
+
+            if disk_id.startswith('wwn-'):
+                continue
+
+            if disk_id.startswith('dm-uuid-mpath'):
+                continue
+
+            disk_name = ls_columns[-1]
+            name = disk_name.split("/")[-1]
+
+            disk_id_split = disk_id.split('-')
+            skip_list = ['ccw', 'usb', 'ata']
+            disk_type = disk_id_split[0]
+
+            if disk_type not in skip_list:
+                disk_id = disk_id_split[-1]
+
+            return_dict[name] = disk_id
+
+            if disk_id in return_id_dict:
+                return_id_dict[disk_id].append(name)
+            else:
+                return_id_dict[disk_id] = [name]
+    except Exception as e:
+        wok_log.error("Error parsing 'ls -l /dev/disk/by-id'")
+        raise OperationFailed("GINSD000003", {'err': e.message})
+
+    return return_dict, return_id_dict
+
+
+def parse_lsblk_out(lsblk_out):
+    """
+    Parse the output of 'lsblk -Po'
+    :param lsblk_out: output of 'lsblk -Po'
+    :return: Dictionary containing information about
+            disks on the system
+    """
+    try:
+        out_list = lsblk_out.splitlines()
+
+        return_dict = {}
+
+        for disk in out_list:
+            disk_info = {}
+            disk_attrs = disk.split()
+
+            type = disk_attrs[2]
+            if not type == 'TYPE="disk"':
+                continue
+
+            disk_info['transport'] = disk_attrs[1].split("=")[1][1:-1]
+            disk_info['size'] = disk_attrs[3].split("=")[1][1:-1]
+            return_dict[disk_attrs[0].split("=")[1][1:-1]] = disk_info
+
+    except Exception as e:
+        wok_log.error("Error parsing 'lsblk -Po")
+        raise OperationFailed("GINSD000004", {'err': e.message})
+
+    return return_dict
+
+
+def get_final_list():
+    """
+    Comprehensive list of storage devices found on the system
+    :return:List of dictionaries containing the information about
+            individual disk
+    """
+    try:
+        out = get_lsblk_keypair_out(True)
+    except OperationFailed:
+        out = get_lsblk_keypair_out(False)
+
+    final_list = []
+
+    try:
+        blk_dict = parse_lsblk_out(out)
+
+        out = get_disks_by_id_out()
+        ll_dict, ll_id_dict = parse_ll_out(out)
+
+        for blk in blk_dict:
+            final_dict = {}
+            final_dict['name'] = blk
+            final_dict['size'] = blk_dict[blk]['size']
+            final_dict['type'] = blk_dict[blk]['transport']
+            if blk in ll_dict:
+                final_dict['id'] = ll_dict[blk]
+                if final_dict['id'].startswith('ccw-'):
+                    final_dict['type'] = 'dasd'
+
+                block_dev_list = ll_id_dict[final_dict['id']]
+                max_slaves = 1
+                for block_dev in block_dev_list:
+                    slaves = os.listdir('/sys/block/' + block_dev + '/slaves/')
+                    if max_slaves < len(slaves):
+                        max_slaves = len(slaves)
+
+                final_dict['mpath_count'] = max_slaves
+
+            if 'id' in final_dict:
+                final_list.append(final_dict)
+    except Exception as e:
+        wok_log.error("Error getting list of storage devices")
+        raise OperationFailed("GINSD000005", {'err': e.message})
+
+    return final_list

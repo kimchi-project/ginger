@@ -36,6 +36,7 @@ models_PYTHON = \
 	powermanagement.py \
 	sanadapters.py \
 	sensors.py \
+	storage_devs.py \
 	users.py \
 	swaps.py \
 	utils.py \

@@ -35,8 +35,9 @@ from powermanagement import PowerProfilesModel, PowerProfileModel
 from physical_vol import PhysicalVolumesModel, PhysicalVolumeModel
 from sanadapters import SanAdapterModel, SanAdaptersModel
 from sensors import SensorsModel
-from users import UsersModel, UserModel
+from storage_devs import StorageDevsModel
 from swaps import SwapsModel, SwapModel
+from users import UsersModel, UserModel
 from vol_group import VolumeGroupsModel, VolumeGroupModel
 
 from wok import config
@@ -92,6 +93,7 @@ class GingerModel(BaseModel):
         swaps = SwapsModel(objstore=self._objstore)
         swap = SwapModel()
         sensors = SensorsModel()
+        stgdevs = StorageDevsModel()
         ibm_sep = SepModel()
         subscription = SubscriptionModel()
         subscriber = SubscribersModel()
@@ -103,7 +105,7 @@ class GingerModel(BaseModel):
         features = [firmware, swaps, backup, network, powerprofiles,
                     san_adapters, sensors, ibm_sep, users, filesystems,
                     dasddevs, dasdpartitions, partitions, physical_vols,
-                    vol_groups, log_volumes]
+                    vol_groups, log_volumes, stgdevs]
         capabilities = CapabilitiesModel(features)
 
         sub_models = [
@@ -121,7 +123,7 @@ class GingerModel(BaseModel):
             powerprofiles, powerprofile,
             users, user,
             san_adapters, san_adapter,
-            sensors,
+            sensors, stgdevs,
             swaps, swap,
             vol_groups, vol_group,
             ibm_sep, subscription, subscriber,

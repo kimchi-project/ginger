@@ -1,7 +1,7 @@
 #
 # Project Ginger
 #
-# Copyright IBM Corp, 2014
+# Copyright IBM, Corp. 2015
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -15,34 +15,17 @@
 #
 # You should have received a copy of the GNU Lesser General Public
 # License along with this library; if not, write to the Free Software
-# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 
-controls_PYTHON = \
-	__init__.py \
-	backup.py \
-	capabilities.py \
-	cfginterfaces.py \
-	dasddevs.py \
-	dasdpartitions.py \
-	diskparts.py \
-	firmware.py \
-	ibm_sep.py \
-	interfaces.py \
-	network.py \
-	physical_vol.py \
-	powermanagement.py \
-	sanadapters.py \
-	sensors.py \
-	storage_devs.py \
-	users.py \
-	swaps.py \
-	filesystems.py \
-	vol_group.py \
-	log_volumes.py \
-	$(NULL)
+from wok.control.base import SimpleCollection
 
-controlsdir = $(pythondir)/wok/plugins/ginger/controls
 
-CLEANFILES = \
-	$(controls_PYTHON:%.py=%.pyc) \
-	$(NULL)
+class StorageDevs(SimpleCollection):
+    """
+    Collections representing the storage devices on the system
+    """
+
+    def __init__(self, model):
+        super(StorageDevs, self).__init__(model)
+        self.role_key = 'host'
+        self.admin_methods = ['GET']
