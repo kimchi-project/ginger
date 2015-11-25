@@ -42,7 +42,7 @@ fi
 
 LIST=($ARGS)
 
-
+# ../../../../../ refers to wok root directory
 # ../../../../ refers to wok directory
 # ../../../ refers to plugins directory
-PYTHONPATH=../../../../:../../../ $CMD $ARGS $OPTS
+PYTHONPATH=../../../../../:../../../../:../../../ $CMD $ARGS $OPTS
