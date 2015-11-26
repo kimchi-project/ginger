@@ -1,0 +1,372 @@
+//
+// Project Ginger
+//
+// Copyright IBM, Corp. 2014-2015
+//
+// Code derived from Project Kimchi
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+//
+
+#administration-root-container {
+    .fa {
+        margin-left: 20px;
+        font-size: 20px;
+        color: #5a595b;
+    }
+    h3 {
+        height: 32px;
+        padding: 10px 15px;
+        font-size: 20px;
+        border-radius: 2px 2px 0 0;
+        display: inline-block;
+    }
+    h3 > a > span.accordion-icon {
+        display: inline-block;
+        font: normal normal normal 14px/1 FontAwesome;
+        text-rendering: auto;
+        -webkit-font-smoothing: antialiased;
+        font-size: 20px;
+        color: #5a595b;
+    }
+    h3 > a > span.accordion-text {
+        margin-left: 20px;
+    }
+    h3 > a[aria-expanded="true"] > span.accordion-icon:before {
+        content: "\f01b";
+    }
+    h3 > a[aria-expanded="false"] > span.accordion-icon:before {
+        content: "\f01a";
+    }
+    a {
+        color: #9e9e9e;
+        text-decoration: none;
+    }
+    hr {
+        width: 93%;
+        border: 1.8px solid #eaeaea;
+        margin-top: 30px !important;
+    }
+}
+
+#sanadapters-ppc-content-area,
+#sensors-ppc-content-area,
+#backup-ppc-content-area,
+#users-ppc-content-area,
+#network-ppc-content-area,
+#sep-ppc-content-area {
+    width: 95.6%;
+    margin-top: 10px;
+    margin-left: 12px;
+    list-style-type: none;
+    .li:nth-child(even) {
+        background-color: #fcfcfc;
+    }
+    .li:nth-child(odd) {
+        background-color: #fff;
+    }
+    .header {
+        border-top: 0 none;
+        > span,
+        div {
+            padding: 6px 2px;
+            display: inline-block;
+            vertical-align: bottom;
+            height: 36px;
+            font-family: $font-family-sans-serif;
+            font-weight: 400;
+            font-size: 12.5pt;
+            line-height: 1.42857;
+            border-bottom: none;
+            border-top: 0;
+        }
+    }
+    .body {
+        border-top: 1px solid #eee;
+        > span {
+            padding: 6px 2px;
+            display: inline-block;
+            vertical-align: top;
+            font-family: $font-family-sans-serif;
+            font-size: 11pt;
+            line-height: 2.42857;
+            font-weight: bold;
+        }
+    }
+    .body > div {
+        padding: 6px 2px;
+        display: inline-block;
+        vertical-align: top;
+        font-family: $font-family-sans-serif;
+        font-size: 11pt;
+        line-height: 2.42857;
+        font-weight: bold;
+    }
+    .name {
+        width: 19.6914%;
+    }
+    .wwpn,
+    .speed {
+        width: 13.2486%;
+    }
+    .wwnn,
+    .port {
+        width: 13.4301%;
+    }
+    .state {
+        width: 13.1478%;
+    }
+    .symbolic {
+        width: 13.7931%;
+    }
+    .default_column {
+        width: 25%;
+    }
+}
+
+#firmware-update-content-area {
+    width: 95.6%;
+    margin-top: 10px;
+    margin-left: 12px;
+    .col-md-4 {
+        width: 32.2%;
+    }
+    .fmw-content {
+        margin-left: 40px;
+        margin-bottom: 30px;
+    }
+    .fmw-form {
+        margin-top: 20px;
+    }
+    .form-control {
+        padding: 6px 12px !important;
+        width: 60%
+    }
+    .fmw-label {
+        padding: 6px 2px;
+        height: 36px;
+        font-family: $font-family-sans-serif;
+        font-weight: 400;
+        font-size: 12.5pt;
+    }
+    .fmw-item {
+        padding: 2px 2px;
+        font-family: $font-family-sans-serif;
+        font-size: 11pt;
+    }
+}
+
+#gingerPowerMgmt {
+    .header {
+        padding-left: 0;
+    }
+    .pwr-item {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+    .pwr-item-label {
+        margin-left: 10px;
+        padding: 2px 2px;
+        vertical-align: top;
+        font-family: $font-family-sans-serif;
+        font-size: 11pt;
+    }
+    .actBtn {
+        float: none;
+        width: 30%;
+    }
+    .pwr-activated,
+    .pwr-selected,
+    .pwr-unselected {
+        display: inline-block;
+        font: normal normal normal 14px/1 FontAwesome;
+        font-size: 22px;
+        text-rendering: auto;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+    .pwr-activated:before {
+        content: "\f00c";
+        color: $fa-green;
+    }
+    .pwr-selected:before {
+        content: "\f192";
+    }
+    .pwr-unselected:before {
+        content: "\f10c";
+    }
+    .pw-opt {
+        padding: 10px 50px;
+    }
+}
+
+#backup-ppc-content-area {
+    .ul-body {
+        width: 100%;
+        margin-top: 10px;
+        margin-left: 0;
+        -webkit-padding-start: 0;
+        list-style-type: none;
+    }
+    .column-file {
+        width: 58.9790%;
+        word-wrap: break-word;
+    }
+    .column-timestamp {
+        width: 18.9608%;
+    }
+    .column-download {
+        width: 11.0300%;
+    }
+    .column-delete {
+        width: 11.0300%;
+    }
+    .fa-download,
+    .fa-minus-circle {
+        margin-right: 10px;
+    }
+    .backup-pcc-actions {
+        margin-bottom: 20px;
+    }
+    .backup-pcc-button {
+        height: 40px;
+    }
+}
+
+#backup-pcc-action-area {
+    .fa {
+        margin-left: 0;
+        font-size: 20px;
+        color: #fff;
+    }
+    .fa-minus-circle {
+        margin-right: 0;
+    }
+    a {
+        color: #fff;
+    }
+}
+
+#users-ppc-content-area {
+    .column-username {
+        width: 22.6666%;
+    }
+    .column-usergroup {
+        width: 22.6666%;
+    }
+    .column-userprofile {
+        width: 22.6666%;
+    }
+    .column-detach {
+        width: 32%;
+    }
+    .fa-trash-o {
+        float: right;
+    }
+    .fa-plus-circle {
+        margin-left: 0;
+        color: #fff;
+        padding: 1px 3px;
+    }
+    .actBtn {
+        float: none;
+        margin-bottom: 10px;
+        width: 10%;
+        height: auto;
+    }
+}
+
+#network-ppc-content-area {
+    .body {
+        border-top: 0 none;
+    }
+    .column-name {
+        width: 16%;
+    }
+    .column-ip-address {
+        width: 30%;
+    }
+    .column-ip-mask {
+        width: 30%;
+    }
+    .column-actions {
+        width: 22%;
+    }
+    .network-item {
+        padding: 2px 2px;
+        font-family: $font-family-sans-serif;
+        font-size: 11pt;
+    }
+    .form-control {
+        padding: 6px 12px !important;
+        width: 80%
+    }
+    .fa {
+        margin-left: 0;
+    }
+    .fa-plus-circle {
+        color: #fff;
+        padding: 1px 3px;
+    }
+    .column-dns-ip-address {
+        width: 75%;
+    }
+    .addBtn {
+        margin-bottom: 20px;
+        width: 40%;
+    }
+    .btn-link {
+        width: auto;
+        padding: 3px 2px;
+    }
+}
+
+#sep-ppc-content-area {
+    .column-hostname {
+        width: 22.6666%;
+    }
+    .column-port {
+        width: 22.6666%;
+    }
+    .column-community {
+        width: 22.6666%;
+    }
+    .column-detach {
+        width: 32%;
+    }
+    .fa-trash-o {
+        float: right;
+        padding: 6px 2px;
+    }
+    .detach {
+        vertical-align: middle;
+    }
+    .fa-circle,
+    .fa-times-circle {
+        font-size: 20px;
+        padding: 9px 8px;
+    }
+    .fa-circle {
+        color: #8cc63f;
+    }
+    .fa-times-circle {
+        color: #d9182d;
+    }
+    .btn-primary {
+        float: right;
+        padding: 6px 2px;
+        margin: 0px 8px;
+        width: 10%;
+        height: auto;
+    }
+}

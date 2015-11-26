@@ -16,6 +16,12 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
+// Core variables
+@import "../../../../../../../ui/css/src/modules/wok-variables";
+
+// Compass Mixins
+@import "../../../../../../../ui/css/src/vendor/compass-mixins/lib/compass";
+
 .ginger .host-admin {
     font-size: 12px;
     font-weight: bold;
@@ -55,7 +61,7 @@
 .ginger .host-admin .content-area .section .pack-path-input {
     width: 400px;
     height:30px;
-    border: 1px solid grey;
+    border: 1px solid gray;
 }
 
 .ginger .host-admin .message-area {
@@ -584,3 +590,6 @@
 .user-add-body .user-add-content .enable-combobox {
     vertical-align: middle;
 }
+
+// Admin - To do: move to Ginger
+@import "modules/administration";

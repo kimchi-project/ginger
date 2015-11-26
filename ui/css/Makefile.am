@@ -1,7 +1,7 @@
 #
 # Project Ginger
 #
-# Copyright IBM, Corp. 2014
+# Copyright IBM, Corp. 2014-2015
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -18,8 +18,8 @@
 SUBDIRS = base
 
 cssdir = $(datadir)/wok/plugins/ginger/ui/css
+dist_css_DATA =  ginger.css host-admin.css
 
-dist_css_DATA = \
-	ginger.css \
-	host-admin.css \
-	$(NULL)
+%.css: src/%.scss
+	echo "Compiling .scss file $<"
+	sassc -s expanded $< $(@:.scss=.css)
