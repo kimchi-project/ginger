@@ -291,19 +291,47 @@ URI: /plugins/ginger/filesystems/*:mount_point*
                                 'No' if interface should not be brought up during boot.
         * MTU *(optional)*: Maximum Transmission Unit
         * ZONE *(optional)*: Firewall Zone for the interface
-    * IPV4_INFO *(optional)*: Dictionary containing the ipv4 information of interface
-                  to be updated
+
+    * IPV4_INFO *(optional)*: Dictionary containing the ipv4 information of
+    interface to be created
         * IPV4INIT : Firewall Zone for the interface
         * BOOTPROTO: Boot protocol for ipv4(dhcp,none,autoip)
-        * DEFROUTE(for BOOTPROTO none or dhcp) *(optional)*:  'yes' Use default route.
-        * IPV4Addresses(Needed if BootProto is none): Assign single or multiple ipv4
-                                                      address to interface
+        * DEFROUTE(for BOOTPROTO none or dhcp) *(optional)*: 'yes' Use
+        default route.
+        * IPV4Addresses(Needed if BootProto is none): Assign single or
+        multiple ipv4 address to interface
             * IPADDR: ipv4 address of the interface
             * NETMASK: netmask of the ipv4 address
             * GATEWAY *(optional)*: Gateway assigned to the ipv4 address
         * DNS *(optional)*: List of DNS ipv4 addresses
         * PEERDNS  *(optional)*: 'yes' to modify /etc/resolv.conf
         * PEERROUTES *(optional)*: 'yes' use PEERROUTES
+        * ROUTES *(optional)*: Assign routes to interface
+                * ADDRESS: ipv4 address of the interface
+                * NETMASK: netmask of the ipv4 address
+                * GATEWAY: Gateway assigned to the ipv4 address
+		* METRIC *(optional)*: Cost values used by the router
+
+    * IPV6_INFO *(optional)*: Dictionary containing the ipv6 information of
+    interface to be updated
+        * IPV6INIT: 'yes' to initalize ipv6 for the interface
+        * IPV6_AUTOCONF: 'yes' automatic mode for ipv6,''no' for other mode
+        * DHCPV6C: 'yes' dhcp automatic mode for ipv6
+        * IPV6_DEFROUTE *(optional)*: 'yes' Use default route.
+        * IPV6Addresses(Needed if IPV6_AUTOCONF is none and DHCPV6C is no ):
+                         Assign single or multiple ipv6 address to interface
+            * IPADDR:  address of the interface
+            * NETMASK: netmask of the address
+        * DNSAddresses *(optional)*: List of DNS ipv6 addresses stored as
+                                     DNS1,DNS2
+        * IPV6_PEERDNS *(optional)*: 'yes' use the peerdns configured
+        * IPV6_PEERROUTES *(optional)*: 'yes' use PEERROUTES
+        * IPV6_DEFAULTGW *(optional)*: Gateway assigned to the ipv6 address
+        * ROUTES *(optional)*: Assign routes to interface
+                * ADDRESS: ipv6 address of the interface
+                * NETMASK: netmask of the ipv6 address
+                * GATEWAY: Gateway assigned to the ipv6 address
+		* METRIC *(optional)*: Cost values used by the router
 
 * **POST**: Create an interface of types default interface, bond and vlan
     * BASIC_INFO: Dictionary containing the basic information of interface
@@ -378,6 +406,11 @@ URI: /plugins/ginger/filesystems/*:mount_point*
         * DNS *(optional)*: List of DNS ipv4 addresses
         * PEERDNS  *(optional)*: 'yes' to modify /etc/resolv.conf
         * PEERROUTES *(optional)*: 'yes' use PEERROUTES
+        * ROUTES *(optional)*: Assign routes to interface
+                * ADDRESS: ipv4 address of the interface
+                * NETMASK: netmask of the ipv4 address
+                * GATEWAY: Gateway assigned to the ipv4 address
+		* METRIC *(optional)*: Cost values used by the router
 
     * IPV6_INFO *(optional)*: Dictionary containing the ipv6 information of
     interface to be updated
@@ -394,6 +427,12 @@ URI: /plugins/ginger/filesystems/*:mount_point*
         * IPV6_PEERDNS *(optional)*: 'yes' use the peerdns configured
         * IPV6_PEERROUTES *(optional)*: 'yes' use PEERROUTES
         * IPV6_DEFAULTGW *(optional)*: Gateway assigned to the ipv6 address
+        * ROUTES *(optional)*: Assign routes to interface
+                * ADDRESS: ipv6 address of the interface
+                * NETMASK: netmask of the ipv6 address
+		* GATEWAY: Gateway assigned to the ipv6 address
+		* METRIC *(optional)*: Cost values used by the router
+
 
 * **DELETE**: Delete an interface of types bond and vlan
 

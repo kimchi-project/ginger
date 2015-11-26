@@ -43,6 +43,8 @@ def augeas_cleanup():
 
 network_configpath = 'etc/sysconfig/network-scripts/'
 ifcfg_filename_format = 'ifcfg-%s'
+route_format = 'route-%s'
+route6_format = 'route6-%s'
 # cfgfile keys
 BASIC_INFO = "BASIC_INFO"
 NAME = 'NAME'
@@ -110,6 +112,7 @@ PREFIX = 'PREFIX'
 GATEWAY = 'GATEWAY'
 IPV4INIT = 'IPV4INIT'
 IPV4Addresses = "IPV4Addresses"
+ROUTES = 'ROUTES'
 
 # ipv6 parameters
 IPV6_ID = "IPV6_INFO"
@@ -126,6 +129,11 @@ IPV6_DEFAULTGW = 'IPV6_DEFAULTGW'
 IPV6_PRIVACY = 'IPV6_PRIVACY'
 IPV6Addresses = "IPV6Addresses"
 
+# Routes related attributes
+metric = "metric"
+ADDRESS = "ADDRESS"
+METRIC = "METRIC"
+VIA = "via"
 
 # other constants
 CONST_YES = 'yes'
@@ -451,6 +459,10 @@ class CfginterfaceModel(object):
             dnsaddresses = self.get_dnsv4_info(cfgmap)
             if len(dnsaddresses) > 0:
                 info[IPV4_ID][DNSAddresses] = dnsaddresses
+            # construct routeinfo.
+            routes = self.get_routes_map(cfgmap[NAME], 4)
+            if len(routes) > 0:
+                info[IPV4_ID][ROUTES] = routes
         wok_log.debug('End get_ipv4_info')
         return info
 
@@ -471,6 +483,10 @@ class CfginterfaceModel(object):
         dnsaddresses = self.get_dnsv6_info(cfgmap)
         if len(dnsaddresses) > 0:
             info[IPV6_ID][DNSAddresses] = dnsaddresses
+        # construct routeinfo.
+        routes = self.get_routes_map(cfgmap[NAME], 6)
+        if len(routes) > 0:
+            info[IPV6_ID][ROUTES] = routes
         wok_log.debug('End get_ipv6_info')
         return info
 
@@ -729,6 +745,9 @@ class CfginterfaceModel(object):
                 cfgmap[PEERROUTES] = params[IPV4_ID][PEERROUTES]
             cfgmap = self.update_ipv4_bootproto(cfgmap, params)
             cfgmap = self.update_dnsv4_info(cfgmap, params)
+            if ROUTES in params[IPV4_ID]:
+                self.write_cfgroutes(params[IPV4_ID][ROUTES],
+                                     params[BASIC_INFO][NAME], 4)
         else:
             wok_log.error(("IPV4INIT value is mandatory"))
             raise MissingParameter('GINNET0026E')
@@ -780,6 +799,9 @@ class CfginterfaceModel(object):
                 cfgmap[IPV6_PEERROUTES] = params[IPV6_ID][IPV6_PEERROUTES]
             cfgmap = self.update_ipv6_bootproto(cfgmap, params)
             cfgmap = self.update_dnsv6_info(cfgmap, params)
+            if ROUTES in params[IPV6_ID]:
+                self.write_cfgroutes(params[IPV6_ID][ROUTES],
+                                     params[BASIC_INFO][NAME], 6)
         else:
             wok_log.error(("IPV6INIT value is mandatory"))
             raise MissingParameter('GINNET0027E')
@@ -1129,3 +1151,146 @@ class CfginterfaceModel(object):
         vlan_info[TYPE] = params[BASIC_INFO][TYPE]
 
         return vlan_info
+
+    # TODO this code can be later made to have strict regex to get the right
+    # info(optimize)
+    def get_routes_ipformat(self, routecfg_path):
+        """
+        Constructs a list of route map with key,value information
+        for the below format of routes.
+        :param: route file which has information in ip format
+        :return: list of dictionaries of the key,value information
+                 of the routes.
+        Ex:
+        10.10.10.0/24 via 192.168.0.10 dev eth0
+        172.16.1.10/32 via 192.168.0.10 dev eth0
+        """
+        with open(routecfg_path, "r") as routecfg_file:
+            line = routecfg_file.read()
+            cfg_map = []
+            try:
+                each_route = [x for x in (y.split() for y in line.split('\n'))
+                              if x]
+                for options in each_route:
+                    if len(options) >= 3:
+                        route_info = {'ADDRESS': options[0].split('/')[0],
+                                      'NETMASK': options[0].split('/')[1],
+                                      'GATEWAY': options[2]}
+                        if metric in options and options[3] == metric:
+                            route_info['METRIC'] = options[4]
+                        elif metric in options and options[5] == metric:
+                            route_info['METRIC'] = options[6]
+                        cfg_map.append(route_info)
+                    else:
+                        wok_log.warn(
+                            "Skipping the invalid route information" + str(
+                                options))
+            except Exception, e:
+                wok_log.error(
+                    'Exception occured while reading the route information' +
+                    str(
+                        e))
+                raise OperationFailed("GINNET0030E", {'Error': e})
+            return cfg_map
+
+    def get_routes_directiveformat(self, routecfg_path):
+        """
+        This method reads from routes file and contructs key,value information.
+        for the below format.
+        :param :route file path which has info in network directives format
+        :return: dictionary consisting of route information read from file
+        Ex:
+        ADDRESS0=10.10.10.13
+        NETMASK0=255.255.255.254
+        GATEWAY0=10.10.10.15
+        METRIC0=1
+        """
+        with open(routecfg_path, "r") as routecfg_file:
+            line = routecfg_file.read()
+            cfgroutes_info = {}
+            route_input = line.split()
+            for elem in route_input:
+                try:
+                    cfgroutes_info[elem.split('=')[0]] = elem.split('=')[1]
+                except Exception, e:
+                    wok_log.error(
+                        'Exception occured while reading the route '
+                        'information' +
+                        str(e))
+                    raise OperationFailed("GINNET0030E", {'Error': e})
+        route_list = []
+        i = 0
+        # construct list of dictionaries from the given key=value list.
+        while True:
+            route_map_dict = {}
+            if ADDRESS + str(i) in cfgroutes_info \
+                    and NETMASK + str(i) in cfgroutes_info \
+                    and GATEWAY + str(i) in cfgroutes_info:
+                route_map_dict.update(ADDRESS=cfgroutes_info[ADDRESS + str(i)])
+                route_map_dict.update(NETMASK=cfgroutes_info[NETMASK + str(i)])
+                route_map_dict.update(GATEWAY=cfgroutes_info[GATEWAY + str(i)])
+            else:
+                break
+            if METRIC + str(i) in cfgroutes_info:
+                route_map_dict.update(METRIC=cfgroutes_info[METRIC + str(i)])
+            route_list.append(route_map_dict)
+            i += 1
+        return route_list
+
+    def get_routes_map(self, interface_name, ipversion=4):
+        """
+        Reads the route information for interface and based on the format of
+        the route info key,value inforamation is returned
+        :param interface_name: interface name for which routes info is needed
+        :return: list of dictionaries consisting route information
+        """
+        route_filename = 4
+        if ipversion == 4:
+            route_filename = route_format % interface_name
+        elif ipversion == 6:
+            route_filename = route6_format % interface_name
+        route_filepath = '/' + network_configpath + route_filename
+        fileexist = os.path.isfile(route_filepath)
+        if fileexist:
+            with open(route_filepath, "r") as route_file:
+                line = route_file.read()
+                if VIA in line:
+                    cfgroutes_list = self.get_routes_ipformat(route_filepath)
+                else:
+                    cfgroutes_list = self.get_routes_directiveformat(
+                        route_filepath)
+            return cfgroutes_list
+        else:
+            return []
+
+    def write_cfgroutes(self, routes_map, interface_name, ipversion=4):
+        """
+        Route information will be written in ip format to the route file.
+        Ex:-10.10.10.0/24 via 192.168.0.10 dev eth0
+        :param routes_map: List of dictionaries containing route information
+        :param interface_name: interface for which route info needs to be
+        written
+        :return:
+        """
+        route_filename = 4
+        if ipversion == 4:
+            route_filename = route_format % interface_name
+        elif ipversion == 6:
+            route_filename = route6_format % interface_name
+        route_filepath = '/' + network_configpath + route_filename
+        output_file = open(route_filepath, "w")
+        for routes in routes_map:
+            if ADDRESS in routes and NETMASK in routes and GATEWAY in routes:
+                if METRIC in routes:
+                    format_routes = '{}/{} via {} metric {}'.format(
+                        routes[ADDRESS],
+                        routes[NETMASK],
+                        routes[GATEWAY],
+                        routes[METRIC])
+                else:
+                    format_routes = '{}/{} via {}'.format(routes[ADDRESS],
+                                                          routes[NETMASK],
+                                                          routes[GATEWAY])
+                output_file.write(format_routes)
+                output_file.write("\n")
+        output_file.close()
