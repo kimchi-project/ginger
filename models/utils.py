@@ -580,7 +580,7 @@ def get_disks_by_id_out():
     out, err, rc = run_command(cmd)
     if rc != 0:
         wok_log.error("Error executing 'ls -l /dev/disk/by-id.")
-        raise OperationFailed("GINSD000001", {'err': err})
+        raise OperationFailed("GINSD00001E", {'err': err})
     return out
 
 
@@ -601,7 +601,7 @@ def get_lsblk_keypair_out(transport=True):
     out, err, rc = run_command(cmd)
     if rc != 0:
         wok_log.error("Error executing 'lsblk -Po")
-        raise OperationFailed("GINSD000002", {'err': err})
+        raise OperationFailed("GINSD00002E", {'err': err})
     return out
 
 
@@ -651,7 +651,7 @@ def parse_ll_out(ll_out):
                 return_id_dict[disk_id] = [name]
     except Exception as e:
         wok_log.error("Error parsing 'ls -l /dev/disk/by-id'")
-        raise OperationFailed("GINSD000003", {'err': e.message})
+        raise OperationFailed("GINSD00003E", {'err': e.message})
 
     return return_dict, return_id_dict
 
@@ -682,7 +682,7 @@ def parse_lsblk_out(lsblk_out):
 
     except Exception as e:
         wok_log.error("Error parsing 'lsblk -Po")
-        raise OperationFailed("GINSD000004", {'err': e.message})
+        raise OperationFailed("GINSD00004E", {'err': e.message})
 
     return return_dict
 
@@ -729,6 +729,6 @@ def get_final_list():
                 final_list.append(final_dict)
     except Exception as e:
         wok_log.error("Error getting list of storage devices")
-        raise OperationFailed("GINSD000005", {'err': e.message})
+        raise OperationFailed("GINSD00005E", {'err': e.message})
 
     return final_list
