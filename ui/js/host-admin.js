@@ -123,58 +123,51 @@ ginger.initBakDialog = function() {
 };
 
 ginger.initBatDelDialog = function() {
-    $("#batDelDialog").dialog({
-        autoOpen: false,
-        modal: true,
-        width: 600,
-        draggable: false,
-        resizable: false,
-        closeText: "X",
-        open: function() {
-            $(".ui-dialog-titlebar-close", $("#batDelDialog").parent()).removeAttr("title");
-        },
-        beforeClose: function() {
+    $('#batDelDialog').on('show.bs.modal', function(event) {
+        $("#batdel-submit", $(this)).on("click", function(event) {
+            var content = {
+                counts_ago: -1,
+                days_ago: -1
+            };
+            var delOption = $("input:radio[name=batDelType]:checked");
+            var delValue = $("input:text", delOption.parent()).prop("value");
+            console.log('delOption', delOption);
+            console.log('delValue', delValue);
+            content[delOption.val()] = parseInt(delValue);
+            ginger.deleteBackupArchives(content, function() {
+                $('#batDelDialog').modal('hide');
+                $("#bakGridBody").empty();
+                clearForm();
+                ginger.setupBakGrid();
+            });
+        });
+        var clearForm = function() {
             $("input:text", "#batDelDialog").prop("value", null);
             $("input:text", "#batDelDialog").prop("disabled", true);
             $("input:text", "#batDelDialog").removeClass("invalid-field");
             $("input:text:first", "#batDelDialog").prop("disabled", false);
             $("input:radio[name=batDelType]:first").prop("checked", true);
-            $("#batDelFormBtn").button("disable");
-        },
-        buttons: [{
-            id: "batDelFormBtn",
-            text: "OK",
-            disabled: true,
-            click: function() {
-                var content = {
-                    counts_ago: -1,
-                    days_ago: -1
-                };
-                var delOption = $("input:radio[name=batDelType]:checked");
-                var delValue = $("input:text", delOption.parent()).prop("value");
-                content[delOption.val()] = parseInt(delValue);
-                ginger.deleteBackupArchives(content, function() {
-                    $("#batDelDialog").dialog("close");
-                    $("#bakGridBody").empty();
-                    ginger.setupBakGrid();
-                });
-            }
-        }]
-    });
+            $("#batdel-submit").prop("disabled", true);
+        };
+        var validateInput = function(input) {
+            var isValid = new RegExp('^[0-9]*$').test(input.val());
+            input.toggleClass("invalid-field", !isValid);
 
-    var validateInput = function(input) {
-        var isValid = new RegExp('^[0-9]*$').test(input.val());
-        input.toggleClass("invalid-field", !isValid);
-        $("#batDelFormBtn").button(isValid && input.val().trim() !== "" ? "enable" : "disable");
-    };
-    $("input:radio[name=batDelType]").on("click", function() {
-        $("input:text", "#batDelDialog").prop("disabled", true);
-        var activeInput = $("input:text", $("input:radio[name=batDelType]:checked").parent());
-        activeInput.prop("disabled", false);
-        validateInput(activeInput);
-    });
-    $("input:text", "#batDelDialog").on("keyup", function() {
-        validateInput($(this));
+            if (isValid && input.val().trim() !== "") {
+                $("#batdel-submit").prop("disabled", false);
+            } else {
+                $("#batdel-submit").prop("disabled", true);
+            }
+        };
+        $("input:radio[name=batDelType]").on("click", function() {
+            $("input:text", "#batDelDialog").prop("disabled", true);
+            var activeInput = $("input:text", $("input:radio[name=batDelType]:checked").parent());
+            activeInput.prop("disabled", false);
+            validateInput(activeInput);
+        });
+        $("input:text", "#batDelDialog").on("keyup", function() {
+            validateInput($(this));
+        });
     });
 };
 
@@ -231,13 +224,10 @@ ginger.initConfigBak = function() {
             ginger.setupBakGrid();
         })
     });
+
     $("#newCustomBakBtn").on("click", function(event) {
         event.preventDefault();
         $("#newBakDialog").dialog("open");
-    });
-    $("#batDelBtn").on("click", function(event) {
-        event.preventDefault();
-        $("#batDelDialog").dialog("open");
     });
 
     ginger.setupBakGrid();
@@ -578,7 +568,7 @@ ginger.initSEPConfig = function() {
     };
     var listSubscriptions = function() {
         sepStatus();
-        $(".content-body", ".ginger .host-admin .subsc-manage").empty();
+        $(".content-body", ".ginger .host-admin .subsc-manage").remove();
         ginger.getSEPSubscriptions(function(result) {
             for (var i = 0; i < result.length; i++) {
                 var subscItem = $.parseHTML(wok.substitute($("#subscItem").html(), {
@@ -672,7 +662,7 @@ ginger.initSEPConfig = function() {
 
 ginger.initUserManagement = function() {
     var listUsers = function() {
-        $(".content-body", ".ginger .host-admin .user-manage").empty();
+        $(".content-body", ".ginger .host-admin .user-manage").remove();
         ginger.getUsers(function(result) {
             for (var i = 0; i < result.length; i++) {
                 var nodeNameItem = $.parseHTML(wok.substitute($("#userItem").html(), {
@@ -680,16 +670,11 @@ ginger.initUserManagement = function() {
                     userGroup: result[i]["group"],
                     userProfile: result[i]["profile"]
                 }));
-                $(".ginger .host-admin .user-manage .content-body").append(nodeNameItem);
+                $(".ginger .host-admin .user-manage").append(nodeNameItem);
             }
-            $(".detach", ".ginger .host-admin .user-manage").button({
-                icons: {
-                    primary: "ui-icon-trash"
-                },
-                text: false
-            }).click(function(event) {
+            $(".detach", ".ginger .host-admin .user-manage").button({}).click(function(event) {
                 var that = $(this).parent();
-                ginger.deleteUser($("div[data-type='name']", that).text(), function() {
+                ginger.deleteUser($("span[data-type='name']", that).text(), function() {
                     that.remove();
                 }, function() {});
             });

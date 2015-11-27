@@ -90,7 +90,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
                                 <a href="#" id="newCustomBakBtn"><i class="fa fa-file"></i>$_("New Custom Backup")</a>
                             </li>
                             <li role="presentation">
-                                <a href="#" id="batDelBtn"><i class="fa fa-minus-circle"></i>$_("Batch Delete")</a>
+                                <a href="#" id="batDelBtn" data-toggle="modal" data-target="#batDelDialog"><i class="fa fa-minus-circle"></i>$_("Batch Delete")</a>
                             </li>
                         </ul>
                     </div>
@@ -255,13 +255,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
                         <span class="sr-only">Detach</span><!--
                     --></span>
                 </li>
-                <li class="content-body body"></li>
             </ul>
             <hr>
         </div>
     </div>
 </div>
 
+<!-- Configuration Backup Modal - Create Custom Backup -->
 <div id="newBakDialog" title='$_("Create a backup")' class="ginger-dialog">
     <div>$_("Description")</div>
     <div class="crt-bak-section"><input type="text" class="desc"></div>
@@ -277,14 +277,51 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
     </div>
 </div>
 
-<div id="batDelDialog" class="window modal-content">
+<!-- Configuration Backup Modal - Batch Delete -->
+<div class="modal fade host-modal" id="batDelDialog" tabindex="-1" role="dialog" labelledby="batDelLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" >
+          <div class="modal-header">
+            <h4 class="modal-title">$_("Delete Backups in Batch")</h4>
+          </div>
+          <div class="modal-body">
+            <form id="form-bat-delete">
+                <div class="form-group">
+                    <div id="radio-buttons">
+                        <label class="radio-inline">
+                            <input type="radio" name="batDelType" class="wok-radio" id="kimchiuser" value="counts_ago" checked/>
+                            <label for="kimchiuser">$_("Preserve the latest")</label>
+                            <input type="text" class="form-control" style="display: inherit;width: auto;"> $_("backups")
+                        </label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div id="radio-buttons">
+                        <label class="radio-inline">
+                            <input type="radio" name="batDelType" class="wok-radio" id="kimchiuser" value="days_ago"/>
+                            <label for="kimchiuser">$_("Preserve the latest")</label>
+                            <input type="text" class="form-control" style="display: inherit;width: auto;" disabled> $_("days of backups")
+                        </label>
+                    </div>
+                </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" id="batdel-submit" class="btn btn-default" data-dismiss="modal" disabled>$_("Submit")</button>
+            <button type="button" id="batdel-cancel" class="btn btn-default" data-dismiss="modal">$_("Cancel")</button>
+          </div>
+        </div>
+    </div>
+</div>
+
+<!-- <div id="batDelDialog" class="window modal-content">
     <div class="del-option">
         <input type="radio" name="batDelType" value="counts_ago" checked>$_("Preserve the latest") <input type="text" class=""> $_("backups")
     </div>
     <div class="del-option">
         <input type="radio" name="batDelType" value="days_ago">$_("Preserve the latest") <input type="text" class="" disabled> $_("days of backups")
     </div>
-</div>
+</div> -->
 
 <!-- SEP Configuration Modal - Add Subscription -->
 <div class="modal fade host-modal" id="subscriptionAdd" tabindex="-1" role="dialog" labelledby="hostsModalLabel" aria-hidden="true">
@@ -342,20 +379,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
                     <label for="usergroup-textbox">$_("Group")</label>
                     <input type="text" class="form-control inputbox" id="usergroup-textbox" name="userGroup" disabled />
                     <div class="checkbox">
-                        <label>
-                          <input type="checkbox" class="enable-combobox" id="enableEditGroup"> $_("Use Other")
-                        </label>
+                          <input type="checkbox" class="enable-combobox wok-checkbox" id="enableEditGroup" />
+                          <label for="enableEditGroup">$_("Use Other")</label>
                     </div>
                 </div>
                 <div class="form-group">
                     <label>$_("Profile")</label>
                     <div id="radio-buttons">
                         <label class="radio-inline">
-                            <input type="radio" name="userProfile" id="kimchiuser" value="kimchiuser" > $_("Kimchi User")</label>
+                            <input type="radio" name="userProfile" class="wok-radio" id="kimchiuser" value="kimchiuser"/>
+                            <label for="kimchiuser">$_("Kimchi User")</label>
+                        </label>
                         <label class="radio-inline">
-                            <input type="radio" name="userProfile" id="virtuser" value="virtuser" > $_("Virt User")</label>
+                             <input type="radio" name="userProfile" class="wok-radio" id="virtuser" value="virtuser"/>
+                            <label for="virtuser">$_("Virt User")</label>
+                        </label>
                         <label class="radio-inline">
-                            <input type="radio" name="userProfile" id="admin" value="admin" > $_("Administrator")</label>
+                            <input type="radio" name="userProfile" class="wok-radio" id="admin" value="admin" />
+                            <label for="admin">$_("Administrator")</label>
+                        </label>
                     </div>
                 </div>
             </form>
@@ -430,10 +472,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
     </li>
 </script>
 <script id="userItem" type="text/html">
+    <li class="content-body body">
         <span class="column-username" data-type="name">{userName}</span><!--
         --><span class="column-usergroup" data-type="group">{userGroup}</span><!--
         --><span class="column-userprofile" data-type="profile">{userProfile}</span><!--
         --><span class="column-detach btn btn-link detach"><i class="fa fa-trash-o"></i></span>
+    </li>
 </script>
 <script id="subscItem" type="text/html">
     <li class="body">
