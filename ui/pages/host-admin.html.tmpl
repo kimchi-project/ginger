@@ -245,7 +245,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
             </h3>
             <ul id="users-ppc-content-area" class="panel-collapse collapse user-manage" role="tabpanel" aria-labelledby="headingOne">
                 <li class="header">
-                    <button class="btn btn-primary actBtn add-user" type="submit"><i class="fa fa-plus-circle"></i> $_("Add User")</button>
+                    <button class="btn btn-primary actBtn add-user" type="submit" data-toggle="modal" data-target="#hostUserAdd"><i class="fa fa-plus-circle"></i> $_("Add User")</button>
                 </li>
                 <li class="header">
                     <span class="column-username">$_("Name")</span><!--
@@ -317,33 +317,56 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
     </div>
 </div>
 
-<div id="hostUserAdd" title='$_("Add User")' class="ginger-dialog">
-    <div class="user-add-body">
-        <div class="user-add-label user-colume">
-            <div class="user-label">$_("User Name")</div>
-            <div class="user-label">$_("Password")</div>
-            <div class="user-label">$_("Confirm Password")</div>
-            <div class="user-label">$_("Group")</div>
-            <div class="user-label">$_("Profile")</div>
-        </div>
-        <div class="user-add-content user-colume">
-            <input class="user-input inputbox" name="userName" /><br>
-            <input class="user-input inputbox" name="userPasswd" type="password" /><br>
-            <input class="user-input inputbox" name="userConfirmPasswd" type="password" /><br>
-            <input class="user-input inputbox" name="userGroup" disabled /><input class="enable-combobox" id="enableEditGroup" type="checkbox" value=""><label class="enable-combobox">$_("Use Other")</label><br>
-            <div class="user-input">
-                <input id="kimchiuser" type="radio" name="userProfile" value="kimchiuser" /><label for="kimchiuser">$_("Kimchi User")</label>
-                <input id="virtuser" type="radio" name="userProfile" value="virtuser" /><label for="virtuser">$_("Virt User")</label>
-                <input id="admin" type="radio" name="userProfile" value="admin" /><label for="admin">$_("Administrator")</label>
-            </div>
-        </div>
-        <div class="user-manage-footer">
-            <button id="user-submit" disabled>$_("Submit")</button>
-            <button id="user-cancel">$_("Cancel")</button>
+<!-- User Management Modal - Add User -->
+<div class="modal fade host-modal" id="hostUserAdd" tabindex="-1" role="dialog" labelledby="addUserModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" >
+          <div class="modal-header">
+            <h4 class="modal-title">$_("Add User")</h4>
+          </div>
+          <div class="modal-body">
+            <form id="form-user-add">
+                <div class="form-group">
+                    <label for="username-textbox">$_("User Name")</label>
+                    <input type="text" class="form-control inputbox" id="username-textbox" name="userName" />
+                </div>
+                <div class="form-group">
+                    <label for="password-textbox">$_("Password")</label>
+                    <input type="password" class="form-control inputbox" id="password-textbox" name="userPasswd" />
+                </div>
+                <div class="form-group">
+                    <label for="confirm-password-textbox">$_("Confirm Password")</label>
+                    <input type="password" class="form-control inputbox" id="confirm-password-textbox" name="userConfirmPasswd" />
+                </div>
+                <div class="form-group">
+                    <label for="usergroup-textbox">$_("Group")</label>
+                    <input type="text" class="form-control inputbox" id="usergroup-textbox" name="userGroup" disabled />
+                    <div class="checkbox">
+                        <label>
+                          <input type="checkbox" class="enable-combobox" id="enableEditGroup"> $_("Use Other")
+                        </label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>$_("Profile")</label>
+                    <div id="radio-buttons">
+                        <label class="radio-inline">
+                            <input type="radio" name="userProfile" id="kimchiuser" value="kimchiuser" > $_("Kimchi User")</label>
+                        <label class="radio-inline">
+                            <input type="radio" name="userProfile" id="virtuser" value="virtuser" > $_("Virt User")</label>
+                        <label class="radio-inline">
+                            <input type="radio" name="userProfile" id="admin" value="admin" > $_("Administrator")</label>
+                    </div>
+                </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" id="user-submit" class="btn btn-default" data-dismiss="modal" disabled>$_("Submit")</button>
+            <button type="button" id="user-cancel" class="btn btn-default" data-dismiss="modal">$_("Cancel")</button>
+          </div>
         </div>
     </div>
 </div>
-
 
 </div>
 <script id="backupItem" type="text/html">

@@ -695,100 +695,85 @@ ginger.initUserManagement = function() {
             });
         }, function() {});
     };
-    $(".add-user", ".ginger .host-admin .user-manage").button({
-        icons: {
-            primary: "ui-icon-plusthick"
-        },
-        text: false
-    }).click(function(event) {
+
+    $('#hostUserAdd').on('show.bs.modal', function(event) {
+        $("#kimchiuser").prop("checked", true);
+        $("#hostUserAdd, .inputbox[name='userName']", ".modal-body").keyup(function() {
+            var tmpVal = $(this).val();
+            $("#hostUserAdd, .inputbox[name='userName']", ".modal-body").val(tmpVal);
+        });
+        $("#enableEditGroup").click(function() {
+            if ($(this).prop("checked")) {
+                $("#hostUserAdd, .inputbox[name='userGroup']", ".modal-body").attr("disabled", false);
+            } else {
+                $("#hostUserAdd, .inputbox[name='userGroup']", ".modal-body").attr("disabled", true);
+            }
+        });
+        $(".modal-body .inputbox").keyup(function() {
+            var sum = 0;
+            $(".modal-body .inputbox").each(function(index, data) {
+                if ($(data).val() === "") {
+                    sum += 1;
+                }
+            })
+            if (sum != 0) {
+                $("#user-submit").prop("disabled", true);
+            } else {
+                $("#user-submit").prop("disabled", false);
+            }
+        });
+        $("#user-submit", $(this)).button().click(function(event) {
+            $(".modal-body .inputbox").attr("disabled", true);
+            $(".modal-body input[type=radio]").attr("disabled", true);
+            $("#user-submit").prop("disabled", true);
+            $("#user-cancel").prop("disabled", true);
+
+            var userName = $("#hostUserAdd, .inputbox[name='userName']", ".modal-body").val();
+            var userPasswd = $("#hostUserAdd, .inputbox[name='userPasswd']", ".modal-body").val();
+            var userConfirmPasswd = $("#hostUserAdd, .inputbox[name='userConfirmPasswd']", ".modal-body").val();
+            var userGroup = $("#hostUserAdd, .inputbox[name='userGroup']", ".modal-body").val();
+            var userProfile = $(".modal-body input[type=radio]:checked").val();
+
+            var dataSubmit = {
+                name: userName,
+                password: userPasswd,
+                group: userGroup,
+                profile: userProfile
+            };
+            if (userPasswd === userConfirmPasswd) {
+                ginger.addUser(dataSubmit, function() {
+                    listUsers();
+                }, function() {
+                    clearUMSubmit();
+                    $('#hostUserAdd').modal('hide');
+                });
+            } else {
+                wok.confirm({
+                    title: i18n['KCHAPI6006M'],
+                    content: i18n['GINUM0002E'],
+                    confirm: i18n['KCHAPI6002M'],
+                    cancel: i18n['KCHAPI6003M']
+                }, function() {
+                    clearUMSubmit();
+                }, function() {
+                    clearUMSubmit();
+                });
+            }
+        });
+        $("#user-cancel", $(this)).button().click(function(event) {
+            $('#hostUserAdd').modal('hide')
+        });
         var clearUMSubmit = function() {
             $("#kimchiuser").prop("checked", true);
             $("#enableEditGroup").prop("checked", false);
-            $(".user-add-body .user-add-content .user-input", "#hostUserAdd").val("");
-            $(".user-add-content .user-input").attr("disabled", false);
-            $(".user-add-content .user-input[name='userGroup']").attr("disabled", true);
-            $("input", ".user-add-content .user-input").attr("disabled", false);
-            $("#user-submit").button("option", "disabled", true);
-            $("#user-cancel").button("option", "disabled", false);
+            $(".modal-body .inputbox").val("");
+            $(".modal-body .inputbox").attr("disabled", false);
+            $(".modal-body input[type=radio]").attr("disabled", false);
+            $(".modal-body .inputbox").attr("disabled", false);
+            $("#hostUserAdd, .inputbox[name='userGroup']", ".modal-body").attr("disabled", true);
+            $("#user-submit").prop("disabled", true);
+            $("#user-cancel").prop("disabled", false);
         };
-        $("#hostUserAdd").dialog({
-            modal: true,
-            width: "auto",
-            height: 300,
-            draggable: false,
-            resizable: false,
-            closeText: "X",
-            open: function() {
-                $("#kimchiuser").prop("checked", true);
-                $(".user-input[name='userName']", ".user-add-content").keyup(function() {
-                    var tmpVal = $(this).val();
-                    $(".user-input[name='userGroup']", ".user-add-content").val(tmpVal);
-                });
-                $("#enableEditGroup").click(function() {
-                    if ($(this).prop("checked")) {
-                        $(".user-input[name='userGroup']", ".user-add-content").attr("disabled", false);
-                    } else {
-                        $(".user-input[name='userGroup']", ".user-add-content").attr("disabled", true);
-                    }
-                });
-                $(".user-add-content .inputbox").keyup(function() {
-                    var sum = 0;
-                    $(".user-add-content .inputbox").each(function(index, data) {
-                        if ($(data).val() === "") {
-                            sum += 1;
-                        }
-                    })
-                    if (sum != 0) {
-                        $("#user-submit").button("option", "disabled", true);
-                    } else {
-                        $("#user-submit").button("option", "disabled", false);
-                    }
-                });
-                $("#user-submit", $(this)).button().click(function(event) {
-                    $(".user-add-content .user-input").attr("disabled", true);
-                    $("input", ".user-add-content .user-input").attr("disabled", true);
-                    $("#user-submit").button("option", "disabled", true);
-                    $("#user-cancel").button("option", "disabled", true);
-                    var userName = $(".user-add-content .user-input[name='userName']", ".user-add-body").val();
-                    var userPasswd = $(".user-add-content .user-input[name='userPasswd']", ".user-add-body").val();
-                    var userConfirmPasswd = $(".user-add-content .user-input[name='userConfirmPasswd']", ".user-add-body").val();
-                    var userGroup = $(".user-add-content .user-input[name='userGroup']", ".user-add-body").val();
-                    var userProfile = $(".user-add-content .user-input>[type='radio']:checked", ".user-add-body").val();
-                    var dataSubmit = {
-                        name: userName,
-                        password: userPasswd,
-                        group: userGroup,
-                        profile: userProfile
-                    };
-                    if (userPasswd === userConfirmPasswd) {
-                        ginger.addUser(dataSubmit, function() {
-                            $("#hostUserAdd").dialog("close");
-                            listUsers();
-                        }, function() {
-                            clearUMSubmit();
-                        });
-                    } else {
-                        wok.confirm({
-                            title: i18n['KCHAPI6006M'],
-                            content: i18n['GINUM0002E'],
-                            confirm: i18n['KCHAPI6002M'],
-                            cancel: i18n['KCHAPI6003M']
-                        }, function() {
-                            clearUMSubmit();
-                        }, function() {
-                            clearUMSubmit();
-                        });
-                    }
-                });
-                $("#user-cancel", $(this)).button().click(function(event) {
-                    $("#hostUserAdd").dialog("close");
-                });
-            },
-            beforeClose: function() {
-                clearUMSubmit();
-                $("#user-submit").unbind("click");
-            }
-        });
     });
     listUsers();
 };
