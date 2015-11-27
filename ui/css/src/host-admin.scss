@@ -29,9 +29,43 @@
 }
 
 .ginger .host-admin h3 {
-    font-weight: bold;
-    font-size: 14px;
+    height: 32px;
+    padding: 10px 15px;
+    font-size: 20px;
     border-radius: 2px 2px 0 0;
+    display: inline-block;
+}
+
+.ginger .host-admin h3 > a > span.accordion-icon {
+    display: inline-block;
+    font: normal normal normal 14px/1 FontAwesome;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    font-size: 20px;
+    color: #5a595b;
+}
+
+.ginger .host-admin h3 > a > span.accordion-text {
+    margin-left: 20px;
+}
+
+.ginger .host-admin h3 > a[aria-expanded="true"] > span.accordion-icon:before {
+    content: "\f01b";
+}
+
+.ginger .host-admin h3 > a[aria-expanded="false"] > span.accordion-icon:before {
+    content: "\f01a";
+}
+
+.ginger .host-admin a {
+    color: #9e9e9e;
+    text-decoration: none;
+}
+
+.ginger .host-admin hr {
+    width: 93%;
+    border: 1.8px solid #eaeaea;
+    margin-top: 30px !important;
 }
 
 .ginger .host-admin .content-area {
@@ -60,8 +94,8 @@
 
 .ginger .host-admin .content-area .section .pack-path-input {
     width: 400px;
-    height:30px;
-    border: 1px solid gray;
+    height: 30px;
+    border: 1px solid grey;
 }
 
 .ginger .host-admin .message-area {
@@ -109,7 +143,7 @@
     vertical-align: top;
 }
 
-.ginger .host-admin button{
+.ginger .host-admin button {
     font-weight: bold;
     height: 35px;
     width: 80px;
@@ -327,7 +361,7 @@
 
 .ginger .host-admin .nw-config .interface .grid-head {
     margin-bottom: 10px;
-    color:#888888;
+    color: #888888;
     border-bottom: solid 1px #BBBBBB;
 }
 
@@ -497,13 +531,11 @@
 }
 
 .ginger .host-admin .subsc-manage .status-header .up {
-    background: linear-gradient(to bottom, #BFD255 0%, #8EB92A 50%,
-                #72AA00 51%, #9ECB2D 100%) repeat scroll 0 0 transparent;
+    background: linear-gradient(to bottom, #BFD255 0%, #8EB92A 50%, #72AA00 51%, #9ECB2D 100%) repeat scroll 0 0 transparent;
 }
 
 .ginger .host-admin .subsc-manage .status-header .down {
-    background: linear-gradient(to bottom, #AFAFAF 0%, #AFAFAF 50%,
-                #AFAFAF 51%, #AFAFAF 100%) repeat scroll 0 0 transparent;
+    background: linear-gradient(to bottom, #AFAFAF 0%, #AFAFAF 50%, #AFAFAF 51%, #AFAFAF 100%) repeat scroll 0 0 transparent;
 }
 
 #subscriptionAdd .subsc-colume {

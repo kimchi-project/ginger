@@ -23,123 +23,203 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #silent _t = t.gettext
 <html>
 <head>
-<link rel="stylesheet" type="text/css" href="plugins/ginger/css/ginger.css">
-<script type="text/javascript" src="plugins/ginger/js/util.js"></script>
-<script type="text/javascript" src="plugins/ginger/js/host-admin.js"></script>
+    <link rel="stylesheet" type="text/css" href="plugins/ginger/css/ginger.css">
+    <script type="text/javascript" src="plugins/ginger/js/util.js"></script>
+    <script type="text/javascript" src="plugins/ginger/js/host-admin.js"></script>
 </head>
 <body>
-<div class="ginger">
-
-<div id="gingerHostAdmin" class="host-admin">
-    <h3 class="firmware-ppc-enabled">$_("Firmware Update")</h3>
-    <div class="content-area">
-        <div id="gingerFWUpdateMess" class="message-area" style="display: none;">
-            <span class="progress-icon"></span>
-            <span>$_("Firmware update is initializing. System will reboot in order to flash the firmware.")</span>
+    <div id="administration-root-container" class="ginger">
+        <nav class="navbar navbar-default toolbar">
+            <div class="container">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                  <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#toolbar" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+            <div class="collapse navbar-collapse" id="toolbar">
+            </div>
         </div>
-        <div class="section">
-            <span>$_("Firmware Version: ")</span>
-            <span id="gingerFWVer" class="firmware-ver"></span>
-        </div>
-        <div class="section">
-            <div class="pack-path-label">$_("Package Path: ")</div>
-            <div class="pack-path-content">
-                <input type="text" id="gingerPackPath" class="pack-path-input">
-                <div class="input-hint">
-                    <span class="ui-icon ui-icon-info input-hint-icon"></span>
-                    <span class="input-hint-text">$_("The absolute path to the firmware rpm/hpm.")</span>
+    </nav>
+    <div class="container">
+        <div id="gingerHostAdmin" class="host-admin">
+            <!-- Firmware Update Panel -->
+            <div class="panel-group firmware-ppc-enabled" id="accordion" role="tablist" aria-multiselectable="true">
+                <h3>
+                    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#firmware-update-content-area" aria-expanded="false" aria-controls="firmware-update-content-area" class="">
+                        <span class="accordion-icon"></span><span class="accordion-text">$_("Firmware Update")</span>
+                    </a>
+                </h3>
+                <div id="firmware-update-content-area" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+                    <div id="gingerFWUpdateMess" class="message-area" style="display: none;">
+                        <span class="progress-icon"></span>
+                        <span>$_("Firmware update is initializing. System will reboot in order to flash the firmware.")</span>
                     </div>
+                    <div class="section">
+                        <span>$_("Firmware Version: ")</span>
+                        <span id="gingerFWVer" class="firmware-ver"></span>
+                    </div>
+                    <div class="section">
+                        <div class="pack-path-label">$_("Package Path: ")</div>
+                        <div class="pack-path-content">
+                            <input type="text" id="gingerPackPath" class="pack-path-input">
+                            <div class="input-hint">
+                                <span class="ui-icon ui-icon-info input-hint-icon"></span>
+                                <span class="input-hint-text">$_("The absolute path to the firmware rpm/hpm.")</span>
+                            </div>
+                        </div>
+                        <button id="gingerPackPathSub">$_("Update")</button>
+                    </div>
+                </div>
+                <hr>
             </div>
-            <button id="gingerPackPathSub">$_("Update")</button>
-        </div>
-    </div>
-    <h3 class="backup-ppc-enabled">$_("Configuration Backup")</h3>
-    <div class="content-area">
-        <div class="action-bar">
-            <span id="batDelBtn" class="item">$_("Batch Delete")</span>
-            <span id="newCustomBakBtn" class="item">$_("New Custom Backup")</span>
-            <span id="newDefaultBakBtn" class="item">$_("Generate Default Backup")</span>
-        </div>
-        <div class="bak-grid-header">
-            <div class="cell file-col">$_("File")</div>
-            <div class="cell time-col">$_("Timestamp")</div>
-        </div>
-        <div id="bakGridBody" class="bak-grid-body"></div>
-    </div>
-    <h3 class="network-ppc-enabled">$_("Network Configuration")</h3>
-    <div class="content-area nw-config">
-        <div class="pane interface">
-            <div class="sec-label"><span>$_("Interface")</span></div>
-            <div class="sec-content">
-                <div class="grid-head"><span class="cell name">$_("Name")</span><span class="cell ip">$_("IP")</span><span class="cell mask">$_("Mask")</span></div>
-                <div class="grid-body" id="gingerInterface"></div>
+            <!-- Configuration Backup Panel -->
+            <div class="panel-group backup-ppc-enabled" id="accordion" role="tablist" aria-multiselectable="true">
+               <h3>
+                <a role="button" data-toggle="collapse" data-parent="#accordion" href="#backup-ppc-content-area" aria-expanded="false" aria-controls="backup-ppc-content-area" class="">
+                    <span class="accordion-icon"></span><span class="accordion-text">$_("Configuration Backup")</span>
+                </a>
+            </h3>
+            <div id="backup-ppc-content-area" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+                <div class="action-bar">
+                    <span id="batDelBtn" class="item">$_("Batch Delete")</span>
+                    <span id="newCustomBakBtn" class="item">$_("New Custom Backup")</span>
+                    <span id="newDefaultBakBtn" class="item">$_("Generate Default Backup")</span>
+                </div>
+                <div class="bak-grid-header">
+                    <div class="cell file-col">$_("File")</div>
+                    <div class="cell time-col">$_("Timestamp")</div>
+                </div>
+                <div id="bakGridBody" class="bak-grid-body"></div>
             </div>
+            <hr>
         </div>
-        <div class="pane global">
-            <div class="vertical-separator">
-                <div class="sec-label"><span>$_("DNS")</span><button id="gingerDnsAdd" class="addBtn"></button></div>
-                <div id="gingerDNS"></div>
+        <!-- Network Configuration Panel -->
+        <div class="panel-group network-ppc-enabled" id="accordion" role="tablist" aria-multiselectable="true">
+            <h3>
+                <a role="button" data-toggle="collapse" data-parent="#accordion" href="#network-ppc-content-area" aria-expanded="false" aria-controls="network-ppc-content-area" class="">
+                    <span class="accordion-icon"></span><span class="accordion-text">$_("Network Configuration")</span>
+                </a>
+            </h3>
+            <div id="network-ppc-content-area" class="panel-collapse collapse nw-config" role="tabpanel" aria-labelledby="headingOne">
+                <div class="pane interface">
+                    <div class="sec-label"><span>$_("Interface")</span></div>
+                    <div class="sec-content">
+                        <div class="grid-head"><span class="cell name">$_("Name")</span><span class="cell ip">$_("IP")</span><span class="cell mask">$_("Mask")</span></div>
+                        <div class="grid-body" id="gingerInterface"></div>
+                    </div>
+                </div>
+                <div class="pane global">
+                    <div class="vertical-separator">
+                        <div class="sec-label"><span>$_("DNS")</span><button id="gingerDnsAdd" class="addBtn"></button></div>
+                        <div id="gingerDNS"></div>
+                    </div>
+                    <div>
+                        <div class="sec-label"><span>$_("Gateway")</span></div>
+                        <div id="gingerGateway"></div>
+                    </div>
+                </div>
             </div>
-            <div>
-                <div class="sec-label"><span>$_("Gateway")</span></div>
-                <div id="gingerGateway"></div>
+            <hr>
+        </div>
+        <!-- Power Options Panel -->
+        <div class="panel-group powerprofiles-ppc-enabled" id="accordion" role="tablist" aria-multiselectable="true">
+            <h3>
+                <a role="button" data-toggle="collapse" data-parent="#accordion" href="#gingerPowerMgmt" aria-expanded="false" aria-controls="gingerPowerMgmt" class="">
+                    <span class="accordion-icon"></span><span class="accordion-text">$_("Power Options")</span>
+                </a>
+            </h3>
+            <div id="gingerPowerMgmt" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+                <div class="pw-opt">
+                    <div class="header">
+                        <span class="ui-icon ui-icon-check legend"></span><span class="legend separator">$_("Activated Option")</span>
+                        <span class="ui-icon ui-icon-radio-on legend"></span><span class="legend separator">$_("Selected Option")</span>
+                        <span class="ui-icon ui-icon-radio-off legend"></span><span class="legend">$_("Unselected Option")</span>
+                        <span class="actBtn">$_("Activate")</span>
+                        <span id="progressIndicator"></span>
+                    </div>
+                    <div class="body"></div>
+                </div>
             </div>
+            <hr>
         </div>
-    </div>
-    <h3 class="powerprofiles-ppc-enabled">$_("Power Options")</h3>
-    <div class="content-area" id="gingerPowerMgmt">
-        <div class="pw-opt">
-        <div class="header">
-            <span class="ui-icon ui-icon-check legend"></span><span class="legend separator">$_("Activated Option")</span>
-            <span class="ui-icon ui-icon-radio-on legend"></span><span class="legend separator">$_("Selected Option")</span>
-            <span class="ui-icon ui-icon-radio-off legend"></span><span class="legend">$_("Unselected Option")</span>
-            <span class="actBtn">$_("Activate")</span>
-            <span id="progressIndicator"></span>
-        </div>
-        <div class="body"></div>
-        </div>
-    </div>
-    <h3 class="sanadapters-ppc-enabled">$_("SAN Adapters")</h3>
-    <div class="content-area san-adapter">
-        <div class="cell name"><div class="head">$_("Name")</div><div class="body"></div></div>
-        <div class="cell wwpn"><div class="head">$_("WWPN")</div><div class="body"></div></div>
-        <div class="cell wwnn"><div class="head">$_("WWNN")</div><div class="body"></div></div>
-        <div class="cell state"><div class="head">$_("State")</div><div class="body"></div></div>
-        <div class="cell port"><div class="head">$_("In-Use/Max Ports")</div><div class="body"></div></div>
-        <div class="cell speed"><div class="head">$_("Speed")</div><div class="body"></div></div>
-        <div class="cell symbolic"><div class="head">$_("Symbolic Name")</div><div class="body"></div></div>
-    </div>
-    <h3 class="sensors-ppc-enabled">$_("Sensor Monitor")</h3>
-    <div class="content-area sensor-panel">
-        <div class="progress-icon-sensor"></div>
-    </div>
-    <h3 class="sep-ppc-enabled">$_("SEP Configuration")</h3>
-    <div class="content-area subsc-manage">
-        <div class="status-header">
-            <div class="sep-label">$_("Status:")</div>
-            <div id="sepStatusLog" class="sep-dot-active down"></div>
-            <div class="sep-field sep-buttons">
-                <span id="sepStart" class="actBtn">$_("Start")</span>
-                <span id="sepStop" class="actBtn" style="display:none">$_("Stop")</span>
+        <!-- SAN Adapters Panel -->
+        <div class="panel-group sanadapters-ppc-enabled" id="accordion" role="tablist" aria-multiselectable="true">
+            <h3>
+                <a role="button" data-toggle="collapse" data-parent="#accordion" href="#sanadapters-ppc-content-area" aria-expanded="false" aria-controls="sanadapters-ppc-content-area" class="">
+                    <span class="accordion-icon"></span><span class="accordion-text">$_("SAN Adapters")</span>
+                </a>
+            </h3>
+            <div id="sanadapters-ppc-content-area" class="panel-collapse collapse san-adapter" role="tabpanel" aria-labelledby="headingOne">
+                <div class="cell name"><div class="head">$_("Name")</div><div class="body"></div></div>
+                <div class="cell wwpn"><div class="head">$_("WWPN")</div><div class="body"></div></div>
+                <div class="cell wwnn"><div class="head">$_("WWNN")</div><div class="body"></div></div>
+                <div class="cell state"><div class="head">$_("State")</div><div class="body"></div></div>
+                <div class="cell port"><div class="head">$_("In-Use/Max Ports")</div><div class="body"></div></div>
+                <div class="cell speed"><div class="head">$_("Speed")</div><div class="body"></div></div>
+                <div class="cell symbolic"><div class="head">$_("Symbolic Name")</div><div class="body"></div></div>
             </div>
+            <hr>
         </div>
-        <div class="content-header">
-            <span>$_("Hostname")</span>
-            <span>$_("Port")</span>
-            <span>$_("Community")</span>
-            <button class="add-subscription"></button>
+        <!-- Sensor Monitor Panel -->
+        <div class="panel-group sensors-ppc-enabled" id="accordion" role="tablist" aria-multiselectable="true">
+            <h3>
+                <a role="button" data-toggle="collapse" data-parent="#accordion" href="#sensors-ppc-content-area" aria-expanded="false" aria-controls="sensors-ppc-content-area" class="">
+                    <span class="accordion-icon"></span><span class="accordion-text">$_("Sensor Monitor")</span>
+                </a>
+            </h3>
+            <div id="sensors-ppc-content-area" class="panel-collapse collapse sensor-panel" role="tabpanel" aria-labelledby="headingOne">
+                <div class="progress-icon-sensor"></div>
+            </div>
+            <hr>
         </div>
-        <div class="content-body"></div>
-    </div>
-    <h3 class="users-ppc-enabled">$_("User Management")</h3>
-    <div class="content-area user-manage">
-        <div class="content-header">
-            <span>$_("Name")</span>
-            <span>$_("Group")</span>
-            <span>$_("Profile")</span>
-            <button class="add-user"></button>
+        <!-- SEP Configuration Panel -->
+        <div class="panel-group sep-ppc-enabled" id="accordion" role="tablist" aria-multiselectable="true">
+            <h3>
+                <a role="button" data-toggle="collapse" data-parent="#accordion" href="#sep-ppc-content-area" aria-expanded="false" aria-controls="sep-ppc-content-area" class="">
+                    <span class="accordion-icon"></span><span class="accordion-text">$_("SEP Configuration")</span>
+                </a>
+            </h3>
+            <div id="sep-ppc-content-area" class="panel-collapse collapse subsc-manage" role="tabpanel" aria-labelledby="headingOne">
+                <div class="status-header">
+                    <div class="sep-label">$_("Status:")</div>
+                    <div id="sepStatusLog" class="sep-dot-active down"></div>
+                    <div class="sep-field sep-buttons">
+                        <span id="sepStart" class="actBtn">$_("Start")</span>
+                        <span id="sepStop" class="actBtn" style="display:none">$_("Stop")</span>
+                    </div>
+                </div>
+                <div class="content-header">
+                    <span>$_("Hostname")</span>
+                    <span>$_("Port")</span>
+                    <span>$_("Community")</span>
+                    <button class="add-subscription"></button>
+                </div>
+                <div class="content-body"></div>
+            </div>
+            <hr>
         </div>
-        <div class="content-body"></div>
+        <!-- User Management Panel -->
+        <div class="panel-group users-ppc-enabled" id="accordion" role="tablist" aria-multiselectable="true">
+            <h3>
+                <a role="button" data-toggle="collapse" data-parent="#accordion" href="#users-ppc-content-area" aria-expanded="false" aria-controls="users-ppc-content-area" class="">
+                    <span class="accordion-icon"></span><span class="accordion-text">$_("User Management")</span>
+                </a>
+            </h3>
+            <div id="users-ppc-content-area" class="panel-collapse collapse user-manage" role="tabpanel" aria-labelledby="headingOne">
+                <div class="content-header">
+                    <span>$_("Name")</span>
+                    <span>$_("Group")</span>
+                    <span>$_("Profile")</span>
+                    <button class="add-user"></button>
+                </div>
+                <div class="content-body"></div>
+            </div>
+            <hr>
+        </div>
     </div>
 </div>
 
@@ -176,7 +256,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
         </div>
         <div class="subsc-add-content subsc-colume">
             <input class="subsc-input inputbox" name="hostname" /><br>
-            <input class="subsc-input inputbox" name="port" /><br>
             <input class="subsc-input inputbox" name="community" /><br>
         </div>
         <div class="subsc-manage-footer">
@@ -217,18 +296,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 </div>
 <script id="backupItem" type="text/html">
 <div class="bak-grid-item" id="{identity}">
-    <div class="cell file-col">{file}</div>
-    <div class="cell time-col">{timestamp}</div>
-    <span class="cell act-button download"></span>
-    <span class="cell act-button delete"></span>
+<div class="cell file-col">{file}</div>
+<div class="cell time-col">{timestamp}</div>
+<span class="cell act-button download"></span>
+<span class="cell act-button delete"></span>
 </div>
 </script>
 <script id="backupTooltip" type="text/html">
 <div class="header">$_("Description")</div>
 <div class="sub-content">{description}</div>
 <div class="crt-bak-section">
-    <div class="path-pick"><div class="header">$_("Path Included")</div><div class="sub-content">includePlaceHodler</div></div>
-    <div class="path-pick"><div class="header">$_("Path Excluded")</div><div class="sub-content">excludePlaceHodler</div></div>
+<div class="path-pick"><div class="header">$_("Path Included")</div><div class="sub-content">includePlaceHodler</div></div>
+<div class="path-pick"><div class="header">$_("Path Excluded")</div><div class="sub-content">excludePlaceHodler</div></div>
 </div>
 </script>
 <script id="pathItem" type="text/html">
@@ -236,22 +315,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 </script>
 <script id="nicItem" type="text/html">
 <div class="item">
-    <span class="cell name">{name}</span><!--
-    --><span class="cell ip"><label class="{viewMode}">{ipaddr}</label><input type="text" class="{editMode}" value="{ipaddr}"></span><!--
-    --><span class="cell mask"><label class="{viewMode}">{netmask}</label><input type="text" class="{editMode}" value="{netmask}"></span>
-    <span class="action-area">
-    <button class="edit {viewMode}"></button>
-    <button class="save {editMode}"></button>
-    <button class="cancel hide"></button>
-    </span>
+<span class="cell name">{name}</span><!--
+--><span class="cell ip"><label class="{viewMode}">{ipaddr}</label><input type="text" class="{editMode}" value="{ipaddr}"></span><!--
+--><span class="cell mask"><label class="{viewMode}">{netmask}</label><input type="text" class="{editMode}" value="{netmask}"></span>
+<span class="action-area">
+<button class="edit {viewMode}"></button>
+<button class="save {editMode}"></button>
+<button class="cancel hide"></button>
+</span>
 </div>
 </script>
 <script id="nwGlobalItem" type="text/html">
 <div class="sec-content">
-    <input type="text" value="{ip}">
-    <button class="edit {viewMode}"></button>
-    <button class="save {editMode}"></button>
-    <button class="cancel hide"></button>
+<input type="text" value="{ip}">
+<button class="edit {viewMode}"></button>
+<button class="save {editMode}"></button>
+<button class="cancel hide"></button>
 </div>
 </script>
 <script id="pwMgmtItem" type="text/html">
@@ -259,8 +338,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 </script>
 <script id="sensorBody" type="text/html">
 <div class="sensor-inline">
-    <div class="sensor-head">{labelHead}</div>
-    <div class="sensor-body" id={labelHead}></div>
+<div class="sensor-head">{labelHead}</div>
+<div class="sensor-body" id={labelHead}></div>
 </div>
 </script>
 <script id="sensorUnit" type="text/html">
@@ -268,22 +347,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 </script>
 <script id="userItem" type="text/html">
 <div class="user-item">
-    <div class="user-manage-column" data-type="name">{userName}</div>
-    <div class="user-manage-column" data-type="group">{userGroup}</div>
-    <div class="user-manage-column" data-type="profile">{userProfile}</div>
-    <button class="detach"></button>
+<div class="user-manage-column" data-type="name">{userName}</div>
+<div class="user-manage-column" data-type="group">{userGroup}</div>
+<div class="user-manage-column" data-type="profile">{userProfile}</div>
+<button class="detach"></button>
 </div>
 </script>
 <script id="subscItem" type="text/html">
 <div class="subsc-item">
-    <div class="subsc-manage-column" data-type="hostname">{hostname}</div>
-    <div class="subsc-manage-column" data-type="port">{port}</div>
-    <div class="subsc-manage-column" data-type="community">{community}</div>
-    <button class="detach"></button>
+<div class="subsc-manage-column" data-type="hostname">{hostname}</div>
+<div class="subsc-manage-column" data-type="port">{port}</div>
+<div class="subsc-manage-column" data-type="community">{community}</div>
+<button class="detach"></button>
 </div>
 </script>
 <script>
-    ginger.initAdmin();
+ginger.initAdmin();
 </script>
 <script id="userManagement" type="text/javascript"></script>
 </body>
