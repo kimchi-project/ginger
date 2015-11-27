@@ -613,67 +613,52 @@ ginger.initSEPConfig = function() {
         });
     };
 
-    $(".add-subscription", ".ginger .host-admin .subsc-manage").button({
-        text: false
-    }).click(function(event) {
+    $('#subscriptionAdd').on('show.bs.modal', function(event) {
         var clearSubscriptionSubmit = function(clear) {
             if (clear) {
-                $(".subsc-add-body .subsc-add-content .subsc-input", "#subscriptionAdd").val("");
+                $("form#form-subscription-add :input", "#subscriptionAdd").val("");
             }
-            $(".subsc-add-content .subsc-input").attr("disabled", false);
-            $("input", ".subsc-add-content .subsc-input").attr("disabled", false);
-            $("#subsc-submit").button("option", "disabled", true);
-            $("#subsc-cancel").button("option", "disabled", false);
+            $("form#form-subscription-add :input").attr("disabled", false);
+            $("#subsc-submit").prop("disabled", true);
+            $("#subsc-cancel").prop("disabled", false);
         };
-        $("#subscriptionAdd").dialog({
-            modal: true,
-            width: 350,
-            draggable: false,
-            resizable: false,
-            closeText: "X",
-            open: function() {
-                $(".subsc-add-content .inputbox").keyup(function() {
-                    var sum = 0;
-                    $(".subsc-add-content .inputbox").each(function(index, data) {
-                        if ($(data).val() === "") {
-                            sum += 1;
-                        }
-                    })
-                    if (sum != 0) {
-                        $("#subsc-submit").button("option", "disabled", true);
-                    } else {
-                        $("#subsc-submit").button("option", "disabled", false);
-                    }
-                });
-                $("#subsc-submit", $(this)).button().click(function(event) {
-                    $(".subsc-add-content .subsc-input").attr("disabled", true);
-                    $("input", ".subsc-add-content .subsc-input").attr("disabled", true);
-                    $("#subsc-submit").button("option", "disabled", true);
-                    $("#subsc-cancel").button("option", "disabled", true);
-                    var hostname = $(".subsc-add-content .subsc-input[name='hostname']", ".subsc-add-body").val();
-                    var port = parseInt($(".subsc-add-content .subsc-input[name='port']", ".subsc-add-body").val());
-                    var community = $(".subsc-add-content .subsc-input[name='community']", ".subsc-add-body").val();
-                    var dataSubmit = {
-                        hostname: hostname,
-                        port: port,
-                        community: community,
-                    };
-                    ginger.addSEPSubscription(dataSubmit, function() {
-                        $("#subscriptionAdd").dialog("close");
-                        listSubscriptions();
-                    }, function(error) {
-                        wok.message.error(error.responseJSON.reason);
-                        clearSubscriptionSubmit(false);
-                    });
-                });
-                $("#subsc-cancel", $(this)).button().click(function(event) {
-                    $("#subscriptionAdd").dialog("close");
-                });
-            },
-            beforeClose: function() {
-                clearSubscriptionSubmit(true);
-                $("#subsc-submit").unbind("click");
+        $("#subscriptionAdd, .input").keyup(function() {
+            var sum = 0;
+            $("form#form-subscription-add :input").each(function(index, data) {
+                if ($(data).val() === "") {
+                    sum += 1;
+                }
+            })
+            if (sum != 0) {
+                $("#subsc-submit").prop("disabled", true);
+            } else {
+                $("#subsc-submit").prop("disabled", false);
             }
+        });
+        $("#subsc-submit", $(this)).button().click(function(event) {
+            $("form#form-subscription-add :input").attr("disabled", true);
+            $("#subsc-submit").prop("disabled", true);
+            $("#subsc-cancel").prop("disabled", true);
+            var hostname = $("#subscriptionAdd, .input[name='hostname']", ".modal-body").val();
+            var port = parseInt($("#subscriptionAdd, .input[name='port']", ".modal-body").val());
+            var community = $("#subscriptionAdd, .input[name='community']", ".modal-body").val();
+            var dataSubmit = {
+                hostname: hostname,
+                port: port,
+                community: community,
+            };
+            ginger.addSEPSubscription(dataSubmit, function() {
+                clearSubscriptionSubmit(true);
+                $('#subscriptionAdd').modal('hide')
+                listSubscriptions();
+            }, function(error) {
+                wok.message.error(error.responseJSON.reason);
+                clearSubscriptionSubmit(false);
+            });
+
+        });
+        $("#subsc-cancel", $(this)).button().click(function(event) {
+            $('#subscriptionAdd').modal('hide')
         });
     });
     $("#sepStart").button().click(function() {

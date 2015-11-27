@@ -223,7 +223,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
                     --><span id="sepStatusLog" style="font-weight: bold;"></span><!--
                     --><button class="btn btn-primary" type="submit" id="sepStart">$_("Start")</button><!--
                     --><button class="btn btn-primary" type="submit" id="sepStop">$_("Stop")</button><!--
-                    --><button class="btn btn-primary add-subscription" type="submit">$_("Subscribe")</button>
+                    --><button class="btn btn-primary add-subscription" type="submit" data-toggle="modal" data-target="#subscriptionAdd">$_("Subscribe")</button>
                 </li>
                 <li class='header'>
                     <span class="column-hostname">$_("Hostname")</span><!--
@@ -286,20 +286,33 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
     </div>
 </div>
 
-<div id="subscriptionAdd" title='$_("Add Subscription")' class="ginger-dialog">
-    <div class="subsc-add-body">
-        <div class="subsc-add-label subsc-colume">
-            <div class="subsc-label">$_("Hostname")</div>
-            <div class="subsc-label">$_("Port")</div>
-            <div class="subsc-label">$_("Community")</div>
-        </div>
-        <div class="subsc-add-content subsc-colume">
-            <input class="subsc-input inputbox" name="hostname" /><br>
-            <input class="subsc-input inputbox" name="community" /><br>
-        </div>
-        <div class="subsc-manage-footer">
-            <button id="subsc-submit" disabled>$_("Submit")</button>
-            <button id="subsc-cancel">$_("Cancel")</button>
+<!-- SEP Configuration Modal - Add Subscription -->
+<div class="modal fade host-modal" id="subscriptionAdd" tabindex="-1" role="dialog" labelledby="hostsModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" >
+          <div class="modal-header">
+            <h4 class="modal-title">$_("Add Subscription")</h4>
+          </div>
+          <div class="modal-body">
+            <form id="form-subscription-add">
+                <div class="form-group">
+                    <label for="hostname-textbox">$_("Hostname")</label>
+                    <input type="text" class="form-control input" id="hostname-textbox" name="hostname" />
+                </div>
+                <div class="form-group">
+                    <label for="port-textbox">$_("Port")</label>
+                    <input type="text" class="form-control input" id="port-textbox" name="port" />
+                </div>
+                <div class="form-group">
+                    <label for="community-textbox">$_("Community")</label>
+                    <input type="text" class="form-control input" id="community-textbox" name="community" />
+                </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" id="subsc-submit" class="btn btn-default" data-dismiss="modal" disabled>$_("Submit")</button>
+            <button type="button" id="subsc-cancel" class="btn btn-default" data-dismiss="modal">$_("Cancel")</button>
+          </div>
         </div>
     </div>
 </div>
