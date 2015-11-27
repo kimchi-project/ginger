@@ -562,13 +562,15 @@ ginger.initSEPConfig = function() {
     var sepStatus = function() {
         ginger.getSEPStatus(function(result) {
             if (result.status === "running") {
-                $("#sepStatusLog").removeClass("down");
-                $("#sepStatusLog").addClass("up");
+                $("#sep-ppc-content-area, .fa-circle").removeClass("hide");
+                $("#sep-ppc-content-area, .fa-times-circle").addClass("hide");
+                $("#sepStatusLog").text("Running");
                 $("#sepStart").button().attr("style", "display:none");
                 $("#sepStop").button().attr("style", "display");
             } else {
-                $("#sepStatusLog").removeClass("up");
-                $("#sepStatusLog").addClass("down");
+                $("#sep-ppc-content-area, .fa-circle").addClass("hide");
+                $("#sep-ppc-content-area, .fa-times-circle").removeClass("hide");
+                $("#sepStatusLog").text("Stopped");
                 $("#sepStart").button().attr("style", "display");
                 $("#sepStop").button().attr("style", "display:none");
             }
@@ -578,25 +580,15 @@ ginger.initSEPConfig = function() {
         sepStatus();
         $(".content-body", ".ginger .host-admin .subsc-manage").empty();
         ginger.getSEPSubscriptions(function(result) {
-            //for (var i = 0; i < result.length; i++) {
-            for (var i = 0; i < 2; i++) {
-                /* var subscItem = $.parseHTML(wok.substitute($("#subscItem").html(), {
-                     hostname: result[i]["hostname"],
-                     port: result[i]["port"],
-                     community: result[i]["community"]
-                 }));*/
+            for (var i = 0; i < result.length; i++) {
                 var subscItem = $.parseHTML(wok.substitute($("#subscItem").html(), {
-                    hostname: "blah",
-                    port: 3155,
-                    community: "comunity"
+                    hostname: result[i]["hostname"],
+                    port: result[i]["port"],
+                    community: result[i]["community"]
                 }));
-                console.log('subscItem', subscItem);
                 $(".ginger .host-admin .subsc-manage").append(subscItem);
             }
             $(".detach", ".ginger .host-admin .subsc-manage").button({
-                icons: {
-                    primary: "ui-icon-trash"
-                },
                 text: false
             }).click(function(event) {
                 var that = $(this).parent();
@@ -622,9 +614,6 @@ ginger.initSEPConfig = function() {
     };
 
     $(".add-subscription", ".ginger .host-admin .subsc-manage").button({
-        icons: {
-            primary: "ui-icon-plusthick"
-        },
         text: false
     }).click(function(event) {
         var clearSubscriptionSubmit = function(clear) {
@@ -867,7 +856,6 @@ ginger.initAdmin = function() {
                         break;
                     case "powerprofiles":
                         ginger.initPowerMgmt();
-                        ginger.initSEPConfig();
                         break;
                     case "sanadapters":
                         ginger.initSANAdapter();

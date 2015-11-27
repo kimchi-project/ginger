@@ -50,7 +50,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
             <div class="panel-group firmware-ppc-enabled" id="accordion" role="tablist" aria-multiselectable="true">
                 <h3>
                     <a role="button" data-toggle="collapse" data-parent="#accordion" href="#firmware-update-content-area" aria-expanded="false" aria-controls="firmware-update-content-area" class="">
-                        <span class="accordion-icon"></span><span class="accordion-text">$_("Firmware Update")</span><span class="accordion-text" style="margin-left:320px">$_("SEP Configuration")</span><span class="accordion-text" style="margin-left:305px">$_("Power Options")</span>
+                        <span class="accordion-icon"></span><span class="accordion-text">$_("Firmware Update")</span>
                     </a>
                 </h3>
                 <div id="firmware-update-content-area" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
@@ -65,18 +65,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
                             <label for="gingerPackPath" class="pack-path-label fmw-label">$_("Packaging Path ")</label>
                             <input type="text" class="form-control" id="gingerPackPath" placeholder="$_('Absolute path to firmware RPM')">
                         </div>
-                        <button class="btn btn-default" type="submit" id="gingerPackPathSub" disabled="true" style="width:20%">$_("Update")</button>
-                    </div>
-
-                    <!-- Power Options Panel -->
-                    <div class="col-md-4" id="gingerPowerMgmt" >
-                        <div class="pw-opt">
-                            <div class="header">
-                                <button class="btn btn-default actBtn" type="submit" disabled="true">$_("Activate")</button>
-                                <span id="progressIndicator"></span>
-                            </div>
-                            <div class="body"></div>
-                        </div>
+                        <button class="btn btn-primary" type="submit" id="gingerPackPathSub" disabled="true" style="width:20%">$_("Update")</button>
                     </div>
                 </div>
                 <hr>
@@ -147,7 +136,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
                         <div class="header">
                             <span>$_("DNS IP Address")</span>
                         </div>
-                        <button class="btn btn-default addBtn" id="gingerDnsAdd" type="submit"><i class="fa fa-plus-circle"></i> $_("Add")</button>
+                        <button class="btn btn-primary addBtn" id="gingerDnsAdd" type="submit"><i class="fa fa-plus-circle"></i> $_("Add")</button>
                         <div class="body" id="gingerDNS"></div>
                     </div>
                     <div class="col-md-6">
@@ -160,7 +149,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
             </div>
             <hr>
         </div>
-
+        <!-- Power Options Panel -->
+        <div class="panel-group powerprofiles-ppc-enabled" id="accordion" role="tablist" aria-multiselectable="true">
+            <h3>
+                <a role="button" data-toggle="collapse" data-parent="#accordion" href="#gingerPowerMgmt" aria-expanded="false" aria-controls="gingerPowerMgmt" class="">
+                    <span class="accordion-icon"></span><span class="accordion-text">$_("Power Options")</span>
+                </a>
+            </h3>
+            <div id="gingerPowerMgmt" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+                <div class="pw-opt col-md-4">
+                    <div class="header">
+                        <button class="btn btn-primary actBtn" type="submit" disabled="true">$_("Activate")</button>
+                        <span id="progressIndicator"></span>
+                    </div>
+                    <div class="body"></div>
+                </div>
+            </div>
+            <hr>
+        </div>
         <!-- SAN Adapters Panel -->
         <div class="panel-group sanadapters-ppc-enabled" id="accordion" role="tablist" aria-multiselectable="true">
             <h3>
@@ -210,26 +216,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
                 </a>
             </h3>
             <ul id="sep-ppc-content-area" class="panel-collapse collapse subsc-manage" role="tabpanel" aria-labelledby="headingOne">
-               <!--  <div class="status-header">
-                    <div class="sep-label">$_("Status:")</div>
-                    <div id="sepStatusLog" class="sep-dot-active down"></div>
-                    <div class="sep-field sep-buttons">
-                        <span id="sepStart" class="actBtn">$_("Start")</span>
-                        <span id="sepStop" class="actBtn" style="display:none">$_("Stop")</span>
-                    </div>
-                </div> -->
-                <li class='header'>
-                    <span class="name">$_("Hostname")</span><!--
-                    --><span class="wwpn">$_("Port")</span><!--
-                    --><span class="symbolic">$_("Community")</span>
+                <li class="header" style="margin-bottom:20px">
+                    <span class="sep-label">$_("Status")</span><!--
+                    --><i class="fa fa-circle"></i><!--
+                    --><i class="fa fa-times-circle"></i><!--
+                    --><span id="sepStatusLog" style="font-weight: bold;"></span><!--
+                    --><button class="btn btn-primary" type="submit" id="sepStart">$_("Start")</button><!--
+                    --><button class="btn btn-primary" type="submit" id="sepStop">$_("Stop")</button><!--
+                    --><button class="btn btn-primary add-subscription" type="submit">$_("Subscribe")</button>
                 </li>
-<!--                 <div class="content-header">
-                    <span>$_("Hostname")</span>
-                    <span>$_("Port")</span>
-                    <span>$_("Community")</span>
-                    <button class="add-subscription"></button>
-                </div>
-                <div class="content-body"></div>-->
+                <li class='header'>
+                    <span class="column-hostname">$_("Hostname")</span><!--
+                    --><span class="column-port">$_("Port")</span><!--
+                    --><span class="column-community">$_("Community")</span><!--
+                    --><span class="column-detach" style="display:none">
+                        <span class="sr-only">Detach</span><!--
+                    --></span>
+                </li>
             </ul>
             <hr>
         </div>
@@ -242,7 +245,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
             </h3>
             <ul id="users-ppc-content-area" class="panel-collapse collapse user-manage" role="tabpanel" aria-labelledby="headingOne">
                 <li class="header">
-                    <button class="btn btn-default actBtn add-user" type="submit"><i class="fa fa-plus-circle"></i> $_("Add User")</button>
+                    <button class="btn btn-primary actBtn add-user" type="submit"><i class="fa fa-plus-circle"></i> $_("Add User")</button>
                 </li>
                 <li class="header">
                     <span class="column-username">$_("Name")</span><!--
@@ -398,9 +401,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 </script>
 <script id="subscItem" type="text/html">
     <li class="body">
-        <span class="column-username" data-type="hostname">{hostname}</span><!--
-        --><span class="column-usergroup" data-type="port">{port}</span><!--
-        --><span class="column-userprofile" data-type="community">{community}</span><!--
+        <span class="column-hostname" data-type="hostname">{hostname}</span><!--
+        --><span class="column-port" data-type="port">{port}</span><!--
+        --><span class="column-community" data-type="community">{community}</span><!--
         --><span class="column-detach btn btn-link detach"><i class="fa fa-trash-o"></i></span>
     </li>
 </script>
