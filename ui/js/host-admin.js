@@ -471,7 +471,8 @@ ginger.initPowerMgmt = function() {
 
 ginger.initSANAdapter = function() {
     ginger.getSANAdapters(function(data) {
-        var temStr = "<div class='item'>{value}</div>";
+        var temStr = "<span class='item'>{value}</span>";
+        console.log('data.length:', data.length);
         for (var i = 0; i < data.length; i++) {
             $(".body", $(".name", ".san-adapter")).append(wok.substitute(temStr, {
                 value: data[i].name

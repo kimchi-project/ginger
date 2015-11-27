@@ -153,15 +153,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
                     <span class="accordion-icon"></span><span class="accordion-text">$_("SAN Adapters")</span>
                 </a>
             </h3>
-            <div id="sanadapters-ppc-content-area" class="panel-collapse collapse san-adapter" role="tabpanel" aria-labelledby="headingOne">
-                <div class="cell name"><div class="head">$_("Name")</div><div class="body"></div></div>
-                <div class="cell wwpn"><div class="head">$_("WWPN")</div><div class="body"></div></div>
-                <div class="cell wwnn"><div class="head">$_("WWNN")</div><div class="body"></div></div>
-                <div class="cell state"><div class="head">$_("State")</div><div class="body"></div></div>
-                <div class="cell port"><div class="head">$_("In-Use/Max Ports")</div><div class="body"></div></div>
-                <div class="cell speed"><div class="head">$_("Speed")</div><div class="body"></div></div>
-                <div class="cell symbolic"><div class="head">$_("Symbolic Name")</div><div class="body"></div></div>
-            </div>
+            <ul id="sanadapters-ppc-content-area" class="panel-collapse collapse san-adapter" role="tabpanel" aria-labelledby="headingOne">
+                <li class='header'>
+                    <span class="name">$_("Name")</span><!--
+                    --><span class="wwpn">$_("WWPN")</span><!--
+                    --><span class="wwnn">$_("WWNN")</span><!--
+                    --><span class="state">$_("State")</span><!--
+                    --><span class="port">$_("In-Use/Max Ports")</span><!--
+                    --><span class="speed">$_("Speed")</span><!--
+                    --><span class="symbolic">$_("Symbolic Name")</span>
+                </li>
+                <li class='body'>
+                    <span class="name"></span><!--
+                    --><span class="wwpn"></span><!--
+                    --><span class="wwnn"></span><!--
+                    --><span class="state"></span><!--
+                    --><span class="port"></span><!--
+                    --><span class="speed"></span><!--
+                    --><span class="symbolic"></span>
+                </li>
+            </ul>
             <hr>
         </div>
         <!-- Sensor Monitor Panel -->
