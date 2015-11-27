@@ -131,8 +131,6 @@ ginger.initBatDelDialog = function() {
             };
             var delOption = $("input:radio[name=batDelType]:checked");
             var delValue = $("input:text", delOption.parent()).prop("value");
-            console.log('delOption', delOption);
-            console.log('delValue', delValue);
             content[delOption.val()] = parseInt(delValue);
             ginger.deleteBackupArchives(content, function() {
                 $('#batDelDialog').modal('hide');
@@ -172,6 +170,7 @@ ginger.initBatDelDialog = function() {
 };
 
 ginger.setupBakGrid = function() {
+    $(".body", "#bakGridBody").remove();
     ginger.listBackupArchives(function(data) {
         for (var i = 0; i < data.length; i++) {
             data[i].timestamp = new Date(data[i].timestamp * 1000).toLocaleString();
