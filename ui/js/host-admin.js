@@ -195,7 +195,8 @@ ginger.setupBakGrid = function() {
             var tooltipContent = wok.substitute($("#backupTooltip").html(), data[i]);
             tooltipContent = tooltipContent.replace("includePlaceHodler", data[i].include);
             tooltipContent = tooltipContent.replace("excludePlaceHodler", data[i].exclude);
-            $(".file-col,.time-col", tempNode).tooltip({
+
+            $(".column-file,.column-timestamp", tempNode).tooltip({
                 items: $(tempNode),
                 content: tooltipContent,
                 tooltipClass: "ginger-dialog",
@@ -206,21 +207,13 @@ ginger.setupBakGrid = function() {
                 },
                 hide: 100
             });
-            $(".download", $(tempNode)).button({
-                icons: {
-                    primary: "ui-icon ui-icon-arrowthickstop-1-s"
-                },
-                text: false
-            }).click(function() {
+            $(".btn-download").on("click", function(event) {
+                event.stopImmediatePropagation();
                 var bakItem = $(this).parent();
                 window.open('plugins/ginger/backup/archives/' + encodeURIComponent(bakItem.prop("id")) + '/file');
             });
-            $(".delete", $(tempNode)).button({
-                icons: {
-                    primary: "ui-icon ui-icon-close"
-                },
-                text: false
-            }).click(function() {
+            $(".btn-delete").on("click", function(event) {
+                event.stopImmediatePropagation();
                 var bakItem = $(this).parent();
                 ginger.deleteBackupArchive(bakItem.prop("id"), function() {
                     bakItem.remove();
@@ -231,18 +224,22 @@ ginger.setupBakGrid = function() {
 };
 
 ginger.initConfigBak = function() {
-    $("#newDefaultBakBtn").button().click(function() {
+    $("#newDefaultBakBtn").on("click", function(event) {
+        event.preventDefault();
         ginger.createBackupArchive({}, function() {
             $("#bakGridBody").empty();
             ginger.setupBakGrid();
         })
     });
-    $("#newCustomBakBtn").button().click(function() {
+    $("#newCustomBakBtn").on("click", function(event) {
+        event.preventDefault();
         $("#newBakDialog").dialog("open");
     });
-    $("#batDelBtn").button().click(function() {
+    $("#batDelBtn").on("click", function(event) {
+        event.preventDefault();
         $("#batDelDialog").dialog("open");
     });
+
     ginger.setupBakGrid();
     ginger.initBakDialog();
     ginger.initBatDelDialog();
@@ -254,6 +251,15 @@ ginger.initNetworkConfig = function() {
         $(".cancel", item).toggleClass("hide", !on);
     };
     var attachBtnEvt = function(node, editFunc, saveFunc, cancelFunc) {
+        // disable the inputs for edit if they are already filled
+        var ip = $("#ip-address", node);
+        var mask = $("#ip-mask", node);
+        if (!(ip === undefined || ip === null) && !(mask === undefined || mask === null)) {
+            if (!(ip.val() === "") && !(mask.val() === "")) {
+                ip.prop("disabled", true);
+                mask.prop("disabled", true);
+            }
+        }
         $("input", node).each(function() {
             $(this).on("keyup", function() {
                 var isValid = ginger.validateIp($(this).val());
@@ -265,29 +271,23 @@ ginger.initNetworkConfig = function() {
                 $(".save", node).prop("disabled", !isValid);
             });
         });
-        $(".edit", node).button({
-            icons: {
-                primary: "ui-icon-pencil"
-            },
-            text: false
-        }).click(editFunc);
-        $(".save", node).button({
-            icons: {
-                primary: "ui-icon-disk"
-            },
-            text: false
-        }).click(saveFunc);
-        $(".cancel", node).button({
-            icons: {
-                primary: "ui-icon-arrowreturnthick-1-w"
-            },
-            text: false
-        }).click(cancelFunc);
+        $(".edit", node).on("click", function(event) {
+            event.preventDefault();
+            editFunc(node);
+        });
+        $(".save", node).on("click", function(event) {
+            event.preventDefault();
+            saveFunc(node);
+        });
+        $(".cancel", node).on("click", function(event) {
+            event.preventDefault();
+            cancelFunc(node);
+        });
     };
     ginger.getInterfaces(function(data) {
         var toggleInterfaceEdit = function(item, on) {
-            $("label", item).toggleClass("hide", on);
-            $("input", item).toggleClass("hide", !on)
+            $("#ip-address", item).prop("disabled", !on);
+            $("#ip-mask", item).prop("disabled", !on);
             toggleBtnEdit(item, on);
         };
         for (var i = 0; i < data.length; i++) {
@@ -296,14 +296,14 @@ ginger.initNetworkConfig = function() {
             data[i].editMode = isEdit ? "" : "hide";
             var tempNode = $.parseHTML(wok.substitute($("#nicItem").html(), data[i]));
             $("#gingerInterface").append(tempNode);
-            attachBtnEvt(tempNode, function() {
-                var item = $(this).parent().parent();
-                toggleInterfaceEdit(item, true);
-            }, function() {
-                var item = $(this).parent().parent();
-                var name = $("span", item).first().html();
-                var ip = $(".ip", item);
-                var mask = $(".mask", item);
+            attachBtnEvt(tempNode, function(node) {
+                toggleInterfaceEdit(node, true);
+            }, function(node) {
+                // nicItem Save
+                var item = node;
+                var name = $("label", item).first().html();
+                var ip = $("#ip-address", item);
+                var mask = $("#ip-mask", item);
                 var interface = {
                     ipaddr: $("input", ip).val(),
                         netmask: $("input", mask).val()
@@ -315,12 +315,13 @@ ginger.initNetworkConfig = function() {
                         toggleInterfaceEdit(item, false);
                     });
                 });
-            }, function() {
-                var item = $(this).parent().parent();
+            }, function(node) {
+                // nicItem Cancel
+                var item = node;
                 $("input", item).removeClass("invalid-field");
                 $("button", item).prop("disabled", false);
-                var ip = $(".ip", item);
-                var mask = $(".mask", item);
+                var ip = $("#ip-address", item);
+                var mask = $("#ip-mask", item);
                 $("input", ip).val($("label", ip).text());
                 $("input", mask).val($("label", mask).text());
                 toggleInterfaceEdit(item, false);
@@ -329,16 +330,16 @@ ginger.initNetworkConfig = function() {
     });
     ginger.getNetworkGlobals(function(data) {
         var toggleNWGlobalsEdit = function(item, on) {
-            $("input", item).prop("disabled", !on);
+            $("#dns-ip-address", item).prop("disabled", !on);
             toggleBtnEdit(item, on);
         };
         var attachNWGlobalBtnEvt = function(node, saveFunc) {
             attachBtnEvt(node, function() {
-                toggleNWGlobalsEdit($(this).parent(), true);
+                toggleNWGlobalsEdit(node, true);
             }, function() {
                 saveFunc();
             }, function() {
-                toggleNWGlobalsEdit($(this).parent(), false);
+                toggleNWGlobalsEdit(node, false);
             });
         };
         if (!data.nameservers || data.nameservers.length == 0) {
@@ -354,10 +355,10 @@ ginger.initNetworkConfig = function() {
             $("input", tempNode).prop("disabled", ip != "");
             $("#" + container).append(tempNode);
             $("input", tempNode).prop("oriVal", ip);
-            attachBtnEvt(tempNode, function() {
-                toggleNWGlobalsEdit($(this).parent(), true);
-            }, function() {
-                saveFunc($(this).parent(), function(item) {
+            attachBtnEvt(tempNode, function(node) {
+                toggleNWGlobalsEdit(node, true);
+            }, function(node) {
+                saveFunc(node, function(item) {
                     var input = $("input", item);
                     if (input.val() == "" && $(".sec-content", "#" + container).length != 1) {
                         item.remove();
@@ -366,15 +367,15 @@ ginger.initNetworkConfig = function() {
                         toggleNWGlobalsEdit(item, false);
                     }
                 });
-            }, function() {
-                var input = $("input", $(this).parent());
-                input.removeClass("invalid-field");
-                $("button", $(this).parent()).prop("disabled", false);
+            }, function(node) {
+                // DNS IP Address Cancel
+                var input = $("input", node);
+                $("button", node).prop("disabled", false);
                 input.val(input.prop("oriVal"));
                 if (input.prop("oriVal") == "") {
-                    $(this).parent().remove();
+                    node[1].remove();
                 } else {
-                    toggleNWGlobalsEdit($(this).parent(), false);
+                    toggleNWGlobalsEdit(node, false);
                 }
             });
             return tempNode;
@@ -385,7 +386,7 @@ ginger.initNetworkConfig = function() {
                     var nwGol = {
                         nameservers: []
                     };
-                    $("input", item.parent()).each(function() {
+                    $("input", item).each(function() {
                         if ($(this).val().trim() != "") {
                             nwGol.nameservers.push($(this).val());
                         }
@@ -400,9 +401,6 @@ ginger.initNetworkConfig = function() {
             });
         };
         $("#gingerDnsAdd").button({
-            icons: {
-                primary: "ui-icon-plusthick"
-            },
             text: false
         }).click(function() {
             var item = addDnsItem("");
@@ -412,7 +410,7 @@ ginger.initNetworkConfig = function() {
             addDnsItem(data.nameservers[i]);
         }
         addGlobalItem("gingerGateway", data.gateway ? data.gateway : "", function(item, postSave) {
-            var gateway = $("input", item.parent()).val();
+            var gateway = $("input", item).val();
             if (gateway.trim() != "") {
                 ginger.updateNetworkGlobals({
                     gateway: gateway
@@ -427,23 +425,24 @@ ginger.initNetworkConfig = function() {
 };
 
 ginger.initPowerMgmt = function() {
-    var selectedClass = "ui-icon-check";
-    var toSelectClass = "ui-icon-radio-off";
-    var onSelectClass = "ui-icon-radio-on";
-    $(".actBtn", "#gingerPowerMgmt").button({
-        disabled: true
-    }).click(function() {
+    var selectedClass = "pwr-activated";
+    var toSelectClass = "pwr-unselected";
+    var onSelectClass = "pwr-selected";
+
+    $(".actBtn", "#gingerPowerMgmt").on("click", function(event) {
+        $(".actBtn", "#gingerPowerMgmt").prop('disabled', true);
         var currentSelected = $('.' + selectedClass, $(".body", "#gingerPowerMgmt"));
         var toBeSelected = $('.' + onSelectClass, $(".body", "#gingerPowerMgmt"));
         var optName = $(":last-child", toBeSelected.parent()).html();
         $("#progressIndicator", ".ginger .host-admin").addClass("progress-icon");
-        $(".actBtn", "#gingerPowerMgmt").button("option", "disabled", true);
+        $(".actBtn", "#gingerPowerMgmt").prop('disabled', true);
+
         ginger.activatePowerProfile(optName, function() {
             currentSelected.removeClass(selectedClass).addClass(toSelectClass);
             currentSelected.next().addClass("to-select");
             toBeSelected.removeClass(onSelectClass).addClass(selectedClass);
             toBeSelected.next().removeClass("to-select");
-            $(".actBtn", "#gingerPowerMgmt").button("option", "disabled", false);
+            $(".actBtn", "#gingerPowerMgmt").prop('disabled', true);
             $("#progressIndicator", ".ginger .host-admin").removeClass("progress-icon");
         });
     });
@@ -454,7 +453,7 @@ ginger.initPowerMgmt = function() {
             var tempNode = $.parseHTML(wok.substitute($("#pwMgmtItem").html(), data[i]));
             $(".body", "#gingerPowerMgmt").append(tempNode);
             $(tempNode).on("click", function() {
-                $(".item :first-child", $(this).parent()).each(function() {
+                $(".pwr-item :first-child", $(this).parent()).each(function() {
                     if ($(this).hasClass(onSelectClass)) {
                         $(this).removeClass(onSelectClass).addClass(toSelectClass);
                     }
@@ -462,7 +461,9 @@ ginger.initPowerMgmt = function() {
                 var iconNode = $(":first-child", $(this));
                 if (iconNode.hasClass(toSelectClass)) {
                     iconNode.removeClass(toSelectClass).addClass(onSelectClass);
-                    $(".actBtn", "#gingerPowerMgmt").button("option", "disabled", false);
+                    $(".actBtn", "#gingerPowerMgmt").prop('disabled', false);
+                } else {
+                    $(".actBtn", "#gingerPowerMgmt").prop('disabled', true);
                 }
             });
         }
@@ -472,7 +473,6 @@ ginger.initPowerMgmt = function() {
 ginger.initSANAdapter = function() {
     ginger.getSANAdapters(function(data) {
         var temStr = "<span class='item'>{value}</span>";
-        console.log('data.length:', data.length);
         for (var i = 0; i < data.length; i++) {
             $(".body", $(".name", ".san-adapter")).append(wok.substitute(temStr, {
                 value: data[i].name
@@ -509,7 +509,7 @@ ginger.listSensors = function() {
         $.each(result, function(i1, d1) {
             if (d1 && d1 != null && i1 != "hdds") {
                 $.each(d1, function(i2, d2) {
-                    var pathNode = $.parseHTML(wok.substitute($("#sensorBody").html(), {
+                    var pathNode = $.parseHTML(wok.substitute($("#sensorItem").html(), {
                         labelHead: i2
                     }));
                     $(".sensor-panel").append(pathNode);
@@ -518,7 +518,7 @@ ginger.listSensors = function() {
                             if (i3 && d3 != null && i3 != "unit") {
                                 $.each(d3, function(i4, d4) {
                                     if (i4.match("input")) {
-                                        var pathNodeU = $.parseHTML(wok.substitute($("#sensorUnit").html(), {
+                                        var pathNodeU = $.parseHTML(wok.substitute($("#sensorItem").html(), {
                                             labelBody: i3,
                                             labelNumber: d4,
                                             labelUnit: d2["unit"]
@@ -532,13 +532,13 @@ ginger.listSensors = function() {
                 });
             } else {
                 if (d1 != null) {
-                    var pathNode = $.parseHTML(wok.substitute($("#sensorBody").html(), {
+                    var pathNode = $.parseHTML(wok.substitute($("#sensorItem").html(), {
                         labelHead: i1
                     }));
                     $(".sensor-panel").append(pathNode);
                     $.each(d1, function(i5, d5) {
                         if (i5 != "unit") {
-                            var pathNodeU = $.parseHTML(wok.substitute($("#sensorUnit").html(), {
+                            var pathNodeU = $.parseHTML(wok.substitute($("#sensorItem").html(), {
                                 labelBody: i5,
                                 labelNumber: d5,
                                 labelUnit: d1["unit"]
@@ -578,13 +578,20 @@ ginger.initSEPConfig = function() {
         sepStatus();
         $(".content-body", ".ginger .host-admin .subsc-manage").empty();
         ginger.getSEPSubscriptions(function(result) {
-            for (var i = 0; i < result.length; i++) {
+            //for (var i = 0; i < result.length; i++) {
+            for (var i = 0; i < 2; i++) {
+                /* var subscItem = $.parseHTML(wok.substitute($("#subscItem").html(), {
+                     hostname: result[i]["hostname"],
+                     port: result[i]["port"],
+                     community: result[i]["community"]
+                 }));*/
                 var subscItem = $.parseHTML(wok.substitute($("#subscItem").html(), {
-                    hostname: result[i]["hostname"],
-                    port: result[i]["port"],
-                    community: result[i]["community"]
+                    hostname: "blah",
+                    port: 3155,
+                    community: "comunity"
                 }));
-                $(".ginger .host-admin .subsc-manage .content-body").append(subscItem);
+                console.log('subscItem', subscItem);
+                $(".ginger .host-admin .subsc-manage").append(subscItem);
             }
             $(".detach", ".ginger .host-admin .subsc-manage").button({
                 icons: {
@@ -820,11 +827,10 @@ ginger.initFirmware = function() {
         var packPath = $("#gingerPackPath").prop("value");
         var isValid = /(^\/.*)$/.test(packPath);
         $("#gingerPackPath").toggleClass("invalid-field", !isValid && packPath !== "");
-        $("#gingerPackPathSub").button(isValid ? "enable" : "disable");
+        $("#gingerPackPathSub").prop('disabled', !isValid);
     });
-    $("#gingerPackPathSub").button({
-        disabled: true
-    }).click(function() {
+    $("#gingerPackPathSub").on("click", function(event) {
+        event.preventDefault();
         wok.confirm({
             title: i18n['KCHAPI6006M'],
             content: "The system will be immediately reset to flash the firmware. It may take longer than normal for it to reboot.",
@@ -835,7 +841,7 @@ ginger.initFirmware = function() {
                 path: $("#gingerPackPath").prop("value")
             }, function() {
                 $("#gingerFWUpdateMess").css("display", "inline-block");
-                $("#gingerPackPathSub").button("disable");
+                $("#gingerPackPathSub").prop('disabled', true);
                 $("#gingerPackPath").prop("disabled", true);
             });
         }, null);
@@ -844,7 +850,6 @@ ginger.initFirmware = function() {
 
 ginger.initAdmin = function() {
     $(".content-area", "#gingerHostAdmin").css("height", "100%");
-
     ginger.getCapabilities(function(result) {
         $.each(result, function(enableItem, capability) {
             var itemLowCase = enableItem.toLowerCase();
@@ -862,6 +867,7 @@ ginger.initAdmin = function() {
                         break;
                     case "powerprofiles":
                         ginger.initPowerMgmt();
+                        ginger.initSEPConfig();
                         break;
                     case "sanadapters":
                         ginger.initSANAdapter();

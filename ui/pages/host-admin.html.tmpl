@@ -50,52 +50,78 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
             <div class="panel-group firmware-ppc-enabled" id="accordion" role="tablist" aria-multiselectable="true">
                 <h3>
                     <a role="button" data-toggle="collapse" data-parent="#accordion" href="#firmware-update-content-area" aria-expanded="false" aria-controls="firmware-update-content-area" class="">
-                        <span class="accordion-icon"></span><span class="accordion-text">$_("Firmware Update")</span>
+                        <span class="accordion-icon"></span><span class="accordion-text">$_("Firmware Update")</span><span class="accordion-text" style="margin-left:320px">$_("SEP Configuration")</span><span class="accordion-text" style="margin-left:305px">$_("Power Options")</span>
                     </a>
                 </h3>
                 <div id="firmware-update-content-area" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
-                    <div id="gingerFWUpdateMess" class="message-area" style="display: none;">
-                        <span class="progress-icon"></span>
-                        <span>$_("Firmware update is initializing. System will reboot in order to flash the firmware.")</span>
-                    </div>
-                    <div class="section">
-                        <span>$_("Firmware Version: ")</span>
-                        <span id="gingerFWVer" class="firmware-ver"></span>
-                    </div>
-                    <div class="section">
-                        <div class="pack-path-label">$_("Package Path: ")</div>
-                        <div class="pack-path-content">
-                            <input type="text" id="gingerPackPath" class="pack-path-input">
-                            <div class="input-hint">
-                                <span class="ui-icon ui-icon-info input-hint-icon"></span>
-                                <span class="input-hint-text">$_("The absolute path to the firmware rpm/hpm.")</span>
-                            </div>
+                    <div class='fmw-content col-md-4'>
+                        <div class="message-area" id="gingerFWUpdateMess" style="display: none;">
+                            <span class="progress-icon"></span>
+                            <span>$_("Firmware update is initializing. System will reboot in order to flash the firmware.")</span>
                         </div>
-                        <button id="gingerPackPathSub">$_("Update")</button>
+                        <div class='fmw-label'>$_("Version")</div>
+                        <div class="firmware-ver fmw-item" id="gingerFWVer">fmw-version</div>
+                        <div class="form-group fmw-form">
+                            <label for="gingerPackPath" class="pack-path-label fmw-label">$_("Packaging Path ")</label>
+                            <input type="text" class="form-control" id="gingerPackPath" placeholder="$_('Absolute path to firmware RPM')">
+                        </div>
+                        <button class="btn btn-default" type="submit" id="gingerPackPathSub" disabled="true" style="width:20%">$_("Update")</button>
+                    </div>
+
+                    <!-- Power Options Panel -->
+                    <div class="col-md-4" id="gingerPowerMgmt" >
+                        <div class="pw-opt">
+                            <div class="header">
+                                <button class="btn btn-default actBtn" type="submit" disabled="true">$_("Activate")</button>
+                                <span id="progressIndicator"></span>
+                            </div>
+                            <div class="body"></div>
+                        </div>
                     </div>
                 </div>
                 <hr>
             </div>
-            <!-- Configuration Backup Panel -->
-            <div class="panel-group backup-ppc-enabled" id="accordion" role="tablist" aria-multiselectable="true">
-               <h3>
-                <a role="button" data-toggle="collapse" data-parent="#accordion" href="#backup-ppc-content-area" aria-expanded="false" aria-controls="backup-ppc-content-area" class="">
-                    <span class="accordion-icon"></span><span class="accordion-text">$_("Configuration Backup")</span>
-                </a>
-            </h3>
-            <div id="backup-ppc-content-area" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
-                <div class="action-bar">
-                    <span id="batDelBtn" class="item">$_("Batch Delete")</span>
-                    <span id="newCustomBakBtn" class="item">$_("New Custom Backup")</span>
-                    <span id="newDefaultBakBtn" class="item">$_("Generate Default Backup")</span>
-                </div>
-                <div class="bak-grid-header">
-                    <div class="cell file-col">$_("File")</div>
-                    <div class="cell time-col">$_("Timestamp")</div>
-                </div>
-                <div id="bakGridBody" class="bak-grid-body"></div>
-            </div>
-            <hr>
+        <!-- Configuration Backup Panel -->
+        <div class="panel-group backup-ppc-enabled" id="accordion" role="tablist" aria-multiselectable="true">
+         <h3>
+            <a role="button" data-toggle="collapse" data-parent="#accordion" href="#backup-ppc-content-area" aria-expanded="false" aria-controls="backup-ppc-content-area" class="">
+                <span class="accordion-icon"></span><span class="accordion-text">$_("Configuration Backup")</span>
+            </a>
+        </h3>
+        <ul id="backup-ppc-content-area" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+            <li class="backup-pcc-actions" id="backup-pcc-action-area">
+                <span>
+                    <div class="dropdown menu-flat ">
+                        <button class="btn btn-primary dropdown-toggle backup-pcc-button" type="button" data-toggle="dropdown" aria-expanded="false" aria-haspopup="true"><span class="edit-alt"></span>$_("Actions")<span class="caret"></span></button>
+                        <ul class="dropdown-menu actionsheet">
+                            <li role="presentation">
+                                <a href="#" id="newDefaultBakBtn"><i class="fa fa-file"></i>$_("Generate Default Backup")</a>
+                            </li>
+                            <li role="presentation">
+                                <a href="#" id="newCustomBakBtn"><i class="fa fa-file"></i>$_("New Custom Backup")</a>
+                            </li>
+                            <li role="presentation">
+                                <a href="#" id="batDelBtn"><i class="fa fa-minus-circle"></i>$_("Batch Delete")</a>
+                            </li>
+                        </ul>
+                    </div>
+                </span>
+            </li>
+            <li class="header">
+                    <span class="column-file">$_("File")</span><!--
+                    --><span class="column-timestamp">$_("Timestamp")</span><!--
+                --><span class="column-download" style="display:none">
+                        <span class="sr-only">Download</span><!--
+                    --></span><!--
+                --><span class="column-delete" style="display:none">
+                        <span class="sr-only">Delete</span><!--
+                    --></span>
+                </li>
+                <li>
+                 <ul class="ul-body" id="bakGridBody"></ul>
+             </li>
+         </ul>
+         <hr>
         </div>
         <!-- Network Configuration Panel -->
         <div class="panel-group network-ppc-enabled" id="accordion" role="tablist" aria-multiselectable="true">
@@ -104,48 +130,37 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
                     <span class="accordion-icon"></span><span class="accordion-text">$_("Network Configuration")</span>
                 </a>
             </h3>
-            <div id="network-ppc-content-area" class="panel-collapse collapse nw-config" role="tabpanel" aria-labelledby="headingOne">
-                <div class="pane interface">
-                    <div class="sec-label"><span>$_("Interface")</span></div>
-                    <div class="sec-content">
-                        <div class="grid-head"><span class="cell name">$_("Name")</span><span class="cell ip">$_("IP")</span><span class="cell mask">$_("Mask")</span></div>
-                        <div class="grid-body" id="gingerInterface"></div>
-                    </div>
-                </div>
-                <div class="pane global">
-                    <div class="vertical-separator">
-                        <div class="sec-label"><span>$_("DNS")</span><button id="gingerDnsAdd" class="addBtn"></button></div>
-                        <div id="gingerDNS"></div>
-                    </div>
-                    <div>
-                        <div class="sec-label"><span>$_("Gateway")</span></div>
-                        <div id="gingerGateway"></div>
-                    </div>
-                </div>
-            </div>
-            <hr>
-        </div>
-        <!-- Power Options Panel -->
-        <div class="panel-group powerprofiles-ppc-enabled" id="accordion" role="tablist" aria-multiselectable="true">
-            <h3>
-                <a role="button" data-toggle="collapse" data-parent="#accordion" href="#gingerPowerMgmt" aria-expanded="false" aria-controls="gingerPowerMgmt" class="">
-                    <span class="accordion-icon"></span><span class="accordion-text">$_("Power Options")</span>
-                </a>
-            </h3>
-            <div id="gingerPowerMgmt" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
-                <div class="pw-opt">
+            <div id="network-ppc-content-area" class="panel-collapse collapse col-md-12" role="tabpanel" aria-labelledby="headingOne">
+                <div class="col-md-8" style="padding-left: 40px;">
                     <div class="header">
-                        <span class="ui-icon ui-icon-check legend"></span><span class="legend separator">$_("Activated Option")</span>
-                        <span class="ui-icon ui-icon-radio-on legend"></span><span class="legend separator">$_("Selected Option")</span>
-                        <span class="ui-icon ui-icon-radio-off legend"></span><span class="legend">$_("Unselected Option")</span>
-                        <span class="actBtn">$_("Activate")</span>
-                        <span id="progressIndicator"></span>
+                        <span class="column-name">$_("Interface Name")</span><!--
+                        --><span class="column-ip-address">$_("IP Address")</span><!--
+                        --><span class="column-ip-mask">$_("Mask IP Address")</span><!--
+                        --><span class="column-actions" style="display:none">
+                            <span class="sr-only">Actions</span><!--
+                        --></span>
                     </div>
-                    <div class="body"></div>
+                    <div class="body" id="gingerInterface"></div>
+                </div>
+                <div class="col-md-4">
+                    <div class="col-md-6">
+                        <div class="header">
+                            <span>$_("DNS IP Address")</span>
+                        </div>
+                        <button class="btn btn-default addBtn" id="gingerDnsAdd" type="submit"><i class="fa fa-plus-circle"></i> $_("Add")</button>
+                        <div class="body" id="gingerDNS"></div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="header">
+                            <span>$_("Gateway IP Address")</span>
+                        </div>
+                        <div class="body" id="gingerGateway"></div>
+                    </div>
                 </div>
             </div>
             <hr>
         </div>
+
         <!-- SAN Adapters Panel -->
         <div class="panel-group sanadapters-ppc-enabled" id="accordion" role="tablist" aria-multiselectable="true">
             <h3>
@@ -194,23 +209,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
                     <span class="accordion-icon"></span><span class="accordion-text">$_("SEP Configuration")</span>
                 </a>
             </h3>
-            <div id="sep-ppc-content-area" class="panel-collapse collapse subsc-manage" role="tabpanel" aria-labelledby="headingOne">
-                <div class="status-header">
+            <ul id="sep-ppc-content-area" class="panel-collapse collapse subsc-manage" role="tabpanel" aria-labelledby="headingOne">
+               <!--  <div class="status-header">
                     <div class="sep-label">$_("Status:")</div>
                     <div id="sepStatusLog" class="sep-dot-active down"></div>
                     <div class="sep-field sep-buttons">
                         <span id="sepStart" class="actBtn">$_("Start")</span>
                         <span id="sepStop" class="actBtn" style="display:none">$_("Stop")</span>
                     </div>
-                </div>
-                <div class="content-header">
+                </div> -->
+                <li class='header'>
+                    <span class="name">$_("Hostname")</span><!--
+                    --><span class="wwpn">$_("Port")</span><!--
+                    --><span class="symbolic">$_("Community")</span>
+                </li>
+<!--                 <div class="content-header">
                     <span>$_("Hostname")</span>
                     <span>$_("Port")</span>
                     <span>$_("Community")</span>
                     <button class="add-subscription"></button>
                 </div>
-                <div class="content-body"></div>
-            </div>
+                <div class="content-body"></div>-->
+            </ul>
             <hr>
         </div>
         <!-- User Management Panel -->
@@ -220,15 +240,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
                     <span class="accordion-icon"></span><span class="accordion-text">$_("User Management")</span>
                 </a>
             </h3>
-            <div id="users-ppc-content-area" class="panel-collapse collapse user-manage" role="tabpanel" aria-labelledby="headingOne">
-                <div class="content-header">
-                    <span>$_("Name")</span>
-                    <span>$_("Group")</span>
-                    <span>$_("Profile")</span>
-                    <button class="add-user"></button>
-                </div>
-                <div class="content-body"></div>
-            </div>
+            <ul id="users-ppc-content-area" class="panel-collapse collapse user-manage" role="tabpanel" aria-labelledby="headingOne">
+                <li class="header">
+                    <button class="btn btn-default actBtn add-user" type="submit"><i class="fa fa-plus-circle"></i> $_("Add User")</button>
+                </li>
+                <li class="header">
+                    <span class="column-username">$_("Name")</span><!--
+                    --><span class="column-usergroup">$_("Group")</span><!--
+                    --><span class="column-userprofile">$_("Profile")</span><!--
+                    --><span class="column-detach" style="display:none">
+                        <span class="sr-only">Detach</span><!--
+                    --></span>
+                </li>
+                <li class="content-body body"></li>
+            </ul>
             <hr>
         </div>
     </div>
@@ -249,7 +274,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
     </div>
 </div>
 
-<div id="batDelDialog" title='$_("Delete backups in batch")' class="ginger-dialog">
+<div id="batDelDialog" class="window modal-content">
     <div class="del-option">
         <input type="radio" name="batDelType" value="counts_ago" checked>$_("Preserve the latest") <input type="text" class=""> $_("backups")
     </div>
@@ -306,71 +331,78 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 </div>
 <script id="backupItem" type="text/html">
-<div class="bak-grid-item" id="{identity}">
-<div class="cell file-col">{file}</div>
-<div class="cell time-col">{timestamp}</div>
-<span class="cell act-button download"></span>
-<span class="cell act-button delete"></span>
-</div>
+    <li class="body" name="backupBodyItem" id="{identity}">
+        <span class="column-file">{file}</span><!--
+        --><span class="column-timestamp">{timestamp}</span><!--
+        --><span class="column-download btn btn-link btn-download"><i class="fa fa-download"></i>$_("Download")</span><!--
+        --><span class="column-delete btn btn-link btn-delete"><i class="fa fa-minus-circle"></i>$_("Remove")</span>
+    </li>
 </script>
 <script id="backupTooltip" type="text/html">
-<div class="header">$_("Description")</div>
-<div class="sub-content">{description}</div>
-<div class="crt-bak-section">
-<div class="path-pick"><div class="header">$_("Path Included")</div><div class="sub-content">includePlaceHodler</div></div>
-<div class="path-pick"><div class="header">$_("Path Excluded")</div><div class="sub-content">excludePlaceHodler</div></div>
-</div>
+    <div class="header">$_("Description")</div>
+    <div class="sub-content">{description}</div>
+    <div class="crt-bak-section">
+    <div class="path-pick"><div class="header">$_("Path Included")</div><div class="sub-content">includePlaceHodler</div></div>
+    <div class="path-pick"><div class="header">$_("Path Excluded")</div><div class="sub-content">excludePlaceHodler</div></div>
+    </div>
 </script>
 <script id="pathItem" type="text/html">
-<div class="path-item"><input type="text"><button class="add"></button><button class="delete"></button></div>
+    <div class="path-item"><input type="text"><button class="add"></button><button class="delete"></button></div>
 </script>
 <script id="nicItem" type="text/html">
-<div class="item">
-<span class="cell name">{name}</span><!--
---><span class="cell ip"><label class="{viewMode}">{ipaddr}</label><input type="text" class="{editMode}" value="{ipaddr}"></span><!--
---><span class="cell mask"><label class="{viewMode}">{netmask}</label><input type="text" class="{editMode}" value="{netmask}"></span>
-<span class="action-area">
-<button class="edit {viewMode}"></button>
-<button class="save {editMode}"></button>
-<button class="cancel hide"></button>
-</span>
-</div>
+    <form class="form-inline">
+        <div class="form-group column-name">
+            <label class="network-item">{name}</label>
+        </div>
+        <div class="form-group column-ip-address">
+            <input type="text" class="form-control" id="ip-address" placeholder="$_("Enter IP Address")" value="{ipaddr}">
+        </div>
+        <div class="form-group column-ip-mask">
+            <input type="text" class="form-control" id="ip-mask" placeholder="$_("Enter IP Address")" value="{netmask}"> </input>
+        </div>
+        <div class="form-group column-actions">
+            <button class="btn btn-link edit {viewMode}" type="submit"><i class="fa fa-pencil"></i></button>
+            <button class="btn btn-link save {editMode}" type="submit"><i class="fa fa-floppy-o"></i></button>
+            <button class="btn btn-link cancel hide" type="submit"><i class="fa fa-ban"></i></button>
+        </div>
+    </form>
 </script>
 <script id="nwGlobalItem" type="text/html">
-<div class="sec-content">
-<input type="text" value="{ip}">
-<button class="edit {viewMode}"></button>
-<button class="save {editMode}"></button>
-<button class="cancel hide"></button>
-</div>
+    <form class="form-inline sec-content">
+        <div class="form-group column-dns-ip-address">
+            <input type="text" class="form-control" id="dns-ip-address" placeholder="$_("Enter IP Address")" value="{ip}">
+        </div>
+        <div class="form-group column-actions">
+            <button class="btn btn-link edit {viewMode}" type="submit"><i class="fa fa-pencil"></i></button>
+            <button class="btn btn-link save {editMode}" type="submit"><i class="fa fa-floppy-o"></i></button>
+            <button class="btn btn-link cancel hide" type="submit"><i class="fa fa-ban"></i></button>
+        </div>
+    </form>
 </script>
 <script id="pwMgmtItem" type="text/html">
-<div class="item"><span class="ui-icon {selected}"></span><span class="{toSelect}">{name}</span></div>
+    <div class="pwr-item"><span class="{selected}"></span><span class="pwr-item-label {toSelect}">{name}</span></div>
 </script>
-<script id="sensorBody" type="text/html">
-<div class="sensor-inline">
-<div class="sensor-head">{labelHead}</div>
-<div class="sensor-body" id={labelHead}></div>
-</div>
-</script>
-<script id="sensorUnit" type="text/html">
-<div class="sensor-body-label">{labelBody}:  {labelNumber}   {labelUnit}</div>
+<script id="sensorItem" type="text/html">
+    <li class="header sensor-inline">
+        <span class='default_column'>{labelHead}</span>
+    </li>
+    <li class="body">
+        <span id={labelHead} class='default_column'>{labelBody}: {labelNumber} {labelUnit}</span>
+    </li>
 </script>
 <script id="userItem" type="text/html">
-<div class="user-item">
-<div class="user-manage-column" data-type="name">{userName}</div>
-<div class="user-manage-column" data-type="group">{userGroup}</div>
-<div class="user-manage-column" data-type="profile">{userProfile}</div>
-<button class="detach"></button>
-</div>
+        <span class="column-username" data-type="name">{userName}</span><!--
+        --><span class="column-usergroup" data-type="group">{userGroup}</span><!--
+        --><span class="column-userprofile" data-type="profile">{userProfile}</span><!--
+        --><span class="column-detach btn btn-link detach"><i class="fa fa-trash-o"></i></span>
 </script>
 <script id="subscItem" type="text/html">
-<div class="subsc-item">
-<div class="subsc-manage-column" data-type="hostname">{hostname}</div>
-<div class="subsc-manage-column" data-type="port">{port}</div>
-<div class="subsc-manage-column" data-type="community">{community}</div>
-<button class="detach"></button>
-</div>
+    <li class="body">
+        <span class="column-username" data-type="hostname">{hostname}</span><!--
+        --><span class="column-usergroup" data-type="port">{port}</span><!--
+        --><span class="column-userprofile" data-type="community">{community}</span><!--
+        --><span class="column-detach btn btn-link detach"><i class="fa fa-trash-o"></i></span>
+    </li>
 </script>
 <script>
 ginger.initAdmin();

@@ -433,13 +433,14 @@
 }
 
 .ginger .host-admin .pw-opt .header #progressIndicator {
-    float: right;
-    margin-top: 2px;
+    /*    float: right;*/
+    margin-top: 5px;
 }
 
-.ginger .host-admin .pw-opt .header .actBtn {
+
+/*.ginger .host-admin .pw-opt .header .actBtn {
     float: right;
-}
+}*/
 
 .ginger .host-admin .pw-opt .body .item {
     display: inline-block;
@@ -478,7 +479,8 @@
     max-height: 170px;
 }
 
-.ginger .host-admin .sensor-inline {
+
+/*.ginger .host-admin .sensor-inline {
     display: inline-block;
     margin-left: 20px;
     vertical-align: top;
@@ -493,7 +495,7 @@
 .ginger .host-admin .sensor-inline .sensor-body {
     font-weight: normal;
     font-size: 12px;
-}
+}*/
 
 .ginger .host-admin .subsc-manage .content-body .subsc-item {
     height: 25px;
