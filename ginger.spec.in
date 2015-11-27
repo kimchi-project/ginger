@@ -9,17 +9,26 @@ Source0:	%{name}-%{version}.tar.gz
 BuildRequires:	gettext-devel >= 0.17
 BuildRequires:	python-cheetah
 Requires:	gettext >= 0.17
-Requires:	wok
-Requires:	tuned
+Requires:	ginger-base
 Requires:	libuser-python
-Requires:	lm_sensors
 Requires:	hddtemp
+Requires:   libvirt
+Requires:	python-ethtool
+Requires:	python-ipaddr
+Requires:	python-magic
+Requires:	python-netaddr
+Requires:	python-augeas
+Requires:   libvirt-python
 
 %ifarch ppc64 ppc
 Requires:	powerpc-utils
 Requires:	serviceable.event.provider
 %endif
 
+%ifarch x86_64 ppc64 ppc
+Requires:	tuned
+Requires:	lm_sensors
+%endif
 
 %description
 Ginger is a host management plugin for Wok (Webserver Originated from Kimchi),
@@ -87,6 +96,9 @@ service wokd restart
 
 
 %changelog
+* Fri Nov 27 2015 Chandra Shekhar Reddy Potula <chandra@linux.vnet.ibm.com>
+- Add missing dependencies for Ginger
+
 * Thu Oct 2 2014 Rodrigo Trujillo <rodrigo.trujillo@linux.vnet.ibm.com>
 - Add Help pages for Ginger
 - Change build system to enable and release Help pages

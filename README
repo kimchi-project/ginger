@@ -5,7 +5,10 @@ Ginger is an open source host management plugin to Wok, Web Server Originated
 from Kimchi, that provides an intuitive web panel with common tools for
 configuring and operating Linux systems.
 
-The current features include:
+Wok is a cherrypy-based web framework with HTML5 support that is extended by
+plugins which expose functionality through REST APIs.
+
+The current features of Host Management of Linux system include:
  + retrieve system health (sensors) stats
  + user login account management,
  + network interface configuration,
@@ -13,23 +16,97 @@ The current features include:
  + Power (ppc) firmware update,
  + Power policy management.
 
+Browser Support
+===============
 
-*** Dependencies for Ubuntu/Debian ***
+Wok and its plugin can run in any web browser that supports HTML5. The
+Kimchi community (responsible for Wok project) makes an effort to
+test it with the latest versions of Chrome and Firefox browsers, but the
+following list can be used as reference to browser support.
 
-To run the source code in Ubuntu/Debian an extra package is required:
+Desktop Browser Support:
+-----------------------
+* **Internet Explorer:** Current version
+* **Chrome:** Current version
+* **Firefox:** Current version
+* **Safari:** Current version
+* **Opera:** Current version
 
-$ sudo apt-get install python-libuser
+Mobile Browser Support:
+-----------------------
+* **Safari iOS:** Current version
+* **Android Browser** Current version
 
-This step is not required for installation using the .deb package.
 
+Hypervisor Distro Support
+=========================
 
-*** Dependencies for the unit tests ***
+Kimchi might run on any GNU/Linux distribution that meets the conditions
+described on the 'Getting Started' section below.
 
-To run the unit tests from the source code the python mock package
-is required:
+The Kimchi community makes an effort to test it with the latest versions of
+Fedora, RHEL, IBM KVM and Ubuntu.
 
-$ sudo pip install mock
+Getting Started
+===============
 
+Install Dependencies
+--------------------
+
+**For fedora, RHEL and IBM KVM :**
+
+     $ sudo yum install ginger-base libvirt-python libvirt hddtemp \
+                        libuser-python python-augeas python-netaddr\
+                        python-ethtool python-ipaddr python-magic \
+
+    # For fedora, RHEL and Power ppc
+    $ sudo yum install tuned lm_sensors
+
+    # Power ppc install the following packages
+    $ sudo yum install powerpc-utils serviceable.event.provider
+
+    # These dependencies are only required if you want to run the tests:
+    $ sudo yum install pyflakes python-pep8 python-mock
+
+**For Ubuntu (Debian-based):**
+
+    $ sudo apt-get install ginger-base libvirt-bin python-libvirt hddtemp \
+                        python-libuser python-ethtool python-augeas \
+                        python-ipaddr python-magic python-netaddr
+
+    # These dependencies are only required if you want to run the tests:
+    $ sudo apt-get install pep8 pyflakes python-requests python-mock
+
+Build and Install
+-----------------
+
+    Wok Framework Installation:
+    $ ./autogen.sh --system
+
+    $ make
+    $ sudo make install   # Optional if running from the source tree
+
+    Ginger Base:
+    $ cd src/wok/plugins/gingerbase
+    $ ./autogen.sh --system
+
+    $ make
+    $ sudo make install   # Optional if running from the source tree
+
+    Ginger:
+    $ cd ginger
+    $ ./autogen.sh --system
+
+    $ make
+    $ sudo make install   # Optional if running from the source tree
+
+Run
+---
+    $ sudo /usr/bin/wok --host=0.0.0.0
+
+    OR
+
+    $ sudo systemctl start wokd
 
 *** Notes on Power policy management feature ***
 
@@ -58,8 +135,26 @@ $ systemctl restart wokd.service
 If these steps do not solve the problem, try to update all 'tuned' related
 packages and the packages'selinux-policy' and 'selinux-policy-targeted'.
 
+Test
+----
 
-*** Copyright notice ***
+    $ cd ginger
+    $ make check-local # check for i18n and formatting errors
+    $ sudo make check
+
+After all tests are executed, a summary will be displayed containing any
+errors/failures which might have occurred.
+
+Participating
+-------------
+
+All patches are sent through our mailing list.  More information can be found at:
+
+https://github.com/kimchi-project/ginger/wiki/Communications
+
+Patches should be sent using git-send-email to ginger-dev-list@googlegroups.com
+
+** Copyright notice ***
 
 All the .gif and .png files in 'ui/css/base/images/' directory are licensed
 as follows:
