@@ -77,6 +77,15 @@ Install Dependencies
     # These dependencies are only required if you want to run the tests:
     $ sudo apt-get install pep8 pyflakes python-requests python-mock
 
+At the moment of this writing (11-30-2015), libuser has a bug that
+prevents it to work properly in Ubuntu 15.10 and older
+(https://bugs.launchpad.net/ubuntu/+source/libuser/+bug/1387274).
+A workaround is needed to fix this bug:
+
+$ sudo touch /etc/libuser.conf
+
+This workaround is for Debian/Ubuntu only.
+
 Build and Install
 -----------------
 
