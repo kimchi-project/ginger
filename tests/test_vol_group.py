@@ -23,6 +23,7 @@ import wok.plugins.ginger.models.vol_group as vol_group
 
 from wok import config
 from wok.exception import MissingParameter
+from wok.model.tasks import TaskModel
 from wok.objectstore import ObjectStore
 
 
@@ -30,6 +31,7 @@ class VolumeGroupsTests(unittest.TestCase):
     def setUp(self):
         objstore_loc = config.get_object_store() + '_ginger'
         self._objstore = ObjectStore(objstore_loc)
+        self.task_model = TaskModel(objstore=self._objstore)
 
     def test_get_vg_list(self):
         vgs = vol_group.VolumeGroupsModel(objstore=self._objstore)
@@ -54,7 +56,8 @@ class VolumeGroupsTests(unittest.TestCase):
         vgname = 'testvg'
         pvpaths = ['/dev/sdb1']
         params = {'vg_name': vgname, 'pv_paths': pvpaths}
-        vgs.create(params)
+        task_obj = vgs.create(params)
+        self.task_model.wait(task_obj.get('id'))
         mock_create_vg.assert_called_with(vgname, pvpaths)
 
     @mock.patch('wok.plugins.ginger.models.utils._extend_vg', autospec=True)

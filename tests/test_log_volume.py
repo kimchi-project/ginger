@@ -23,6 +23,7 @@ import wok.plugins.ginger.models.log_volume as log_volume
 
 from wok import config
 from wok.exception import MissingParameter
+from wok.model.tasks import TaskModel
 from wok.objectstore import ObjectStore
 
 
@@ -30,6 +31,7 @@ class LogicalVolumesTests(unittest.TestCase):
     def setUp(self):
         objstore_loc = config.get_object_store() + '_ginger'
         self._objstore = ObjectStore(objstore_loc)
+        self.task_model = TaskModel(objstore=self._objstore)
 
     def test_get_lv_list(self):
         lvs = log_volume.LogicalVolumesModel(objstore=self._objstore)
@@ -54,7 +56,8 @@ class LogicalVolumesTests(unittest.TestCase):
         vgname = 'testvg'
         size = '10M'
         params = {'vg_name': vgname, 'size': size}
-        lvs.create(params)
+        task_obj = lvs.create(params)
+        self.task_model.wait(task_obj.get('id'))
         mock_create_lv.assert_called_with(vgname, size)
 
     @mock.patch('wok.plugins.ginger.models.utils._remove_lv',

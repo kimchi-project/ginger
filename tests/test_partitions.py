@@ -23,6 +23,7 @@ import wok.plugins.ginger.models.diskparts as diskparts
 
 from wok import config
 from wok.exception import MissingParameter
+from wok.model.tasks import TaskModel
 from wok.objectstore import ObjectStore
 
 
@@ -30,6 +31,7 @@ class PartitionTests(unittest.TestCase):
     def setUp(self):
         objstore_loc = config.get_object_store() + '_ginger'
         self._objstore = ObjectStore(objstore_loc)
+        self.task_model = TaskModel(objstore=self._objstore)
 
     def test_get_part_list(self):
         parts = diskparts.PartitionsModel()
@@ -83,5 +85,6 @@ class PartitionTests(unittest.TestCase):
         part = diskparts.PartitionModel(objstore=self._objstore)
         name = 'sdb1'
         fstype = 'ext4'
-        part.format(name, fstype)
+        task_obj = part.format(name, fstype)
+        self.task_model.wait(task_obj.get('id'))
         mock_format_part.assert_called_with(fstype, '/dev/' + name)
