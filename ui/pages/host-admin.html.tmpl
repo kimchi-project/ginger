@@ -87,7 +87,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
                                 <a href="#" id="newDefaultBakBtn"><i class="fa fa-file"></i>$_("Generate Default Backup")</a>
                             </li>
                             <li role="presentation">
-                                <a href="#" id="newCustomBakBtn"><i class="fa fa-file"></i>$_("New Custom Backup")</a>
+                                <a href="#" id="newCustomBakBtn" data-toggle="modal" data-target="#newBakDialog"><i class="fa fa-file"></i>$_("New Custom Backup")</a>
                             </li>
                             <li role="presentation">
                                 <a href="#" id="batDelBtn" data-toggle="modal" data-target="#batDelDialog"><i class="fa fa-minus-circle"></i>$_("Batch Delete")</a>
@@ -262,20 +262,42 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 </div>
 
 <!-- Configuration Backup Modal - Create Custom Backup -->
-<div id="newBakDialog" title='$_("Create a backup")' class="ginger-dialog">
-    <div>$_("Description")</div>
-    <div class="crt-bak-section"><input type="text" class="desc"></div>
-    <div class="crt-bak-section">
-        <div class="path-pick">
-            <div>$_("Path Included")</div>
-            <div class="box" id="includeBox"></div>
-        </div>
-        <div class="path-pick">
-            <div>$_("Path Excluded")</div>
-            <div class="box" id="excludeBox"></div>
+<div class="modal fade host-modal" id="newBakDialog" tabindex="-1" role="dialog" labelledby="newBakLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" >
+            <div class="modal-header">
+                <h4 class="modal-title">$_("Create a backup")</h4>
+            </div>
+            <div class="modal-body">
+                <form id="form-backup-add">
+                    <div class="form-group">
+                        <label for="description-textbox">$_("Description")</label>
+                        <input type="text" class="form-control input" id="description-textbox" name="description" />
+                    </div>
+                </form>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="col-md-6" >
+                            <label class="col-md-12">$_("Paths Included")</label>
+                            <span class='add-path-to-include'><a  class="add btn btn-link" href="#"><i class="fa fa-plus-circle"></i> $_("Add a Path")</a></span>
+                            <div id="includeBox"></div>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="col-md-12">$_("Paths Excluded")</label>
+                            <span class='add-path-to-exclude'><a  class="add btn btn-link" href="#"><i class="fa fa-plus-circle"></i> $_("Add a Path")</a></span>
+                            <div id="excludeBox"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="newBakFormBtn" class="btn btn-default" data-dismiss="modal" disabled>$_("Generate Backup")</button>
+                <button type="button" id="newBakFormCancelBtn" class="btn btn-default" data-dismiss="modal">$_("Cancel")</button>
+            </div>
         </div>
     </div>
 </div>
+
 
 <!-- Configuration Backup Modal - Batch Delete -->
 <div class="modal fade host-modal" id="batDelDialog" tabindex="-1" role="dialog" labelledby="batDelLabel" aria-hidden="true">
@@ -313,15 +335,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
         </div>
     </div>
 </div>
-
-<!-- <div id="batDelDialog" class="window modal-content">
-    <div class="del-option">
-        <input type="radio" name="batDelType" value="counts_ago" checked>$_("Preserve the latest") <input type="text" class=""> $_("backups")
-    </div>
-    <div class="del-option">
-        <input type="radio" name="batDelType" value="days_ago">$_("Preserve the latest") <input type="text" class="" disabled> $_("days of backups")
-    </div>
-</div> -->
 
 <!-- SEP Configuration Modal - Add Subscription -->
 <div class="modal fade host-modal" id="subscriptionAdd" tabindex="-1" role="dialog" labelledby="hostsModalLabel" aria-hidden="true">
@@ -416,7 +429,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
         <span class="column-file">{file}</span><!--
         --><span class="column-timestamp">{timestamp}</span><!--
         --><span class="column-download btn btn-link btn-download"><i class="fa fa-download"></i>$_("Download")</span><!--
-        --><span class="column-delete btn btn-link btn-delete"><i class="fa fa-minus-circle"></i>$_("Remove")</span>
+        --><span class="column-delete btn btn-link btn-delete "><i class="fa fa-minus-circle"></i>$_("Remove")</span>
     </li>
 </script>
 <script id="backupTooltip" type="text/html">
@@ -428,7 +441,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
     </div>
 </script>
 <script id="pathItem" type="text/html">
-    <div class="path-item"><input type="text"><button class="add"></button><button class="delete"></button></div>
+    <div class="path-item">
+        <input type="text" class="form-control input" />
+        <span class="column-delete btn btn-link delete del-label"><i class="fa fa-minus-circle"></i>$_("Remove")</span>
+    </div>
 </script>
 <script id="nicItem" type="text/html">
     <form class="form-inline">

@@ -17,13 +17,12 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 //
-
 #administration-root-container {
-    .fa {
-        margin-left: 20px;
-        font-size: 20px;
-        color: #5a595b;
-    }
+    // .fa {
+    //     margin-left: 20px;
+    //     font-size: 20px;
+    //     color: #5a595b;
+    // }
     h3 {
         height: 32px;
         padding: 10px 15px;
@@ -368,5 +367,24 @@
         margin: 0px 8px;
         width: 10%;
         height: auto;
+    }
+}
+
+#newBakDialog {
+    .del-label {
+        color: #9e9e9e;
+        font-size: 14px;
+    }
+    .fa {
+        padding: 1px 3px;
+        font-size: 18px;
+        margin-left: 0;
+    }
+    .fa-plus-circle {
+        margin-bottom: 5px;
+    }
+    .path-item {
+        display: flex;
+        margin-bottom: 10px;
     }
 }
