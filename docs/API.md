@@ -696,3 +696,30 @@ URI: /plugins/ginger/partitions/*:part_name*
 **Methods:**
 
 * **GET**: Retrieve a summarized list of all storage devices
+
+### Collection: Interfaces
+
+**URI:** /plugins/ginger/network/interfaces
+
+**Methods:**
+
+* **GET**: Retrieve a detailed list of interfaces
+
+### Resource: Interfaces
+
+**URI:** /plugins/ginger/network/interfaces/*:interfacename*
+
+**Methods:**
+
+* **GET**: Retrieve the full description of a interface
+    * status: The current physical link state of the interface.
+    * name: Interface name
+    * editable: 'true' if interface can be edited, 'false' otherwise
+    * ipaddr: IP address currently assigned to this interface
+    * netmask: Netmaks of interface
+    * type: Type of interface
+     Example: Bond, Vlan, Ethernet etc
+
+* **POST**:
+   * activate : Activates an interface
+   * deactivate : Deactivates an interface
