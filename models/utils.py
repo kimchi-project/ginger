@@ -729,6 +729,9 @@ def get_final_list():
 
                 final_dict['mpath_count'] = max_slaves
 
+            if final_dict['id'] in ll_id_dict:
+                final_dict['name'] = ll_id_dict[final_dict['id']][0]
+
             if 'id' in final_dict:
                 final_list.append(final_dict)
     except Exception as e:
