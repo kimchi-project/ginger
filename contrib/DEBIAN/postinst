@@ -1,0 +1,5 @@
+#!/bin/sh
+
+# Workaround for libuser bug:
+# https://bugs.launchpad.net/ubuntu/+source/libuser/+bug/1387274
+touch /etc/libuser.conf
