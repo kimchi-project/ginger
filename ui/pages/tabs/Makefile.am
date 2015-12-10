@@ -1,7 +1,7 @@
 #
 # Project Ginger
 #
-# Copyright IBM, Corp. 2014
+# Copyright IBM, Corp. 2015
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -15,10 +15,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-SUBDIRS = help tabs
+tabshtmldir = $(datadir)/kimchi/ui/pages/tabs
 
-htmldir = $(datadir)/wok/plugins/ginger/ui/pages
-
-dist_html_DATA = \
-	i18n.json.tmpl \
-	$(NULL)
+dist_tabshtml_DATA = $(wildcard *.html.tmpl) $(NULL)
