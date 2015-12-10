@@ -55,9 +55,10 @@ Install Dependencies
 
 **For fedora, RHEL and IBM KVM :**
 
-     $ sudo yum install ginger-base libvirt-python libvirt hddtemp \
+    $ sudo yum install  wok ginger-base libvirt-python libvirt hddtemp \
                         libuser-python python-augeas python-netaddr\
                         python-ethtool python-ipaddr python-magic \
+                        pyparted \
 
     # For fedora, RHEL and Power ppc
     $ sudo yum install tuned lm_sensors
@@ -68,11 +69,22 @@ Install Dependencies
     # These dependencies are only required if you want to run the tests:
     $ sudo yum install pyflakes python-pep8 python-mock
 
+**For openSUSE:**
+
+     $ sudo zypper install wok ginger-base libvirt-python libvirt hddtemp \
+                        libuser-python python-augeas python-netaddr\
+                        python-ethtool python-ipaddr python-magic \
+                        python-parted \
+
+    # These dependencies are only required if you want to run the tests:
+    $ sudo zypper install python-pyflakes python-pep8 python-requests python-mock
+
 **For Ubuntu (Debian-based):**
 
-    $ sudo apt-get install ginger-base libvirt-bin python-libvirt hddtemp \
+    $ sudo apt-get install wok ginger-base libvirt-bin python-libvirt hddtemp \
                         python-libuser python-ethtool python-augeas \
-                        python-ipaddr python-magic python-netaddr
+                        python-ipaddr python-magic python-netaddr \
+                        python-parted \
 
     # These dependencies are only required if you want to run the tests:
     $ sudo apt-get install pep8 pyflakes python-requests python-mock
