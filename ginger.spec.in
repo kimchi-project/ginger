@@ -83,7 +83,7 @@ service wokd restart
 %{_datadir}/wok/plugins/ginger/ui/pages/help/en_US/host-admin.html
 %{_datadir}/wok/plugins/ginger/ui/pages/help/pt_BR/host-admin.html
 %{_datadir}/wok/plugins/ginger/ui/pages/help/zh_CN/host-admin.html
-%{_datadir}/wok/plugins/ginger/ui/pages/host-admin.html.tmpl
+%{_datadir}/wok/plugins/ginger/ui/pages/tabs/host-admin.html.tmpl
 %{_datadir}/wok/plugins/ginger/ui/pages/i18n.json.tmpl
 %{_sysconfdir}/wok/plugins.d/ginger.conf
 
