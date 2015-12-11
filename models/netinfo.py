@@ -29,10 +29,11 @@ BONDING_PATH = '/sys/class/net/*/bonding'
 WLAN_PATH = '/sys/class/net/*/wireless'
 NET_BRPORT = '/sys/class/net/%s/brport'
 NET_MASTER = '/sys/class/net/%s/master'
-NET_STATE = '/sys/class/net/%s/carrier'
+NET_STATE = '/sys/class/net/%s/operstate'
 PROC_NET_VLAN = '/proc/net/vlan/'
 BONDING_SLAVES = '/sys/class/net/%s/bonding/slaves'
 BRIDGE_PORTS = '/sys/class/net/%s/brif'
+MAC_ADDRESS = '/sys/class/net/%s/address'
 
 
 def wlans():
@@ -109,21 +110,26 @@ def is_bondlave(nic):
 
 def operstate(dev):
     link_status = link_detected(dev)
-    return "down" if link_status == "n/a" else "up"
+    return "up" if link_status == "up" else "down"
 
 
-def link_detected(dev):
-    # try to read interface carrier (link) status
+def macaddr(dev):
     try:
-        with open(NET_STATE % dev) as dev_file:
-            carrier = dev_file.readline().strip()
-    # when IOError is raised, interface is down
+        with open(MAC_ADDRESS % dev) as dev_file:
+            hwaddr = dev_file.readline().strip()
+            return hwaddr
     except IOError:
         return "n/a"
 
-    # if value is 1, interface up with cable connected
-    # 0 corresponds to interface up with cable disconnected
-    return "yes" if carrier == '1' else "no"
+
+def link_detected(dev):
+    # try to read interface operstate (link) status
+    try:
+        with open(NET_STATE % dev) as dev_file:
+            return dev_file.readline().strip()
+    # when IOError is raised, interface is down
+    except IOError:
+        return "down"
 
 
 def get_vlan_device(vlan):
@@ -209,15 +215,9 @@ def get_interface_info(iface):
         netmask = ethtool.get_netmask(iface)
     except IOError:
         pass
-
-    iface_link_detected = link_detected(iface)
-    iface_status = \
-        'active' if iface_link_detected != "n/a" and \
-        iface_link_detected != "no" else "inactive"
-
     return {'name': iface,
             'type': get_interface_type(iface),
-            'status': iface_status,
-            'link_detected': iface_link_detected,
+            'status': link_detected(iface),
             'ipaddr': ipaddr,
-            'netmask': netmask}
+            'netmask': netmask,
+            'macaddr': macaddr(iface)}
