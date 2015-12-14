@@ -94,18 +94,18 @@ lrwxrwxrwx. 1 root root 10 Nov 24 10:58 wwn-0x6005076802810d50480000000000\
             len(ret_id_dict['36005076802810d504800000000002edf']), 3)
 
     def test_parse_lsblk(self):
-        out = """NAME="sda" TRAN="iscsi" TYPE="disk" SIZE="5G"
-NAME="36005076802810d504800000000002ede" TRAN="" TYPE="mpath" SIZE="5G"
-NAME="sdb" TRAN="iscsi" TYPE="disk" SIZE="5G"
-NAME="sdb1" TRAN="" TYPE="part" SIZE="5G"
-NAME="sdc" TRAN="iscsi" TYPE="disk" SIZE="5G"
-NAME="sdc1" TRAN="" TYPE="part" SIZE="10M"
-NAME="sdd" TRAN="fc" TYPE="disk" SIZE="20G"
-NAME="36005076802810d504800000000002c1e" TRAN="" TYPE="mpath" SIZE="20G"
-NAME="sde" TRAN="fc" TYPE="disk" SIZE="20G"
-NAME="36005076802810d504800000000002c1e" TRAN="" TYPE="mpath" SIZE="20G"
-NAME="dasda" TRAN="" TYPE="disk" SIZE="22.5G"
-NAME="dasda1" TRAN="" TYPE="part" SIZE="22.5G"
+        out = """NAME="sda" TYPE="disk" SIZE="5G" TRAN="iscsi"
+NAME="36005076802810d504800000000002ede" TYPE="mpath" SIZE="5G" TRAN=""
+NAME="sdb" TYPE="disk" SIZE="5G" TRAN="iscsi"
+NAME="sdb1" TYPE="part" SIZE="5G" TRAN=""
+NAME="sdc" TYPE="disk" SIZE="5G" TRAN="iscsi"
+NAME="sdc1" TYPE="part" SIZE="10M" TRAN=""
+NAME="sdd" TYPE="disk" SIZE="20G" TRAN="fc"
+NAME="36005076802810d504800000000002c1e" TYPE="mpath" SIZE="20G" TRAN=""
+NAME="sde" TYPE="disk" SIZE="20G" TRAN="fc"
+NAME="36005076802810d504800000000002c1e" TYPE="mpath" SIZE="20G" TRAN=""
+NAME="dasda" TYPE="disk" SIZE="22.5G" TRAN=""
+NAME="dasda1" TYPE="part" SIZE="22.5G" TRAN=""
 """
         ret_dict = utils.parse_lsblk_out(out)
         self.assertEqual(ret_dict['sda']['transport'], 'iscsi')
@@ -116,19 +116,19 @@ NAME="dasda1" TRAN="" TYPE="part" SIZE="22.5G"
     @mock.patch('wok.plugins.ginger.models.utils.get_disks_by_id_out')
     @mock.patch('wok.plugins.ginger.models.utils.os.listdir')
     def test_get_dev_list(self, mock_list_dir, mock_by_id, mock_lsblk_cmd):
-        mock_lsblk_cmd.return_value = """NAME="sda" TRAN="iscsi" TYPE="disk" \
-        SIZE="5G"
+        mock_lsblk_cmd.return_value = """NAME="sda" TYPE="disk" \
+        SIZE="5G" TRAN="iscsi"
 NAME="36005076802810d504800000000002ede" TRAN="" TYPE="mpath" SIZE="5G"
-NAME="sdb" TRAN="iscsi" TYPE="disk" SIZE="5G"
-NAME="sdb1" TRAN="" TYPE="part" SIZE="5G"
-NAME="sdc" TRAN="iscsi" TYPE="disk" SIZE="5G"
-NAME="sdc1" TRAN="" TYPE="part" SIZE="10M"
-NAME="sdd" TRAN="fc" TYPE="disk" SIZE="20G"
-NAME="36005076802810d504800000000002c1e" TRAN="" TYPE="mpath" SIZE="20G"
-NAME="sde" TRAN="fc" TYPE="disk" SIZE="20G"
-NAME="36005076802810d504800000000002c1e" TRAN="" TYPE="mpath" SIZE="20G"
-NAME="dasda" TRAN="" TYPE="disk" SIZE="22.5G"
-NAME="dasda1" TRAN="" TYPE="part" SIZE="22.5G"
+NAME="sdb" TYPE="disk" SIZE="5G" TRAN="iscsi"
+NAME="sdb1" TYPE="part" SIZE="5G" TRAN=""
+NAME="sdc" TYPE="disk" SIZE="5G" TRAN="iscsi"
+NAME="sdc1" TYPE="part" SIZE="10M" TRAN=""
+NAME="36005076802810d504800000000002c1e" TYPE="mpath" SIZE="20G" TRAN=""
+NAME="sdd" TYPE="disk" SIZE="20G" TRAN="fc"
+NAME="sde" TYPE="disk" SIZE="20G" TRAN="fc"
+NAME="36005076802810d504800000000002c1e" TYPE="mpath" SIZE="20G" TRAN=""
+NAME="dasda" TYPE="disk" SIZE="22.5G" TRAN=""
+NAME="dasda1" TYPE="part" SIZE="22.5G" TRAN=""
 """
         mock_by_id.return_value = """total 0
 lrwxrwxrwx. 1 root root 11 Nov 24 10:58 ccw-0X5184 -> ../../dasda

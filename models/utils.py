@@ -672,8 +672,8 @@ def parse_lsblk_out(lsblk_out):
             disk_info = {}
             disk_attrs = disk.split()
 
-            type = disk_attrs[1]
-            if not type == 'TYPE="disk"':
+            disk_type = disk_attrs[1]
+            if not disk_type == 'TYPE="disk"':
                 continue
 
             if len(disk_attrs) == 4:
@@ -729,10 +729,9 @@ def get_final_list():
 
                 final_dict['mpath_count'] = max_slaves
 
-            if final_dict['id'] in ll_id_dict:
-                final_dict['name'] = ll_id_dict[final_dict['id']][0]
-
             if 'id' in final_dict:
+                if final_dict['id'] in ll_id_dict:
+                    final_dict['name'] = ll_id_dict[final_dict['id']][0]
                 final_list.append(final_dict)
     except Exception as e:
         wok_log.error("Error getting list of storage devices")
