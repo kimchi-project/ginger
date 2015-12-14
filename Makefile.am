@@ -106,7 +106,7 @@ ChangeLog:
 
 VERSION:
 	@if test -d .git; then                                \
-		git describe --abbrev=0 > $@;                     \
+		git describe --abbrev=0 --always > $@;            \
 	fi
 
 
