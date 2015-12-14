@@ -55,9 +55,11 @@ class PhysicalVolumesModel(object):
 
             cb('create pv')
             part = PartitionModel(objstore=self.objstore)
-            part_name = pvname.split('/')[2]
-            type = '8e'   # hex value for type Linux LVM
-            part.change_type(part_name, type)
+            part_name = pvname.split('/')[-1]
+            dev_type = part.lookup(part_name)
+            if dev_type['type'] == 'part':
+                type = '8e'   # hex value for type Linux LVM
+                part.change_type(part_name, type)
             utils._create_pv(pvname)
 
         except OperationFailed:
