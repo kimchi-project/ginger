@@ -84,7 +84,7 @@ class PartitionModel(object):
         return self.task.lookup(taskid)
 
     def _format_task(self, cb, params):
-        name = '/dev/' + params['name']
+        name = params['name']
         fstype = params['fstype']
         try:
             utils._makefs(fstype, name)

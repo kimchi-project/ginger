@@ -87,4 +87,4 @@ class PartitionTests(unittest.TestCase):
         fstype = 'ext4'
         task_obj = part.format(name, fstype)
         self.task_model.wait(task_obj.get('id'))
-        mock_format_part.assert_called_with(fstype, '/dev/' + name)
+        mock_format_part.assert_called_with(fstype, name)
