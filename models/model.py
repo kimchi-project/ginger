@@ -43,7 +43,7 @@ from vol_group import VolumeGroupsModel, VolumeGroupModel
 from wok import config
 from wok.basemodel import BaseModel
 from wok.objectstore import ObjectStore
-from wok.utils import import_module
+from wok.utils import import_module, upgrade_objectstore_schema
 
 
 class GingerModel(BaseModel):
@@ -62,6 +62,9 @@ class GingerModel(BaseModel):
 
         objstore_loc = config.get_object_store() + '_ginger'
         self._objstore = ObjectStore(objstore_loc)
+        # Some paths or URI's present in the objectstore have changed after
+        # Wok 2.0.0 release. Check here if a schema upgrade is necessary.
+        upgrade_objectstore_schema(objstore_loc, 'version')
 
         sub_models = []
         firmware = FirmwareModel()
