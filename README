@@ -58,7 +58,7 @@ Install Dependencies
     $ sudo yum install  wok ginger-base libvirt-python libvirt hddtemp \
                         libuser-python python-augeas python-netaddr\
                         python-ethtool python-ipaddr python-magic \
-                        pyparted \
+                        pyparted gettext-devel \
 
     # For fedora, RHEL and Power ppc
     $ sudo yum install tuned lm_sensors
@@ -74,7 +74,7 @@ Install Dependencies
      $ sudo zypper install wok ginger-base libvirt-python libvirt hddtemp \
                         libuser-python python-augeas python-netaddr\
                         python-ethtool python-ipaddr python-magic \
-                        python-parted \
+                        python-parted gettext-tools \
 
     # These dependencies are only required if you want to run the tests:
     $ sudo zypper install python-pyflakes python-pep8 python-requests python-mock
@@ -84,7 +84,7 @@ Install Dependencies
     $ sudo apt-get install wok ginger-base libvirt-bin python-libvirt hddtemp \
                         python-libuser python-ethtool python-augeas \
                         python-ipaddr python-magic python-netaddr \
-                        python-parted \
+                        python-parted gettext \
 
     # These dependencies are only required if you want to run the tests:
     $ sudo apt-get install pep8 pyflakes python-requests python-mock
