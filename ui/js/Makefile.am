@@ -20,4 +20,5 @@ jsdir = $(datadir)/wok/plugins/ginger/ui/js
 dist_js_DATA = \
 	host-admin.js \
 	util.js \
+        ginger-bootgrid.js \
 	$(NULL)
