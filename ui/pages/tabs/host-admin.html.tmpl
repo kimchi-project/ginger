@@ -99,16 +99,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
             <li class="header">
                     <span class="column-file">$_("File")</span><!--
                     --><span class="column-timestamp">$_("Timestamp")</span><!--
+                    --><span class="column-paths">$_("Paths")</span><!--
                 --><span class="column-download" style="display:none">
                         <span class="sr-only">Download</span><!--
                     --></span><!--
                 --><span class="column-delete" style="display:none">
                         <span class="sr-only">Delete</span><!--
                     --></span>
-                </li>
-                <li>
-                 <ul class="ul-body" id="bakGridBody"></ul>
-             </li>
+            </li>
+            <li>
+                <ul class="ul-body" id="bakGridBody"></ul>
+            </li>
          </ul>
          <hr>
         </div>
@@ -425,19 +426,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 </div>
 <script id="backupItem" type="text/html">
-    <li class="body" name="backupBodyItem" id="{identity}">
+    <li class="body in" name="backupBodyItem" id="{identity}">
         <span class="column-file">{file}</span><!--
         --><span class="column-timestamp">{timestamp}</span><!--
+        --><span class="column-paths">
+            <div class="arrow arrow-down"></div>
+        </span><!--
         --><span class="column-download btn btn-link btn-download"><i class="fa fa-download"></i>$_("Download")</span><!--
         --><span class="column-delete btn btn-link btn-delete "><i class="fa fa-minus-circle"></i>$_("Remove")</span>
+        <div class="backup-history" style="display: none;">
+            <div class="backup-history-list" ></div>
+        </div>
     </li>
 </script>
 <script id="backupTooltip" type="text/html">
-    <div class="header">$_("Description")</div>
-    <div class="sub-content">{description}</div>
-    <div class="crt-bak-section">
-    <div class="path-pick"><div class="header">$_("Path Included")</div><div class="sub-content">includePlaceHodler</div></div>
-    <div class="path-pick"><div class="header">$_("Path Excluded")</div><div class="sub-content">excludePlaceHodler</div></div>
+    <div class="row bkp-paths-header" style="display: -webkit-box;">
+        <div class="column-description">$_("Description")</div>
+        <div class="column-paths-included">$_("Paths Included")</div>
+        <div class="column-paths-excluded">$_("Paths Excluded")</div>
+    </div>
+    <div class="row bkp-paths-body" style="display: -webkit-box;">
+        <div class="column-description">{description}</div>
+        <div class="column-paths-included">includePlaceHodler</div>
+        <div class="column-paths-excluded">excludePlaceHodler</div>
     </div>
 </script>
 <script id="pathItem" type="text/html">
