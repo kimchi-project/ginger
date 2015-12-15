@@ -148,6 +148,23 @@ def _swapoff_device(device_name):
     return
 
 
+def get_dm_name(devname):
+    """
+    Get the device mapper path of the device
+    :param devname: device name
+    :return:
+    """
+    out = get_disks_by_id_out()
+    out = out.splitlines()
+    for line in out[1:]:
+        if devname not in line:
+            continue
+        else:
+            idcol = line.split()[-3]
+            dmdev = idcol.split('-')[-1]
+            return dmdev
+
+
 def change_part_type(part, type_hex):
     """
     Change the type of the given partition

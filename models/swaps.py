@@ -23,6 +23,7 @@ import os
 import fs_utils
 import utils
 
+from diskparts import PartitionModel
 from wok.exception import InvalidParameter, NotFoundError, OperationFailed
 from wok.model.tasks import TaskModel
 from wok.rollbackcontext import RollbackContext
@@ -75,7 +76,16 @@ class SwapsModel(object):
                     size = params['size']
                     utils._create_file(size, file_loc)
                 elif type == 'device':
-                    utils.change_part_type(file_loc.split("/")[2], "82")
+                    dev = file_loc.split("/")[-1]
+                    if dev.startswith('dm-'):
+                        dmname = utils.get_dm_name(file_loc.split("/")[-1])
+                    else:
+                        dmname = dev
+                    part = PartitionModel(objstore=self.objstore)
+                    dev_type = part.lookup(dmname)
+                    if dev_type['type'] == 'part':
+                        type = '82'   # hex value for type Linux Swap
+                        part.change_type(dmname, type)
 
                 cb('create swap from file')
                 utils._make_swap(file_loc)
