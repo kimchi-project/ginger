@@ -271,5 +271,7 @@ messages = {
     "GINSD00002E": _("Error executing 'lsblk -Po, %(err)s"),
     "GINSD00003E": _("Error parsing 'ls -l /dev/disk/by-id', %(err)s"),
     "GINSD00004E": _("Error parsing 'lsblk -Po', %(err)s"),
-    "GINSD00005E": _("Error getting list of storage devices")
+    "GINSD00005E": _("Error getting list of storage devices, %(err)s"),
+    "GINSD00006E": _("Error getting bus id of DASD device, %(err)s"),
+    "GINSD00007E": _("Unable to find FC elements for given fc block device, %(blk)s")
 }

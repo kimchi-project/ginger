@@ -29,6 +29,8 @@ from wok.utils import run_command, wok_log
 from wok.plugins.gingerbase.disks import _get_dev_major_min
 from wok.plugins.gingerbase.disks import _get_dev_node_path
 
+sg_dir = "/sys/class/scsi_generic/"
+
 
 def _get_swapdev_list_parser(output):
     """
@@ -748,6 +750,13 @@ def get_final_list():
 
                 final_dict['mpath_count'] = max_slaves
 
+            if final_dict['type'] == 'dasd':
+                final_dict['bus_id'] = get_dasd_bus_id(blk)
+
+            if final_dict['type'] == 'fc':
+                final_dict['hba_id'], final_dict['wwpn'], final_dict[
+                    'fcp_lun'] = get_fc_path_elements(blk)
+
             if 'id' in final_dict:
                 if final_dict['id'] in ll_id_dict:
                     final_dict['name'] = ll_id_dict[final_dict['id']][0]
@@ -757,3 +766,56 @@ def get_final_list():
         raise OperationFailed("GINSD00005E", {'err': e.message})
 
     return final_list
+
+
+def get_dasd_bus_id(blk):
+    """
+    Get the bus id for the given DASD device
+    :param blk: DASD Block device
+    :return: BUS ID
+    """
+    try:
+        bus_id = os.readlink(
+            '/sys/block/' + blk + "/device").split("/")[-1]
+    except Exception as e:
+        wok_log.error("Error getting bus id of DASD device, " + blk)
+        raise OperationFailed("GINSD00006E", {'err': e.message})
+
+    return bus_id
+
+
+def get_fc_path_elements(blk):
+    """
+    Get the FC LUN ID, remote wwpn and local host adapter
+    for the given block device based on FC LUN
+    :param blk: Block device
+    :return: tuple containing Host Adapter, WWPN, LUN ID
+    """
+
+    wwpn = ''
+    fcp_lun = ''
+    hba_id = ''
+
+    for sg_dev in os.listdir(sg_dir):
+        # skip devices whose transport is not FC
+        sg_dev_path = sg_dir + "/" + sg_dev
+        if os.path.exists(sg_dev_path + "/device/wwpn"):
+            if os.path.exists(
+                    sg_dev_path + "/device/block/" + blk):
+                wwpn = open(
+                    sg_dev_path +
+                    "/device/wwpn").readline().rstrip()
+                fcp_lun = open(
+                    sg_dev_path +
+                    "/device/fcp_lun").readline().rstrip()
+                hba_id = open(
+                    sg_dev_path +
+                    "/device/hba_id").readline().rstrip()
+                break
+
+    if not wwpn or not fcp_lun or not hba_id:
+        wok_log.error(
+            "Unable to find FC elements for given fc block device: " + blk)
+        raise OperationFailed("GINSD00007E", {'blk': blk})
+
+    return hba_id, wwpn, fcp_lun

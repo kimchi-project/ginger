@@ -115,7 +115,20 @@ NAME="dasda1" TYPE="part" SIZE="22.5G" TRAN=""
     @mock.patch('wok.plugins.ginger.models.utils.get_lsblk_keypair_out')
     @mock.patch('wok.plugins.ginger.models.utils.get_disks_by_id_out')
     @mock.patch('wok.plugins.ginger.models.utils.os.listdir')
-    def test_get_dev_list(self, mock_list_dir, mock_by_id, mock_lsblk_cmd):
+    @mock.patch('wok.plugins.ginger.models.utils.get_fc_path_elements')
+    @mock.patch('wok.plugins.ginger.models.utils.get_dasd_bus_id')
+    def test_get_dev_list(
+            self,
+            mock_dasd_bus_id,
+            mock_fc_elems,
+            mock_list_dir,
+            mock_by_id,
+            mock_lsblk_cmd):
+        mock_dasd_bus_id.return_value = '0.0.1111'
+        mock_fc_elems.return_value = (
+            '0.0.0000',
+            '0x0000000000000000',
+            '0x1000000000000000')
         mock_lsblk_cmd.return_value = """NAME="sda" TYPE="disk" \
         SIZE="5G" TRAN="iscsi"
 NAME="36005076802810d504800000000002ede" TRAN="" TYPE="mpath" SIZE="5G"
