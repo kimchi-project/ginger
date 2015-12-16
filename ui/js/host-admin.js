@@ -175,6 +175,8 @@ ginger.setupBakGrid = function() {
     ginger.listBackupArchives(function(data) {
         for (var i = 0; i < data.length; i++) {
             data[i].timestamp = new Date(data[i].timestamp * 1000).toLocaleString();
+            data[i].filename = data[i].file.split('/');
+            data[i].filename = data[i].filename[data[i].filename.length - 1];
             var tempNode = $.parseHTML(wok.substitute($("#backupItem").html(), data[i]));
             $("#bakGridBody").append(tempNode);
             var parts = ["include", "exclude"];
@@ -191,11 +193,13 @@ ginger.setupBakGrid = function() {
             $(".backup-history-list", tempNode).append(tooltipContent);
 
             $(".btn-download").on("click", function(event) {
+                event.preventDefault();
                 event.stopImmediatePropagation();
                 var bakItem = $(this).parent();
                 window.open('plugins/ginger/backup/archives/' + encodeURIComponent(bakItem.prop("id")) + '/file');
             });
             $(".btn-delete").on("click", function(event) {
+                event.preventDefault();
                 event.stopImmediatePropagation();
                 var bakItem = $(this).parent();
                 ginger.deleteBackupArchive(bakItem.prop("id"), function() {
@@ -247,8 +251,8 @@ ginger.initConfigBak = function() {
 
 ginger.initNetworkConfig = function() {
     var toggleBtnEdit = function(item, on) {
-        $("button", item).toggleClass("hide");
-        $(".cancel", item).toggleClass("hide", !on);
+        $("button", item).toggleClass("hidden");
+        $(".cancel", item).toggleClass("hidden", !on);
     };
     var attachBtnEvt = function(node, editFunc, saveFunc, cancelFunc) {
         // disable the inputs for edit if they are already filled
@@ -292,8 +296,8 @@ ginger.initNetworkConfig = function() {
         };
         for (var i = 0; i < data.length; i++) {
             var isEdit = data[i].ipaddr == "" || data[i].netmask == "";
-            data[i].viewMode = isEdit ? "hide" : "";
-            data[i].editMode = isEdit ? "" : "hide";
+            data[i].viewMode = isEdit ? "hidden" : "";
+            data[i].editMode = isEdit ? "" : "hidden";
             var tempNode = $.parseHTML(wok.substitute($("#nicItem").html(), data[i]));
             $("#gingerInterface").append(tempNode);
             attachBtnEvt(tempNode, function(node) {
@@ -349,8 +353,8 @@ ginger.initNetworkConfig = function() {
             var ip = itemValue;
             var tempNode = $.parseHTML(wok.substitute($("#nwGlobalItem").html(), {
                 ip: ip,
-                viewMode: ip == "" ? "hide" : "",
-                editMode: ip == "" ? "" : "hide"
+                viewMode: ip == "" ? "hidden" : "",
+                editMode: ip == "" ? "" : "hidden"
             }));
             $("input", tempNode).prop("disabled", ip != "");
             $("#" + container).append(tempNode);
@@ -404,7 +408,7 @@ ginger.initNetworkConfig = function() {
             text: false
         }).click(function() {
             var item = addDnsItem("");
-            $(".cancel", item).removeClass("hide");
+            $(".cancel", item).removeClass("hidden");
         });
         for (var i = 0; i < data.nameservers.length; i++) {
             addDnsItem(data.nameservers[i]);
@@ -434,7 +438,7 @@ ginger.initPowerMgmt = function() {
         var currentSelected = $('.' + selectedClass, $(".body", "#gingerPowerMgmt"));
         var toBeSelected = $('.' + onSelectClass, $(".body", "#gingerPowerMgmt"));
         var optName = $(":last-child", toBeSelected.parent()).html();
-        $("#progressIndicator", ".ginger .host-admin").addClass("progress-icon");
+        $("#progressIndicator", ".ginger .host-admin").addClass("wok-loading-icon");
         $(".actBtn", "#gingerPowerMgmt").prop('disabled', true);
 
         ginger.activatePowerProfile(optName, function() {
@@ -443,7 +447,7 @@ ginger.initPowerMgmt = function() {
             toBeSelected.removeClass(onSelectClass).addClass(selectedClass);
             toBeSelected.next().removeClass("to-select");
             $(".actBtn", "#gingerPowerMgmt").prop('disabled', true);
-            $("#progressIndicator", ".ginger .host-admin").removeClass("progress-icon");
+            $("#progressIndicator", ".ginger .host-admin").removeClass("wok-loading-icon");
         });
     });
     ginger.getPowerProfiles(function(data) {
@@ -451,7 +455,7 @@ ginger.initPowerMgmt = function() {
             data[i].selected = data[i].active ? selectedClass : toSelectClass;
             data[i].toSelect = data[i].active ? "" : "to-select";
             var tempNode = $.parseHTML(wok.substitute($("#pwMgmtItem").html(), data[i]));
-            $(".body", "#gingerPowerMgmt").append(tempNode);
+            $(".power-options", "#gingerPowerMgmt").append(tempNode);
             $(tempNode).on("click", function() {
                 $(".pwr-item :first-child", $(this).parent()).each(function() {
                     if ($(this).hasClass(onSelectClass)) {
@@ -474,25 +478,25 @@ ginger.initSANAdapter = function() {
     ginger.getSANAdapters(function(data) {
         var temStr = "<span class='item'>{value}</span>";
         for (var i = 0; i < data.length; i++) {
-            $(".body", $(".name", ".san-adapter")).append(wok.substitute(temStr, {
+            $(".wok-datagrid-row", $(".name", ".san-adapter")).append(wok.substitute(temStr, {
                 value: data[i].name
             }));
-            $(".body", $(".wwpn", ".san-adapter")).append(wok.substitute(temStr, {
+            $(".wok-datagrid-row", $(".wwpn", ".san-adapter")).append(wok.substitute(temStr, {
                 value: data[i].wwpn
             }));
-            $(".body", $(".wwnn", ".san-adapter")).append(wok.substitute(temStr, {
+            $(".wok-datagrid-row", $(".wwnn", ".san-adapter")).append(wok.substitute(temStr, {
                 value: data[i].wwnn
             }));
-            $(".body", $(".state", ".san-adapter")).append(wok.substitute(temStr, {
+            $(".wok-datagrid-row", $(".state", ".san-adapter")).append(wok.substitute(temStr, {
                 value: data[i].state
             }));
-            $(".body", $(".port", ".san-adapter")).append(wok.substitute(temStr, {
+            $(".wok-datagrid-row", $(".port", ".san-adapter")).append(wok.substitute(temStr, {
                 value: data[i].vports_inuse + "/" + data[i].max_vports
             }));
-            $(".body", $(".speed", ".san-adapter")).append(wok.substitute(temStr, {
+            $(".wok-datagrid-row", $(".speed", ".san-adapter")).append(wok.substitute(temStr, {
                 value: data[i].speed
             }));
-            $(".body", $(".symbolic", ".san-adapter")).append(wok.substitute(temStr, {
+            $(".wok-datagrid-row", $(".symbolic", ".san-adapter")).append(wok.substitute(temStr, {
                 value: data[i].symbolic_name
             }));
         }
@@ -562,14 +566,14 @@ ginger.initSEPConfig = function() {
     var sepStatus = function() {
         ginger.getSEPStatus(function(result) {
             if (result.status === "running") {
-                $("#sep-ppc-content-area, .fa-circle").removeClass("hide");
-                $("#sep-ppc-content-area, .fa-times-circle").addClass("hide");
+                $("#sep-ppc-content-area, .fa-circle").removeClass("hidden");
+                $("#sep-ppc-content-area, .fa-times-circle").addClass("hidden");
                 $("#sepStatusLog").text("Running");
                 $("#sepStart").button().attr("style", "display:none");
                 $("#sepStop").button().attr("style", "display");
             } else {
-                $("#sep-ppc-content-area, .fa-circle").addClass("hide");
-                $("#sep-ppc-content-area, .fa-times-circle").removeClass("hide");
+                $("#sep-ppc-content-area, .fa-circle").addClass("hidden");
+                $("#sep-ppc-content-area, .fa-times-circle").removeClass("hidden");
                 $("#sepStatusLog").text("Stopped");
                 $("#sepStart").button().attr("style", "display");
                 $("#sepStop").button().attr("style", "display:none");
@@ -588,9 +592,7 @@ ginger.initSEPConfig = function() {
                 }));
                 $(".ginger .host-admin .subsc-manage").append(subscItem);
             }
-            $(".detach", ".ginger .host-admin .subsc-manage").button({
-                text: false
-            }).click(function(event) {
+            $(".detach", ".ginger .host-admin .subsc-manage").on('click',function(event) {
                 var that = $(this).parent();
                 ginger.deleteSubscription($("div[data-type='hostname']", that).text(), function() {
                     that.remove();
@@ -682,7 +684,7 @@ ginger.initUserManagement = function() {
                 }));
                 $(".ginger .host-admin .user-manage").append(nodeNameItem);
             }
-            $(".detach", ".ginger .host-admin .user-manage").button({}).click(function(event) {
+            $(".detach", ".ginger .host-admin .user-manage").on('click', function(event) {
                 var that = $(this).parent();
                 ginger.deleteUser($("span[data-type='name']", that).text(), function() {
                     that.remove();

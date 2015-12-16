@@ -31,55 +31,46 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
     <div id="administration-root-container" class="ginger">
         <nav class="navbar navbar-default toolbar">
             <div class="container">
-                <!-- Brand and toggle get grouped for better mobile display -->
-                <div class="navbar-header">
-                  <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#toolbar" aria-expanded="false">
-                    <span class="sr-only">$_("Toggle navigation")</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
+                <div id="toolbar"></div>
             </div>
-            <div class="collapse navbar-collapse" id="toolbar">
-            </div>
-        </div>
     </nav>
     <div class="container">
         <div id="gingerHostAdmin" class="host-admin">
             <!-- Firmware Update Panel -->
-            <div class="panel-group firmware-ppc-enabled" id="accordion" role="tablist" aria-multiselectable="true">
+            <div class="panel-group firmware-ppc-enabled accordion" id="firmware-ppc-enabled-accordion" role="tablist" aria-multiselectable="true">
                 <h3>
-                    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#firmware-update-content-area" aria-expanded="false" aria-controls="firmware-update-content-area" class="">
+                    <a role="button" data-toggle="collapse" data-parent="#firmware-ppc-enabled-accordion" href="#firmware-update-content-area" aria-expanded="false" aria-controls="firmware-update-content-area" class="">
                         <span class="accordion-icon"></span><span class="accordion-text">$_("Firmware Update")</span>
                     </a>
                 </h3>
                 <div id="firmware-update-content-area" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
-                    <div class='fmw-content col-md-4'>
-                        <div class="message-area" id="gingerFWUpdateMess" style="display: none;">
-                            <span class="progress-icon"></span>
-                            <span>$_("Firmware update is initializing. System will reboot in order to flash the firmware.")</span>
+                    <div class='fmw-content clearfix'>
+                        <div class="col-md-4">
+                            <div class="message-area" id="gingerFWUpdateMess" style="display: none;">
+                                <div class="alert alert-info">
+                                    <span class="wok-loading-icon"></span><span>$_("Firmware update is initializing. System will reboot in order to flash the firmware.")</span>
+                                </div>
+                            </div>
+                            <div class='fmw-label'>$_("Version")</div>
+                            <div class="firmware-ver fmw-item" id="gingerFWVer">fmw-version</div>
+                            <div class="form-group fmw-form">
+                                <label for="gingerPackPath" class="pack-path-label fmw-label">$_("Packaging Path ")</label>
+                                <input type="text" class="form-control" id="gingerPackPath" placeholder="$_('Absolute path to firmware RPM')">
+                            </div>
+                            <button class="btn btn-primary" type="submit" id="gingerPackPathSub" disabled="true">$_("Update")</button>
                         </div>
-                        <div class='fmw-label'>$_("Version")</div>
-                        <div class="firmware-ver fmw-item" id="gingerFWVer">fmw-version</div>
-                        <div class="form-group fmw-form">
-                            <label for="gingerPackPath" class="pack-path-label fmw-label">$_("Packaging Path ")</label>
-                            <input type="text" class="form-control" id="gingerPackPath" placeholder="$_('Absolute path to firmware RPM')">
-                        </div>
-                        <button class="btn btn-primary" type="submit" id="gingerPackPathSub" disabled="true" style="width:20%">$_("Update")</button>
                     </div>
                 </div>
-                <hr>
             </div>
         <!-- Configuration Backup Panel -->
-        <div class="panel-group backup-ppc-enabled" id="accordion" role="tablist" aria-multiselectable="true">
-         <h3>
-            <a role="button" data-toggle="collapse" data-parent="#accordion" href="#backup-ppc-content-area" aria-expanded="false" aria-controls="backup-ppc-content-area" class="">
-                <span class="accordion-icon"></span><span class="accordion-text">$_("Configuration Backup")</span>
-            </a>
-        </h3>
-        <ul id="backup-ppc-content-area" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
-            <li class="backup-pcc-actions" id="backup-pcc-action-area">
-                <span>
+        <div class="panel-group backup-ppc-enabled accordion" id="backup-ppc-enabled-accordion" role="tablist" aria-multiselectable="true">
+             <h3>
+                <a role="button" data-toggle="collapse" data-parent="#backup-ppc-enabled-accordion" href="#backup-ppc-content-area" aria-expanded="false" aria-controls="backup-ppc-content-area" class="">
+                    <span class="accordion-icon"></span><span class="accordion-text">$_("Configuration Backup")</span>
+                </a>
+            </h3>
+            <div id="backup-ppc-content-area" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+                 <div class="backup-pcc-actions btn-group" id="backup-pcc-action-area">
                     <div class="dropdown menu-flat ">
                         <button class="btn btn-primary dropdown-toggle backup-pcc-button" type="button" data-toggle="dropdown" aria-expanded="false" aria-haspopup="true"><span class="edit-alt"></span>$_("Actions")<span class="caret"></span></button>
                         <ul class="dropdown-menu actionsheet">
@@ -94,170 +85,182 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
                             </li>
                         </ul>
                     </div>
-                </span>
-            </li>
-            <li class="header">
-                    <span class="column-file">$_("File")</span><!--
-                    --><span class="column-timestamp">$_("Timestamp")</span><!--
-                    --><span class="column-paths">$_("Paths")</span><!--
-                --><span class="column-download" style="display:none">
-                        <span class="sr-only">Download</span><!--
-                    --></span><!--
-                --><span class="column-delete" style="display:none">
-                        <span class="sr-only">Delete</span><!--
-                    --></span>
-            </li>
-            <li>
-                <ul class="ul-body" id="bakGridBody"></ul>
-            </li>
-         </ul>
-         <hr>
+                 </div>
+                 <div class="wok-datagrid">
+                    <div class="wok-datagrid-header">
+                            <span class="column-file">$_("File")</span><!--
+                            --><span class="column-timestamp">$_("Timestamp")</span><!--
+                            --><span class="column-paths">$_("Paths")</span><!--
+                        --><span class="column-download" style="display:none">
+                                <span class="sr-only">Download</span><!--
+                            --></span><!--
+                        --><span class="column-delete" style="display:none">
+                                <span class="sr-only">Delete</span><!--
+                            --></span>
+                    </div>
+                    <ul class="wok-datagrid-body" id="bakGridBody"></ul>
+                 </div>
+            </div>
         </div>
         <!-- Network Configuration Panel -->
-        <div class="panel-group network-ppc-enabled" id="accordion" role="tablist" aria-multiselectable="true">
+        <div class="panel-group network-ppc-enabled accordion" id="network-ppc-content-areanetwork-ppc-accordion" role="tablist" aria-multiselectable="true">
             <h3>
-                <a role="button" data-toggle="collapse" data-parent="#accordion" href="#network-ppc-content-area" aria-expanded="false" aria-controls="network-ppc-content-area" class="">
+                <a role="button" data-toggle="collapse" data-parent="#network-ppc-content-areanetwork-ppc-accordion" href="#network-ppc-content-area" aria-expanded="false" aria-controls="network-ppc-content-area" class="">
                     <span class="accordion-icon"></span><span class="accordion-text">$_("Network Configuration")</span>
                 </a>
             </h3>
-            <div id="network-ppc-content-area" class="panel-collapse collapse col-md-12" role="tabpanel" aria-labelledby="headingOne">
-                <div class="col-md-8" style="padding-left: 40px;">
-                    <div class="header">
-                        <span class="column-name">$_("Interface Name")</span><!--
-                        --><span class="column-ip-address">$_("IP Address")</span><!--
-                        --><span class="column-ip-mask">$_("Mask IP Address")</span><!--
-                        --><span class="column-actions" style="display:none">
-                            <span class="sr-only">Actions</span><!--
-                        --></span>
-                    </div>
-                    <div class="body" id="gingerInterface"></div>
-                </div>
-                <div class="col-md-4">
-                    <div class="col-md-6">
-                        <div class="header">
-                            <span>$_("DNS IP Address")</span>
+            <div id="network-ppc-content-area" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+                <div class="clearfix">
+                    <div class="col-md-7 wok-datagrid">
+                        <div class="wok-datagrid-header">
+                            <span class="column-name">$_("Interface Name")</span><!--
+                            --><span class="column-ip-address">$_("IP Address")</span><!--
+                            --><span class="column-ip-mask">$_("Mask IP Address")</span><!--
+                            --><span class="column-actions" style="display:none">
+                                <span class="sr-only">Actions</span><!--
+                            --></span>
                         </div>
-                        <button class="btn btn-primary addBtn" id="gingerDnsAdd" type="submit"><i class="fa fa-plus-circle"></i> $_("Add")</button>
-                        <div class="body" id="gingerDNS"></div>
+                        <div class="wok-datagrid-body" id="gingerInterface"></div>
                     </div>
-                    <div class="col-md-6">
-                        <div class="header">
-                            <span>$_("Gateway IP Address")</span>
+                    <div class="col-md-5">
+                        <div class="col-md-6 wok-datagrid">
+                            <div class="wok-datagrid-header">
+                                <span>$_("DNS IP Address")</span>
+                            </div>
+                            <button class="btn btn-primary addBtn" id="gingerDnsAdd" type="submit"><i class="fa fa-plus-circle"></i> $_("Add")</button>
+                            <div class="wok-datagrid-body no-border" id="gingerDNS"></div>
                         </div>
-                        <div class="body" id="gingerGateway"></div>
+                        <div class="col-md-6 wok-datagrid">
+                            <div class="wok-datagrid-header">
+                                <span>$_("Gateway IP Address")</span>
+                            </div>
+                            <div class="wok-datagrid-body no-border" id="gingerGateway"></div>
+                        </div>
                     </div>
                 </div>
             </div>
-            <hr>
+
         </div>
         <!-- Power Options Panel -->
-        <div class="panel-group powerprofiles-ppc-enabled" id="accordion" role="tablist" aria-multiselectable="true">
+        <div class="panel-group powerprofiles-ppc-enabled accordion" id="powerprofiles-ppc-enabled-accordion" role="tablist" aria-multiselectable="true">
             <h3>
-                <a role="button" data-toggle="collapse" data-parent="#accordion" href="#gingerPowerMgmt" aria-expanded="false" aria-controls="gingerPowerMgmt" class="">
+                <a role="button" data-toggle="collapse" data-parent="#powerprofiles-ppc-enabled-accordion" href="#gingerPowerMgmt" aria-expanded="false" aria-controls="gingerPowerMgmt" class="">
                     <span class="accordion-icon"></span><span class="accordion-text">$_("Power Options")</span>
                 </a>
             </h3>
             <div id="gingerPowerMgmt" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
-                <div class="pw-opt col-md-4">
-                    <div class="header">
-                        <button class="btn btn-primary actBtn" type="submit" disabled="true">$_("Activate")</button>
-                        <span id="progressIndicator"></span>
+                <div class="pw-opt">
+                    <div class="btn-group">
+                        <button class="btn btn-primary actBtn" type="submit" disabled="true"><span id="progressIndicator"></span> $_("Activate")</button>
                     </div>
-                    <div class="body"></div>
+                    <div class="power-options"></div>
                 </div>
             </div>
-            <hr>
+
         </div>
         <!-- SAN Adapters Panel -->
-        <div class="panel-group sanadapters-ppc-enabled" id="accordion" role="tablist" aria-multiselectable="true">
+        <div class="panel-group sanadapters-ppc-enabled accordion" id="sanadapters-ppc-enabled-accordion" role="tablist" aria-multiselectable="true">
             <h3>
-                <a role="button" data-toggle="collapse" data-parent="#accordion" href="#sanadapters-ppc-content-area" aria-expanded="false" aria-controls="sanadapters-ppc-content-area" class="">
+                <a role="button" data-toggle="collapse" data-parent="#sanadapters-ppc-enabled-accordion" href="#sanadapters-ppc-content-area" aria-expanded="false" aria-controls="sanadapters-ppc-content-area" class="">
                     <span class="accordion-icon"></span><span class="accordion-text">$_("SAN Adapters")</span>
                 </a>
             </h3>
-            <ul id="sanadapters-ppc-content-area" class="panel-collapse collapse san-adapter" role="tabpanel" aria-labelledby="headingOne">
-                <li class='header'>
-                    <span class="name">$_("Name")</span><!--
-                    --><span class="wwpn">$_("WWPN")</span><!--
-                    --><span class="wwnn">$_("WWNN")</span><!--
-                    --><span class="state">$_("State")</span><!--
-                    --><span class="port">$_("In-Use/Max Ports")</span><!--
-                    --><span class="speed">$_("Speed")</span><!--
-                    --><span class="symbolic">$_("Symbolic Name")</span>
-                </li>
-                <li class='body'>
-                    <span class="name"></span><!--
-                    --><span class="wwpn"></span><!--
-                    --><span class="wwnn"></span><!--
-                    --><span class="state"></span><!--
-                    --><span class="port"></span><!--
-                    --><span class="speed"></span><!--
-                    --><span class="symbolic"></span>
-                </li>
-            </ul>
-            <hr>
+            <div id="sanadapters-ppc-content-area" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+                <div class="wok-datagrid">
+                    <div class='wok-datagrid-header'>
+                        <span class="name">$_("Name")</span><!--
+                        --><span class="wwpn">$_("WWPN")</span><!--
+                        --><span class="wwnn">$_("WWNN")</span><!--
+                        --><span class="state">$_("State")</span><!--
+                        --><span class="port">$_("In-Use/Max Ports")</span><!--
+                        --><span class="speed">$_("Speed")</span><!--
+                        --><span class="symbolic">$_("Symbolic Name")</span>
+                    </div>
+                    <ul class='wok-datagrid-body san-adapter'>
+                        <li class="wok-datagrid-row">
+                            <span class="name"></span><!--
+                            --><span class="wwpn"></span><!--
+                            --><span class="wwnn"></span><!--
+                            --><span class="state"></span><!--
+                            --><span class="port"></span><!--
+                            --><span class="speed"></span><!--
+                            --><span class="symbolic"></span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
         </div>
         <!-- Sensor Monitor Panel -->
-        <div class="panel-group sensors-ppc-enabled" id="accordion" role="tablist" aria-multiselectable="true">
+        <div class="panel-group sensors-ppc-enabled accordion" id="sensors-ppc-enabled-accordion" role="tablist" aria-multiselectable="true">
             <h3>
-                <a role="button" data-toggle="collapse" data-parent="#accordion" href="#sensors-ppc-content-area" aria-expanded="false" aria-controls="sensors-ppc-content-area" class="">
+                <a role="button" data-toggle="collapse" data-parent="#sensors-ppc-enabled-accordion" href="#sensors-ppc-content-area" aria-expanded="false" aria-controls="sensors-ppc-content-area" class="">
                     <span class="accordion-icon"></span><span class="accordion-text">$_("Sensor Monitor")</span>
                 </a>
             </h3>
             <div id="sensors-ppc-content-area" class="panel-collapse collapse sensor-panel" role="tabpanel" aria-labelledby="headingOne">
                 <div class="progress-icon-sensor"></div>
             </div>
-            <hr>
+
         </div>
         <!-- SEP Configuration Panel -->
-        <div class="panel-group sep-ppc-enabled" id="accordion" role="tablist" aria-multiselectable="true">
+        <div class="panel-group sep-ppc-enabled accordion" id="sep-ppc-enabled-accordion" role="tablist" aria-multiselectable="true">
             <h3>
-                <a role="button" data-toggle="collapse" data-parent="#accordion" href="#sep-ppc-content-area" aria-expanded="false" aria-controls="sep-ppc-content-area" class="">
+                <a role="button" data-toggle="collapse" data-parent="#sep-ppc-enabled-accordion" href="#sep-ppc-content-area" aria-expanded="false" aria-controls="sep-ppc-content-area" class="">
                     <span class="accordion-icon"></span><span class="accordion-text">$_("SEP Configuration")</span>
                 </a>
             </h3>
-            <ul id="sep-ppc-content-area" class="panel-collapse collapse subsc-manage" role="tabpanel" aria-labelledby="headingOne">
-                <li class="header" style="margin-bottom:20px">
+            <div id="sep-ppc-content-area" class="panel-collapse collapse" role="tabpanel">
+                <div class="action-bar">
                     <span class="sep-label">$_("Status")</span><!--
                     --><i class="fa fa-circle"></i><!--
                     --><i class="fa fa-times-circle"></i><!--
-                    --><span id="sepStatusLog" style="font-weight: bold;"></span><!--
-                    --><button class="btn btn-primary" type="submit" id="sepStart">$_("Start")</button><!--
+                    --><span id="sepStatusLog"></span><!--
+                    --><div class="pull-right"><button class="btn btn-primary" type="submit" id="sepStart">$_("Start")</button><!--
                     --><button class="btn btn-primary" type="submit" id="sepStop">$_("Stop")</button><!--
                     --><button class="btn btn-primary add-subscription" type="submit" data-toggle="modal" data-target="#subscriptionAdd">$_("Subscribe")</button>
-                </li>
-                <li class='header'>
-                    <span class="column-hostname">$_("Hostname")</span><!--
-                    --><span class="column-port">$_("Port")</span><!--
-                    --><span class="column-community">$_("Community")</span><!--
-                    --><span class="column-detach" style="display:none">
-                        <span class="sr-only">Detach</span><!--
-                    --></span>
-                </li>
-            </ul>
-            <hr>
+                    </div>
+                </div>
+                <div class="wok-datagrid">
+                    <li class='wok-datagrid-header'>
+                        <span class="column-hostname">$_("Hostname")</span><!--
+                        --><span class="column-port">$_("Port")</span><!--
+                        --><span class="column-community">$_("Community")</span><!--
+                        --><span class="column-detach" style="display:none">
+                            <span class="sr-only">Detach</span><!--
+                        --></span>
+                    </li>
+                    <ul class="subsc-manage">
+                    </ul>
+                </div>
+            </div>
+
         </div>
         <!-- User Management Panel -->
-        <div class="panel-group users-ppc-enabled" id="accordion" role="tablist" aria-multiselectable="true">
+        <div class="panel-group users-ppc-enabled accordion" id="users-ppc-enabled-accordion" role="tablist" aria-multiselectable="true">
             <h3>
-                <a role="button" data-toggle="collapse" data-parent="#accordion" href="#users-ppc-content-area" aria-expanded="false" aria-controls="users-ppc-content-area" class="">
+                <a role="button" data-toggle="collapse" data-parent="#users-ppc-enabled-accordion" href="#users-ppc-content-area" aria-expanded="false" aria-controls="users-ppc-content-area" class="">
                     <span class="accordion-icon"></span><span class="accordion-text">$_("User Management")</span>
                 </a>
             </h3>
-            <ul id="users-ppc-content-area" class="panel-collapse collapse user-manage" role="tabpanel" aria-labelledby="headingOne">
-                <li class="header">
+            <div id="users-ppc-content-area" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+                <div class="btn-group">
                     <button class="btn btn-primary actBtn add-user" type="submit" data-toggle="modal" data-target="#hostUserAdd"><i class="fa fa-plus-circle"></i> $_("Add User")</button>
-                </li>
-                <li class="header">
-                    <span class="column-username">$_("Name")</span><!--
-                    --><span class="column-usergroup">$_("Group")</span><!--
-                    --><span class="column-userprofile">$_("Profile")</span><!--
-                    --><span class="column-detach" style="display:none">
-                        <span class="sr-only">Detach</span><!--
-                    --></span>
-                </li>
-            </ul>
-            <hr>
+                </div>
+                <div class="wok-datagrid">
+                    <div class="wok-datagrid-header">
+                        <span class="column-username">$_("Name")</span><!--
+                        --><span class="column-usergroup">$_("Group")</span><!--
+                        --><span class="column-userprofile">$_("Profile")</span><!--
+                        --><span class="column-detach" style="display:none">
+                            <span class="sr-only">Detach</span><!--
+                        --></span>
+                    </div>
+                    <ul class="wok-datagrid-body user-manage">
+                    </ul>
+                </div>
+            </div>
+
         </div>
     </div>
 </div>
@@ -426,8 +429,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 </div>
 <script id="backupItem" type="text/html">
-    <li class="body in" name="backupBodyItem" id="{identity}">
-        <span class="column-file">{file}</span><!--
+    <li class="wok-datagrid-row in" name="backupBodyItem" id="{identity}">
+        <span class="column-file" title="{file}">{filename}</span><!--
         --><span class="column-timestamp">{timestamp}</span><!--
         --><span class="column-paths">
             <div class="arrow arrow-down"></div>
@@ -437,15 +440,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
         <div class="backup-history" style="display: none;">
             <div class="backup-history-list" ></div>
         </div>
+        <div class="clear"></div>
     </li>
 </script>
 <script id="backupTooltip" type="text/html">
-    <div class="row bkp-paths-header" style="display: -webkit-box;">
+    <div class="row bkp-paths-header">
         <div class="column-description">$_("Description")</div>
         <div class="column-paths-included">$_("Paths Included")</div>
         <div class="column-paths-excluded">$_("Paths Excluded")</div>
     </div>
-    <div class="row bkp-paths-body" style="display: -webkit-box;">
+    <div class="row bkp-paths-body">
         <div class="column-description">{description}</div>
         <div class="column-paths-included">includePlaceHodler</div>
         <div class="column-paths-excluded">excludePlaceHodler</div>
@@ -454,7 +458,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 <script id="pathItem" type="text/html">
     <div class="path-item">
         <input type="text" class="form-control input" />
-        <span class="column-delete btn btn-link delete del-label"><i class="fa fa-minus-circle"></i>$_("Remove")</span>
+        <span class="column-delete"><button class="btn btn-link delete del-label"><i class="fa fa-minus-circle"></i> $_("Remove")</button></span>
     </div>
 </script>
 <script id="nicItem" type="text/html">
@@ -471,19 +475,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
         <div class="form-group column-actions">
             <button class="btn btn-link edit {viewMode}" type="submit"><i class="fa fa-pencil"></i></button>
             <button class="btn btn-link save {editMode}" type="submit"><i class="fa fa-floppy-o"></i></button>
-            <button class="btn btn-link cancel hide" type="submit"><i class="fa fa-ban"></i></button>
+            <button class="btn btn-link cancel hidden" type="submit"><i class="fa fa-ban"></i></button>
         </div>
     </form>
 </script>
 <script id="nwGlobalItem" type="text/html">
-    <form class="form-inline sec-content">
+    <form class="form-inline sec-content wok-datagrid-row">
         <div class="form-group column-dns-ip-address">
             <input type="text" class="form-control" id="dns-ip-address" placeholder="$_("Enter IP Address")" value="{ip}">
         </div>
         <div class="form-group column-actions">
             <button class="btn btn-link edit {viewMode}" type="submit"><i class="fa fa-pencil"></i></button>
             <button class="btn btn-link save {editMode}" type="submit"><i class="fa fa-floppy-o"></i></button>
-            <button class="btn btn-link cancel hide" type="submit"><i class="fa fa-ban"></i></button>
+            <button class="btn btn-link cancel hidden" type="submit"><i class="fa fa-ban"></i></button>
         </div>
     </form>
 </script>
@@ -499,19 +503,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
     </span>
 </script>
 <script id="userItem" type="text/html">
-    <li class="content-body body">
+    <li class="wok-datagrid-row">
         <span class="column-username" data-type="name">{userName}</span><!--
         --><span class="column-usergroup" data-type="group">{userGroup}</span><!--
         --><span class="column-userprofile" data-type="profile">{userProfile}</span><!--
-        --><span class="column-detach btn btn-link detach"><i class="fa fa-trash-o"></i></span>
+        --><span class="column-detach"><button class="btn btn-link detach pull-right"><i class="fa fa-minus-circle"></i> $_("Remove")</button></span>
     </li>
 </script>
 <script id="subscItem" type="text/html">
-    <li class="body">
+    <li class="wok-datagrid-row">
         <span class="column-hostname" data-type="hostname">{hostname}</span><!--
         --><span class="column-port" data-type="port">{port}</span><!--
         --><span class="column-community" data-type="community">{community}</span><!--
-        --><span class="column-detach btn btn-link detach"><i class="fa fa-trash-o"></i></span>
+        --><span class="column-detach"><button class="btn btn-link detach pull-right"><i class="fa fa-minus-circle"></i> $_("Unsubscribe")</button></span>
     </li>
 </script>
 <script>
