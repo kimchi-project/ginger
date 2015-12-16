@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ginger 1.2.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-09-18 10:30-0300\n"
+"POT-Creation-Date: 2015-12-16 18:42-0200\n"
 "PO-Revision-Date: 2014-06-22 14:00+0800\n"
 "Last-Translator: Zhou Zheng Sheng <zhshzhou@linux.vnet.ibm.com>\n"
 "Language-Team: Zhou Zheng Sheng <zhshzhou@linux.vnet.ibm.com>\n"
@@ -15,42 +15,42 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-msgid "Activate"
-msgstr "Активировать"
+#, python-format
+msgid "%(name)s is not valid network interface"
+msgstr ""
 
-msgid "Activated Option"
-msgstr "Опция Активировано"
+msgid "'yes' or 'no' is allowed value for the BONDING_MASTER"
+msgstr ""
 
-msgid "Add Subscription"
-msgstr "Добавить подписку"
+msgid "'yes' or 'no' is allowed value for the VLAN"
+msgstr ""
 
-msgid "Add User"
-msgstr "Добавить пользователя"
+msgid ""
+"A VLAN slave cannot be configured on a bond with the fail_over_mac=follow "
+"option"
+msgstr ""
 
 msgid "Administration"
 msgstr "Администрирование"
 
-msgid "Administrator"
-msgstr "Администратор"
+msgid "Basic information of interface is missing."
+msgstr ""
 
-msgid "Batch Delete"
-msgstr "Пакетное удаление"
+msgid "Bond info is missing"
+msgstr ""
 
-msgid "Cancel"
-msgstr "Отмена"
+msgid "Bonding master is missing"
+msgstr ""
+
+msgid "Boot protocol is missing."
+msgstr ""
 
 msgid "Cannot update system firmware while running VMs."
 msgstr ""
 "Невозможно обновить встроенное ПО системы, когда работают виртуальные машины."
 
-msgid "Community"
-msgstr "Сообщество"
-
-msgid "Configuration Backup"
-msgstr "Резервная копия конфигурации"
-
-msgid "Confirm Password"
-msgstr "Подтверждение пароля"
+msgid "Change type for partition failed"
+msgstr ""
 
 #, python-format
 msgid "Could not add user '%(user)s' to kvm group."
@@ -72,20 +72,17 @@ msgstr "Не удалось удалить группу '%(group)s'"
 msgid "Could not delete user '%(user)s'."
 msgstr "Не удалось удалить пользователя '%(user)s'."
 
-msgid "Create a backup"
-msgstr "Создать резервную копию"
+msgid "Create partition failed"
+msgstr ""
 
-msgid "DNS"
-msgstr "DNS"
-
-msgid "Delete backups in batch"
-msgstr "Удалить резервные копии в пакетном режиме"
-
-msgid "Description"
-msgstr "Описание"
+msgid "Delete partition failed"
+msgstr ""
 
 msgid "Description too long."
 msgstr "Слишком длинное описание."
+
+msgid "Device name of interface is missing."
+msgstr ""
 
 #, python-format
 msgid "Error activating power saving profile %(profile)s."
@@ -101,8 +98,31 @@ msgstr ""
 "область."
 
 #, python-format
+msgid "Error creating a flat file. %(err)s"
+msgstr ""
+
+#, python-format
+msgid "Error deleting a swap device. %(err)s"
+msgstr ""
+
+msgid "Error deleting a swap file."
+msgstr ""
+
+#, python-format
+msgid "Error deleting a swap file. %(err)s"
+msgstr ""
+
+#, python-format
 msgid "Error deleting subscription: '%(error)s'."
 msgstr "Ошибка удаления подписки: '%(error)s'."
+
+#, python-format
+msgid "Error executing 'ls -l /dev/disk/by-id, %(err)s"
+msgstr ""
+
+#, python-format
+msgid "Error executing 'lsblk -Po, %(err)s"
+msgstr ""
 
 #, python-format
 msgid ""
@@ -112,8 +132,44 @@ msgstr ""
 "Ошибка записи встроенного ПО во флэш-память. Код возврата = %(rc)s. См. в "
 "файле /usr/sbin/update_flash описание кодов возврата."
 
+#, python-format
+msgid "Error getting bus id of DASD device, %(err)s"
+msgstr ""
+
+#, python-format
+msgid "Error getting information from ifcfg file: '%(error)s'."
+msgstr ""
+
+#, python-format
+msgid "Error getting list of storage devices, %(err)s"
+msgstr ""
+
+msgid "Error in executing 'df -hT' command"
+msgstr ""
+
+msgid "Error in executing 'lsblk -Pbo' command"
+msgstr ""
+
+msgid "Error in executing 'lsdasd -l bus_id' command"
+msgstr ""
+
+msgid "Error in executing 'lsdasd -l' command"
+msgstr ""
+
 msgid "Error loading SEP subscriptions data from server."
 msgstr "Ошибка загрузки подписок SEP с сервера."
+
+#, python-format
+msgid "Error parsing 'ls -l /dev/disk/by-id', %(err)s"
+msgstr ""
+
+#, python-format
+msgid "Error parsing 'lsblk -Po', %(err)s"
+msgstr ""
+
+#, python-format
+msgid "Error parsing /proc/swaps file. %(err)s"
+msgstr ""
 
 #, python-format
 msgid ""
@@ -139,9 +195,28 @@ msgstr "Ошибка остановки службы SEP: '%(error)s'."
 msgid "Error subscribing SEP data to server: '%(error)s'."
 msgstr "Ошибка подписки на данные SEP на сервере: '%(error)s'."
 
+msgid "Error while getting block device information"
+msgstr ""
+
+msgid "Exception getting the route information"
+msgstr ""
+
 msgid "FW update failed: No image file found in the package file."
 msgstr ""
 "Не удалось обновить встроенное ПО: не найден файл образа в файле пакета."
+
+#, python-format
+msgid "Failed to a delete token from ifcfg file, Error: '%(error)s'"
+msgstr ""
+
+msgid "Failed to create LV"
+msgstr ""
+
+msgid "Failed to create PV"
+msgstr ""
+
+msgid "Failed to create VG"
+msgstr ""
 
 #, python-format
 msgid ""
@@ -159,6 +234,9 @@ msgstr ""
 "Не удалось создать каталог архива \"%(dir)s\". См. протокол ошибок для "
 "получения дополнительной информации."
 
+msgid "Failed to create partition"
+msgstr ""
+
 #, python-format
 msgid ""
 "Failed to create tar archive \"%(name)s\", cmd: \"%(cmd)s\". Inspect error "
@@ -167,13 +245,83 @@ msgstr ""
 "Не удалось создать архив tar \"%(name)s\", команда: \"%(cmd)s\". См. "
 "протокол ошибок."
 
+msgid "Failed to delete LV"
+msgstr ""
+
+msgid "Failed to delete PV"
+msgstr ""
+
+msgid "Failed to delete VG"
+msgstr ""
+
 #, python-format
 msgid "Failed to delete archive file \"%(name)s\"."
 msgstr "Не удалось удалить файл архива \"%(name)s\"."
 
 #, python-format
+msgid "Failed to delete ifcfg file, Error: '%(error)s'"
+msgstr ""
+
+msgid "Failed to delete partition"
+msgstr ""
+
+msgid "Failed to extend VG"
+msgstr ""
+
+msgid "Failed to fetch LV details"
+msgstr ""
+
+msgid "Failed to fetch PV details"
+msgstr ""
+
+msgid "Failed to fetch PV list"
+msgstr ""
+
+msgid "Failed to fetch VG details"
+msgstr ""
+
+msgid "Failed to find specified DASD device"
+msgstr ""
+
+msgid "Failed to format DASD device"
+msgstr ""
+
+msgid "Failed to identify the type of interface"
+msgstr ""
+
+msgid "Failed to list LVs"
+msgstr ""
+
+msgid "Failed to list VGs"
+msgstr ""
+
+msgid "Failed to mount the filesystem"
+msgstr ""
+
+#, python-format
 msgid "Failed to read /etc/resolv.conf because %(reason)s"
 msgstr "Не удалось прочитать файл /etc/resolv.conf. Причина: %(reason)s"
+
+msgid "Failed to reduce VG"
+msgstr ""
+
+msgid "Failed to retrieve details of the specified DASD device"
+msgstr ""
+
+msgid "Failed to retrieve details of the specified DASD partition"
+msgstr ""
+
+msgid "Failed to retrieve details of the specified filesystem"
+msgstr ""
+
+msgid "Failed to retrieve list of DASD devices"
+msgstr ""
+
+msgid "Failed to retrieve list of DASD partitions"
+msgstr ""
+
+msgid "Failed to retrieve list of filesystems."
+msgstr ""
 
 msgid ""
 "Failed to retrieve power management profiles:                        Daemon "
@@ -196,19 +344,19 @@ msgstr ""
 "Не удалось загрузить профили управления питанием:                        "
 "Пакет 'tuned-adm' не установлен."
 
+msgid "Failed to unmount the filesystems"
+msgstr ""
+
 #, python-format
 msgid "Failed to write /etc/resolv.conf because %(reason)s"
 msgstr ""
 "Не удалось записать данные в файл /etc/resolv.conf. Причина: %(reason)s"
 
-msgid "File"
-msgstr "Файл"
+msgid "Fetching list of partitions failed"
+msgstr ""
 
-msgid "Firmware Update"
-msgstr "Обновление встроенного ПО"
-
-msgid "Firmware Version: "
-msgstr "Версия встроенного ПО: "
+msgid "File location required for creating a swap device."
+msgstr ""
 
 #, python-format
 msgid "Firmware image unpack failed: rc = %(rc)s. Details: %(err)s"
@@ -216,43 +364,42 @@ msgstr ""
 "Не удалось распаковать образ встроенного ПО: код возврата = %(rc)s. "
 "Сведения: %(err)s"
 
-msgid ""
-"Firmware update is initializing. System will reboot in order to flash the "
-"firmware."
+msgid "For vlan creation over bond, slaves has to be up"
 msgstr ""
-"Выполняется обновление встроенного ПО. Система перезагрузится для записи во "
-"флэш-память встроенного ПО."
 
-msgid "Gateway"
-msgstr "Шлюз"
+msgid "Format partition failed"
+msgstr ""
 
-msgid "Generate Default Backup"
-msgstr "Создать резервную копию по умолчанию"
-
-msgid "Group"
-msgstr "Группа"
-
-msgid "Hostname"
-msgstr "Имя хоста"
+msgid "Formatting of DASD device failed"
+msgstr ""
 
 #, python-format
 msgid "Hostname %(hostname)s not found."
 msgstr "Имя хоста %(hostname)s не найдено."
 
-msgid "IP"
-msgstr "IP"
+msgid "IP address is missing."
+msgstr ""
 
-msgid "In-Use/Max Ports"
-msgstr "Используется/Максимальное число портов"
-
-msgid "Interface"
-msgstr "Интерфейс"
+msgid "Incorrect swap type, only 'device' and 'file' are allowed."
+msgstr ""
 
 #, python-format
 msgid ""
 "Interface %(name)s is not editable because it belongs to a vlan or bridge"
 msgstr ""
 "Интерфейс %(name)s нельзя изменить, поскольку он принадлежит VLAN или мосту"
+
+#, python-format
+msgid ""
+"Interface '%(name)s' is neither Vlan nor Bond to perform delete operation"
+msgstr ""
+
+msgid "Invalid bonding option parameter"
+msgstr ""
+
+#, python-format
+msgid "Invalid boot protocol '%(mode)s', "
+msgstr ""
 
 msgid "Invalid counts_ago number."
 msgstr "Недопустимое значение counts_ago."
@@ -267,6 +414,18 @@ msgstr ""
 "Недопустимые введенные значения ip-адреса / маски сети. Оба поля должны "
 "содержать допустимые значения ip-адреса / маски сети или оба должны быть "
 "пустыми (это приведет к удалению текущих значений IP-адреса и маски сети)."
+
+#, python-format
+msgid "Invalid ipv4 address '%(ip)s', '%(error)s'."
+msgstr ""
+
+#, python-format
+msgid "Invalid ipv6 address '%(ip)s', '%(error)s'."
+msgstr ""
+
+#, python-format
+msgid "Invalid netmask '%(NETMASK)s', '%(error)s'."
+msgstr ""
 
 #, python-format
 msgid "Invalid network parameters. Details: %(err)s"
@@ -284,96 +443,124 @@ msgstr "Недопустимый параметр маски сети интер
 msgid "Invalid parameter for network gateway"
 msgstr "Недопустимый параметр сетевого шлюза"
 
-msgid "Kimchi User"
-msgstr "Пользователь Kimchi"
+msgid "Invalid type needs to be either local or nfs"
+msgstr ""
 
-msgid "Mask"
-msgstr "Маска"
+msgid "Minimum one slave has to be given for the bond interface"
+msgstr ""
 
-msgid "Name"
-msgstr "Имя"
+msgid "Missing ipv4 initialization key."
+msgstr ""
 
-msgid "Network Configuration"
-msgstr "Настройка сети"
+msgid "Missing ipv6 address information"
+msgstr ""
 
-msgid "New Custom Backup"
-msgstr "Создать пользовательскую резервную копию"
+msgid "Missing ipv6 initialization key."
+msgstr ""
 
-msgid "Package Path: "
-msgstr "Путь к пакету: "
+msgid "Module 802q is not loaded into kernel"
+msgstr ""
 
-msgid "Password"
-msgstr "Пароль"
+msgid "NFS mount failed"
+msgstr ""
 
-msgid "Path Excluded"
-msgstr "Исключаемый путь"
+msgid "No partitions found"
+msgstr ""
 
-msgid "Path Included"
-msgstr "Включаемый путь"
+#, python-format
+msgid "No partitions found for disk . %(disk)s"
+msgstr ""
+
+msgid "Parent interface of type 'Bond' is not active"
+msgstr ""
+
+msgid "Parsing df output failed."
+msgstr ""
+
+msgid "Parsing lsdasd output failed"
+msgstr ""
+
+msgid "Partition already mounted"
+msgstr ""
 
 msgid "Path or pattern is too long or too short."
 msgstr "Путь или шаблон слишком длинный или слишком короткий."
 
+#, python-format
+msgid "Persistent file for slave '%(slave)s' is missing"
+msgstr ""
+
+#, python-format
+msgid "Persistent file is not available for an interface, '%(name)s'"
+msgstr ""
+
+msgid "Physical device name is missing"
+msgstr ""
+
 msgid "Please check the uniqueness of the paths or patterns."
 msgstr "Проверьте уникальность путей или шаблонов."
-
-msgid "Port"
-msgstr "Порт"
-
-msgid "Power Options"
-msgstr "Параметры питания"
-
-msgid "Preserve the latest"
-msgstr "Сохранить последние"
-
-msgid "Profile"
-msgstr "Профайл"
 
 msgid "Provide required parameters: hostname, port, community."
 msgstr "Укажите обязательные параметры: имя хоста, порт, сообщество."
 
-msgid "SAN Adapters"
-msgstr "Адаптеры SAN"
+msgid "Require DASD device name to be formatted"
+msgstr ""
+
+msgid "Require block dev to mount a filesystem"
+msgstr ""
+
+msgid "Require block size for formatting DASD device"
+msgstr ""
+
+msgid "Require mount point to mount a filesystem"
+msgstr ""
+
+msgid "Require name to create DASD device partition"
+msgstr ""
+
+msgid "Require partition size to create DASD device partition"
+msgstr ""
+
+msgid "Required parameter device name"
+msgstr ""
+
+msgid "Required parameter partition size"
+msgstr ""
+
+msgid "Required pv_name parameter"
+msgstr ""
+
+msgid "Required pv_paths parameter"
+msgstr ""
+
+msgid "Required size parameter"
+msgstr ""
+
+msgid "Required vg_name parameter"
+msgstr ""
 
 #, python-format
 msgid "SAN adapter '%(adapter)s' does not exist in the system."
 msgstr "Адаптер SAN '%(adapter)s' не существует в системе."
 
-msgid "SEP Configuration"
-msgstr "Конфигурация SEP"
-
 msgid "SNMP community name must be a single word."
 msgstr "Имя сообщества SNMP должно состоять из одного слова."
 
-msgid "Selected Option"
-msgstr "Опция Выбрано"
+msgid "Size is mandatory while creating file type swap device."
+msgstr ""
 
-msgid "Sensor Monitor"
-msgstr "Монитор датчика"
+msgid "Slave(s) is missing"
+msgstr ""
 
 msgid "Specify name, password, group and profile for the new user."
 msgstr "Укажите имя, пароль и профайл для нового пользователя."
 
-msgid "Speed"
-msgstr "Скорость"
+msgid "Subnet is missing."
+msgstr ""
 
-msgid "Start"
-msgstr "Запустить"
-
-msgid "State"
-msgstr "Состояние"
-
-msgid "Status:"
-msgstr "Состояние:"
-
-msgid "Stop"
-msgstr "Завершить"
-
-msgid "Submit"
-msgstr "Отправить"
-
-msgid "Symbolic Name"
-msgstr "Символьное имя"
+#, python-format
+msgid "Swap device not found. %(name)s"
+msgstr ""
 
 msgid "System hostname must be a valid string."
 msgstr "Имя хоста системы должно быть допустимой строкой."
@@ -384,9 +571,6 @@ msgid ""
 msgstr ""
 "Номер порта системы должен быть целым числом от 1 до                      "
 "65535."
-
-msgid "The absolute path to the firmware rpm/hpm."
-msgstr "Полный путь к rpm/hpm встроенного ПО."
 
 #, python-format
 msgid "The user name '%(user)s' is already in use'."
@@ -400,16 +584,53 @@ msgstr ""
 "Истек тайм-аут создания архива \"%(identity)s\". Возможно, файлы слишком "
 "большие для резервного копирования конфигурации."
 
-msgid "Timestamp"
-msgstr "Системное время"
+msgid "Type is missing"
+msgstr ""
+
+msgid "Type is unknown"
+msgstr ""
+
+msgid "Type required for creating a swap device."
+msgstr ""
+
+#, python-format
+msgid "Unable to activate swap device. %(err)s"
+msgstr ""
+
+#, python-format
+msgid "Unable to activate the interface on '%(name)s', '%(error)s'."
+msgstr ""
+
+#, python-format
+msgid "Unable to deactivate the interface on '%(name)s', '%(error)s'."
+msgstr ""
 
 #, python-format
 msgid "Unable to delete default gateway: %(err)s"
 msgstr "Не удалось удалить шлюз по умолчанию: %(err)s"
 
 #, python-format
+msgid "Unable to find FC elements for given fc block device, %(blk)s"
+msgstr ""
+
+#, python-format
+msgid "Unable to format swap device. %(err)s"
+msgstr ""
+
+#, python-format
 msgid "Unable to get default gateway: %(err)s"
 msgstr "Не удалось получить шлюз по умолчанию: %(err)s"
+
+#, python-format
+msgid "Unable to get single swap device info. %(err)s"
+msgstr ""
+
+msgid "Unable to open fstab"
+msgstr ""
+
+#, python-format
+msgid "Unable to parse 'swapon -s' output. %(err)s"
+msgstr ""
 
 #, python-format
 msgid "Unable to set default gateway: %(err)s"
@@ -419,24 +640,12 @@ msgstr "Не удалось задать шлюз по умолчанию: %(err
 msgid "Unable to update interface configuration. Details: %(err)s"
 msgstr "Не удалось обновить конфигурацию интерфейса. Сведения: %(err)s"
 
-msgid "Unselected Option"
-msgstr "Опция Не выбрано"
-
-msgid "Update"
-msgstr "Обновить"
-
-msgid "Use Other"
-msgstr "Использовать другой"
+msgid "Unable to write fstab"
+msgstr ""
 
 #, python-format
 msgid "User '%(user)s' does not exist."
 msgstr "Пользователь '%(user)s' не существует."
-
-msgid "User Management"
-msgstr "Управление пользователями"
-
-msgid "User Name"
-msgstr "Имя пользователя"
 
 msgid "User group is a required string."
 msgstr "Группа пользователя обязательная."
@@ -454,17 +663,270 @@ msgstr ""
 "Профайл пользователя обязательный и должен быть одним из следующих: "
 "kimchiuser, virtuser или admin."
 
-msgid "Virt User"
-msgstr "Виртуальный пользователь"
+msgid "VLAN id exceeds the ranges from '0' to '4096'"
+msgstr ""
 
-msgid "WWNN"
-msgstr "Глобальное имя узла (WWNN)"
+msgid "Vlan id is missing"
+msgstr ""
 
-msgid "WWPN"
-msgstr "Глобальное имя порта (WWPN)"
+msgid "Vlan info is missing"
+msgstr ""
 
-msgid "backups"
-msgstr "резервные копии"
+msgid "Vlan is missing"
+msgstr ""
 
-msgid "days of backups"
-msgstr "дни резервных копий"
+msgid "error in filesystem get list util"
+msgstr ""
+
+msgid "error in filesystem info fetch util"
+msgstr ""
+
+msgid "error in unmount util"
+msgstr ""
+
+msgid "fdisk command failed"
+msgstr ""
+
+msgid "lookup method of partition failed"
+msgstr ""
+
+msgid "lvcreate command failed"
+msgstr ""
+
+msgid "lvdisplay command failed"
+msgstr ""
+
+msgid "lvremove command failed"
+msgstr ""
+
+msgid "lvs command failed"
+msgstr ""
+
+msgid "mkfs command failed"
+msgstr ""
+
+msgid "pvcreate command failed"
+msgstr ""
+
+msgid "pvdisplay command failed"
+msgstr ""
+
+msgid "pvremove command failed"
+msgstr ""
+
+msgid "pvs command failed"
+msgstr ""
+
+msgid "required remote share location"
+msgstr ""
+
+msgid "required server ip addr"
+msgstr ""
+
+msgid "required type as local or nfs"
+msgstr ""
+
+msgid "vgcreate command failed"
+msgstr ""
+
+msgid "vgextend command failed"
+msgstr ""
+
+msgid "vgreduce command failed"
+msgstr ""
+
+msgid "vgremove command failed"
+msgstr ""
+
+msgid "vgs command failed"
+msgstr ""
+
+msgid "vgs command for given VG failed"
+msgstr ""
+
+#~ msgid "Activate"
+#~ msgstr "Активировать"
+
+#~ msgid "Activated Option"
+#~ msgstr "Опция Активировано"
+
+#~ msgid "Add Subscription"
+#~ msgstr "Добавить подписку"
+
+#~ msgid "Add User"
+#~ msgstr "Добавить пользователя"
+
+#~ msgid "Administrator"
+#~ msgstr "Администратор"
+
+#~ msgid "Batch Delete"
+#~ msgstr "Пакетное удаление"
+
+#~ msgid "Cancel"
+#~ msgstr "Отмена"
+
+#~ msgid "Community"
+#~ msgstr "Сообщество"
+
+#~ msgid "Configuration Backup"
+#~ msgstr "Резервная копия конфигурации"
+
+#~ msgid "Confirm Password"
+#~ msgstr "Подтверждение пароля"
+
+#~ msgid "Create a backup"
+#~ msgstr "Создать резервную копию"
+
+#~ msgid "DNS"
+#~ msgstr "DNS"
+
+#~ msgid "Delete backups in batch"
+#~ msgstr "Удалить резервные копии в пакетном режиме"
+
+#~ msgid "Description"
+#~ msgstr "Описание"
+
+#~ msgid "File"
+#~ msgstr "Файл"
+
+#~ msgid "Firmware Update"
+#~ msgstr "Обновление встроенного ПО"
+
+#~ msgid "Firmware Version: "
+#~ msgstr "Версия встроенного ПО: "
+
+#~ msgid ""
+#~ "Firmware update is initializing. System will reboot in order to flash the "
+#~ "firmware."
+#~ msgstr ""
+#~ "Выполняется обновление встроенного ПО. Система перезагрузится для записи "
+#~ "во флэш-память встроенного ПО."
+
+#~ msgid "Gateway"
+#~ msgstr "Шлюз"
+
+#~ msgid "Generate Default Backup"
+#~ msgstr "Создать резервную копию по умолчанию"
+
+#~ msgid "Group"
+#~ msgstr "Группа"
+
+#~ msgid "Hostname"
+#~ msgstr "Имя хоста"
+
+#~ msgid "IP"
+#~ msgstr "IP"
+
+#~ msgid "In-Use/Max Ports"
+#~ msgstr "Используется/Максимальное число портов"
+
+#~ msgid "Interface"
+#~ msgstr "Интерфейс"
+
+#~ msgid "Kimchi User"
+#~ msgstr "Пользователь Kimchi"
+
+#~ msgid "Mask"
+#~ msgstr "Маска"
+
+#~ msgid "Name"
+#~ msgstr "Имя"
+
+#~ msgid "Network Configuration"
+#~ msgstr "Настройка сети"
+
+#~ msgid "New Custom Backup"
+#~ msgstr "Создать пользовательскую резервную копию"
+
+#~ msgid "Package Path: "
+#~ msgstr "Путь к пакету: "
+
+#~ msgid "Password"
+#~ msgstr "Пароль"
+
+#~ msgid "Path Excluded"
+#~ msgstr "Исключаемый путь"
+
+#~ msgid "Path Included"
+#~ msgstr "Включаемый путь"
+
+#~ msgid "Port"
+#~ msgstr "Порт"
+
+#~ msgid "Power Options"
+#~ msgstr "Параметры питания"
+
+#~ msgid "Preserve the latest"
+#~ msgstr "Сохранить последние"
+
+#~ msgid "Profile"
+#~ msgstr "Профайл"
+
+#~ msgid "SAN Adapters"
+#~ msgstr "Адаптеры SAN"
+
+#~ msgid "SEP Configuration"
+#~ msgstr "Конфигурация SEP"
+
+#~ msgid "Selected Option"
+#~ msgstr "Опция Выбрано"
+
+#~ msgid "Sensor Monitor"
+#~ msgstr "Монитор датчика"
+
+#~ msgid "Speed"
+#~ msgstr "Скорость"
+
+#~ msgid "Start"
+#~ msgstr "Запустить"
+
+#~ msgid "State"
+#~ msgstr "Состояние"
+
+#~ msgid "Status:"
+#~ msgstr "Состояние:"
+
+#~ msgid "Stop"
+#~ msgstr "Завершить"
+
+#~ msgid "Submit"
+#~ msgstr "Отправить"
+
+#~ msgid "Symbolic Name"
+#~ msgstr "Символьное имя"
+
+#~ msgid "The absolute path to the firmware rpm/hpm."
+#~ msgstr "Полный путь к rpm/hpm встроенного ПО."
+
+#~ msgid "Timestamp"
+#~ msgstr "Системное время"
+
+#~ msgid "Unselected Option"
+#~ msgstr "Опция Не выбрано"
+
+#~ msgid "Update"
+#~ msgstr "Обновить"
+
+#~ msgid "Use Other"
+#~ msgstr "Использовать другой"
+
+#~ msgid "User Management"
+#~ msgstr "Управление пользователями"
+
+#~ msgid "User Name"
+#~ msgstr "Имя пользователя"
+
+#~ msgid "Virt User"
+#~ msgstr "Виртуальный пользователь"
+
+#~ msgid "WWNN"
+#~ msgstr "Глобальное имя узла (WWNN)"
+
+#~ msgid "WWPN"
+#~ msgstr "Глобальное имя порта (WWPN)"
+
+#~ msgid "backups"
+#~ msgstr "резервные копии"
+
+#~ msgid "days of backups"
+#~ msgstr "дни резервных копий"

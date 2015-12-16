@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ginger 1.2.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-09-18 10:30-0300\n"
+"POT-Creation-Date: 2015-12-16 18:42-0200\n"
 "PO-Revision-Date: 2014-06-22 14:00+0800\n"
 "Last-Translator: Zhou Zheng Sheng <zhshzhou@linux.vnet.ibm.com>\n"
 "Language-Team: Zhou Zheng Sheng <zhshzhou@linux.vnet.ibm.com>\n"
@@ -15,41 +15,41 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-msgid "Activate"
-msgstr "アクティブ化"
+#, python-format
+msgid "%(name)s is not valid network interface"
+msgstr ""
 
-msgid "Activated Option"
-msgstr "アクティブにされたオプション"
+msgid "'yes' or 'no' is allowed value for the BONDING_MASTER"
+msgstr ""
 
-msgid "Add Subscription"
-msgstr "サブスクリプションの追加"
+msgid "'yes' or 'no' is allowed value for the VLAN"
+msgstr ""
 
-msgid "Add User"
-msgstr "ユーザーの追加"
+msgid ""
+"A VLAN slave cannot be configured on a bond with the fail_over_mac=follow "
+"option"
+msgstr ""
 
 msgid "Administration"
 msgstr "管理"
 
-msgid "Administrator"
-msgstr "管理者"
+msgid "Basic information of interface is missing."
+msgstr ""
 
-msgid "Batch Delete"
-msgstr "バッチ削除"
+msgid "Bond info is missing"
+msgstr ""
 
-msgid "Cancel"
-msgstr "取消"
+msgid "Bonding master is missing"
+msgstr ""
+
+msgid "Boot protocol is missing."
+msgstr ""
 
 msgid "Cannot update system firmware while running VMs."
 msgstr "VM の稼働中はシステム・ファームウェアを更新できません。"
 
-msgid "Community"
-msgstr "コミュニティー"
-
-msgid "Configuration Backup"
-msgstr "構成バックアップ"
-
-msgid "Confirm Password"
-msgstr "確認パスワード"
+msgid "Change type for partition failed"
+msgstr ""
 
 #, python-format
 msgid "Could not add user '%(user)s' to kvm group."
@@ -71,20 +71,17 @@ msgstr "グループ「%(group)s」を削除できませんでした"
 msgid "Could not delete user '%(user)s'."
 msgstr "ユーザー「%(user)s」を削除できませんでした。"
 
-msgid "Create a backup"
-msgstr "バックアップの作成"
+msgid "Create partition failed"
+msgstr ""
 
-msgid "DNS"
-msgstr "DNS"
-
-msgid "Delete backups in batch"
-msgstr "バッチのバックアップを削除"
-
-msgid "Description"
-msgstr "説明"
+msgid "Delete partition failed"
+msgstr ""
 
 msgid "Description too long."
 msgstr "説明が長すぎます。"
+
+msgid "Device name of interface is missing."
+msgstr ""
 
 #, python-format
 msgid "Error activating power saving profile %(profile)s."
@@ -100,9 +97,32 @@ msgstr ""
 "ドにブートされていることを確認してください。"
 
 #, python-format
+msgid "Error creating a flat file. %(err)s"
+msgstr ""
+
+#, python-format
+msgid "Error deleting a swap device. %(err)s"
+msgstr ""
+
+msgid "Error deleting a swap file."
+msgstr ""
+
+#, python-format
+msgid "Error deleting a swap file. %(err)s"
+msgstr ""
+
+#, python-format
 msgid "Error deleting subscription: '%(error)s'."
 msgstr ""
 "サブスクリプションを削除するときにエラーが発生しました: 「%(error)s」。"
+
+#, python-format
+msgid "Error executing 'ls -l /dev/disk/by-id, %(err)s"
+msgstr ""
+
+#, python-format
+msgid "Error executing 'lsblk -Po, %(err)s"
+msgstr ""
 
 #, python-format
 msgid ""
@@ -112,10 +132,46 @@ msgstr ""
 "ファームウェアの消去エラー。rc = %(rc)s。rc の理由については、/usr/sbin/"
 "update_flash を確認してください。"
 
+#, python-format
+msgid "Error getting bus id of DASD device, %(err)s"
+msgstr ""
+
+#, python-format
+msgid "Error getting information from ifcfg file: '%(error)s'."
+msgstr ""
+
+#, python-format
+msgid "Error getting list of storage devices, %(err)s"
+msgstr ""
+
+msgid "Error in executing 'df -hT' command"
+msgstr ""
+
+msgid "Error in executing 'lsblk -Pbo' command"
+msgstr ""
+
+msgid "Error in executing 'lsdasd -l bus_id' command"
+msgstr ""
+
+msgid "Error in executing 'lsdasd -l' command"
+msgstr ""
+
 msgid "Error loading SEP subscriptions data from server."
 msgstr ""
 "SEP サブスクリプション・データをサーバーからロードするときにエラーが発生しま"
 "した。"
+
+#, python-format
+msgid "Error parsing 'ls -l /dev/disk/by-id', %(err)s"
+msgstr ""
+
+#, python-format
+msgid "Error parsing 'lsblk -Po', %(err)s"
+msgstr ""
+
+#, python-format
+msgid "Error parsing /proc/swaps file. %(err)s"
+msgstr ""
 
 #, python-format
 msgid ""
@@ -145,10 +201,29 @@ msgstr ""
 "サーバーに対して SEP データをサブスクライブするときにエラーが発生しました: "
 "「%(error)s」。"
 
+msgid "Error while getting block device information"
+msgstr ""
+
+msgid "Exception getting the route information"
+msgstr ""
+
 msgid "FW update failed: No image file found in the package file."
 msgstr ""
 "FW 更新が失敗しました: イメージ・ファイルがパッケージ・ファイルに見つかりませ"
 "ん。"
+
+#, python-format
+msgid "Failed to a delete token from ifcfg file, Error: '%(error)s'"
+msgstr ""
+
+msgid "Failed to create LV"
+msgstr ""
+
+msgid "Failed to create PV"
+msgstr ""
+
+msgid "Failed to create VG"
+msgstr ""
 
 #, python-format
 msgid ""
@@ -166,6 +241,9 @@ msgstr ""
 "アーカイブ・ディレクトリー「%(dir)s」の作成に失敗しました。詳細については、エ"
 "ラー・ログを調べてください。"
 
+msgid "Failed to create partition"
+msgstr ""
+
 #, python-format
 msgid ""
 "Failed to create tar archive \"%(name)s\", cmd: \"%(cmd)s\". Inspect error "
@@ -174,13 +252,83 @@ msgstr ""
 "tar アーカイブ「%(name)s」の作成に失敗しました。cmd: 「%(cmd)s」。詳細につい"
 "ては、エラー・ログを調べてください。"
 
+msgid "Failed to delete LV"
+msgstr ""
+
+msgid "Failed to delete PV"
+msgstr ""
+
+msgid "Failed to delete VG"
+msgstr ""
+
 #, python-format
 msgid "Failed to delete archive file \"%(name)s\"."
 msgstr "アーカイブ・ファイル「%(name)s」の削除に失敗しました。"
 
 #, python-format
+msgid "Failed to delete ifcfg file, Error: '%(error)s'"
+msgstr ""
+
+msgid "Failed to delete partition"
+msgstr ""
+
+msgid "Failed to extend VG"
+msgstr ""
+
+msgid "Failed to fetch LV details"
+msgstr ""
+
+msgid "Failed to fetch PV details"
+msgstr ""
+
+msgid "Failed to fetch PV list"
+msgstr ""
+
+msgid "Failed to fetch VG details"
+msgstr ""
+
+msgid "Failed to find specified DASD device"
+msgstr ""
+
+msgid "Failed to format DASD device"
+msgstr ""
+
+msgid "Failed to identify the type of interface"
+msgstr ""
+
+msgid "Failed to list LVs"
+msgstr ""
+
+msgid "Failed to list VGs"
+msgstr ""
+
+msgid "Failed to mount the filesystem"
+msgstr ""
+
+#, python-format
 msgid "Failed to read /etc/resolv.conf because %(reason)s"
 msgstr "%(reason)s が原因で /etc/resolv.conf の読み取りに失敗しました。"
+
+msgid "Failed to reduce VG"
+msgstr ""
+
+msgid "Failed to retrieve details of the specified DASD device"
+msgstr ""
+
+msgid "Failed to retrieve details of the specified DASD partition"
+msgstr ""
+
+msgid "Failed to retrieve details of the specified filesystem"
+msgstr ""
+
+msgid "Failed to retrieve list of DASD devices"
+msgstr ""
+
+msgid "Failed to retrieve list of DASD partitions"
+msgstr ""
+
+msgid "Failed to retrieve list of filesystems."
+msgstr ""
 
 msgid ""
 "Failed to retrieve power management profiles:                        Daemon "
@@ -203,18 +351,18 @@ msgstr ""
 "電源管理プロファイルを取得できませんでした: パッケージ「tuned-adm」がインス"
 "トールされていません。"
 
+msgid "Failed to unmount the filesystems"
+msgstr ""
+
 #, python-format
 msgid "Failed to write /etc/resolv.conf because %(reason)s"
 msgstr "%(reason)s が原因で /etc/resolv.conf の書き込みに失敗しました。"
 
-msgid "File"
-msgstr "ファイル"
+msgid "Fetching list of partitions failed"
+msgstr ""
 
-msgid "Firmware Update"
-msgstr "ファームウェア更新"
-
-msgid "Firmware Version: "
-msgstr "ファームウェア・バージョン: "
+msgid "File location required for creating a swap device."
+msgstr ""
 
 #, python-format
 msgid "Firmware image unpack failed: rc = %(rc)s. Details: %(err)s"
@@ -222,43 +370,42 @@ msgstr ""
 "ファームウェア・イメージのアンパックが失敗しました: rc = %(rc)s、詳細: "
 "%(err)s"
 
-msgid ""
-"Firmware update is initializing. System will reboot in order to flash the "
-"firmware."
+msgid "For vlan creation over bond, slaves has to be up"
 msgstr ""
-"ファームウェア更新を初期化中です。ファームウェアを消去するためにシステムがリ"
-"ブートされます。"
 
-msgid "Gateway"
-msgstr "ゲートウェイ"
+msgid "Format partition failed"
+msgstr ""
 
-msgid "Generate Default Backup"
-msgstr "デフォルト・バックアップの生成"
-
-msgid "Group"
-msgstr "グループ"
-
-msgid "Hostname"
-msgstr "ホスト名"
+msgid "Formatting of DASD device failed"
+msgstr ""
 
 #, python-format
 msgid "Hostname %(hostname)s not found."
 msgstr "ホスト名 %(hostname)s が見つかりません。"
 
-msgid "IP"
-msgstr "IP"
+msgid "IP address is missing."
+msgstr ""
 
-msgid "In-Use/Max Ports"
-msgstr "使用中のポート数/最大ポート数"
-
-msgid "Interface"
-msgstr "インターフェース"
+msgid "Incorrect swap type, only 'device' and 'file' are allowed."
+msgstr ""
 
 #, python-format
 msgid ""
 "Interface %(name)s is not editable because it belongs to a vlan or bridge"
 msgstr ""
 "インターフェース %(name)s は、VLAN またはブリッジに属しているため編集不可です"
+
+#, python-format
+msgid ""
+"Interface '%(name)s' is neither Vlan nor Bond to perform delete operation"
+msgstr ""
+
+msgid "Invalid bonding option parameter"
+msgstr ""
+
+#, python-format
+msgid "Invalid boot protocol '%(mode)s', "
+msgstr ""
 
 msgid "Invalid counts_ago number."
 msgstr "counts_ago 数が無効です。"
@@ -273,6 +420,18 @@ msgstr ""
 "IP/ネットマスクの入力が無効です。どちらのフィールドも有効な IP/ネットマスク値"
 "であるか、どちらもブランクにしなければなりません (現在の IP/ネットマスクは消"
 "去されます)。"
+
+#, python-format
+msgid "Invalid ipv4 address '%(ip)s', '%(error)s'."
+msgstr ""
+
+#, python-format
+msgid "Invalid ipv6 address '%(ip)s', '%(error)s'."
+msgstr ""
+
+#, python-format
+msgid "Invalid netmask '%(NETMASK)s', '%(error)s'."
+msgstr ""
 
 #, python-format
 msgid "Invalid network parameters. Details: %(err)s"
@@ -290,98 +449,126 @@ msgstr "インターフェース・ネットマスクのパラメーターが無
 msgid "Invalid parameter for network gateway"
 msgstr "ネットワーク・ゲートウェイのパラメーターが無効です"
 
-msgid "Kimchi User"
-msgstr "Kimchi ユーザー"
+msgid "Invalid type needs to be either local or nfs"
+msgstr ""
 
-msgid "Mask"
-msgstr "マスク"
+msgid "Minimum one slave has to be given for the bond interface"
+msgstr ""
 
-msgid "Name"
-msgstr "名前"
+msgid "Missing ipv4 initialization key."
+msgstr ""
 
-msgid "Network Configuration"
-msgstr "ネットワーク構成"
+msgid "Missing ipv6 address information"
+msgstr ""
 
-msgid "New Custom Backup"
-msgstr "新規カスタム・バックアップ"
+msgid "Missing ipv6 initialization key."
+msgstr ""
 
-msgid "Package Path: "
-msgstr "パッケージ・パス: "
+msgid "Module 802q is not loaded into kernel"
+msgstr ""
 
-msgid "Password"
-msgstr "パスワード"
+msgid "NFS mount failed"
+msgstr ""
 
-msgid "Path Excluded"
-msgstr "除外するパス"
+msgid "No partitions found"
+msgstr ""
 
-msgid "Path Included"
-msgstr "組み込むパス"
+#, python-format
+msgid "No partitions found for disk . %(disk)s"
+msgstr ""
+
+msgid "Parent interface of type 'Bond' is not active"
+msgstr ""
+
+msgid "Parsing df output failed."
+msgstr ""
+
+msgid "Parsing lsdasd output failed"
+msgstr ""
+
+msgid "Partition already mounted"
+msgstr ""
 
 msgid "Path or pattern is too long or too short."
 msgstr "パスまたはパターンが長すぎるか、短すぎます。"
 
+#, python-format
+msgid "Persistent file for slave '%(slave)s' is missing"
+msgstr ""
+
+#, python-format
+msgid "Persistent file is not available for an interface, '%(name)s'"
+msgstr ""
+
+msgid "Physical device name is missing"
+msgstr ""
+
 msgid "Please check the uniqueness of the paths or patterns."
 msgstr "パスまたはパターンの固有性を確認してください。"
-
-msgid "Port"
-msgstr "ポート"
-
-msgid "Power Options"
-msgstr "電源オプション"
-
-msgid "Preserve the latest"
-msgstr "最新を保持"
-
-msgid "Profile"
-msgstr "プロファイル"
 
 msgid "Provide required parameters: hostname, port, community."
 msgstr "必須パラメーターのホスト名、ポート、コミュニティーを指定してください。"
 
-msgid "SAN Adapters"
-msgstr "SAN アダプター"
+msgid "Require DASD device name to be formatted"
+msgstr ""
+
+msgid "Require block dev to mount a filesystem"
+msgstr ""
+
+msgid "Require block size for formatting DASD device"
+msgstr ""
+
+msgid "Require mount point to mount a filesystem"
+msgstr ""
+
+msgid "Require name to create DASD device partition"
+msgstr ""
+
+msgid "Require partition size to create DASD device partition"
+msgstr ""
+
+msgid "Required parameter device name"
+msgstr ""
+
+msgid "Required parameter partition size"
+msgstr ""
+
+msgid "Required pv_name parameter"
+msgstr ""
+
+msgid "Required pv_paths parameter"
+msgstr ""
+
+msgid "Required size parameter"
+msgstr ""
+
+msgid "Required vg_name parameter"
+msgstr ""
 
 #, python-format
 msgid "SAN adapter '%(adapter)s' does not exist in the system."
 msgstr "SAN アダプター「%(adapter)s」はシステムに存在しません。"
 
-msgid "SEP Configuration"
-msgstr "SEP 構成"
-
 msgid "SNMP community name must be a single word."
 msgstr "SNMP コミュニティー名は単一のワードでなければなりません。"
 
-msgid "Selected Option"
-msgstr "選択されたオプション"
+msgid "Size is mandatory while creating file type swap device."
+msgstr ""
 
-msgid "Sensor Monitor"
-msgstr "センサー・モニター"
+msgid "Slave(s) is missing"
+msgstr ""
 
 msgid "Specify name, password, group and profile for the new user."
 msgstr ""
 "新規ユーザーの名前、パスワード、グループ、およびプロファイルを指定してくださ"
 "い。"
 
-msgid "Speed"
-msgstr "速度"
+msgid "Subnet is missing."
+msgstr ""
 
-msgid "Start"
-msgstr "開始"
-
-msgid "State"
-msgstr "状態"
-
-msgid "Status:"
-msgstr "状況:"
-
-msgid "Stop"
-msgstr "停止"
-
-msgid "Submit"
-msgstr "実行依頼"
-
-msgid "Symbolic Name"
-msgstr "シンボル名"
+#, python-format
+msgid "Swap device not found. %(name)s"
+msgstr ""
 
 msgid "System hostname must be a valid string."
 msgstr "システム・ホスト名は有効なストリングでなければなりません。"
@@ -390,9 +577,6 @@ msgid ""
 "System port number must be an integer between 1 and                      "
 "65535."
 msgstr "システム・ポート番号は 1 から 65535 までの整数でなければなりません。"
-
-msgid "The absolute path to the firmware rpm/hpm."
-msgstr "ファームウェア rpm/hpm への絶対パス。"
 
 #, python-format
 msgid "The user name '%(user)s' is already in use'."
@@ -406,16 +590,53 @@ msgstr ""
 "アーカイブ「%(identity)s」の作成中にタイムアウトになりました。構成バックアッ"
 "プにはファイルが大きすぎる可能性があります。"
 
-msgid "Timestamp"
-msgstr "タイム・スタンプ"
+msgid "Type is missing"
+msgstr ""
+
+msgid "Type is unknown"
+msgstr ""
+
+msgid "Type required for creating a swap device."
+msgstr ""
+
+#, python-format
+msgid "Unable to activate swap device. %(err)s"
+msgstr ""
+
+#, python-format
+msgid "Unable to activate the interface on '%(name)s', '%(error)s'."
+msgstr ""
+
+#, python-format
+msgid "Unable to deactivate the interface on '%(name)s', '%(error)s'."
+msgstr ""
 
 #, python-format
 msgid "Unable to delete default gateway: %(err)s"
 msgstr "デフォルト・ゲートウェイを削除できません: %(err)s"
 
 #, python-format
+msgid "Unable to find FC elements for given fc block device, %(blk)s"
+msgstr ""
+
+#, python-format
+msgid "Unable to format swap device. %(err)s"
+msgstr ""
+
+#, python-format
 msgid "Unable to get default gateway: %(err)s"
 msgstr "デフォルト・ゲートウェイを取得できません: %(err)s"
+
+#, python-format
+msgid "Unable to get single swap device info. %(err)s"
+msgstr ""
+
+msgid "Unable to open fstab"
+msgstr ""
+
+#, python-format
+msgid "Unable to parse 'swapon -s' output. %(err)s"
+msgstr ""
 
 #, python-format
 msgid "Unable to set default gateway: %(err)s"
@@ -425,24 +646,12 @@ msgstr "デフォルト・ゲートウェイを設定できません: %(err)s"
 msgid "Unable to update interface configuration. Details: %(err)s"
 msgstr "インターフェース構成を更新できません。詳細: %(err)s"
 
-msgid "Unselected Option"
-msgstr "選択されていないオプション"
-
-msgid "Update"
-msgstr "更新"
-
-msgid "Use Other"
-msgstr "その他を使用"
+msgid "Unable to write fstab"
+msgstr ""
 
 #, python-format
 msgid "User '%(user)s' does not exist."
 msgstr "ユーザー「%(user)s」は存在しません。"
-
-msgid "User Management"
-msgstr "ユーザー管理"
-
-msgid "User Name"
-msgstr "ユーザー名"
 
 msgid "User group is a required string."
 msgstr "ユーザー・グループは必須ストリングです。"
@@ -460,17 +669,270 @@ msgstr ""
 "ユーザー・プロファイルは必須であり、kimchiuser、virtuser、または admin のいず"
 "れかである必要があります。"
 
-msgid "Virt User"
-msgstr "Virt ユーザー"
+msgid "VLAN id exceeds the ranges from '0' to '4096'"
+msgstr ""
 
-msgid "WWNN"
-msgstr "WWNN"
+msgid "Vlan id is missing"
+msgstr ""
 
-msgid "WWPN"
-msgstr "WWPN"
+msgid "Vlan info is missing"
+msgstr ""
 
-msgid "backups"
-msgstr "バックアップ"
+msgid "Vlan is missing"
+msgstr ""
 
-msgid "days of backups"
-msgstr "日間のバックアップ"
+msgid "error in filesystem get list util"
+msgstr ""
+
+msgid "error in filesystem info fetch util"
+msgstr ""
+
+msgid "error in unmount util"
+msgstr ""
+
+msgid "fdisk command failed"
+msgstr ""
+
+msgid "lookup method of partition failed"
+msgstr ""
+
+msgid "lvcreate command failed"
+msgstr ""
+
+msgid "lvdisplay command failed"
+msgstr ""
+
+msgid "lvremove command failed"
+msgstr ""
+
+msgid "lvs command failed"
+msgstr ""
+
+msgid "mkfs command failed"
+msgstr ""
+
+msgid "pvcreate command failed"
+msgstr ""
+
+msgid "pvdisplay command failed"
+msgstr ""
+
+msgid "pvremove command failed"
+msgstr ""
+
+msgid "pvs command failed"
+msgstr ""
+
+msgid "required remote share location"
+msgstr ""
+
+msgid "required server ip addr"
+msgstr ""
+
+msgid "required type as local or nfs"
+msgstr ""
+
+msgid "vgcreate command failed"
+msgstr ""
+
+msgid "vgextend command failed"
+msgstr ""
+
+msgid "vgreduce command failed"
+msgstr ""
+
+msgid "vgremove command failed"
+msgstr ""
+
+msgid "vgs command failed"
+msgstr ""
+
+msgid "vgs command for given VG failed"
+msgstr ""
+
+#~ msgid "Activate"
+#~ msgstr "アクティブ化"
+
+#~ msgid "Activated Option"
+#~ msgstr "アクティブにされたオプション"
+
+#~ msgid "Add Subscription"
+#~ msgstr "サブスクリプションの追加"
+
+#~ msgid "Add User"
+#~ msgstr "ユーザーの追加"
+
+#~ msgid "Administrator"
+#~ msgstr "管理者"
+
+#~ msgid "Batch Delete"
+#~ msgstr "バッチ削除"
+
+#~ msgid "Cancel"
+#~ msgstr "取消"
+
+#~ msgid "Community"
+#~ msgstr "コミュニティー"
+
+#~ msgid "Configuration Backup"
+#~ msgstr "構成バックアップ"
+
+#~ msgid "Confirm Password"
+#~ msgstr "確認パスワード"
+
+#~ msgid "Create a backup"
+#~ msgstr "バックアップの作成"
+
+#~ msgid "DNS"
+#~ msgstr "DNS"
+
+#~ msgid "Delete backups in batch"
+#~ msgstr "バッチのバックアップを削除"
+
+#~ msgid "Description"
+#~ msgstr "説明"
+
+#~ msgid "File"
+#~ msgstr "ファイル"
+
+#~ msgid "Firmware Update"
+#~ msgstr "ファームウェア更新"
+
+#~ msgid "Firmware Version: "
+#~ msgstr "ファームウェア・バージョン: "
+
+#~ msgid ""
+#~ "Firmware update is initializing. System will reboot in order to flash the "
+#~ "firmware."
+#~ msgstr ""
+#~ "ファームウェア更新を初期化中です。ファームウェアを消去するためにシステムが"
+#~ "リブートされます。"
+
+#~ msgid "Gateway"
+#~ msgstr "ゲートウェイ"
+
+#~ msgid "Generate Default Backup"
+#~ msgstr "デフォルト・バックアップの生成"
+
+#~ msgid "Group"
+#~ msgstr "グループ"
+
+#~ msgid "Hostname"
+#~ msgstr "ホスト名"
+
+#~ msgid "IP"
+#~ msgstr "IP"
+
+#~ msgid "In-Use/Max Ports"
+#~ msgstr "使用中のポート数/最大ポート数"
+
+#~ msgid "Interface"
+#~ msgstr "インターフェース"
+
+#~ msgid "Kimchi User"
+#~ msgstr "Kimchi ユーザー"
+
+#~ msgid "Mask"
+#~ msgstr "マスク"
+
+#~ msgid "Name"
+#~ msgstr "名前"
+
+#~ msgid "Network Configuration"
+#~ msgstr "ネットワーク構成"
+
+#~ msgid "New Custom Backup"
+#~ msgstr "新規カスタム・バックアップ"
+
+#~ msgid "Package Path: "
+#~ msgstr "パッケージ・パス: "
+
+#~ msgid "Password"
+#~ msgstr "パスワード"
+
+#~ msgid "Path Excluded"
+#~ msgstr "除外するパス"
+
+#~ msgid "Path Included"
+#~ msgstr "組み込むパス"
+
+#~ msgid "Port"
+#~ msgstr "ポート"
+
+#~ msgid "Power Options"
+#~ msgstr "電源オプション"
+
+#~ msgid "Preserve the latest"
+#~ msgstr "最新を保持"
+
+#~ msgid "Profile"
+#~ msgstr "プロファイル"
+
+#~ msgid "SAN Adapters"
+#~ msgstr "SAN アダプター"
+
+#~ msgid "SEP Configuration"
+#~ msgstr "SEP 構成"
+
+#~ msgid "Selected Option"
+#~ msgstr "選択されたオプション"
+
+#~ msgid "Sensor Monitor"
+#~ msgstr "センサー・モニター"
+
+#~ msgid "Speed"
+#~ msgstr "速度"
+
+#~ msgid "Start"
+#~ msgstr "開始"
+
+#~ msgid "State"
+#~ msgstr "状態"
+
+#~ msgid "Status:"
+#~ msgstr "状況:"
+
+#~ msgid "Stop"
+#~ msgstr "停止"
+
+#~ msgid "Submit"
+#~ msgstr "実行依頼"
+
+#~ msgid "Symbolic Name"
+#~ msgstr "シンボル名"
+
+#~ msgid "The absolute path to the firmware rpm/hpm."
+#~ msgstr "ファームウェア rpm/hpm への絶対パス。"
+
+#~ msgid "Timestamp"
+#~ msgstr "タイム・スタンプ"
+
+#~ msgid "Unselected Option"
+#~ msgstr "選択されていないオプション"
+
+#~ msgid "Update"
+#~ msgstr "更新"
+
+#~ msgid "Use Other"
+#~ msgstr "その他を使用"
+
+#~ msgid "User Management"
+#~ msgstr "ユーザー管理"
+
+#~ msgid "User Name"
+#~ msgstr "ユーザー名"
+
+#~ msgid "Virt User"
+#~ msgstr "Virt ユーザー"
+
+#~ msgid "WWNN"
+#~ msgstr "WWNN"
+
+#~ msgid "WWPN"
+#~ msgstr "WWPN"
+
+#~ msgid "backups"
+#~ msgstr "バックアップ"
+
+#~ msgid "days of backups"
+#~ msgstr "日間のバックアップ"

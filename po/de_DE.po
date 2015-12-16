@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ginger 1.2.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-09-18 10:30-0300\n"
+"POT-Creation-Date: 2015-12-16 18:42-0200\n"
 "PO-Revision-Date: 2014-06-22 14:00+0800\n"
 "Last-Translator: Zhou Zheng Sheng <zhshzhou@linux.vnet.ibm.com>\n"
 "Language-Team: Zhou Zheng Sheng <zhshzhou@linux.vnet.ibm.com>\n"
@@ -15,43 +15,43 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-msgid "Activate"
-msgstr "Aktivieren"
+#, python-format
+msgid "%(name)s is not valid network interface"
+msgstr ""
 
-msgid "Activated Option"
-msgstr "Aktivierte Option"
+msgid "'yes' or 'no' is allowed value for the BONDING_MASTER"
+msgstr ""
 
-msgid "Add Subscription"
-msgstr "Subskription hinzufügen"
+msgid "'yes' or 'no' is allowed value for the VLAN"
+msgstr ""
 
-msgid "Add User"
-msgstr "Benutzer hinzufügen"
+msgid ""
+"A VLAN slave cannot be configured on a bond with the fail_over_mac=follow "
+"option"
+msgstr ""
 
 msgid "Administration"
 msgstr "Administration"
 
-msgid "Administrator"
-msgstr "Administrator"
+msgid "Basic information of interface is missing."
+msgstr ""
 
-msgid "Batch Delete"
-msgstr "Löschen im Stapelbetrieb"
+msgid "Bond info is missing"
+msgstr ""
 
-msgid "Cancel"
-msgstr "Abbrechen"
+msgid "Bonding master is missing"
+msgstr ""
+
+msgid "Boot protocol is missing."
+msgstr ""
 
 msgid "Cannot update system firmware while running VMs."
 msgstr ""
 "Während der Ausführung von VMs kann die Systemfirmware nicht aktualisiert "
 "werden."
 
-msgid "Community"
-msgstr "Community"
-
-msgid "Configuration Backup"
-msgstr "Konfigurationssicherung"
-
-msgid "Confirm Password"
-msgstr "Kennwort bestätigen"
+msgid "Change type for partition failed"
+msgstr ""
 
 #, python-format
 msgid "Could not add user '%(user)s' to kvm group."
@@ -74,20 +74,17 @@ msgstr "Die Gruppe '%(group)s' konnte nicht gelöscht werden"
 msgid "Could not delete user '%(user)s'."
 msgstr "Der Benutzer '%(user)s' konnte nicht gelöscht werden."
 
-msgid "Create a backup"
-msgstr "Sicherung erstellen"
+msgid "Create partition failed"
+msgstr ""
 
-msgid "DNS"
-msgstr "DNS"
-
-msgid "Delete backups in batch"
-msgstr "Sicherungen im Stapelbetrieb löschen"
-
-msgid "Description"
-msgstr "Beschreibung"
+msgid "Delete partition failed"
+msgstr ""
 
 msgid "Description too long."
 msgstr "Die Beschreibung ist zu lang."
+
+msgid "Device name of interface is missing."
+msgstr ""
 
 #, python-format
 msgid "Error activating power saving profile %(profile)s."
@@ -102,8 +99,31 @@ msgstr ""
 "Stellen Sie sicher, dass Ihr Bootvorgang auf der temporären Seite erfolgt."
 
 #, python-format
+msgid "Error creating a flat file. %(err)s"
+msgstr ""
+
+#, python-format
+msgid "Error deleting a swap device. %(err)s"
+msgstr ""
+
+msgid "Error deleting a swap file."
+msgstr ""
+
+#, python-format
+msgid "Error deleting a swap file. %(err)s"
+msgstr ""
+
+#, python-format
 msgid "Error deleting subscription: '%(error)s'."
 msgstr "Fehler beim Löschen der Subskription: '%(error)s'."
+
+#, python-format
+msgid "Error executing 'ls -l /dev/disk/by-id, %(err)s"
+msgstr ""
+
+#, python-format
+msgid "Error executing 'lsblk -Po, %(err)s"
+msgstr ""
 
 #, python-format
 msgid ""
@@ -114,8 +134,44 @@ msgstr ""
 "%(rc)s.                      Die Ursache und den Rückgabecode /usr/finden "
 "Sie unter /usr/sbin/update_flash."
 
+#, python-format
+msgid "Error getting bus id of DASD device, %(err)s"
+msgstr ""
+
+#, python-format
+msgid "Error getting information from ifcfg file: '%(error)s'."
+msgstr ""
+
+#, python-format
+msgid "Error getting list of storage devices, %(err)s"
+msgstr ""
+
+msgid "Error in executing 'df -hT' command"
+msgstr ""
+
+msgid "Error in executing 'lsblk -Pbo' command"
+msgstr ""
+
+msgid "Error in executing 'lsdasd -l bus_id' command"
+msgstr ""
+
+msgid "Error in executing 'lsdasd -l' command"
+msgstr ""
+
 msgid "Error loading SEP subscriptions data from server."
 msgstr "Fehler beim Laden der SEP-Subskriptionsdaten vom Server."
+
+#, python-format
+msgid "Error parsing 'ls -l /dev/disk/by-id', %(err)s"
+msgstr ""
+
+#, python-format
+msgid "Error parsing 'lsblk -Po', %(err)s"
+msgstr ""
+
+#, python-format
+msgid "Error parsing /proc/swaps file. %(err)s"
+msgstr ""
 
 #, python-format
 msgid ""
@@ -141,10 +197,29 @@ msgstr "Fehler beim Stoppen des SEP-Service: '%(error)s'."
 msgid "Error subscribing SEP data to server: '%(error)s'."
 msgstr "Fehler beim Subskribieren der SEP-Daten auf dem Server: '%(error)s'."
 
+msgid "Error while getting block device information"
+msgstr ""
+
+msgid "Exception getting the route information"
+msgstr ""
+
 msgid "FW update failed: No image file found in the package file."
 msgstr ""
 "Das Firmware-Update ist fehlgeschlagen: Es wurde keine Imagedatei in der "
 "Paketdatei gefunden."
+
+#, python-format
+msgid "Failed to a delete token from ifcfg file, Error: '%(error)s'"
+msgstr ""
+
+msgid "Failed to create LV"
+msgstr ""
+
+msgid "Failed to create PV"
+msgstr ""
+
+msgid "Failed to create VG"
+msgstr ""
 
 #, python-format
 msgid ""
@@ -162,6 +237,9 @@ msgstr ""
 "Erstellen des Archivverzeichnisses \"%(dir)s\" ist fehlgeschlagen. Weitere "
 "Informationen finden Sie im Fehlerprotokoll."
 
+msgid "Failed to create partition"
+msgstr ""
+
 #, python-format
 msgid ""
 "Failed to create tar archive \"%(name)s\", cmd: \"%(cmd)s\". Inspect error "
@@ -170,13 +248,83 @@ msgstr ""
 "Erstellen des TAR-Archivs \"%(name)s\" ist fehlgeschlagen, Befehl: \"%(cmd)s"
 "\". Weitere Informationen finden Sie im Fehlerprotokoll."
 
+msgid "Failed to delete LV"
+msgstr ""
+
+msgid "Failed to delete PV"
+msgstr ""
+
+msgid "Failed to delete VG"
+msgstr ""
+
 #, python-format
 msgid "Failed to delete archive file \"%(name)s\"."
 msgstr "Erstellen des Archivs \"%(name)s\" ist fehlgeschlagen."
 
 #, python-format
+msgid "Failed to delete ifcfg file, Error: '%(error)s'"
+msgstr ""
+
+msgid "Failed to delete partition"
+msgstr ""
+
+msgid "Failed to extend VG"
+msgstr ""
+
+msgid "Failed to fetch LV details"
+msgstr ""
+
+msgid "Failed to fetch PV details"
+msgstr ""
+
+msgid "Failed to fetch PV list"
+msgstr ""
+
+msgid "Failed to fetch VG details"
+msgstr ""
+
+msgid "Failed to find specified DASD device"
+msgstr ""
+
+msgid "Failed to format DASD device"
+msgstr ""
+
+msgid "Failed to identify the type of interface"
+msgstr ""
+
+msgid "Failed to list LVs"
+msgstr ""
+
+msgid "Failed to list VGs"
+msgstr ""
+
+msgid "Failed to mount the filesystem"
+msgstr ""
+
+#, python-format
 msgid "Failed to read /etc/resolv.conf because %(reason)s"
 msgstr "Lesen der Datei '/etc/resolv.conf' fehlgeschlagen, da %(reason)s"
+
+msgid "Failed to reduce VG"
+msgstr ""
+
+msgid "Failed to retrieve details of the specified DASD device"
+msgstr ""
+
+msgid "Failed to retrieve details of the specified DASD partition"
+msgstr ""
+
+msgid "Failed to retrieve details of the specified filesystem"
+msgstr ""
+
+msgid "Failed to retrieve list of DASD devices"
+msgstr ""
+
+msgid "Failed to retrieve list of DASD partitions"
+msgstr ""
+
+msgid "Failed to retrieve list of filesystems."
+msgstr ""
 
 msgid ""
 "Failed to retrieve power management profiles:                        Daemon "
@@ -199,18 +347,18 @@ msgstr ""
 "Profile der Stromverbrauchssteuerung konnten nicht abgerufen werden: Das "
 "Paket 'tuned-adm' ist nicht installiert."
 
+msgid "Failed to unmount the filesystems"
+msgstr ""
+
 #, python-format
 msgid "Failed to write /etc/resolv.conf because %(reason)s"
 msgstr "Schreiben der Datei '/etc/resolv.conf' fehlgeschlagen, da %(reason)s"
 
-msgid "File"
-msgstr "Datei"
+msgid "Fetching list of partitions failed"
+msgstr ""
 
-msgid "Firmware Update"
-msgstr "Firmware-Update"
-
-msgid "Firmware Version: "
-msgstr "Firmwareversion: "
+msgid "File location required for creating a swap device."
+msgstr ""
 
 #, python-format
 msgid "Firmware image unpack failed: rc = %(rc)s. Details: %(err)s"
@@ -218,37 +366,24 @@ msgstr ""
 "Das Entpacken des Firmware-Image ist fehlgeschlagen: Rückgabecode = %(rc)s. "
 "Details: %(err)s"
 
-msgid ""
-"Firmware update is initializing. System will reboot in order to flash the "
-"firmware."
+msgid "For vlan creation over bond, slaves has to be up"
 msgstr ""
-"Firmware-Update wird initialisiert. Das System wird erneut gestartet, um den "
-"Flashspeicher der Firmware zu überschreiben."
 
-msgid "Gateway"
-msgstr "Gateway"
+msgid "Format partition failed"
+msgstr ""
 
-msgid "Generate Default Backup"
-msgstr "Standardsicherung generieren"
-
-msgid "Group"
-msgstr "Gruppe"
-
-msgid "Hostname"
-msgstr "Hostname"
+msgid "Formatting of DASD device failed"
+msgstr ""
 
 #, python-format
 msgid "Hostname %(hostname)s not found."
 msgstr "Hostname %(hostname)s nicht gefunden."
 
-msgid "IP"
-msgstr "IP"
+msgid "IP address is missing."
+msgstr ""
 
-msgid "In-Use/Max Ports"
-msgstr "Belegte/max. Ports"
-
-msgid "Interface"
-msgstr "Schnittstelle"
+msgid "Incorrect swap type, only 'device' and 'file' are allowed."
+msgstr ""
 
 #, python-format
 msgid ""
@@ -256,6 +391,18 @@ msgid ""
 msgstr ""
 "Die Schnittstelle %(name)s kann nicht bearbeitet werden, weil sie zu einem "
 "VLAN oder einer Bridge gehört"
+
+#, python-format
+msgid ""
+"Interface '%(name)s' is neither Vlan nor Bond to perform delete operation"
+msgstr ""
+
+msgid "Invalid bonding option parameter"
+msgstr ""
+
+#, python-format
+msgid "Invalid boot protocol '%(mode)s', "
+msgstr ""
 
 msgid "Invalid counts_ago number."
 msgstr "Ungültige Zahl für 'counts_ago'."
@@ -270,6 +417,18 @@ msgstr ""
 "Ungültige Eingaben für IP/Netzmaske. Beide Felder müssen gültige Werte für "
 "IP/Netzmaske enthalten oder beide Felder müssen leer sein (aktuelle IP/"
 "Netzmaske wird gelöscht)."
+
+#, python-format
+msgid "Invalid ipv4 address '%(ip)s', '%(error)s'."
+msgstr ""
+
+#, python-format
+msgid "Invalid ipv6 address '%(ip)s', '%(error)s'."
+msgstr ""
+
+#, python-format
+msgid "Invalid netmask '%(NETMASK)s', '%(error)s'."
+msgstr ""
 
 #, python-format
 msgid "Invalid network parameters. Details: %(err)s"
@@ -287,97 +446,125 @@ msgstr "Ungültiger Parameter für die Netzmaske der Schnittstelle"
 msgid "Invalid parameter for network gateway"
 msgstr "Ungültiger Parameter für Netzgateway"
 
-msgid "Kimchi User"
-msgstr "Kimchi-Benutzer"
+msgid "Invalid type needs to be either local or nfs"
+msgstr ""
 
-msgid "Mask"
-msgstr "Maske"
+msgid "Minimum one slave has to be given for the bond interface"
+msgstr ""
 
-msgid "Name"
-msgstr "Name"
+msgid "Missing ipv4 initialization key."
+msgstr ""
 
-msgid "Network Configuration"
-msgstr "Netzkonfiguration"
+msgid "Missing ipv6 address information"
+msgstr ""
 
-msgid "New Custom Backup"
-msgstr "Neue angepasste Sicherung"
+msgid "Missing ipv6 initialization key."
+msgstr ""
 
-msgid "Package Path: "
-msgstr "Paketpfad: "
+msgid "Module 802q is not loaded into kernel"
+msgstr ""
 
-msgid "Password"
-msgstr "Kennwort"
+msgid "NFS mount failed"
+msgstr ""
 
-msgid "Path Excluded"
-msgstr "Ausgeschlossener Pfad"
+msgid "No partitions found"
+msgstr ""
 
-msgid "Path Included"
-msgstr "Einbezogener Pfad"
+#, python-format
+msgid "No partitions found for disk . %(disk)s"
+msgstr ""
+
+msgid "Parent interface of type 'Bond' is not active"
+msgstr ""
+
+msgid "Parsing df output failed."
+msgstr ""
+
+msgid "Parsing lsdasd output failed"
+msgstr ""
+
+msgid "Partition already mounted"
+msgstr ""
 
 msgid "Path or pattern is too long or too short."
 msgstr "Pfad oder Muster ist zu lang oder zu kurz."
 
+#, python-format
+msgid "Persistent file for slave '%(slave)s' is missing"
+msgstr ""
+
+#, python-format
+msgid "Persistent file is not available for an interface, '%(name)s'"
+msgstr ""
+
+msgid "Physical device name is missing"
+msgstr ""
+
 msgid "Please check the uniqueness of the paths or patterns."
 msgstr "Bitte überprüfen Sie die Eindeutigkeit der Pfade oder Muster."
-
-msgid "Port"
-msgstr "Port"
-
-msgid "Power Options"
-msgstr "Stromoptionen"
-
-msgid "Preserve the latest"
-msgstr "Aktuellste Version aufbewahren"
-
-msgid "Profile"
-msgstr "Profil"
 
 msgid "Provide required parameters: hostname, port, community."
 msgstr "Geben Sie erforderliche Parameter an: Hostname, Port, Community."
 
-msgid "SAN Adapters"
-msgstr "SAN-Adapter"
+msgid "Require DASD device name to be formatted"
+msgstr ""
+
+msgid "Require block dev to mount a filesystem"
+msgstr ""
+
+msgid "Require block size for formatting DASD device"
+msgstr ""
+
+msgid "Require mount point to mount a filesystem"
+msgstr ""
+
+msgid "Require name to create DASD device partition"
+msgstr ""
+
+msgid "Require partition size to create DASD device partition"
+msgstr ""
+
+msgid "Required parameter device name"
+msgstr ""
+
+msgid "Required parameter partition size"
+msgstr ""
+
+msgid "Required pv_name parameter"
+msgstr ""
+
+msgid "Required pv_paths parameter"
+msgstr ""
+
+msgid "Required size parameter"
+msgstr ""
+
+msgid "Required vg_name parameter"
+msgstr ""
 
 #, python-format
 msgid "SAN adapter '%(adapter)s' does not exist in the system."
 msgstr "SAN-Adapter '%(adapter)s' ist nicht im System vorhanden."
 
-msgid "SEP Configuration"
-msgstr "SEP-Konfiguration"
-
 msgid "SNMP community name must be a single word."
 msgstr "Der Name der SNMP-Community muss ein einziges Wort sein."
 
-msgid "Selected Option"
-msgstr "Ausgewählte Option"
+msgid "Size is mandatory while creating file type swap device."
+msgstr ""
 
-msgid "Sensor Monitor"
-msgstr "Sensorenmonitor"
+msgid "Slave(s) is missing"
+msgstr ""
 
 msgid "Specify name, password, group and profile for the new user."
 msgstr ""
 "Geben Sie Namen, Kennwort, Gruppe und Profil für den neuen Benutzer an."
 
-msgid "Speed"
-msgstr "Geschwindigkeit"
+msgid "Subnet is missing."
+msgstr ""
 
-msgid "Start"
-msgstr "Starten"
-
-msgid "State"
-msgstr "Status"
-
-msgid "Status:"
-msgstr "Status:"
-
-msgid "Stop"
-msgstr "Stoppen"
-
-msgid "Submit"
-msgstr "Übergeben"
-
-msgid "Symbolic Name"
-msgstr "Symbolischer Name"
+#, python-format
+msgid "Swap device not found. %(name)s"
+msgstr ""
 
 msgid "System hostname must be a valid string."
 msgstr "Der Hostname des Systems muss eine gültige Zeichenfolge sein."
@@ -387,9 +574,6 @@ msgid ""
 "65535."
 msgstr ""
 "Die Portnummer des Systems muss eine Ganzzahl zwischen 1 und 65535 sein."
-
-msgid "The absolute path to the firmware rpm/hpm."
-msgstr "Der absolute Pfad zur RPM/HPM-Datei der Firmware."
 
 #, python-format
 msgid "The user name '%(user)s' is already in use'."
@@ -403,16 +587,53 @@ msgstr ""
 "Zeitlimitüberschreitung beim Erstellen des Archivs \"%(identity)s\", "
 "möglicherweise sind die Dateien zu groß für eine Konfigurationssicherung."
 
-msgid "Timestamp"
-msgstr "Zeitmarke"
+msgid "Type is missing"
+msgstr ""
+
+msgid "Type is unknown"
+msgstr ""
+
+msgid "Type required for creating a swap device."
+msgstr ""
+
+#, python-format
+msgid "Unable to activate swap device. %(err)s"
+msgstr ""
+
+#, python-format
+msgid "Unable to activate the interface on '%(name)s', '%(error)s'."
+msgstr ""
+
+#, python-format
+msgid "Unable to deactivate the interface on '%(name)s', '%(error)s'."
+msgstr ""
 
 #, python-format
 msgid "Unable to delete default gateway: %(err)s"
 msgstr "Standardgateway kann nicht gelöscht werden: %(err)s"
 
 #, python-format
+msgid "Unable to find FC elements for given fc block device, %(blk)s"
+msgstr ""
+
+#, python-format
+msgid "Unable to format swap device. %(err)s"
+msgstr ""
+
+#, python-format
 msgid "Unable to get default gateway: %(err)s"
 msgstr "Standardgateway kann nicht abgerufen werden: %(err)s"
+
+#, python-format
+msgid "Unable to get single swap device info. %(err)s"
+msgstr ""
+
+msgid "Unable to open fstab"
+msgstr ""
+
+#, python-format
+msgid "Unable to parse 'swapon -s' output. %(err)s"
+msgstr ""
 
 #, python-format
 msgid "Unable to set default gateway: %(err)s"
@@ -424,24 +645,12 @@ msgstr ""
 "Schnittstellenkonfiguration konnte nicht aktualisiert werden. Details: "
 "%(err)s"
 
-msgid "Unselected Option"
-msgstr "Nicht ausgewählte Option"
-
-msgid "Update"
-msgstr "Aktualisieren"
-
-msgid "Use Other"
-msgstr "Andere verwenden"
+msgid "Unable to write fstab"
+msgstr ""
 
 #, python-format
 msgid "User '%(user)s' does not exist."
 msgstr "Benutzer '%(user)s' ist nicht vorhanden."
-
-msgid "User Management"
-msgstr "Benutzerverwaltung"
-
-msgid "User Name"
-msgstr "Benutzername"
 
 msgid "User group is a required string."
 msgstr "Die Benutzergruppe ist eine erforderliche Zeichenfolge."
@@ -459,17 +668,270 @@ msgstr ""
 "Das Benutzerprofil ist erforderlich und sollte 'kimchiuser', 'virtuser' oder "
 "'admin' sein."
 
-msgid "Virt User"
-msgstr "Virt. Benutzer"
+msgid "VLAN id exceeds the ranges from '0' to '4096'"
+msgstr ""
 
-msgid "WWNN"
-msgstr "Weltweiter Knotenname"
+msgid "Vlan id is missing"
+msgstr ""
 
-msgid "WWPN"
-msgstr "Weltweiter Portname"
+msgid "Vlan info is missing"
+msgstr ""
 
-msgid "backups"
-msgstr "Sicherungen"
+msgid "Vlan is missing"
+msgstr ""
 
-msgid "days of backups"
-msgstr "Sicherungstage"
+msgid "error in filesystem get list util"
+msgstr ""
+
+msgid "error in filesystem info fetch util"
+msgstr ""
+
+msgid "error in unmount util"
+msgstr ""
+
+msgid "fdisk command failed"
+msgstr ""
+
+msgid "lookup method of partition failed"
+msgstr ""
+
+msgid "lvcreate command failed"
+msgstr ""
+
+msgid "lvdisplay command failed"
+msgstr ""
+
+msgid "lvremove command failed"
+msgstr ""
+
+msgid "lvs command failed"
+msgstr ""
+
+msgid "mkfs command failed"
+msgstr ""
+
+msgid "pvcreate command failed"
+msgstr ""
+
+msgid "pvdisplay command failed"
+msgstr ""
+
+msgid "pvremove command failed"
+msgstr ""
+
+msgid "pvs command failed"
+msgstr ""
+
+msgid "required remote share location"
+msgstr ""
+
+msgid "required server ip addr"
+msgstr ""
+
+msgid "required type as local or nfs"
+msgstr ""
+
+msgid "vgcreate command failed"
+msgstr ""
+
+msgid "vgextend command failed"
+msgstr ""
+
+msgid "vgreduce command failed"
+msgstr ""
+
+msgid "vgremove command failed"
+msgstr ""
+
+msgid "vgs command failed"
+msgstr ""
+
+msgid "vgs command for given VG failed"
+msgstr ""
+
+#~ msgid "Activate"
+#~ msgstr "Aktivieren"
+
+#~ msgid "Activated Option"
+#~ msgstr "Aktivierte Option"
+
+#~ msgid "Add Subscription"
+#~ msgstr "Subskription hinzufügen"
+
+#~ msgid "Add User"
+#~ msgstr "Benutzer hinzufügen"
+
+#~ msgid "Administrator"
+#~ msgstr "Administrator"
+
+#~ msgid "Batch Delete"
+#~ msgstr "Löschen im Stapelbetrieb"
+
+#~ msgid "Cancel"
+#~ msgstr "Abbrechen"
+
+#~ msgid "Community"
+#~ msgstr "Community"
+
+#~ msgid "Configuration Backup"
+#~ msgstr "Konfigurationssicherung"
+
+#~ msgid "Confirm Password"
+#~ msgstr "Kennwort bestätigen"
+
+#~ msgid "Create a backup"
+#~ msgstr "Sicherung erstellen"
+
+#~ msgid "DNS"
+#~ msgstr "DNS"
+
+#~ msgid "Delete backups in batch"
+#~ msgstr "Sicherungen im Stapelbetrieb löschen"
+
+#~ msgid "Description"
+#~ msgstr "Beschreibung"
+
+#~ msgid "File"
+#~ msgstr "Datei"
+
+#~ msgid "Firmware Update"
+#~ msgstr "Firmware-Update"
+
+#~ msgid "Firmware Version: "
+#~ msgstr "Firmwareversion: "
+
+#~ msgid ""
+#~ "Firmware update is initializing. System will reboot in order to flash the "
+#~ "firmware."
+#~ msgstr ""
+#~ "Firmware-Update wird initialisiert. Das System wird erneut gestartet, um "
+#~ "den Flashspeicher der Firmware zu überschreiben."
+
+#~ msgid "Gateway"
+#~ msgstr "Gateway"
+
+#~ msgid "Generate Default Backup"
+#~ msgstr "Standardsicherung generieren"
+
+#~ msgid "Group"
+#~ msgstr "Gruppe"
+
+#~ msgid "Hostname"
+#~ msgstr "Hostname"
+
+#~ msgid "IP"
+#~ msgstr "IP"
+
+#~ msgid "In-Use/Max Ports"
+#~ msgstr "Belegte/max. Ports"
+
+#~ msgid "Interface"
+#~ msgstr "Schnittstelle"
+
+#~ msgid "Kimchi User"
+#~ msgstr "Kimchi-Benutzer"
+
+#~ msgid "Mask"
+#~ msgstr "Maske"
+
+#~ msgid "Name"
+#~ msgstr "Name"
+
+#~ msgid "Network Configuration"
+#~ msgstr "Netzkonfiguration"
+
+#~ msgid "New Custom Backup"
+#~ msgstr "Neue angepasste Sicherung"
+
+#~ msgid "Package Path: "
+#~ msgstr "Paketpfad: "
+
+#~ msgid "Password"
+#~ msgstr "Kennwort"
+
+#~ msgid "Path Excluded"
+#~ msgstr "Ausgeschlossener Pfad"
+
+#~ msgid "Path Included"
+#~ msgstr "Einbezogener Pfad"
+
+#~ msgid "Port"
+#~ msgstr "Port"
+
+#~ msgid "Power Options"
+#~ msgstr "Stromoptionen"
+
+#~ msgid "Preserve the latest"
+#~ msgstr "Aktuellste Version aufbewahren"
+
+#~ msgid "Profile"
+#~ msgstr "Profil"
+
+#~ msgid "SAN Adapters"
+#~ msgstr "SAN-Adapter"
+
+#~ msgid "SEP Configuration"
+#~ msgstr "SEP-Konfiguration"
+
+#~ msgid "Selected Option"
+#~ msgstr "Ausgewählte Option"
+
+#~ msgid "Sensor Monitor"
+#~ msgstr "Sensorenmonitor"
+
+#~ msgid "Speed"
+#~ msgstr "Geschwindigkeit"
+
+#~ msgid "Start"
+#~ msgstr "Starten"
+
+#~ msgid "State"
+#~ msgstr "Status"
+
+#~ msgid "Status:"
+#~ msgstr "Status:"
+
+#~ msgid "Stop"
+#~ msgstr "Stoppen"
+
+#~ msgid "Submit"
+#~ msgstr "Übergeben"
+
+#~ msgid "Symbolic Name"
+#~ msgstr "Symbolischer Name"
+
+#~ msgid "The absolute path to the firmware rpm/hpm."
+#~ msgstr "Der absolute Pfad zur RPM/HPM-Datei der Firmware."
+
+#~ msgid "Timestamp"
+#~ msgstr "Zeitmarke"
+
+#~ msgid "Unselected Option"
+#~ msgstr "Nicht ausgewählte Option"
+
+#~ msgid "Update"
+#~ msgstr "Aktualisieren"
+
+#~ msgid "Use Other"
+#~ msgstr "Andere verwenden"
+
+#~ msgid "User Management"
+#~ msgstr "Benutzerverwaltung"
+
+#~ msgid "User Name"
+#~ msgstr "Benutzername"
+
+#~ msgid "Virt User"
+#~ msgstr "Virt. Benutzer"
+
+#~ msgid "WWNN"
+#~ msgstr "Weltweiter Knotenname"
+
+#~ msgid "WWPN"
+#~ msgstr "Weltweiter Portname"
+
+#~ msgid "backups"
+#~ msgstr "Sicherungen"
+
+#~ msgid "days of backups"
+#~ msgstr "Sicherungstage"

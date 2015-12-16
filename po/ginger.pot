@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-09-18 10:30-0300\n"
+"POT-Creation-Date: 2015-12-16 18:42-0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,40 +17,40 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-msgid "Activate"
+#, python-format
+msgid "%(name)s is not valid network interface"
 msgstr ""
 
-msgid "Activated Option"
+msgid "'yes' or 'no' is allowed value for the BONDING_MASTER"
 msgstr ""
 
-msgid "Add Subscription"
+msgid "'yes' or 'no' is allowed value for the VLAN"
 msgstr ""
 
-msgid "Add User"
+msgid ""
+"A VLAN slave cannot be configured on a bond with the fail_over_mac=follow "
+"option"
 msgstr ""
 
 msgid "Administration"
 msgstr ""
 
-msgid "Administrator"
+msgid "Basic information of interface is missing."
 msgstr ""
 
-msgid "Batch Delete"
+msgid "Bond info is missing"
 msgstr ""
 
-msgid "Cancel"
+msgid "Bonding master is missing"
+msgstr ""
+
+msgid "Boot protocol is missing."
 msgstr ""
 
 msgid "Cannot update system firmware while running VMs."
 msgstr ""
 
-msgid "Community"
-msgstr ""
-
-msgid "Configuration Backup"
-msgstr ""
-
-msgid "Confirm Password"
+msgid "Change type for partition failed"
 msgstr ""
 
 #, python-format
@@ -73,19 +73,16 @@ msgstr ""
 msgid "Could not delete user '%(user)s'."
 msgstr ""
 
-msgid "Create a backup"
+msgid "Create partition failed"
 msgstr ""
 
-msgid "DNS"
-msgstr ""
-
-msgid "Delete backups in batch"
-msgstr ""
-
-msgid "Description"
+msgid "Delete partition failed"
 msgstr ""
 
 msgid "Description too long."
+msgstr ""
+
+msgid "Device name of interface is missing."
 msgstr ""
 
 #, python-format
@@ -99,7 +96,30 @@ msgid ""
 msgstr ""
 
 #, python-format
+msgid "Error creating a flat file. %(err)s"
+msgstr ""
+
+#, python-format
+msgid "Error deleting a swap device. %(err)s"
+msgstr ""
+
+msgid "Error deleting a swap file."
+msgstr ""
+
+#, python-format
+msgid "Error deleting a swap file. %(err)s"
+msgstr ""
+
+#, python-format
 msgid "Error deleting subscription: '%(error)s'."
+msgstr ""
+
+#, python-format
+msgid "Error executing 'ls -l /dev/disk/by-id, %(err)s"
+msgstr ""
+
+#, python-format
+msgid "Error executing 'lsblk -Po, %(err)s"
 msgstr ""
 
 #, python-format
@@ -108,7 +128,43 @@ msgid ""
 "sbin/update_flash for rc reasons."
 msgstr ""
 
+#, python-format
+msgid "Error getting bus id of DASD device, %(err)s"
+msgstr ""
+
+#, python-format
+msgid "Error getting information from ifcfg file: '%(error)s'."
+msgstr ""
+
+#, python-format
+msgid "Error getting list of storage devices, %(err)s"
+msgstr ""
+
+msgid "Error in executing 'df -hT' command"
+msgstr ""
+
+msgid "Error in executing 'lsblk -Pbo' command"
+msgstr ""
+
+msgid "Error in executing 'lsdasd -l bus_id' command"
+msgstr ""
+
+msgid "Error in executing 'lsdasd -l' command"
+msgstr ""
+
 msgid "Error loading SEP subscriptions data from server."
+msgstr ""
+
+#, python-format
+msgid "Error parsing 'ls -l /dev/disk/by-id', %(err)s"
+msgstr ""
+
+#, python-format
+msgid "Error parsing 'lsblk -Po', %(err)s"
+msgstr ""
+
+#, python-format
+msgid "Error parsing /proc/swaps file. %(err)s"
 msgstr ""
 
 #, python-format
@@ -133,7 +189,26 @@ msgstr ""
 msgid "Error subscribing SEP data to server: '%(error)s'."
 msgstr ""
 
+msgid "Error while getting block device information"
+msgstr ""
+
+msgid "Exception getting the route information"
+msgstr ""
+
 msgid "FW update failed: No image file found in the package file."
+msgstr ""
+
+#, python-format
+msgid "Failed to a delete token from ifcfg file, Error: '%(error)s'"
+msgstr ""
+
+msgid "Failed to create LV"
+msgstr ""
+
+msgid "Failed to create PV"
+msgstr ""
+
+msgid "Failed to create VG"
 msgstr ""
 
 #, python-format
@@ -148,10 +223,22 @@ msgid ""
 "information."
 msgstr ""
 
+msgid "Failed to create partition"
+msgstr ""
+
 #, python-format
 msgid ""
 "Failed to create tar archive \"%(name)s\", cmd: \"%(cmd)s\". Inspect error "
 "log for more information."
+msgstr ""
+
+msgid "Failed to delete LV"
+msgstr ""
+
+msgid "Failed to delete PV"
+msgstr ""
+
+msgid "Failed to delete VG"
 msgstr ""
 
 #, python-format
@@ -159,7 +246,68 @@ msgid "Failed to delete archive file \"%(name)s\"."
 msgstr ""
 
 #, python-format
+msgid "Failed to delete ifcfg file, Error: '%(error)s'"
+msgstr ""
+
+msgid "Failed to delete partition"
+msgstr ""
+
+msgid "Failed to extend VG"
+msgstr ""
+
+msgid "Failed to fetch LV details"
+msgstr ""
+
+msgid "Failed to fetch PV details"
+msgstr ""
+
+msgid "Failed to fetch PV list"
+msgstr ""
+
+msgid "Failed to fetch VG details"
+msgstr ""
+
+msgid "Failed to find specified DASD device"
+msgstr ""
+
+msgid "Failed to format DASD device"
+msgstr ""
+
+msgid "Failed to identify the type of interface"
+msgstr ""
+
+msgid "Failed to list LVs"
+msgstr ""
+
+msgid "Failed to list VGs"
+msgstr ""
+
+msgid "Failed to mount the filesystem"
+msgstr ""
+
+#, python-format
 msgid "Failed to read /etc/resolv.conf because %(reason)s"
+msgstr ""
+
+msgid "Failed to reduce VG"
+msgstr ""
+
+msgid "Failed to retrieve details of the specified DASD device"
+msgstr ""
+
+msgid "Failed to retrieve details of the specified DASD partition"
+msgstr ""
+
+msgid "Failed to retrieve details of the specified filesystem"
+msgstr ""
+
+msgid "Failed to retrieve list of DASD devices"
+msgstr ""
+
+msgid "Failed to retrieve list of DASD partitions"
+msgstr ""
+
+msgid "Failed to retrieve list of filesystems."
 msgstr ""
 
 msgid ""
@@ -177,56 +325,57 @@ msgid ""
 "'tuned-adm' is not installed."
 msgstr ""
 
+msgid "Failed to unmount the filesystems"
+msgstr ""
+
 #, python-format
 msgid "Failed to write /etc/resolv.conf because %(reason)s"
 msgstr ""
 
-msgid "File"
+msgid "Fetching list of partitions failed"
 msgstr ""
 
-msgid "Firmware Update"
-msgstr ""
-
-msgid "Firmware Version: "
+msgid "File location required for creating a swap device."
 msgstr ""
 
 #, python-format
 msgid "Firmware image unpack failed: rc = %(rc)s. Details: %(err)s"
 msgstr ""
 
-msgid ""
-"Firmware update is initializing. System will reboot in order to flash the "
-"firmware."
+msgid "For vlan creation over bond, slaves has to be up"
 msgstr ""
 
-msgid "Gateway"
+msgid "Format partition failed"
 msgstr ""
 
-msgid "Generate Default Backup"
-msgstr ""
-
-msgid "Group"
-msgstr ""
-
-msgid "Hostname"
+msgid "Formatting of DASD device failed"
 msgstr ""
 
 #, python-format
 msgid "Hostname %(hostname)s not found."
 msgstr ""
 
-msgid "IP"
+msgid "IP address is missing."
 msgstr ""
 
-msgid "In-Use/Max Ports"
-msgstr ""
-
-msgid "Interface"
+msgid "Incorrect swap type, only 'device' and 'file' are allowed."
 msgstr ""
 
 #, python-format
 msgid ""
 "Interface %(name)s is not editable because it belongs to a vlan or bridge"
+msgstr ""
+
+#, python-format
+msgid ""
+"Interface '%(name)s' is neither Vlan nor Bond to perform delete operation"
+msgstr ""
+
+msgid "Invalid bonding option parameter"
+msgstr ""
+
+#, python-format
+msgid "Invalid boot protocol '%(mode)s', "
 msgstr ""
 
 msgid "Invalid counts_ago number."
@@ -238,6 +387,18 @@ msgstr ""
 msgid ""
 "Invalid ip/netmask inputs. Both fields must be valid ip/netmask values or "
 "both must be blank (will erase the current IP/netmask)."
+msgstr ""
+
+#, python-format
+msgid "Invalid ipv4 address '%(ip)s', '%(error)s'."
+msgstr ""
+
+#, python-format
+msgid "Invalid ipv6 address '%(ip)s', '%(error)s'."
+msgstr ""
+
+#, python-format
+msgid "Invalid netmask '%(NETMASK)s', '%(error)s'."
 msgstr ""
 
 #, python-format
@@ -256,95 +417,123 @@ msgstr ""
 msgid "Invalid parameter for network gateway"
 msgstr ""
 
-msgid "Kimchi User"
+msgid "Invalid type needs to be either local or nfs"
 msgstr ""
 
-msgid "Mask"
+msgid "Minimum one slave has to be given for the bond interface"
 msgstr ""
 
-msgid "Name"
+msgid "Missing ipv4 initialization key."
 msgstr ""
 
-msgid "Network Configuration"
+msgid "Missing ipv6 address information"
 msgstr ""
 
-msgid "New Custom Backup"
+msgid "Missing ipv6 initialization key."
 msgstr ""
 
-msgid "Package Path: "
+msgid "Module 802q is not loaded into kernel"
 msgstr ""
 
-msgid "Password"
+msgid "NFS mount failed"
 msgstr ""
 
-msgid "Path Excluded"
+msgid "No partitions found"
 msgstr ""
 
-msgid "Path Included"
+#, python-format
+msgid "No partitions found for disk . %(disk)s"
+msgstr ""
+
+msgid "Parent interface of type 'Bond' is not active"
+msgstr ""
+
+msgid "Parsing df output failed."
+msgstr ""
+
+msgid "Parsing lsdasd output failed"
+msgstr ""
+
+msgid "Partition already mounted"
 msgstr ""
 
 msgid "Path or pattern is too long or too short."
 msgstr ""
 
+#, python-format
+msgid "Persistent file for slave '%(slave)s' is missing"
+msgstr ""
+
+#, python-format
+msgid "Persistent file is not available for an interface, '%(name)s'"
+msgstr ""
+
+msgid "Physical device name is missing"
+msgstr ""
+
 msgid "Please check the uniqueness of the paths or patterns."
-msgstr ""
-
-msgid "Port"
-msgstr ""
-
-msgid "Power Options"
-msgstr ""
-
-msgid "Preserve the latest"
-msgstr ""
-
-msgid "Profile"
 msgstr ""
 
 msgid "Provide required parameters: hostname, port, community."
 msgstr ""
 
-msgid "SAN Adapters"
+msgid "Require DASD device name to be formatted"
+msgstr ""
+
+msgid "Require block dev to mount a filesystem"
+msgstr ""
+
+msgid "Require block size for formatting DASD device"
+msgstr ""
+
+msgid "Require mount point to mount a filesystem"
+msgstr ""
+
+msgid "Require name to create DASD device partition"
+msgstr ""
+
+msgid "Require partition size to create DASD device partition"
+msgstr ""
+
+msgid "Required parameter device name"
+msgstr ""
+
+msgid "Required parameter partition size"
+msgstr ""
+
+msgid "Required pv_name parameter"
+msgstr ""
+
+msgid "Required pv_paths parameter"
+msgstr ""
+
+msgid "Required size parameter"
+msgstr ""
+
+msgid "Required vg_name parameter"
 msgstr ""
 
 #, python-format
 msgid "SAN adapter '%(adapter)s' does not exist in the system."
 msgstr ""
 
-msgid "SEP Configuration"
-msgstr ""
-
 msgid "SNMP community name must be a single word."
 msgstr ""
 
-msgid "Selected Option"
+msgid "Size is mandatory while creating file type swap device."
 msgstr ""
 
-msgid "Sensor Monitor"
+msgid "Slave(s) is missing"
 msgstr ""
 
 msgid "Specify name, password, group and profile for the new user."
 msgstr ""
 
-msgid "Speed"
+msgid "Subnet is missing."
 msgstr ""
 
-msgid "Start"
-msgstr ""
-
-msgid "State"
-msgstr ""
-
-msgid "Status:"
-msgstr ""
-
-msgid "Stop"
-msgstr ""
-
-msgid "Submit"
-msgstr ""
-
-msgid "Symbolic Name"
+#, python-format
+msgid "Swap device not found. %(name)s"
 msgstr ""
 
 msgid "System hostname must be a valid string."
@@ -353,9 +542,6 @@ msgstr ""
 msgid ""
 "System port number must be an integer between 1 and                      "
 "65535."
-msgstr ""
-
-msgid "The absolute path to the firmware rpm/hpm."
 msgstr ""
 
 #, python-format
@@ -368,7 +554,25 @@ msgid ""
 "large for a configuration backup."
 msgstr ""
 
-msgid "Timestamp"
+msgid "Type is missing"
+msgstr ""
+
+msgid "Type is unknown"
+msgstr ""
+
+msgid "Type required for creating a swap device."
+msgstr ""
+
+#, python-format
+msgid "Unable to activate swap device. %(err)s"
+msgstr ""
+
+#, python-format
+msgid "Unable to activate the interface on '%(name)s', '%(error)s'."
+msgstr ""
+
+#, python-format
+msgid "Unable to deactivate the interface on '%(name)s', '%(error)s'."
 msgstr ""
 
 #, python-format
@@ -376,7 +580,26 @@ msgid "Unable to delete default gateway: %(err)s"
 msgstr ""
 
 #, python-format
+msgid "Unable to find FC elements for given fc block device, %(blk)s"
+msgstr ""
+
+#, python-format
+msgid "Unable to format swap device. %(err)s"
+msgstr ""
+
+#, python-format
 msgid "Unable to get default gateway: %(err)s"
+msgstr ""
+
+#, python-format
+msgid "Unable to get single swap device info. %(err)s"
+msgstr ""
+
+msgid "Unable to open fstab"
+msgstr ""
+
+#, python-format
+msgid "Unable to parse 'swapon -s' output. %(err)s"
 msgstr ""
 
 #, python-format
@@ -387,23 +610,11 @@ msgstr ""
 msgid "Unable to update interface configuration. Details: %(err)s"
 msgstr ""
 
-msgid "Unselected Option"
-msgstr ""
-
-msgid "Update"
-msgstr ""
-
-msgid "Use Other"
+msgid "Unable to write fstab"
 msgstr ""
 
 #, python-format
 msgid "User '%(user)s' does not exist."
-msgstr ""
-
-msgid "User Management"
-msgstr ""
-
-msgid "User Name"
 msgstr ""
 
 msgid "User group is a required string."
@@ -420,17 +631,83 @@ msgid ""
 "admin."
 msgstr ""
 
-msgid "Virt User"
+msgid "VLAN id exceeds the ranges from '0' to '4096'"
 msgstr ""
 
-msgid "WWNN"
+msgid "Vlan id is missing"
 msgstr ""
 
-msgid "WWPN"
+msgid "Vlan info is missing"
 msgstr ""
 
-msgid "backups"
+msgid "Vlan is missing"
 msgstr ""
 
-msgid "days of backups"
+msgid "error in filesystem get list util"
+msgstr ""
+
+msgid "error in filesystem info fetch util"
+msgstr ""
+
+msgid "error in unmount util"
+msgstr ""
+
+msgid "fdisk command failed"
+msgstr ""
+
+msgid "lookup method of partition failed"
+msgstr ""
+
+msgid "lvcreate command failed"
+msgstr ""
+
+msgid "lvdisplay command failed"
+msgstr ""
+
+msgid "lvremove command failed"
+msgstr ""
+
+msgid "lvs command failed"
+msgstr ""
+
+msgid "mkfs command failed"
+msgstr ""
+
+msgid "pvcreate command failed"
+msgstr ""
+
+msgid "pvdisplay command failed"
+msgstr ""
+
+msgid "pvremove command failed"
+msgstr ""
+
+msgid "pvs command failed"
+msgstr ""
+
+msgid "required remote share location"
+msgstr ""
+
+msgid "required server ip addr"
+msgstr ""
+
+msgid "required type as local or nfs"
+msgstr ""
+
+msgid "vgcreate command failed"
+msgstr ""
+
+msgid "vgextend command failed"
+msgstr ""
+
+msgid "vgreduce command failed"
+msgstr ""
+
+msgid "vgremove command failed"
+msgstr ""
+
+msgid "vgs command failed"
+msgstr ""
+
+msgid "vgs command for given VG failed"
 msgstr ""

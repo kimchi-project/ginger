@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ginger 1.2.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-09-18 10:30-0300\n"
+"POT-Creation-Date: 2015-12-16 18:42-0200\n"
 "PO-Revision-Date: 2014-06-22 14:00+0800\n"
 "Last-Translator: Zhou Zheng Sheng <zhshzhou@linux.vnet.ibm.com>\n"
 "Language-Team: Zhou Zheng Sheng <zhshzhou@linux.vnet.ibm.com>\n"
@@ -15,41 +15,41 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-msgid "Activate"
-msgstr "활성화"
+#, python-format
+msgid "%(name)s is not valid network interface"
+msgstr ""
 
-msgid "Activated Option"
-msgstr "활성화한 옵션"
+msgid "'yes' or 'no' is allowed value for the BONDING_MASTER"
+msgstr ""
 
-msgid "Add Subscription"
-msgstr "등록 추가"
+msgid "'yes' or 'no' is allowed value for the VLAN"
+msgstr ""
 
-msgid "Add User"
-msgstr "사용자 추가"
+msgid ""
+"A VLAN slave cannot be configured on a bond with the fail_over_mac=follow "
+"option"
+msgstr ""
 
 msgid "Administration"
 msgstr "관리"
 
-msgid "Administrator"
-msgstr "관리자"
+msgid "Basic information of interface is missing."
+msgstr ""
 
-msgid "Batch Delete"
-msgstr "삭제 일괄처리"
+msgid "Bond info is missing"
+msgstr ""
 
-msgid "Cancel"
-msgstr "취소"
+msgid "Bonding master is missing"
+msgstr ""
+
+msgid "Boot protocol is missing."
+msgstr ""
 
 msgid "Cannot update system firmware while running VMs."
 msgstr "VM을 실행하는 중에 시스템 펌웨어를 업데이트할 수 없습니다."
 
-msgid "Community"
-msgstr "커뮤니티"
-
-msgid "Configuration Backup"
-msgstr "구성 백업"
-
-msgid "Confirm Password"
-msgstr "비밀번호 확인"
+msgid "Change type for partition failed"
+msgstr ""
 
 #, python-format
 msgid "Could not add user '%(user)s' to kvm group."
@@ -71,20 +71,17 @@ msgstr "'%(group)s' 그룹을 삭제하지 못했습니다."
 msgid "Could not delete user '%(user)s'."
 msgstr "'%(user)s' 사용자를 삭제하지 못했습니다."
 
-msgid "Create a backup"
-msgstr "백업 작성"
+msgid "Create partition failed"
+msgstr ""
 
-msgid "DNS"
-msgstr "DNS"
-
-msgid "Delete backups in batch"
-msgstr "일괄처리에서 백업 삭제"
-
-msgid "Description"
-msgstr "설명"
+msgid "Delete partition failed"
+msgstr ""
 
 msgid "Description too long."
 msgstr "설명이 너무 깁니다."
+
+msgid "Device name of interface is missing."
+msgstr ""
 
 #, python-format
 msgid "Error activating power saving profile %(profile)s."
@@ -100,8 +97,31 @@ msgstr ""
 "시 측에 부팅했는지 확인하십시오."
 
 #, python-format
+msgid "Error creating a flat file. %(err)s"
+msgstr ""
+
+#, python-format
+msgid "Error deleting a swap device. %(err)s"
+msgstr ""
+
+msgid "Error deleting a swap file."
+msgstr ""
+
+#, python-format
+msgid "Error deleting a swap file. %(err)s"
+msgstr ""
+
+#, python-format
 msgid "Error deleting subscription: '%(error)s'."
 msgstr "등록을 삭제하는 중 오류 발생: '%(error)s'."
+
+#, python-format
+msgid "Error executing 'ls -l /dev/disk/by-id, %(err)s"
+msgstr ""
+
+#, python-format
+msgid "Error executing 'lsblk -Po, %(err)s"
+msgstr ""
 
 #, python-format
 msgid ""
@@ -111,8 +131,44 @@ msgstr ""
 "펌웨어를 깜박이는 중에 오류 발생함. rc = %(rc)s.                      rc 원인"
 "은 /usr/sbin/update_flash를 참조하십시오. "
 
+#, python-format
+msgid "Error getting bus id of DASD device, %(err)s"
+msgstr ""
+
+#, python-format
+msgid "Error getting information from ifcfg file: '%(error)s'."
+msgstr ""
+
+#, python-format
+msgid "Error getting list of storage devices, %(err)s"
+msgstr ""
+
+msgid "Error in executing 'df -hT' command"
+msgstr ""
+
+msgid "Error in executing 'lsblk -Pbo' command"
+msgstr ""
+
+msgid "Error in executing 'lsdasd -l bus_id' command"
+msgstr ""
+
+msgid "Error in executing 'lsdasd -l' command"
+msgstr ""
+
 msgid "Error loading SEP subscriptions data from server."
 msgstr "서버에서 SEP 등록 데이터를 로드하는 중에 오류가 발생했습니다."
+
+#, python-format
+msgid "Error parsing 'ls -l /dev/disk/by-id', %(err)s"
+msgstr ""
+
+#, python-format
+msgid "Error parsing 'lsblk -Po', %(err)s"
+msgstr ""
+
+#, python-format
+msgid "Error parsing /proc/swaps file. %(err)s"
+msgstr ""
 
 #, python-format
 msgid ""
@@ -138,8 +194,27 @@ msgstr "SEP 서비스를 중지하는 중 오류 발생: '%(error)s'."
 msgid "Error subscribing SEP data to server: '%(error)s'."
 msgstr "SEP 데이터를 서버에 등록하는 중 오류 발생: '%(error)s'."
 
+msgid "Error while getting block device information"
+msgstr ""
+
+msgid "Exception getting the route information"
+msgstr ""
+
 msgid "FW update failed: No image file found in the package file."
 msgstr "FW 업데이트 실패함: 패키지 파일에 이미지 파일이 없음."
+
+#, python-format
+msgid "Failed to a delete token from ifcfg file, Error: '%(error)s'"
+msgstr ""
+
+msgid "Failed to create LV"
+msgstr ""
+
+msgid "Failed to create PV"
+msgstr ""
+
+msgid "Failed to create VG"
+msgstr ""
 
 #, python-format
 msgid ""
@@ -157,6 +232,9 @@ msgstr ""
 "아카이브 디렉토리 \"%(dir)s\"을(를) 작성하지 못했습니다. 자세한 정보를 보려면"
 "오류 로그를 검사하십시오."
 
+msgid "Failed to create partition"
+msgstr ""
+
 #, python-format
 msgid ""
 "Failed to create tar archive \"%(name)s\", cmd: \"%(cmd)s\". Inspect error "
@@ -165,13 +243,83 @@ msgstr ""
 "tar 아카이브 \"%(name)s\"을(를) 작성하지 못했습니다. cmd: \"%(cmd)s\". 자세"
 "한 정보를 보려면오류 로그를 검사하십시오."
 
+msgid "Failed to delete LV"
+msgstr ""
+
+msgid "Failed to delete PV"
+msgstr ""
+
+msgid "Failed to delete VG"
+msgstr ""
+
 #, python-format
 msgid "Failed to delete archive file \"%(name)s\"."
 msgstr "아카이브 파일 \"%(name)s\"을(를) 삭제하지 못했습니다."
 
 #, python-format
+msgid "Failed to delete ifcfg file, Error: '%(error)s'"
+msgstr ""
+
+msgid "Failed to delete partition"
+msgstr ""
+
+msgid "Failed to extend VG"
+msgstr ""
+
+msgid "Failed to fetch LV details"
+msgstr ""
+
+msgid "Failed to fetch PV details"
+msgstr ""
+
+msgid "Failed to fetch PV list"
+msgstr ""
+
+msgid "Failed to fetch VG details"
+msgstr ""
+
+msgid "Failed to find specified DASD device"
+msgstr ""
+
+msgid "Failed to format DASD device"
+msgstr ""
+
+msgid "Failed to identify the type of interface"
+msgstr ""
+
+msgid "Failed to list LVs"
+msgstr ""
+
+msgid "Failed to list VGs"
+msgstr ""
+
+msgid "Failed to mount the filesystem"
+msgstr ""
+
+#, python-format
 msgid "Failed to read /etc/resolv.conf because %(reason)s"
 msgstr "%(reason)s때문에 /etc/resolv.conf를 읽지 못했습니다."
+
+msgid "Failed to reduce VG"
+msgstr ""
+
+msgid "Failed to retrieve details of the specified DASD device"
+msgstr ""
+
+msgid "Failed to retrieve details of the specified DASD partition"
+msgstr ""
+
+msgid "Failed to retrieve details of the specified filesystem"
+msgstr ""
+
+msgid "Failed to retrieve list of DASD devices"
+msgstr ""
+
+msgid "Failed to retrieve list of DASD partitions"
+msgstr ""
+
+msgid "Failed to retrieve list of filesystems."
+msgstr ""
 
 msgid ""
 "Failed to retrieve power management profiles:                        Daemon "
@@ -192,60 +340,59 @@ msgid ""
 msgstr ""
 "전원 관리 프로파일을 검색하지 못함: 패키지 'tuned-adm'이 설치되지 않았습니다."
 
+msgid "Failed to unmount the filesystems"
+msgstr ""
+
 #, python-format
 msgid "Failed to write /etc/resolv.conf because %(reason)s"
 msgstr "%(reason)s때문에 /etc/resolv.conf를 쓰지 못했습니다."
 
-msgid "File"
-msgstr "파일"
+msgid "Fetching list of partitions failed"
+msgstr ""
 
-msgid "Firmware Update"
-msgstr "펌웨어 업데이트"
-
-msgid "Firmware Version: "
-msgstr "펌웨어 버전: "
+msgid "File location required for creating a swap device."
+msgstr ""
 
 #, python-format
 msgid "Firmware image unpack failed: rc = %(rc)s. Details: %(err)s"
 msgstr "펌웨어 이미지 압축 풀기가 실패함: rc = %(rc)s. 세부사항: %(err)s"
 
-msgid ""
-"Firmware update is initializing. System will reboot in order to flash the "
-"firmware."
+msgid "For vlan creation over bond, slaves has to be up"
 msgstr ""
-"펌웨어 업데이트를 초기화하는 중입니다. 펌웨어를 깜박이기 위해 시스템이다시 부"
-"팅됩니다."
 
-msgid "Gateway"
-msgstr "게이트웨이"
+msgid "Format partition failed"
+msgstr ""
 
-msgid "Generate Default Backup"
-msgstr "기본 백업 생성"
-
-msgid "Group"
-msgstr "그룹"
-
-msgid "Hostname"
-msgstr "호스트 이름"
+msgid "Formatting of DASD device failed"
+msgstr ""
 
 #, python-format
 msgid "Hostname %(hostname)s not found."
 msgstr "%(hostname)s 호스트 이름을 찾지 못했습니다."
 
-msgid "IP"
-msgstr "IP"
+msgid "IP address is missing."
+msgstr ""
 
-msgid "In-Use/Max Ports"
-msgstr "사용 중/최대 포트 수"
-
-msgid "Interface"
-msgstr "인터페이스"
+msgid "Incorrect swap type, only 'device' and 'file' are allowed."
+msgstr ""
 
 #, python-format
 msgid ""
 "Interface %(name)s is not editable because it belongs to a vlan or bridge"
 msgstr ""
 "%(name)s 인터페이스가 vlan 또는 브릿지에 포함되어 있어 편집할 수 없습니다."
+
+#, python-format
+msgid ""
+"Interface '%(name)s' is neither Vlan nor Bond to perform delete operation"
+msgstr ""
+
+msgid "Invalid bonding option parameter"
+msgstr ""
+
+#, python-format
+msgid "Invalid boot protocol '%(mode)s', "
+msgstr ""
 
 msgid "Invalid counts_ago number."
 msgstr "counts_ago 숫자가 올바르지 않습니다."
@@ -259,6 +406,18 @@ msgid ""
 msgstr ""
 "IP/넷마스크 입력이 올바르지 않습니다. 두 필드는 모두 유효한 IP/넷마스크 값이"
 "거나 모두 비어있어야 합니다(현재 IP/넷마스크는 지워짐)."
+
+#, python-format
+msgid "Invalid ipv4 address '%(ip)s', '%(error)s'."
+msgstr ""
+
+#, python-format
+msgid "Invalid ipv6 address '%(ip)s', '%(error)s'."
+msgstr ""
+
+#, python-format
+msgid "Invalid netmask '%(NETMASK)s', '%(error)s'."
+msgstr ""
 
 #, python-format
 msgid "Invalid network parameters. Details: %(err)s"
@@ -276,96 +435,124 @@ msgstr "인터페이스 넷마스크에 올바르지 않은 매개변수입니�
 msgid "Invalid parameter for network gateway"
 msgstr "네트워크 게이트웨이에 올바르지 않은 매개변수입니다."
 
-msgid "Kimchi User"
-msgstr "Kimchi 사용자"
+msgid "Invalid type needs to be either local or nfs"
+msgstr ""
 
-msgid "Mask"
-msgstr "마스크"
+msgid "Minimum one slave has to be given for the bond interface"
+msgstr ""
 
-msgid "Name"
-msgstr "이름"
+msgid "Missing ipv4 initialization key."
+msgstr ""
 
-msgid "Network Configuration"
-msgstr "네트워크 구성"
+msgid "Missing ipv6 address information"
+msgstr ""
 
-msgid "New Custom Backup"
-msgstr "새 사용자 정의 백업"
+msgid "Missing ipv6 initialization key."
+msgstr ""
 
-msgid "Package Path: "
-msgstr "패키지 경로: "
+msgid "Module 802q is not loaded into kernel"
+msgstr ""
 
-msgid "Password"
-msgstr "비밀번호"
+msgid "NFS mount failed"
+msgstr ""
 
-msgid "Path Excluded"
-msgstr "제외 경로"
+msgid "No partitions found"
+msgstr ""
 
-msgid "Path Included"
-msgstr "포함 경로"
+#, python-format
+msgid "No partitions found for disk . %(disk)s"
+msgstr ""
+
+msgid "Parent interface of type 'Bond' is not active"
+msgstr ""
+
+msgid "Parsing df output failed."
+msgstr ""
+
+msgid "Parsing lsdasd output failed"
+msgstr ""
+
+msgid "Partition already mounted"
+msgstr ""
 
 msgid "Path or pattern is too long or too short."
 msgstr "경로 또는 패턴이 너무 길거나 너무 짧습니다."
 
+#, python-format
+msgid "Persistent file for slave '%(slave)s' is missing"
+msgstr ""
+
+#, python-format
+msgid "Persistent file is not available for an interface, '%(name)s'"
+msgstr ""
+
+msgid "Physical device name is missing"
+msgstr ""
+
 msgid "Please check the uniqueness of the paths or patterns."
 msgstr "경로 또는 패턴이 고유한지 확인하십시오."
-
-msgid "Port"
-msgstr "포트"
-
-msgid "Power Options"
-msgstr "전원 옵션"
-
-msgid "Preserve the latest"
-msgstr "최근 "
-
-msgid "Profile"
-msgstr "프로파일"
 
 msgid "Provide required parameters: hostname, port, community."
 msgstr "필수 매개변수(호스트 이름, 포트, 커뮤니티)를 제공하십시오."
 
-msgid "SAN Adapters"
-msgstr "SAN 어댑터"
+msgid "Require DASD device name to be formatted"
+msgstr ""
+
+msgid "Require block dev to mount a filesystem"
+msgstr ""
+
+msgid "Require block size for formatting DASD device"
+msgstr ""
+
+msgid "Require mount point to mount a filesystem"
+msgstr ""
+
+msgid "Require name to create DASD device partition"
+msgstr ""
+
+msgid "Require partition size to create DASD device partition"
+msgstr ""
+
+msgid "Required parameter device name"
+msgstr ""
+
+msgid "Required parameter partition size"
+msgstr ""
+
+msgid "Required pv_name parameter"
+msgstr ""
+
+msgid "Required pv_paths parameter"
+msgstr ""
+
+msgid "Required size parameter"
+msgstr ""
+
+msgid "Required vg_name parameter"
+msgstr ""
 
 #, python-format
 msgid "SAN adapter '%(adapter)s' does not exist in the system."
 msgstr "SAN 어댑터 '%(adapter)s'이(가) 시스템에 없습니다."
 
-msgid "SEP Configuration"
-msgstr "SEP 구성"
-
 msgid "SNMP community name must be a single word."
 msgstr "SNMP 커뮤니티 이름은 하나의 단어여야 합니다."
 
-msgid "Selected Option"
-msgstr "선택한 옵션"
+msgid "Size is mandatory while creating file type swap device."
+msgstr ""
 
-msgid "Sensor Monitor"
-msgstr "센서 모니터"
+msgid "Slave(s) is missing"
+msgstr ""
 
 msgid "Specify name, password, group and profile for the new user."
 msgstr "새 사용자에 대한 이름, 비밀번호, 그룹 및 프로파일을 지정하십시오."
 
-msgid "Speed"
-msgstr "속도"
+msgid "Subnet is missing."
+msgstr ""
 
-msgid "Start"
-msgstr "시작"
-
-msgid "State"
-msgstr "상태"
-
-msgid "Status:"
-msgstr "상태:"
-
-msgid "Stop"
-msgstr "중지"
-
-msgid "Submit"
-msgstr "제출"
-
-msgid "Symbolic Name"
-msgstr "기호 이름"
+#, python-format
+msgid "Swap device not found. %(name)s"
+msgstr ""
 
 msgid "System hostname must be a valid string."
 msgstr "시스템 호스트 이름은 유효한 문자열이어야 합니다."
@@ -374,9 +561,6 @@ msgid ""
 "System port number must be an integer between 1 and                      "
 "65535."
 msgstr "시스템 포트 번호는 1과 65535 사이의 정수여야합니다."
-
-msgid "The absolute path to the firmware rpm/hpm."
-msgstr "펌웨어 rpm/hpm에 대한 절대 경로입니다."
 
 #, python-format
 msgid "The user name '%(user)s' is already in use'."
@@ -390,16 +574,53 @@ msgstr ""
 "\"%(identity)s\" 아카이브를 작성하는 중 제한시간이 초과되었습니다. 파일이 너"
 "무 커서구성 백업을 할 수 없습니다. "
 
-msgid "Timestamp"
-msgstr "시간소인"
+msgid "Type is missing"
+msgstr ""
+
+msgid "Type is unknown"
+msgstr ""
+
+msgid "Type required for creating a swap device."
+msgstr ""
+
+#, python-format
+msgid "Unable to activate swap device. %(err)s"
+msgstr ""
+
+#, python-format
+msgid "Unable to activate the interface on '%(name)s', '%(error)s'."
+msgstr ""
+
+#, python-format
+msgid "Unable to deactivate the interface on '%(name)s', '%(error)s'."
+msgstr ""
 
 #, python-format
 msgid "Unable to delete default gateway: %(err)s"
 msgstr "기본 게이트웨이를 삭제할 수 없음: %(err)s"
 
 #, python-format
+msgid "Unable to find FC elements for given fc block device, %(blk)s"
+msgstr ""
+
+#, python-format
+msgid "Unable to format swap device. %(err)s"
+msgstr ""
+
+#, python-format
 msgid "Unable to get default gateway: %(err)s"
 msgstr "기본 게이트웨이를 가져올 수 없음: %(err)s"
+
+#, python-format
+msgid "Unable to get single swap device info. %(err)s"
+msgstr ""
+
+msgid "Unable to open fstab"
+msgstr ""
+
+#, python-format
+msgid "Unable to parse 'swapon -s' output. %(err)s"
+msgstr ""
 
 #, python-format
 msgid "Unable to set default gateway: %(err)s"
@@ -409,24 +630,12 @@ msgstr "기본 게이트웨이를 설정할 수 없음: %(err)s"
 msgid "Unable to update interface configuration. Details: %(err)s"
 msgstr "인터페이스 구성을 업데이트할 수 없습니다. 세부사항: %(err)s"
 
-msgid "Unselected Option"
-msgstr "선택 취소한 옵션"
-
-msgid "Update"
-msgstr "업데이트"
-
-msgid "Use Other"
-msgstr "기타 사용"
+msgid "Unable to write fstab"
+msgstr ""
 
 #, python-format
 msgid "User '%(user)s' does not exist."
 msgstr "'%(user)s' 사용자가 없습니다."
-
-msgid "User Management"
-msgstr "사용자 관리"
-
-msgid "User Name"
-msgstr "사용자 이름"
 
 msgid "User group is a required string."
 msgstr "사용자 그룹은 필수 문자열입니다."
@@ -443,17 +652,270 @@ msgid ""
 msgstr ""
 "사용자 프로파일은 필수이고 kimchiuser, virtuser 또는 admin 중하나여야 합니다."
 
-msgid "Virt User"
-msgstr "Virt 사용자"
+msgid "VLAN id exceeds the ranges from '0' to '4096'"
+msgstr ""
 
-msgid "WWNN"
-msgstr "WWNN"
+msgid "Vlan id is missing"
+msgstr ""
 
-msgid "WWPN"
-msgstr "WWPN"
+msgid "Vlan info is missing"
+msgstr ""
 
-msgid "backups"
-msgstr "개의 백업 유지"
+msgid "Vlan is missing"
+msgstr ""
 
-msgid "days of backups"
-msgstr "일의 백업 유지"
+msgid "error in filesystem get list util"
+msgstr ""
+
+msgid "error in filesystem info fetch util"
+msgstr ""
+
+msgid "error in unmount util"
+msgstr ""
+
+msgid "fdisk command failed"
+msgstr ""
+
+msgid "lookup method of partition failed"
+msgstr ""
+
+msgid "lvcreate command failed"
+msgstr ""
+
+msgid "lvdisplay command failed"
+msgstr ""
+
+msgid "lvremove command failed"
+msgstr ""
+
+msgid "lvs command failed"
+msgstr ""
+
+msgid "mkfs command failed"
+msgstr ""
+
+msgid "pvcreate command failed"
+msgstr ""
+
+msgid "pvdisplay command failed"
+msgstr ""
+
+msgid "pvremove command failed"
+msgstr ""
+
+msgid "pvs command failed"
+msgstr ""
+
+msgid "required remote share location"
+msgstr ""
+
+msgid "required server ip addr"
+msgstr ""
+
+msgid "required type as local or nfs"
+msgstr ""
+
+msgid "vgcreate command failed"
+msgstr ""
+
+msgid "vgextend command failed"
+msgstr ""
+
+msgid "vgreduce command failed"
+msgstr ""
+
+msgid "vgremove command failed"
+msgstr ""
+
+msgid "vgs command failed"
+msgstr ""
+
+msgid "vgs command for given VG failed"
+msgstr ""
+
+#~ msgid "Activate"
+#~ msgstr "활성화"
+
+#~ msgid "Activated Option"
+#~ msgstr "활성화한 옵션"
+
+#~ msgid "Add Subscription"
+#~ msgstr "등록 추가"
+
+#~ msgid "Add User"
+#~ msgstr "사용자 추가"
+
+#~ msgid "Administrator"
+#~ msgstr "관리자"
+
+#~ msgid "Batch Delete"
+#~ msgstr "삭제 일괄처리"
+
+#~ msgid "Cancel"
+#~ msgstr "취소"
+
+#~ msgid "Community"
+#~ msgstr "커뮤니티"
+
+#~ msgid "Configuration Backup"
+#~ msgstr "구성 백업"
+
+#~ msgid "Confirm Password"
+#~ msgstr "비밀번호 확인"
+
+#~ msgid "Create a backup"
+#~ msgstr "백업 작성"
+
+#~ msgid "DNS"
+#~ msgstr "DNS"
+
+#~ msgid "Delete backups in batch"
+#~ msgstr "일괄처리에서 백업 삭제"
+
+#~ msgid "Description"
+#~ msgstr "설명"
+
+#~ msgid "File"
+#~ msgstr "파일"
+
+#~ msgid "Firmware Update"
+#~ msgstr "펌웨어 업데이트"
+
+#~ msgid "Firmware Version: "
+#~ msgstr "펌웨어 버전: "
+
+#~ msgid ""
+#~ "Firmware update is initializing. System will reboot in order to flash the "
+#~ "firmware."
+#~ msgstr ""
+#~ "펌웨어 업데이트를 초기화하는 중입니다. 펌웨어를 깜박이기 위해 시스템이다"
+#~ "시 부팅됩니다."
+
+#~ msgid "Gateway"
+#~ msgstr "게이트웨이"
+
+#~ msgid "Generate Default Backup"
+#~ msgstr "기본 백업 생성"
+
+#~ msgid "Group"
+#~ msgstr "그룹"
+
+#~ msgid "Hostname"
+#~ msgstr "호스트 이름"
+
+#~ msgid "IP"
+#~ msgstr "IP"
+
+#~ msgid "In-Use/Max Ports"
+#~ msgstr "사용 중/최대 포트 수"
+
+#~ msgid "Interface"
+#~ msgstr "인터페이스"
+
+#~ msgid "Kimchi User"
+#~ msgstr "Kimchi 사용자"
+
+#~ msgid "Mask"
+#~ msgstr "마스크"
+
+#~ msgid "Name"
+#~ msgstr "이름"
+
+#~ msgid "Network Configuration"
+#~ msgstr "네트워크 구성"
+
+#~ msgid "New Custom Backup"
+#~ msgstr "새 사용자 정의 백업"
+
+#~ msgid "Package Path: "
+#~ msgstr "패키지 경로: "
+
+#~ msgid "Password"
+#~ msgstr "비밀번호"
+
+#~ msgid "Path Excluded"
+#~ msgstr "제외 경로"
+
+#~ msgid "Path Included"
+#~ msgstr "포함 경로"
+
+#~ msgid "Port"
+#~ msgstr "포트"
+
+#~ msgid "Power Options"
+#~ msgstr "전원 옵션"
+
+#~ msgid "Preserve the latest"
+#~ msgstr "최근 "
+
+#~ msgid "Profile"
+#~ msgstr "프로파일"
+
+#~ msgid "SAN Adapters"
+#~ msgstr "SAN 어댑터"
+
+#~ msgid "SEP Configuration"
+#~ msgstr "SEP 구성"
+
+#~ msgid "Selected Option"
+#~ msgstr "선택한 옵션"
+
+#~ msgid "Sensor Monitor"
+#~ msgstr "센서 모니터"
+
+#~ msgid "Speed"
+#~ msgstr "속도"
+
+#~ msgid "Start"
+#~ msgstr "시작"
+
+#~ msgid "State"
+#~ msgstr "상태"
+
+#~ msgid "Status:"
+#~ msgstr "상태:"
+
+#~ msgid "Stop"
+#~ msgstr "중지"
+
+#~ msgid "Submit"
+#~ msgstr "제출"
+
+#~ msgid "Symbolic Name"
+#~ msgstr "기호 이름"
+
+#~ msgid "The absolute path to the firmware rpm/hpm."
+#~ msgstr "펌웨어 rpm/hpm에 대한 절대 경로입니다."
+
+#~ msgid "Timestamp"
+#~ msgstr "시간소인"
+
+#~ msgid "Unselected Option"
+#~ msgstr "선택 취소한 옵션"
+
+#~ msgid "Update"
+#~ msgstr "업데이트"
+
+#~ msgid "Use Other"
+#~ msgstr "기타 사용"
+
+#~ msgid "User Management"
+#~ msgstr "사용자 관리"
+
+#~ msgid "User Name"
+#~ msgstr "사용자 이름"
+
+#~ msgid "Virt User"
+#~ msgstr "Virt 사용자"
+
+#~ msgid "WWNN"
+#~ msgstr "WWNN"
+
+#~ msgid "WWPN"
+#~ msgstr "WWPN"
+
+#~ msgid "backups"
+#~ msgstr "개의 백업 유지"
+
+#~ msgid "days of backups"
+#~ msgstr "일의 백업 유지"

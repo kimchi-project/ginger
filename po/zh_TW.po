@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ginger 1.2.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-09-18 10:30-0300\n"
+"POT-Creation-Date: 2015-12-16 18:42-0200\n"
 "PO-Revision-Date: 2014-06-22 14:00+0800\n"
 "Last-Translator: Zhou Zheng Sheng <zhshzhou@linux.vnet.ibm.com>\n"
 "Language-Team: Zhou Zheng Sheng <zhshzhou@linux.vnet.ibm.com>\n"
@@ -15,41 +15,41 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-msgid "Activate"
-msgstr "啟動"
+#, python-format
+msgid "%(name)s is not valid network interface"
+msgstr ""
 
-msgid "Activated Option"
-msgstr "已啟動的選項"
+msgid "'yes' or 'no' is allowed value for the BONDING_MASTER"
+msgstr ""
 
-msgid "Add Subscription"
-msgstr "新增訂閱"
+msgid "'yes' or 'no' is allowed value for the VLAN"
+msgstr ""
 
-msgid "Add User"
-msgstr "新增使用者"
+msgid ""
+"A VLAN slave cannot be configured on a bond with the fail_over_mac=follow "
+"option"
+msgstr ""
 
 msgid "Administration"
 msgstr "管理"
 
-msgid "Administrator"
-msgstr "管理者"
+msgid "Basic information of interface is missing."
+msgstr ""
 
-msgid "Batch Delete"
-msgstr "批次刪除"
+msgid "Bond info is missing"
+msgstr ""
 
-msgid "Cancel"
-msgstr "取消 "
+msgid "Bonding master is missing"
+msgstr ""
+
+msgid "Boot protocol is missing."
+msgstr ""
 
 msgid "Cannot update system firmware while running VMs."
 msgstr "執行 VM 時，無法更新系統韌體。"
 
-msgid "Community"
-msgstr "社群"
-
-msgid "Configuration Backup"
-msgstr "配置備份"
-
-msgid "Confirm Password"
-msgstr "確認密碼"
+msgid "Change type for partition failed"
+msgstr ""
 
 #, python-format
 msgid "Could not add user '%(user)s' to kvm group."
@@ -71,20 +71,17 @@ msgstr "無法刪除群組 '%(group)s'"
 msgid "Could not delete user '%(user)s'."
 msgstr "無法刪除使用者 '%(user)s'。"
 
-msgid "Create a backup"
-msgstr "建立備份"
+msgid "Create partition failed"
+msgstr ""
 
-msgid "DNS"
-msgstr "DNS"
-
-msgid "Delete backups in batch"
-msgstr "批量刪除備份"
-
-msgid "Description"
-msgstr "說明"
+msgid "Delete partition failed"
+msgstr ""
 
 msgid "Description too long."
 msgstr "說明太長。"
+
+msgid "Device name of interface is missing."
+msgstr ""
 
 #, python-format
 msgid "Error activating power saving profile %(profile)s."
@@ -99,8 +96,31 @@ msgstr ""
 "暫用端。"
 
 #, python-format
+msgid "Error creating a flat file. %(err)s"
+msgstr ""
+
+#, python-format
+msgid "Error deleting a swap device. %(err)s"
+msgstr ""
+
+msgid "Error deleting a swap file."
+msgstr ""
+
+#, python-format
+msgid "Error deleting a swap file. %(err)s"
+msgstr ""
+
+#, python-format
 msgid "Error deleting subscription: '%(error)s'."
 msgstr "刪除訂閱時發生錯誤：'%(error)s'。"
+
+#, python-format
+msgid "Error executing 'ls -l /dev/disk/by-id, %(err)s"
+msgstr ""
+
+#, python-format
+msgid "Error executing 'lsblk -Po, %(err)s"
+msgstr ""
 
 #, python-format
 msgid ""
@@ -110,8 +130,44 @@ msgstr ""
 "快閃儲存韌體時發生錯誤。rc = %(rc)s。                      請參閱 /usr/sbin/"
 "update_flash 以取得 rc 原因。"
 
+#, python-format
+msgid "Error getting bus id of DASD device, %(err)s"
+msgstr ""
+
+#, python-format
+msgid "Error getting information from ifcfg file: '%(error)s'."
+msgstr ""
+
+#, python-format
+msgid "Error getting list of storage devices, %(err)s"
+msgstr ""
+
+msgid "Error in executing 'df -hT' command"
+msgstr ""
+
+msgid "Error in executing 'lsblk -Pbo' command"
+msgstr ""
+
+msgid "Error in executing 'lsdasd -l bus_id' command"
+msgstr ""
+
+msgid "Error in executing 'lsdasd -l' command"
+msgstr ""
+
 msgid "Error loading SEP subscriptions data from server."
 msgstr "從伺服器載入 SEP 訂閱資料時發生錯誤。"
+
+#, python-format
+msgid "Error parsing 'ls -l /dev/disk/by-id', %(err)s"
+msgstr ""
+
+#, python-format
+msgid "Error parsing 'lsblk -Po', %(err)s"
+msgstr ""
+
+#, python-format
+msgid "Error parsing /proc/swaps file. %(err)s"
+msgstr ""
 
 #, python-format
 msgid ""
@@ -137,8 +193,27 @@ msgstr "停止 SEP 服務時發生錯誤：'%(error)s'。"
 msgid "Error subscribing SEP data to server: '%(error)s'."
 msgstr "將 SEP 資料訂閱至伺服器時發生錯誤：'%(error)s'。"
 
+msgid "Error while getting block device information"
+msgstr ""
+
+msgid "Exception getting the route information"
+msgstr ""
+
 msgid "FW update failed: No image file found in the package file."
 msgstr "轉寄更新失敗：在套件檔中找不到印象檔。"
+
+#, python-format
+msgid "Failed to a delete token from ifcfg file, Error: '%(error)s'"
+msgstr ""
+
+msgid "Failed to create LV"
+msgstr ""
+
+msgid "Failed to create PV"
+msgstr ""
+
+msgid "Failed to create VG"
+msgstr ""
 
 #, python-format
 msgid ""
@@ -152,6 +227,9 @@ msgid ""
 "information."
 msgstr "無法建立保存目錄 \"%(dir)s\"。如需相關資訊，請檢查錯誤日誌。"
 
+msgid "Failed to create partition"
+msgstr ""
+
 #, python-format
 msgid ""
 "Failed to create tar archive \"%(name)s\", cmd: \"%(cmd)s\". Inspect error "
@@ -160,13 +238,83 @@ msgstr ""
 "無法建立 TAR 保存檔 \"%(name)s\"，指令：\"%(cmd)s\"。如需相關資訊，請檢查錯誤"
 "日誌。"
 
+msgid "Failed to delete LV"
+msgstr ""
+
+msgid "Failed to delete PV"
+msgstr ""
+
+msgid "Failed to delete VG"
+msgstr ""
+
 #, python-format
 msgid "Failed to delete archive file \"%(name)s\"."
 msgstr "無法刪除保存檔 \"%(name)s\"。"
 
 #, python-format
+msgid "Failed to delete ifcfg file, Error: '%(error)s'"
+msgstr ""
+
+msgid "Failed to delete partition"
+msgstr ""
+
+msgid "Failed to extend VG"
+msgstr ""
+
+msgid "Failed to fetch LV details"
+msgstr ""
+
+msgid "Failed to fetch PV details"
+msgstr ""
+
+msgid "Failed to fetch PV list"
+msgstr ""
+
+msgid "Failed to fetch VG details"
+msgstr ""
+
+msgid "Failed to find specified DASD device"
+msgstr ""
+
+msgid "Failed to format DASD device"
+msgstr ""
+
+msgid "Failed to identify the type of interface"
+msgstr ""
+
+msgid "Failed to list LVs"
+msgstr ""
+
+msgid "Failed to list VGs"
+msgstr ""
+
+msgid "Failed to mount the filesystem"
+msgstr ""
+
+#, python-format
 msgid "Failed to read /etc/resolv.conf because %(reason)s"
 msgstr "無法讀取 /etc/resolv.conf，原因：%(reason)s"
+
+msgid "Failed to reduce VG"
+msgstr ""
+
+msgid "Failed to retrieve details of the specified DASD device"
+msgstr ""
+
+msgid "Failed to retrieve details of the specified DASD partition"
+msgstr ""
+
+msgid "Failed to retrieve details of the specified filesystem"
+msgstr ""
+
+msgid "Failed to retrieve list of DASD devices"
+msgstr ""
+
+msgid "Failed to retrieve list of DASD partitions"
+msgstr ""
+
+msgid "Failed to retrieve list of filesystems."
+msgstr ""
 
 msgid ""
 "Failed to retrieve power management profiles:                        Daemon "
@@ -189,57 +337,58 @@ msgstr ""
 "無法擷取電源管理設定檔：                                             套"
 "件'tuned-adm' 尚未安裝。"
 
+msgid "Failed to unmount the filesystems"
+msgstr ""
+
 #, python-format
 msgid "Failed to write /etc/resolv.conf because %(reason)s"
 msgstr "無法寫入 /etc/resolv.conf，原因：%(reason)s"
 
-msgid "File"
-msgstr "檔案"
+msgid "Fetching list of partitions failed"
+msgstr ""
 
-msgid "Firmware Update"
-msgstr "韌體更新"
-
-msgid "Firmware Version: "
-msgstr "韌體版本："
+msgid "File location required for creating a swap device."
+msgstr ""
 
 #, python-format
 msgid "Firmware image unpack failed: rc = %(rc)s. Details: %(err)s"
 msgstr "解壓縮韌體印象檔失敗：rc = %(rc)s。詳細資料：%(err)s"
 
-msgid ""
-"Firmware update is initializing. System will reboot in order to flash the "
-"firmware."
-msgstr "正在起始設定韌體更新。系統將重新啟動以快閃儲存韌體。"
+msgid "For vlan creation over bond, slaves has to be up"
+msgstr ""
 
-msgid "Gateway"
-msgstr "閘道"
+msgid "Format partition failed"
+msgstr ""
 
-msgid "Generate Default Backup"
-msgstr "產生預設備份"
-
-msgid "Group"
-msgstr "群組"
-
-msgid "Hostname"
-msgstr "主機名稱"
+msgid "Formatting of DASD device failed"
+msgstr ""
 
 #, python-format
 msgid "Hostname %(hostname)s not found."
 msgstr "找不到主機名稱 %(hostname)s。"
 
-msgid "IP"
-msgstr "IP"
+msgid "IP address is missing."
+msgstr ""
 
-msgid "In-Use/Max Ports"
-msgstr "使用中的埠數目/埠數目上限"
-
-msgid "Interface"
-msgstr "介面"
+msgid "Incorrect swap type, only 'device' and 'file' are allowed."
+msgstr ""
 
 #, python-format
 msgid ""
 "Interface %(name)s is not editable because it belongs to a vlan or bridge"
 msgstr "介面 %(name)s 是不可編輯的，因為該介面屬於某個 VLAN 或橋接器"
+
+#, python-format
+msgid ""
+"Interface '%(name)s' is neither Vlan nor Bond to perform delete operation"
+msgstr ""
+
+msgid "Invalid bonding option parameter"
+msgstr ""
+
+#, python-format
+msgid "Invalid boot protocol '%(mode)s', "
+msgstr ""
 
 msgid "Invalid counts_ago number."
 msgstr "counts_ago 數目無效。"
@@ -253,6 +402,18 @@ msgid ""
 msgstr ""
 "無效 IP/網路遮罩輸入。這兩個欄位都必須是有效的 IP/網路遮罩值，或者都必須為空"
 "白（將消除現行 IP/網路遮罩）。"
+
+#, python-format
+msgid "Invalid ipv4 address '%(ip)s', '%(error)s'."
+msgstr ""
+
+#, python-format
+msgid "Invalid ipv6 address '%(ip)s', '%(error)s'."
+msgstr ""
+
+#, python-format
+msgid "Invalid netmask '%(NETMASK)s', '%(error)s'."
+msgstr ""
 
 #, python-format
 msgid "Invalid network parameters. Details: %(err)s"
@@ -270,96 +431,124 @@ msgstr "介面網路遮罩的參數無效"
 msgid "Invalid parameter for network gateway"
 msgstr "網路閘道的參數無效"
 
-msgid "Kimchi User"
-msgstr "Kimchi 使用者"
+msgid "Invalid type needs to be either local or nfs"
+msgstr ""
 
-msgid "Mask"
-msgstr "遮罩"
+msgid "Minimum one slave has to be given for the bond interface"
+msgstr ""
 
-msgid "Name"
-msgstr "名稱"
+msgid "Missing ipv4 initialization key."
+msgstr ""
 
-msgid "Network Configuration"
-msgstr "網路配置"
+msgid "Missing ipv6 address information"
+msgstr ""
 
-msgid "New Custom Backup"
-msgstr "新建自訂備份"
+msgid "Missing ipv6 initialization key."
+msgstr ""
 
-msgid "Package Path: "
-msgstr "套件路徑："
+msgid "Module 802q is not loaded into kernel"
+msgstr ""
 
-msgid "Password"
-msgstr "密碼"
+msgid "NFS mount failed"
+msgstr ""
 
-msgid "Path Excluded"
-msgstr "已排除路徑"
+msgid "No partitions found"
+msgstr ""
 
-msgid "Path Included"
-msgstr "已併入路徑"
+#, python-format
+msgid "No partitions found for disk . %(disk)s"
+msgstr ""
+
+msgid "Parent interface of type 'Bond' is not active"
+msgstr ""
+
+msgid "Parsing df output failed."
+msgstr ""
+
+msgid "Parsing lsdasd output failed"
+msgstr ""
+
+msgid "Partition already mounted"
+msgstr ""
 
 msgid "Path or pattern is too long or too short."
 msgstr "路徑或型樣太長或太短。"
 
+#, python-format
+msgid "Persistent file for slave '%(slave)s' is missing"
+msgstr ""
+
+#, python-format
+msgid "Persistent file is not available for an interface, '%(name)s'"
+msgstr ""
+
+msgid "Physical device name is missing"
+msgstr ""
+
 msgid "Please check the uniqueness of the paths or patterns."
 msgstr "請檢查路徑或型樣的唯一性。"
-
-msgid "Port"
-msgstr "埠"
-
-msgid "Power Options"
-msgstr "電源選項"
-
-msgid "Preserve the latest"
-msgstr "保留最新的"
-
-msgid "Profile"
-msgstr "設定檔"
 
 msgid "Provide required parameters: hostname, port, community."
 msgstr "提供必要的參數：hostname、port 和 community。"
 
-msgid "SAN Adapters"
-msgstr "SAN 配接卡"
+msgid "Require DASD device name to be formatted"
+msgstr ""
+
+msgid "Require block dev to mount a filesystem"
+msgstr ""
+
+msgid "Require block size for formatting DASD device"
+msgstr ""
+
+msgid "Require mount point to mount a filesystem"
+msgstr ""
+
+msgid "Require name to create DASD device partition"
+msgstr ""
+
+msgid "Require partition size to create DASD device partition"
+msgstr ""
+
+msgid "Required parameter device name"
+msgstr ""
+
+msgid "Required parameter partition size"
+msgstr ""
+
+msgid "Required pv_name parameter"
+msgstr ""
+
+msgid "Required pv_paths parameter"
+msgstr ""
+
+msgid "Required size parameter"
+msgstr ""
+
+msgid "Required vg_name parameter"
+msgstr ""
 
 #, python-format
 msgid "SAN adapter '%(adapter)s' does not exist in the system."
 msgstr "SAN 配接卡 '%(adapter)s' 不在系統中。"
 
-msgid "SEP Configuration"
-msgstr "SEP 配置"
-
 msgid "SNMP community name must be a single word."
 msgstr "SNMP 社群名稱必須是單字。"
 
-msgid "Selected Option"
-msgstr "已選取的選項"
+msgid "Size is mandatory while creating file type swap device."
+msgstr ""
 
-msgid "Sensor Monitor"
-msgstr "感應器監視器"
+msgid "Slave(s) is missing"
+msgstr ""
 
 msgid "Specify name, password, group and profile for the new user."
 msgstr "請指定新使用者的名稱、密碼、群組及設定檔。"
 
-msgid "Speed"
-msgstr "速度"
+msgid "Subnet is missing."
+msgstr ""
 
-msgid "Start"
-msgstr "開始"
-
-msgid "State"
-msgstr "狀態"
-
-msgid "Status:"
-msgstr "狀態："
-
-msgid "Stop"
-msgstr "停止"
-
-msgid "Submit"
-msgstr "提交"
-
-msgid "Symbolic Name"
-msgstr "符號名稱"
+#, python-format
+msgid "Swap device not found. %(name)s"
+msgstr ""
 
 msgid "System hostname must be a valid string."
 msgstr "系統主機名稱必須是有效字串。"
@@ -368,9 +557,6 @@ msgid ""
 "System port number must be an integer between 1 and                      "
 "65535."
 msgstr "系統埠號必須是介於 1 和 65535 之間的整數。"
-
-msgid "The absolute path to the firmware rpm/hpm."
-msgstr "韌體 RPM/hpm 的絕對路徑。"
 
 #, python-format
 msgid "The user name '%(user)s' is already in use'."
@@ -382,16 +568,53 @@ msgid ""
 "large for a configuration backup."
 msgstr "建立保存檔 \"%(identity)s\" 時逾時，配置備份的檔案可能太大。"
 
-msgid "Timestamp"
-msgstr "時間戳記"
+msgid "Type is missing"
+msgstr ""
+
+msgid "Type is unknown"
+msgstr ""
+
+msgid "Type required for creating a swap device."
+msgstr ""
+
+#, python-format
+msgid "Unable to activate swap device. %(err)s"
+msgstr ""
+
+#, python-format
+msgid "Unable to activate the interface on '%(name)s', '%(error)s'."
+msgstr ""
+
+#, python-format
+msgid "Unable to deactivate the interface on '%(name)s', '%(error)s'."
+msgstr ""
 
 #, python-format
 msgid "Unable to delete default gateway: %(err)s"
 msgstr "無法刪除預設閘道：%(err)s"
 
 #, python-format
+msgid "Unable to find FC elements for given fc block device, %(blk)s"
+msgstr ""
+
+#, python-format
+msgid "Unable to format swap device. %(err)s"
+msgstr ""
+
+#, python-format
 msgid "Unable to get default gateway: %(err)s"
 msgstr "無法取得預設閘道：%(err)s"
+
+#, python-format
+msgid "Unable to get single swap device info. %(err)s"
+msgstr ""
+
+msgid "Unable to open fstab"
+msgstr ""
+
+#, python-format
+msgid "Unable to parse 'swapon -s' output. %(err)s"
+msgstr ""
 
 #, python-format
 msgid "Unable to set default gateway: %(err)s"
@@ -401,24 +624,12 @@ msgstr "無法設定預設閘道：%(err)s"
 msgid "Unable to update interface configuration. Details: %(err)s"
 msgstr "無法更新介面配置。詳細資料：%(err)s"
 
-msgid "Unselected Option"
-msgstr "未選取的選項"
-
-msgid "Update"
-msgstr "更新"
-
-msgid "Use Other"
-msgstr "使用其他"
+msgid "Unable to write fstab"
+msgstr ""
 
 #, python-format
 msgid "User '%(user)s' does not exist."
 msgstr "使用者 '%(user)s' 不存在。"
-
-msgid "User Management"
-msgstr "使用者管理"
-
-msgid "User Name"
-msgstr "使用者名稱"
 
 msgid "User group is a required string."
 msgstr "使用者群組是必要字串。"
@@ -435,17 +646,268 @@ msgid ""
 msgstr ""
 "使用者設定檔是必要的，且必須是 kimchiuser、virtuser 或admin 的其中之一。"
 
-msgid "Virt User"
-msgstr "Virt 使用者"
+msgid "VLAN id exceeds the ranges from '0' to '4096'"
+msgstr ""
 
-msgid "WWNN"
-msgstr "WWNN"
+msgid "Vlan id is missing"
+msgstr ""
 
-msgid "WWPN"
-msgstr "WWPN"
+msgid "Vlan info is missing"
+msgstr ""
 
-msgid "backups"
-msgstr "個備份"
+msgid "Vlan is missing"
+msgstr ""
 
-msgid "days of backups"
-msgstr "日備份"
+msgid "error in filesystem get list util"
+msgstr ""
+
+msgid "error in filesystem info fetch util"
+msgstr ""
+
+msgid "error in unmount util"
+msgstr ""
+
+msgid "fdisk command failed"
+msgstr ""
+
+msgid "lookup method of partition failed"
+msgstr ""
+
+msgid "lvcreate command failed"
+msgstr ""
+
+msgid "lvdisplay command failed"
+msgstr ""
+
+msgid "lvremove command failed"
+msgstr ""
+
+msgid "lvs command failed"
+msgstr ""
+
+msgid "mkfs command failed"
+msgstr ""
+
+msgid "pvcreate command failed"
+msgstr ""
+
+msgid "pvdisplay command failed"
+msgstr ""
+
+msgid "pvremove command failed"
+msgstr ""
+
+msgid "pvs command failed"
+msgstr ""
+
+msgid "required remote share location"
+msgstr ""
+
+msgid "required server ip addr"
+msgstr ""
+
+msgid "required type as local or nfs"
+msgstr ""
+
+msgid "vgcreate command failed"
+msgstr ""
+
+msgid "vgextend command failed"
+msgstr ""
+
+msgid "vgreduce command failed"
+msgstr ""
+
+msgid "vgremove command failed"
+msgstr ""
+
+msgid "vgs command failed"
+msgstr ""
+
+msgid "vgs command for given VG failed"
+msgstr ""
+
+#~ msgid "Activate"
+#~ msgstr "啟動"
+
+#~ msgid "Activated Option"
+#~ msgstr "已啟動的選項"
+
+#~ msgid "Add Subscription"
+#~ msgstr "新增訂閱"
+
+#~ msgid "Add User"
+#~ msgstr "新增使用者"
+
+#~ msgid "Administrator"
+#~ msgstr "管理者"
+
+#~ msgid "Batch Delete"
+#~ msgstr "批次刪除"
+
+#~ msgid "Cancel"
+#~ msgstr "取消 "
+
+#~ msgid "Community"
+#~ msgstr "社群"
+
+#~ msgid "Configuration Backup"
+#~ msgstr "配置備份"
+
+#~ msgid "Confirm Password"
+#~ msgstr "確認密碼"
+
+#~ msgid "Create a backup"
+#~ msgstr "建立備份"
+
+#~ msgid "DNS"
+#~ msgstr "DNS"
+
+#~ msgid "Delete backups in batch"
+#~ msgstr "批量刪除備份"
+
+#~ msgid "Description"
+#~ msgstr "說明"
+
+#~ msgid "File"
+#~ msgstr "檔案"
+
+#~ msgid "Firmware Update"
+#~ msgstr "韌體更新"
+
+#~ msgid "Firmware Version: "
+#~ msgstr "韌體版本："
+
+#~ msgid ""
+#~ "Firmware update is initializing. System will reboot in order to flash the "
+#~ "firmware."
+#~ msgstr "正在起始設定韌體更新。系統將重新啟動以快閃儲存韌體。"
+
+#~ msgid "Gateway"
+#~ msgstr "閘道"
+
+#~ msgid "Generate Default Backup"
+#~ msgstr "產生預設備份"
+
+#~ msgid "Group"
+#~ msgstr "群組"
+
+#~ msgid "Hostname"
+#~ msgstr "主機名稱"
+
+#~ msgid "IP"
+#~ msgstr "IP"
+
+#~ msgid "In-Use/Max Ports"
+#~ msgstr "使用中的埠數目/埠數目上限"
+
+#~ msgid "Interface"
+#~ msgstr "介面"
+
+#~ msgid "Kimchi User"
+#~ msgstr "Kimchi 使用者"
+
+#~ msgid "Mask"
+#~ msgstr "遮罩"
+
+#~ msgid "Name"
+#~ msgstr "名稱"
+
+#~ msgid "Network Configuration"
+#~ msgstr "網路配置"
+
+#~ msgid "New Custom Backup"
+#~ msgstr "新建自訂備份"
+
+#~ msgid "Package Path: "
+#~ msgstr "套件路徑："
+
+#~ msgid "Password"
+#~ msgstr "密碼"
+
+#~ msgid "Path Excluded"
+#~ msgstr "已排除路徑"
+
+#~ msgid "Path Included"
+#~ msgstr "已併入路徑"
+
+#~ msgid "Port"
+#~ msgstr "埠"
+
+#~ msgid "Power Options"
+#~ msgstr "電源選項"
+
+#~ msgid "Preserve the latest"
+#~ msgstr "保留最新的"
+
+#~ msgid "Profile"
+#~ msgstr "設定檔"
+
+#~ msgid "SAN Adapters"
+#~ msgstr "SAN 配接卡"
+
+#~ msgid "SEP Configuration"
+#~ msgstr "SEP 配置"
+
+#~ msgid "Selected Option"
+#~ msgstr "已選取的選項"
+
+#~ msgid "Sensor Monitor"
+#~ msgstr "感應器監視器"
+
+#~ msgid "Speed"
+#~ msgstr "速度"
+
+#~ msgid "Start"
+#~ msgstr "開始"
+
+#~ msgid "State"
+#~ msgstr "狀態"
+
+#~ msgid "Status:"
+#~ msgstr "狀態："
+
+#~ msgid "Stop"
+#~ msgstr "停止"
+
+#~ msgid "Submit"
+#~ msgstr "提交"
+
+#~ msgid "Symbolic Name"
+#~ msgstr "符號名稱"
+
+#~ msgid "The absolute path to the firmware rpm/hpm."
+#~ msgstr "韌體 RPM/hpm 的絕對路徑。"
+
+#~ msgid "Timestamp"
+#~ msgstr "時間戳記"
+
+#~ msgid "Unselected Option"
+#~ msgstr "未選取的選項"
+
+#~ msgid "Update"
+#~ msgstr "更新"
+
+#~ msgid "Use Other"
+#~ msgstr "使用其他"
+
+#~ msgid "User Management"
+#~ msgstr "使用者管理"
+
+#~ msgid "User Name"
+#~ msgstr "使用者名稱"
+
+#~ msgid "Virt User"
+#~ msgstr "Virt 使用者"
+
+#~ msgid "WWNN"
+#~ msgstr "WWNN"
+
+#~ msgid "WWPN"
+#~ msgstr "WWPN"
+
+#~ msgid "backups"
+#~ msgstr "個備份"
+
+#~ msgid "days of backups"
+#~ msgstr "日備份"
