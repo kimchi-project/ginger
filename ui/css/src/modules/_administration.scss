@@ -24,19 +24,20 @@
     //     color: #5a595b;
     // }
     h3 {
-        height: 32px;
+        height: 44px;
         padding: 10px 15px;
         font-size: 20px;
-        border-radius: 2px 2px 0 0;
-        display: inline-block;
+        border-radius: 0;
+        display: block;
     }
     h3 > a > span.accordion-icon {
+        margin-left: -10px;
         display: inline-block;
         font: normal normal normal 14px/1 FontAwesome;
         text-rendering: auto;
         -webkit-font-smoothing: antialiased;
-        font-size: 20px;
-        color: #5a595b;
+        font-size: 26px;
+        color: $brand-primary;
     }
     h3 > a > span.accordion-text {
         margin-left: 20px;
@@ -48,8 +49,14 @@
         content: "\f01a";
     }
     a {
-        color: #9e9e9e;
+        color: $brand-primary;
         text-decoration: none;
+        display: block;
+    }
+    .panel-group {
+        display: block;
+        overflow: visible;
+        clear: both;
     }
     hr {
         width: 93%;
@@ -83,7 +90,7 @@
             vertical-align: bottom;
             height: 36px;
             font-family: $font-family-sans-serif;
-            font-weight: 400;
+            font-weight: 300;
             font-size: 12.5pt;
             line-height: 1.42857;
             border-bottom: none;
@@ -95,11 +102,11 @@
         > span {
             padding: 6px 2px;
             display: inline-block;
-            vertical-align: top;
+            vertical-align: middle;
             font-family: $font-family-sans-serif;
             font-size: 11pt;
             line-height: 2.42857;
-            font-weight: bold;
+            font-weight: 400;
         }
     }
     .body > div {
@@ -109,7 +116,7 @@
         font-family: $font-family-sans-serif;
         font-size: 11pt;
         line-height: 2.42857;
-        font-weight: bold;
+        font-weight: 400;
     }
     .name {
         width: 19.6914%;
@@ -131,6 +138,18 @@
     .default_column {
         width: 25%;
     }
+}
+
+#sensors-ppc-content-area span.body, #sensors-ppc-content-area span.header {
+    display: block;
+    border: 0;
+}
+
+#sensors-ppc-content-area.sensor-panel {
+    min-height: 100px;
+    max-height: 170px;
+    overflow-x: hidden;
+    overflow-y: scroll;
 }
 
 #firmware-update-content-area {
@@ -182,7 +201,7 @@
     }
     .actBtn {
         float: none;
-        width: 30%;
+        width: 115px;
     }
     .pwr-activated,
     .pwr-selected,
@@ -212,10 +231,16 @@
 #backup-ppc-content-area {
     .ul-body {
         width: 100%;
-        margin-top: 10px;
-        margin-left: 0;
-        -webkit-padding-start: 0;
+        padding: 0;
+        margin: 0;
         list-style-type: none;
+
+        li:nth-child(even) {
+            background-color: $table-bg-accent;
+        }
+        li:nth-child(odd) {
+            background-color: $table-bg;
+        }
     }
     .column-file {
         width: 47.4790%;
@@ -237,6 +262,7 @@
     .fa-download,
     .fa-minus-circle {
         margin-right: 10px;
+        font-size: 20px;
     }
     .backup-pcc-actions {
         margin-bottom: 20px;
@@ -247,7 +273,7 @@
     .backup-history {
         width: 100%;
         background: $navbar-default-toggle-hover-bg;
-        padding: 15px !important;
+        padding: 22px !important;
     }
     .backup-history-list {
         max-height: 285px;
@@ -285,6 +311,7 @@
         text-rendering: auto;
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
+        cursor: pointer;
     }
     .arrow-down:before {
         content: "\f078";
@@ -332,7 +359,6 @@
     .actBtn {
         float: none;
         margin-bottom: 10px;
-        width: 10%;
         height: auto;
     }
 }
@@ -374,7 +400,7 @@
     }
     .addBtn {
         margin-bottom: 20px;
-        width: 40%;
+        width: 115px;
     }
     .btn-link {
         width: auto;

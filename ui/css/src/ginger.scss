@@ -143,13 +143,6 @@
     vertical-align: top;
 }
 
-.ginger .host-admin button {
-    font-weight: bold;
-    height: 35px;
-    width: 80px;
-    vertical-align: top;
-}
-
 .ginger .host-admin .content-area .action-bar {
     height: 30px;
     position: relative;
@@ -474,29 +467,6 @@
     margin-bottom: 5px;
 }
 
-.ginger .host-admin .sensor-panel {
-    min-height: 100px;
-    max-height: 170px;
-}
-
-
-/*.ginger .host-admin .sensor-inline {
-    display: inline-block;
-    margin-left: 20px;
-    vertical-align: top;
-}
-
-.ginger .host-admin .sensor-head {
-    margin-top: 15px;
-    font-weight: bold;
-    font-size: 14px;
-}
-
-.ginger .host-admin .sensor-inline .sensor-body {
-    font-weight: normal;
-    font-size: 12px;
-}*/
-
 .ginger .host-admin .subsc-manage .content-body .subsc-item {
     height: 25px;
     margin: 2px 0;
@@ -511,13 +481,6 @@
     display: inline-block;
     width: 230px;
 }
-
-
-/*.ginger .host-admin .subsc-manage button {
-    width: 20px;
-    height: 20px;
-    float: right;
-}*/
 
 .ginger .host-admin .subsc-manage .content-body .subsc-manage-column {
     display: inline-block;
@@ -585,12 +548,6 @@
 .ginger .host-admin .user-manage .content-header>span {
     display: inline-block;
     width: 230px;
-}
-
-.ginger .host-admin .user-manage button {
-    width: 20px;
-    height: 20px;
-    float: right;
 }
 
 .ginger .host-admin .user-manage .content-body .user-item {
