@@ -385,6 +385,8 @@ class CfginterfaceModel(object):
         cfgmap = self.read_ifcfg_file(iface)
         if cfgmap:
             ethinfo.update(self.get_interface_info(cfgmap))
+        else:
+            raise OperationFailed("GINNET0057E", {'name': iface})
         return ethinfo
 
     def get_interface_info(self, cfgmap):
@@ -460,7 +462,7 @@ class CfginterfaceModel(object):
             if len(dnsaddresses) > 0:
                 info[IPV4_ID][DNSAddresses] = dnsaddresses
             # construct routeinfo.
-            routes = self.get_routes_map(cfgmap[NAME], 4)
+            routes = self.get_routes_map(cfgmap[DEVICE], 4)
             if len(routes) > 0:
                 info[IPV4_ID][ROUTES] = routes
         wok_log.debug('End get_ipv4_info')
@@ -484,7 +486,7 @@ class CfginterfaceModel(object):
         if len(dnsaddresses) > 0:
             info[IPV6_ID][DNSAddresses] = dnsaddresses
         # construct routeinfo.
-        routes = self.get_routes_map(cfgmap[NAME], 6)
+        routes = self.get_routes_map(cfgmap[DEVICE], 6)
         if len(routes) > 0:
             info[IPV6_ID][ROUTES] = routes
         wok_log.debug('End get_ipv6_info')
@@ -747,7 +749,7 @@ class CfginterfaceModel(object):
             cfgmap = self.update_dnsv4_info(cfgmap, params)
             if ROUTES in params[IPV4_ID]:
                 self.write_cfgroutes(params[IPV4_ID][ROUTES],
-                                     params[BASIC_INFO][NAME], 4)
+                                     params[BASIC_INFO][DEVICE], 4)
         else:
             wok_log.error(("IPV4INIT value is mandatory"))
             raise MissingParameter('GINNET0026E')
@@ -801,7 +803,7 @@ class CfginterfaceModel(object):
             cfgmap = self.update_dnsv6_info(cfgmap, params)
             if ROUTES in params[IPV6_ID]:
                 self.write_cfgroutes(params[IPV6_ID][ROUTES],
-                                     params[BASIC_INFO][NAME], 6)
+                                     params[BASIC_INFO][DEVICE], 6)
         else:
             wok_log.error(("IPV6INIT value is mandatory"))
             raise MissingParameter('GINNET0027E')
@@ -995,7 +997,7 @@ class CfginterfaceModel(object):
             wok_log.error("Minimum one slave has to be given for the bond "
                           "interface")
             raise MissingParameter("GINNET0037E")
-        name = params[BASIC_INFO][NAME]
+        name = params[BASIC_INFO][DEVICE]
         self.create_slaves(name, params)
         bond_info[TYPE] = params[BASIC_INFO][TYPE]
         return bond_info
