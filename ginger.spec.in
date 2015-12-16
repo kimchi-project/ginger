@@ -76,7 +76,6 @@ service wokd restart
 %{_datadir}/wok/plugins/ginger/ui/css/base/images/*.gif
 %{_datadir}/wok/plugins/ginger/ui/css/base/images/*.png
 %{_datadir}/wok/plugins/ginger/ui/css/ginger.css
-%{_datadir}/wok/plugins/ginger/ui/css/host-admin.css
 %{_datadir}/wok/plugins/ginger/ui/js/host-admin.js
 %{_datadir}/wok/plugins/ginger/ui/js/util.js
 %{_datadir}/wok/plugins/ginger/ui/pages/help/ginger-help.css
@@ -89,6 +88,12 @@ service wokd restart
 
 
 %changelog
+* Wed Dec 16 2015 Daniel Henrique Barboza  <dhbarboza82@gmail.com>
+- Removed 'host-admin.css' from %files
+
+* Fri Dec 11 2015 Daniel Henrique Barboza  <dhbarboza82@gmail.com>
+- Added ui/pages/tabs/host-admin.html.tmpl to %files
+
 * Fri Nov 27 2015 Chandra Shekhar Reddy Potula <chandra@linux.vnet.ibm.com>
 - Add missing dependencies for Ginger
 
