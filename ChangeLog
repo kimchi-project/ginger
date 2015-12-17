@@ -2,6 +2,12 @@ CHANGELOG
 =========
 
 #### [2.0.0] ####
+ * [ee1f8cb] Issue 84: User Management UI issues                                            (samhenri)
+ * [7c3938b] Fixed error messages not showing in Ginger                                     (samhenri)
+ * [8bf94d7] Fixes after the CSS and media query commits                                    (Daniel Henrique Barboza)
+ * [15eef0e] Adding Media Query support for Ginger                                          (samhenri)
+ * [0cb33ae] Fixed minor CSS issues with Ginger                                             (samhenri)
+ * [6f9ece8] Wraping things up for 2.0.0 release                                            (Daniel Henrique Barboza)
  * [58728b9] Issue 72 : listing of storage devices has missing parameters to remove the d.. (Harshal Patil)
  * [bab5ea8] Implementing common functionalities related to jquery bootgrid                 (Atreyee Mukhopadhyay)
  * [7fec65f] Fixing rpm generation after CSS changes                                        (Daniel Henrique Barboza)
@@ -172,6 +178,12 @@ CHANGELOG
  * [5ce4a73] Adapt to new Kimchi authorization scheme                                       (Zhou Zheng Sheng)
 
 #### [] ####
+ * [ee1f8cb] Issue 84: User Management UI issues                                            (samhenri)
+ * [7c3938b] Fixed error messages not showing in Ginger                                     (samhenri)
+ * [8bf94d7] Fixes after the CSS and media query commits                                    (Daniel Henrique Barboza)
+ * [15eef0e] Adding Media Query support for Ginger                                          (samhenri)
+ * [0cb33ae] Fixed minor CSS issues with Ginger                                             (samhenri)
+ * [6f9ece8] Wraping things up for 2.0.0 release                                            (Daniel Henrique Barboza)
  * [58728b9] Issue 72 : listing of storage devices has missing parameters to remove the d.. (Harshal Patil)
  * [bab5ea8] Implementing common functionalities related to jquery bootgrid                 (Atreyee Mukhopadhyay)
  * [7fec65f] Fixing rpm generation after CSS changes                                        (Daniel Henrique Barboza)
