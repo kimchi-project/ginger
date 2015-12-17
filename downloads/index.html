@@ -32,11 +32,8 @@
           <h1>
 <a name="kimchi-project" class="anchor" href="#kimchi-project"><span class="octicon octicon-link"></span></a>Installing Ginger</h1>
 
-<p>First step is to download and install WoK, the cherrypy framework Ginger
-relies on to work.</p>
-
-<p>Second step is to download and install Gingerbase, a plug-in that provides
-basic functionalities for Ginger: </p>
+<p>Ginger depends on <a href="http://kimchi-project.github.io/gingerbase">Ginger-base</a>. First
+step is to download and install it.</p>
 
 <p>Then, download a Ginger package according to your operating system.</p>
 <p>We provide packages for the latest version of Fedora and Ubuntu.
@@ -54,6 +51,10 @@ You can do it by command line like below:</p>
 <pre><code>sudo dpkg -i &lt;kimchi.deb&gt;
 </code></pre>
 
+<h3>openSUSE:</h3>
+<pre><code>sudo zypper install &lt;ginger-base.rpm&gt;
+</code></pre>
+
 <h1>Restarting wokd service</h1>
 <p>After installing Ginger, you just need to restart wokd service to get it up:</p>
 <pre><code>sudo systemctl restart wokd.service
@@ -67,18 +68,12 @@ You can do it by command line like below:</p>
         </section>
 
         <aside id="sidebar" >
-          <a href="http://kimchi-project.github.io/kimchi/downloads/kimchi-1.5.1-0.fc22.noarch.rpm" class="button package">
+          <a href="http://kimchi-project.github.io/ginger/downloads/ginger-2.0.0-0.fc23.noarch.rpm" class="button package">
             <small>Download</small>
-            Fedora .rpm
+            Fedora 23 .rpm
           </a>
-          <a href="http://kimchi-project.github.io/kimchi/downloads/kimchi-1.5.1-0.noarch.rpm" class="button package">
-            <small>Download</small>
-            openSUSE .rpm
-          </a>
-          <a href="http://kimchi-project.github.io/kimchi/downloads/kimchi-1.5.1-0.el7.noarch.rpm" class="button package">
-            <small>Download</small>
-            RHEL .rpm
-          </a>
+           <small>(coming soon) Download openSUSE .rpm</small>
+           <small>(coming soon) Download RHEL .rpm</small>
           <a href="http://kimchi-project.github.io/kimchi/downloads/kimchi-1.5.1-0.noarch.deb" class="button package">
             <small>Download</small>
             Ubuntu .deb
