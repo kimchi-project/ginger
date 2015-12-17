@@ -78,6 +78,7 @@ service wokd restart
 %{_datadir}/wok/plugins/ginger/ui/css/ginger.css
 %{_datadir}/wok/plugins/ginger/ui/js/host-admin.js
 %{_datadir}/wok/plugins/ginger/ui/js/util.js
+%{_datadir}/wok/plugins/ginger/ui/js/ginger-bootgrid.js
 %{_datadir}/wok/plugins/ginger/ui/pages/help/ginger-help.css
 %{_datadir}/wok/plugins/ginger/ui/pages/help/en_US/host-admin.html
 %{_datadir}/wok/plugins/ginger/ui/pages/help/pt_BR/host-admin.html
@@ -90,6 +91,7 @@ service wokd restart
 %changelog
 * Wed Dec 16 2015 Daniel Henrique Barboza  <dhbarboza82@gmail.com>
 - Removed 'host-admin.css' from %files
+- added 'ui/js/ginger-bootgrid.js' in %files
 
 * Fri Dec 11 2015 Daniel Henrique Barboza  <dhbarboza82@gmail.com>
 - Added ui/pages/tabs/host-admin.html.tmpl to %files
