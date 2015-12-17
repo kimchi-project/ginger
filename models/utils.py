@@ -277,7 +277,10 @@ def _makefs(fstype, name):
     """
     majmin = _get_dev_major_min(name)
     path = _get_dev_node_path(majmin)
-    fs_out, err, rc = run_command(["mkfs", "-t", fstype, "-F", path])
+    force_flag = '-F'
+    if fstype == 'xfs':
+        force_flag = '-f'
+    fs_out, err, rc = run_command(["mkfs", "-t", fstype, force_flag, path])
     if rc != 0:
         raise OperationFailed("GINPART00012E", {'err': err})
     return
