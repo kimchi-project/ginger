@@ -377,9 +377,8 @@ ginger.addUser = function(username, suc, err) {
         dataType : 'json',
         resend : true,
         success : suc,
-        error : function(data) {
-            wok.message.error(data.responseJSON.reason);
-            err();
+        error :  err || function(data) {
+             wok.message.error(data.responseJSON.reason);
         }
     });
 }

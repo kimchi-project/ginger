@@ -94,7 +94,7 @@ ginger.initBakDialog = function() {
                 $("body button").prop("disabled", false);
                 $("body input").css("cursor", "text");
                 $("body button").css("cursor", "pointer");
-                wok.message.error(result.responseJSON.reason);
+                wok.message.error(result.responseJSON.reason,'#alert-backup-modal');
             });
         });
 
@@ -138,6 +138,8 @@ ginger.initBatDelDialog = function() {
                 $("#bakGridBody").empty();
                 clearForm();
                 ginger.setupBakGrid();
+            }, function(data) {
+                wok.message.error(data.responseJSON.reason,'#alert-backup-batch-modal');
             });
         });
         var clearForm = function() {
@@ -582,7 +584,7 @@ ginger.initSEPConfig = function() {
     };
     var listSubscriptions = function() {
         sepStatus();
-        $(".content-body", ".ginger .host-admin .subsc-manage").remove();
+        $(".wok-datagrid-row", ".ginger .host-admin .subsc-manage").remove();
         ginger.getSEPSubscriptions(function(result) {
             for (var i = 0; i < result.length; i++) {
                 var subscItem = $.parseHTML(wok.substitute($("#subscItem").html(), {
@@ -592,7 +594,7 @@ ginger.initSEPConfig = function() {
                 }));
                 $(".ginger .host-admin .subsc-manage").append(subscItem);
             }
-            $(".detach", ".ginger .host-admin .subsc-manage").on('click',function(event) {
+            $(".detach", ".ginger .host-admin .subsc-manage").on('click', function(event) {
                 var that = $(this).parent();
                 ginger.deleteSubscription($("div[data-type='hostname']", that).text(), function() {
                     that.remove();
@@ -674,7 +676,7 @@ ginger.initSEPConfig = function() {
 
 ginger.initUserManagement = function() {
     var listUsers = function() {
-        $(".content-body", ".ginger .host-admin .user-manage").remove();
+        $(".wok-datagrid-row", ".ginger .host-admin .user-manage").remove();
         ginger.getUsers(function(result) {
             for (var i = 0; i < result.length; i++) {
                 var nodeNameItem = $.parseHTML(wok.substitute($("#userItem").html(), {
@@ -685,7 +687,7 @@ ginger.initUserManagement = function() {
                 $(".ginger .host-admin .user-manage").append(nodeNameItem);
             }
             $(".detach", ".ginger .host-admin .user-manage").on('click', function(event) {
-                var that = $(this).parent();
+                var that = $(this).parent().parent();
                 ginger.deleteUser($("span[data-type='name']", that).text(), function() {
                     that.remove();
                 }, function() {});
@@ -719,7 +721,8 @@ ginger.initUserManagement = function() {
                 $("#user-submit").prop("disabled", false);
             }
         });
-        $("#user-submit", $(this)).button().click(function(event) {
+        $("#user-submit", $(this)).on('click', function(event) {
+            event.preventDefault();
             $(".modal-body .inputbox").attr("disabled", true);
             $(".modal-body input[type=radio]").attr("disabled", true);
             $("#user-submit").prop("disabled", true);
@@ -729,7 +732,7 @@ ginger.initUserManagement = function() {
             var userPasswd = $("#hostUserAdd, .inputbox[name='userPasswd']", ".modal-body").val();
             var userConfirmPasswd = $("#hostUserAdd, .inputbox[name='userConfirmPasswd']", ".modal-body").val();
             var userGroup = $("#hostUserAdd, .inputbox[name='userGroup']", ".modal-body").val();
-            var userProfile = $(".modal-body input[type=radio]:checked").val();
+            var userProfile = $(".modal-body input[name=userProfile]:checked").val();
 
             var dataSubmit = {
                 name: userName,
@@ -739,10 +742,12 @@ ginger.initUserManagement = function() {
             };
             if (userPasswd === userConfirmPasswd) {
                 ginger.addUser(dataSubmit, function() {
-                    listUsers();
-                }, function() {
-                    clearUMSubmit();
                     $('#hostUserAdd').modal('hide');
+                    clearUMSubmit();
+                    listUsers();
+                }, function(data) {
+                    wok.message.error(data.responseJSON.reason,'#alert-user-modal');
+                    enableFields();
                 });
             } else {
                 wok.confirm({
@@ -751,7 +756,7 @@ ginger.initUserManagement = function() {
                     confirm: i18n['KCHAPI6002M'],
                     cancel: i18n['KCHAPI6003M']
                 }, function() {
-                    clearUMSubmit();
+                    clearPasswords();
                 }, function() {
                     clearUMSubmit();
                 });
@@ -760,7 +765,28 @@ ginger.initUserManagement = function() {
         $("#user-cancel", $(this)).button().click(function(event) {
             $('#hostUserAdd').modal('hide')
         });
+        var enableFields = function() {
+            $("#user-cancel").prop("disabled", false);
+            $(".modal-body .inputbox").attr("disabled", false);
+            $("#hostUserAdd, .inputbox[name='userGroup']", ".modal-body").attr("disabled", false);
+            $(".modal-body input[type=radio]").attr("disabled", false);
+            $("#hostUserAdd, .inputbox[name='userName']", ".modal-body").focus();
+        }
+        var clearPasswords = function() {
+            $("#hostUserAdd, .inputbox[name='userPasswd']", ".modal-body").parent().addClass('has-error');
+            $("#hostUserAdd, .inputbox[name='userConfirmPasswd']", ".modal-body").parent().addClass('has-error');
+            $(".modal-body .inputbox").attr("disabled", false);
+            $(".modal-body input[type=radio]").attr("disabled", false);
+            $(".modal-body .inputbox").attr("disabled", false);
+            $("#hostUserAdd, .inputbox[name='userGroup']", ".modal-body").attr("disabled", false);
+            $("#user-submit").prop("disabled", true);
+            $("#user-cancel").prop("disabled", false);
+            $("#hostUserAdd, .inputbox[name='userConfirmPasswd']", ".modal-body").val('');
+            $("#hostUserAdd, .inputbox[name='userPasswd']", ".modal-body").focus();
+        };
         var clearUMSubmit = function() {
+            $("#hostUserAdd, .inputbox[name='userPasswd']", ".modal-body").parent().removeClass('has-error');
+            $("#hostUserAdd, .inputbox[name='userConfirmPasswd']", ".modal-body").parent().removeClass('has-error');
             $("#kimchiuser").prop("checked", true);
             $("#enableEditGroup").prop("checked", false);
             $(".modal-body .inputbox").val("");

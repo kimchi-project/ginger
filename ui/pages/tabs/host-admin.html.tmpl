@@ -76,13 +76,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
                         <button class="btn btn-primary dropdown-toggle backup-pcc-button" type="button" data-toggle="dropdown" aria-expanded="false" aria-haspopup="true"><span class="edit-alt"></span>$_("Actions")<span class="caret"></span></button>
                         <ul class="dropdown-menu actionsheet">
                             <li role="presentation">
-                                <a href="#" id="newDefaultBakBtn"><i class="fa fa-file"></i>$_("Generate Default Backup")</a>
+                                <a href="#" id="newDefaultBakBtn"><i class="fa fa-file"></i> $_("Generate Default Backup")</a>
                             </li>
                             <li role="presentation">
-                                <a href="#" id="newCustomBakBtn" data-toggle="modal" data-target="#newBakDialog"><i class="fa fa-file"></i>$_("New Custom Backup")</a>
+                                <a href="#" id="newCustomBakBtn" data-toggle="modal" data-target="#newBakDialog"><i class="fa fa-file"></i> $_("New Custom Backup")</a>
                             </li>
                             <li role="presentation">
-                                <a href="#" id="batDelBtn" data-toggle="modal" data-target="#batDelDialog"><i class="fa fa-minus-circle"></i>$_("Batch Delete")</a>
+                                <a href="#" id="batDelBtn" data-toggle="modal" data-target="#batDelDialog"><i class="fa fa-minus-circle"></i> $_("Batch Delete")</a>
                             </li>
                         </ul>
                     </div>
@@ -267,13 +267,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 </div>
 
 <!-- Configuration Backup Modal - Create Custom Backup -->
-<div class="modal fade host-modal" id="newBakDialog" tabindex="-1" role="dialog" labelledby="newBakLabel" aria-hidden="true">
+<div class="modal fade host-modal" id="newBakDialog" tabindex="-1" role="dialog" labelledby="newBakLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
     <div class="modal-dialog" role="document">
         <div class="modal-content" >
             <div class="modal-header">
                 <h4 class="modal-title">$_("Create a backup")</h4>
             </div>
             <div class="modal-body">
+                <div id="alert-backup-modal"></div>
                 <form id="form-backup-add">
                     <div class="form-group">
                         <label for="description-textbox">$_("Description")</label>
@@ -296,7 +297,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" id="newBakFormBtn" class="btn btn-default" data-dismiss="modal" disabled>$_("Generate Backup")</button>
+                <button type="button" id="newBakFormBtn" class="btn btn-default" disabled>$_("Generate Backup")</button>
                 <button type="button" id="newBakFormCancelBtn" class="btn btn-default" data-dismiss="modal">$_("Cancel")</button>
             </div>
         </div>
@@ -305,18 +306,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 
 <!-- Configuration Backup Modal - Batch Delete -->
-<div class="modal fade host-modal" id="batDelDialog" tabindex="-1" role="dialog" labelledby="batDelLabel" aria-hidden="true">
+<div class="modal fade host-modal" id="batDelDialog" tabindex="-1" role="dialog" labelledby="batDelLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
     <div class="modal-dialog" role="document">
         <div class="modal-content" >
           <div class="modal-header">
             <h4 class="modal-title">$_("Delete Backups in Batch")</h4>
           </div>
           <div class="modal-body">
+            <div id="alert-backup-batch-modal"></div>
             <form id="form-bat-delete">
                 <div class="form-group">
                     <div id="radio-buttons">
                         <label class="radio-inline">
-                            <input type="radio" name="batDelType" class="wok-radio" id="kimchiuser" value="counts_ago" checked/>
+                            <input type="radio" name="batDelType" class="wok-radio" id="counts-ago-radio" value="counts_ago" checked/>
                             <label for="kimchiuser">$_("Preserve the latest")</label>
                             <input type="text" class="form-control" style="display: inherit;width: auto;"> $_("backups")
                         </label>
@@ -325,7 +327,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
                 <div class="form-group">
                     <div id="radio-buttons">
                         <label class="radio-inline">
-                            <input type="radio" name="batDelType" class="wok-radio" id="kimchiuser" value="days_ago"/>
+                            <input type="radio" name="batDelType" class="wok-radio" id="days-ago-radio" value="days_ago"/>
                             <label for="kimchiuser">$_("Preserve the latest")</label>
                             <input type="text" class="form-control" style="display: inherit;width: auto;" disabled> $_("days of backups")
                         </label>
@@ -334,7 +336,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
             </form>
           </div>
           <div class="modal-footer">
-            <button type="button" id="batdel-submit" class="btn btn-default" data-dismiss="modal" disabled>$_("Submit")</button>
+            <button type="button" id="batdel-submit" class="btn btn-default" disabled>$_("Submit")</button>
             <button type="button" id="batdel-cancel" class="btn btn-default" data-dismiss="modal">$_("Cancel")</button>
           </div>
         </div>
@@ -342,13 +344,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 </div>
 
 <!-- SEP Configuration Modal - Add Subscription -->
-<div class="modal fade host-modal" id="subscriptionAdd" tabindex="-1" role="dialog" labelledby="hostsModalLabel" aria-hidden="true">
+<div class="modal fade host-modal" id="subscriptionAdd" tabindex="-1" role="dialog" labelledby="hostsModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
     <div class="modal-dialog" role="document">
         <div class="modal-content" >
           <div class="modal-header">
             <h4 class="modal-title">$_("Add Subscription")</h4>
           </div>
           <div class="modal-body">
+            <div id="alert-subscription-modal"></div>
             <form id="form-subscription-add">
                 <div class="form-group">
                     <label for="hostname-textbox">$_("Hostname")</label>
@@ -365,7 +368,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
             </form>
           </div>
           <div class="modal-footer">
-            <button type="button" id="subsc-submit" class="btn btn-default" data-dismiss="modal" disabled>$_("Submit")</button>
+            <button type="button" id="subsc-submit" class="btn btn-default" disabled>$_("Submit")</button>
             <button type="button" id="subsc-cancel" class="btn btn-default" data-dismiss="modal">$_("Cancel")</button>
           </div>
         </div>
@@ -373,13 +376,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 </div>
 
 <!-- User Management Modal - Add User -->
-<div class="modal fade host-modal" id="hostUserAdd" tabindex="-1" role="dialog" labelledby="addUserModalLabel" aria-hidden="true">
+<div class="modal fade host-modal" id="hostUserAdd" tabindex="-1" role="dialog" labelledby="addUserModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
     <div class="modal-dialog" role="document">
         <div class="modal-content" >
           <div class="modal-header">
             <h4 class="modal-title">$_("Add User")</h4>
           </div>
           <div class="modal-body">
+          <div id="alert-user-modal"></div>
             <form id="form-user-add">
                 <div class="form-group">
                     <label for="username-textbox">$_("User Name")</label>
@@ -404,24 +408,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
                 <div class="form-group">
                     <label>$_("Profile")</label>
                     <div id="radio-buttons">
-                        <label class="radio-inline">
-                            <input type="radio" name="userProfile" class="wok-radio" id="kimchiuser" value="kimchiuser"/>
-                            <label for="kimchiuser">$_("Kimchi User")</label>
-                        </label>
-                        <label class="radio-inline">
-                             <input type="radio" name="userProfile" class="wok-radio" id="virtuser" value="virtuser"/>
-                            <label for="virtuser">$_("Virt User")</label>
-                        </label>
-                        <label class="radio-inline">
-                            <input type="radio" name="userProfile" class="wok-radio" id="admin" value="admin" />
-                            <label for="admin">$_("Administrator")</label>
-                        </label>
+                        <input type="radio"  checked="checked" name="userProfile" class="wok-radio" id="kimchiuser" value="kimchiuser"/>
+                        <label for="kimchiuser">$_("Kimchi User")</label>
+                         <input type="radio" name="userProfile" class="wok-radio" id="virtuser" value="virtuser"/>
+                        <label for="virtuser">$_("Virt User")</label>
+                        <input type="radio" name="userProfile" class="wok-radio" id="admin" value="admin" />
+                        <label for="admin">$_("Administrator")</label>
                     </div>
                 </div>
             </form>
           </div>
           <div class="modal-footer">
-            <button type="button" id="user-submit" class="btn btn-default" data-dismiss="modal" disabled>$_("Submit")</button>
+            <button type="button" id="user-submit" class="btn btn-default" disabled>$_("Submit")</button>
             <button type="button" id="user-cancel" class="btn btn-default" data-dismiss="modal">$_("Cancel")</button>
           </div>
         </div>
