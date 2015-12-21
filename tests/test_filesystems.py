@@ -36,7 +36,7 @@ def create_file(self):
     if rc:
         self.assertRaises(OperationFailed)
 
-    fscmd = ["mkfs.ext4", "/testfile"]
+    fscmd = ["mkfs.ext4", "/testfile", "-F"]
     fsout, err, rc = run_command(fscmd)
     if rc:
         self.assertRaises(OperationFailed)
