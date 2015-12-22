@@ -74,7 +74,6 @@
 #sensors-ppc-content-area,
 #backup-ppc-content-area,
 #users-ppc-content-area,
-#network-ppc-content-area,
 #sep-ppc-content-area {
     padding: 0;
     list-style-type: none;
@@ -330,56 +329,6 @@
     }
     .btn-group {
         margin-bottom: 20px;
-    }
-}
-
-#network-ppc-content-area {
-    .column-name {
-        width: 22.9%;
-        @media (min-width: 1715px) {
-            width: 164px;
-        }
-    }
-    .column-ip-address {
-        width: 30%;
-        @media (min-width: 1715px) {
-            width: 290px;
-        }
-    }
-    .column-ip-mask {
-        width: 30%;
-        @media (min-width: 1715px) {
-            width: 290px;
-        }
-    }
-    .column-actions {
-        width: 70px;
-    }
-    .network-item {
-        padding: 2px 2px;
-        font-family: $font-family-sans-serif;
-        font-size: 11pt;
-    }
-    .form-inline {
-        margin-top: 15px;
-    }
-    .form-control {
-        width: 82.75%;
-    }
-    .column-dns-ip-address {
-        width: 62%;
-        .form-control {
-            width: 100%;
-        }
-    }
-    .addBtn {
-        margin-bottom: 20px;
-        width: 115px;
-    }
-    .btn-link {
-        width: 32px;
-        padding: 3px 2px;
-        text-align: center;
     }
 }
 

@@ -18,10 +18,10 @@
 SUBDIRS = base
 
 cssdir = $(datadir)/wok/plugins/ginger/ui/css
-dist_css_DATA =  ginger.css
+dist_css_DATA =  ginger.css ginger-network.css
 
 %.css: src/%.scss
 	echo "Compiling .scss file $<"
 	sassc -s expanded $< $(@:.scss=.css)
 
-CLEANFILES = ginger.css
+CLEANFILES = ginger.css ginger-network.css
