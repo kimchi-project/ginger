@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Copyright IBM Corp, 2015
+
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
+-->
+<!--Arbortext, Inc., 1988-2011, v.4002-->
+<!DOCTYPE cshelp PUBLIC "-//IBM//DTD DITA CSHelp//EN"
+ "..\dtd\cshelp.dtd">
+<?Pub Sty _display FontColor="red"?>
+<?Pub Inc?>
+<!--This DITA specialized document type is not supported by the Authoring Tools development team.
+Press the F1 key for online help on the tags and see the DITA XML Guide and Reference for how to use this document type.
+For support please see:
+https://w3.opensource.ibm.com/projects/dita-cshelp/-->
+<cshelp id="network" xml:lang="en-us">
+<title>Network</title>
+<shortdesc>The <wintitle>Network</wintitle> page shows information
+about host system networking information.</shortdesc>
+<csbody>
+<p>Use these sections to configure networking configurations.</p>
+<dl><dlentry>
+<dt>Global Network Configuration</dt>
+<dd>Use Global Network Configuration to set up the global network DNS and Gateway information.</dd>
+</dlentry>
+<dlentry>
+<dt>Network Configuration</dt>
+<dd>Use Network Configuration to set up networking for your host server.</dd>
+<dd>* Listing all network interfaces.</dd>
+<dd>* Up/Down the network interface</dd>
+<dd>* Create/Modify/Delete Bond/VLAN interfaces</dd>
+</dlentry></dl><?Pub Caret 2101?>
+</csbody>
+</cshelp>
+<?Pub *0000003732?>

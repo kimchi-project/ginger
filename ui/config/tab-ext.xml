@@ -24,4 +24,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
         <title>Administration</title>
         <path>plugins/ginger/tabs/host-admin.html</path>
     </tab>
+    <tab>
+        <access role="admin" mode="admin"/>
+        <access role="user" mode="none"/>
+        <title>Network</title>
+        <path>plugins/ginger/tabs/host-network.html</path>
+    </tab>
 </tabs-ext>
