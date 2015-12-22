@@ -17,6 +17,7 @@
  */
 
 ginger = {};
+ginger.hostarch = null;
 
 ginger.getFirmware = function(suc, err){
     wok.requestJSON({
@@ -141,6 +142,31 @@ ginger.updateInterface = function(name, content, suc, err){
             wok.message.error(data.responseJSON.reason);
         }
     });
+};
+
+ginger.enableInterface = function(name, status, suc, err) {
+    wok.requestJSON({
+        url : "plugins/ginger/network/interfaces/" + name +
+              '/' + (status == "down" ? 'deactivate' : 'activate'),
+        type : 'POST',
+        contentType : 'application/json',
+        dataType : 'json',
+        success : suc,
+        error : err
+    });
+};
+
+ginger.deleteInterface = function(name, suc, err) {
+  wok.requestJSON({
+      url : 'plugins/ginger/network/cfginterfaces/' + name,
+      type : 'DELETE',
+      contentType : 'application/json',
+      dataType : 'json',
+      success : suc,
+      error : err || function(data) {
+          wok.message.error(data.responseJSON.reason);
+      }
+  });
 };
 
 ginger.getNetworkGlobals = function(suc, err){
@@ -408,3 +434,33 @@ ginger.getCapabilities = function(suc, err) {
         }
     });
 }
+
+/**
+ * Get the host information.
+ */
+ginger.getHostDetails = function (suc,err) {
+  wok.requestJSON({
+      url : 'plugins/gingerbase/host',
+      type : 'GET',
+      resend: true,
+      contentType : 'application/json',
+      dataType : 'json',
+      success : suc,
+      error: err
+  });
+}
+
+/**
+ * Get the host plugins information.
+ */
+ginger.getPlugins = function(suc, err) {
+    wok.requestJSON({
+        url : 'plugins',
+        type : 'GET',
+        resend: true,
+        contentType : 'application/json',
+        dataType : 'json',
+        success : suc,
+        error: err
+    });
+};
