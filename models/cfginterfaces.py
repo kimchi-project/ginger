@@ -423,6 +423,8 @@ class CfginterfaceModel(object):
             elif interface_type == IFACE_BOND:
                 self.get_bond_info(info, cfgmap)
         wok_log.debug('end get_basic_info')
+        if MTU not in cfgmap:
+            info[BASIC_INFO][MTU] = "1500"
         return info
 
     # adding method to support multiple ipv4 in lookup listing
@@ -462,7 +464,10 @@ class CfginterfaceModel(object):
             if len(dnsaddresses) > 0:
                 info[IPV4_ID][DNSAddresses] = dnsaddresses
             # construct routeinfo.
-            routes = self.get_routes_map(cfgmap[DEVICE], 4)
+            if DEVICE in cfgmap:
+                routes = self.get_routes_map(cfgmap[DEVICE], 4)
+            elif NAME in cfgmap:
+                routes = self.get_routes_map(cfgmap[NAME], 4)
             if len(routes) > 0:
                 info[IPV4_ID][ROUTES] = routes
         wok_log.debug('End get_ipv4_info')
@@ -486,7 +491,10 @@ class CfginterfaceModel(object):
         if len(dnsaddresses) > 0:
             info[IPV6_ID][DNSAddresses] = dnsaddresses
         # construct routeinfo.
-        routes = self.get_routes_map(cfgmap[DEVICE], 6)
+        if DEVICE in cfgmap:
+            routes = self.get_routes_map(cfgmap[DEVICE], 6)
+        elif NAME in cfgmap:
+            routes = self.get_routes_map(cfgmap[NAME], 6)
         if len(routes) > 0:
             info[IPV6_ID][ROUTES] = routes
         wok_log.debug('End get_ipv6_info')
