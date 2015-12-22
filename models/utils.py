@@ -17,7 +17,9 @@
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 
+import dasd_utils
 import os
+import platform
 import re
 import subprocess
 
@@ -715,6 +717,26 @@ def parse_lsblk_out(lsblk_out):
     return return_dict
 
 
+def get_unformatted_dasd_devs():
+    """
+    Get the list of unformatted DASD devices
+    """
+    unformatted = []
+    if platform.machine() == "s390x":
+        dasd_devices = dasd_utils._get_lsdasd_devs()
+        for device in dasd_devices:
+            if device['status'] == 'n/f':
+                uf_dev = {}
+                uf_dev['type'] = 'dasd'
+                uf_dev['name'] = device['name']
+                uf_dev['mpath_count'] = 'N/A'
+                uf_dev['size'] = device['size']
+                uf_dev['id'] = device['uid']
+                uf_dev['bus_id'] = device['bus-id']
+                unformatted.append(uf_dev)
+    return unformatted
+
+
 def get_final_list():
     """
     Comprehensive list of storage devices found on the system
@@ -729,6 +751,10 @@ def get_final_list():
     final_list = []
 
     try:
+        unfomatted_dasds = get_unformatted_dasd_devs()
+        if unfomatted_dasds:
+            final_list = unfomatted_dasds
+
         blk_dict = parse_lsblk_out(out)
 
         out = get_disks_by_id_out()
