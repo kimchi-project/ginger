@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<!--
+Copyright IBM Corp, 2015
+
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+-->
+#unicode UTF-8
+#import gettext
+#silent t = gettext.translation($lang.domain, $lang.localedir, languages=$lang.lang)
+#silent _ = t.gettext
+#silent _t = t.gettext
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="plugins/ginger/css/ginger.css">
+<script type="text/javascript" src="plugins/ginger/js/util.js"></script>
+<script type="text/javascript" src="plugins/ginger/js/host-storage.js"></script>
+<script type="text/javascript" src="plugins/ginger/js/ginger-bootgrid.js"></script>
+</head>
+<body>
+  <div id="host-storage-root-container" class="ginger">
+      <nav class="navbar navbar-default toolbar">
+          <div class="container">
+              <div id="toolbar"></div>
+          </div>
+     </nav>
+    <div class="container">
+        <div id="gingerHostAdmin" class="host-admin">
+          <!-- Volume Group Panel -->
+          <div class="panel-group accordion" id="volume-group-accordion" role="tablist" aria-multiselectable="true">
+              <h3>
+                  <a role="button" data-toggle="collapse" data-parent="#volume-group-accordion" href="#volume-groups-content-area" aria-expanded="false" aria-controls="volume-groups-content-area" class="">
+                      <span class="accordion-icon"></span><span class="accordion-text">$_("Volume Group")</span>
+                  </a>
+              </h3>
+              <div id="volume-groups-content-area" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+                  <div class='fmw-content col-md-12'>
+                    <div class="row" id="volume-groups" style="padding-left:20px;"></div>
+                  </div>
+              </div>
+              <hr>
+          </div>
+          <!-- File Systems Panel -->
+          <div class="panel-group accordion" id="file-systems-accordion" role="tablist" aria-multiselectable="true">
+              <h3>
+                  <a role="button" data-toggle="collapse" data-parent="#file-systems-accordion" href="#file-systems-content-area" aria-expanded="false" aria-controls="file-systems-content-area" class="">
+                      <span class="accordion-icon"></span><span class="accordion-text">$_("File Systems")</span>
+                  </a>
+              </h3>
+              <div id="file-systems-content-area" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+                  <div class='fmw-content col-md-12'>
+                    <div class="row" id="file-systems" style="padding-left:20px;">
+                    </div>
+                  </div>
+              </div>
+              <hr>
+          </div>
+          <!-- Swap Devices Panel -->
+          <div class="panel-group accordion" id="swap-devices-accordion" role="tablist" aria-multiselectable="true">
+              <h3>
+                  <a role="button" data-toggle="collapse" data-parent="#swap-devices-accordion" href="#swap-devices-content-area" aria-expanded="false" aria-controls="swap-devices-content-area" class="">
+                      <span class="accordion-icon"></span><span class="accordion-text">$_("Swap Devices")</span>
+                  </a>
+              </h3>
+              <div id="swap-devices-content-area" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+                  <div class='fmw-content col-md-12'>
+                    <div class="row" id="swap-devices" style="padding-left:20px;"></div>
+                  </div>
+              </div>
+              <hr>
+          </div>
+          <!-- Storage device Panel -->
+          <div class="panel-group accordion" id="storage-devices-accordion" role="tablist" aria-multiselectable="true">
+              <h3>
+                  <a role="button" data-toggle="collapse" data-parent="#storage-devices-accordion" href="#storage-device-content-area" aria-expanded="false" aria-controls="storage-device-content-area" class="">
+                      <span class="accordion-icon"></span><span class="accordion-text">$_("Storage Devices")</span>
+                  </a>
+              </h3>
+              <div id="storage-device-content-area" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+                  <div class='fmw-content col-md-12'>
+                    <div class="row"  style="padding-left:50px;">
+                        <div id="file-systems-actions" class="pull-left">
+                        </div>
+                        <div id="file-systems-add" class="pull-right">
+                        </div>
+                    </div>
+                       <span id='alert-modal-nw-container' style='display: none;'></span>
+                     <div class="row" id="stg-devs"  style="padding-left:20px;">
+                    </div>
+                  </div>
+              </div>
+              <hr>
+          </div>
+          <!-- FCP tape device Panel -->
+          <div id="fcp-tape-devices-panel" class="panel-group hidden accordion" role="tablist" aria-multiselectable="true">
+              <h3>
+                  <a role="button" data-toggle="collapse" data-parent="#fcp-tape-devices-panel" href="#fcp-tape-devices-content-area" aria-expanded="false" aria-controls="fcp-tape-devices-content-area" class="">
+                      <span class="accordion-icon"></span><span class="accordion-text">$_("FCP Tape Devices")</span>
+                  </a>
+              </h3>
+              <div id="fcp-tape-devices-content-area" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+                <div class='fmw-content col-md-12'>
+                  <div class="row" id="fcp-tape-devices" style="padding-left:20px;"></div>
+                </div>
+              </div>
+              <hr>
+          </div>
+          <!-- SAN adapter Panel -->
+          <div class="panel-group accordion" id="SAN-adapter-panel" role="tablist" aria-multiselectable="true">
+              <h3>
+                  <a role="button" data-toggle="collapse" data-parent="#SAN-adapter-panel" href="#san-adapter-content-area" aria-expanded="false" aria-controls="san-adapter-content-area" class="">
+                      <span class="accordion-icon"></span><span class="accordion-text">$_("SAN Adapters")</span>
+                  </a>
+              </h3>
+              <div id="san-adapter-content-area" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+                <div class='fmw-content col-md-12'>
+                  <div class="row"  style="padding-left:50px;">
+                      <div id="san-adapter-add" class="pull-right">
+                      </div>
+                  </div>
+                  <div class="row" id="san-adapter-list" style="padding-left:20px;"></div>
+                </div>
+              </div>
+              <hr>
+          </div>
+        </div>
+    </div>
+    <div id="modalWindow" class="modal fade host-modal guests-modal" tabindex="-1" role="dialog" aria-labelledby="guestsModalLabel" aria-hidden="true">
+    </div>
+  </div>
+<script>
+    ginger.initStorage();
+</script>
+</body>
+</html>
