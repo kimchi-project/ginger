@@ -862,3 +862,246 @@
   padding: 3px 2px;
   text-align: center;
 }
+
+#host-storage-root-container .accordion {
+  margin: 12px 20px 12px 60px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid #eee;
+  overflow: visible;
+  clear: both;
+}
+
+#host-storage-root-container .accordion:first-chld {
+  margin-top: 24px;
+}
+
+#host-storage-root-container .accordion > h3 {
+  margin: 0;
+  padding: 0;
+  font-size: 26px;
+  font-weight: 300;
+  height: 44px;
+  display: block;
+}
+
+#host-storage-root-container .accordion > h3 a {
+  color: #3a393b;
+  text-decoration: none;
+  display: block;
+  padding: 6px 30px;
+  margin-left: -30px;
+  margin-right: -30px;
+}
+
+#host-storage-root-container .accordion > h3 a span.accordion-icon {
+  margin-left: -52px;
+  vertical-align: middle;
+  display: inline-block;
+  font: normal normal normal 32px/1 FontAwesome;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  color: #3a393b;
+}
+
+#host-storage-root-container .accordion > h3 a[aria-expanded="false"] span.accordion-icon:before {
+  content: "\f01a";
+}
+
+#host-storage-root-container .accordion > h3 a[aria-expanded="true"] span.accordion-icon:before {
+  content: "\f01b";
+}
+
+#host-storage-root-container .accordion > h3 a span.accordion-text {
+  margin-left: 23px;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+#host-storage-root-container .navbar-default.toolbar {
+  background-color: #008abf !important;
+}
+
+#volume-groups-content-area,
+#file-systems-content-area,
+#swap-devices-content-area,
+#storage-device-content-area,
+#fcp-tape-devices-content-area,
+#san-adapter-content-area {
+  padding: 0;
+  list-style-type: none;
+}
+
+#volume-groups-content-area .li:nth-child(even),
+#file-systems-content-area .li:nth-child(even),
+#swap-devices-content-area .li:nth-child(even),
+#storage-device-content-area .li:nth-child(even),
+#fcp-tape-devices-content-area .li:nth-child(even),
+#san-adapter-content-area .li:nth-child(even) {
+  background-color: #fcfcfc;
+}
+
+#volume-groups-content-area .li:nth-child(odd),
+#file-systems-content-area .li:nth-child(odd),
+#swap-devices-content-area .li:nth-child(odd),
+#storage-device-content-area .li:nth-child(odd),
+#fcp-tape-devices-content-area .li:nth-child(odd),
+#san-adapter-content-area .li:nth-child(odd) {
+  background-color: #fff;
+}
+
+#volume-groups-content-area .header > span,
+#volume-groups-content-area .header > div,
+#volume-groups-content-area .body > span,
+#volume-groups-content-area .body > div,
+#file-systems-content-area .header > span,
+#file-systems-content-area .header > div,
+#file-systems-content-area .body > span,
+#file-systems-content-area .body > div,
+#swap-devices-content-area .header > span,
+#swap-devices-content-area .header > div,
+#swap-devices-content-area .body > span,
+#swap-devices-content-area .body > div,
+#storage-device-content-area .header > span,
+#storage-device-content-area .header > div,
+#storage-device-content-area .body > span,
+#storage-device-content-area .body > div,
+#fcp-tape-devices-content-area .header > span,
+#fcp-tape-devices-content-area .header > div,
+#fcp-tape-devices-content-area .body > span,
+#fcp-tape-devices-content-area .body > div,
+#san-adapter-content-area .header > span,
+#san-adapter-content-area .header > div,
+#san-adapter-content-area .body > span,
+#san-adapter-content-area .body > div {
+  padding: 6px 2px;
+  display: inline-block;
+  font-family: "Open Sans", Helvetica, Arial, "Lucida Grande", sans-serif;
+}
+
+#volume-groups-content-area .header,
+#file-systems-content-area .header,
+#swap-devices-content-area .header,
+#storage-device-content-area .header,
+#fcp-tape-devices-content-area .header,
+#san-adapter-content-area .header {
+  border-top: 0 none;
+}
+
+#volume-groups-content-area .header > span,
+#volume-groups-content-area .header > div,
+#file-systems-content-area .header > span,
+#file-systems-content-area .header > div,
+#swap-devices-content-area .header > span,
+#swap-devices-content-area .header > div,
+#storage-device-content-area .header > span,
+#storage-device-content-area .header > div,
+#fcp-tape-devices-content-area .header > span,
+#fcp-tape-devices-content-area .header > div,
+#san-adapter-content-area .header > span,
+#san-adapter-content-area .header > div {
+  vertical-align: bottom;
+  height: 36px;
+  font-weight: 300;
+  font-size: 12.5pt;
+  line-height: 1.42857;
+  border-bottom: 0;
+  border-top: 0;
+}
+
+#volume-groups-content-area .body,
+#file-systems-content-area .body,
+#swap-devices-content-area .body,
+#storage-device-content-area .body,
+#fcp-tape-devices-content-area .body,
+#san-adapter-content-area .body {
+  border-top: 1px solid #eee;
+}
+
+#volume-groups-content-area .body > span,
+#volume-groups-content-area .body > div,
+#file-systems-content-area .body > span,
+#file-systems-content-area .body > div,
+#swap-devices-content-area .body > span,
+#swap-devices-content-area .body > div,
+#storage-device-content-area .body > span,
+#storage-device-content-area .body > div,
+#fcp-tape-devices-content-area .body > span,
+#fcp-tape-devices-content-area .body > div,
+#san-adapter-content-area .body > span,
+#san-adapter-content-area .body > div {
+  vertical-align: middle;
+  font-size: 11pt;
+  line-height: 2.42857;
+  font-weight: 400;
+}
+
+#volume-groups-content-area .gridHeader,
+#file-systems-content-area .gridHeader,
+#swap-devices-content-area .gridHeader,
+#storage-device-content-area .gridHeader,
+#fcp-tape-devices-content-area .gridHeader,
+#san-adapter-content-area .gridHeader {
+  text-align: left;
+}
+
+#volume-groups-content-area .bootgrid-table,
+#file-systems-content-area .bootgrid-table,
+#swap-devices-content-area .bootgrid-table,
+#storage-device-content-area .bootgrid-table,
+#fcp-tape-devices-content-area .bootgrid-table,
+#san-adapter-content-area .bootgrid-table {
+  height: 300px;
+  width: 100%;
+}
+
+#volume-groups-content-area .bootgrid-table th > .column-header-anchor > .icon,
+#file-systems-content-area .bootgrid-table th > .column-header-anchor > .icon,
+#swap-devices-content-area .bootgrid-table th > .column-header-anchor > .icon,
+#storage-device-content-area .bootgrid-table th > .column-header-anchor > .icon,
+#fcp-tape-devices-content-area .bootgrid-table th > .column-header-anchor > .icon,
+#san-adapter-content-area .bootgrid-table th > .column-header-anchor > .icon {
+  right: 40%;
+}
+
+#volume-groups-content-area .bootgrid-table thead,
+#file-systems-content-area .bootgrid-table thead,
+#swap-devices-content-area .bootgrid-table thead,
+#storage-device-content-area .bootgrid-table thead,
+#fcp-tape-devices-content-area .bootgrid-table thead,
+#san-adapter-content-area .bootgrid-table thead {
+  display: block;
+  width: 100%;
+  padding: 0 1.7% 0 0;
+}
+
+#volume-groups-content-area .bootgrid-table tbody,
+#file-systems-content-area .bootgrid-table tbody,
+#swap-devices-content-area .bootgrid-table tbody,
+#storage-device-content-area .bootgrid-table tbody,
+#fcp-tape-devices-content-area .bootgrid-table tbody,
+#san-adapter-content-area .bootgrid-table tbody {
+  height: 250px;
+  overflow-y: scroll;
+  position: absolute;
+  width: 98.6%;
+}
+
+#volume-groups-content-area .bootgrid-table tr,
+#file-systems-content-area .bootgrid-table tr,
+#swap-devices-content-area .bootgrid-table tr,
+#storage-device-content-area .bootgrid-table tr,
+#fcp-tape-devices-content-area .bootgrid-table tr,
+#san-adapter-content-area .bootgrid-table tr {
+  width: 100%;
+  display: inline-table;
+}
+
+#volume-groups-content-area .bootgrid-header div.search,
+#file-systems-content-area .bootgrid-header div.search,
+#swap-devices-content-area .bootgrid-header div.search,
+#storage-device-content-area .bootgrid-header div.search,
+#fcp-tape-devices-content-area .bootgrid-header div.search,
+#san-adapter-content-area .bootgrid-header div.search {
+  margin: 0;
+  width: 160px;
+}
