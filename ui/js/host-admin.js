@@ -297,35 +297,6 @@ ginger.initPowerMgmt = function() {
     });
 };
 
-ginger.initSANAdapter = function() {
-    ginger.getSANAdapters(function(data) {
-        var temStr = "<span class='item'>{value}</span>";
-        for (var i = 0; i < data.length; i++) {
-            $(".wok-datagrid-row", $(".name", ".san-adapter")).append(wok.substitute(temStr, {
-                value: data[i].name
-            }));
-            $(".wok-datagrid-row", $(".wwpn", ".san-adapter")).append(wok.substitute(temStr, {
-                value: data[i].wwpn
-            }));
-            $(".wok-datagrid-row", $(".wwnn", ".san-adapter")).append(wok.substitute(temStr, {
-                value: data[i].wwnn
-            }));
-            $(".wok-datagrid-row", $(".state", ".san-adapter")).append(wok.substitute(temStr, {
-                value: data[i].state
-            }));
-            $(".wok-datagrid-row", $(".port", ".san-adapter")).append(wok.substitute(temStr, {
-                value: data[i].vports_inuse + "/" + data[i].max_vports
-            }));
-            $(".wok-datagrid-row", $(".speed", ".san-adapter")).append(wok.substitute(temStr, {
-                value: data[i].speed
-            }));
-            $(".wok-datagrid-row", $(".symbolic", ".san-adapter")).append(wok.substitute(temStr, {
-                value: data[i].symbolic_name
-            }));
-        }
-    });
-};
-
 ginger.listSensors = function() {
     $(".progress-icon-sensor").show();
     ginger.getSensors(function(result) {
@@ -667,9 +638,6 @@ ginger.initAdmin = function() {
                         break;
                     case "powerprofiles":
                         ginger.initPowerMgmt();
-                        break;
-                    case "sanadapters":
-                        ginger.initSANAdapter();
                         break;
                     case "sensors":
                         ginger.initSensorsMonitor();
