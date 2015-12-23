@@ -69,6 +69,11 @@ Install Dependencies
     # These dependencies are only required if you want to run the tests:
     $ sudo yum install pyflakes python-pep8 python-mock
 
+    # For UI development
+    $ sudo yum install gcc-c++ python-devel python pip
+    $ sudo pip install cython libsass
+
+
 **For openSUSE:**
 
      $ sudo zypper install wok ginger-base libvirt-python libvirt hddtemp \
@@ -79,6 +84,11 @@ Install Dependencies
     # These dependencies are only required if you want to run the tests:
     $ sudo zypper install python-pyflakes python-pep8 python-requests python-mock
 
+    # For UI development
+    $ sudo zypper install python-devel python pip
+    $ sudo pip install cython libsass
+
+
 **For Ubuntu (Debian-based):**
 
     $ sudo apt-get install wok ginger-base libvirt-bin python-libvirt hddtemp \
@@ -88,6 +98,10 @@ Install Dependencies
 
     # These dependencies are only required if you want to run the tests:
     $ sudo apt-get install pep8 pyflakes python-requests python-mock
+
+    # For UI development
+    $ sudo apt-get install g++ python-dev python pip
+    $ sudo pip install cython libsass
 
 At the moment of this writing (11-30-2015), libuser has a bug that
 prevents it to work properly in Ubuntu 15.10 and older
@@ -155,6 +169,14 @@ $ systemctl restart wokd.service
 
 If these steps do not solve the problem, try to update all 'tuned' related
 packages and the packages'selinux-policy' and 'selinux-policy-targeted'.
+
+
+UI Development
+----
+Make sure to update the CSS files when modifying the SCSS files by running:
+
+    $ sudo make -C ui/css css
+
 
 Test
 ----
