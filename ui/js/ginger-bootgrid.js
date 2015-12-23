@@ -64,7 +64,7 @@
         rowSelect:true,
         formatters:{
           "percentage-used" : function(column , row){
-          return '<div class="progress"><div class="progress-bar-info" style="width:'+row[column['id']]+'">'+row[column['id']]+'</div></div>';
+          return '<div class="progress"><div class="progress-bar-info" style="width:'+row[column['id']]+';background-color: #008abf">'+row[column['id']]+'</div></div>';
         },
           "nw-interface-status": function(column, row)
            {
@@ -83,11 +83,7 @@
               return "";
             }
             return ipaddr + "/" + netmask;
-          },
-					"editableSize":function(column, row)
-					{
-		        return '<a href="#" id="fsSize">'+row['size']+'</a>	';
-					}
+          }
        },
         css:{
             iconDown : "fa fa-sort-desc",
