@@ -18,14 +18,15 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 
 
+import magic
 import os
 import platform
-import magic
 
 from wok.exception import OperationFailed
-from wok.utils import wok_log
-from wok.utils import run_command
+from wok.model.tasks import TaskModel
+from wok.utils import add_task, run_command, wok_log
 
+fw_tee_log = '/tmp/fw_tee_log.txt'
 
 # FIXME: When model is restructured, use
 # vms_get_list_by_state('running') instead
@@ -42,6 +43,10 @@ class FirmwareModel(object):
     """
     The model class for viewing and updating the Power firmware level
     """
+
+    def __init__(self, **kargs):
+        self.task = TaskModel(**kargs)
+        self.objstore = kargs['objstore']
 
     def lookup(self, params=None):
         output, error, rc = run_command('lsmcode')
@@ -92,9 +97,10 @@ class FirmwareModel(object):
         if not pow_ok:
             command.insert(1, '-n')
         wok_log.info('FW update: System will reboot to flash the firmware.')
-        output, error, rc = run_command(command)
-        if rc:
-            raise OperationFailed('GINFW0004E', {'rc': rc})
+
+        cmd_params = {'command': command, 'operation': 'update'}
+        taskid = add_task('', self._execute_task, self.objstore, cmd_params)
+        self.task.wait(taskid)
 
     def commit(self, name):
         command = ['update_flash', '-c']
@@ -114,3 +120,19 @@ class FirmwareModel(object):
 
     def is_feature_available(self):
         return platform.machine().startswith('ppc')
+
+    def _execute_task(self, cb, params):
+        cmd = params['command']
+        cb("%s running." % cmd[0])
+
+        output, error, rc = run_command(cmd, tee=fw_tee_log)
+
+        if rc:
+            if params['operation'] == 'update':
+                wok_log.error('Error flashing firmware. Details:\n %s' % error)
+                cb("Error", True)
+                raise OperationFailed('GINFW0004E', {'rc': rc})
+            else:
+                wok_log.error('Async run_command error: ', error)
+                cb("Error", True)
+        cb("OK", True)

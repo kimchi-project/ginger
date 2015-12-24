@@ -67,7 +67,7 @@ class GingerModel(BaseModel):
         upgrade_objectstore_schema(objstore_loc, 'version')
 
         sub_models = []
-        firmware = FirmwareModel()
+        firmware = FirmwareModel(objstore=self._objstore)
         powerprofiles = PowerProfilesModel()
         powerprofile = PowerProfileModel()
         users = UsersModel()
