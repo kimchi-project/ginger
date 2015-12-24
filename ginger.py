@@ -21,9 +21,9 @@ import json
 import os
 
 from controls import Backup, Capabilities, DASDdevs, DASDPartitions, Firmware
-from controls import FileSystems, LogicalVolumes, Network, Partitions
-from controls import PhysicalVolumes, PowerProfiles, SanAdapters, Sensors, Sep
-from controls import StorageDevs, Swaps, Users, VolumeGroups
+from controls import FirmwareProgress, FileSystems, LogicalVolumes, Network
+from controls import Partitions, PhysicalVolumes, PowerProfiles, SanAdapters
+from controls import Sensors, Sep, StorageDevs, Swaps, Users, VolumeGroups
 from i18n import messages
 
 from wok import config
@@ -47,6 +47,7 @@ class Ginger(WokRoot):
         self.dasdpartitions = DASDPartitions(self.model)
         self.filesystems = FileSystems(self.model)
         self.firmware = Firmware(self.model)
+        self.fwprogress = FirmwareProgress(self.model)
         self.lvs = LogicalVolumes(self.model)
         self.partitions = Partitions(self.model)
         self.powerprofiles = PowerProfiles(self.model)

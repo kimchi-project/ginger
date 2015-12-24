@@ -24,6 +24,7 @@ from dasdpartitions import DASDPartitions
 from diskparts import Partitions
 from filesystems import FileSystems
 from firmware import Firmware
+from firmware import FirmwareProgress
 from ibm_sep import Sep
 from log_volumes import LogicalVolumes
 from network import Network
@@ -42,6 +43,7 @@ __all__ = [
     DASDdevs,
     DASDPartitions,
     Firmware,
+    FirmwareProgress,
     LogicalVolumes,
     Network,
     Partitions,

@@ -26,7 +26,7 @@ from dasddevs import DASDdevsModel, DASDdevModel
 from dasdpartitions import DASDPartitionsModel, DASDPartitionModel
 from diskparts import PartitionsModel, PartitionModel
 from filesystem import FileSystemsModel, FileSystemModel
-from firmware import FirmwareModel
+from firmware import FirmwareModel, FirmwareProgressModel
 from ibm_sep import SepModel, SubscribersModel, SubscriptionModel
 from interfaces import InterfacesModel, InterfaceModel
 from log_volume import LogicalVolumesModel, LogicalVolumeModel
@@ -68,6 +68,7 @@ class GingerModel(BaseModel):
 
         sub_models = []
         firmware = FirmwareModel(objstore=self._objstore)
+        firmwareprogress = FirmwareProgressModel(objstore=self._objstore)
         powerprofiles = PowerProfilesModel()
         powerprofile = PowerProfileModel()
         users = UsersModel()
@@ -108,12 +109,12 @@ class GingerModel(BaseModel):
         features = [firmware, swaps, backup, network, powerprofiles,
                     san_adapters, sensors, ibm_sep, users, filesystems,
                     dasddevs, dasdpartitions, partitions, physical_vols,
-                    vol_groups, log_volumes, stgdevs]
+                    vol_groups, log_volumes, stgdevs, firmwareprogress]
         capabilities = CapabilitiesModel(features)
 
         sub_models = [
             backup, archives, archive,
-            firmware,
+            firmware, firmwareprogress,
             interfaces, interface,
             cfginterface, cfginterfaces,
             dasddevs, dasddev,

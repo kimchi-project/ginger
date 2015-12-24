@@ -102,6 +102,15 @@ server.
             the machine must be running the permanent image.
 
 
+### Resource: FirmwareProgess (Power System firmware)
+
+**URI:** /plugins/ginger/fwprogress
+
+**Methods:**
+
+* **GET**: Retrieve the output of the update_flash execution.
+
+
 ### Collection: SAN Adapters (Fibre Channel SCSI Hosts - HBAs)
 
 **URI:** /plugins/ginger/san_adapters

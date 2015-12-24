@@ -21,12 +21,14 @@
 import magic
 import os
 import platform
+import time
 
 from wok.exception import OperationFailed
-from wok.model.tasks import TaskModel
+from wok.model.tasks import TaskModel, TasksModel
 from wok.utils import add_task, run_command, wok_log
 
 fw_tee_log = '/tmp/fw_tee_log.txt'
+
 
 # FIXME: When model is restructured, use
 # vms_get_list_by_state('running') instead
@@ -136,3 +138,77 @@ class FirmwareModel(object):
                 wok_log.error('Async run_command error: ', error)
                 cb("Error", True)
         cb("OK", True)
+
+
+class FirmwareProgressModel(object):
+    def __init__(self, **kargs):
+        self.tasks = TasksModel(**kargs)
+        self.task = TaskModel(**kargs)
+        self.current_taskid = 0
+        self.objstore = kargs['objstore']
+
+    def is_update_flash_running(self):
+        for task in self.tasks.get_list():
+            info = self.task.lookup(task)
+            if (info['status'] == 'running' and
+                    info['message'] == 'update_flash running.'):
+                return True
+        self.current_taskid = 0
+        return False
+
+    def tailUpdateLogs(self, cb, tee_log_file=None):
+        """
+        Read the log_file to return it's content (the output of update_flash
+        command). If the file is not found, a simple '*' is displayed to track
+        progress.
+        """
+        if not self.is_update_flash_running():
+            return cb("Error", True)
+
+        fd = None
+        try:
+            fd = os.open(tee_log_file, os.O_RDONLY)
+
+        # cannot open file, print something to let users know that the
+        # system is being upgrading until the package manager finishes its
+        # job
+        except (TypeError, OSError):
+            msgs = []
+            while self.is_update_flash_running():
+                msgs.append('*')
+                cb(''.join(msgs))
+                time.sleep(1)
+            msgs.append('\n')
+            return cb(''.join(msgs), True)
+
+        # go to the end of logfile and starts reading, if nothing is read or
+        # a pattern is not found in the message just wait and retry until
+        # the package manager finishes
+        os.lseek(fd, 0, os.SEEK_END)
+        msgs = []
+        progress = []
+        while True:
+            read = os.read(fd, 1024)
+            if not read:
+                if not self.is_update_flash_running():
+                    break
+
+                if not msgs:
+                    progress.append('*')
+                    cb(''.join(progress))
+
+                time.sleep(1)
+                continue
+
+            msgs.append(read)
+            cb(''.join(msgs))
+
+        os.close(fd)
+        return cb(''.join(msgs), True)
+
+    def lookup(self, *name):
+        if self.current_taskid == 0:
+            self.current_taskid = add_task('/plugins/ginger/fwprogress',
+                                           self.tailUpdateLogs, self.objstore,
+                                           fw_tee_log)
+        return self.task.lookup(self.current_taskid)

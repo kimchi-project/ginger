@@ -17,7 +17,7 @@
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 
-from wok.control.base import Resource
+from wok.control.base import AsyncResource, Resource
 
 
 class Firmware(Resource):
@@ -29,6 +29,18 @@ class Firmware(Resource):
         self.update_params = ['path', 'overwrite-perm-ok']
         self.commit = self.generate_action_handler('commit')
         self.reject = self.generate_action_handler('reject')
+
+    @property
+    def data(self):
+        return self.info
+
+
+class FirmwareProgress(AsyncResource):
+    def __init__(self, model, id=None):
+        super(FirmwareProgress, self).__init__(model, id)
+        self.role_key = 'administration'
+        self.uri_fmt = "/fwprogress/%s"
+        self.admin_methods = ['GET']
 
     @property
     def data(self):
