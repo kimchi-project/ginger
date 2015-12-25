@@ -76,19 +76,21 @@ service wokd restart
 %{_datadir}/wok/plugins/ginger/ui/css/base/images/*.gif
 %{_datadir}/wok/plugins/ginger/ui/css/base/images/*.png
 %{_datadir}/wok/plugins/ginger/ui/css/ginger.css
-%{_datadir}/wok/plugins/ginger/ui/js/host-admin.js
-%{_datadir}/wok/plugins/ginger/ui/js/util.js
-%{_datadir}/wok/plugins/ginger/ui/js/ginger-bootgrid.js
+%{_datadir}/wok/plugins/ginger/ui/js/*.js
 %{_datadir}/wok/plugins/ginger/ui/pages/help/ginger-help.css
-%{_datadir}/wok/plugins/ginger/ui/pages/help/en_US/host-admin.html
-%{_datadir}/wok/plugins/ginger/ui/pages/help/pt_BR/host-admin.html
-%{_datadir}/wok/plugins/ginger/ui/pages/help/zh_CN/host-admin.html
-%{_datadir}/wok/plugins/ginger/ui/pages/tabs/host-admin.html.tmpl
+%{_datadir}/wok/plugins/ginger/ui/pages/help/*/*.html
+%{_datadir}/wok/plugins/ginger/ui/pages/tabs/*.html.tmpl
 %{_datadir}/wok/plugins/ginger/ui/pages/i18n.json.tmpl
 %{_sysconfdir}/wok/plugins.d/ginger.conf
 
 
 %changelog
+* Fri Dec 25 2015 Daniel Henrique Barboza <dhbarboza82@gmail.com>
+- Changed %files to include all ui/js/*.js js files
+- Changed %files to include all ui/pages/help/*/*.html help files
+- Changed %files to include all ui/pages/tabs/*.html.tmpl tabs
+
+
 * Wed Dec 16 2015 Daniel Henrique Barboza  <dhbarboza82@gmail.com>
 - Removed 'host-admin.css' from %files
 - added 'ui/js/ginger-bootgrid.js' in %files
