@@ -257,6 +257,7 @@ messages = {
     "GINDASD0008E": _("Failed to format DASD device"),
     "GINDASD0009E": _("Require DASD device name to be formatted"),
     "GINDASD0010E": _("Require block size for formatting DASD device"),
+    "GINDASD0011E": _("Invalid bus ID, %(bus_id)s"),
 
     "GINDASDPAR0001E": _("Error in executing 'lsblk -Pbo' command"),
     "GINDASDPAR0002E": _("Error while getting block device information"),

@@ -23,7 +23,7 @@ import subprocess
 
 from parted import Device as PDevice
 from parted import Disk as PDisk
-from wok.exception import OperationFailed
+from wok.exception import InvalidParameter, OperationFailed
 from wok.utils import run_command, wok_log
 
 
@@ -349,3 +349,24 @@ def _delete_dasd_part(dev, part_id):
 def _del_part_str(part_id):
     part_str = '\nd\n' + part_id + '\n' + 'w\n'
     return part_str
+
+
+def validate_bus_id(bus_id):
+    """
+    Validate bus ID
+    :param bus_id: bus ID
+    """
+    pattern = re.compile(r'\d\.\d\.\w{4}')
+    valid = pattern.match(bus_id)
+
+    if not valid:
+        wok_log.error("Unable to validate bus ID, %s", bus_id)
+        raise InvalidParameter("GINDASD0011E", {'bus_id': bus_id})
+
+    # No need to worry about IndexError exception below becuase
+    # the regex above would have made sure we go through the
+    # split operation on the string smoothly
+    ch_len = bus_id.split(".")[-1]
+    if len(ch_len) > 4:
+        wok_log.error("Unable to validate bus ID, %s", bus_id)
+        raise InvalidParameter("GINDASD0011E", {'bus_id': bus_id})

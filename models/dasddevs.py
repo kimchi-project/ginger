@@ -59,16 +59,18 @@ class DASDdevModel(object):
         self.dev_details = {}
 
     def lookup(self, bus_id):
+        dasd_utils.validate_bus_id(bus_id)
         try:
             dasddevices = dasd_utils._get_dasd_dev_details(bus_id)
             self.dev_details = dasddevices[0]
-        except ValueError as e:
+        except IndexError as e:
             wok_log.error("DASD device %s not found." % bus_id)
             raise NotFoundError("GINDASD0006E", {'err': e})
 
         return self.dev_details
 
     def format(self, bus_id, blk_size):
+        dasd_utils.validate_bus_id(bus_id)
         woklock = threading.Lock()
         name = self.dev_details['name']
         dasd_name_list = dasd_utils._get_dasd_names()
