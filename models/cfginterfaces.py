@@ -144,7 +144,19 @@ CONST_SPACE = ' '
 class CfginterfacesModel(object):
     def get_list(self):
         nics = ethtool.get_devices()
-        return sorted(nics)
+        # To handle issue https://github.com/kimchi-project/ginger/issues/99
+        # cfginterface resource model deals with interface which has config
+        # files. remove interface from interface list if ifcfg file not exist.
+        nics_with_ifcfgfile = []
+        for iface in nics:
+            filename = ifcfg_filename_format % iface
+            fileexist = os.path.isfile(os.sep + network_configpath + filename)
+            if (not fileexist):
+                wok_log.warn('ifcfg file not exist for'
+                             ' interface :' + iface)
+            else:
+                nics_with_ifcfgfile.append(iface)
+        return sorted(nics_with_ifcfgfile)
 
     def create(self, params):
         self.validate_minimal_info(params)
