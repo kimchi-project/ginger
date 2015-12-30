@@ -41,121 +41,177 @@ Mobile Browser Support:
 Hypervisor Distro Support
 =========================
 
-Kimchi might run on any GNU/Linux distribution that meets the conditions
+Ginger might run on any GNU/Linux distribution that meets the conditions
 described on the 'Getting Started' section below.
 
-The Kimchi community makes an effort to test it with the latest versions of
-Fedora, RHEL, IBM KVM and Ubuntu.
+The Ginger community makes an effort to test it with the latest versions of
+Fedora, RHEL, IBM PowerKVM, Ubuntu and OpenSUSE.
 
 Getting Started
 ===============
 
-Install Dependencies
---------------------
+All Ginger functionalities are provided to user by Wok infra-structure.
+It's important to install Wok before any Ginger operation be enabled on
+the system. In addition, Ginger also requires that Ginger Base be installed in
+the system.
 
-**For fedora, RHEL and IBM KVM :**
+There are two ways to have Ginger and Wok + Ginger Base running together: by
+their packages (latest stable release) or by source code (development release).
 
-    $ sudo yum install  libvirt-python libvirt hddtemp \
-                        libuser-python python-augeas python-netaddr\
-                        python-ethtool python-ipaddr python-magic \
-                        pyparted gettext-devel \
+Installing From Packages
+------------------------
 
-    # For fedora, RHEL and Power ppc
-    $ sudo yum install tuned lm_sensors
+Kimchi and Ginger teams provide packages of the latest stable release of Wok,
+Ginger Base and Ginger. To install them, follow these instructions:
 
-    # Power ppc install the following packages
-    $ sudo yum install powerpc-utils serviceable.event.provider
+**For Fedora:**
 
-    # These dependencies are only required if you want to run the tests:
-    $ sudo yum install pyflakes python-pep8 python-mock
+```
+$ wget http://kimchi-project.github.io/wok/downloads/wok-2.0.0-0.fc23.noarch.rpm
+$ wget http://kimchi-project.github.io/gingerbase/downloads/ginger-base-2.0.0-0.fc23.noarch.rpm
+$ wget http://kimchi-project.github.io/ginger/downloads/ginger-2.0.0-0.fc23.noarch.rpm
+$ sudo dnf install wok-*.rpm ginger-*.rpm
+```
 
-    # For UI development
-    $ sudo yum install gcc-c++ python-devel python pip
-    $ sudo pip install cython libsass
+**For RHEL:**
 
+```
+$ wget http://kimchi-project.github.io/wok/downloads/wok-2.0.0-0.el7.noarch.rpm
+$ wget http://kimchi-project.github.io/gingerbase/downloads/ginger-base-2.0.0-0.el7.noarch.rpm
+$ wget http://kimchi-project.github.io/ginger/downloads/ginger-2.0.0-0.el7.noarch.rpm
+$ sudo yum install wok-*.rpm ginger-*.rpm
+```
 
-**For openSUSE:**
+**For Debian/Ubuntu:**
 
-    # Add repository for hddtemp:
-    $ sudo zypper ar -f http://download.opensuse.org/repositories/utilities/openSUSE_Leap_42.1/ utilities
+```
+$ wget http://kimchi-project.github.io/wok/downloads/wok-2.0.0-0.noarch.deb
+$ wget http://kimchi-project.github.io/gingerbase/downloads/ginger-base-2.0.0-0.noarch.deb
+$ wget http://kimchi-project.github.io/ginger/downloads/ginger-2.0.0-0.noarch.deb
+$ sudo dpkg -i wok-*.deb ginger-*.deb
+```
 
-    # Add repository for python-parted:
-    $ sudo zypper ar -f http://download.opensuse.org/repositories/home:/GRNET:/synnefo/openSUSE_Leap_42.1/ home_GRNET_synnefo
+**For OpenSUSE:**
 
-    # Add repository for python-ethtool:
-    $ sudo zypper ar -f http://download.opensuse.org/repositories/devel:/tools/openSUSE_Leap_42.1/ devel_tools
+```
+$ wget http://kimchi-project.github.io/wok/downloads/wok-2.0.0-0.noarch.rpm
+$ wget http://kimchi-project.github.io/gingerbase/downloads/ginger-base-2.0.0-0.noarch.rpm
+$ wget http://kimchi-project.github.io/ginger/downloads/ginger-2.0.0-0.noarch.rpm
+$ sudo zypper install wok-*.rpm ginger-*.rpm
+```
 
-    # Add repository for python-magic:
-    $ sudo zypper ar -f http://download.opensuse.org/repositories/home:/Simmphonie:/python/openSUSE_Leap_42.1/ home_Symmphonie_python
+Installing from Source Code
+---------------------------
 
-    $ sudo zypper install libvirt-python libvirt hddtemp \
-                        libuser-python python-augeas python-netaddr\
-                        python-ethtool python-ipaddr python-magic \
-                        python-parted gettext-tools \
+Before anything, it's necessary install Wok and Ginger Base dependencies. To
+install Wok dependencies, see Wok's README file at
+https://github.com/kimchi-project/wok/blob/master/docs/README.md and to install
+Ginger Base dependencies, see Ginger Base's READE file at
+https://github.com/kimchi-project/gingerbase/blob/master/docs/README.md
 
-    # These dependencies are only required if you want to run the tests:
-    $ sudo zypper install python-pyflakes python-pep8 python-requests python-mock
+To install Ginger dependencies, follow:
 
-    # For UI development
-    $ sudo zypper install python-devel python pip
-    $ sudo pip install cython libsass
+**For Fedora, RHEL and IBM PowerKVM :**
 
+```
+$ sudo yum install  libvirt-python libvirt hddtemp \
+                    libuser-python python-augeas python-netaddr\
+                    python-ethtool python-ipaddr python-magic \
+                    tuned lm_sensors
 
-**For Ubuntu (Debian-based):**
+# For IBM PowerKVM
+$ sudo yum install powerpc-utils serviceable.event.provider
 
-    $ sudo apt-get install libvirt-bin python-libvirt hddtemp \
+# These dependencies are only required if you want to run the tests:
+$ sudo yum install python-mock
+```
+
+**For Debian/Ubuntu:**
+
+```
+$ sudo apt-get install  libvirt-bin python-libvirt hddtemp \
                         python-libuser python-ethtool python-augeas \
                         python-ipaddr python-magic python-netaddr \
-                        python-parted gettext \
 
-    # These dependencies are only required if you want to run the tests:
-    $ sudo apt-get install pep8 pyflakes python-requests python-mock
+# These dependencies are only required if you want to run the tests:
+$ sudo apt-get install python-mock
+```
 
-    # For UI development
-    $ sudo apt-get install g++ python-dev python pip
-    $ sudo pip install cython libsass
+At the moment of this writing (11-30-2015), libuser has a bug that prevents it
+to work properly in Ubuntu 15.10 and older releases
+(https://bugs.launchpad.net/ubuntu/+source/libuser/+bug/1387274). A workaround
+is needed to fix this bug:
 
-At the moment of this writing (11-30-2015), libuser has a bug that
-prevents it to work properly in Ubuntu 15.10 and older
-(https://bugs.launchpad.net/ubuntu/+source/libuser/+bug/1387274).
-A workaround is needed to fix this bug:
-
+```
 $ sudo touch /etc/libuser.conf
+```
 
-This workaround is for Debian/Ubuntu only.
+**For OpenSUSE:**
 
-Build and Install
------------------
+```
+# Add repository for hddtemp:
+$ sudo zypper ar -f http://download.opensuse.org/repositories/utilities/openSUSE_Leap_42.1/utilities
 
-    Wok Framework Installation:
-    $ ./autogen.sh --system
+# Add repository for python-parted:
+$ sudo zypper ar -f http://download.opensuse.org/repositories/home:/GRNET:/synnefo/openSUSE_Leap_42.1/ home_GRNET_synnefo
 
-    $ make
-    $ sudo make install   # Optional if running from the source tree
+# Add repository for python-ethtool:
+$ sudo zypper ar -f http://download.opensuse.org/repositories/devel:/tools/openSUSE_Leap_42.1/devel_tools
 
-    Ginger Base:
-    $ cd src/wok/plugins/gingerbase
-    $ ./autogen.sh --system
+# Add repository for python-magic:
+$ sudo zypper ar -f http://download.opensuse.org/repositories/home:/Simmphonie:/python/openSUSE_Leap_42.1/ home_Symmphonie_python
 
-    $ make
-    $ sudo make install   # Optional if running from the source tree
+$ sudo zypper install libvirt-python libvirt hddtemp \
+                      libuser-python python-augeas python-netaddr\
+                      python-ethtool python-ipaddr python-magic
 
-    Ginger:
-    $ cd ginger
-    $ ./autogen.sh --system
+# These dependencies are only required if you want to run the tests:
+$ sudo zypper install python-mock
+```
 
-    $ make
-    $ sudo make install   # Optional if running from the source tree
+After install and resolve all dependencies, clone the source code of all
+projects:
+
+```
+$ git clone --recursive https://github.com/kimchi-project/wok.git
+$ cd wok
+$ git submodule update --remote
+$ ./build-all.sh
+```
+
+To run Ginger tests, execute:
+
+```
+$ cd src/wok/plugins/ginger
+$ make check-local                      # check for i18n and formatting errors
+$ sudo make check                       # execute unit tests
+```
+After all tests are executed, a summary will be displayed containing any
+errors/failures which might have occurred.
+
+Regarding UI development, make sure to update the CSS files when modifying the
+SCSS files by running:
+
+```
+$ sudo make -C ui/css css
+```
 
 Run
 ---
-    $ sudo /usr/bin/wok --host=0.0.0.0
 
-    OR
+To run Wok, Ginger Base and Ginger from the packages installed, execute:
 
-    $ sudo systemctl start wokd
+```
+$ sudo systemctl start wokd.service
+```
 
-*** Notes on Power policy management feature ***
+After compile all source codes, from the wok directory cloned, execute:
+
+```
+$ sudo ./src/wokd --host=0.0.0.0
+```
+
+**Notes on Power policy management feature**
 
 The power policy management feature uses the 'tuned' service to control the
 power policies of the host. Problems have been reported with this package,
@@ -168,37 +224,26 @@ recommend following these steps (all steps requires 'sudo' privileges):
 - put SELinux in permissive mode for 'tuned' (required if the version of the
 package 'selinux-policy' is < 3.11):
 
-$ semanage permissive -a tuned_t
+```
+$ sudo semanage permissive -a tuned_t
+```
 
 - disable the 'tuned' service from systemd and restart it by hand:
 
-$ systemctl stop tuned.service
-$ tuned -l -P -d
+```
+$ sudo systemctl stop tuned.service
+$ sudo tuned -l -P -d
+```
 
 Remember to restart wokd service after these changes:
 
-$ systemctl restart wokd.service
+```
+$ sudo systemctl restart wokd.service
+```
 
 If these steps do not solve the problem, try to update all 'tuned' related
 packages and the packages'selinux-policy' and 'selinux-policy-targeted'.
 
-
-UI Development
-----
-Make sure to update the CSS files when modifying the SCSS files by running:
-
-    $ sudo make -C ui/css css
-
-
-Test
-----
-
-    $ cd ginger
-    $ make check-local # check for i18n and formatting errors
-    $ sudo make check
-
-After all tests are executed, a summary will be displayed containing any
-errors/failures which might have occurred.
 
 Participating
 -------------
@@ -209,12 +254,12 @@ https://github.com/kimchi-project/ginger/wiki/Communications
 
 Patches should be sent using git-send-email to ginger-dev-list@googlegroups.com
 
-** Copyright notice ***
+**Copyright notice**
 
 All the .gif and .png files in 'ui/css/base/images/' directory are licensed
 as follows:
 
-----------------------------
+```
 Copyright IBM Corp, 2015
 
 This library is free software; you can redistribute it and/or
@@ -230,3 +275,4 @@ Lesser General Public License for more details.
 You should have received a copy of the GNU Lesser General Public
 License along with this library; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+```
