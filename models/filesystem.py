@@ -46,8 +46,11 @@ class FileSystemsModel(object):
 
             mount_point = params['mount_point']
 
-            fs_utils._mount_a_blk_device(blk_dev, mount_point)
-            fs_utils.make_persist(blk_dev, mount_point)
+            try:
+                fs_utils._mount_a_blk_device(blk_dev, mount_point)
+                fs_utils.make_persist(blk_dev, mount_point)
+            except Exception:
+                raise InvalidParameter("GINFS00007E")
 
             return mount_point
 
@@ -94,7 +97,14 @@ class FileSystemModel(object):
 
     def lookup(self, name):
         try:
-            return fs_utils._get_fs_info(name)
+            fs = fs_utils._get_fs_info(name)
+
+            # if not empty: return
+            if len(fs) > 0:
+                return fs
+
+            # empty: return NotFound
+            raise ValueError
 
         except ValueError:
             wok_log.error("Filesystem %s"
