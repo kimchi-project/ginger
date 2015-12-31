@@ -19,6 +19,8 @@
 
 SUBDIRS= po controls models ui contrib tests
 
+AUTOMAKE_OPTIONS = foreign
+
 ACLOCAL_AMFLAGS = --install -I m4
 
 PEP8_WHITELIST = \
