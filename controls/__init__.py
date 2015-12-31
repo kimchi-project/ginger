@@ -35,6 +35,7 @@ from sensors import Sensors
 from storage_devs import StorageDevs
 from users import Users
 from swaps import Swaps
+from sysmodules import SysModules
 from vol_group import VolumeGroups
 
 __all__ = [
@@ -42,19 +43,20 @@ __all__ = [
     Capabilities,
     DASDdevs,
     DASDPartitions,
+    FileSystems,
     Firmware,
     FirmwareProgress,
     LogicalVolumes,
     Network,
     Partitions,
-    PhysicalVolumes,
     PowerProfiles,
+    PhysicalVolumes,
     SanAdapters,
     Sensors,
     Sep,
     StorageDevs,
-    Users,
     Swaps,
-    FileSystems,
+    SysModules,
+    Users,
     VolumeGroups
     ]

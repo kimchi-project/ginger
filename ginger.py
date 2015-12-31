@@ -23,7 +23,8 @@ import os
 from controls import Backup, Capabilities, DASDdevs, DASDPartitions, Firmware
 from controls import FirmwareProgress, FileSystems, LogicalVolumes, Network
 from controls import Partitions, PhysicalVolumes, PowerProfiles, SanAdapters
-from controls import Sensors, Sep, StorageDevs, Swaps, Users, VolumeGroups
+from controls import Sensors, Sep, StorageDevs, Swaps, SysModules, Users
+from controls import VolumeGroups
 from i18n import messages
 
 from wok import config
@@ -41,6 +42,13 @@ class Ginger(WokRoot):
 
         self.model = GingerModel()
         super(Ginger, self).__init__(self.model)
+
+        self.api_schema = json.load(open(os.path.join(os.path.dirname(
+                                    os.path.abspath(__file__)), 'API.json')))
+        self.domain = "ginger"
+        self.messages = messages
+        self.paths = PluginPaths('ginger')
+
         self.backup = Backup(self.model)
         self.capabilities = Capabilities(self.model)
         self.dasddevs = DASDdevs(self.model)
@@ -48,21 +56,17 @@ class Ginger(WokRoot):
         self.filesystems = FileSystems(self.model)
         self.firmware = Firmware(self.model)
         self.fwprogress = FirmwareProgress(self.model)
+        self.ibm_sep = Sep(self.model)
         self.lvs = LogicalVolumes(self.model)
+        self.network = Network(self.model)
         self.partitions = Partitions(self.model)
         self.powerprofiles = PowerProfiles(self.model)
         self.pvs = PhysicalVolumes(self.model)
+        self.san_adapters = SanAdapters(self.model)
         self.sensors = Sensors(self.model)
         self.stgdevs = StorageDevs(self.model)
-        self.users = Users(self.model)
         self.swaps = Swaps(self.model)
-        self.network = Network(self.model)
-        self.api_schema = json.load(open(os.path.join(os.path.dirname(
-                                    os.path.abspath(__file__)), 'API.json')))
-        self.paths = PluginPaths('ginger')
-        self.domain = "ginger"
-        self.messages = messages
-        self.san_adapters = SanAdapters(self.model)
-        self.ibm_sep = Sep(self.model)
-        self.vgs = VolumeGroups(self.model)
+        self.sysmodules = SysModules(self.model)
         self.tasks = Tasks(self.model)
+        self.users = Users(self.model)
+        self.vgs = VolumeGroups(self.model)
