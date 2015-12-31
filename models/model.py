@@ -37,6 +37,7 @@ from sanadapters import SanAdapterModel, SanAdaptersModel
 from sensors import SensorsModel
 from storage_devs import StorageDevsModel
 from swaps import SwapsModel, SwapModel
+from sysmodules import SysModulesModel, SysModuleModel
 from users import UsersModel, UserModel
 from vol_group import VolumeGroupsModel, VolumeGroupModel
 
@@ -96,6 +97,8 @@ class GingerModel(BaseModel):
         san_adapter = SanAdapterModel()
         swaps = SwapsModel(objstore=self._objstore)
         swap = SwapModel()
+        sysmodules = SysModulesModel()
+        sysmodule = SysModuleModel()
         sensors = SensorsModel()
         stgdevs = StorageDevsModel()
         ibm_sep = SepModel()
@@ -109,7 +112,8 @@ class GingerModel(BaseModel):
         features = [firmware, swaps, backup, network, powerprofiles,
                     san_adapters, sensors, ibm_sep, users, filesystems,
                     dasddevs, dasdpartitions, partitions, physical_vols,
-                    vol_groups, log_volumes, stgdevs, firmwareprogress]
+                    vol_groups, log_volumes, stgdevs, firmwareprogress,
+                    sysmodules]
         capabilities = CapabilitiesModel(features)
 
         sub_models = [
@@ -129,6 +133,7 @@ class GingerModel(BaseModel):
             san_adapters, san_adapter,
             sensors, stgdevs,
             swaps, swap,
+            sysmodules, sysmodule,
             vol_groups, vol_group,
             ibm_sep, subscription, subscriber,
             capabilities]

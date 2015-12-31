@@ -1,0 +1,193 @@
+#
+# Project Ginger
+#
+# Copyright IBM, Corp. 2015
+#
+# This library is free software; you can redistribute it and/or
+# modify it under the terms of the GNU Lesser General Public
+# License as published by the Free Software Foundation; either
+# version 2.1 of the License, or (at your option) any later version.
+#
+# This library is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# Lesser General Public License for more details.
+#
+# You should have received a copy of the GNU Lesser General Public
+# License along with this library; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
+
+
+from wok.exception import NotFoundError, OperationFailed
+from wok.utils import run_command, wok_log
+
+
+def parse_lsmod_output(lsmod_output):
+    """
+    Sample lsmod output:
+
+Module                  Size  Used by
+vfio_pci               32768  0
+vfio_iommu_type1       20480  0
+vfio_virqfd            16384  1 vfio_pci
+vfio                   24576  2 vfio_iommu_type1,vfio_pci
+loop                   28672  0
+rfcomm                 69632  14
+    """
+    lines = lsmod_output.strip().rstrip().split('\n')
+    lines = lines[1:]
+    modules_array = []
+    for line in lines:
+        tokens = line.split()
+        module_stats = {
+            'name': tokens[0],
+            'size': tokens[1],
+            'used_by': tokens[2],
+        }
+        if len(tokens) == 4:
+            used_by_loaded = tokens[3].split(',')
+            module_stats['used_by_loaded'] = used_by_loaded
+
+        modules_array.append(module_stats)
+    return modules_array
+
+
+def parse_modinfo_0_output(modinfo_output):
+    """
+    Sample modinfo -0 output (single line output, lines are separated by
+\0):
+
+filename:  /lib/modules/4.2.8-300.fc23.x86_64/kernel/net/tipc/tipc.ko.xz\0
+version=2.0.0\0 license=Dual BSD/GPL\0
+description=TIPC: Transparent Inter Process Communication\0
+srcversion=D8C4AF100F6EA6984637AD1depends=udp_tunnel,ip6_udp_tunnel\0
+intree=Yvermagic=4.2.8-300.fc23.x86_64 SMP mod_unload\0
+signer=Fedora kernel signing key\0
+sig_key=89:CE:AF:53:80:B1:D1:50:40:56:CB:00:AA:3C:46:34:6B:EB:2E:05\0
+sig_hashalgo=sha256\0
+    """
+    lines = modinfo_output.strip().rstrip().split('\0')
+    modinfo_dict = {}
+
+    filename_line = lines[0].split()
+    modinfo_dict['filename'] = filename_line[1]
+
+    modinfo_dict['aliases'] = []
+    modinfo_dict['authors'] = []
+    modinfo_dict['parms'] = []
+    dict_attr_to_array = {
+       'alias': 'aliases', 'author': 'authors', 'parm': 'parms'
+    }
+
+    lines = lines[1:]
+    for line in lines:
+        tokens = line.split('=', 1)
+        attr_name = tokens[0]
+
+        if attr_name == '':
+            continue
+
+        if 'parm:' in attr_name:
+            tokens = line.split(':', 1)
+            attr_name = tokens[0]
+
+        attr_value = None
+        if len(tokens) == 2:
+            attr_value = tokens[1]
+
+        if attr_name in ['alias', 'author', 'parm']:
+            attr_name = dict_attr_to_array[attr_name]
+            modinfo_dict[attr_name].append(attr_value.strip())
+
+        elif attr_name == 'depends':
+            deps = []
+            if len(tokens) == 2:
+                deps = attr_value.split(',')
+                if deps == ['']:
+                    deps = []
+            modinfo_dict['depends'] = deps
+
+        else:
+            modinfo_dict[attr_name] = attr_value.rstrip()
+
+    return modinfo_dict
+
+
+def get_lsmod_output():
+    out, err, returncode = run_command(['lsmod'])
+    if returncode != 0:
+        raise OperationFailed('GINSYSMOD00001E', {'err': err})
+    else:
+        return out
+
+
+def get_modinfo_0_output(module_name):
+    out, err, returncode = run_command(['modinfo', '-0', module_name])
+    if returncode != 0:
+        if 'not found' in err:
+            raise NotFoundError('GINSYSMOD00002E', {'module': module_name})
+        else:
+            raise OperationFailed(
+                'GINSYSMOD00003E',
+                {'err': err, 'module': module_name}
+            )
+    else:
+        return out
+
+
+def load_kernel_module(module_name, parms=None):
+    cmd = ['modprobe', module_name]
+    if parms:
+        cmd += parms
+    out, err, returncode = run_command(cmd)
+    if returncode != 0:
+        if 'not found' in err:
+            raise NotFoundError('GINSYSMOD00002E', {'module': module_name})
+        else:
+            raise OperationFailed(
+                'GINSYSMOD00004E',
+                {'err': err, 'module': module_name}
+            )
+
+
+def unload_kernel_module(module_name):
+    out, err, returncode = run_command(['modprobe', '-r', module_name])
+    if returncode != 0:
+        if 'not found' in err:
+            raise NotFoundError('GINSYSMOD00002E', {'module': module_name})
+        else:
+            raise OperationFailed(
+                'GINSYSMOD00005E',
+                {'err': err, 'module': module_name}
+            )
+
+
+class SysModulesModel(object):
+
+    def create(self, params):
+        parms = None
+        if 'parms' in params:
+            parms = params['parms'].split()
+        module_name = params['name']
+        load_kernel_module(module_name, parms)
+        wok_log.info('Kernel module %s loaded.' % module_name)
+        return module_name
+
+    def get_list(self):
+        modules = parse_lsmod_output(get_lsmod_output())
+        mod_names = []
+        for mod in modules:
+            mod_names.append(mod['name'])
+        return mod_names
+
+
+class SysModuleModel(object):
+
+    def lookup(self, name):
+        modinfo_dict = parse_modinfo_0_output(get_modinfo_0_output(name))
+        modinfo_dict['name'] = name
+        return modinfo_dict
+
+    def delete(self, name):
+        unload_kernel_module(name)
+        wok_log.info('Kernel module %s unloaded.' % name)
