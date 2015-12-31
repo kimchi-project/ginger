@@ -268,6 +268,12 @@ messages = {
     "GINDASDPAR0009E": _("Failed to retrieve details of the specified DASD partition"),
     "GINDASDPAR0010E": _("Failed to delete partition"),
 
+    "GINSYSMOD00001E": _("Error getting loaded module list: %(err)s"),
+    "GINSYSMOD00002E": _("Module %(module)s not found."),
+    "GINSYSMOD00003E": _("Error fetching info of module %(module)s, reason: %(err)s"),
+    "GINSYSMOD00004E": _("Error loading module %(module)s, reason: %(err)s"),
+    "GINSYSMOD00004E": _("Error unloading module %(module)s, reason: %(err)s"),
+
     "GINSD00001E": _("Error executing 'ls -l /dev/disk/by-id, %(err)s"),
     "GINSD00002E": _("Error executing 'lsblk -Po, %(err)s"),
     "GINSD00003E": _("Error parsing 'ls -l /dev/disk/by-id', %(err)s"),
