@@ -192,5 +192,7 @@ class SensorsModel(object):
         return {'sensors': sensors, 'hdds': hdds}
 
     def is_feature_available(self):
-        output, error, returncode = run_command(['sensors', '-u'])
-        return returncode == 0
+        _, _, rc1 = run_command(['sensors', '-u'])
+        _, _, rc2 = run_command(['hddtemp'])
+
+        return rc1 == 0 | rc2 == 0
