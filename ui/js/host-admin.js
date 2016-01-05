@@ -258,8 +258,8 @@ ginger.initPowerMgmt = function() {
 
     $(".actBtn", "#gingerPowerMgmt").on("click", function(event) {
         $(".actBtn", "#gingerPowerMgmt").prop('disabled', true);
-        var currentSelected = $('.' + selectedClass, $(".body", "#gingerPowerMgmt"));
-        var toBeSelected = $('.' + onSelectClass, $(".body", "#gingerPowerMgmt"));
+        var currentSelected = $('.' + selectedClass, $(".pw-opt", "#gingerPowerMgmt"));
+        var toBeSelected = $('.' + onSelectClass, $(".pw-opt", "#gingerPowerMgmt"));
         var optName = $(":last-child", toBeSelected.parent()).html();
         $("#progressIndicator", ".ginger .host-admin").addClass("wok-loading-icon");
         $(".actBtn", "#gingerPowerMgmt").prop('disabled', true);
