@@ -65,7 +65,7 @@ def _parse_lsdasd_output(output):
         len_dasd = len(split_out)-1
         for i in split_out[:len_dasd]:
             fs_dict = {}
-            p = re.compile("^\s+(\w+)\:\s+(\w+\/?\.?\w*\.?\w*\.?\w*)$")
+            p = re.compile(r'^\s+(\w+)\:\s+(.+)$')
             parsed_out = i.splitlines()
             first_spl = i.splitlines()[0].split("/")
             fs_dict['bus-id'] = first_spl[0]
@@ -79,6 +79,8 @@ def _parse_lsdasd_output(output):
                 if fs_dict['status'] == 'n/f':
                     fs_dict['blksz'] = 'None'
                     fs_dict['blocks'] = 'None'
+            if fs_dict['size'] == '\t':
+                fs_dict['size'] = 'Unknown'
             out_list.append(fs_dict)
     except:
         wok_log.error("Parsing lsdasd output failed")
