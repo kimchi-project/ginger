@@ -32,6 +32,9 @@ class SensorsModel(object):
     The model class for polling host sensor data
     """
 
+    def _get_default_temperature_unit(self):
+        return cherrypy.request.app.config['unit']['temperature']
+
     def lookup(self, params):
         def convert_units(dev_name, sensor_line, temperature_unit):
             """
@@ -178,8 +181,7 @@ class SensorsModel(object):
         #   the setting stored in the config file is what everyone will
         #   see, and the UI will not bounce between 'C' and 'F' if
         #   a lot of querying is going on from different sources.
-        self.temperature_unit =\
-            cherrypy.request.app.config['unit']['temperature']
+        self.temperature_unit = self._get_default_temperature_unit()
         override_unit = None
         if params is not None:
             override_unit = params.get('temperature_unit')
