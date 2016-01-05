@@ -502,7 +502,7 @@ ginger.initUserManagement = function() {
         });
         $(".modal-body .inputbox").keyup(function() {
             var sum = 0;
-            $(".modal-body .inputbox").each(function(index, data) {
+            $(".modal-body .inputbox").not("[name='userGroup']").each(function(index, data) {
                 if ($(data).val() === "") {
                     sum += 1;
                 }
@@ -529,9 +529,13 @@ ginger.initUserManagement = function() {
             var dataSubmit = {
                 name: userName,
                 password: userPasswd,
-                group: userGroup,
                 profile: userProfile
             };
+            if ($("#enableEditGroup").prop('checked')) {
+                dataSubmit['group'] = userGroup;
+            } else {
+                dataSubmit['group'] = userName;
+            }
             if (userPasswd === userConfirmPasswd) {
                 ginger.addUser(dataSubmit, function() {
                     $('#hostUserAdd').modal('hide');
