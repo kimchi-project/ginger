@@ -73,14 +73,17 @@ class BackupModel(object):
                                                             ar['identity'])
 
 
+def get_tar_create_timeout():
+    return int(cherrypy.request.app.config['backup']['timeout'])
+
+
 def _tar_create_archive(directory_path, archive_id, include, exclude):
     archive_file = os.path.join(directory_path, archive_id + '.tar.gz')
     exclude = ['--exclude=' + toExclude for toExclude in exclude]
     cmd = ['tar', '--create', '--gzip',
            '--absolute-names', '--file', archive_file,
            '--selinux', '--acl', '--xattrs'] + exclude + include
-    timeout = int(cherrypy.request.app.config['backup']['timeout'])
-    out, err, rc = run_command(cmd, timeout)
+    out, err, rc = run_command(cmd, get_tar_create_timeout())
     if rc != 0:
         raise OperationFailed(
             'GINHBK0001E', {'name': archive_file, 'cmd': ' '.join(cmd)})
