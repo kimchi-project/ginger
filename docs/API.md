@@ -494,7 +494,6 @@ URI: /plugins/ginger/dasddevs/*:bus_id*
 
         * status: Status of the DASD device:
         * active: dasd device is in active state
-        * n/f: dasd device is in unformatted state
         * blocks: Number of blocks.
         * name:  Name of DASD device.
         * uid: uid of DASD device.
