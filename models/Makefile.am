@@ -37,6 +37,7 @@ models_PYTHON = \
 	sanadapters.py \
 	sensors.py \
 	storage_devs.py \
+	sysmodules.py \
 	users.py \
 	swaps.py \
 	utils.py \
