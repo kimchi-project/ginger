@@ -150,13 +150,13 @@ $ sudo touch /etc/libuser.conf
 
 ```
 # Add repository for hddtemp:
-$ sudo zypper ar -f http://download.opensuse.org/repositories/utilities/openSUSE_Leap_42.1/utilities
+$ sudo zypper ar -f http://download.opensuse.org/repositories/utilities/openSUSE_Leap_42.1/ utilities
 
 # Add repository for python-parted:
 $ sudo zypper ar -f http://download.opensuse.org/repositories/home:/GRNET:/synnefo/openSUSE_Leap_42.1/ home_GRNET_synnefo
 
 # Add repository for python-ethtool:
-$ sudo zypper ar -f http://download.opensuse.org/repositories/devel:/tools/openSUSE_Leap_42.1/devel_tools
+$ sudo zypper ar -f http://download.opensuse.org/repositories/systemsmanagement:/spacewalk/openSUSE_Leap_42.1/ spacewalk
 
 # Add repository for python-magic:
 $ sudo zypper ar -f http://download.opensuse.org/repositories/home:/Simmphonie:/python/openSUSE_Leap_42.1/ home_Symmphonie_python
