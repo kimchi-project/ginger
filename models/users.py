@@ -247,10 +247,17 @@ class UserModel(object):
             wok_log.error('User "%s" does not exist', user)
             raise OperationFailed('GINUSER0011E', {'user': user})
 
+        group_name = None
+        try:
+            group_name = grp.getgrgid(user_info.pw_gid).gr_name
+
+        except KeyError:
+            group_name = str(user_info.pw_gid)
+
         return {"name": user,
                 "uid": user_info.pw_uid,
                 "gid": user_info.pw_gid,
-                "group": grp.getgrgid(user_info.pw_gid).gr_name,
+                "group": group_name,
                 "profile": self._get_user_profile(user)}
 
     def _get_user_profile(self, user):
