@@ -267,6 +267,9 @@ class CfginterfacesModel(object):
             wok_log.error('Slave info is missing')
             raise MissingParameter("GINNET0036E")
 
+    def is_feature_available(self):
+        return os.path.isdir(os.sep + network_configpath)
+
 
 class CfginterfaceModel(object):
     def __init__(self):

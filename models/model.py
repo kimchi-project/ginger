@@ -113,7 +113,7 @@ class GingerModel(BaseModel):
                     san_adapters, sensors, ibm_sep, users, filesystems,
                     dasddevs, dasdpartitions, partitions, physical_vols,
                     vol_groups, log_volumes, stgdevs, firmwareprogress,
-                    sysmodules]
+                    sysmodules, cfginterfaces]
         capabilities = CapabilitiesModel(features)
 
         sub_models = [
