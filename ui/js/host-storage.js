@@ -238,14 +238,21 @@ ginger.loadSanAdapters = function() {
     }
     ginger.loadBootgridData("SanAdaptersGrid", result);
   });
+
   ginger.getPlugins(function(result){
     if ((ginger.hostarch == "s390x") && ($.inArray("gingers390x", result) != -1)) {
       var actionButtonHtml = '<div class="btn-group">' +
-        '<button class="btn btn-primary fa fa-plus-circle" type="submit" id="add-san-button" aria-expanded="false" disabled="true">' + i18n['GINTITLE0020M'] + '</button>' +
+        '<button class="btn btn-primary" id="add-san-button" aria-expanded="false"><i class="fa fa-plus-circle"></i>' + i18n['GINTITLE0020M'] + '</button>' +
         '</div>';
       $(actionButtonHtml).appendTo('#san-adapter-add');
       }
+
+    $('#add-san-button').on('click', function() {
+      wok.window.open('plugins/gingers390x/fcpsanadapter.html');
+    });
   });
+
+
 };
 
 ginger.loadFcpTapeDevices = function() {
@@ -298,8 +305,9 @@ ginger.loadFcpTapeDevices = function() {
     ginger.loadBootgridData("fcptapeDevicesGrid", result);
   });
 };
+
 ginger.loadStorageActionButtons = function(){
-var addButton =[
+  var addButton =[
     {
         id:'sd-add-FCP-button',
         class: 'fa fa-plus-circle',
@@ -313,17 +321,19 @@ var addButton =[
         class: 'fa fa-plus-circle',
         label: 'Add ECKD Device',
         onClick: function(event) {
+          wok.window.open('plugins/gingers390x/eckd.html');
         }
     },
-    {
-        id:'sd-add-iSCSI-button',
-        class: 'fa fa-plus-circle',
-        label: 'Add iSCSI',
-        onClick: function(event) {
-        }
-}];
+    // {
+    //     id:'sd-add-iSCSI-button',
+    //     class: 'fa fa-plus-circle',
+    //     label: 'Add iSCSI',
+    //     onClick: function(event) {
+    //     }
+    // }
+  ];
 
-var actionButton = [
+  var actionButton = [
     {
         id:'sd-format-button',
         class: 'fa fa-pencil-square-o',
