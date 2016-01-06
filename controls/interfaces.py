@@ -37,7 +37,7 @@ class Interface(Resource):
 
     @property
     def data(self):
-        return {'name': self.ident,
+        return {'device': self.ident,
                 'type': self.info['type'],
                 'ipaddr': self.info['ipaddr'],
                 'netmask': self.info['netmask'],

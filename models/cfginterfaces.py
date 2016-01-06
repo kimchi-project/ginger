@@ -182,7 +182,12 @@ class CfginterfacesModel(object):
         self.validate_info_for_vlan(params)
         self.validate_vlan_driver()
         vlanid = str(params[BASIC_INFO][VLANINFO][VLANID])
-        name = "vlan" + vlanid.zfill(4)
+        if platform.machine() == ARCH_S390:
+            name = params[BASIC_INFO][VLANINFO][PHYSDEV].replace("ccw", "").\
+                       replace(".", "") + "." + vlanid.zfill(4)
+        else:
+            name = params[BASIC_INFO][VLANINFO][PHYSDEV] + "." + \
+                   vlanid.zfill(4)
         params[BASIC_INFO][NAME] = name
         params[BASIC_INFO][DEVICE] = name
         parent_iface = params[BASIC_INFO][VLANINFO][PHYSDEV]

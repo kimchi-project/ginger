@@ -192,7 +192,7 @@ def get_interface_type(iface):
     # want to expose this 4 kinds of interface
     try:
         if is_nic(iface):
-            return "nic"
+            return "ethernet"
         if is_bonding(iface):
             return "bonding"
         if is_bridge(iface):
@@ -215,7 +215,7 @@ def get_interface_info(iface):
         netmask = ethtool.get_netmask(iface)
     except IOError:
         pass
-    return {'name': iface,
+    return {'device': iface,
             'type': get_interface_type(iface),
             'status': link_detected(iface),
             'ipaddr': ipaddr,
