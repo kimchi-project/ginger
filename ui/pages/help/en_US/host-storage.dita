@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Copyright IBM Corp, 2015
+
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
+-->
+<!--Arbortext, Inc., 1988-2011, v.4002-->
+<!DOCTYPE cshelp PUBLIC "-//IBM//DTD DITA CSHelp//EN"
+ "..\dtd\cshelp.dtd">
+<?Pub Sty _display FontColor="red"?>
+<?Pub Inc?>
+<!--This DITA specialized document type is not supported by the Authoring Tools development team.
+Press the F1 key for online help on the tags and see the DITA XML Guide and Reference for how to use this document type.
+For support please see:
+https://w3.opensource.ibm.com/projects/dita-cshelp/-->
+<cshelp id="storage" xml:lang="en-us">
+<title>Storage</title>
+<shortdesc>The <wintitle>Storage</wintitle> page shows information
+about host system storage information.</shortdesc>
+<csbody>
+<p>Use these sections to configure storage of the host system.</p>
+<dl><dlentry>
+<dt>Volume Group</dt>
+<dd>LVM (logical volume management) provides a method of allocating space on mass-storage devices that is more flexible than conventional partitioning schemes.</dd>
+<dd>Supporting operations on Volume Groups.</dd>
+<dd>* Listing</dd>
+</dlentry>
+<dlentry>
+<dt>File Systems</dt>
+<dd>File system used to control how data stored and retrieved from storage device.</dd>
+<dd>* Listing </dd>
+</dlentry>
+<dlentry>
+<dt>Swap Devices</dt>
+<dd>Swap device is repository of memory segments that are paged out of physical RAM. Swap space can be of partition of file.</dd>
+<dd>* Listing </dd>
+</dlentry>
+<dlentry>
+<dt>Storage Devices</dt>
+<dd>Storage device is any computing hardware that is used for storing, porting and extracting data files and objects.</dd>
+<dd>* Listing FCP/ECKD (DASD) devices</dd>
+<dd>* Format ECKD</dd>
+<dd>* Remove</dd>
+<dd>* ADD ECKD</dd>
+<dd>* ADD FCP</dd>
+</dlentry>
+<dlentry>
+<dt>FCP Tape Devices</dt>
+<dd>FCP Tape device is any computing hardware that is used for storing, porting and extracting data files and objects. This feature is available for s390x architecture.</dd>
+<dd>* Listing FCP Tape devices</dd>
+</dlentry>
+<dlentry>
+<dt>SAN Adapters</dt>
+<dd>A SAN Adapter is IO device used to connect to the remote SAN storage devices. This feature is available for s390x architecture.</dd>
+<dd>* Listing SAN Adapters</dd>
+<dd>* Add SAN Adapter</dd>
+</dlentry>
+</dl><?Pub Caret 2101?>
+</csbody>
+</cshelp>
+<?Pub *0000003732?>
