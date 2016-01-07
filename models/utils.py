@@ -26,7 +26,7 @@ import subprocess
 from parted import Device as PDevice
 from parted import Disk as PDisk
 
-from wok.exception import OperationFailed
+from wok.exception import NotFoundError, OperationFailed
 from wok.utils import run_command, wok_log
 from wok.plugins.gingerbase.disks import _get_dev_major_min
 from wok.plugins.gingerbase.disks import _get_dev_node_path
@@ -130,7 +130,16 @@ def _get_swap_output(device_name):
     """
     out, err, rc = run_command(["grep", "-w", device_name, "/proc/swaps"])
 
-    if rc != 0:
+    if rc == 1:
+        wok_log.error("Single swap device %s not found.", device_name)
+        raise NotFoundError("GINSP00018E", {'swap': device_name})
+
+    elif rc == 2:
+        wok_log.error("Unable to get single swap device info: /proc/swaps "
+                      "dir not found.")
+        raise OperationFailed("GINSP00019E")
+
+    elif rc != 0:
         wok_log.error("Unable to get single swap device info. %s", device_name)
         raise OperationFailed("GINSP00015E", {'err': err})
 

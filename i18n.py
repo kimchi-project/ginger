@@ -1,5 +1,5 @@
 #
-# Project Ginger
+# Projact Ginger
 #
 # Copyright IBM, Corp. 2014
 #
@@ -197,6 +197,8 @@ messages = {
     "GINSP00015E": _("Unable to get single swap device info. %(err)s"),
     "GINSP00016E": _("Unable to activate swap device. %(err)s"),
     "GINSP00017E": _("No partitions found for disk . %(disk)s"),
+    "GINSP00018E": _("Single swap device %(swap)s not found."),
+    "GINSP00019E": _("Unable to get single swap device info: directory /proc/swaps not found."),
 
     "GINPART00001E": _("Fetching list of partitions failed"),
     "GINPART00002E": _("Create partition failed"),
