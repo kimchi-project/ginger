@@ -771,3 +771,33 @@ of all available modules, not just the loaded ones. At this moment there is no a
 
 * **DELETE**: Unload a loaded kernel module using modprobe -r.
 * Returns: nothing.
+
+### Collection: Users
+
+**URI:** /plugins/ginger/users
+
+**Methods:**
+
+* **GET**: Retrieve the list of users of the current host
+    * profile: user role in Wok (kimchiuser, virtuser, admin)
+    * gid: group user id
+    * uid: user id
+    * group: group name
+    * name: user name
+
+* **POST**: Create a new user
+    * profile: user role in Wok:
+        * kimchiuser: user with no admin rights, disabled login
+        * admin: user with admin rights (added to sudoers)
+        * virtuser: user added to kvm group
+    * name: user name
+    * password: user password
+    * group: user group
+
+### Resource: User
+
+**URI:** /plugins/ginger/users/*:name*
+
+**Methods**
+
+* **DELETE**: delete the given user
