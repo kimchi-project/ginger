@@ -75,7 +75,7 @@ class PhysicalVolumeTests(unittest.TestCase):
         self.assertEqual(pv_out['PV UUID'],
                          'NMLPlg-ozfg-pFuJ-Q0ld-rvqb-KAda-4MywSM')
 
-    @mock.patch('wok.plugins.ginger.models.utils.run_command')
+    @mock.patch('wok.plugins.ginger.models.utils.run_command', autospec=True)
     def test_utils_remove_pv_returns_404_if_vol_not_found(
             self, mock_run_command):
 
@@ -88,8 +88,8 @@ class PhysicalVolumeTests(unittest.TestCase):
                 ['pvremove', '-f', 'fake_dev']
             )
 
-    @mock.patch('wok.plugins.ginger.models.utils.run_command')
-    def test_utils_remove_pv_returns_500_in_unknown_error(
+    @mock.patch('wok.plugins.ginger.models.utils.run_command', autospec=True)
+    def test_utils_remove_pv_returns_500_if_unknown_error(
             self, mock_run_command):
 
         mock_run_command.return_value = ['', '', 1]
@@ -99,4 +99,34 @@ class PhysicalVolumeTests(unittest.TestCase):
             utils._remove_pv('fake_dev')
             mock_run_command.assert_called_once_with(
                 ['pvremove', '-f', 'fake_dev']
+            )
+
+    @mock.patch('wok.plugins.ginger.models.utils.run_command', autospec=True)
+    def test_utils_pvdisplay_returns_404_if_vol_not_found(
+            self, mock_run_command):
+
+        mock_run_command.return_value = [
+            '',
+            'Failed to find device for physical volume',
+            5
+        ]
+
+        expected_error = "GINPV00011E: GINPV00011E"
+        with self.assertRaisesRegexp(NotFoundError, expected_error):
+            utils._pvdisplay_out('fake_dev')
+            mock_run_command.assert_called_once_with(
+                ['pvdisplay', 'fake_dev']
+            )
+
+    @mock.patch('wok.plugins.ginger.models.utils.run_command', autospec=True)
+    def test_utils_pvdisplay_returns_500_if_unknown_error(
+            self, mock_run_command):
+
+        mock_run_command.return_value = ['', '', 1]
+
+        expected_error = "GINPV00007E: GINPV00007E"
+        with self.assertRaisesRegexp(OperationFailed, expected_error):
+            utils._pvdisplay_out('fake_dev')
+            mock_run_command.assert_called_once_with(
+                ['pvdisplay', 'fake_dev']
             )

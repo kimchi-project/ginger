@@ -359,8 +359,14 @@ def _pvdisplay_out(name):
     :return:
     """
     out, err, rc = run_command(["pvdisplay", name])
-    if rc != 0:
-        raise OperationFailed("GINPV00007E", {'err': err})
+
+    if rc == 5 and 'Failed to find device' in err:
+        raise NotFoundError("GINPV00011E", {'dev': name})
+
+    elif rc != 0:
+        raise OperationFailed("GINPV00007E",
+                              {'dev': name, 'err': err})
+
     return parse_pvdisplay_output(out)
 
 

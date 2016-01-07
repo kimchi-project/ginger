@@ -219,10 +219,12 @@ messages = {
     "GINPV00004E": _("Failed to fetch PV details"),
     "GINPV00005E": _("Failed to delete PV"),
     "GINPV00006E": _("pvs command failed"),
-    "GINPV00007E": _("pvdisplay command failed"),
+    "GINPV00007E": _("Unable to get information of device %(dev)s, error: %(err)s"),
     "GINPV00008E": _("pvcreate command failed"),
     "GINPV00009E": _("Remove failed: error: %(err)s"),
     "GINPV00010E": _("Remove failed: device %(dev)s not found."),
+    "GINPV00011E": _("Unable to find device %(dev)s ."),
+
 
     "GINVG00001E": _("Failed to create VG"),
     "GINVG00002E": _("Failed to list VGs"),
