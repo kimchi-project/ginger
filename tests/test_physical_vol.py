@@ -22,7 +22,7 @@ import unittest
 import wok.plugins.ginger.models.physical_vol as physical_vol
 
 from wok import config
-from wok.exception import MissingParameter
+from wok.exception import MissingParameter, NotFoundError, OperationFailed
 from wok.objectstore import ObjectStore
 from wok.plugins.ginger.models import utils
 
@@ -74,3 +74,29 @@ class PhysicalVolumeTests(unittest.TestCase):
         self.assertEqual(pv_out['Allocatable'], 'NO')
         self.assertEqual(pv_out['PV UUID'],
                          'NMLPlg-ozfg-pFuJ-Q0ld-rvqb-KAda-4MywSM')
+
+    @mock.patch('wok.plugins.ginger.models.utils.run_command')
+    def test_utils_remove_pv_returns_404_if_vol_not_found(
+            self, mock_run_command):
+
+        mock_run_command.return_value = ['', '  Device fake_dev not found', 5]
+
+        expected_error = "GINPV00010E: GINPV00010E"
+        with self.assertRaisesRegexp(NotFoundError, expected_error):
+            utils._remove_pv('fake_dev')
+            mock_run_command.assert_called_once_with(
+                ['pvremove', '-f', 'fake_dev']
+            )
+
+    @mock.patch('wok.plugins.ginger.models.utils.run_command')
+    def test_utils_remove_pv_returns_500_in_unknown_error(
+            self, mock_run_command):
+
+        mock_run_command.return_value = ['', '', 1]
+
+        expected_error = "GINPV00009E: GINPV00009E"
+        with self.assertRaisesRegexp(OperationFailed, expected_error):
+            utils._remove_pv('fake_dev')
+            mock_run_command.assert_called_once_with(
+                ['pvremove', '-f', 'fake_dev']
+            )
