@@ -403,8 +403,13 @@ def _remove_pv(name):
     :return:
     """
     out, err, rc = run_command(["pvremove", "-f", name])
-    if rc != 0:
+
+    if rc == 5 and 'Device %s not found' % name in err:
+        raise NotFoundError("GINPV00010E", {'dev': name})
+
+    elif rc != 0:
         raise OperationFailed("GINPV00009E", {'err': err})
+
     return
 
 

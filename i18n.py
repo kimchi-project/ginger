@@ -221,7 +221,8 @@ messages = {
     "GINPV00006E": _("pvs command failed"),
     "GINPV00007E": _("pvdisplay command failed"),
     "GINPV00008E": _("pvcreate command failed"),
-    "GINPV00009E": _("pvremove command failed"),
+    "GINPV00009E": _("Remove failed: error: %(err)s"),
+    "GINPV00010E": _("Remove failed: device %(dev)s not found."),
 
     "GINVG00001E": _("Failed to create VG"),
     "GINVG00002E": _("Failed to list VGs"),
