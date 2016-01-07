@@ -23,7 +23,7 @@ import unittest
 import wok.plugins.ginger.models.swaps as swaps
 
 from wok import config
-from wok.exception import InvalidParameter
+from wok.exception import InvalidParameter, NotFoundError, OperationFailed
 from wok.objectstore import ObjectStore
 from wok.plugins.ginger.models import utils
 
@@ -156,3 +156,37 @@ class SwapTests(unittest.TestCase):
 """
         dev_list = utils._get_swapdev_list_parser(input_text)
         self.assertEqual(dev_list[0], '/myswap')
+
+    @mock.patch('wok.plugins.ginger.models.utils.run_command')
+    def test_swap_output_returns_404_when_device_not_found(self,
+                                                           mock_run_command):
+        mock_run_command.return_value = ["", "", 1]
+
+        with self.assertRaises(NotFoundError):
+            utils._get_swap_output('fake_device_name')
+            cmd = ['grep', '-w', 'fake_device_name', '/proc/swaps']
+            mock_run_command.assert_called_once_with(cmd)
+
+    @mock.patch('wok.plugins.ginger.models.utils.run_command')
+    def test_swap_output_returns_500_when_system_dir_not_found(
+            self, mock_run_command):
+
+        mock_run_command.return_value = ["", "", 2]
+
+        expected_error_msg = "GINSP00019E: GINSP00019E"
+        with self.assertRaisesRegexp(OperationFailed, expected_error_msg):
+            utils._get_swap_output('valid_device_name')
+            cmd = ['grep', '-w', 'valid_device_name', '/proc/swaps']
+            mock_run_command.assert_called_once_with(cmd)
+
+    @mock.patch('wok.plugins.ginger.models.utils.run_command')
+    def test_swap_output_returns_500_when_unknown_error_occurs(
+            self, mock_run_command):
+
+        mock_run_command.return_value = ["", "", 9]
+
+        expected_error_msg = "GINSP00015E: GINSP00015E"
+        with self.assertRaisesRegexp(OperationFailed, expected_error_msg):
+            utils._get_swap_output('fake_device_name')
+            cmd = ['grep', '-w', 'fake_device_name', '/proc/swaps']
+            mock_run_command.assert_called_once_with(cmd)
