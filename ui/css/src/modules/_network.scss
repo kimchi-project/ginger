@@ -209,3 +209,66 @@
     text-align: center;
   }
 }
+
+#nw-settings-window .tab-content {
+  height: 559px;
+  overflow: auto;
+}
+
+#form-nw-settings-ipv4,
+#form-nw-settings-general,
+#form-nw-settings-ipv6,
+#form-nw-settings-advance,
+#form-nw-vlan-ipv4,
+#form-nw-vlan-general,
+#form-nw-vlan-ipv6,
+#form-nw-vlan-advance {
+  margin: 15px 0 0;
+  width:98%;
+}
+
+#nw-settings-window,
+#nw-vlan-window {
+  .tab-content {
+  height: 559px;
+  overflow: auto;
+  }
+  .tab-content .tab-pane {
+    position: relative;
+  }
+}
+
+#nw-settings-tabs,
+#nw-vlan-tabs {
+  .form-horizontal .control-label {
+  text-align: left;
+  padding-top:0px;
+  }
+  .bootgrid-table {
+    height: 140px;
+    width: 99%;
+    margin-left: 1%;
+    th > .column-header-anchor > .icon {
+      right: 40%;
+    }
+    thead {
+      display: block;
+      width: 100%;
+      padding: 0;
+    }
+    tbody {
+      height: 120px;
+      overflow: auto;
+      position: absolute;
+      width: 99%;
+      border: 1px solid #eee;
+    }
+    tr {
+      width: 100%;
+      display: inline-table;
+    }
+    th {
+      background-color: #eee;
+    }
+  }
+}

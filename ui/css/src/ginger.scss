@@ -143,7 +143,15 @@
     display: none;
 }
 
-// New-Ui
+.ginger {
+  div.modal-footer {
+    background-color: #008abf;
+  }
+  .modal-body .nav-tabs > li.active > a, .modal-body .nav-tabs > li.active > a:hover, .modal-body .nav-tabs > li.active > a:focus{
+    border-color:-moz-use-text-color -moz-use-text-color #008abf;
+  }
+}
+
 @import "modules/administration";
 @import "modules/network";
 @import "modules/storage";

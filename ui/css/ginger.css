@@ -149,6 +149,14 @@
   display: none;
 }
 
+.ginger div.modal-footer {
+  background-color: #008abf;
+}
+
+.ginger .modal-body .nav-tabs > li.active > a, .ginger .modal-body .nav-tabs > li.active > a:hover, .ginger .modal-body .nav-tabs > li.active > a:focus {
+  border-color: -moz-use-text-color -moz-use-text-color #008abf;
+}
+
 #administration-root-container .accordion {
   margin: 12px 20px 12px 60px;
   padding-bottom: 18px;
@@ -861,6 +869,79 @@
   width: 32px;
   padding: 3px 2px;
   text-align: center;
+}
+
+#nw-settings-window .tab-content {
+  height: 559px;
+  overflow: auto;
+}
+
+#form-nw-settings-ipv4,
+#form-nw-settings-general,
+#form-nw-settings-ipv6,
+#form-nw-settings-advance,
+#form-nw-vlan-ipv4,
+#form-nw-vlan-general,
+#form-nw-vlan-ipv6,
+#form-nw-vlan-advance {
+  margin: 15px 0 0;
+  width: 98%;
+}
+
+#nw-settings-window .tab-content,
+#nw-vlan-window .tab-content {
+  height: 559px;
+  overflow: auto;
+}
+
+#nw-settings-window .tab-content .tab-pane,
+#nw-vlan-window .tab-content .tab-pane {
+  position: relative;
+}
+
+#nw-settings-tabs .form-horizontal .control-label,
+#nw-vlan-tabs .form-horizontal .control-label {
+  text-align: left;
+  padding-top: 0px;
+}
+
+#nw-settings-tabs .bootgrid-table,
+#nw-vlan-tabs .bootgrid-table {
+  height: 140px;
+  width: 99%;
+  margin-left: 1%;
+}
+
+#nw-settings-tabs .bootgrid-table th > .column-header-anchor > .icon,
+#nw-vlan-tabs .bootgrid-table th > .column-header-anchor > .icon {
+  right: 40%;
+}
+
+#nw-settings-tabs .bootgrid-table thead,
+#nw-vlan-tabs .bootgrid-table thead {
+  display: block;
+  width: 100%;
+  padding: 0;
+}
+
+#nw-settings-tabs .bootgrid-table tbody,
+#nw-vlan-tabs .bootgrid-table tbody {
+  height: 120px;
+  overflow: auto;
+  position: absolute;
+  width: 99%;
+  border: 1px solid #eee;
+}
+
+#nw-settings-tabs .bootgrid-table tr,
+#nw-vlan-tabs .bootgrid-table tr {
+  width: 100%;
+  display: inline-table;
+}
+
+#nw-settings-tabs .bootgrid-table th,
+#nw-vlan-tabs .bootgrid-table th {
+  background-color: #eee;
 }
 
 #host-storage-root-container .accordion {
