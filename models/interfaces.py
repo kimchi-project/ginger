@@ -17,9 +17,13 @@
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 
+
+import ethtool
 import ipaddr
 import libvirt
 import lxml.etree as ET
+
+import cfginterfaces
 
 from lxml.builder import E
 from threading import Timer
@@ -33,8 +37,14 @@ from wok.xmlutils.utils import xpath_get_text
 
 class InterfacesModel(object):
     def get_list(self):
+        """
+        Return the active interfaces returned by ethtool.getdevices
+        and interfaces that are inactive and are of type of bond and vlan.
+        :return:
+        """
         nics = [nic for nic in netinfo.all_interfaces()]
-        return sorted(nics)
+        nics_with_cfgfiles = (cfginterfaces.get_bond_vlan_interfaces())
+        return set(nics + nics_with_cfgfiles)
 
 
 class InterfaceModel(object):
@@ -45,13 +55,32 @@ class InterfaceModel(object):
         self._rollback_timer = None
 
     def lookup(self, name):
+        """
+        Populate info using runtime information from /sys/class/net files for
+        active interfaces and for inactive bond and vlan interfaces from cfg
+        files
+        :param name:
+        :return:
+        """
         try:
-            info = netinfo.get_interface_info(name)
+            if name in ethtool.get_devices():
+                info = netinfo.get_interface_info(name)
+                return info
+            elif cfginterfaces.is_cfgfileexist(name):
+                type = cfginterfaces.get_type(name).lower()
+                if type in [cfginterfaces.IFACE_BOND,
+                            cfginterfaces.IFACE_VLAN]:
+                    raise ValueError
+                device = cfginterfaces.get_device(name)
+                info = {'device': device,
+                        'type': cfginterfaces.get_type(name),
+                        'status': "down",
+                        'ipaddr': "",
+                        'netmask': "",
+                        'macaddr': ""}
+                return info
         except ValueError:
             raise NotFoundError("GINNET0014E", {'name': name})
-
-        info['editable'] = self._is_interface_editable(name)
-        return info
 
     def _is_interface_editable(self, iface):
         return iface in self._get_all_libvirt_interfaces()

@@ -141,6 +141,89 @@ CONST_NO = 'no'
 CONST_SPACE = ' '
 
 
+def get_bond_vlan_interfaces():
+    """
+    This will return nics which are bond/vlan and are inactive with ifcfg
+    files present. Scan for type in ifcfg files with bond/vlan value.
+    If present, return name of the nic from the DEVICE attribute in file.
+    :return: nics
+    """
+    nics = []
+    pattern = network_configpath + '*/TYPE'
+    parser.load()
+    listout = parser.match(pattern)
+    for input in listout:
+        interface_type = parser.get(input)
+        if interface_type in [IFACE_BOND, IFACE_VLAN]:
+            cfg_file = input.rsplit('/', 1)[0]
+            try:
+                nics.append(parser.get(cfg_file + '/DEVICE'))
+            except Exception, e:
+                wok_log.warn("no device name found,skipping", e)
+    return nics
+
+
+def is_cfgfileexist(iface):
+    """
+    check if cfg file exists for interface .
+    :param iface: interface name
+    :return:True if file exist.
+    """
+    filename = ifcfg_filename_format % iface
+    fileexist = os.path.isfile(os.sep + network_configpath + filename)
+    if (not fileexist):
+        return False
+    else:
+        return True
+
+
+def get_device(iface):
+    """
+    :param iface: interface name
+    :return:DEVICE value in ifcfg file
+    """
+    return getValue(iface, DEVICE)
+
+
+def get_type(iface):
+    """
+    :param iface: interface name
+    :return:TYPE value in ifcfg file
+    """
+    return getValue(iface, TYPE)
+
+
+def getValue(iface, key):
+    """
+    This method returns value of attribute in ifcfg file
+    :param iface: interface name
+    :param key: attribute/key to be checked in ifcfg file
+    :return:value of key in ifcfgfile
+    """
+    if is_cfgfileexist(iface):
+        file = network_configpath + ifcfg_filename_format % iface
+        if token_exist(file, str(key)):
+            return str(parser.get(file + "/" + str(key)))
+    else:
+        return ""
+
+
+def token_exist(ifcfg_file, key):
+    """
+    check if key exists in ifcfg file
+    :param ifcfg_file:filepath patthern
+    :param key: key to be checked/
+    :return:True if key found
+    """
+
+    parser.load()
+    l = parser.match(ifcfg_file + os.sep + key)
+    if len(l) == 1:
+        return True
+    else:
+        return False
+
+
 class CfginterfacesModel(object):
     def get_list(self):
         nics = ethtool.get_devices()
@@ -183,7 +266,7 @@ class CfginterfacesModel(object):
         self.validate_vlan_driver()
         vlanid = str(params[BASIC_INFO][VLANINFO][VLANID])
         if platform.machine() == ARCH_S390:
-            name = params[BASIC_INFO][VLANINFO][PHYSDEV].replace("ccw", "").\
+            name = params[BASIC_INFO][VLANINFO][PHYSDEV].replace("ccw", ""). \
                        replace(".", "") + "." + vlanid.zfill(4)
         else:
             name = params[BASIC_INFO][VLANINFO][PHYSDEV] + "." + \
@@ -191,7 +274,7 @@ class CfginterfacesModel(object):
         params[BASIC_INFO][NAME] = name
         params[BASIC_INFO][DEVICE] = name
         parent_iface = params[BASIC_INFO][VLANINFO][PHYSDEV]
-        if netinfo.get_interface_type(parent_iface) == "bonding":
+        if netinfo.get_interface_type(parent_iface) == IFACE_BOND:
             self.validate_bond_for_vlan(parent_iface)
         CfginterfaceModel().update(name, params)
         return name
@@ -301,7 +384,7 @@ class CfginterfaceModel(object):
 
     def deactivate_if_itis_active(self, name):
         type = netinfo.get_interface_type(name)
-        allowed_active_types = ["bonding", "vlan"]
+        allowed_active_types = [IFACE_BOND, IFACE_VLAN]
         if type in allowed_active_types:
             InterfaceModel().deactivate(name)
 
@@ -390,15 +473,6 @@ class CfginterfaceModel(object):
             raise OperationFailed('GINNET0015E', {'error': e})
         wok_log.info('reading finished. Key value :' + str(cfgmap))
         return cfgmap
-
-    def getValue(self, file, token):
-        if self.token_exist(file, "/" + str(token)):
-            return str(parser.get(file + "/" + str(token)))
-
-    def token_exist(self, ifcfg_file, token):
-        l = parser.match(ifcfg_file + os.sep + token)
-        if len(l) == 1:
-            return True
 
     def get_cfginterface_info(self, iface):
         ethinfo = {}

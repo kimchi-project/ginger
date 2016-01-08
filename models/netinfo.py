@@ -17,10 +17,12 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
 #
 
+
 import ethtool
 import glob
 import os
 
+import cfginterfaces
 
 NET_PATH = '/sys/class/net'
 NIC_PATH = '/sys/class/net/*/device'
@@ -192,13 +194,13 @@ def get_interface_type(iface):
     # want to expose this 4 kinds of interface
     try:
         if is_nic(iface):
-            return "ethernet"
+            return cfginterfaces.IFACE_ETHERNET
         if is_bonding(iface):
-            return "bonding"
+            return cfginterfaces.IFACE_BOND
         if is_bridge(iface):
-            return "bridge"
+            return "Bridge"
         if is_vlan(iface):
-            return "vlan"
+            return cfginterfaces.IFACE_VLAN
         return 'unknown'
     except IOError:
         return 'unknown'

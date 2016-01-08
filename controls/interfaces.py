@@ -42,5 +42,4 @@ class Interface(Resource):
                 'ipaddr': self.info['ipaddr'],
                 'netmask': self.info['netmask'],
                 'status': self.info['status'],
-                'editable': self.info['editable'],
                 'macaddr': self.info['macaddr']}
