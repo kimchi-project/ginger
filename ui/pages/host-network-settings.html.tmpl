@@ -1,0 +1,220 @@
+#*
+ * Project Ginger
+ *
+ * Copyright IBM, Corp. 2015
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *#
+#unicode UTF-8
+#import gettext
+#silent t = gettext.translation($lang.domain, $lang.localedir, languages=$lang.lang, fallback=True)
+#silent _ = t.gettext
+#silent _t = t.gettext
+<link rel="stylesheet" type="text/css" href="plugins/ginger/css/ginger.css">
+<script type="text/javascript" src="plugins/ginger/js/host-network-settings.js"></script>
+<script type="text/javascript" src="plugins/ginger/js/ginger-bootgrid.js"></script>
+
+<div id="nw-settings-window" class="ginger modal-content">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    <h4 class="modal-title" id="nw-settings-title">$_("Interface : ")</h4>
+  </div>
+  <div class="modal-body">
+    <span id="alert-nw-settings-modal-container"></span>
+    <ul class="nav nav-tabs" role="tablist">
+      <li role="presentation" class="active"><a href="#form-nw-settings-general" aria-controls="form-nw-settings-general" role="tab" data-id="form-nw-settings-general" data-toggle="tab">General</a></li>
+      <li role="presentation"><a href="#form-nw-settings-ipv4" aria-controls="form-nw-settings-ipv4" role="tab" data-id="form-nw-settings-ipv4" data-toggle="tab">IPv4 Settings</a></li>
+      <li role="presentation"><a href="#form-nw-settings-ipv6" aria-controls="form-nw-settings-ipv6" role="tab" data-id="form-nw-settings-ipv6" data-toggle="tab">IPv6 Settings</a></li>
+      <li role="presentation"><a href="#form-nw-settings-advance" aria-controls="form-nw-settings-advance" role="tab" data-id="form-nw-settings-advance" data-toggle="tab">Advance</a></li>
+    </ul>
+    <div class="tab-content" id="nw-settings-tabs">
+      <input type="hidden" id="interface-device" name="interfaceDevice" />
+      <form role="tabpanel" class="tab-pane active form-horizontal" id="form-nw-settings-general">
+        <div class="form-group">
+          <label class="control-label col-sm-4" for="nw-settings-device-textbox">$_("Device")</label>
+          <div class="col-sm-8 col-xs-3">
+            <input id="nw-settings-device-textbox" class="form-control" name="DEVICE" type="text" required="true" disabled="disabled" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="control-label col-sm-4" for="nw-settings-type">$_("Type")</label>
+          <div class="col-sm-8">
+            <input id="nw-settings-type-textbox" class="form-control" name="TYPE" type="text" disabled="disabled" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="control-label col-sm-4" for="nw-settings-hwaddress">$_("Hardware Address")</label>
+          <div class="col-sm-8">
+            <input id="nw-settings-hwaddress-textbox" class="form-control" name="MACADDR" type="text" disabled="disabled" />
+          </div>
+        </div>
+        <div class="form-group hidden" id="form-group-subchannels">
+          <label class="control-label col-sm-2" for="nw-settings-subchannels">$_("Subchannels")</label>
+          <div class="col-sm-10">
+            <input id="nw-settings-subchannels-textbox" class="form-control" name="SUBCHANNEL" type="text" disabled="disabled" />
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="checkbox">
+            <label>
+              <input type="checkbox" value="" id="nw-settings-connect-auto" name="ONBOOT">$_("Connect Automatically")</label>
+          </div>
+        </div>
+      </form>
+
+      <form role="tabpanel" class="tab-pane form-horizontal" id="form-nw-settings-ipv4">
+        <div class="form-group">
+          <label class="control-label col-sm-8" for="nw-settings-ipv4-init">$_("IPv4")</label>
+          <div class="col-sm-4">
+            <div class="make-switch">
+              <input type="checkbox" checked="true" class="ipv4-on-off" />
+            </div>
+          </div>
+        </div>
+        <div class="form-group form-nw-settings-ipv4-method">
+          <label class="control-label col-sm-8" for="nw-settings-ipv4-method">$_("Method")</label>
+          <div class="col-sm-4">
+            <select class="form-control" id="nw-settings-ipv4-method">
+              <option>$_("Automatic(DHCP)")</option>
+              <option>$_("Manual")</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group form-nw-settings-ipv4-manual">
+          <div class="form-group" style="margin-bottom:5px">
+            <label class="control-label" for="nw-settings-ipv4-addresses">$_("IP Addresses")</label>
+            <div class="pull-right">
+              <button id="nw-settings-ipv4-add" aria-expanded="false" type="button" class="row btn btn-primary"><i class="fa fa-plus-circle"></i>Add</button>
+            </div>
+          </div>
+          <div id="nw-settings-ipv4-addresses">
+            <!--Filled by JS-->
+          </div>
+        </div>
+        <div class="form-group form-nw-settings-ipv4-manual">
+          <div class="form-group" style="margin-bottom:5px">
+            <label class="control-label" for="nw-settings-ipv4-dns">$_("DNS")</label>
+            <div class="pull-right">
+              <button id="nw-settings-ipv4-dns-add" aria-expanded="false" type="button" class="row btn btn-primary"><i class="fa fa-plus-circle"></i>Add</button>
+            </div>
+          </div>
+          <div id="nw-settings-ipv4-dns">
+            <!--Filled by JS-->
+          </div>
+        </div>
+        <div class="form-group form-nw-settings-ipv4-manual">
+          <div class="form-group" style="margin-bottom:5px">
+            <label class="control-label" for="nw-settings-ipv4-routes">$_("Routes")</label>
+            <div class="pull-right">
+              <button id="nw-settings-ipv4-routes-add" aria-expanded="false" type="button" class="row btn btn-primary"><i class="fa fa-plus-circle"></i>Add</button>
+            </div>
+          </div>
+          <div id="nw-settings-ipv4-routes">
+            <!--Filled by JS-->
+          </div>
+        </div>
+      </form>
+
+      <form role="tabpanel" class="tab-pane form-horizontal" id="form-nw-settings-ipv6">
+        <div class="form-group">
+          <label class="control-label col-sm-8" for="nw-settings-ipv6-init">$_("IPv6")</label>
+          <div class="col-sm-4">
+            <div class="make-switch">
+              <input type="checkbox" checked="true" class="ipv6-on-off" />
+            </div>
+          </div>
+        </div>
+        <div class="form-group form-nw-settings-ipv6-method">
+          <label class="control-label col-sm-8" for="nw-settings-ipv6-method">$_("Method")</label>
+          <div class="col-sm-4">
+            <select class="form-control" id="nw-settings-ipv6-method">
+              <option>$_("Automatic")</option>
+              <option>$_("Manual")</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group form-nw-settings-ipv6-manual">
+          <label class="control-label col-sm-8" for="nw-settings-ipv6-gateway-textbox">$_("Default Gateway")</label>
+          <div class="col-sm-4">
+            <input id="nw-settings-ipv6-gateway-textbox" class="form-control" name="GATEWAY" type="text" />
+          </div>
+        </div>
+        <div class="form-group form-nw-settings-ipv6-manual">
+          <div class="form-group" style="margin-bottom:5px">
+            <label class="control-label" for="nw-settings-ipv6-addresses">$_("IP Addresses")</label>
+            <div class="pull-right">
+              <button id="nw-settings-ipv6-add" aria-expanded="false" type="button" class="row btn btn-primary"><i class="fa fa-plus-circle"></i>Add</button>
+            </div>
+          </div>
+          <div id="nw-settings-ipv6-addresses">
+            <!--Filled by JS-->
+          </div>
+        </div>
+        <div class="form-group form-nw-settings-ipv6-manual">
+          <div class="form-group" style="margin-bottom:5px">
+            <label class="control-label" for="nw-settings-ipv6-dns">$_("DNS")</label>
+            <div class="pull-right">
+              <button id="nw-settings-ipv6-dns-add" aria-expanded="false" type="button" class="row btn btn-primary"><i class="fa fa-plus-circle"></i>Add</button>
+            </div>
+          </div>
+          <!-- <label class="control-label" for="nw-settings-ipv4-dns">$_("DNS")</label> -->
+          <div id="nw-settings-ipv6-dns">
+            <!--Filled by JS-->
+          </div>
+        </div>
+        <div class="form-group form-nw-settings-ipv6-manual">
+          <div class="form-group" style="margin-bottom:5px">
+            <label class="control-label" for="nw-settings-ipv6-routes">$_("Routes")</label>
+            <div class="pull-right">
+              <button id="nw-settings-ipv6-routes-add" aria-expanded="false" type="button" class="row btn btn-primary"><i class="fa fa-plus-circle"></i>Add</button>
+            </div>
+          </div>
+          <div id="nw-settings-ipv6-routes">
+            <!--Filled by JS-->
+          </div>
+        </div>
+      </form>
+      <form role="tabpanel" class="tab-pane form-horizontal" id="form-nw-settings-advance">
+        <div class="form-group">
+          <label class="control-label col-sm-4" for="nw-settings-mtu-textbox">$_("MTU")</label>
+          <div class="col-sm-8">
+            <input id="nw-settings-mtu-textbox" class="form-control" name="MTU" type="text" />
+          </div>
+        </div>
+        <div class="form-group hidden">
+          <label class="control-label col-sm-4" for="nw-settings-firewall-select">$_("Firewall Zone")</label>
+          <div class="col-sm-8">
+            <select class="form-control" id="nw-settings-firewall-select" disabled="disabled">
+            </select>
+          </div>
+        </div>
+        <div class="form-group hidden">
+          <div class="checkbox">
+            <label>
+              <input type="checkbox" value="" id="nw-settings-enable-brg">$("Enable Bridge Port")</label>
+          </div>
+          <span class="help-block">Equivalent to enabling promisicuous mode on regular Ethernet adapters</span>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button id="nw-interface-settings-button-apply" class="btn btn-default">$_("Apply")</button>
+    <button id="nw-interface-settings-button-cancel" class="btn btn-default" data-dismiss="modal">$_("Cancel")</button>
+  </div>
+</div>
+<script type="text/javascript">
+  ginger.initNwInterfaceSettings();
+</script>
