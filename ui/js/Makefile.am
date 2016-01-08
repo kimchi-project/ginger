@@ -24,4 +24,5 @@ dist_js_DATA = \
         ginger-bootgrid.js \
         host-storage.js \
 				host-network-settings.js \
+        host-network-bond.js \
 	$(NULL)

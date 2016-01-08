@@ -99,6 +99,9 @@ ginger.createBootgrid = function(opts) {
       "editable-nw-ipv6-routes": function(column, row) {
         return '<span class="xedit" data-ipv6=true data-xedit=true data-column-name="' + column.id + '" data-row-id="' + row.ADDRESS + '">' + row[column.id] + '</span>	';
       },
+      "editable-bond-member": function(column, row) {
+        return '<span class="xedit" data-xedit=true data-column-name="' + column.id + '" data-row-id="' + row.member + '">' + row[column.id] + '</span>	';
+      },
       "row-edit-delete": function(column, row) {
         return "<span class=\"fa fa-pencil command-edit\" data-row-id=\"" + row[column.id] + "\"></span> " +
           "<span class=\"fa fa-floppy-o command-save hidden\" data-row-id=\"" + row[column.id] + "\"></span>" +
@@ -256,18 +259,18 @@ ginger.createEditableBootgrid = function(gridInstance, opts, rowKey) {
           var isValid;
           var isIpv6 = $(this).closest('span').attr("data-ipv6");
           if (columnname == 'IPADDR' || columnname == 'GATEWAY' || columnname == 'ADDRESS' || columnname == 'DNS') {
-            if(isIpv6 == 'true'){
+            if (isIpv6 == 'true') {
               isValid = ginger.isValidIPv6(value);
-            }else{
+            } else {
               isValid = ginger.validateIp(value);
             }
-          }  else if (columnname == 'MASK' || columnname == 'PREFIX' || columnname == 'NETMASK') {
-            if(isIpv6 == 'true'){
+          } else if (columnname == 'MASK' || columnname == 'PREFIX' || columnname == 'NETMASK') {
+            if (isIpv6 == 'true') {
               isValid = ginger.isValidIPv6(value) || ginger.isValidIPv6Prefix(value);
-            }else{
+            } else {
               isValid = ginger.validateMask(value);
             }
-          } else if(columnname == 'METRIC'){
+          } else if (columnname == 'METRIC') {
             isValid = /^[0-9]+$/.test(value);
           } else {
             isValid = true;
@@ -289,18 +292,18 @@ ginger.createEditableBootgrid = function(gridInstance, opts, rowKey) {
           var isValid;
           var isIpv6 = $(this).closest('td').find('span.xedit').attr("data-ipv6");
           if (columnname == 'IPADDR' || columnname == 'GATEWAY' || columnname == 'ADDRESS' || columnname == 'DNS') {
-            if(isIpv6 == 'true'){
+            if (isIpv6 == 'true') {
               isValid = ginger.isValidIPv6($(this).val());
-            }else{
+            } else {
               isValid = ginger.validateIp($(this).val());
             }
           } else if (columnname == 'MASK' || columnname == 'PREFIX' || columnname == 'NETMASK') {
-            if(isIpv6 == 'true'){
+            if (isIpv6 == 'true') {
               isValid = ginger.isValidIPv6($(this).val()) || ginger.isValidIPv6Prefix($(this).val());
-            }else{
+            } else {
               isValid = ginger.validateMask($(this).val());
             }
-          } else if(columnname == 'METRIC'){
+          } else if (columnname == 'METRIC') {
             isValid = /^[0-9]+$/.test($(this).val());
           } else {
             isValid = true;

@@ -18,6 +18,7 @@ ginger.loadBootgridNWActions = function(opts) {
     class: 'fa fa-plus-circle',
     label: i18n['GINNET0006M'],
     onClick: function(event) {
+      ginger.selectedInterface = null;
       wok.window.open('plugins/ginger/host-network-bond.html');
     }
   }, {
@@ -94,7 +95,7 @@ ginger.loadBootgridNWActions = function(opts) {
     onClick: function(event) {
       var selectedIf = ginger.getSelectedRowsData(opts);
       if ((selectedIf && selectedIf.length == 1) &&
-          ((selectedIf[0]["status"] == "up") || (selectedIf[0]["status"] == "unknown"))) {
+        ((selectedIf[0]["status"] == "up") || (selectedIf[0]["status"] == "unknown"))) {
         ginger.showBootgridLoading(opts);
         ginger.enableInterface(selectedIf[0]["device"], "down", function(result) {
           var message = i18n['GINNET0017M'] + " " + selectedIf[0]["device"] + " " + i18n['GINNET0020M'];
@@ -125,7 +126,7 @@ ginger.loadBootgridNWActions = function(opts) {
     onClick: function(event) {
       var selectedIf = ginger.getSelectedRowsData(opts);
       if ((selectedIf && selectedIf.length == 1) &&
-          ((selectedIf[0]["status"] == "up") || (selectedIf[0]["status"] == "unknown"))) {
+        ((selectedIf[0]["status"] == "up") || (selectedIf[0]["status"] == "unknown"))) {
         ginger.showBootgridLoading(opts);
         // First Bring down the interface
         ginger.enableInterface(selectedIf[0]["device"], "down", function(result) {
@@ -181,12 +182,12 @@ ginger.loadBootgridNWActions = function(opts) {
     onClick: function(event) {
       var selectedIf = ginger.getSelectedRowsData(opts);
       if (selectedIf && (selectedIf.length == 1)) {
-        ginger.selectedInterface = (selectedIf[0]["device"] == "undefined"  ? null : selectedIf[0]["device"]);
-        if((selectedIf[0]["type"]).toLowerCase() == "vlan") {
+        ginger.selectedInterface = (selectedIf[0]["device"] == "undefined" ? null : selectedIf[0]["device"]);
+        if ((selectedIf[0]["type"]).toLowerCase() == "vlan") {
           wok.window.open('plugins/ginger/host-network-vlan.html');
-        } else if((selectedIf[0]["type"]).toLowerCase() == "bond") {
+        } else if ((selectedIf[0]["type"]).toLowerCase() == "bond") {
           wok.window.open('plugins/ginger/host-network-bond.html');
-        } else if(((selectedIf[0]["type"]).toLowerCase() == "ethernet") || ((selectedIf[0]["type"]).toLowerCase() == "nic")) {
+        } else if (((selectedIf[0]["type"]).toLowerCase() == "ethernet") || ((selectedIf[0]["type"]).toLowerCase() == "nic")) {
           // condition nic should go away if #104 to be correct and resolved
           wok.window.open('plugins/ginger/host-network-settings.html');
         }
@@ -329,7 +330,8 @@ ginger.listNetworkConfig = function() {
   var changeActionButtonsState = function(opts) {
     // By default enable them all
     ginger.changeButtonStatus(["nw-up-button", "nw-down-button", "nw-restart-button",
-                              "nw-settings-button", "nw-delete-button"], true);
+      "nw-settings-button", "nw-delete-button"
+    ], true);
     // Based on the interface status hide/show the right buttons
     var selectedIf = ginger.getSelectedRowsData(opts);
     if (selectedIf && selectedIf.length == 1) {
@@ -340,7 +342,8 @@ ginger.listNetworkConfig = function() {
       }
     } else if (selectedIf && selectedIf.length > 1) {
       ginger.changeButtonStatus(["nw-up-button", "nw-down-button", "nw-restart-button",
-                                "nw-settings-button"], false);
+        "nw-settings-button"
+      ], false);
     }
   };
 
