@@ -18,6 +18,8 @@
 
 ginger = {};
 ginger.hostarch = null;
+ginger.selectedInterface = null;
+
 trackingTasks = [];
 ginger.getFirmware = function(suc, err){
     wok.requestJSON({
@@ -610,3 +612,100 @@ ginger.trackdevices = function(trackDevicelist,removeItem) {
         });
     return trackDevicelist;
 };
+
+/**
+ * Create a network interface with new information.
+ */
+ginger.createCfgInterface = function(settings, suc, err) {
+  wok.requestJSON({
+    url: 'plugins/ginger/network/cfginterfaces/',
+    type: 'POST',
+    contentType: 'application/json',
+    data: JSON.stringify(settings),
+    dataType: 'json',
+    success: suc,
+    error: err || function(data) {
+      wok.message.error(data.responseJSON.reason);
+    }
+  });
+}
+
+/**
+ * Retrieve the information of a cfg interfaces by its name from it's cfg file.
+ *
+ * @param interface name
+ * @param suc callback for success
+ * @param err callback for error
+ */
+ginger.listCfgInterface = function(suc, err) {
+    wok.requestJSON({
+      url: 'plugins/ginger/network/cfginterfaces/',
+      type: 'GET',
+      contentType: 'application/json',
+      dataType: 'json',
+      success: suc,
+      error: err
+    });
+}
+/**
+ * Retrieve the information of a given network interface by its name from it's cfg file.
+ *
+ * @param interface name
+ * @param suc callback for success
+ * @param err callback for error
+ */
+ginger.retrieveCfgInterface = function(interface, suc, err) {
+    wok.requestJSON({
+      url: 'plugins/ginger/network/cfginterfaces/'+interface,
+      type: 'GET',
+      contentType: 'application/json',
+      dataType: 'json',
+      success: suc,
+      error: err
+    });
+}
+  /**
+   * Update a network interface with new information.
+   */
+ginger.updateCfgInterface = function(interface, settings, suc, err) {
+  wok.requestJSON({
+    url: 'plugins/ginger/network/cfginterfaces/' + encodeURIComponent(interface),
+    type: 'PUT',
+    contentType: 'application/json',
+    data: JSON.stringify(settings),
+    dataType: 'json',
+    success: suc,
+    error: err
+  });
+}
+
+ginger.disableclass =  function(clas){
+  jQuery("."+clas).css('pointer-events', 'none')
+  jQuery("."+clas).find("input, select, button, textarea, div").attr("disabled",true);
+  jQuery("."+clas).css('opacity', '0.5')
+}
+
+ginger.enableclass =  function(clas){
+  jQuery("."+clas).css('pointer-events', 'auto')
+  jQuery("."+clas).find("input, select, button, textarea, div").attr("disabled",false);
+  jQuery("."+clas).css('opacity', 'initial')
+}
+
+ginger.isInteger = function(value) {
+return !isNaN(value) &&
+       parseInt(Number(value)) == value &&
+       !isNaN(parseInt(value, 10));
+}
+
+ginger.isValidIPv6 = function(ipv6addr) {
+  if (/^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$|^(([a-zA-Z]|[a-zA-Z][a-zA-Z0-9\-]*[a-zA-Z0-9])\.)*([A-Za-z]|[A-Za-z][A-Za-z0-9\-]*[A-Za-z0-9])$|^\s*((([0-9A-Fa-f]{1,4}:){7}([0-9A-Fa-f]{1,4}|:))|(([0-9A-Fa-f]{1,4}:){6}(:[0-9A-Fa-f]{1,4}|((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3})|:))|(([0-9A-Fa-f]{1,4}:){5}(((:[0-9A-Fa-f]{1,4}){1,2})|:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3})|:))|(([0-9A-Fa-f]{1,4}:){4}(((:[0-9A-Fa-f]{1,4}){1,3})|((:[0-9A-Fa-f]{1,4})?:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){3}(((:[0-9A-Fa-f]{1,4}){1,4})|((:[0-9A-Fa-f]{1,4}){0,2}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){2}(((:[0-9A-Fa-f]{1,4}){1,5})|((:[0-9A-Fa-f]{1,4}){0,3}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){1}(((:[0-9A-Fa-f]{1,4}){1,6})|((:[0-9A-Fa-f]{1,4}){0,4}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(:(((:[0-9A-Fa-f]{1,4}){1,7})|((:[0-9A-Fa-f]{1,4}){0,5}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:)))(%.+)?\s*$/.test(ipv6addr)) {
+      return true;
+  } else {
+      return false;
+  }
+  return false;
+}
+
+ginger.isValidIPv6Prefix = function(prefix) {
+  return prefix > 0 && prefix < 127;
+}

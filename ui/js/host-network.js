@@ -18,14 +18,15 @@ ginger.loadBootgridNWActions = function(opts) {
     class: 'fa fa-plus-circle',
     label: i18n['GINNET0006M'],
     onClick: function(event) {
-      // wok.window.open('plugins/ginger/host-create-bond.html');
+      wok.window.open('plugins/ginger/host-network-bond.html');
     }
   }, {
     id: 'nw-add-vlan-button',
     class: 'fa fa-plus-circle',
     label: i18n['GINNET0007M'],
     onClick: function(event) {
-      //wok.window.open('plugins/ginger/host-create-vlan.html');
+      ginger.selectedInterface = null;
+      wok.window.open('plugins/ginger/host-network-vlan.html');
     }
   }, {
     id: 'nw-add-adapter-button',
@@ -180,7 +181,15 @@ ginger.loadBootgridNWActions = function(opts) {
     onClick: function(event) {
       var selectedIf = ginger.getSelectedRowsData(opts);
       if (selectedIf && (selectedIf.length == 1)) {
-        // wok.window.open('plugins/ginger/host-interface.html');
+        ginger.selectedInterface = (selectedIf[0]["device"] == "undefined"  ? null : selectedIf[0]["device"]);
+        if((selectedIf[0]["type"]).toLowerCase() == "vlan") {
+          wok.window.open('plugins/ginger/host-network-vlan.html');
+        } else if((selectedIf[0]["type"]).toLowerCase() == "bond") {
+          wok.window.open('plugins/ginger/host-network-bond.html');
+        } else if(((selectedIf[0]["type"]).toLowerCase() == "ethernet") || ((selectedIf[0]["type"]).toLowerCase() == "nic")) {
+          // condition nic should go away if #104 to be correct and resolved
+          wok.window.open('plugins/ginger/host-network-settings.html');
+        }
       } else {
         var settings = {
           content: i18n["GINNET0022M"],
@@ -261,7 +270,7 @@ ginger.listNetworkConfig = function() {
   var opts = [];
   opts['id'] = 'nw-configuration';
   opts['gridId'] = gridId;
-  opts['identifier'] = "macaddr";
+  opts['identifier'] = "device";
   // ginger.hideBootgridData(opts);
 
   ginger.loadBootgridNWActions(opts);
@@ -276,6 +285,7 @@ ginger.listNetworkConfig = function() {
       "column-id": 'device',
       "type": 'string',
       "width": "15%",
+      "identifier": true,
       "title": i18n['GINNET0001M']
     }, {
       "column-id": 'type',
@@ -298,7 +308,6 @@ ginger.listNetworkConfig = function() {
     {
       "column-id": 'macaddr',
       "type": 'string',
-      "identifier": true,
       "width": "40%",
       "title": i18n['GINNET0005M']
     }
