@@ -1,0 +1,222 @@
+#*
+ * Project Ginger
+ *
+ * Copyright IBM, Corp. 2015
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *#
+#unicode UTF-8
+#import gettext
+#silent t = gettext.translation($lang.domain, $lang.localedir, languages=$lang.lang, fallback=True)
+#silent _ = t.gettext
+#silent _t = t.gettext
+<link rel="stylesheet" type="text/css" href="plugins/ginger/css/ginger.css">
+<script type="text/javascript" src="plugins/ginger/js/host-network-bond.js"></script>
+<script type="text/javascript" src="plugins/ginger/js/ginger-bootgrid.js"></script>
+
+
+<div id="nw-bond-window" class="ginger modal-content">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    <h4 class="modal-title" id="nw-bond-title">$_("Interface : ")</h4>
+  </div>
+  <div class="modal-body">
+    <span id="alert-nw-bond-modal-container"></span>
+    <ul class="nav nav-tabs" role="tablist">
+      <li role="presentation" class="active"><a href="#form-nw-bond-general" aria-controls="form-nw-bond-general" role="tab" data-id="form-nw-bond-general" data-toggle="tab">General</a></li>
+      <li role="presentation"><a href="#form-nw-bond-ipv4" aria-controls="form-nw-bond-ipv4" role="tab" data-id="form-nw-bond-ipv4" data-toggle="tab">IPv4 Settings</a></li>
+      <li role="presentation"><a href="#form-nw-bond-ipv6" aria-controls="form-nw-bond-ipv6" role="tab" data-id="form-nw-bond-ipv6" data-toggle="tab">IPv6 Settings</a></li>
+      <li role="presentation"><a href="#form-nw-bond-advance" aria-controls="form-nw-bond-advance" role="tab" data-id="form-nw-bond-advance" data-toggle="tab">Advance</a></li>
+    </ul>
+    <div class="tab-content" id="nw-bond-tabs">
+      <input type="hidden" id="interface-device" name="interfaceDevice" />
+      <form role="tabpanel" class="tab-pane active form-horizontal" id="form-nw-bond-general">
+        <div class="form-group">
+          <label class="control-label col-sm-4" for="nw-bond-device-textbox">$_("Interface Name")</label>
+          <div class="col-sm-8 col-xs-3">
+            <input id="nw-bond-device-textbox" class="form-control" name="DEVICE" type="text" required="true" />
+          </div>
+        </div>
+        <label class="control-label" for="nw-general-bond-member">$_("Bond Members")</label>
+        <div class="pull-right">
+          <button id="nw-bond-member-add" aria-expanded="false" type="button" class="row btn btn-primary"><i class="fa fa-plus-circle"></i>Add</button>
+        </div>
+        <div id="nw-general-bond-member">
+          <!--Filled by JS-->
+        </div>
+        <div class="form-group">
+          <label class="control-label col-sm-8" for="nw-bond-general-mode">$_("Mode")</label>
+          <div class="col-sm-4">
+            <select class="form-control" id="nw-bond-general-mode">
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="checkbox">
+            <label>
+              <input type="checkbox" value="" id="nw-bond-connect-auto" name="ONBOOT">$_("Connect Automatically")</label>
+          </div>
+        </div>
+      </form>
+      <form role="tabpanel" class="tab-pane form-horizontal" id="form-nw-bond-ipv4">
+        <div class="form-group">
+          <label class="control-label col-sm-8" for="nw-bond-ipv4-init">$_("IPv4")</label>
+          <div class="col-sm-4">
+            <div class="make-switch">
+              <input type="checkbox" checked="true" class="ipv4-on-off" id="nw-bond-ipv4-init" />
+            </div>
+          </div>
+        </div>
+        <div class="form-group form-nw-bond-ipv4-method">
+          <label class="control-label col-sm-8" for="nw-bond-ipv4-method">$_("Method")</label>
+          <div class="col-sm-4">
+            <select class="form-control" id="nw-bond-ipv4-method">
+              <option>$_("Automatic(DHCP)")</option>
+              <option>$_("Manual")</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group form-nw-bond-ipv4-manual">
+          <div class="form-group" style="margin-bottom:5px">
+            <label class="control-label" for="nw-bond-ipv4-addresses">$_("IP Addresses")</label>
+            <div class="pull-right">
+              <button id="nw-bond-ipv4-address-add" aria-expanded="false" type="button" class="row btn btn-primary"><i class="fa fa-plus-circle"></i>Add</button>
+            </div>
+            <div id="nw-bond-ipv4-addresses">
+              <!--Filled by JS-->
+            </div>
+          </div>
+        </div>
+        <div class="form-group form-nw-bond-ipv4-manual">
+          <div class="form-group" style="margin-bottom:5px">
+            <label class="control-label" for="nw-bond-ipv4-routes">$_("Routes")</label>
+            <div class="pull-right">
+              <button id="nw-bond-ipv4-routes-add" aria-expanded="false" type="button" class="row btn btn-primary"><i class="fa fa-plus-circle"></i>Add</button>
+            </div>
+            <div id="nw-bond-ipv4-routes">
+              <!--Filled by JS-->
+            </div>
+          </div>
+        </div>
+        <div class="form-group form-nw-bond-ipv4-manual">
+          <div class="form-group" style="margin-bottom:5px">
+            <label class="control-label" for="nw-bond-ipv4-dns">$_("DNS Server")</label>
+            <div class="pull-right">
+              <button id="nw-bond-ipv4-dns-add" aria-expanded="false" type="button" class="row btn btn-primary"><i class="fa fa-plus-circle"></i>Add</button>
+            </div>
+            <div id="nw-bond-ipv4-dns">
+
+            </div>
+          </div>
+        </div>
+      </form>
+      <form role="tabpanel" class="tab-pane form-horizontal" id="form-nw-bond-ipv6">
+        <div class="form-group">
+          <label class="control-label col-sm-8" for="nw-bond-ipv6-init">$_("IPv6")</label>
+          <div class="col-sm-4">
+            <div class="make-switch">
+              <input type="checkbox" checked="true" class="ipv6-on-off" id="nw-bond-ipv6-init" />
+            </div>
+          </div>
+        </div>
+        <div class="form-group form-nw-bond-ipv6-method">
+          <label class="control-label col-sm-8" for="nw-bond-ipv6-method">$_("Method")</label>
+          <div class="col-sm-4">
+            <select class="form-control" id="nw-bond-ipv6-method">
+              <option>$_("Automatic(DHCP)")</option>
+              <option>$_("Manual")</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group form-nw-bond-ipv6-manual">
+          <div class="form-group" style="margin-bottom:5px">
+            <label class="control-label" for="nw-bond-ipv6-addresses">$_("Addresses")</label>
+            <div class="pull-right">
+              <button id="nw-bond-ipv6-address-add" aria-expanded="false" type="button" class="row btn btn-primary"><i class="fa fa-plus-circle"></i>Add</button>
+            </div>
+            <div id="nw-bond-ipv6-addresses">
+              <!--Filled by JS-->
+            </div>
+          </div>
+        </div>
+        <div class="form-group form-nw-bond-ipv6-manual">
+          <div class="form-group" style="margin-bottom:5px">
+            <label class="control-label" for="nw-bond-ipv6-routes">$_("Routes")</label>
+            <div class="pull-right">
+              <button id="nw-bond-ipv6-routes-add" aria-expanded="false" type="button" class="row btn btn-primary"><i class="fa fa-plus-circle"></i>Add</button>
+            </div>
+            <div id="nw-bond-ipv6-routes">
+              <!--Filled by JS-->
+            </div>
+          </div>
+        </div>
+        <div class="form-group form-nw-bond-ipv6-manual">
+          <div class="form-group" style="margin-bottom:5px">
+            <label class="control-label" for="nw-bond-ipv6-dns">$_("DNS Server")</label>
+            <div class="pull-right">
+              <button id="nw-bond-ipv6-dns-add" aria-expanded="false" type="button" class="row btn btn-primary"><i class="fa fa-plus-circle"></i>Add</button>
+            </div>
+            <div id="nw-bond-ipv6-dns">
+
+            </div>
+          </div>
+        </div>
+      </form>
+      <!--form role="tabpanel" class="guest-edit-permission tab-pane" id="form-guest-edit-permission"-->
+      <form role="tabpanel" class="tab-pane form-horizontal" id="form-nw-bond-advance">
+        <div class="form-group">
+          <label class="control-label col-sm-4" for="nw-bond-link-monitoring">$_("Link Monitoring")</label>
+          <div class="col-sm-8">
+            <select class="form-control" id="nw-bond-link-monitoring">
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="control-label col-sm-4" for="nw-bond-monitoring-interval">$_("Monitoring Interval")</label>
+          <div class="col-sm-8 col-xs-3">
+            <input id="nw-bond-monitoring-interval" class="form-control" type="text" name="MIIMON" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="control-label col-sm-4" for="nw-bond-link-up-delay">$_("Link Up Delay")</label>
+          <div class="col-sm-8 col-xs-3">
+            <input id="nw-bond-link-up-delay" class="form-control" type="text" name="UPDELAY" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="control-label col-sm-4" for="nw-bond-link-down-delay">$_("Link Down Delay")</label>
+          <div class="col-sm-8 col-xs-3">
+            <input id="nw-bond-link-down-delay" class="form-control" type="text" name="DOWNDELAY" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="control-label col-sm-4" for="nw-bond-firewall-select">$_("Firewall Zone")</label>
+          <div class="col-sm-8">
+            <select class="form-control" id="nw-bond-firewall-select">
+            </select>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button id="nw-interface-bond-button-apply" class="btn btn-default">$_("Apply")</button>
+    <!--Should be keep Save??-->
+    <button id="nw-interface-bond-button-cancel" class="btn btn-default" data-dismiss="modal">$_("Cancel")</button>
+  </div>
+</div>
+<script type="text/javascript">
+  ginger.initNwInterfaceBond();
+</script>

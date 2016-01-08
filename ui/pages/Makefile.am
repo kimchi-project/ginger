@@ -21,5 +21,6 @@ htmldir = $(datadir)/wok/plugins/ginger/ui/pages
 
 dist_html_DATA = \
 	i18n.json.tmpl \
-	host-network-settings.html.tmpl \
+        host-network-settings.html.tmpl \
+				host-network-bond.html.tmpl \
 	$(NULL)
