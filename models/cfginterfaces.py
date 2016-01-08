@@ -434,11 +434,11 @@ class CfginterfaceModel(object):
             interface_type = cfgmap[TYPE]
         elif VLAN in cfgmap and CONST_YES == cfgmap[VLAN]:
             interface_type = IFACE_VLAN
+            # Fix ginger issue #131
+        self.get_architecture_specific_info(info, cfgmap)
         if interface_type is not None:
             info[BASIC_INFO][TYPE] = interface_type
-            if interface_type == IFACE_ETHERNET:
-                self.get_architecture_specific_info(info, cfgmap)
-            elif interface_type == IFACE_VLAN:
+            if interface_type == IFACE_VLAN:
                 self.get_vlan_info(info, cfgmap)
             elif interface_type == IFACE_BOND:
                 self.get_bond_info(info, cfgmap)
