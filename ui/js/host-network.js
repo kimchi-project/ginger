@@ -64,8 +64,8 @@ ginger.loadBootgridNWActions = function(opts) {
       var selectedIf = ginger.getSelectedRowsData(opts);
       if ((selectedIf && selectedIf.length == 1) && (selectedIf[0]["status"] == "down")) {
         ginger.showBootgridLoading(opts);
-        ginger.enableInterface(selectedIf[0]["name"], "up", function(result) {
-          var message = i18n['GINNET0016M'] + " " + selectedIf[0]["name"] + " " + i18n['GINNET0020M'];
+        ginger.enableInterface(selectedIf[0]["device"], "up", function(result) {
+          var message = i18n['GINNET0016M'] + " " + selectedIf[0]["device"] + " " + i18n['GINNET0020M'];
           wok.message.success(message, '#message-nw-container-area');
           ginger.getInterfaces(function(result) {
             ginger.hideBootgridLoading(opts);
@@ -75,7 +75,7 @@ ginger.loadBootgridNWActions = function(opts) {
           });
         }, function(error) {
           ginger.hideBootgridLoading(opts);
-          var message = i18n['GINNET0016M'] + " " + selectedIf[0]["name"] + " " + i18n['GINNET0021M'];
+          var message = i18n['GINNET0016M'] + " " + selectedIf[0]["device"] + " " + i18n['GINNET0021M'];
           wok.message.error(message, '#message-nw-container-area', true);
         });
       } else {
@@ -95,8 +95,8 @@ ginger.loadBootgridNWActions = function(opts) {
       if ((selectedIf && selectedIf.length == 1) &&
           ((selectedIf[0]["status"] == "up") || (selectedIf[0]["status"] == "unknown"))) {
         ginger.showBootgridLoading(opts);
-        ginger.enableInterface(selectedIf[0]["name"], "down", function(result) {
-          var message = i18n['GINNET0017M'] + " " + selectedIf[0]["name"] + " " + i18n['GINNET0020M'];
+        ginger.enableInterface(selectedIf[0]["device"], "down", function(result) {
+          var message = i18n['GINNET0017M'] + " " + selectedIf[0]["device"] + " " + i18n['GINNET0020M'];
           wok.message.success(message, '#message-nw-container-area');
           ginger.getInterfaces(function(result) {
             ginger.hideBootgridLoading(opts);
@@ -106,7 +106,7 @@ ginger.loadBootgridNWActions = function(opts) {
           });
         }, function(error) {
           ginger.hideBootgridLoading(opts);
-          var message = i18n['GINNET0017M'] + " " + selectedIf[0]["name"] + " " + i18n['GINNET0021M'];
+          var message = i18n['GINNET0017M'] + " " + selectedIf[0]["device"] + " " + i18n['GINNET0021M'];
           wok.message.error(message, '#message-nw-container-area', true);
         });
       } else {
@@ -127,10 +127,10 @@ ginger.loadBootgridNWActions = function(opts) {
           ((selectedIf[0]["status"] == "up") || (selectedIf[0]["status"] == "unknown"))) {
         ginger.showBootgridLoading(opts);
         // First Bring down the interface
-        ginger.enableInterface(selectedIf[0]["name"], "down", function(result) {
+        ginger.enableInterface(selectedIf[0]["device"], "down", function(result) {
           // Second Bring the interface up back again
-          ginger.enableInterface(selectedIf[0]["name"], "up", function(result) {
-            var message = i18n['GINNET0018M'] + " " + selectedIf[0]["name"] + " " + i18n['GINNET0020M'];
+          ginger.enableInterface(selectedIf[0]["device"], "up", function(result) {
+            var message = i18n['GINNET0018M'] + " " + selectedIf[0]["device"] + " " + i18n['GINNET0020M'];
             wok.message.success(message, '#message-nw-container-area');
             ginger.getInterfaces(function(result) {
               ginger.hideBootgridLoading(opts);
@@ -140,19 +140,19 @@ ginger.loadBootgridNWActions = function(opts) {
             });
           }, function(error) {
             ginger.hideBootgridLoading(opts);
-            var message = i18n['GINNET0018M'] + " " + selectedIf[0]["name"] + " " + i18n['GINNET0021M'];
+            var message = i18n['GINNET0018M'] + " " + selectedIf[0]["device"] + " " + i18n['GINNET0021M'];
             wok.message.error(message, '#message-nw-container-area', true);
           });
         }, function(error) {
           ginger.hideBootgridLoading(opts);
-          var message = "Failed to brought down the interface " + selectedIf[0]["name"];
+          var message = "Failed to brought down the interface " + selectedIf[0]["device"];
           wok.message.error(message, '#message-nw-container-area', true);
         });
       } else if (selectedIf && selectedIf.length == 1 && (selectedIf[0]["status"] == "down")) {
         ginger.showBootgridLoading(opts);
         // Assuming interface is down already and just needs to brought up
-        ginger.enableInterface(selectedIf[0]["name"], "up", function(result) {
-          var message = i18n['GINNET0018M'] + " " + selectedIf[0]["name"] + " " + i18n['GINNET0020M'];
+        ginger.enableInterface(selectedIf[0]["device"], "up", function(result) {
+          var message = i18n['GINNET0018M'] + " " + selectedIf[0]["device"] + " " + i18n['GINNET0020M'];
           wok.message.success(message, '#message-nw-container-area');
           ginger.getInterfaces(function(result) {
             ginger.hideBootgridLoading(opts);
@@ -162,7 +162,7 @@ ginger.loadBootgridNWActions = function(opts) {
           });
         }, function(error) {
           ginger.hideBootgridLoading(opts);
-          var message = i18n['GINNET0018M'] + " " + selectedIf[0]["name"] + " " + i18n['GINNET0021M'];
+          var message = i18n['GINNET0018M'] + " " + selectedIf[0]["device"] + " " + i18n['GINNET0021M'];
           wok.message.error(message, '#message-nw-container-area', true);
         });
       } else {
@@ -199,11 +199,11 @@ ginger.loadBootgridNWActions = function(opts) {
       if (selectedIf && (selectedIf.length >= 1)) {
         ginger.showBootgridLoading(opts);
         for (var i = 0; i < selectedIf.length; i++) {
-          ginger.deleteInterface(selectedIf[0]["name"], function(result) {
-            var message = i18n['GINNET0019M'] + " " + selectedIf[0]["name"] + " " + i18n['GINNET0020M'];
+          ginger.deleteInterface(selectedIf[0]["device"], function(result) {
+            var message = i18n['GINNET0019M'] + " " + selectedIf[0]["device"] + " " + i18n['GINNET0020M'];
             wok.message.success(message, '#message-nw-container-area');
           }, function(error) {
-            var message = i18n['GINNET0019M'] + " " + selectedIf[0]["name"] + " " + i18n['GINNET0021M'];
+            var message = i18n['GINNET0019M'] + " " + selectedIf[0]["device"] + " " + i18n['GINNET0021M'];
             wok.message.error(message + error.responseJSON.reason, '#message-nw-container-area', true);
           });
         }
@@ -273,7 +273,7 @@ ginger.listNetworkConfig = function() {
       "formatter": "nw-interface-status",
       "title": ""
     }, {
-      "column-id": 'name',
+      "column-id": 'device',
       "type": 'string',
       "width": "15%",
       "title": i18n['GINNET0001M']
