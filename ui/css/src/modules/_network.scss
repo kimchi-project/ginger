@@ -222,13 +222,18 @@
 #form-nw-vlan-ipv4,
 #form-nw-vlan-general,
 #form-nw-vlan-ipv6,
-#form-nw-vlan-advance {
+#form-nw-vlan-advance,
+#form-nw-bond-general,
+#form-nw-bond-ipv4,
+#form-nw-bond-ipv6,
+#form-nw-bond-advance {
   margin: 15px 0 0;
   width:98%;
 }
 
 #nw-settings-window,
-#nw-vlan-window {
+#nw-vlan-window,
+#nw-bond-window {
   .tab-content {
   height: 559px;
   overflow: auto;
@@ -239,7 +244,8 @@
 }
 
 #nw-settings-tabs,
-#nw-vlan-tabs {
+#nw-vlan-tabs,
+#nw-bond-tabs {
   .form-horizontal .control-label {
   text-align: left;
   padding-top:0px;
