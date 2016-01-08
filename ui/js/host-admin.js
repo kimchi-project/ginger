@@ -71,6 +71,7 @@ ginger.initBakDialog = function() {
 
         $("#newBakFormBtn").on("click", function(e) {
             e.preventDefault();
+            e.stopImmediatePropagation();
             var content = {
                 description: $("#description-textbox", "#newBakDialog").val().trim(),
                 include: [],
@@ -96,7 +97,6 @@ ginger.initBakDialog = function() {
             $("body button").css("cursor", "wait");
             ginger.createBackupArchive(content, function() {
                 $('#newBakDialog').modal('hide');
-                $("#bakGridBody").empty();
                 ginger.setupBakGrid();
             }, function(result) {
                 $("body").css('cursor', 'default');
@@ -252,7 +252,6 @@ ginger.initConfigBak = function() {
     $("#newDefaultBakBtn").on("click", function(event) {
         event.preventDefault();
         ginger.createBackupArchive({}, function() {
-            $("#bakGridBody").empty();
             ginger.setupBakGrid();
         })
     });
