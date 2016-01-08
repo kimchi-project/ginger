@@ -30,16 +30,25 @@ ginger.initBakDialog = function() {
             $(".delete", pathItem).on("click", function() {
                 if (pathItem.parent().children().length === 1) {
                     $("input", pathItem).prop("value", null);
-                    $("input", pathItem).removeClass("invalid-field");
+                    $("input", pathItem).toggleClass("invalid-field", $(this).val().trim() === "");
                 } else {
                     pathItem.remove();
                 }
-                setBtnState();
+                checkFields();
             });
             $("input", pathItem).on("keyup", function() {
-                $(this).toggleClass("invalid-field", !(/(^\/.*)$/.test($(this).val()) || $(this).val().trim() === ""));
+                if (pathItem.parent().prop('id') !== 'includeBox') {
+                    return;
+                }
+                $(this).toggleClass("invalid-field", $(this).val().trim() === "");
                 setBtnState();
             });
+        };
+        var checkFields = function() {
+            $("#includeBox .path-item input").each(function(idx, elm) {
+                $(this).toggleClass("invalid-field", $(this).val().trim() === "");
+            });
+            setBtnState();
         };
         $(".add").on("click", function(e) {
             e.preventDefault();
@@ -56,6 +65,7 @@ ginger.initBakDialog = function() {
                     $("#excludeBox").append(pathNode);
                 }
             }
+            checkFields();
             attachEvent($(pathNode));
         });
 
@@ -120,6 +130,7 @@ ginger.initBakDialog = function() {
         $("body button").prop("disabled", false);
         $("body input").css("cursor", "text");
         $("body button").css("cursor", "pointer");
+        $("#newBakFormBtn").prop("disabled", true);
     };
 };
 
