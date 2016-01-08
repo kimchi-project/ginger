@@ -184,8 +184,8 @@ ginger.initBatDelDialog = function() {
 };
 
 ginger.setupBakGrid = function() {
-    $(".body", "#bakGridBody").remove();
     ginger.listBackupArchives(function(data) {
+        $("#bakGridBody").empty();
         for (var i = 0; i < data.length; i++) {
             data[i].timestamp = new Date(data[i].timestamp * 1000).toLocaleString();
             data[i].filename = data[i].file.split('/');
