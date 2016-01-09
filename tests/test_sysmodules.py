@@ -103,7 +103,8 @@ sig_hashalgo=sha256\0"""
         self.assertEqual(modinfo_dict['sig_hashalgo'], 'sha256')
 
         self.assertEqual(modinfo_dict['aliases'], [])
-        self.assertEqual(modinfo_dict['parms'], [])
+        self.assertEqual(modinfo_dict['parms'], {})
+        self.assertEqual(modinfo_dict['features'], {})
 
     def test_modinfo_parser_with_aliases_parms(self):
         modinfo_sample_output = """filename:  /lib/modules/4.2.8-300.fc23.\
@@ -147,11 +148,13 @@ device (int)\0"""
 
         self.assertEqual(
             modinfo_dict['parms'],
-            [
-                'max_loop:Maximum number of loop devices (int)',
-                'max_part:Maximum number of partitions per loop device (int)'
-            ]
+            {
+                'max_loop': 'Maximum number of loop devices (int)',
+                'max_part': 'Maximum number of partitions per loop '
+                            'device (int)'
+            }
         )
+        self.assertEqual(modinfo_dict['features'], {})
 
     def test_modinfo_parser_multiple_author(self):
         modinfo_sample_output = """filename:       /lib/modules/4.2.8-300.\
@@ -195,7 +198,8 @@ sig_hashalgo=sha256\0"""
         )
         self.assertEqual(modinfo_dict['sig_hashalgo'], 'sha256')
         self.assertEqual(modinfo_dict['aliases'], [])
-        self.assertEqual(modinfo_dict['parms'], [])
+        self.assertEqual(modinfo_dict['parms'], {})
+        self.assertEqual(modinfo_dict['features'], {})
 
     @mock.patch('wok.plugins.ginger.models.sysmodules.run_command')
     def test_model_list_loaded_modules(self, mock_run_command):
@@ -245,3 +249,106 @@ sig_hashalgo=sha256\0"""
         cmd = ['modprobe', '-r', module_name]
         SysModuleModel().delete(module_name)
         mock_run_command.assert_called_once_with(cmd)
+
+    def get_modinfo_mlx4core_output(self):
+        return """filename:       /lib/modules/\
+3.18.22-354.el7_1.pkvm3_1_0.3600.1.ppc64le/kernel/drivers/net/\
+ethernet/mellanox/mlx4/mlx4_core.ko\0version=2.2-1\0license=Dual BSD/GPL\0\
+description=Mellanox ConnectX HCA low-level driver\0author=Roland Dreier\0\
+srcversion=AB5AB33578ABBAE854E905B\0\
+alias=pci:v000015B3d00001010sv*sd*bc*sc*i*\0\
+alias=pci:v000015B3d0000100Fsv*sd*bc*sc*i*\0\
+alias=pci:v000015B3d0000100Esv*sd*bc*sc*i*\0\
+alias=pci:v000015B3d0000100Dsv*sd*bc*sc*i*\0\
+alias=pci:v000015B3d0000100Csv*sd*bc*sc*i*\0\
+alias=pci:v000015B3d0000100Bsv*sd*bc*sc*i*\0\
+alias=pci:v000015B3d0000100Asv*sd*bc*sc*i*\0\
+alias=pci:v000015B3d00001009sv*sd*bc*sc*i*\0\
+alias=pci:v000015B3d00001008sv*sd*bc*sc*i*\0\
+alias=pci:v000015B3d00001007sv*sd*bc*sc*i*\0\
+alias=pci:v000015B3d00001006sv*sd*bc*sc*i*\0\
+alias=pci:v000015B3d00001005sv*sd*bc*sc*i*\0\
+alias=pci:v000015B3d00001004sv*sd*bc*sc*i*\0\
+alias=pci:v000015B3d00001003sv*sd*bc*sc*i*\0\
+alias=pci:v000015B3d00001002sv*sd*bc*sc*i*\0\
+alias=pci:v000015B3d0000676Esv*sd*bc*sc*i*\0\
+alias=pci:v000015B3d00006746sv*sd*bc*sc*i*\0\
+alias=pci:v000015B3d00006764sv*sd*bc*sc*i*\0\
+alias=pci:v000015B3d0000675Asv*sd*bc*sc*i*\0\
+alias=pci:v000015B3d00006372sv*sd*bc*sc*i*\0\
+alias=pci:v000015B3d00006750sv*sd*bc*sc*i*\0\
+alias=pci:v000015B3d00006368sv*sd*bc*sc*i*\0\
+alias=pci:v000015B3d0000673Csv*sd*bc*sc*i*\0\
+alias=pci:v000015B3d00006732sv*sd*bc*sc*i*\0\
+alias=pci:v000015B3d00006354sv*sd*bc*sc*i*\0\
+alias=pci:v000015B3d0000634Asv*sd*bc*sc*i*\0\
+alias=pci:v000015B3d00006340sv*sd*bc*sc*i*\0\
+depends=\0intree=Y\0vermagic=3.18.22-354.el7_1.pkvm3_1_0.3600.1\
+.ppc64le SMP mod_unload \0\
+parm:           debug_level:Enable debug tracing if > 0 (int)\0\
+parm:           msi_x:attempt to use MSI-X if nonzero (int)\0\
+parm:           num_vfs:enable #num_vfs functions if num_vfs > 0
+num_vfs=port1,port2,port1+2 (array of byte)\0\
+parm:           probe_vf:number of vfs to probe by pf driver (num_vfs > 0)
+probe_vf=port1,port2,port1+2 (array of byte)\0\
+parm:           log_num_mgm_entry_size:log mgm size, that defines the num \
+of qp per mcg, for example: 10 gives 248.range: 7 <= log_num_mgm_entry_size \
+<= 12. To activate device managed flow steering when available, \
+set to -1 (int)\0\
+parm:           enable_64b_cqe_eqe:Enable 64 byte CQEs/EQEs when the FW \
+supports this (default: True) (bool)\0\
+parm:           log_num_mac:Log2 max number of MACs per ETH port \
+(1-7) (int)\0\
+parm:           log_num_vlan:Log2 max number of VLANs per ETH port \
+(0-7) (int)\0\
+parm:           use_prio:Enable steering by VLAN priority on ETH ports \
+(deprecated) (bool)\0\
+parm:           log_mtts_per_seg:Log2 number of MTT entries per segment \
+(1-7) (int)\0\
+parm:           port_type_array:Array of port types: HW_DEFAULT (0) is \
+default 1 for IB, 2 for Ethernet (array of int)\0\
+parm:           enable_qos:Enable Quality of Service support in the HCA \
+(default: off) (bool)\0\
+parm:           internal_err_reset:Reset device on internal errors if \
+non-zero (default 1) (int)\0"""
+
+    def test_modinfo_parser_mlx4core(self):
+        modinfo_dict = sysmodules.parse_modinfo_0_output(
+            self.get_modinfo_mlx4core_output()
+        )
+
+        self.assertEqual(modinfo_dict['authors'], ['Roland Dreier'])
+        self.assertEqual(modinfo_dict['license'], 'Dual BSD/GPL')
+        self.assertEqual(modinfo_dict['depends'], [])
+        self.assertEqual(modinfo_dict['intree'], 'Y')
+        self.assertEqual(len(modinfo_dict['aliases']), 27)
+        self.assertEqual(len(modinfo_dict['parms']), 13)
+        self.assertIn('num_vfs', modinfo_dict['parms'].keys())
+        self.assertIn('probe_vf', modinfo_dict['parms'].keys())
+
+    @mock.patch('wok.plugins.ginger.models.sysmodules.run_command')
+    def test_model_get_mxl4core_info_returns_SRIOV(self, mock_run_command):
+        mock_run_command.return_value = [
+            self.get_modinfo_mlx4core_output(),
+            "",
+            0
+        ]
+        module_name = "mlx4-core"
+        cmd = ['modinfo', '-0', module_name]
+        lookup = SysModuleModel().lookup(module_name)
+        mock_run_command.assert_called_once_with(cmd)
+
+        self.assertEqual(lookup['authors'], ['Roland Dreier'])
+        self.assertEqual(lookup['license'], 'Dual BSD/GPL')
+        self.assertEqual(lookup['depends'], [])
+        self.assertEqual(lookup['intree'], 'Y')
+
+        self.assertEqual(len(lookup['aliases']), 27)
+        self.assertEqual(len(lookup['parms']), 13)
+        self.assertIn('num_vfs', lookup['parms'].keys())
+        self.assertIn('probe_vf', lookup['parms'].keys())
+
+        self.assertIn('SR-IOV', lookup['features'].keys())
+        sriov_dic = lookup['features']['SR-IOV']
+        self.assertIsNotNone(sriov_dic.get('desc'))
+        self.assertEqual(sriov_dic['parms'], ['num_vfs', 'probe_vf'])
