@@ -766,7 +766,8 @@ of all available modules, not just the loaded ones. At this moment there is no a
         * sig_key - str
         * sig_hashalgo -str
         * aliases - an array of alias.
-        * parms - an array of parm (module parameters).
+        * parms - a dictionary of parm (module parameters) with format {param_name1: param_desc1, param_name2: param_desc2 ...}
+        * features - a dictionary that describes feature enablement given certain parameters of the module, for example SR-IOV in some Ethernet cards. This dictionary has the format {feature1: {desc: description_of_feature1, parms: array_of_parm_that_enables_feature1}, feature2:{...} ...}
 * Returns: a dictionary with the fetched values.
 
 * **DELETE**: Unload a loaded kernel module using modprobe -r.

@@ -74,7 +74,7 @@ sig_hashalgo=sha256\0
 
     modinfo_dict['aliases'] = []
     modinfo_dict['authors'] = []
-    modinfo_dict['parms'] = []
+    modinfo_dict['parms'] = {}
     dict_attr_to_array = {
        'alias': 'aliases', 'author': 'authors', 'parm': 'parms'
     }
@@ -97,7 +97,14 @@ sig_hashalgo=sha256\0
 
         if attr_name in ['alias', 'author', 'parm']:
             attr_name = dict_attr_to_array[attr_name]
-            modinfo_dict[attr_name].append(attr_value.strip())
+            if attr_name == 'parms':
+                parm_values = attr_value.split(':', 1)
+                parm_name = parm_values[0].strip()
+                parm_desc = '' if len(parm_values) != 2 else parm_values[1]
+                modinfo_dict['parms'][parm_name] = parm_desc
+
+            else:
+                modinfo_dict[attr_name].append(attr_value.strip())
 
         elif attr_name == 'depends':
             deps = []
@@ -109,6 +116,8 @@ sig_hashalgo=sha256\0
 
         else:
             modinfo_dict[attr_name] = attr_value.rstrip()
+
+    modinfo_dict['features'] = {}
 
     return modinfo_dict
 
@@ -183,9 +192,25 @@ class SysModulesModel(object):
 
 class SysModuleModel(object):
 
+    def get_features_per_module(self):
+        mlx4_core_SRIOV = {
+            'desc': 'SR-IOV: Single Root I/O Virtualization',
+            'parms': ['num_vfs', 'probe_vf']
+        }
+        features_mod = {'mlx4-core': {'SR-IOV': mlx4_core_SRIOV}}
+        return features_mod
+
+    def __init__(self):
+        self.features_mod = self.get_features_per_module()
+
     def lookup(self, name):
         modinfo_dict = parse_modinfo_0_output(get_modinfo_0_output(name))
+
+        if self.features_mod.get(name) is not None:
+            modinfo_dict['features'] = self.features_mod.get(name)
+
         modinfo_dict['name'] = name
+
         return modinfo_dict
 
     def delete(self, name):
