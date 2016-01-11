@@ -623,6 +623,71 @@
   margin-bottom: 10px;
 }
 
+/* Firmware Progress Accordion */
+#fwprogress-textarea {
+  width: 100%;
+  height: 100px;
+  padding-left: 60px;
+  box-sizing: border-box;
+  resize: vertical;
+  border: 1px solid transparent;
+}
+
+#fwprogress-container {
+  padding: 15px;
+  background: #eee;
+}
+
+#fwprogress-container .fwprogress-main {
+  background: #fff;
+}
+
+#fwprogress-container h3 {
+  width: 100%;
+  margin: 0 !important;
+  padding: 10px 15px;
+  font-size: 20px;
+  border-radius: 2px 2px 0 0;
+}
+
+#fwprogress-container a {
+  color: #9e9e9e;
+  text-decoration: none;
+}
+
+#fwprogress-container > div > h3 > a {
+  display: block;
+  width: 100%;
+  padding-bottom: 10px;
+  border-bottom: 2px solid transparent;
+}
+
+#fwprogress-container h3 > a > span.accordion-icon {
+  display: inline-block;
+  font: normal normal normal 14px/1 FontAwesome;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  font-size: 30px;
+  color: #5a595b;
+}
+
+#fwprogress-container h3 > a > span.accordion-text {
+  margin-left: 20px;
+}
+
+#fwprogress-container h3 > a[aria-expanded="true"] > span.accordion-icon:before {
+  content: "\f01b";
+}
+
+#fwprogress-container h3 > a[aria-expanded="false"] > span.accordion-icon:before {
+  content: "\f01a";
+}
+
+#fwprogress-container > div > h3 > a[aria-expanded="true"] {
+  border-color: #eee;
+}
+
+/* End of Firmware Progress Accordion */
 #network-root-container .accordion {
   margin: 12px 20px 12px 60px;
   padding-bottom: 18px;

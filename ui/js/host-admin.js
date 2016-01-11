@@ -631,9 +631,33 @@ ginger.initFirmware = function() {
                 $("#gingerFWUpdateMess").css("display", "inline-block");
                 $("#gingerPackPathSub").prop('disabled', true);
                 $("#gingerPackPath").prop("disabled", true);
+                startFwProgress();
             });
         }, null);
     });
+    var progressAreaID = 'fwprogress-textarea';
+    var reloadProgressArea = function(result) {
+        var progressArea = $('#' + progressAreaID)[0];
+        $(progressArea).text(result['message']);
+        var scrollTop = $(progressArea).prop('scrollHeight');
+        $(progressArea).prop('scrollTop', scrollTop);
+    };
+    var startFwProgress = function() {
+        var progressArea = $('#' + progressAreaID)[0];
+        $('#fwprogress-container').removeClass('hidden');
+        $(progressArea).text('');
+        !wok.isElementInViewport(progressArea) &&
+            progressArea.scrollIntoView();
+
+        ginger.fwProgress(function(result) {
+            reloadProgressArea(result);
+            wok.topic('ginger/').publish({
+                result: result
+            });
+        }, function(error) {
+            wok.message.error(error.responseJSON.reason);
+        }, reloadProgressArea);
+    };
 };
 
 ginger.initAdmin = function() {
