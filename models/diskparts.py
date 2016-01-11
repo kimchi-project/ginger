@@ -19,7 +19,7 @@
 
 import utils
 
-from wok.exception import MissingParameter, OperationFailed
+from wok.exception import MissingParameter, NotFoundError, OperationFailed
 from wok.model.tasks import TaskModel
 from wok.plugins.gingerbase.disks import get_partitions_names,\
     get_partition_details
@@ -67,10 +67,14 @@ class PartitionModel(object):
 
         try:
             return get_partition_details(name)
+
+        except NotFoundError:
+            wok_log.error("partition %s not found" % name)
+            raise NotFoundError("GINPART00014E", {'name': name})
+
         except OperationFailed as e:
             wok_log.error("lookup method of partition failed")
-            raise OperationFailed("GINPART00003E",
-                                  {'err': e})
+            raise OperationFailed("GINPART00003E", {'name': name, 'err': e})
 
     def format(self, name, fstype):
 

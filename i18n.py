@@ -202,7 +202,7 @@ messages = {
 
     "GINPART00001E": _("Fetching list of partitions failed"),
     "GINPART00002E": _("Create partition failed"),
-    "GINPART00003E": _("lookup method of partition failed"),
+    "GINPART00003E": _("Error retrieving information of partition %(name)s : %(err)s"),
     "GINPART00004E": _("Partition already mounted"),
     "GINPART00005E": _("Format partition failed"),
     "GINPART00006E": _("Change type for partition failed"),
@@ -212,6 +212,8 @@ messages = {
     "GINPART00011E": _("fdisk command failed"),
     "GINPART00012E": _("mkfs command failed"),
     "GINPART00013E": _("No partitions found"),
+    "GINPART00014E": _("Partition %(name)s not found."),
+
 
     "GINPV00001E": _("Required pv_name parameter"),
     "GINPV00002E": _("Failed to create PV"),

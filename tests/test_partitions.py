@@ -22,7 +22,7 @@ import unittest
 import wok.plugins.ginger.models.diskparts as diskparts
 
 from wok import config
-from wok.exception import MissingParameter
+from wok.exception import MissingParameter, NotFoundError
 from wok.model.tasks import TaskModel
 from wok.objectstore import ObjectStore
 
@@ -88,3 +88,13 @@ class PartitionTests(unittest.TestCase):
         task_obj = part.format(name, fstype)
         self.task_model.wait(task_obj.get('id'))
         mock_format_part.assert_called_with(fstype, name)
+
+    @mock.patch('wok.plugins.ginger.models.diskparts.get_partition_details',
+                autospec=True)
+    def test_lookup_invalid_part_returns_404(self, mock_get_part_details):
+        mock_get_part_details.side_effect = [NotFoundError]
+
+        part = diskparts.PartitionModel(objstore=self._objstore)
+
+        with self.assertRaises(NotFoundError):
+            part.lookup('/a/invalid/partition')
