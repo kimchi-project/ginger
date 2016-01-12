@@ -218,8 +218,8 @@ ginger.populateNwSettingsGeneralTab = function(interface) {
   nwDeviceTextbox.val(interface.BASIC_INFO.DEVICE);
   nwTypeTextbox.val(interface.BASIC_INFO.TYPE);
   nwHwaddressTextbox.val(interface.BASIC_INFO.HWADDR);
-  if ("SUBCHANNEL" in (interface.BASIC_INFO)) {
-    nwSubchTextbox.val(interface.BASIC_INFO.SUBCHANNEL);
+  if ("SUBCHANNELS" in (interface.BASIC_INFO)) {
+    nwSubchTextbox.val(interface.BASIC_INFO.SUBCHANNELS);
     subchannelForm.removeClass("hidden");
   }
   if (interface.BASIC_INFO.ONBOOT == "\"yes\"" || interface.BASIC_INFO.ONBOOT == "yes") {
