@@ -23,7 +23,7 @@ import threading
 
 from wok.exception import MissingParameter, NotFoundError, OperationFailed
 from wok.model.tasks import TaskModel
-from wok.utils import add_task, wok_log
+from wok.utils import add_task, run_command, wok_log
 
 
 class DASDdevsModel(object):
@@ -31,8 +31,9 @@ class DASDdevsModel(object):
     Model class for listing DASD devices (lsdasd -l)
     """
     def is_feature_available(self):
+        _, _, returncode = run_command(['lsdasd', '-l'])
         ptfm = platform.machine()
-        if ptfm != 's390x':
+        if ptfm != 's390x' or returncode != 0:
             return False
         else:
             return True
