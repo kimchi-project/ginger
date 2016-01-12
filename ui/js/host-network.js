@@ -1,5 +1,19 @@
-/**
+/*
+ * Copyright IBM Corp, 2015
  *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 2.1 of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
 ginger.opts = [];
@@ -251,6 +265,7 @@ ginger.loadBootgridNWActions = function(opts) {
   };
 
   ginger.createActionList(addListSettings);
+
   // Remove button "Add Adapter" in case of architecture != s390x
   if (ginger.hostarch != "s390x") {
     $('#' + "nw-add-adapter-button").hide();
@@ -258,7 +273,22 @@ ginger.loadBootgridNWActions = function(opts) {
     $('#' + "nw-add-adapter-button").show();
   }
 
+  // Hide button "Add VLAN" and "Add BOND "in case of capability "cfginterfaces" false
+  if (!ginger.cfginterfaces) {
+    $('#nw-add-bond-button').hide();
+    $('#nw-add-vlan-button').hide();
+    if (ginger.hostarch != "s390x") {
+      $('#action-dropdown-button-nw-configuration-add').hide();
+    } else {
+      $('#action-dropdown-button-nw-configuration-add').show();
+    }
+  } else {
+    $('#nw-add-bond-button').show();
+    $('#nw-add-vlan-button').show();
+  }
+
   ginger.createActionList(actionListSettings);
+
 }
 
 ginger.listNetworkConfig = function() {
@@ -345,6 +375,8 @@ ginger.listNetworkConfig = function() {
         "nw-settings-button"
       ], false);
     }
+    //hide or show settings button based on cfginterfaces value
+    ginger.changeButtonStatus(["nw-settings-button"], ginger.cfginterfaces);
   };
 
   ginger.getInterfaces(function(result) {
@@ -498,6 +530,9 @@ ginger.initNetwork = function() {
           case "network":
             ginger.initGlobalNetworkConfig();
             ginger.initNetworkConfig();
+            break;
+          case "cfginterfaces":
+            ginger.cfginterfaces = capability;
             break;
         }
       });
