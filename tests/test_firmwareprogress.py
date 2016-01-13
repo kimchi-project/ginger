@@ -1,7 +1,7 @@
 #
 # Project Ginger
 #
-# Copyright IBM, Corp. 2015
+# Copyright IBM, Corp. 2015-2016
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -20,18 +20,23 @@
 import unittest
 
 from wok import config
+from wok.model.tasks import TaskModel
 from wok.objectstore import ObjectStore
 from wok.plugins.ginger.models.firmware import FirmwareProgressModel
 
 
 class FirmwareProgressTests(unittest.TestCase):
     def setUp(self):
-            objstore_loc = config.get_object_store() + '_ginger'
-            self._objstore = ObjectStore(objstore_loc)
+        objstore_loc = config.get_object_store() + '_ginger'
+        self._objstore = ObjectStore(objstore_loc)
+        self.task = TaskModel(objstore=self._objstore)
 
     def test_fwprogress_without_update_flash(self):
         fwprogress = FirmwareProgressModel(objstore=self._objstore)
         task_info = fwprogress.lookup()
+        self.task.wait(task_info['id'])
+        task_info = self.task.lookup(task_info['id'])
+
         self.assertEquals('finished', task_info['status'])
         self.assertEquals('Error', task_info['message'])
         self.assertEquals('/plugins/ginger/fwprogress',

@@ -1,7 +1,7 @@
 #
 # Project Ginger
 #
-# Copyright IBM, Corp. 2015
+# Copyright IBM, Corp. 2015-2016
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -173,7 +173,7 @@ class SwapTests(unittest.TestCase):
 
         mock_run_command.return_value = ["", "", 2]
 
-        expected_error_msg = "GINSP00019E: GINSP00019E"
+        expected_error_msg = "GINSP00019E"
         with self.assertRaisesRegexp(OperationFailed, expected_error_msg):
             utils._get_swap_output('valid_device_name')
             cmd = ['grep', '-w', 'valid_device_name', '/proc/swaps']
@@ -185,7 +185,7 @@ class SwapTests(unittest.TestCase):
 
         mock_run_command.return_value = ["", "", 9]
 
-        expected_error_msg = "GINSP00015E: GINSP00015E"
+        expected_error_msg = "GINSP00015E"
         with self.assertRaisesRegexp(OperationFailed, expected_error_msg):
             utils._get_swap_output('fake_device_name')
             cmd = ['grep', '-w', 'fake_device_name', '/proc/swaps']
