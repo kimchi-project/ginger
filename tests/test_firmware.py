@@ -24,6 +24,7 @@ import unittest
 from wok import config
 from wok.exception import OperationFailed
 from wok.objectstore import ObjectStore
+from wok.model.tasks import TaskModel
 
 from wok.plugins.ginger.models.firmware import FirmwareModel
 
@@ -33,6 +34,7 @@ class FirmwareTests(unittest.TestCase):
     def setUp(self):
         objstore_loc = config.get_object_store() + '_ginger'
         self._objstore = ObjectStore(objstore_loc)
+        self.task = TaskModel(objstore=self._objstore)
 
     @mock.patch('wok.plugins.ginger.models.firmware.run_command')
     def test_model_lookup(self, mock_run_command):
@@ -69,7 +71,8 @@ class FirmwareTests(unittest.TestCase):
         params = {'path': temp.name}
         command = ['update_flash', '-f', temp.name]
 
-        FirmwareModel(objstore=self._objstore).update(None, params)
+        task_id = FirmwareModel(objstore=self._objstore).update(None, params)
+        self.task.wait(task_id)
         mock_run_command.assert_called_once_with(
             command,
             tee='/tmp/fw_tee_log.txt'
@@ -90,7 +93,8 @@ class FirmwareTests(unittest.TestCase):
         params = {'path': temp.name, 'overwrite-perm-ok': False}
         command = ['update_flash', '-n', '-f', temp.name]
 
-        FirmwareModel(objstore=self._objstore).update(None, params)
+        task_id = FirmwareModel(objstore=self._objstore).update(None, params)
+        self.task.wait(task_id)
         mock_run_command.assert_called_once_with(
             command,
             tee='/tmp/fw_tee_log.txt'

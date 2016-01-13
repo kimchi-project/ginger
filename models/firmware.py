@@ -102,7 +102,7 @@ class FirmwareModel(object):
 
         cmd_params = {'command': command, 'operation': 'update'}
         taskid = add_task('', self._execute_task, self.objstore, cmd_params)
-        self.task.wait(taskid)
+        return taskid
 
     def commit(self, name):
         command = ['update_flash', '-c']
