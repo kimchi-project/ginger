@@ -34,7 +34,6 @@ ginger.initStorage = function() {
 };
 
 ginger.loadFileSystemDetails = function() {
-  //ginger.loadStorageActionButtons();
   var gridFields = [];
   var opts = [];
 
@@ -72,11 +71,18 @@ ginger.loadFileSystemDetails = function() {
   opts['gridFields'] = JSON.stringify(gridFields);
 
   ginger.createBootgrid(opts);
+  ginger.initFileSystemsGridData();
+};
 
+ginger.initFileSystemsGridData = function() {
+  var opts = [];
+  opts['gridId'] = "fileSystemsGrid";
+  ginger.clearBootgridData(opts['gridId']);
   ginger.getFilesystems(function(result) {
-    ginger.loadBootgridData("fileSystemsGrid", result);
+    ginger.loadBootgridData(opts['gridId'], result);
   });
 };
+
 ginger.loadSwapDeviceDetails = function() {
   var gridFields = [];
   var opts = [];
@@ -108,7 +114,13 @@ ginger.loadSwapDeviceDetails = function() {
   }];
   opts['gridFields'] = JSON.stringify(gridFields);
   ginger.createBootgrid(opts);
+  ginger.initSwapDevicesGridData();
+};
 
+ginger.initSwapDevicesGridData = function() {
+  var opts = [];
+  opts['gridId'] = "swapDevicesGrid";
+  ginger.clearBootgridData(opts['gridId']);
   ginger.getSwapdevices(function(result) {
     for (i = 0; i < result.length; i++) {
       //calculate usage % from size and used (both are in bytes)
@@ -120,7 +132,7 @@ ginger.loadSwapDeviceDetails = function() {
       });
       result[i]['size'] = result[i]['size'].toString();
     }
-    ginger.loadBootgridData("swapDevicesGrid", result);
+    ginger.loadBootgridData(opts['gridId'], result);
   });
 };
 
@@ -145,9 +157,16 @@ ginger.loadVolumeGroupDetails = function() {
   opts['gridFields'] = JSON.stringify(gridFields);
 
   ginger.createBootgrid(opts);
+  ginger.initVolumeGroupGridData();
 
+};
+
+ginger.initVolumeGroupGridData = function(){
+  var opts = [];
+  opts['gridId'] = "volumeGroupsGrid";
+  ginger.clearBootgridData(opts['gridId']);
   ginger.getVolumegroups(function(result) {
-    ginger.loadBootgridData("volumeGroupsGrid", result);
+    ginger.loadBootgridData(opts['gridId'], result);
   });
 };
 
@@ -229,16 +248,8 @@ ginger.loadSanAdapters = function() {
     }];
   }
   opts['gridFields'] = JSON.stringify(gridFields);
-  //opts['gridFields'] = JSON.stringify(gridFields);
   ginger.createBootgrid(opts);
-  ginger.getSANAdapters(function(result) {
-    for (i = 0; i < result.length; i++) {
-      //format ports information
-      result[i]['ports_info'] = result[i]['vports_inuse'] + '/' + result[i]['max_vports'];
-    }
-    ginger.loadBootgridData("SanAdaptersGrid", result);
-  });
-
+  ginger.initSanAdaterGridData();
   ginger.getPlugins(function(result){
     if ((ginger.hostarch == "s390x") && ($.inArray("gingers390x", result) != -1)) {
       var actionButtonHtml = '<div class="btn-group">' +
@@ -252,7 +263,19 @@ ginger.loadSanAdapters = function() {
     });
   });
 
+};
 
+ginger.initSanAdaterGridData = function(){
+  var opts = [];
+  opts['gridId'] = "SanAdaptersGrid";
+  ginger.clearBootgridData(opts['gridId']);
+  ginger.getSANAdapters(function(result) {
+    for (i = 0; i < result.length; i++) {
+      //format ports information
+      result[i]['ports_info'] = result[i]['vports_inuse'] + '/' + result[i]['max_vports'];
+    }
+    ginger.loadBootgridData(opts['gridId'], result);
+  });
 };
 
 ginger.loadFcpTapeDevices = function() {
@@ -300,9 +323,15 @@ ginger.loadFcpTapeDevices = function() {
   }];
   opts['gridFields'] = JSON.stringify(gridFields);
   ginger.createBootgrid(opts);
+  ginger.initFcpTapeGridData();
+};
 
+ginger.initFcpTapeGridData = function() {
+  var opts = [];
+  opts['gridId'] = "fcptapeDevicesGrid";
+  ginger.clearBootgridData(opts['gridId']);
   ginger.getFcpTapeDevices(function(result) {
-    ginger.loadBootgridData("fcptapeDevicesGrid", result);
+    ginger.loadBootgridData(opts['gridId'], result);
   });
 };
 
@@ -483,6 +512,7 @@ ginger.loadStorageActionButtons = function(){
       });
   });
 };
+
 ginger.loadStorageDeviceDetails = function(){
   var gridFields = [];
   var opts =[];
@@ -520,7 +550,14 @@ ginger.loadStorageDeviceDetails = function(){
 
   opts['gridFields']=JSON.stringify(gridFields);
   ginger.createBootgrid(opts);
+  ginger.initStorageDevicesGridData();
+};
+
+ginger.initStorageDevicesGridData = function() {
+  var opts = [];
+  opts['gridId'] = "stgDevGrid";
+  ginger.clearBootgridData(opts['gridId']);
   ginger.getStgdevs(function(result){
-    ginger.loadBootgridData("stgDevGrid",result);
+    ginger.loadBootgridData(opts['gridId'],result);
   });
 };

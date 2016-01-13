@@ -378,9 +378,15 @@ ginger.listNetworkConfig = function() {
     //hide or show settings button based on cfginterfaces value
     ginger.changeButtonStatus(["nw-settings-button"], ginger.cfginterfaces);
   };
+  ginger.initNetworkConfigGridData();
+};
 
+ginger.initNetworkConfigGridData = function() {
+  var opts = [];
+  opts['gridId'] = "nwConfigGrid";
+  ginger.clearBootgridData(opts['gridId']);
   ginger.getInterfaces(function(result) {
-    ginger.loadBootgridData("nwConfigGrid", result);
+    ginger.loadBootgridData(opts['gridId'], result);
   });
 };
 
