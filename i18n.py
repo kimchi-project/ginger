@@ -93,6 +93,10 @@ messages = {
                      "'%(name)s'"),
     "GINNET0058E": _("Failed to a delete token from ifcfg file, Error: "
                      "'%(error)s'"),
+    "GINNET0059E": _("Unable to bring up the interface '%(name)s', "
+                     "'%(error)s'."),
+    "GINNET0060E": _("Unable to bring down the interface '%(name)s', "
+                     "'%(error)s'."),
 
     "GINUSER0001E": _("Specify name, password, group and profile for the new "
                       "user."),

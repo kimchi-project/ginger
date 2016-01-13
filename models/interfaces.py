@@ -22,6 +22,8 @@ import ethtool
 import ipaddr
 import libvirt
 import lxml.etree as ET
+import os
+import time
 
 import cfginterfaces
 
@@ -190,9 +192,32 @@ class InterfaceModel(object):
                 raise
 
     def activate(self, ifacename):
+        wok_log.info('Bring up an interface ' + ifacename)
+        iface_type = netinfo.get_interface_type(ifacename)
+        if iface_type == "Ethernet":
+            cmd_ipup = ['ip', 'link', 'set', '%s' % ifacename, 'up']
+            out, error, returncode = run_command(cmd_ipup)
+            if returncode != 0:
+                wok_log.error(
+                    'Unable to bring up the interface on ' + ifacename +
+                    ', ' + error)
+                raise OperationFailed('GINNET0059E', {'name': ifacename,
+                                                      'error': error})
+            # Some times based on system load, it takes few seconds to
+            # reflect the  /sys/class/net files upon execution of 'ip link
+            # set' command.  Following snippet is to wait util files get
+            # reflect.
+            timeout = self.wait_time(ifacename)
+            if timeout == 5:
+                wok_log.warn("Time-out has happened upon execution of 'ip "
+                             "link set <interface> up', hence behavior of "
+                             "activating an interface may not as expected.")
+            else:
+                wok_log.info(
+                        'Successfully brought up the interface ' + ifacename)
         wok_log.info('Activating an interface ' + ifacename)
-        cmd = ['ifup', '%s' % ifacename]
-        out, error, returncode = run_command(cmd)
+        cmd_ifup = ['ifup', '%s' % ifacename]
+        out, error, returncode = run_command(cmd_ifup)
         if returncode != 0:
             wok_log.error(
                 'Unable to activate the interface on ' + ifacename +
@@ -204,8 +229,8 @@ class InterfaceModel(object):
 
     def deactivate(self, ifacename):
         wok_log.info('Deactivating an interface ' + ifacename)
-        cmd = ['ifdown', '%s' % ifacename]
-        out, error, returncode = run_command(cmd)
+        cmd_ifdown = ['ifdown', '%s' % ifacename]
+        out, error, returncode = run_command(cmd_ifdown)
         if returncode != 0:
             wok_log.error(
                 'Unable to deactivate the interface on ' + ifacename +
@@ -215,6 +240,41 @@ class InterfaceModel(object):
         wok_log.info(
             'Connection successfully deactivated for the interface ' +
             ifacename)
+
+        wok_log.info('Bringing down an interface ' + ifacename)
+        iface_type = netinfo.get_interface_type(ifacename)
+        if iface_type == "Ethernet":
+            cmd_ipdown = ['ip', 'link', 'set', '%s' % ifacename, 'down']
+            out, error, returncode = run_command(cmd_ipdown)
+            if returncode != 0:
+                wok_log.error(
+                    'Unable to bring down the interface on ' + ifacename +
+                    ', ' + error)
+                raise OperationFailed('GINNET0060E', {'name': ifacename,
+                                                      'error': error})
+            # Some times based on system load, it takes few seconds to
+            # reflect the  /sys/class/net files upon execution of 'ip link
+            # set' command. Following snippet is to wait util files get
+            # reflect.
+            timeout = self.wait_time(ifacename)
+            if timeout == 5:
+                wok_log.warn("Time-out has happened upon execution of 'ip "
+                             "link set <interface> down', hence behavior of "
+                             "activating an interface may not as expected.")
+            else:
+                wok_log.info(
+                        'Successfully brought down the interface ' + ifacename)
+
+    def wait_time(self, ifacename):
+        timeout = 0
+        while timeout < 5:
+            pathtocheck = "/sys/class/net/%s/operstate"
+            if os.path.exists(pathtocheck % ifacename):
+                break
+            else:
+                timeout += 0.5
+                time.sleep(0.5)
+        return timeout
 
     def confirm_change(self, _name):
         conn = self._conn
