@@ -1,7 +1,7 @@
 #
 # Project Ginger
 #
-# Copyright IBM, Corp. 2014
+# Copyright IBM, Corp. 2014-2016
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -151,7 +151,7 @@ def create_user(name, plain_passwd, profile=None, gid=None):
 
         adm.setpassUser(new_user, enc_pwd, True)
     except Exception as e:
-        wok_log.error('Could not create user %s', name, e)
+        wok_log.error('Could not create user %s, error: %s', name, e)
         raise OperationFailed('GINUSER0009E', {'user': name})
 
     return new_user
