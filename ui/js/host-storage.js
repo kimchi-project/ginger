@@ -304,22 +304,17 @@ ginger.loadFcpTapeDevices = function() {
     "title": i18n['GINTITLE0016M'],
     "column-id": "Model",
     "type": 'string',
-    "width": "10%",
+    "width": "20%",
   }, {
     "title": i18n['GINTITLE0002M'],
     "column-id": 'Type',
-    "width": "10%",
+    "width": "20%",
     "type": 'string'
   }, {
     "title": i18n['GINTITLE0009M'],
     "column-id": "State",
-    "width": "10%",
+    "width": "20%",
     "type": 'string'
-  }, {
-    "title": i18n['GINTITLE0017M'],
-    "column-id": "uuid",
-    "type": 'string',
-    "width": "35%",
   }];
   opts['gridFields'] = JSON.stringify(gridFields);
   ginger.createBootgrid(opts);
