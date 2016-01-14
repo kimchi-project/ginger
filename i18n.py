@@ -1,7 +1,7 @@
 #
 # Projact Ginger
 #
-# Copyright IBM, Corp. 2014
+# Copyright IBM, Corp. 2014-2016
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -283,7 +283,7 @@ messages = {
     "GINSYSMOD00002E": _("Module %(module)s not found."),
     "GINSYSMOD00003E": _("Error fetching info of module %(module)s, reason: %(err)s"),
     "GINSYSMOD00004E": _("Error loading module %(module)s, reason: %(err)s"),
-    "GINSYSMOD00004E": _("Error unloading module %(module)s, reason: %(err)s"),
+    "GINSYSMOD00005E": _("Error unloading module %(module)s, reason: %(err)s"),
 
     "GINSD00001E": _("Error executing 'ls -l /dev/disk/by-id, %(err)s"),
     "GINSD00002E": _("Error executing 'lsblk -Po, %(err)s"),
