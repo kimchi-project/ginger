@@ -241,7 +241,7 @@ URI: /plugins/ginger/filesystems/*:mount_point*
        * size:  Total size of the filesystem
        * mounted_on: Mount point of the filesystem
        * avail : Total space available on the filesystem
-       * device_name : Backing device name of the filesystem.
+       * filesystem : Name of the filesystem.
        * type : Filesystem type.
 
 * **DELETE**: Unmount the Filesystem
