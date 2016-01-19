@@ -68,6 +68,8 @@ ginger.initVLANInterfaceSettings = function() {
       populateAdvanceTab(result); //populate advance tab
       populateIpv4SettingsTab(result); //populate ipv4 setting tab
       populateIpv6SettingsTab(result); //populate ipv6 setting tab
+    }, function(error) {
+      wok.message.error(error.responseJSON.reason, '#alert-nw-vlan-modal-container', true);
     });
   }
 
@@ -270,6 +272,9 @@ var populateGeneralTab = function(interface) {
         nwVLANIDTextbox.val(1);
 
       nwVLANInterfaceTextbox.val(formInterfaceName());
+      if(interface != null && (interface.BASIC_INFO.VLANINFO.PHYSDEV).replace(/"/g, "")) {
+        parentInterfaceSelect.val((interface.BASIC_INFO.VLANINFO.PHYSDEV).replace(/"/g, ""));
+      }
     }
   });
 
@@ -279,7 +284,6 @@ var populateGeneralTab = function(interface) {
   } else {
     nwTitle.append(interface.BASIC_INFO.DEVICE);
     //  nwNameTextbox.val(interface.BASIC_INFO.Device);
-    parentInterfaceSelect.val((interface.BASIC_INFO.VLANINFO.PHYSDEV).replace(/"/g, ""));
     parentInterfaceSelect.prop('disabled', true);
 
     if (interface.BASIC_INFO.HWADDR)
