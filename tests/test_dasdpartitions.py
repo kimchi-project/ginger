@@ -22,7 +22,7 @@ import re
 import unittest
 
 import wok.plugins.ginger.models.dasdpartitions as partitions
-from wok.plugins.ginger.models.dasd_utils import _parse_lsblk_output
+from wok.plugins.gingerbase.disks import _parse_lsblk_output
 
 
 class DASDPartitionsTests(unittest.TestCase):
