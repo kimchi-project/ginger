@@ -17,11 +17,16 @@
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 
+import os
+import platform
 import re
 import subprocess
 
 from wok.exception import InvalidParameter, OperationFailed
 from wok.utils import run_command, wok_log
+
+from wok.plugins.ginger.models.utils import get_storagedevice, get_directories
+from wok.plugins.ginger.models.utils import syspath_eckd, get_dirname
 
 
 def _get_lsdasd_devs():
@@ -188,3 +193,65 @@ def validate_bus_id(bus_id):
     if len(ch_len) > 4:
         wok_log.error("Unable to validate bus ID, %s", bus_id)
         raise InvalidParameter("GINDASD0011E", {'bus_id': bus_id})
+
+
+def get_dasd_devs():
+    """
+    Get the list of unformatted DASD devices
+    """
+    devs = []
+    if platform.machine() == "s390x":
+        dasd_devices = _get_lsdasd_devs()
+        for device in dasd_devices:
+            uf_dev = {}
+            uf_dev['type'] = 'dasd'
+            uf_dev['name'] = device['name']
+            uf_dev['mpath_count'] = 'N/A'
+            uf_dev['size'] = device['size']
+            uf_dev['id'] = device['uid']
+            uf_dev['bus_id'] = device['bus-id']
+            uf_dev['mpath_count'] = len(
+                get_storagedevice(
+                    uf_dev['bus_id'])['enabled_chipids'])
+            devs.append(uf_dev)
+    return devs
+
+
+def get_dasd_bus_id(blk):
+    """
+    Get the bus id for the given DASD device
+    :param blk: DASD Block device
+    :return: BUS ID
+    """
+    try:
+        bus_id = os.readlink(
+            '/sys/block/' + blk + "/device").split("/")[-1]
+    except Exception as e:
+        wok_log.error("Error getting bus id of DASD device, " + blk)
+        raise OperationFailed("GINSD00006E", {'err': e.message})
+
+    return bus_id
+
+
+def _is_dasdeckd_device(device):
+    """
+    Return True if the device is of type dasd-eckd otherwise False
+    :param device: device id
+    """
+    dasdeckd_devices = _get_dasdeckd_devices()
+    if device in dasdeckd_devices:
+        return True
+    return False
+
+
+def _get_dasdeckd_devices():
+    """
+    Return list of dasd-eckd devices
+    """
+    device_paths = get_directories(syspath_eckd)
+    dasdeckd_devices = []
+    for path in device_paths:
+        device = get_dirname(path)
+        if device:
+            dasdeckd_devices.append(device)
+    return dasdeckd_devices

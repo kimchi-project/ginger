@@ -112,19 +112,19 @@ NAME="dasda1" TYPE="part" SIZE="22.5G" TRAN=""
         self.assertEqual(ret_dict['sde']['transport'], 'fc')
         self.assertEqual(ret_dict['sde']['size'], '20G')
 
+    @mock.patch('wok.plugins.ginger.models.dasd_utils.get_dasd_devs')
+    @mock.patch('wok.plugins.ginger.models.utils.get_fc_path_elements')
     @mock.patch('wok.plugins.ginger.models.utils.get_lsblk_keypair_out')
     @mock.patch('wok.plugins.ginger.models.utils.get_disks_by_id_out')
     @mock.patch('wok.plugins.ginger.models.utils.os.listdir')
-    @mock.patch('wok.plugins.ginger.models.utils.get_fc_path_elements')
-    @mock.patch('wok.plugins.ginger.models.utils.get_dasd_bus_id')
     def test_get_dev_list(
             self,
-            mock_dasd_bus_id,
-            mock_fc_elems,
             mock_list_dir,
             mock_by_id,
-            mock_lsblk_cmd):
-        mock_dasd_bus_id.return_value = '0.0.1111'
+            mock_lsblk_cmd,
+            mock_fc_elems,
+            mock_get_dasd_devs):
+        mock_get_dasd_devs.return_value = None
         mock_fc_elems.return_value = (
             '0.0.0000',
             '0x0000000000000000',
@@ -203,4 +203,215 @@ lrwxrwxrwx. 1 root root 10 Nov 24 10:58 wwn-0x6005076802810d50480000000000\
 """
         mock_list_dir.return_value = ['sde']
         out_list = utils.get_final_list()
-        self.assertEqual(len(out_list), 5)
+        self.assertEqual(len(out_list), 4)
+
+
+class GetPathsUnitTests(unittest.TestCase):
+    """
+    unit tests for _get_paths() method
+    """
+    def test_get_paths_success(self):
+        """
+        unit test to test for a valid scenario valid chipids
+        and binary value of pam to get the installed paths
+        """
+        chipid = 'fa000000 00000000'
+        bin_pam = '10000000'
+        installed_paths = ['fa']
+        out = utils._get_paths(bin_pam, chipid)
+        self.assertEqual(installed_paths, out)
+
+    def test_get_paths_invalid_binaryval(self):
+        """
+        unit test to test for a invalid scenario for valid chipids
+        and invalid binary value of pam to get the installed paths
+        """
+        chipid = 'fa000000 00000000'
+        bin_pam = '11000000'
+        out = utils._get_paths(bin_pam, chipid)
+        installed_paths = ['fa']
+        self.assertNotEqual(installed_paths, out)
+
+    def test_get_paths_invalid_chipid(self):
+        """
+        unit test to test for a valid scenario for invalid chipids
+        and valid binary value of pam to get the installed paths
+        """
+        chipid = 'ds0000 00000000'
+        bin_pam = '10000000'
+        out = utils._get_paths(bin_pam, chipid)
+        installed_paths = ['fa']
+        self.assertNotEqual(installed_paths, out)
+
+    def test_byte_to_binary_success(self):
+        """
+        unit test to test the conversion of byte in binary value to get the
+        valid binary value for the corresponding byte
+        """
+        val = '\x80'
+        binaryval = '10000000'
+        out = utils._byte_to_binary(ord(val))
+        self.assertEqual(binaryval, out)
+
+    def test_byte_to_binary_failure(self):
+        """
+        unit test to test the conversion of byte in binary value to get the
+        invalid binary value for the corresponding byte
+        """
+        val = '\x80'
+        binaryval = '1230000'
+        out = utils._byte_to_binary(ord(val))
+        self.assertNotEqual(binaryval, out)
+
+    def test_hex_to_binary_success(self):
+        """
+        unit test to test the conversion of a hexadecimal value to binary
+        for a valid hexadecimal value to fetch the the corresponding binary
+        value
+        """
+        val = '80'
+        binaryval = '10000000'
+        out = utils._hex_to_binary(val)
+        self.assertEqual(binaryval, out)
+
+    def test_hex_to_binary_failure(self):
+        """
+        unit test to test the conversion of a hexadecimal value to binary
+        for a valid hexadecimal value to fetch the the corresponding
+        invalid binary value
+        """
+        val = 'e0'
+        binaryval = '10000000'
+        out = utils._hex_to_binary(val)
+        self.assertNotEqual(binaryval, out)
+
+
+class FormatLscssUnitTests(unittest.TestCase):
+    """
+    unit tests for _format_lscss() method
+    """
+    def test_format_lscss_Noneinput(self):
+        """
+        unit test to validate _format_lscss() with None input
+        _format_lscss() should return None
+        """
+        device = None
+        formated_devices = utils._format_lscss(device)
+        self.assertEqual(formated_devices, None)
+
+    def test_format_lscss_emptyjsoninput(self):
+        """
+        unit test to validate _format_lscss() with empty json i/p
+        _format_lscss() should return empty json
+        """
+        device = {}
+        formated_devices = utils._format_lscss(device)
+        self.assertEqual(formated_devices, device)
+
+    @mock.patch('wok.plugins.ginger.models.utils.wok_log', autospec=True)
+    def test_format_lscss_keyerror(self, mock_log):
+        """
+        unit test to validate _format_lscss() with wrong keys
+        _format_lscss() should raise KeyError
+        """
+        device = {"Device": "0.0.0200", "Subchan": "0.0.0000",
+                  "DevType": "3390/0a", "CU Type": "3390/0a",
+                  "Use": "", "PIM": "e0", "PAM": "e0",
+                  "POM": "ff", "Invalid Key": "0000"}
+        log_msg = 'Issue while formating lscss dictionary output'
+        self.assertRaises(KeyError, utils._format_lscss, device)
+        mock_log.error.assert_called_with(log_msg)
+
+    def test_format_lscss_use_yes(self):
+        """
+        unit test to validate _format_lscss() with "Use" as "yes"
+        """
+        device = {"Device": "0.0.0200", "Subchan": "0.0.0000",
+                  "DevType": "3390/0a", "CU Type": "3390/0a",
+                  "Use": "yes", "PIM": "e0", "PAM": "e0",
+                  "POM": "ff", "CHPIDs": "b0b10d00 00000000"}
+        output = {"device": "0.0.0200", "sub_channel": "0.0.0000",
+                  "device_type": "3390/0a", "cu_type": "3390/0a",
+                  "status": "online", "enabled_chipids":
+                  ["b0", "b1", "0d"], "installed_chipids":
+                  ["b0", "b1", "0d"]}
+        formated_devices = utils._format_lscss(device)
+        self.assertEqual(formated_devices, output)
+
+    def test_format_lscss_use_blank(self):
+        """
+        unit test to validate _format_lscss() with "Use" as "blank"
+        and pim mask equal to pam mask
+        """
+        device = {"Device": "0.0.0200", "Subchan": "0.0.0000",
+                  "DevType": "3390/0a", "CU Type": "3390/0a",
+                  "Use": "  ", "PIM": "e0", "PAM": "e0",
+                  "POM": "ff", "CHPIDs": "b0b10d00 00000000"}
+        output = {"device": "0.0.0200", "sub_channel": "0.0.0000",
+                  "device_type": "3390/0a", "cu_type": "3390/0a",
+                  "status": "offline", "enabled_chipids":
+                  ["b0", "b1", "0d"], "installed_chipids":
+                  ["b0", "b1", "0d"]}
+        formated_devices = utils._format_lscss(device)
+        self.assertEqual(formated_devices, output)
+
+    def test_format_lscss_use_pim_notequal_pam(self):
+        """
+        unit test to validate _format_lscss() with pim mask
+        not equal to pam mask
+        """
+        device = {"Device": "0.0.0200", "Subchan": "0.0.0000",
+                  "DevType": "3390/0a", "CU Type": "3390/0a",
+                  "Use": "  ", "PIM": "80", "PAM": "e0",
+                  "POM": "ff", "CHPIDs": "b0b10d00 00000000"}
+        output = {"device": "0.0.0200", "sub_channel": "0.0.0000",
+                  "device_type": "3390/0a", "cu_type": "3390/0a",
+                  "status": "offline", "enabled_chipids":
+                  ["b0", "b1", "0d"], "installed_chipids":
+                  ["b0"]}
+        formated_devices = utils._format_lscss(device)
+        self.assertEqual(formated_devices, output)
+
+
+class GetDeviceInfoUnitTests(unittest.TestCase):
+    """
+    unit tests for _get_deviceinfo() method
+    """
+    @mock.patch('wok.plugins.ginger.models.utils.get_row_data', autospec=True)
+    @mock.patch('wok.plugins.ginger.models.utils._format_lscss', autospec=True)
+    def test_get_deviceinfo_somedevice(self, mock_format_lscss,
+                                       mock_get_row_data):
+        """
+        unit test to validate _get_deviceinfo() method with
+        matching device
+        _get_deviceinfo() should return _format_lscss() o/p
+        """
+        device = "xxx"
+        header_pattern = "(Device)\s+(Subchan)\.\s+(DevType)\s+(CU\ Type)\s+" \
+                         "(Use)\s+(PIM)\s+(PAM)\s+(POM)\s+(CHPIDs)$"
+        device_pattern = "(xxx)\s+(\d\.\d\.[0-9a-fA-F]{4})\s+(\w+\/\w+)" \
+                         "\s+(\w+\/\w+)\s(\s{3}|yes)\s+([0-9a-fA-F]{2})\s+" \
+                         "([0-9a-fA-F]{2})\s+([0-9a-fA-F]{2})\s+(\w+\s\w+)"
+        mock_get_row_data.return_value = {}
+        mock_format_lscss.return_value = {}
+        deviceinfo = utils._get_deviceinfo('', device)
+        mock_get_row_data.assert_called_with('', header_pattern,
+                                             device_pattern)
+        mock_format_lscss.assert_called_with(mock_get_row_data.
+                                             return_value)
+        self.assertEqual(deviceinfo, {})
+
+    @mock.patch('wok.plugins.ginger.models.utils', autospec=True)
+    @mock.patch('wok.plugins.ginger.models.utils._format_lscss', autospec=True)
+    def test_get_deviceinfo_emptydevice(self, mock_format_lscss, mock_utils):
+        """
+        unit test to validate _get_deviceinfo() with empty device i/p
+        _get_deviceinfo() should return device
+        """
+        device = ""
+        deviceinfo = utils._get_deviceinfo('', device)
+        self.assertFalse(mock_utils.get_row_data.called,
+                         msg='Unexpected call to mock_utils.get_row_data()')
+        self.assertFalse(mock_format_lscss.called,
+                         msg='Unexpected call to mock_format_lscss()')
+        self.assertEqual(deviceinfo, device)
