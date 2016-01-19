@@ -22,6 +22,8 @@ import platform
 import re
 
 from wok.exception import MissingParameter, NotFoundError, OperationFailed
+from wok.plugins.gingerbase.disks import get_partitions_names
+from wok.plugins.gingerbase.disks import get_partition_details
 from wok.utils import wok_log
 
 
@@ -57,7 +59,7 @@ class DASDPartitionsModel(object):
     def get_list(self):
         dasd_part_list = []
         try:
-            partitions_list = dasd_utils._get_partitions_names()
+            partitions_list = get_partitions_names()
             for part in partitions_list:
                 if re.search("dasd.*", part):
                     dasd_part_list.append(part)
@@ -76,7 +78,7 @@ class DASDPartitionModel(object):
 
     def lookup(self, name):
         try:
-            return dasd_utils._get_partition_details(name)
+            return get_partition_details(name)
         except ValueError:
             wok_log.error("DASD Partition %s not found" % name)
             raise NotFoundError("GINDASDPAR0009E", {'name': 'name'})

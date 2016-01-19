@@ -270,8 +270,6 @@ messages = {
     "GINDASD0010E": _("Require block size for formatting DASD device"),
     "GINDASD0011E": _("Invalid bus ID, %(bus_id)s"),
 
-    "GINDASDPAR0001E": _("Error in executing 'lsblk -Pbo' command"),
-    "GINDASDPAR0002E": _("Error while getting block device information"),
     "GINDASDPAR0005E": _("Require name to create DASD device partition"),
     "GINDASDPAR0006E": _("Require partition size to create DASD device partition"),
     "GINDASDPAR0007E": _("Failed to create partition"),
