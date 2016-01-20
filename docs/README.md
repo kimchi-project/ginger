@@ -120,7 +120,7 @@ $ sudo yum install  libvirt-python libvirt hddtemp \
                     tuned lm_sensors
 
 # For IBM PowerKVM
-$ sudo yum install powerpc-utils serviceable.event.provider
+$ sudo yum install powerpc-utils serviceable-event-provider
 
 # These dependencies are only required if you want to run the tests:
 $ sudo yum install python-mock
