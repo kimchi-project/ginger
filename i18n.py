@@ -53,7 +53,7 @@ messages = {
     "GINNET0019E": _("Invalid netmask '%(NETMASK)s', "
                      "'%(error)s'."),
     "GINNET0020E": _("IP address is missing."),
-    "GINNET0021E": _("Subnet is missing."),
+    "GINNET0021E": _("PREFIX missing."),
     "GINNET0022E": _("Invalid boot protocol '%(mode)s', "),
     "GINNET0023E": _("Boot protocol is missing."),
     "GINNET0024E": _("Basic information of interface is missing."),
@@ -97,6 +97,8 @@ messages = {
                      "'%(error)s'."),
     "GINNET0060E": _("Unable to bring down the interface '%(name)s', "
                      "'%(error)s'."),
+    "GINNET0061E": _("Missing IPV4 addresses information"),
+    "GINNET0062E": _("The prefix value %(PREFIX)s is not in range 1-32"),
 
     "GINUSER0001E": _("Specify name, password, group and profile for the new "
                       "user."),

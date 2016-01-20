@@ -268,11 +268,13 @@ class CfginterfacesModel(object):
         self.validate_vlan_driver()
         vlanid = str(params[BASIC_INFO][VLANINFO][VLANID])
         if platform.machine() == ARCH_S390:
-            name = params[BASIC_INFO][VLANINFO][PHYSDEV].replace("ccw", ""). \
-                       replace(".", "") + "." + vlanid.zfill(4)
+            name = \
+                params[BASIC_INFO][VLANINFO][PHYSDEV].replace(
+                    "ccw", "").replace(".", "") + "." + vlanid.zfill(4)
         else:
-            name = params[BASIC_INFO][VLANINFO][PHYSDEV] + "." + \
-                   vlanid.zfill(4)
+            name = \
+                params[BASIC_INFO][VLANINFO][PHYSDEV]\
+                + "." + vlanid.zfill(4)
         params[BASIC_INFO][NAME] = name
         params[BASIC_INFO][DEVICE] = name
         parent_iface = params[BASIC_INFO][VLANINFO][PHYSDEV]
@@ -776,19 +778,31 @@ class CfginterfaceModel(object):
                 else:
                     wok_log.error(("No ip address provided"))
                     raise MissingParameter('GINNET0020E')
-                if NETMASK in ipaddrinfo:
-                    self.validate_ipv4_address(ipaddrinfo[NETMASK])
-                    cfgmap[PREFIX + postfix] = self.get_ipv4_prefix(
-                        ipaddrinfo[NETMASK])
-                elif PREFIX in ipaddrinfo:
-                    cfgmap[PREFIX + postfix] = ipaddrinfo[PREFIX]
+                # Fix for issue 169
+                if PREFIX in ipaddrinfo:
+                    if (type(ipaddrinfo[PREFIX]) == int):
+                        if ipaddrinfo[PREFIX] >= 1 and \
+                                ipaddrinfo[PREFIX] <= 32:
+                            cfgmap[PREFIX + postfix] = ipaddrinfo[PREFIX]
+                        else:
+                            raise InvalidParameter('GINNET0062E', {
+                                'PREFIX': ipaddrinfo[PREFIX]})
+                    else:
+                        self.validate_ipv4_address(ipaddrinfo[PREFIX])
+                        cfgmap[PREFIX + postfix] = self.get_ipv4_prefix(
+                            ipaddrinfo[PREFIX])
                 else:
-                    wok_log.error(("No netmask or prefix provided"))
+                    wok_log.error("No prefix provided for IPv4 addresses.")
                     raise MissingParameter('GINNET0021E')
                 if GATEWAY in ipaddrinfo:
                     self.validate_ipv4_address(ipaddrinfo[GATEWAY])
                     cfgmap[GATEWAY + postfix] = ipaddrinfo[GATEWAY]
                 index += 1
+        # Fix for issue 169
+        else:
+            wok_log.error(("IPv4 adresses are mandatory \
+                 when bootproto is none."))
+            raise MissingParameter('GINNET0061E')
         return cfgmap
 
     def update_basic_info(self, cfgmap, params):
@@ -995,7 +1009,7 @@ class CfginterfaceModel(object):
 
     def validateipinfo(self, ipaddrinfo):
         """
-        validae ipv6 addresses info provided by user
+        validate ipv6 addresses info provided by user
         :param ipaddrinfo:
         :return:
         """
@@ -1109,7 +1123,7 @@ class CfginterfaceModel(object):
                             bond_opt_value = \
                                 bond_opt_value + bond_opt_key + "=" + \
                                 str(bondinfo[BONDING_OPTS][
-                                        bond_opt_key]) + " "
+                                    bond_opt_key]) + " "
                         else:
                             values_as_str = map(str, value)
                             values_as_str = str(values_as_str)
