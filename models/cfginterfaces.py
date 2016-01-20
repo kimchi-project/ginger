@@ -90,6 +90,8 @@ BONDING_OPTS_LIST = ["ad_select", "arp_interval", "arp_ip_target",
                      "primary_reselect", "resend_igmp", "updelay",
                      "use_carrier", "xmit_hash_policy"]
 
+STATE_DOWN = "down"
+
 # ipv4 parameters
 IPV4_ID = "IPV4_INFO"
 BOOTPROTO = 'BOOTPROTO'
@@ -336,9 +338,17 @@ class CfginterfacesModel(object):
         self.validate_dict_bond_for_vlan(cfgdata)
         slave_list = cfgdata[BASIC_INFO][BONDINFO][SLAVES]
         if len(slave_list) != 0:
+            active_slave_found = True
             for slave in slave_list:
-                if netinfo.operstate(slave) != "up":
-                    raise OperationFailed("GINNET0047E")
+                # Fix ginger issue #144
+                if netinfo.operstate(slave) == STATE_DOWN:
+                    active_slave_found = False
+                else:
+                    active_slave_found = True
+                    wok_log.info("One active slave is found:" + slave)
+                    break
+            if (not active_slave_found):
+                raise OperationFailed("GINNET0047E")
         else:
             wok_log.error("Minimum one slave has to be given for the bond")
             raise OperationFailed("GINNET0037E")
