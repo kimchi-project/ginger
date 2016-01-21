@@ -18,7 +18,7 @@
 
  ginger.initNwInterfaceBond = function() {
 
-  nwApplyButton = $('#nw-interface-bond-button-apply');
+  nwApplyButton = $('#nw-bond-button-apply');
   nwGeneralForm = $('#form-nw-bond-general');
   nwIpv4Form = $('#form-nw-bond-ipv4');
   nwIpv6Form = $('#form-nw-bond-ipv6');
@@ -37,12 +37,13 @@
   ipv4DnsAddButton = $('#nw-bond-ipv4-dns-add', interfaceBondTabs);
   ipv4BondIPv4Method = $('#nw-bond-ipv4-method', interfaceBondTabs);
 
+  ipv6GatewayTextbox = $('#nw-bond-ipv6-gateway-textbox', interfaceBondTabs);
   ipv6AddressAddButton = $('#nw-bond-ipv6-address-add', interfaceBondTabs);
   ipv6RoutesAddButton = $('#nw-bond-ipv6-routes-add', interfaceBondTabs);
   ipv6DnsAddButton = $('#nw-bond-ipv6-dns-add', interfaceBondTabs);
   ipv6BondMethod = $('#nw-bond-ipv6-method', interfaceBondTabs);
-
-  zoneSelect = $('#nw-bond-firewall-select', interfaceBondTabs);
+  // Comment all firewall zone code till proper API to get the firewall zone info.
+  // zoneSelect = $('#nw-bond-firewall-select', interfaceBondTabs);
   linkMonitoring = $('#nw-bond-link-monitoring', interfaceBondTabs);
   bondMonitoringInterval = $('#nw-bond-monitoring-interval', interfaceBondTabs);
   linkUpDelay = $('#nw-bond-link-up-delay', interfaceBondTabs);
@@ -67,6 +68,24 @@
   }
 
   applyOnClick();
+
+  $('#nw-bond-button-cancel').on('click', function() {
+    wok.window.close();
+    ginger.refreshInterfaces();
+  });
+
+  $('#nw-bond-button-close').on('click', function() {
+    wok.window.close();
+    ginger.refreshInterfaces();
+  });
+};
+
+ginger.refreshInterfaces = function() {
+  ginger.getInterfaces(function(result) {
+    ginger.loadBootgridData("nwConfigGrid", result);
+  }, function(error) {
+    ginger.hideBootgridLoading(opts);
+  });
 };
 
 var applyOnClick = function() {
@@ -108,9 +127,9 @@ var applyOnClick = function() {
       bond_info['BONDING_MASTER'] = 'yes';
 
       bond_opts['mode'] = bondMode.val();
-      bond_opts['miimon'] = bondMonitoringInterval.val();
-      bond_opts['updelay'] = linkUpDelay.val();
-      bond_opts['downdelay'] = linkDownDelay.val();
+      bond_opts['miimon'] = bondMonitoringInterval.val() >= 1 ? bondMonitoringInterval.val() : 1;
+      bond_opts['updelay'] = linkUpDelay.val() >= 0 ? linkUpDelay.val() : 0;
+      bond_opts['downdelay'] = linkDownDelay.val() >= 0 ? linkDownDelay.val() : 0;
 
       bond_info['BONDING_OPTS'] = bond_opts;
       basic_info['BONDINFO'] = bond_info;
@@ -123,14 +142,18 @@ var applyOnClick = function() {
 
       if ($('#nw-bond-ipv4-init').bootstrapSwitch('state')) {
         ipv4_info['IPV4INIT'] = 'yes';
-        ipv4_info['BOOTPROTO'] = 'none';
 
+        var method = ipv4BondIPv4Method.val();
+        if (method == i18n['Automatic(DHCP)']) {
+          ipv4_info['BOOTPROTO'] = 'dhcp';
+        } else if (method == "Manual") {
+          ipv4_info['BOOTPROTO'] = 'none';
+        }
 
         //Get IP address grid data
         opts['id'] = 'nw-bond-ipv4-addresses';
         opts['gridId'] = "nw-bond-ipv4-addresses-grid";
         ipv4Addresses = ginger.getCurrentRows(opts);
-        // alert("IPv4 Address : " + ipv4Addresses);
 
         //Get DNS grid data
         opts['id'] = 'nw-bond-ipv4-dns';
@@ -142,7 +165,7 @@ var applyOnClick = function() {
         opts['gridId'] = "nw-bond-ipv4-routes-grid";
         ipv4Routes = ginger.getCurrentRows(opts);
 
-        if (ipv4Addresses.length > 0) {
+        if (method == i18n['GINNWS0003M'] && ipv4Addresses.length > 0) {
           ipv4_info['IPV4Addresses'] = ipv4Addresses;
         }
 
@@ -156,7 +179,6 @@ var applyOnClick = function() {
         }
 
         if (ipv4Routes.length > 0) {
-
           ipv4_info['ROUTES'] = ipv4Routes;
         }
       } else {
@@ -170,16 +192,21 @@ var applyOnClick = function() {
     var getIpv6InfoData = function() {
       var ipv6_info = {}; //All ipv6 info from ipv6 tab
 
-      if ($('option:selected', ipv6BondMethod).text() == 'Manual') {
-        ipv6_info['IPV6_AUTOCONF'] = 'no';
-      } else {
-        ipv6_info['IPV6_AUTOCONF'] = 'yes';
-      }
-
       if ($('#nw-bond-ipv6-init').bootstrapSwitch('state')) {
         ipv6_info['IPV6INIT'] = 'yes';
+
+        if ($('option:selected', ipv6BondMethod).text() == 'Manual') {
+          ipv6_info['IPV6_AUTOCONF'] = 'no';
+        } else {
+          ipv6_info['IPV6_AUTOCONF'] = 'yes';
+        }
+
+        if (ipv6GatewayTextbox.val() != "")
+          ipv6_info["IPV6_DEFAULTGW"] = ipv6GatewayTextbox.val();
+
         // ipv6_info['BOOTPROTO'] = 'none';
         var opts = {};
+        var method = ipv6BondMethod.val();
 
         //Get IP address grid data
         opts['id'] = 'nw-bond-ipv6-addresses';
@@ -196,7 +223,7 @@ var applyOnClick = function() {
         opts['gridId'] = "nw-bond-ipv6-routes-grid";
         ipv6Routes = ginger.getCurrentRows(opts);
 
-        if (ipv6Addresses.length > 0) {
+        if (method == i18n['GINNWS0003M'] && ipv6Addresses.length > 0) {
           ipv6_info['IPV6Addresses'] = ipv6Addresses;
         }
 
@@ -219,26 +246,25 @@ var applyOnClick = function() {
       data['IPV6_INFO'] = ipv6_info
     }
     getIpv6InfoData(); //Commented for now as getting some issue from backend
-    //alert(JSON.stringify(data));
     if (ginger.selectedInterface == null) {
       ginger.createCfgInterface(data, function(result) {
-        // kimchi.doListTemplates();
-        wok.message.success(i18n['GINNET0020M'] + result.BASIC_INFO.DEVICE, '#alert-nw-bond-modal-container');
+        var message = i18n['GINNET0026M'] + " " + result.BASIC_INFO.DEVICE + " " + i18n['GINNET0020M']
+        wok.message.success(message, '#alert-nw-bond-modal-container');
         $(nwApplyButton).prop('disabled', false);
-        // wok.window.close();
+        ginger.refreshInterfaces();
+        wok.window.close();
       }, function(err) {
-        //alert(err.responseJSON.reason);
         wok.message.error(err.responseJSON.reason, '#alert-nw-bond-modal-container', true);
         $(nwApplyButton).prop('disabled', false);
       });
     } else {
       ginger.updateCfgInterface(interfaceDevice, data, function(result) {
-        // kimchi.doListTemplates();
-        wok.message.success(i18n['GINNET0020M'] + result, '#alert-nw-bond-modal-container');
+        var message = i18n['GINNET0027M'] + " " + result.BASIC_INFO.DEVICE + " " + i18n['GINNET0020M']
+        wok.message.success(message, '#alert-nw-bond-modal-container');
         $(nwApplyButton).prop('disabled', false);
-        // wok.window.close();
+        ginger.refreshInterfaces();
+        wok.window.close();
       }, function(err) {
-        //alert(err.responseJSON.reason);
         wok.message.error(err.responseJSON.reason, '#alert-nw-bond-modal-container', true);
         $(nwApplyButton).prop('disabled', false);
       });
@@ -294,6 +320,7 @@ var populateGeneralTab = function(interface) {
     }
   }
 };
+
 var createBondMembersGrid = function(interface) {
     var gridFields = [];
     var opts = [];
@@ -428,27 +455,38 @@ var createBondMembersGrid = function(interface) {
     });
   }
   // function to populate advance tab
-var populateAdvanceTab = function(interface) {
-  if (interface == null) {
-    linkMonitoring.append($("<option></option>")
-      .attr("value", "MI(Recommended)")
-      .text("MI(Recommended)"));
 
+var populateAdvanceTab = function(interface) {
+
+  linkMonitoring.append($("<option></option>")
+    .attr("value", "MI(Recommended)")
+    .text("MI(Recommended)"));
+
+  if (interface == null) {
     // zoneSelect.append($("<option></option>")
     //   .attr("value", "Default")
     //   .text("Default"));
+    bondMonitoringInterval.val(1);
+    linkUpDelay.val(0);
+    linkDownDelay.val(0);
   } else {
     if ("BONDINFO" in (interface.BASIC_INFO)) {
       if ("miimon" in (interface.BASIC_INFO.BONDINFO.BONDING_OPTS)) {
         bondMonitoringInterval.val(interface.BASIC_INFO.BONDINFO.BONDING_OPTS.miimon)
+      } else {
+        bondMonitoringInterval.val(1);
       }
 
       if ("updelay" in (interface.BASIC_INFO.BONDINFO.BONDING_OPTS)) {
         linkUpDelay.val(interface.BASIC_INFO.BONDINFO.BONDING_OPTS.updelay)
+      } else {
+        linkUpDelay.val(0);
       }
 
       if ("downdelay" in (interface.BASIC_INFO.BONDINFO.BONDING_OPTS)) {
         linkDownDelay.val(interface.BASIC_INFO.BONDINFO.BONDING_OPTS.downdelay)
+      } else {
+        linkDownDelay.val(0);
       }
     }
     // if ("ZONE" in (interface.BASIC_INFO)) {
@@ -457,39 +495,42 @@ var populateAdvanceTab = function(interface) {
     //     .text(interface.BASIC_INFO.ZONE));
     // }
   }
-  zoneSelect.prop('disabled', true);
+  // zoneSelect.prop('disabled', true);
 
   bondMonitoringInterval.on('keyup', function() {
-    validateTimeField(bondMonitoringInterval);
+    validateIntField(bondMonitoringInterval);
   });
   linkUpDelay.on('keyup', function() {
-    validateTimeField(linkUpDelay);
+    validateIntField(linkUpDelay);
   });
   linkDownDelay.on('keyup', function() {
-    validateTimeField(linkDownDelay);
+    validateIntField(linkDownDelay);
   });
 };
 // function to ipv4 Settings tab
 var populateIpv4SettingsTab = function(interface) {
   if (interface != null) {
     if ("IPV4_INFO" in interface && "IPV4INIT" in (interface.IPV4_INFO)) {
-      if (interface.IPV4_INFO.IPV4INIT == "yes" || interface.IPV4_INFO.IPV4INIT == "\"yes\"")
-        $('#nw-bond-ipv4-init').bootstrapSwitch('state', true);
-      ginger.enableclass('form-nw-bond-ipv4-method');
+      if (interface.IPV4_INFO.IPV4INIT == "yes" || interface.IPV4_INFO.IPV4INIT == "\"yes\"") {
+        $('.ipv4-on-off').bootstrapSwitch('state', true);
+      } else {
+        $('.ipv4-on-off').bootstrapSwitch('state', false);
+        ginger.disableIPSettings('ipv4');
+      }
     } else {
-      $('#nw-bond-ipv4-init').bootstrapSwitch('state', false);
-      ginger.disableclass('form-nw-bond-ipv4-method');
+      $('.ipv4-on-off').bootstrapSwitch('state', false);
+      ginger.disableIPSettings('ipv4');
     }
 
     if (interface.IPV4_INFO.BOOTPROTO && (interface.IPV4_INFO.BOOTPROTO == "None" || interface.IPV4_INFO.BOOTPROTO == "none")) {
       ipv4BondIPv4Method.val(i18n["Manual"]);
-      ginger.enableclass('form-nw-bond-ipv4-manual');
     } else if (interface.IPV4_INFO.BOOTPROTO && (interface.IPV4_INFO.BOOTPROTO == "dhcp")) {
       ipv4BondIPv4Method.val(i18n["Automatic(DHCP)"]);
       ginger.disableclass('form-nw-bond-ipv4-manual');
     }
   } else {
-    $('#nw-bond-ipv4-init').bootstrapSwitch('state', true);
+    $('.ipv4-on-off').bootstrapSwitch('state', true);
+    ipv4BondIPv4Method.val(i18n['Automatic(DHCP)']);
     ginger.disableclass('form-nw-bond-ipv4-manual');
   }
 
@@ -499,8 +540,7 @@ var populateIpv4SettingsTab = function(interface) {
       ginger.enableclass('form-nw-bond-ipv4-method');
       changeState();
     } else {
-      ginger.disableclass('form-nw-bond-ipv4-manual');
-      ginger.disableclass('form-nw-bond-ipv4-method');
+      ginger.disableIPSettings('ipv4');
     }
   });
 
@@ -511,6 +551,7 @@ var populateIpv4SettingsTab = function(interface) {
   });
 
   var changeState = function() {
+    ginger.enableclass('form-nw-bond-ipv4-manual-dhcp');
     if (ipv4BondIPv4Method.val() == i18n["Automatic(DHCP)"]) {
       ginger.disableclass('form-nw-bond-ipv4-manual');
     } else {
@@ -631,8 +672,9 @@ var createIpv4DnsGrid = function(interface) {
   gridFields = [{
     "column-id": 'DNS',
     "type": 'string',
+    "header-class": "text-center",
+    "data-class": "center",
     "width": "80%",
-    "header-class": "col-xs-12 text-center",
     "title": i18n['GINNWS0006M'],
     "identifier": true,
     "formatter": "editable-nw-ipv4-dns"
@@ -640,6 +682,9 @@ var createIpv4DnsGrid = function(interface) {
     "column-id": "DNS",
     "type": 'string',
     "title": "",
+    "width": "20%",
+    "header-class": "text-center",
+    "data-class": "center",
     "formatter": "row-edit-delete"
   }];
 
@@ -667,7 +712,7 @@ var createIpv4DnsGrid = function(interface) {
       'width': '80%',
       "td-class": "text-center",
       'validation': function() {
-        var isValid = ginger.isValidIp($(this).val());
+        var isValid = ginger.validateIp($(this).val());
         ginger.markInputInvalid($(this), isValid);
       }
     }]
@@ -790,27 +835,31 @@ var populateIpv6SettingsTab = function(interface) {
 
   if (interface != null) {
     if ("IPV6_INFO" in interface && "IPV6INIT" in (interface.IPV6_INFO)) {
-      if (interface.IPV6_INFO.IPV6INIT == "yes" || interface.IPV6_INFO.IPV6INIT == "\"yes\"")
-        $('#nw-bond-ipv6-init').bootstrapSwitch('state', true);
-      ginger.enableclass('form-nw-bond-ipv6-manual');
-      ginger.enableclass('form-nw-bond-ipv6-method');
+      if (interface.IPV6_INFO.IPV6INIT == "yes" || interface.IPV6_INFO.IPV6INIT == "\"yes\"") {
+        $('.ipv6-on-off').bootstrapSwitch('state', true);
+      } else {
+        $('.ipv6-on-off').bootstrapSwitch('state', false);
+        ginger.disableIPSettings('ipv6');
+      }
+
+      if (interface.IPV6_INFO.IPV6_AUTOCONF && ((interface.IPV6_INFO.IPV6_AUTOCONF).toLowerCase() == "yes")) {
+        ipv6BondMethod.val(i18n['Automatic']);
+        ginger.disableclass('form-nw-bond-ipv6-manual');
+      } else if (interface.IPV6_INFO.IPV6_AUTOCONF && ((interface.IPV6_INFO.IPV6_AUTOCONF).toLowerCase() == "no")) {
+        ipv6BondMethod.val(i18n['Manual']);
+      }
     } else {
-      $('#nw-bond-ipv6-init').bootstrapSwitch('state', false);
-      ginger.disableclass('form-nw-bond-ipv6-manual');
-      ginger.disableclass('form-nw-bond-ipv6-method');
+      $('.ipv6-on-off').bootstrapSwitch('state', false);
+      ginger.disableIPSettings('ipv6');
     }
 
-    if (interface.IPV6_INFO.IPV6_AUTOCONF && (interface.IPV6_INFO.IPV6_AUTOCONF == "yes" || interface.IPV6_INFO.IPV6_AUTOCONF == "Yes")) {
-      ipv6BondMethod.val("Automatic");
-      ginger.disableclass('form-nw-bond-ipv6-manual');
-    } else if (interface.IPV6_INFO.IPV6_AUTOCONF && (interface.IPV6_INFO.IPV6_AUTOCONF == "no" || interface.IPV6_INFO.IPV6_AUTOCONF == "No")) {
-      ipv6BondMethod.val(i18n['GINNWS0002M']);
-      ginger.enableclass('form-nw-bond-ipv6-manual');
+    if (interface.IPV6_INFO.IPV6_DEFAULTGW) {
+      ipv6GatewayTextbox.val(interface.IPV6_INFO.IPV6_DEFAULTGW);
     }
   } else {
-    $('#nw-bond-ipv6-init').bootstrapSwitch('state', true);
+    $('.ipv6-on-off').bootstrapSwitch('state', true);
+    ipv6BondMethod.val(i18n['Automatic']);
     ginger.disableclass('form-nw-bond-ipv6-manual');
-    //ginger.disableclass('form-nw-bond-ipv6-method');
   }
 
   $('#nw-bond-ipv6-init').on('switchChange.bootstrapSwitch', function(event, state) {
@@ -818,8 +867,7 @@ var populateIpv6SettingsTab = function(interface) {
       ginger.enableclass('form-nw-bond-ipv6-method');
       changeState();
     } else {
-      ginger.disableclass('form-nw-bond-ipv6-manual');
-      ginger.disableclass('form-nw-bond-ipv6-method');
+      ginger.disableIPSettings('ipv6');
     }
   });
 
@@ -828,15 +876,33 @@ var populateIpv6SettingsTab = function(interface) {
   });
 
   var changeState = function() {
-    if (ipv6BondMethod.val() == "Automatic(DHCP)") {
+    ginger.enableclass('form-nw-bond-ipv6-manual-dhcp');
+    if (ipv6BondMethod.val() == i18n["Automatic"]) {
       ginger.disableclass('form-nw-bond-ipv6-manual');
     } else {
       ginger.enableclass('form-nw-bond-ipv6-manual');
     }
   }
+
+  ipv6GatewayTextbox.on('keyup', function() {
+    var ipv6_defaultgw = ipv6GatewayTextbox.val();
+    $(this).toggleClass("invalid-field", !(ginger.isValidIPv6(ipv6_defaultgw)));
+  });
 }
 
-// function to ipv4 grid
+
+ginger.disableIPSettings = function(settings) {
+    if (settings == 'ipv4') {
+      ginger.disableclass('form-nw-bond-ipv4-method');
+      ginger.disableclass('form-nw-bond-ipv4-manual');
+      ginger.disableclass('form-nw-bond-ipv4-manual-dhcp');
+    } else if (settings == 'ipv6') {
+      ginger.disableclass('form-nw-bond-ipv6-method');
+      ginger.disableclass('form-nw-bond-ipv6-manual');
+      ginger.disableclass('form-nw-bond-ipv6-manual-dhcp');
+    }
+  }
+  // function to ipv4 grid
 var createIpv6AddressGrid = function(interface) {
   var gridFields = [];
   var opts = [];
@@ -864,14 +930,6 @@ var createIpv6AddressGrid = function(interface) {
     "header-class": "text-center",
     "data-class": "center",
     "formatter": "editable-nw-ipv6-addresses"
-  }, {
-    "column-id": 'GATEWAY',
-    "type": 'string',
-    "width": "30%",
-    "title": i18n['GINNWS0012M'],
-    "header-class": "text-center",
-    "data-class": "center",
-    "formatter": "editable-nw-ipv4-addresses"
   }, {
     "column-id": "IPADDR",
     "type": 'string',
@@ -908,14 +966,8 @@ var createIpv6AddressGrid = function(interface) {
         //var isValid = ginger.validateMask($(this).val());
         ginger.markInputInvalid($(this), (ginger.isValidIPv6Prefix($(this).val()) || ginger.isValidIPv6($(this).val())));
       }
-    }, {
-      'id': 'GATEWAY',
-      'width': '30%',
-      'validation': function() {
-        var isValid = ginger.isValidIPv6($(this).val());
-        ginger.markInputInvalid($(this), isValid);
-      }
     }];
+
     commandSettings = {
       "width": "10%",
       "td-class": "text-center"
@@ -1023,6 +1075,7 @@ var createIpv6RouteGrid = function(interface) {
     ginger.addNewRecord(columnSettings, 'nw-bond-ipv6-routes-grid', commandSettings);
   });
 };
+
 var createIpv6DnsGrid = function(interface) {
   var gridFields = [];
   var opts = [];
@@ -1057,15 +1110,12 @@ var createIpv6DnsGrid = function(interface) {
   if (interface != null) {
     if ("IPV6_INFO" in interface && "DNSAddresses" in (interface.IPV6_INFO)) {
       var DNSAddresses = interface.IPV6_INFO.DNSAddresses
-      var dns = {}
       for (var i = 0; i < DNSAddresses.length; i++) {
-        // dns =DNSAddresses[i];
         DNSAddresses[i] = {
           "DNS": DNSAddresses[i]
         };
-        // dns['DNS'] = DNSAddresses[i];
       }
-      ginger.loadBootgridData(opts['gridId'], dns);
+      ginger.loadBootgridData(opts['gridId'], DNSAddresses);
 
     }
   }
@@ -1090,9 +1140,11 @@ var createIpv6DnsGrid = function(interface) {
   });
 }
 
-var validateTimeField = function(field) {
+var validateIntField = function(field) {
   if (field.val().length > 0) {
     var isValid = /^[0-9]+$/.test(field.val());
-    ginger.markInputInvalid(field, isValid);
+    field.toggleClass("invalid-field", !isValid);
+  } else {
+    field.toggleClass("invalid-field", true);
   }
 }
