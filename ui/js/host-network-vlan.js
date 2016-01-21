@@ -77,16 +77,16 @@ ginger.initVLANInterfaceSettings = function() {
 
   $('#nw-vlan-button-cancel').on('click', function() {
     wok.window.close();
-    refreshInterfaces();
+    ginger.refreshInterfaces();
   });
 
   $('#nw-vlan-button-close').on('click', function() {
     wok.window.close();
-    refreshInterfaces();
+    ginger.refreshInterfaces();
   });
 }
 
-var refreshInterfaces = function() {
+ginger.refreshInterfaces = function() {
   ginger.getInterfaces(function(result) {
     ginger.loadBootgridData("nwConfigGrid", result);
   }, function(error) {
@@ -192,6 +192,7 @@ var applyOnClick = function() {
           ipv6_info['IPV6_AUTOCONF'] = 'no';
         }
 
+
         var opts = {};
 
         //Get IP address grid data
@@ -209,23 +210,27 @@ var applyOnClick = function() {
         opts['gridId'] = "nw-vlan-ipv6-routes-grid";
         ipv6Routes = ginger.getCurrentRows(opts);
 
-        if (method != i18n['Automatic'] && ipv6Addresses.length > 0) {
+        if (method == i18n['GINNWS0003M'] && ipv6Addresses.length > 0) {
           ipv6_info['IPV6Addresses'] = ipv6Addresses;
-          var nwIpv6FormData = nwIpv6Form.serializeObject();
-          ipv6_info["IPV6_DEFAULTGW"] = nwIpv6FormData["GATEWAY"];
+        }
 
-          if (ipv6Dns.length > 0) {
-            var dns = []
-            for (var i = 0; i < ipv6Dns.length; i++) {
-              dnsValue = ipv6Dns[i].DNS;
-              dns.push(dnsValue);
-            }
-            ipv6_info['DNSAddresses'] = dns;
-          }
+        if (ipv6GatewayTextbox.val() != "")
+          ipv6_info["IPV6_DEFAULTGW"] = ipv6GatewayTextbox.val();
 
-          if (ipv6Routes.length > 0) {
-            ipv6_info['ROUTES'] = ipv6Routes;
+        // var nwIpv6FormData = nwIpv6Form.serializeObject();
+        // ipv6_info["IPV6_DEFAULTGW"] = nwIpv6FormData["GATEWAY"];
+
+        if (ipv6Dns.length > 0) {
+          var dns = []
+          for (var i = 0; i < ipv6Dns.length; i++) {
+            dnsValue = ipv6Dns[i].DNS;
+            dns.push(dnsValue);
           }
+          ipv6_info['DNSAddresses'] = dns;
+        }
+
+        if (ipv6Routes.length > 0) {
+          ipv6_info['ROUTES'] = ipv6Routes;
         }
       } else {
         ipv6_info['IPV6INIT'] = 'no';
@@ -239,6 +244,8 @@ var applyOnClick = function() {
         var message = i18n['GINNET0026M'] + " " + nwVLANInterfaceTextbox.val() + " " + i18n['GINNET0020M']
         wok.message.success(message, '#alert-nw-vlan-modal-container');
         $(nwApplyButton).prop('disabled', false);
+        ginger.refreshInterfaces();
+        wok.window.close();
       }, function(err) {
         wok.message.error(err.responseJSON.reason, '#alert-nw-vlan-modal-container', true);
         $(nwApplyButton).prop('disabled', false);
@@ -248,7 +255,8 @@ var applyOnClick = function() {
         var message = i18n['GINNET0027M'] + " " + nwVLANInterfaceTextbox.val() + " " + i18n['GINNET0020M']
         wok.message.success(message, '#alert-nw-vlan-modal-container');
         $(nwApplyButton).prop('disabled', false);
-        // wok.window.close();
+        ginger.refreshInterfaces();
+        wok.window.close();
       }, function(err) {
         wok.message.error(err.responseJSON.reason, '#alert-nw-vlan-modal-container', true);
         $(nwApplyButton).prop('disabled', false);
@@ -272,7 +280,7 @@ var populateGeneralTab = function(interface) {
         nwVLANIDTextbox.val(1);
 
       nwVLANInterfaceTextbox.val(formInterfaceName());
-      if(interface != null && (interface.BASIC_INFO.VLANINFO.PHYSDEV).replace(/"/g, "")) {
+      if (interface != null && (interface.BASIC_INFO.VLANINFO.PHYSDEV).replace(/"/g, "")) {
         parentInterfaceSelect.val((interface.BASIC_INFO.VLANINFO.PHYSDEV).replace(/"/g, ""));
       }
     }
@@ -368,15 +376,19 @@ var populateAdvanceTab = function(interface) {
 var populateIpv4SettingsTab = function(interface) {
   if (interface != null) {
     if ("IPV4_INFO" in interface && "IPV4INIT" in (interface.IPV4_INFO)) {
-      if (interface.IPV4_INFO.IPV4INIT == "yes" || interface.IPV4_INFO.IPV4INIT == "\"yes\"")
+      if (interface.IPV4_INFO.IPV4INIT == "yes" || interface.IPV4_INFO.IPV4INIT == "\"yes\"") {
         $('.ipv4-on-off').bootstrapSwitch('state', true);
+      } else {
+        $('.ipv4-on-off').bootstrapSwitch('state', false);
+        ginger.disableIPSettings('ipv4');
+      }
     } else {
       $('.ipv4-on-off').bootstrapSwitch('state', false);
+      ginger.disableIPSettings('ipv4');
     }
 
     if (interface.IPV4_INFO.BOOTPROTO && (interface.IPV4_INFO.BOOTPROTO == "None" || interface.IPV4_INFO.BOOTPROTO == "none")) {
       ipv4MethodSelect.val(i18n['Manual']);
-      ginger.enableclass('form-nw-vlan-ipv4-manual');
     } else if (interface.IPV4_INFO.BOOTPROTO && (interface.IPV4_INFO.BOOTPROTO == "dhcp")) {
       ipv4MethodSelect.val(i18n['Automatic(DHCP)']);
       ginger.disableclass('form-nw-vlan-ipv4-manual');
@@ -387,15 +399,12 @@ var populateIpv4SettingsTab = function(interface) {
     ginger.disableclass('form-nw-vlan-ipv4-manual');
   }
 
-  $('.ipv4-on-off').on('switchChange.bootstrapSwitch', function(event, state) {
+  $('#nw-vlan-ipv4-init').on('switchChange.bootstrapSwitch', function(event, state) {
     if (state) {
-      ipv4MethodSelect.prop("disabled", false);
-      // ginger.enableclass('form-nw-vlan-ipv6-method');
+      ginger.enableclass('form-nw-vlan-ipv4-method');
       changeState();
     } else {
-      ginger.disableclass('form-nw-vlan-ipv4-manual');
-      ipv4MethodSelect.prop("disabled", true);
-      // ginger.disableclass('form-nw-vlan-ipv6-method');
+      ginger.disableIPSettings('ipv4');
     }
   });
 
@@ -404,20 +413,13 @@ var populateIpv4SettingsTab = function(interface) {
   });
 
   var changeState = function() {
+    ginger.enableclass('form-nw-vlan-ipv4-manual-dhcp');
     if (ipv4MethodSelect.val() == i18n['Automatic(DHCP)']) {
       ginger.disableclass('form-nw-vlan-ipv4-manual');
     } else {
       ginger.enableclass('form-nw-vlan-ipv4-manual');
     }
   }
-
-  // ipv4MethodSelect.change(function() {
-  //   if(ipv4MethodSelect.val() == "Automatic(DHCP)") {
-  //    ginger.disableclass('form-nw-vlan-ipv4-manual');
-  //   } else {
-  //    ginger.enableclass('form-nw-vlan-ipv4-manual');
-  //   }
-  // });
 
   createIpv4AddressGrid(interface);
   createIpv4DnsGrid(interface);
@@ -702,8 +704,12 @@ var populateIpv6SettingsTab = function(interface) {
 
   if (interface != null) {
     if ("IPV6_INFO" in interface && "IPV6INIT" in (interface.IPV6_INFO)) {
-      if (interface.IPV6_INFO.IPV6INIT == "yes" || interface.IPV6_INFO.IPV6INIT == "\"yes\"")
+      if (interface.IPV6_INFO.IPV6INIT == "yes" || interface.IPV6_INFO.IPV6INIT == "\"yes\"") {
         $('.ipv6-on-off').bootstrapSwitch('state', true);
+      } else {
+        $('.ipv6-on-off').bootstrapSwitch('state', false);
+        ginger.disableIPSettings('ipv6');
+      }
 
       if (interface.IPV6_INFO.IPV6_AUTOCONF && ((interface.IPV6_INFO.IPV6_AUTOCONF).toLowerCase() == "yes")) {
         ipv6MethodSelect.val(i18n['Automatic']);
@@ -714,8 +720,7 @@ var populateIpv6SettingsTab = function(interface) {
       }
     } else {
       $('.ipv6-on-off').bootstrapSwitch('state', false);
-      ginger.disableclass('form-nw-vlan-ipv6-method');
-      ginger.disableclass('form-nw-vlan-ipv6-manual');
+      ginger.disableIPSettings('ipv6');
     }
 
     if (interface.IPV6_INFO.IPV6_DEFAULTGW) {
@@ -728,15 +733,12 @@ var populateIpv6SettingsTab = function(interface) {
   }
 
 
-  $('.ipv6-on-off').on('switchChange.bootstrapSwitch', function(event, state) {
+  $('#nw-vlan-ipv6-init').on('switchChange.bootstrapSwitch', function(event, state) {
     if (state) {
-      ipv6MethodSelect.prop("disabled", false);
-      // ginger.enableclass('form-nw-vlan-ipv6-method');
+      ginger.enableclass('form-nw-vlan-ipv6-method');
       changeState();
     } else {
-      ginger.disableclass('form-nw-vlan-ipv6-manual');
-      ipv6MethodSelect.prop("disabled", true);
-      // ginger.disableclass('form-nw-vlan-ipv6-method');
+      ginger.disableIPSettings('ipv6');
     }
   });
 
@@ -744,7 +746,9 @@ var populateIpv6SettingsTab = function(interface) {
     changeState();
   });
 
+
   var changeState = function() {
+    ginger.enableclass('form-nw-vlan-ipv6-manual-dhcp');
     if (ipv6MethodSelect.val() == i18n['Automatic']) {
       ginger.disableclass('form-nw-vlan-ipv6-manual');
     } else {
@@ -756,6 +760,18 @@ var populateIpv6SettingsTab = function(interface) {
     var ipv6_defaultgw = ipv6GatewayTextbox.val();
     $(this).toggleClass("invalid-field", !(ginger.isValidIPv6(ipv6_defaultgw)));
   });
+}
+
+ginger.disableIPSettings = function(settings) {
+  if (settings == 'ipv4') {
+    ginger.disableclass('form-nw-vlan-ipv4-manual');
+    ginger.disableclass('form-nw-vlan-ipv4-manual-dhcp');
+    ginger.disableclass('form-nw-vlan-ipv4-method');
+  } else if (settings == 'ipv6') {
+    ginger.disableclass('form-nw-vlan-ipv6-manual');
+    ginger.disableclass('form-nw-vlan-ipv6-manual-dhcp');
+    ginger.disableclass('form-nw-vlan-ipv6-method');
+  }
 }
 
 // function to ipv6 grid
@@ -893,13 +909,13 @@ var createIpv6DnsGrid = function(interface) {
   if (interface != null) {
     if ("IPV6_INFO" in interface && "DNSAddresses" in (interface.IPV6_INFO)) {
       var DNSAddresses = interface.IPV6_INFO.DNSAddresses
-      var dns = {}
+        // var dns = {}
       for (var i = 0; i < DNSAddresses.length; i++) {
         DNSAddresses[i] = {
           "DNS": DNSAddresses[i]
         };
       }
-      ginger.loadBootgridData(opts['gridId'], dns);
+      ginger.loadBootgridData(opts['gridId'], DNSAddresses);
     }
   } else {
     ipv6MethodSelect.val(i18n['Automatic']);
