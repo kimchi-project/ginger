@@ -26,7 +26,7 @@
 
 <div id="nw-settings-window" class="ginger modal-content">
   <div class="modal-header">
-    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+    <button type="button" id="nw-interface-settings-button-close" class="close" data-dismiss="modal" aria-label="Close">
       <span aria-hidden="true">&times;</span>
     </button>
     <h4 class="modal-title" id="nw-settings-title">$_("Interface : ")</h4>
@@ -37,7 +37,7 @@
       <li role="presentation" class="active"><a href="#form-nw-settings-general" aria-controls="form-nw-settings-general" role="tab" data-id="form-nw-settings-general" data-toggle="tab">General</a></li>
       <li role="presentation"><a href="#form-nw-settings-ipv4" aria-controls="form-nw-settings-ipv4" role="tab" data-id="form-nw-settings-ipv4" data-toggle="tab">IPv4 Settings</a></li>
       <li role="presentation"><a href="#form-nw-settings-ipv6" aria-controls="form-nw-settings-ipv6" role="tab" data-id="form-nw-settings-ipv6" data-toggle="tab">IPv6 Settings</a></li>
-      <li role="presentation"><a href="#form-nw-settings-advance" aria-controls="form-nw-settings-advance" role="tab" data-id="form-nw-settings-advance" data-toggle="tab">Advance</a></li>
+      <li role="presentation"><a href="#form-nw-settings-advance" aria-controls="form-nw-settings-advance" role="tab" data-id="form-nw-settings-advance" data-toggle="tab">Advanced</a></li>
     </ul>
     <div class="tab-content" id="nw-settings-tabs">
       <input type="hidden" id="interface-device" name="interfaceDevice" />
@@ -79,7 +79,7 @@
           <label class="control-label col-sm-8" for="nw-settings-ipv4-init">$_("IPv4")</label>
           <div class="col-sm-4">
             <div class="make-switch">
-              <input type="checkbox" checked="true" class="ipv4-on-off" />
+              <input type="checkbox" checked="true" class="ipv4-on-off" id="nw-settings-ipv4-init"/>
             </div>
           </div>
         </div>
@@ -103,7 +103,7 @@
             <!--Filled by JS-->
           </div>
         </div>
-        <div class="form-group form-nw-settings-ipv4-manual">
+        <div class="form-group form-nw-settings-ipv4-manual-dhcp">
           <div class="form-group" style="margin-bottom:5px">
             <label class="control-label" for="nw-settings-ipv4-dns">$_("DNS")</label>
             <div class="pull-right">
@@ -114,7 +114,7 @@
             <!--Filled by JS-->
           </div>
         </div>
-        <div class="form-group form-nw-settings-ipv4-manual">
+        <div class="form-group form-nw-settings-ipv4-manual-dhcp">
           <div class="form-group" style="margin-bottom:5px">
             <label class="control-label" for="nw-settings-ipv4-routes">$_("Routes")</label>
             <div class="pull-right">
@@ -125,6 +125,12 @@
             <!--Filled by JS-->
           </div>
         </div>
+        <div class="form-group form-nw-settings-ipv4-manual-dhcp">
+          <div class="checkbox">
+            <label>
+              <input type="checkbox" value="" id="nw-settings-ipv4-defroute" name="DEFROUTE">$_("Enable IPv4 Default Route")</label>
+          </div>
+        </div>
       </form>
 
       <form role="tabpanel" class="tab-pane form-horizontal" id="form-nw-settings-ipv6">
@@ -132,7 +138,7 @@
           <label class="control-label col-sm-8" for="nw-settings-ipv6-init">$_("IPv6")</label>
           <div class="col-sm-4">
             <div class="make-switch">
-              <input type="checkbox" checked="true" class="ipv6-on-off" />
+              <input type="checkbox" checked="true" class="ipv6-on-off" id="nw-settings-ipv6-init"/>
             </div>
           </div>
         </div>
@@ -162,7 +168,7 @@
             <!--Filled by JS-->
           </div>
         </div>
-        <div class="form-group form-nw-settings-ipv6-manual">
+        <div class="form-group form-nw-settings-ipv6-manual-dhcp">
           <div class="form-group" style="margin-bottom:5px">
             <label class="control-label" for="nw-settings-ipv6-dns">$_("DNS")</label>
             <div class="pull-right">
@@ -174,7 +180,7 @@
             <!--Filled by JS-->
           </div>
         </div>
-        <div class="form-group form-nw-settings-ipv6-manual">
+        <div class="form-group form-nw-settings-ipv6-manual-dhcp">
           <div class="form-group" style="margin-bottom:5px">
             <label class="control-label" for="nw-settings-ipv6-routes">$_("Routes")</label>
             <div class="pull-right">
@@ -183,6 +189,12 @@
           </div>
           <div id="nw-settings-ipv6-routes">
             <!--Filled by JS-->
+          </div>
+        </div>
+        <div class="form-group form-nw-settings-ipv6-manual-dhcp">
+          <div class="checkbox">
+            <label>
+              <input type="checkbox" value="" id="nw-settings-ipv6-defroute" name="IPV6_DEFROUTE">$_("Enable IPv6 Default Route")</label>
           </div>
         </div>
       </form>
