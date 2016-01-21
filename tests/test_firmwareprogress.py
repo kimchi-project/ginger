@@ -38,6 +38,6 @@ class FirmwareProgressTests(unittest.TestCase):
         task_info = self.task.lookup(task_info['id'])
 
         self.assertEquals('finished', task_info['status'])
-        self.assertEquals('Error', task_info['message'])
+        self.assertIn('Error', task_info['message'])
         self.assertEquals('/plugins/ginger/fwprogress',
                           task_info['target_uri'])
