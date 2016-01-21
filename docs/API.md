@@ -73,33 +73,20 @@ server.
 * **GET**: Retrieve the current firmware levels.
     * level: The firmware levels (MI and ML, or Maint. Level)
              The final group is the currently booted firmware.
-* **PUT**: Update the firmware level of the booted side.
-    * path: The remote file path pointing to the firmware image
-            file.
-    * overwrite-perm-ok: Indicate whether possibly overwriting the
-            permanent boot side while updating the fw is acceptable.
-            * Required: No
-            * Default: True
-            * A value of 'False' guarantees the current perm side image
-              remains untouched.
-              Note: If running permanent image, this will result in
-              an error.
+**Actions (POST):**
 
-**URI:** /plugins/ginger/firmware/commit
-
-** Methods**
-
-* **POST**: Commit the image running on the temp side to the perm side.
-            In order to do this, the machine must be running the temp
-            image.
-
-**URI:** /plugins/ginger/firmware/reject
-
-** Methods**
-
-* **POST**: Reject the image on the temp side, overwriting it with
-            the image from the perm side. In order to do this,
-            the machine must be running the permanent image.
+* commit: Commit the image running on the temp side to the perm side.
+          In order to do this, the machine must be running the temp image.
+* reject: Reject the image on the temp side, overwriting it with
+          the image from the perm side. In order to do this, the machine must
+          be running the permanent image.
+* upgrade: Update the firmware level of the booted side.
+    * path: The remote file path pointing to the firmware image file.
+    * overwrite-perm: Indicate whether possibly overwriting the permanent boot
+                      side while updating the firmware is acceptable. A value
+                      of 'False' guarantees the current perm side image remains
+                      untouched. Note: If running permanent image, this will
+                      result in an error. It is optional.
 
 
 ### Resource: FirmwareProgess (Power System firmware)

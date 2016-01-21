@@ -37,8 +37,8 @@ ginger.getFirmware = function(suc, err){
 
 ginger.updateFirmware = function(content, suc, err){
     $.ajax({
-        url : "plugins/ginger/firmware",
-        type : 'PUT',
+        url : "plugins/ginger/firmware/upgrade",
+        type : 'POST',
         contentType : 'application/json',
         dataType : 'json',
         data : JSON.stringify(content),
