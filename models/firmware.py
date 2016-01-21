@@ -65,19 +65,16 @@ class FirmwareModel(object):
             levels = output.split()[13]
         return {'level': levels}
 
-    def upgrade(self, *args):
+    def upgrade(self, fw_path=None, pow_ok=True):
         if detect_live_vm():
             wok_log.error('Cannot update system fw while running VMs.')
             raise OperationFailed('GINFW0001E')
 
         # Process argumets provided by user: firmware path and overwrite-perm
-        fw_path = args[0]
-        # Get the value of overwrite-perm if passed. Otherwise is always True
-        # UI doesn't ask user to set it or not.
-        if len(args) > 1:
-            pow_ok = args[1]
-        else:
-            pow_ok = True
+        if fw_path is None:
+            wok_log.error('FW update failed: '
+                          'No image file found in the package file.')
+            raise OperationFailed('GINFW0003E')
 
         ms = magic.open(magic.NONE)
         ms.load()
