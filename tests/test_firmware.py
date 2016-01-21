@@ -59,7 +59,7 @@ class FirmwareTests(unittest.TestCase):
     def test_model_update_fails_with_running_vm(self, mock_detect_vm):
         mock_detect_vm.return_value = True
         with self.assertRaises(OperationFailed):
-            FirmwareModel(objstore=self._objstore).update(None, None)
+            FirmwareModel(objstore=self._objstore).upgrade(None, None)
 
     @mock.patch('wok.plugins.ginger.models.firmware.detect_live_vm')
     @mock.patch('wok.plugins.ginger.models.firmware.run_command')
@@ -68,11 +68,10 @@ class FirmwareTests(unittest.TestCase):
         mock_run_command.return_value = ["", "", 0]
 
         temp = tempfile.NamedTemporaryFile()
-        params = {'path': temp.name}
         command = ['update_flash', '-f', temp.name]
 
-        task_id = FirmwareModel(objstore=self._objstore).update(None, params)
-        self.task.wait(task_id)
+        task = FirmwareModel(objstore=self._objstore).upgrade(temp.name)
+        self.task.wait(task['id'])
         mock_run_command.assert_called_once_with(
             command,
             tee='/tmp/fw_tee_log.txt'
@@ -90,11 +89,11 @@ class FirmwareTests(unittest.TestCase):
         mock_run_command.return_value = ["", "", 0]
 
         temp = tempfile.NamedTemporaryFile()
-        params = {'path': temp.name, 'overwrite-perm-ok': False}
         command = ['update_flash', '-n', '-f', temp.name]
 
-        task_id = FirmwareModel(objstore=self._objstore).update(None, params)
-        self.task.wait(task_id)
+        task = FirmwareModel(objstore=self._objstore).upgrade(temp.name,
+                                                              False)
+        self.task.wait(task['id'])
         mock_run_command.assert_called_once_with(
             command,
             tee='/tmp/fw_tee_log.txt'
