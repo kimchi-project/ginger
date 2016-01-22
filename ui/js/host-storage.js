@@ -180,32 +180,32 @@ ginger.loadSanAdapters = function() {
       "column-id": 'name',
       "type": 'string',
       "identifier": true,
-      "width": "7%",
+      "width": "5%",
       "title": i18n['GINTITLE0001M']
     }, {
       "column-id": 'wwpn',
       "type": 'string',
-      "width": "15%",
+      "width": "14%",
       "title": i18n['GINTITLE0007M']
     }, {
       "column-id": 'wwnn',
       "type": 'string',
-      "width": "15%",
+      "width": "13.5%",
       "title": i18n['GINTITLE0008M']
     }, {
       "column-id": 'state',
       "type": 'string',
-      "width": "7%",
+      "width": "4.5%",
       "title": i18n['GINTITLE0009M']
     }, {
       "column-id": 'speed',
       "type": 'string',
-      "width": "6%",
+      "width": "4.5%",
       "title": i18n['GINTITLE0011M']
     }, {
       "column-id": 'symbolic_name',
       "type": 'string',
-      "width": "45%",
+      "width": "58.5%",
       "title": i18n['GINTITLE0012M']
     }];
   } else {
