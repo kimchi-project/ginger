@@ -30,6 +30,7 @@ from wok.utils import run_command
 
 
 RESOLV_CONF = '/etc/resolv.conf'
+NAMESERVER = 'nameserver'
 
 Route = namedtuple('Route', ['prefix', 'gateway', 'dev'])
 
@@ -52,10 +53,19 @@ class NetworkModel(object):
 
     def _set_nameservers(self, nameservers):
         try:
-            with open(RESOLV_CONF, 'w') as f:
-                f.write(''.join('nameserver %s\n' % server
-                        for server in nameservers))
-        except IOError as e:
+            with open(RESOLV_CONF, 'a+') as f:
+                # read the file contents, delete old name servers
+                # add new name servers to the file data and write
+                data = f.read().splitlines()
+                f.truncate(0)
+                for line in data:
+                    if NAMESERVER in line:
+                        data.remove(line)
+                for server in nameservers:
+                    data.append(NAMESERVER + ' ' + server)
+                f.write(''.join('%s\n' % line for line in data))
+                f.close()
+        except Exception, e:
             raise OperationFailed('GINNET0002E', {'reason': e.message})
 
     def _get_default_route_entry(self):
