@@ -91,6 +91,7 @@ BONDING_OPTS_LIST = ["ad_select", "arp_interval", "arp_ip_target",
                      "use_carrier", "xmit_hash_policy"]
 
 STATE_DOWN = "down"
+CFGMAP_QUOTES = ["BONDING_OPTS"]
 
 # ipv4 parameters
 IPV4_ID = "IPV4_INFO"
@@ -156,10 +157,15 @@ def get_bond_vlan_interfaces():
     listout = parser.match(pattern)
     for input in listout:
         interface_type = parser.get(input)
+        # Fix for ginger issue #70
+        interface_type = trim_quotes(interface_type)
         if interface_type in [IFACE_BOND, IFACE_VLAN]:
             cfg_file = input.rsplit('/', 1)[0]
             try:
-                nics.append(parser.get(cfg_file + '/DEVICE'))
+                cfg_device = parser.get(cfg_file + '/DEVICE')
+                # Fix for ginger issue #70
+                cfg_device = trim_quotes(cfg_device)
+                nics.append(cfg_device)
             except Exception, e:
                 wok_log.warn("no device name found,skipping", e)
     return nics
@@ -205,7 +211,10 @@ def getValue(iface, key):
     if is_cfgfileexist(iface):
         file = network_configpath + ifcfg_filename_format % iface
         if token_exist(file, str(key)):
-            return str(parser.get(file + "/" + str(key)))
+            key_val = parser.get(file + "/" + str(key))
+            # Fix for ginger issue #70
+            key_val = trim_quotes(key_val)
+            return str(key_val)
     else:
         return ""
 
@@ -224,6 +233,20 @@ def token_exist(ifcfg_file, key):
         return True
     else:
         return False
+
+
+# Fix for ginger issue #70
+def trim_quotes(param):
+    """
+       The function checks for single and double
+       quotes in the param and trims the same
+       is available and returns the trimmed
+       param.
+    """
+    if (param[0] == param[-1]) \
+       and param.startswith(("'", '"')):
+        param = param[1:-1]
+    return param
 
 
 class CfginterfacesModel(object):
@@ -477,7 +500,12 @@ class CfginterfaceModel(object):
                              'interface :' + interface_name)
                 return cfgmap
             for single in listout:
-                cfgmap[parser.label(single)] = parser.get(single)
+                # Fix for ginger issue #70
+                if parser.label(single) in CFGMAP_QUOTES:
+                    cfgmap[parser.label(single)] = parser.get(single)
+                labelVal = parser.get(single)
+                labelVal = trim_quotes(labelVal)
+                cfgmap[parser.label(single)] = labelVal
         except Exception, e:
             # typical error message e='Error during match procedure!',
             # u'etc/sysconfig/network-scripts/ifcfg-virbr0
