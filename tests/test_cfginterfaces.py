@@ -82,8 +82,11 @@ class CfgInterfacesTests(unittest.TestCase):
     @mock.patch('plugins.ginger.models.cfginterfaces.CfginterfaceModel.'
                 'update_basic_info')
     @mock.patch('plugins.ginger.models.cfginterfaces.CfginterfaceModel.'
-                'write')
-    def test_update(self, mock_write, mock_basic_info, mock_read):
+                'write_attributes_to_cfg')
+    @mock.patch('plugins.ginger.models.cfginterfaces.CfginterfaceModel.'
+                'update_cfgfile')
+    def test_update(self, mock_update_cfgfile, mock_write,
+                    mock_basic_info, mock_read):
         cfgmap = {'BASIC_INFO': {'NAME': 'test_iface',
                                  'DEVICE': 'testdevice',
                                  'ONBOOT': 'Yes'}}
@@ -91,6 +94,7 @@ class CfgInterfacesTests(unittest.TestCase):
         cfgmap_in_interfacefile = \
             {'BASIC_INFO': {'DEVICE': 'testdevice',
                             'BOOTPROTO': 'dhcp'}}
+        mock_update_cfgfile.return_value = ""
         mock_read.return_value = cfgmap_in_interfacefile
         updatedcfgmap = {'BASIC_INFO': {'NAME': 'testiface',
                                         'DEVICE': 'testdevice',
@@ -122,7 +126,7 @@ class CfgInterfacesTests(unittest.TestCase):
                   'ONBOOT': 'Yes'}
         interface_name = "test_iface"
         mock_os.path.isfile.return_value = True
-        CfginterfaceModel().write(interface_name, cfgmap)
+        CfginterfaceModel().write_attributes_to_cfg(interface_name, cfgmap)
         assert mock_parser.set.call_count == 3
         mock_parser.load.assert_called_once_with()
         mock_parser.save.assert_called_once_with()
@@ -130,14 +134,15 @@ class CfgInterfacesTests(unittest.TestCase):
     @mock.patch('plugins.ginger.models.cfginterfaces.os')
     @mock.patch('plugins.ginger.models.cfginterfaces.parser')
     @mock.patch('plugins.ginger.models.cfginterfaces.open')
-    def test_write_create_interfacefile(self, mock_open, mock_parser, mock_os):
+    def test_write_create_interfacefile(self, mock_update_cfgfile,
+                                        mock_open, mock_parser, mock_os):
         """Write attributes to interface file. This method tests
         creation of interface file which does not exist"""
         cfgmap = {'NAME': 'testiface', 'DEVICE': 'testdevice',
                   'ONBOOT': 'Yes'}
         interface_name = "test_iface"
         mock_os.path.isfile.return_value = False
-        CfginterfaceModel().write(interface_name, cfgmap)
+        CfginterfaceModel().write_attributes_to_cfg(interface_name, cfgmap)
         assert mock_parser.set.call_count == 3
         mock_open.close.asser_called_once_with()
         mock_parser.load.assert_called_once_with()

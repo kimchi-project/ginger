@@ -23,6 +23,7 @@ import augeas
 import ethtool
 import os
 import platform
+import shutil
 
 from netaddr import IPAddress
 
@@ -887,6 +888,7 @@ class CfginterfaceModel(object):
     def update_dnsv4_info(self, cfgmap, params):
         if DNSAddresses in params[IPV4_ID]:
             list_dns_addresses = params[IPV4_ID][DNSAddresses]
+            cfgmap = self.clean_DNS_attributes(cfgmap)
             if len(list_dns_addresses) == 1:
                 cfgmap[DNS] = list_dns_addresses[0]
             else:
@@ -914,10 +916,48 @@ class CfginterfaceModel(object):
                 # Fix ginger issue #109
         elif IPV4INIT in params[IPV4_ID] and params[IPV4_ID][IPV4INIT] == \
                 CONST_NO:
+            cfgmap = self.cleanup_ipv4attributes(cfgmap)
             wok_log.info(("IPV4INIT value is set to no"))
         else:
             wok_log.error(("IPV4INIT value is mandatory"))
             raise MissingParameter('GINNET0026E')
+        return cfgmap
+
+    def clean_DNS_attributes(self, cfgmap):
+        """
+        remove all DNS attributes present in cfgmap
+        :param cfgmap:
+        :return:
+        """
+        delattributes = []
+        for key in cfgmap:
+            if key.startswith(DNS):
+                delattributes.append(key)
+        for key in delattributes:
+            if key in cfgmap:
+                del cfgmap[key]
+        return cfgmap
+
+    def cleanup_ipv4attributes(self, cfgmap):
+        """
+        Remove all ipv4 related attributes in cfgmap.
+        :param cfgmap:
+        :return:
+        """
+        SINGLE_ATTRIBUTES = [IPV4_FAILURE_FATAL, PEERDNS, PEERROUTES,
+                             BOOTPROTO, DEFROUTE]
+        MULITPLE_ATTRIBUTES = [IPADDR, PREFIX, GATEWAY, DNS]
+        delattributes = []
+        for attr in SINGLE_ATTRIBUTES:
+            if attr in cfgmap:
+                delattributes.append(attr)
+        for attr in MULITPLE_ATTRIBUTES:
+            for key in cfgmap:
+                if key.startswith(attr):
+                    delattributes.append(key)
+        for key in delattributes:
+            if key in cfgmap:
+                del cfgmap[key]
         return cfgmap
 
     def update(self, name, params):
@@ -932,9 +972,43 @@ class CfginterfaceModel(object):
             cfgmap = self.update_ipv4(cfgmap, params)
         if IPV6_ID in params:
             cfgmap = self.update_ipv6(cfgmap, params)
-        self.write(name, cfgmap)
+        self.update_cfgfile(cfgmap, params)
 
-    def write(self, interface_name, cfgmap):
+    def update_cfgfile(self, cfgmap, params):
+        p_file = os.sep + self.get_iface_cfg_fullpath(
+                self.get_iface_identifier(cfgmap))
+        backupfile = p_file + "bak"
+        try:
+            shutil.copy(p_file, backupfile)
+            self.delete_persist_file(os.sep + p_file)
+            if IPV4_ID in params and IPV4INIT in params[IPV4_ID]\
+                    and params[IPV4_ID][IPV4INIT] == \
+                    CONST_NO:
+                route_filename = route_format % cfgmap[DEVICE]
+                route_filepath = '/' + network_configpath + route_filename
+                if (os.path.isfile(route_filepath)):
+                    os.remove(route_filepath)
+            self.write_attributes_to_cfg(self.get_iface_identifier(cfgmap),
+                                         cfgmap)
+        except Exception, e:
+            wok_log.error(
+                    'Exception occured while updating the cfg information' +
+                    str(
+                            e))
+            if os.path.isfile(backupfile):
+                shutil.copy(backupfile, p_file)
+            raise OperationFailed("GINNET0063E", {'Error': e})
+        finally:
+            if os.path.isfile(backupfile):
+                os.remove(backupfile)
+
+    def get_iface_identifier(self, cfgmap):
+        if DEVICE in cfgmap:
+            return cfgmap[DEVICE]
+        else:
+            return None
+
+    def write_attributes_to_cfg(self, interface_name, cfgmap):
         filename = ifcfg_filename_format % interface_name
         ifcfgFile = os.sep + network_configpath + filename
         fileexist = os.path.isfile(ifcfgFile)
@@ -1103,6 +1177,8 @@ class CfginterfaceModel(object):
             if DNS in cfgmap:
                 dnsstartindexcount += 1
                 cfgmap[DNS + str(dnsstartindexcount)] = cfgmap[DNS]
+                del cfgmap[DNS]
+                dnsstartindexcount += 1
             else:
                 dnsstartindexcount += 1
                 flag = 0

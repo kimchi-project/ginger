@@ -99,6 +99,7 @@ messages = {
                      "'%(error)s'."),
     "GINNET0061E": _("Missing IPV4 addresses information"),
     "GINNET0062E": _("The prefix value %(PREFIX)s is not in range 1-32"),
+    "GINNET0063E": _("Exception updating the interface settings"),
 
     "GINUSER0001E": _("Specify name, password, group and profile for the new "
                       "user."),
