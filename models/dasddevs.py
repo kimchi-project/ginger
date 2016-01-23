@@ -82,10 +82,10 @@ class DASDdevModel(object):
             woklock.acquire()
             taskid = add_task(u'/dasddevs/%s/blksize/%s' % (name, blk_size),
                               self._format_task, self.objstore, task_params)
-        except OperationFailed as e:
+        except OperationFailed:
             woklock.release()
             wok_log.error("Formatting of DASD device %s failed" % bus_id)
-            raise OperationFailed("GINDASD0008E", {'err': e})
+            raise OperationFailed("GINDASD0008E", {'name': name})
         finally:
             woklock.release()
 
@@ -102,8 +102,8 @@ class DASDdevModel(object):
 
         try:
             dasd_utils._format_dasd(blk_size, name)
-        except OperationFailed as e:
+        except OperationFailed:
             wok_log.error("Formatting of DASD device %s failed" % name)
-            raise OperationFailed('GINDASD0008E', {'err': e})
+            raise OperationFailed('GINDASD0008E', {'name': name})
 
         cb('OK', True)

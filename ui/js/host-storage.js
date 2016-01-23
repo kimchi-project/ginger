@@ -400,8 +400,9 @@ ginger.loadStorageActionButtons = function(){
                     }
                     },function(result){
                     trackingNums = trackingNums - 1;
+                    errorMsg = i18n['GINDASD0001E'].replace("%1", deviceId);
+                    wok.message.error(errorMsg,'#alert-modal-nw-container', true);
                     if(trackingNums == 0){
-                        wok.message.error("Failed to format " + deviceId,'#alert-modal-nw-container');
                         $('#sd-format-button').show();
                         ginger.hideBootgridLoading(opts);
                     }
@@ -446,7 +447,10 @@ ginger.loadStorageActionButtons = function(){
                               });
                             }
                         },function(result){
-                            wok.message.error("Failed to remove " + deviceId,'#alert-modal-nw-container');
+                            if (result['responseJSON']) {
+                              var errText = result['responseJSON']['reason'];
+                            }
+                            result && wok.message.error(errText, '#alert-modal-nw-container', true);
                             rowNums = rowNums - 1;
                             if (rowNums == 0) {
                               ginger.getStgdevs(function(result){

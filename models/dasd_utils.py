@@ -103,7 +103,7 @@ def _format_dasd(blk_size, dev):
     fmtout, err, rc = run_command(command)
     if rc:
         wok_log.error("Formatting of DASD device %s failed", dev_name)
-        raise OperationFailed("GINDASD0004E", {'err': err})
+        raise OperationFailed("GINDASD0004E", {'name': dev})
     return
 
 
