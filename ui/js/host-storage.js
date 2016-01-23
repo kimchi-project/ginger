@@ -1,5 +1,5 @@
 /*
- * Copyright IBM Corp, 2015
+ * Copyright IBM Corp, 2015-2016
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -363,17 +363,22 @@ ginger.loadStorageActionButtons = function(){
         class: 'fa fa-pencil-square-o',
         label: 'Format DASD',
         onClick: function(event) {
-            var settings = {
+        var opts = [];
+        opts['gridId'] = "stgDevGrid";
+        opts['identifier'] = "id";
+        opts['loadingMessage'] = 'Formatting...';
+
+        var selectedIf = ginger.getSelectedRowsData(opts);
+        if ((selectedIf && selectedIf.length > 0)){
+
+        var settings = {
+
                 content: i18n['GINSD00002'],
                 confirm: i18n['GGBAPI6002M'],
                 cancel: i18n['GGBAPI6003M']
             };
 
             wok.confirm(settings, function() {
-                var opts = [];
-                opts['gridId'] = "stgDevGrid";
-                opts['identifier'] = "id";
-                opts['loadingMessage'] = 'Formatting...';
                 var selectedRows = ginger.getSelectedRowsData(opts);
                 ginger.selectedrows = selectedRows;
                 var trackingNums = selectedRows.length;
@@ -393,23 +398,38 @@ ginger.loadStorageActionButtons = function(){
                     var settings = {'blk_size' : '4096'};
                     ginger.formatDASDDevice(busId, settings, function(result){
                     trackingNums = trackingNums - 1;
+                    wok.message.success(deviceId + " formatted successfully",'#alert-modal-nw-container');
                     if(trackingNums == 0){
                         ginger.hideBootgridLoading(opts);
                         $('#sd-format-button').show();
-                        wok.message.success(deviceId + " formatted successfully",'#alert-modal-nw-container');
+                        ginger.getStgdevs(function(result){
+                        ginger.loadBootgridData("stgDevGrid",result);
+                        });
                     }
                     },function(result){
                     trackingNums = trackingNums - 1;
+                    wok.message.error("Failed to format " + deviceId,'#alert-modal-nw-container');
                     errorMsg = i18n['GINDASD0001E'].replace("%1", deviceId);
                     wok.message.error(errorMsg,'#alert-modal-nw-container', true);
                     if(trackingNums == 0){
                         $('#sd-format-button').show();
                         ginger.hideBootgridLoading(opts);
+                        ginger.getStgdevs(function(result){
+                        opts['loadingMessage'] = 'Loading...';
+                        ginger.showBootgridLoading(opts);
+                        ginger.loadBootgridData("stgDevGrid",result);
+                        });
                     }
                     }, onTaskAccepted);
                });
-            }, function() {
-            });
+               }, function(){});
+               }else{
+                    var settings = {
+                    content: i18n["GINSD00003M"],
+                    confirm: i18n["GINSD00004M"]
+                    };
+                    wok.confirm(settings, function() {});
+               }
         }
     },
     {
@@ -418,6 +438,11 @@ ginger.loadStorageActionButtons = function(){
         label: 'Remove',
         critical: true,
         onClick: function(event) {
+        var opts = [];
+        opts['gridId'] = "stgDevGrid";
+        opts['identifier'] = "id";
+        var selectedIf = ginger.getSelectedRowsData(opts);
+        if ((selectedIf && selectedIf.length > 0)){
             var settings = {
                 content: i18n['GINSD00001'],
                 confirm: i18n['GGBAPI6002M'],
@@ -425,9 +450,6 @@ ginger.loadStorageActionButtons = function(){
             };
 
             wok.confirm(settings, function() {
-                var opts = [];
-                opts['gridId'] = "stgDevGrid";
-                opts['identifier'] = "id";
                 var selectedRows = ginger.getSelectedRowsData(opts);
                 ginger.selectedrows = selectedRows;
                 var rowNums = selectedRows.length;
@@ -486,6 +508,13 @@ ginger.loadStorageActionButtons = function(){
                });
             }, function() {
         });
+        }else{
+           var settings = {
+           content: i18n["GINSD00003M"],
+           confirm: i18n["GINSD00004M"]
+         };
+           wok.confirm(settings, function() {});
+       }
      }
   }];
 
