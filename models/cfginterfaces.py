@@ -977,30 +977,33 @@ class CfginterfaceModel(object):
     def update_cfgfile(self, cfgmap, params):
         p_file = os.sep + self.get_iface_cfg_fullpath(
                 self.get_iface_identifier(cfgmap))
-        backupfile = p_file + "bak"
-        try:
-            shutil.copy(p_file, backupfile)
-            self.delete_persist_file(os.sep + p_file)
-            if IPV4_ID in params and IPV4INIT in params[IPV4_ID]\
-                    and params[IPV4_ID][IPV4INIT] == \
-                    CONST_NO:
-                route_filename = route_format % cfgmap[DEVICE]
-                route_filepath = '/' + network_configpath + route_filename
-                if (os.path.isfile(route_filepath)):
-                    os.remove(route_filepath)
+        if os.path.isfile(p_file):
+            backupfile = p_file + "bak"
+            try:
+                shutil.copy(p_file, backupfile)
+                self.delete_persist_file(os.sep + p_file)
+                if IPV4_ID in params and IPV4INIT in params[IPV4_ID] \
+                        and params[IPV4_ID][IPV4INIT] == CONST_NO:
+                    route_filename = route_format % cfgmap[DEVICE]
+                    route_filepath = '/' + network_configpath + route_filename
+                    if (os.path.isfile(route_filepath)):
+                        os.remove(route_filepath)
+                self.write_attributes_to_cfg(
+                        self.get_iface_identifier(cfgmap),
+                        cfgmap)
+            except Exception, e:
+                wok_log.error(
+                        'Exception occured while updating the cfg '
+                        'information' + str(e))
+                if os.path.isfile(backupfile):
+                    shutil.copy(backupfile, p_file)
+                raise OperationFailed("GINNET0063E", {'Error': e})
+            finally:
+                if os.path.isfile(backupfile):
+                    os.remove(backupfile)
+        else:
             self.write_attributes_to_cfg(self.get_iface_identifier(cfgmap),
                                          cfgmap)
-        except Exception, e:
-            wok_log.error(
-                    'Exception occured while updating the cfg information' +
-                    str(
-                            e))
-            if os.path.isfile(backupfile):
-                shutil.copy(backupfile, p_file)
-            raise OperationFailed("GINNET0063E", {'Error': e})
-        finally:
-            if os.path.isfile(backupfile):
-                os.remove(backupfile)
 
     def get_iface_identifier(self, cfgmap):
         if DEVICE in cfgmap:
@@ -1361,7 +1364,7 @@ class CfginterfaceModel(object):
             ifcfgFile = os.sep + network_configpath + filename
             fileexist = os.path.isfile(ifcfgFile)
             if fileexist:
-                self.write(slave, slave_info)
+                self.write_attributes_to_cfg(slave, slave_info)
             else:
                 wok_log.error("Slave file is not exist for " + slave)
                 raise OperationFailed("GINNET0053E", {'slave': slave})
