@@ -81,6 +81,9 @@ ginger.createBootgrid = function(opts) {
         }
         return ipaddr + "/" + netmask;
       },
+      "editable-global-dns": function(column, row) {
+        return '<span class="xedit" data-xedit=true data-column-name="' + column.id + '" data-row-id="' + row.GLOBAL + '">' + row[column.id] + '</span>	';
+      },
       "editable-nw-ipv4-addresses": function(column, row) {
         return '<span class="xedit" data-xedit=true data-column-name="' + column.id + '" data-row-id="' + row.IPADDR + '">' + row[column.id] + '</span>	';
       },
@@ -270,6 +273,8 @@ ginger.createEditableBootgrid = function(gridInstance, opts, rowKey) {
             } else {
               isValid = ginger.validateMask(value);
             }
+          } else if (columnname == 'GLOBAL') {
+            isValid = ginger.isValidIPv6($(this).val()) || ginger.validateIp($(this).val()) || ginger.validateHostName($(this).val());
           } else if (columnname == 'METRIC') {
             isValid = /^[0-9]+$/.test(value);
           } else {
@@ -303,6 +308,8 @@ ginger.createEditableBootgrid = function(gridInstance, opts, rowKey) {
             } else {
               isValid = ginger.validateMask($(this).val());
             }
+          } else if (columnname == 'GLOBAL') {
+            isValid = ginger.isValidIPv6($(this).val()) || ginger.validateIp($(this).val()) || ginger.validateHostName($(this).val());
           } else if (columnname == 'METRIC') {
             isValid = /^[0-9]+$/.test($(this).val());
           } else {
@@ -358,6 +365,7 @@ ginger.createEditableBootgrid = function(gridInstance, opts, rowKey) {
         "gridId": opts['gridId']
       });
       var inputfield = $('input', $(this).closest('tr'));
+
       if (inputfield != undefined) {
         var inputfieldvalue = inputfield.val();
         var columnname = inputfield.closest('td').find('span.xedit').attr("data-column-name");

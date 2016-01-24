@@ -270,6 +270,11 @@ ginger.validateIp = function(ip){
     return ipReg.test(ip);
 };
 
+ginger.validateHostName = function(hostname) {
+  var hostNameRegex = /^(([a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9\-]*[a-zA-Z0-9])\.)*([A-Za-z0-9]|[A-Za-z0-9][A-Za-z0-9\-]*[A-Za-z0-9])$/;
+  return hostNameRegex.test(hostname);
+};
+
 ginger.validateMask = function(mask){
     if(mask.indexOf('.')!=-1){
         var secs = mask.split('.');

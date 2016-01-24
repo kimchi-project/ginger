@@ -228,8 +228,13 @@ ginger.loadBootgridNWActions = function() {
     onClick: function(event) {
       var selectedIf = ginger.getSelectedRowsData(ginger.opts_nw_if);
       if (selectedIf && (selectedIf.length == 1)) {
-        ginger.showBootgridLoading(ginger.opts_nw_if);
-          ginger.selectedNWInterface = selectedIf[0]["device"];
+        ginger.selectedNWInterface = selectedIf[0]["device"];
+        var settings = {
+          content: i18n['GINNET0028M'].replace("%1", ginger.selectedNWInterface),
+          confirm: i18n["GINNET0015M"]
+        };
+        wok.confirm(settings, function() {
+          ginger.showBootgridLoading(ginger.opts_nw_if);
           ginger.deleteInterface(ginger.selectedNWInterface, function(result) {
             var message = i18n['GINNET0019M'] + " " + ginger.selectedNWInterface + " " + i18n['GINNET0020M'];
             wok.message.success(message, '#message-nw-container-area');
@@ -246,6 +251,9 @@ ginger.loadBootgridNWActions = function() {
             var message = i18n['GINNET0019M'] + " " + ginger.selectedNWInterface + " " + i18n['GINNET0021M'];
             wok.message.error(message + " " + error.responseJSON.reason, '#message-nw-container-area', true);
           });
+        }, function() {
+          ginger.hideBootgridLoading(ginger.opts_nw_if);
+        });
       } else {
         var settings = {
           content: i18n["GINNET0022M"],
@@ -402,137 +410,114 @@ ginger.initNetworkConfigGridData = function() {
 };
 
 ginger.initGlobalNetworkConfig = function() {
-  var toggleBtnEdit = function(item, on) {
-    $("button", item).toggleClass("hide");
-    $(".cancel", item).toggleClass("hide", !on);
-  };
-  var attachBtnEvt = function(node, editFunc, saveFunc, cancelFunc) {
-    // disable the inputs for edit if they are already filled
-    var ip = $("#ip-address", node);
-    var mask = $("#ip-mask", node);
-    if (!(ip === undefined || ip === null) && !(mask === undefined || mask === null)) {
-      if (!(ip.val() === "") && !(mask.val() === "")) {
-        ip.prop("disabled", true);
-        mask.prop("disabled", true);
+  globalDnsAddButton = $('#nw-global-dns-add');
+  globalDnsGateway = $('#nw-global-gateway-textbox');
+  nwGlobalApplyBtn = $('#nw-global-apply-btn');
+
+  ginger.opts_global_dns = [];
+  ginger.opts_global_dns['id'] = 'nw-global-dns';
+  ginger.opts_global_dns['gridId'] = "nw-global-dns-grid";
+  ginger.opts_global_dns['noResults'] = " ";
+  ginger.opts_global_dns['selection'] = false;
+  ginger.opts_global_dns['navigation'] = 0;
+  ginger.opts_global_dns['loadingMessage'] = i18n['GINNET0025M'];
+
+  var gridFields = [];
+  gridFields = [{
+    "column-id": 'GLOBAL',
+    "type": 'string',
+    "header-class": "text-center",
+    "data-class": "center",
+    "width": "80%",
+    "title": "DNS",
+    "identifier": true,
+    "formatter": "editable-global-dns"
+  }, {
+    "column-id": "GLOBAL",
+    "type": 'string',
+    "title": "",
+    "width": "20%",
+    "header-class": "text-center",
+    "data-class": "center",
+    "formatter": "row-edit-delete"
+  }];
+
+  ginger.opts_global_dns['gridFields'] = JSON.stringify(gridFields);
+  var globalDnsGrid = ginger.createBootgrid(ginger.opts_global_dns);
+
+  ginger.loadGlobalNetworks();
+  ginger.createEditableBootgrid(globalDnsGrid, ginger.opts_global_dns, 'GLOBAL');
+  globalDnsAddButton.on('click', function() {
+    var columnSettings = [{
+      'id': 'GLOBAL',
+      'width': '80%',
+      'validation': function() {
+        var isValid = (ginger.isValidIPv6($(this).val()) || ginger.validateIp($(this).val()) || ginger.validateHostName($(this).val()));
+        ginger.markInputInvalid($(this), isValid);
       }
+    }]
+    commandSettings = {
+      "width": "20%",
+      "td-class": "text-center"
     }
-    $("input", node).each(function() {
-      $(this).on("keyup", function() {
-        var isValid = ginger.validateIp($(this).val());
-        if ($(this).parent().hasClass("mask")) {
-          isValid = isValid && ginger.validateMask($(this).val());
-        }
-        isValid = isValid || $(this).val().trim() == "";
-        $(this).toggleClass("invalid-field", !isValid);
-        $(".save", node).prop("disabled", !isValid);
-      });
-    });
-    $(".edit", node).on("click", function(event) {
-      event.preventDefault();
-      editFunc(node);
-    });
-    $(".save", node).on("click", function(event) {
-      event.preventDefault();
-      saveFunc(node);
-    });
-    $(".cancel", node).on("click", function(event) {
-      event.preventDefault();
-      cancelFunc(node);
-    });
-  };
-  ginger.getNetworkGlobals(function(data) {
-    var toggleNWGlobalsEdit = function(item, on) {
-      $("#dns-ip-address", item).prop("disabled", !on);
-      toggleBtnEdit(item, on);
-    };
-    var attachNWGlobalBtnEvt = function(node, saveFunc) {
-      attachBtnEvt(node, function() {
-        toggleNWGlobalsEdit(node, true);
-      }, function() {
-        saveFunc();
-      }, function() {
-        toggleNWGlobalsEdit(node, false);
-      });
-    };
-    if (!data.nameservers || data.nameservers.length == 0) {
-      data.nameservers = [""];
+    ginger.addNewRecord(columnSettings, ginger.opts_global_dns['gridId'], commandSettings);
+  });
+
+  globalDnsGateway.on('keyup', function() {
+    var gatewayIP = globalDnsGateway.val();
+    if(gatewayIP.trim() == "") {
+      $(this).toggleClass("invalid-field", false);
+    } else {
+      $(this).toggleClass("invalid-field", !((ginger.isValidIPv6(gatewayIP)) || ginger.validateIp(gatewayIP)));
     }
-    var addGlobalItem = function(container, itemValue, saveFunc) {
-      var ip = itemValue;
-      var tempNode = $.parseHTML(wok.substitute($("#nwGlobalItem").html(), {
-        ip: ip,
-        viewMode: ip == "" ? "hide" : "",
-        editMode: ip == "" ? "" : "hide"
-      }));
-      $("input", tempNode).prop("disabled", ip != "");
-      $("#" + container).append(tempNode);
-      $("input", tempNode).prop("oriVal", ip);
-      attachBtnEvt(tempNode, function(node) {
-        toggleNWGlobalsEdit(node, true);
-      }, function(node) {
-        saveFunc(node, function(item) {
-          var input = $("input", item);
-          if (input.val() == "" && $(".sec-content", "#" + container).length != 1) {
-            item.remove();
-          } else {
-            input.prop("oriVal", input.val());
-            toggleNWGlobalsEdit(item, false);
-          }
-        });
-      }, function(node) {
-        // DNS IP Address Cancel
-        var input = $("input", node);
-        $("button", node).prop("disabled", false);
-        input.val(input.prop("oriVal"));
-        if (input.prop("oriVal") == "") {
-          node[1].remove();
-        } else {
-          toggleNWGlobalsEdit(node, false);
-        }
-      });
-      return tempNode;
-    };
-    var addDnsItem = function(dnsVal) {
-      return addGlobalItem("gingerDNS", dnsVal, function(item, postSave) {
-        if (!($("input", item).val().trim() == "" && $("input", item).prop("oriVal").trim() == "")) {
-          var nwGol = {
-            nameservers: []
-          };
-          $("input", item).each(function() {
-            if ($(this).val().trim() != "") {
-              nwGol.nameservers.push($(this).val());
-            }
-          });
-          if (nwGol.nameservers.length == 0) {
-            delete nwGol.nameservers;
-          }
-          ginger.updateNetworkGlobals(nwGol, function() {
-            postSave(item);
-          });
-        }
-      });
-    };
-    $("#gingerDnsAdd").button({
-      text: false
-    }).click(function() {
-      var item = addDnsItem("");
-      $(".cancel", item).removeClass("hide");
-    });
-    for (var i = 0; i < data.nameservers.length; i++) {
-      addDnsItem(data.nameservers[i]);
-    }
-    addGlobalItem("gingerGateway", data.gateway ? data.gateway : "", function(item, postSave) {
-      var gateway = $("input", item).val();
-      if (gateway.trim() != "") {
-        ginger.updateNetworkGlobals({
-          gateway: gateway
-        }, function() {
-          ginger.confirmNetworkUpdate(function() {
-            postSave(item);
-          });
-        });
+  });
+
+  nwGlobalApplyBtn.on('click', function() {
+    var global_info = {};
+    globalDnsAddresses = ginger.getCurrentRows(ginger.opts_global_dns);
+
+    if (globalDnsAddresses.length > 0) {
+      dns = []
+      for (var i = 0; i < globalDnsAddresses.length; i++) {
+        dnsValue = globalDnsAddresses[i].GLOBAL;
+        dns.push(dnsValue);
       }
+      global_info['nameservers'] = dns;
+    } else {
+      global_info['nameservers'] = '[]'
+    }
+
+    if (globalDnsGateway.val() != "")
+      global_info['gateway'] = globalDnsGateway.val();
+
+    ginger.showBootgridLoading(ginger.opts_global_dns);
+    ginger.updateNetworkGlobals(global_info, function(result) {
+      var message = i18n['GINNET0024M'] + " " + i18n['GINNET0020M'];
+      wok.message.success(message, '#message-nw-global-container-area');
+      ginger.hideBootgridLoading(ginger.opts_global_dns);
+      ginger.loadGlobalNetworks();
+    }, function(error) {
+      ginger.hideBootgridLoading(ginger.opts_global_dns);
+      var message = i18n['GINNET0024M'] + " " + i18n['GINNET0021M'] + " " + error.responseJSON.reason ;
+      wok.message.error(error.responseJSON.reason, '#message-nw-global-container-area', true);
     });
+  });
+};
+
+ginger.loadGlobalNetworks = function() {
+  ginger.getNetworkGlobals(function(dnsAddresses) {
+    if ("nameservers" in (dnsAddresses)) {
+      var DNSNameServers = dnsAddresses.nameservers
+      for (var i = 0; i < DNSNameServers.length; i++) {
+        DNSNameServers[i] = {
+          "GLOBAL": DNSNameServers[i]
+        }
+      }
+      ginger.loadBootgridData(ginger.opts_global_dns['gridId'], DNSNameServers);
+    }
+    if ("gateway" in (dnsAddresses)) {
+      globalDnsGateway.val(dnsAddresses.gateway);
+    }
   });
 }
 
