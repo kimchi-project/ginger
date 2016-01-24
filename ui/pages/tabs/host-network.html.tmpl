@@ -40,28 +40,60 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
     <div class="container">
       <div id="gingerHostNetwork" class="host-network">
         <!-- Global Network Configuration Panel -->
-        <div class="panel-group network-ppc-enabled accordion" id="network-ppc-content-areanetwork-ppc-accordion" role="tablist" aria-multiselectable="true">
+        <div class="panel-group network-ppc-enabled accordion" id="network-global-accordion" role="tablist" aria-multiselectable="true">
           <h3>
-            <a role="button" data-toggle="collapse" data-parent="#network-ppc-content-areanetwork-ppc-accordion" href="#network-ppc-content-area" aria-expanded="false" aria-controls="network-ppc-content-area" class="">
+            <a role="button" data-toggle="collapse" data-parent="#network-global-accordion" href="#network-global-content-area" aria-expanded="false" aria-controls="network-global-content-area" class="">
               <span class="accordion-icon"></span>
               <span class="accordion-text">$_("Global Network Configuration")</span>
             </a>
           </h3>
-          <div id="network-ppc-content-area" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
-            <div class="clearfix">
-              <div class="col-md-5">
-                <div class="col-md-6 wok-datagrid">
-                  <div class="wok-datagrid-header">
-                    <span>$_("DNS IP Address")</span>
-                  </div>
-                  <button class="btn btn-primary addBtn" id="gingerDnsAdd" type="submit"><i class="fa fa-plus-circle"></i> $_("Add")</button>
-                  <div class="wok-datagrid-body no-border" id="gingerDNS"></div>
+          <div id="network-global-content-area" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+            <div class="row" id="nw-global-dns-action" style="padding-left:20px;">
+              <div class="nw-global-dns-actions btn-group" id="nw-global-dns-action-area">
+                <div class="dropdown menu-flat ">
+                  <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false" aria-haspopup="true">
+                    <span class="edit-alt"></span>$_("Actions")
+                    <span class="caret"></span>
+                  </button>
+                  <ul class="dropdown-menu actionsheet">
+                    <li role="presentation">
+                      <a id="nw-global-apply-btn"><i class="fa fa-file"></i> $_("Apply")</a>
+                    </li>
+                  </ul>
                 </div>
-                <div class="col-md-6 wok-datagrid">
-                  <div class="wok-datagrid-header">
-                    <span>$_("Gateway IP Address")</span>
+              </div>
+            </div>
+            <div class="row" style="padding-left:20px;">
+              <div class="clearfix">
+                <span id='message-nw-global-container-area' style='display: none;'></span>
+                <div class="row">
+                  <div class="col-xs-6">
+                    <div class="row">
+                      <div class="col-xs-8" style="margin-bottom:5px margin-top:5px">
+                        <label class="control-label" for="nw-global-dns">$_("Global DNS Addresses")</label>
+                      </div>
+                      <div class="pull-right">
+                        <button id="nw-global-dns-add" aria-expanded="false" type="button" class="row btn btn-primary"><i class="fa fa-plus-circle"></i>$_("Add")</button>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="wok-datagrid-body no-border" id="nw-global-dns">
+                        <!--Filled by JS-->
+                      </div>
+                    </div>
                   </div>
-                  <div class="wok-datagrid-body no-border" id="gingerGateway"></div>
+                  <div class="col-xs-6">
+                    <div class="row" style="padding-left:20px;">
+                      <div class="col-xs-8">
+                        <label class="control-label" for="nw-global-dns">$_("Gateway")</label>
+                      </div>
+                    </div>
+                    <div class="row" style="padding-left:20px;">
+                      <div class="col-sm-4">
+                        <input id="nw-global-gateway-textbox" class="form-control" name="gateway" type="text" />
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -69,23 +101,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
         </div>
 
         <!-- Network Configuration Panel -->
-        <div class="panel-group network-ppc-enabled accordion" id="network-content-areanetwork-ppc-accordion" role="tablist" aria-multiselectable="true">
+        <div class="panel-group network-ppc-enabled accordion" id="network-content-area-accordion" role="tablist" aria-multiselectable="true">
           <h3>
-            <a role="button" data-toggle="collapse" data-parent="#network-content-areanetwork-ppc-accordion" href="#network-content-area" aria-expanded="false" aria-controls="network-content-area" class="">
+            <a role="button" data-toggle="collapse" data-parent="#network-content-area-accordion" href="#network-content-area" aria-expanded="false" aria-controls="network-content-area" class="">
               <span class="accordion-icon"></span>
               <span class="accordion-text">$_("Network Configuration")</span>
             </a>
           </h3>
           <div id="network-content-area" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
-            <div class="clearfix">
-              <span id='message-nw-container-area' style='display: none;'></span>
-              <div class="columm-md-12" class="row">
-                <div id="nw-configuration-actions" class="pull-left">
+            <div class="row" id="nw-interfaces" style="padding-left:20px;">
+              <div class="clearfix">
+                <span id='message-nw-container-area' style='display: none;'></span>
+                <div class="columm-md-12" class="row">
+                  <div id="nw-configuration-actions" class="pull-left">
+                  </div>
+                  <div id="nw-configuration-add" class="pull-right">
+                  </div>
                 </div>
-                <div id="nw-configuration-add" class="pull-right">
+                <div id="nw-configuration" class="row">
                 </div>
-              </div>
-              <div id="nw-configuration" class="row">
               </div>
             </div>
           </div>
@@ -95,20 +129,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
   </div>
   <div id="modalWindow" class="modal fade host-modal network-io-modal" tabindex="-1" role="dialog" aria-labelledby="networkIOModalLabel" aria-hidden="true">
   </div>
-  <script id="nwGlobalItem" type="text/html">
-    <form class="form-inline sec-content wok-datagrid-row">
-      <div class="form-group column-dns-ip-address">
-        <input type="text" class="form-control" id="dns-ip-address" placeholder="$_(" Enter IP Address ")" value="{ip}">
-      </div>
-      <div class="form-group column-actions">
-        <button class="btn btn-link edit {viewMode}" type="submit"><i class="fa fa-pencil"></i></button>
-        <button class="btn btn-link save {editMode}" type="submit"><i class="fa fa-floppy-o"></i></button>
-        <button class="btn btn-link cancel hide" type="submit"><i class="fa fa-ban"></i></button>
-      </div>
-    </form>
-  </script>
   <script>
     ginger.initNetwork();
   </script>
 </body>
+
 </html>
