@@ -58,12 +58,13 @@ class NetworkModel(object):
                 # add new name servers to the file data and write
                 data = f.read().splitlines()
                 f.truncate(0)
+                new_data = []
                 for line in data:
-                    if NAMESERVER in line:
-                        data.remove(line)
+                    if NAMESERVER not in line:
+                        new_data.append(line)
                 for server in nameservers:
-                    data.append(NAMESERVER + ' ' + server)
-                f.write(''.join('%s\n' % line for line in data))
+                    new_data.append(NAMESERVER + ' ' + server)
+                f.write(''.join('%s\n' % line for line in new_data))
                 f.close()
         except Exception, e:
             raise OperationFailed('GINNET0002E', {'reason': e.message})

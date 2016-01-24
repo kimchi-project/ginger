@@ -78,7 +78,11 @@
                     "type": "array",
                     "items": {
                         "type": "string",
-                        "format": "ip-address"
+                        "oneOf": [
+                            { "format": "host-name" },
+                            { "format": "ipv4" },
+                            { "format": "ipv6" }
+                        ]
                     },
                     "minItems": 1,
                     "uniqueItems": true,
