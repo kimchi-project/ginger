@@ -17,6 +17,8 @@
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 
+import os
+
 from backup import Backup
 from capabilities import Capabilities
 from dasddevs import DASDdevs
@@ -37,6 +39,9 @@ from users import Users
 from swaps import Swaps
 from sysmodules import SysModules
 from vol_group import VolumeGroups
+
+from wok.control.utils import load_url_sub_node
+
 
 __all__ = [
     Backup,
@@ -60,3 +65,6 @@ __all__ = [
     Users,
     VolumeGroups
     ]
+
+
+sub_nodes = load_url_sub_node(os.path.dirname(__file__), __name__)
