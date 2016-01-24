@@ -134,8 +134,8 @@ class CfgInterfacesTests(unittest.TestCase):
     @mock.patch('plugins.ginger.models.cfginterfaces.os')
     @mock.patch('plugins.ginger.models.cfginterfaces.parser')
     @mock.patch('plugins.ginger.models.cfginterfaces.open')
-    def test_write_create_interfacefile(self, mock_update_cfgfile,
-                                        mock_open, mock_parser, mock_os):
+    def test_write_create_interfacefile(self, mock_open, mock_parser,
+                                        mock_os):
         """Write attributes to interface file. This method tests
         creation of interface file which does not exist"""
         cfgmap = {'NAME': 'testiface', 'DEVICE': 'testdevice',
