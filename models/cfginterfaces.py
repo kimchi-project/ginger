@@ -443,6 +443,8 @@ class CfginterfaceModel(object):
     def remove_vlan_persistent(self, name):
         p_file = self.get_iface_cfg_fullpath(name)
         self.delete_persist_file(os.sep + p_file)
+        self.clean_routes(name, 4)
+        self.clean_routes(name, 6)
 
     def remove_bond_persistent(self, interface_name):
         params = self.read_ifcfg_file(interface_name)
@@ -458,6 +460,8 @@ class CfginterfaceModel(object):
                     self.delete_token_from_cfg(each_slave, each_token)
         p_file = self.get_iface_cfg_fullpath(interface_name)
         self.delete_persist_file(os.sep + p_file)
+        self.clean_routes(interface_name, 4)
+        self.clean_routes(interface_name, 6)
 
     def delete_token_from_cfg(self, name, token):
         filename = self.get_iface_cfg_fullpath(name)
@@ -913,6 +917,8 @@ class CfginterfaceModel(object):
             if ROUTES in params[IPV4_ID]:
                 self.write_cfgroutes(params[IPV4_ID][ROUTES],
                                      params[BASIC_INFO][DEVICE], 4)
+            else:
+                self.clean_routes(cfgmap[DEVICE], 4)
                 # Fix ginger issue #109
         elif IPV4INIT in params[IPV4_ID] and params[IPV4_ID][IPV4INIT] == \
                 CONST_NO:
@@ -922,6 +928,21 @@ class CfginterfaceModel(object):
             wok_log.error(("IPV4INIT value is mandatory"))
             raise MissingParameter('GINNET0026E')
         return cfgmap
+
+    def clean_routes(self, interface_name, version):
+        """
+        This method will delete the route file for interface provided.
+        :param interface_name:
+        :param version: 4 for ipv4 and 6 for ipv6
+        :return:
+        """
+        if version == 6:
+            route_filename = route6_format % interface_name
+        else:
+            route_filename = route_format % interface_name
+        route_filepath = '/' + network_configpath + route_filename
+        if (os.path.isfile(route_filepath)):
+            os.remove(route_filepath)
 
     def clean_DNS_attributes(self, cfgmap):
         """
@@ -1047,6 +1068,8 @@ class CfginterfaceModel(object):
             if ROUTES in params[IPV6_ID]:
                 self.write_cfgroutes(params[IPV6_ID][ROUTES],
                                      params[BASIC_INFO][DEVICE], 6)
+            else:
+                self.clean_routes(cfgmap[DEVICE], 6)
                 # Fix ginger issue #42
         elif IPV6INIT in params[IPV6_ID] and params[IPV6_ID][IPV6INIT] == \
                 'no':
