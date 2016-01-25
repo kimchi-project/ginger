@@ -290,7 +290,6 @@ URI: /plugins/ginger/filesystems/*:mount_point*
            /etc/sysconfig/network-scripts/ifcfg-<name>
     * BASIC_INFO: Dictionary containing the basic information of interface
                   to be updated
-        * DEVICE: Device name of the interface.
         * NAME *(optional)*: Name of the interface.
         * ONBOOT *(optional)*: 'Yes' if interface is to be brought up during boot,
                                 'No' if interface should not be brought up during boot.
@@ -319,7 +318,7 @@ URI: /plugins/ginger/filesystems/*:mount_point*
         * IPV6_AUTOCONF: 'yes' automatic mode for ipv6,''no' for other mode
         * DHCPV6C: 'yes' dhcp automatic mode for ipv6
         * IPV6_DEFROUTE *(optional)*: 'yes' Use default route.
-        * IPV6Addresses(Needed if IPV6_AUTOCONF is none and DHCPV6C is no ):
+        * IPV6Addresses(Needed if IPV6_AUTOCONF is no):
                          Assign single or multiple ipv6 address to interface
             * IPADDR:  address of the interface
             * NETMASK: netmask of the address
@@ -344,7 +343,7 @@ URI: /plugins/ginger/filesystems/*:mount_point*
                         'No' if interface should not be brought up during boot.
         * MTU *(optional)*: Maximum Transmission Unit
         * ZONE *(optional)*: Firewall Zone for the interface
-        * BOND_INFO *(OPTIONAL)*: Dictionary containing the bond information
+        * BOND_INFO *(Needed if TYPE is bond)*: Dictionary containing the bond information
          of interface to be created
             * BONDING_MASTER *: 'yes' indicates that the device is a bonding
              master device.  The only useful value is "yes."
@@ -384,7 +383,7 @@ URI: /plugins/ginger/filesystems/*:mount_point*
                 * xmit_hash_policy *(OPTIONAL)*: value
                     Possible values are: layer2, layer2+3, layer3+4,
                     encap2+3, encap3+4
-        * VLAN_INFO *(OPTIONAL)*: Dictionary containing the vlan information
+        * VLAN_INFO *(Needed if TYPE is Vlan)*: Dictionary containing the vlan information
          of interface to be created
             * PHYSDEV *: A previously configured interface can be selected.
             * VLAN *: 'yes'
