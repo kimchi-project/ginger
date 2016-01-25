@@ -1,7 +1,7 @@
 #
 # Project Ginger
 #
-# Copyright IBM, Corp. 2015
+# Copyright IBM, Corp. 2015-2016
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -79,15 +79,16 @@ class PartitionTests(unittest.TestCase):
         part.delete(part_name)
         mock_delete_part.assert_called_with(part_name)
 
-    @mock.patch('wok.plugins.ginger.models.utils._makefs',
-                autospec=True)
-    def test_format_part(self, mock_format_part):
+    @mock.patch('wok.plugins.ginger.models.utils._makefs', autospec=True)
+    @mock.patch('wok.plugins.ginger.models.utils._is_mntd', autospec=True)
+    def test_format_part(self, mock_is_mntd, mock_makefs):
+        mock_is_mntd.return_value = False
         part = diskparts.PartitionModel(objstore=self._objstore)
-        name = 'sdb1'
+        name = 'a_partition_name'
         fstype = 'ext4'
         task_obj = part.format(name, fstype)
         self.task_model.wait(task_obj.get('id'))
-        mock_format_part.assert_called_with(fstype, name)
+        mock_makefs.assert_called_with(fstype, name)
 
     @mock.patch('wok.plugins.ginger.models.diskparts.get_partition_details',
                 autospec=True)
