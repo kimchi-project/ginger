@@ -1076,7 +1076,7 @@ class CfginterfaceModel(object):
                     self.assign_ipv6_address(cfgmap, params[IPV6_ID])
         else:
             wok_log.error(("IPV6_AUTOCONF not provided:"))
-            raise MissingParameter('GINNET0023E')
+            raise MissingParameter('GINNET0064E')
         if IPV6_DEFROUTE in params[IPV6_ID]:
             cfgmap[IPV6_DEFROUTE] = params[IPV6_ID][IPV6_DEFROUTE]
         if IPV6_DEFAULTGW in params[IPV6_ID]:

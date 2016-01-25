@@ -55,7 +55,7 @@ messages = {
     "GINNET0020E": _("IP address is missing."),
     "GINNET0021E": _("PREFIX missing."),
     "GINNET0022E": _("Invalid boot protocol '%(mode)s', "),
-    "GINNET0023E": _("Boot protocol is missing."),
+    "GINNET0023E": _("Boot protocol is missing for ipv4 settings."),
     "GINNET0024E": _("Basic information of interface is missing."),
     "GINNET0025E": _("Device name of interface is missing."),
     "GINNET0026E": _("Missing ipv4 initialization key."),
@@ -100,6 +100,7 @@ messages = {
     "GINNET0061E": _("Missing IPV4 addresses information"),
     "GINNET0062E": _("The prefix value %(PREFIX)s is not in range 1-32"),
     "GINNET0063E": _("Exception updating the interface settings"),
+    "GINNET0064E": _("Boot protocol is missing for ipv6 settings."),
 
     "GINUSER0001E": _("Specify name, password, group and profile for the new "
                       "user."),
