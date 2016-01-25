@@ -1,7 +1,7 @@
 #
 # Ginger
 #
-# Copyright IBM Corp, 2014
+# Copyright IBM Corp, 2014-2016
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -17,14 +17,14 @@
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 
-SUBDIRS= po controls models ui contrib tests
+SUBDIRS= po control models ui contrib tests
 
 AUTOMAKE_OPTIONS = foreign
 
 ACLOCAL_AMFLAGS = --install -I m4
 
 PEP8_WHITELIST = \
-	controls \
+	control \
 	models \
 	tests\
 	$(NULL)

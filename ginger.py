@@ -1,7 +1,7 @@
 #
 # Project Ginger
 #
-# Copyright IBM, Corp. 2014
+# Copyright IBM, Corp. 2014-2016
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -20,11 +20,11 @@
 import json
 import os
 
-from controls import Backup, Capabilities, DASDdevs, DASDPartitions, Firmware
-from controls import FirmwareProgress, FileSystems, LogicalVolumes, Network
-from controls import Partitions, PhysicalVolumes, PowerProfiles, SanAdapters
-from controls import Sensors, Sep, StorageDevs, Swaps, SysModules, Users
-from controls import VolumeGroups
+from control import Backup, Capabilities, DASDdevs, DASDPartitions, Firmware
+from control import FirmwareProgress, FileSystems, LogicalVolumes, Network
+from control import Partitions, PhysicalVolumes, PowerProfiles, SanAdapters
+from control import Sensors, Sep, StorageDevs, Swaps, SysModules, Users
+from control import VolumeGroups
 from i18n import messages
 
 from wok import config

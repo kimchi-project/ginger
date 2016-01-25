@@ -1,7 +1,7 @@
 #
 # Project Ginger
 #
-# Copyright IBM Corp, 2014
+# Copyright IBM Corp, 2014-2016
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -42,7 +42,7 @@ controls_PYTHON = \
 	log_volumes.py \
 	$(NULL)
 
-controlsdir = $(pythondir)/wok/plugins/ginger/controls
+controlsdir = $(pythondir)/wok/plugins/ginger/control
 
 CLEANFILES = \
 	$(controls_PYTHON:%.py=%.pyc) \
