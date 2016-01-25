@@ -1,7 +1,7 @@
 #
 # Project Ginger
 #
-# Copyright IBM, Corp. 2015
+# Copyright IBM, Corp. 2015-2016
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -25,8 +25,8 @@ import subprocess
 from wok.exception import InvalidParameter, OperationFailed
 from wok.utils import run_command, wok_log
 
-from wok.plugins.ginger.models.utils import get_storagedevice, get_directories
-from wok.plugins.ginger.models.utils import syspath_eckd, get_dirname
+from wok.plugins.ginger.model.utils import get_storagedevice, get_directories
+from wok.plugins.ginger.model.utils import syspath_eckd, get_dirname
 
 
 def _get_lsdasd_devs():

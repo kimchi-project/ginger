@@ -1,7 +1,7 @@
 #
 # Project Ginger
 #
-# Copyright IBM Corp, 2014
+# Copyright IBM Corp, 2014-2016
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -47,7 +47,7 @@ models_PYTHON = \
 	log_volume.py \
 	$(NULL)
 
-modelsdir = $(pythondir)/wok/plugins/ginger/models
+modelsdir = $(pythondir)/wok/plugins/ginger/model
 
 CLEANFILES = \
 	$(models_PYTHON:%.py=%.pyc) \

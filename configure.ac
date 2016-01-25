@@ -58,7 +58,7 @@ AC_CONFIG_FILES([
     Makefile
     control/Makefile
     ginger.spec
-    models/Makefile
+    model/Makefile
     po/Makefile.in
     po/gen-pot
     ui/Makefile

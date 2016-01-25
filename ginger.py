@@ -31,7 +31,7 @@ from wok import config
 from wok.config import PluginPaths
 from wok.control.tasks import Tasks
 from wok.root import WokRoot
-from models import GingerModel
+from model import GingerModel
 
 
 class Ginger(WokRoot):

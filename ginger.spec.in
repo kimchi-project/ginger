@@ -70,7 +70,7 @@ service wokd restart
 %{python_sitelib}/wok/plugins/ginger/*.py*
 %{python_sitelib}/wok/plugins/ginger/API.json
 %{python_sitelib}/wok/plugins/ginger/control/*.py*
-%{python_sitelib}/wok/plugins/ginger/models/*.py*
+%{python_sitelib}/wok/plugins/ginger/model/*.py*
 %{_prefix}/share/locale/*/LC_MESSAGES/ginger.mo
 %{_datadir}/wok/plugins/ginger/ui/config/tab-ext.xml
 %{_datadir}/wok/plugins/ginger/ui/css/base/images/*.gif
@@ -89,6 +89,7 @@ service wokd restart
 * Mon Jan 25 2016 Daniel Henrique Barboza <dhbarboza82@gmail.com>
 - Changed 'controls' dir to 'control' in %files
 - Added %{_datadir}/wok/plugins/ginger/ui/pages/*.html.tmpl to %files
+- Changed 'models' dir to 'model' in %files
 
 * Fri Dec 25 2015 Daniel Henrique Barboza <dhbarboza82@gmail.com>
 - Changed %files to include all ui/js/*.js js files

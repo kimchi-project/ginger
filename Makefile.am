@@ -17,7 +17,7 @@
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 
-SUBDIRS= po control models ui contrib tests
+SUBDIRS= po control model ui contrib tests
 
 AUTOMAKE_OPTIONS = foreign
 
@@ -25,7 +25,7 @@ ACLOCAL_AMFLAGS = --install -I m4
 
 PEP8_WHITELIST = \
 	control \
-	models \
+	model \
 	tests\
 	$(NULL)
 
