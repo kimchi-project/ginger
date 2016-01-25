@@ -21,13 +21,13 @@ import mock
 import unittest
 
 from wok.exception import OperationFailed
-from wok.plugins.ginger.models.interfaces import InterfaceModel
+from wok.plugins.ginger.model.interfaces import InterfaceModel
 
 
 class InterfacesTests(unittest.TestCase):
 
-    @mock.patch('wok.plugins.ginger.models.netinfo.get_interface_type')
-    @mock.patch('wok.plugins.ginger.models.interfaces.run_command')
+    @mock.patch('wok.plugins.ginger.model.netinfo.get_interface_type')
+    @mock.patch('wok.plugins.ginger.model.interfaces.run_command')
     def test_activate(self, mock_run_command, mock_get_interface_type):
         mock_run_command.return_value = ["", "", 0]
         mock_get_interface_type.return_value = "Ethernet"
@@ -40,8 +40,8 @@ class InterfacesTests(unittest.TestCase):
             assert x == calls[i]
         assert mock_run_command.call_count == 2
 
-    @mock.patch('wok.plugins.ginger.models.netinfo.get_interface_type')
-    @mock.patch('wok.plugins.ginger.models.interfaces.run_command')
+    @mock.patch('wok.plugins.ginger.model.netinfo.get_interface_type')
+    @mock.patch('wok.plugins.ginger.model.interfaces.run_command')
     def test_activate_fail(self, mock_run_command, mock_get_interface_type):
         mock_run_command.return_value = ["", "Unable to activate", 1]
         mock_get_interface_type.return_value = "Ethernet"
@@ -51,8 +51,8 @@ class InterfacesTests(unittest.TestCase):
                           interface)
         mock_run_command.assert_called_once_with(cmd)
 
-    @mock.patch('wok.plugins.ginger.models.netinfo.get_interface_type')
-    @mock.patch('wok.plugins.ginger.models.interfaces.run_command')
+    @mock.patch('wok.plugins.ginger.model.netinfo.get_interface_type')
+    @mock.patch('wok.plugins.ginger.model.interfaces.run_command')
     def test_deactivate(self, mock_run_command, mock_get_interface_type):
         mock_run_command.return_value = ["", "", 0]
         mock_get_interface_type.return_value = "Ethernet"
@@ -65,8 +65,8 @@ class InterfacesTests(unittest.TestCase):
             assert x == calls[i]
         assert mock_run_command.call_count == 2
 
-    @mock.patch('wok.plugins.ginger.models.netinfo.get_interface_type')
-    @mock.patch('wok.plugins.ginger.models.interfaces.run_command')
+    @mock.patch('wok.plugins.ginger.model.netinfo.get_interface_type')
+    @mock.patch('wok.plugins.ginger.model.interfaces.run_command')
     def test_deactivate_fail(self, mock_run_command, mock_get_interface_type):
         mock_run_command.return_value = ["", "Unable to deactivate", 1]
         mock_get_interface_type.return_value = "Ethernet"

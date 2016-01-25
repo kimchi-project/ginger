@@ -23,7 +23,7 @@ import tempfile
 import unittest
 
 from wok.objectstore import ObjectStore
-from wok.plugins.ginger.models.backup import ArchivesModel, ArchiveModel
+from wok.plugins.ginger.model.backup import ArchivesModel, ArchiveModel
 
 
 class BackupArchiveTests(unittest.TestCase):
@@ -41,9 +41,9 @@ class BackupArchiveTests(unittest.TestCase):
         self.temp_file.close()
         os.remove(self.temp_file.name)
 
-    @mock.patch('wok.plugins.ginger.models.backup.run_command')
-    @mock.patch('wok.plugins.ginger.models.backup.get_tar_create_timeout')
-    @mock.patch('wok.plugins.ginger.models.backup._sha256sum')
+    @mock.patch('wok.plugins.ginger.model.backup.run_command')
+    @mock.patch('wok.plugins.ginger.model.backup.get_tar_create_timeout')
+    @mock.patch('wok.plugins.ginger.model.backup._sha256sum')
     def test_create_and_lookup_backup_file(self, mock_sha256sum,
                                            mock_timeout, mock_run_command):
         include = []

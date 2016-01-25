@@ -1,7 +1,7 @@
 #
 # Project Ginger
 #
-# Copyright IBM, Corp. 2015
+# Copyright IBM, Corp. 2015-2016
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -19,7 +19,7 @@
 
 import mock
 import unittest
-import wok.plugins.ginger.models.log_volume as log_volume
+import wok.plugins.ginger.model.log_volume as log_volume
 
 from wok import config
 from wok.exception import MissingParameter
@@ -50,7 +50,7 @@ class LogicalVolumesTests(unittest.TestCase):
         params = {'vg_name': vgname}
         self.assertRaises(MissingParameter, lvs.create, params)
 
-    @mock.patch('wok.plugins.ginger.models.utils._create_lv', autospec=True)
+    @mock.patch('wok.plugins.ginger.model.utils._create_lv', autospec=True)
     def test_create_lv(self, mock_create_lv):
         lvs = log_volume.LogicalVolumesModel(objstore=self._objstore)
         vgname = 'testvg'
@@ -60,7 +60,7 @@ class LogicalVolumesTests(unittest.TestCase):
         self.task_model.wait(task_obj.get('id'))
         mock_create_lv.assert_called_with(vgname, size)
 
-    @mock.patch('wok.plugins.ginger.models.utils._remove_lv',
+    @mock.patch('wok.plugins.ginger.model.utils._remove_lv',
                 autospec=True)
     def test_delete_lv(self, mock_delete_lv):
         lv = log_volume.LogicalVolumeModel(objstore=self._objstore)

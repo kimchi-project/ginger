@@ -1,7 +1,7 @@
 #
 # Project Ginger
 #
-# Copyright IBM, Corp. 2015
+# Copyright IBM, Corp. 2015-2016
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -20,9 +20,9 @@
 import mock
 import unittest
 
-import wok.plugins.ginger.models.sysmodules as sysmodules
-from wok.plugins.ginger.models.sysmodules import SysModuleModel
-from wok.plugins.ginger.models.sysmodules import SysModulesModel
+import wok.plugins.ginger.model.sysmodules as sysmodules
+from wok.plugins.ginger.model.sysmodules import SysModuleModel
+from wok.plugins.ginger.model.sysmodules import SysModulesModel
 
 
 class SysmodulesTests(unittest.TestCase):
@@ -201,13 +201,13 @@ sig_hashalgo=sha256\0"""
         self.assertEqual(modinfo_dict['parms'], {})
         self.assertEqual(modinfo_dict['features'], {})
 
-    @mock.patch('wok.plugins.ginger.models.sysmodules.run_command')
+    @mock.patch('wok.plugins.ginger.model.sysmodules.run_command')
     def test_model_list_loaded_modules(self, mock_run_command):
         mock_run_command.return_value = ["", "", 0]
         SysModulesModel().get_list()
         mock_run_command.assert_called_once_with(['lsmod'])
 
-    @mock.patch('wok.plugins.ginger.models.sysmodules.run_command')
+    @mock.patch('wok.plugins.ginger.model.sysmodules.run_command')
     def test_model_load_module(self, mock_run_command):
         mock_run_command.return_value = ["", "", 0]
         module_name = "fake_test_kernel_module"
@@ -216,7 +216,7 @@ sig_hashalgo=sha256\0"""
         SysModulesModel().create(params)
         mock_run_command.assert_called_once_with(cmd)
 
-    @mock.patch('wok.plugins.ginger.models.sysmodules.run_command')
+    @mock.patch('wok.plugins.ginger.model.sysmodules.run_command')
     def test_model_load_module_with_parms(self, mock_run_command):
         mock_run_command.return_value = ["", "", 0]
         module_name = "fake_test_kernel_module"
@@ -232,8 +232,8 @@ sig_hashalgo=sha256\0"""
         SysModulesModel().create(params)
         mock_run_command.assert_called_once_with(cmd)
 
-    @mock.patch('wok.plugins.ginger.models.sysmodules.parse_modinfo_0_output')
-    @mock.patch('wok.plugins.ginger.models.sysmodules.run_command')
+    @mock.patch('wok.plugins.ginger.model.sysmodules.parse_modinfo_0_output')
+    @mock.patch('wok.plugins.ginger.model.sysmodules.run_command')
     def test_model_get_module_info(self, mock_run_command, mock_parser):
         mock_run_command.return_value = ["", "", 0]
         mock_parser.return_value = {}
@@ -242,7 +242,7 @@ sig_hashalgo=sha256\0"""
         SysModuleModel().lookup(module_name)
         mock_run_command.assert_called_once_with(cmd)
 
-    @mock.patch('wok.plugins.ginger.models.sysmodules.run_command')
+    @mock.patch('wok.plugins.ginger.model.sysmodules.run_command')
     def test_model_unload_module(self, mock_run_command):
         mock_run_command.return_value = ["", "", 0]
         module_name = "fake_test_kernel_module"
@@ -326,7 +326,7 @@ non-zero (default 1) (int)\0"""
         self.assertIn('num_vfs', modinfo_dict['parms'].keys())
         self.assertIn('probe_vf', modinfo_dict['parms'].keys())
 
-    @mock.patch('wok.plugins.ginger.models.sysmodules.run_command')
+    @mock.patch('wok.plugins.ginger.model.sysmodules.run_command')
     def test_model_get_mxl4core_info_returns_SRIOV(self, mock_run_command):
         mock_run_command.return_value = [
             self.get_modinfo_mlx4core_output(),

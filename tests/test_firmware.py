@@ -26,7 +26,7 @@ from wok.exception import OperationFailed
 from wok.objectstore import ObjectStore
 from wok.model.tasks import TaskModel
 
-from wok.plugins.ginger.models.firmware import FirmwareModel
+from wok.plugins.ginger.model.firmware import FirmwareModel
 
 
 class FirmwareTests(unittest.TestCase):
@@ -36,7 +36,7 @@ class FirmwareTests(unittest.TestCase):
         self._objstore = ObjectStore(objstore_loc)
         self.task = TaskModel(objstore=self._objstore)
 
-    @mock.patch('wok.plugins.ginger.models.firmware.run_command')
+    @mock.patch('wok.plugins.ginger.model.firmware.run_command')
     def test_model_lookup(self, mock_run_command):
         return_output = "0 1 2 3 4 5 6 7 8 9 10 11 12 13"
         mock_run_command.return_value = [return_output, "", 0]
@@ -47,7 +47,7 @@ class FirmwareTests(unittest.TestCase):
             {'level': "5 6 7 8 9 10 11 12 13"}
         )
 
-    @mock.patch('wok.plugins.ginger.models.firmware.run_command')
+    @mock.patch('wok.plugins.ginger.model.firmware.run_command')
     def test_model_lookup_with_product_in_output(self, mock_run_command):
         return_output = "0 1 2 3 4 Product 6 7 8 9 10 11 12 13"
         mock_run_command.return_value = [return_output, "", 0]
@@ -55,14 +55,14 @@ class FirmwareTests(unittest.TestCase):
         mock_run_command.assert_called_once_with('lsmcode')
         self.assertEquals(firmware_lookup, {'level': '13'})
 
-    @mock.patch('wok.plugins.ginger.models.firmware.detect_live_vm')
+    @mock.patch('wok.plugins.ginger.model.firmware.detect_live_vm')
     def test_model_update_fails_with_running_vm(self, mock_detect_vm):
         mock_detect_vm.return_value = True
         with self.assertRaises(OperationFailed):
             FirmwareModel(objstore=self._objstore).upgrade(None, None)
 
-    @mock.patch('wok.plugins.ginger.models.firmware.detect_live_vm')
-    @mock.patch('wok.plugins.ginger.models.firmware.run_command')
+    @mock.patch('wok.plugins.ginger.model.firmware.detect_live_vm')
+    @mock.patch('wok.plugins.ginger.model.firmware.run_command')
     def test_model_update(self, mock_run_command, mock_detect_vm):
         mock_detect_vm.return_value = False
         mock_run_command.return_value = ["", "", 0]
@@ -77,8 +77,8 @@ class FirmwareTests(unittest.TestCase):
             tee='/tmp/fw_tee_log.txt'
         )
 
-    @mock.patch('wok.plugins.ginger.models.firmware.detect_live_vm')
-    @mock.patch('wok.plugins.ginger.models.firmware.run_command')
+    @mock.patch('wok.plugins.ginger.model.firmware.detect_live_vm')
+    @mock.patch('wok.plugins.ginger.model.firmware.run_command')
     def test_model_update_overwrite_perm_false(
         self,
         mock_run_command,
@@ -99,14 +99,14 @@ class FirmwareTests(unittest.TestCase):
             tee='/tmp/fw_tee_log.txt'
         )
 
-    @mock.patch('wok.plugins.ginger.models.firmware.run_command')
+    @mock.patch('wok.plugins.ginger.model.firmware.run_command')
     def test_model_commit(self, mock_run_command):
         mock_run_command.return_value = ["", "", 0]
         command = ['update_flash', '-c']
         FirmwareModel(objstore=self._objstore).commit(None)
         mock_run_command.assert_called_once_with(command)
 
-    @mock.patch('wok.plugins.ginger.models.firmware.run_command')
+    @mock.patch('wok.plugins.ginger.model.firmware.run_command')
     def test_model_reject(self, mock_run_command):
         mock_run_command.return_value = ["", "", 0]
         command = ['update_flash', '-r']

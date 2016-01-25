@@ -1,7 +1,7 @@
 #
 # Project Ginger
 #
-# Copyright IBM, Corp. 2015
+# Copyright IBM, Corp. 2015-2016
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -21,13 +21,13 @@ import mock
 import re
 import unittest
 
-import wok.plugins.ginger.models.dasdpartitions as partitions
+import wok.plugins.ginger.model.dasdpartitions as partitions
 from wok.plugins.gingerbase.disks import _parse_lsblk_output
 
 
 class DASDPartitionsTests(unittest.TestCase):
 
-    @mock.patch('wok.plugins.ginger.models.dasd_utils._create_dasd_part',
+    @mock.patch('wok.plugins.ginger.model.dasd_utils._create_dasd_part',
                 autospec=True)
     def test_create_part(self, mock_create_part):
         parts = partitions.DASDPartitionsModel()
@@ -38,7 +38,7 @@ class DASDPartitionsTests(unittest.TestCase):
         mock_create_part.return_value = 'dasdb'
         mock_create_part.assert_called_with(dev, size)
 
-    @mock.patch('wok.plugins.ginger.models.dasd_utils._delete_dasd_part',
+    @mock.patch('wok.plugins.ginger.model.dasd_utils._delete_dasd_part',
                 autospec=True)
     def test_delete_part(self, mock_delete_part):
         part = partitions.DASDPartitionModel()

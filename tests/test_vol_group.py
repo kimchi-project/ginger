@@ -1,7 +1,7 @@
 #
 # Project Ginger
 #
-# Copyright IBM, Corp. 2015
+# Copyright IBM, Corp. 2015-2016
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -19,7 +19,7 @@
 
 import mock
 import unittest
-import wok.plugins.ginger.models.vol_group as vol_group
+import wok.plugins.ginger.model.vol_group as vol_group
 
 from wok import config
 from wok.exception import MissingParameter
@@ -50,7 +50,7 @@ class VolumeGroupsTests(unittest.TestCase):
         params = {'vg_name': vgname}
         self.assertRaises(MissingParameter, vgs.create, params)
 
-    @mock.patch('wok.plugins.ginger.models.utils._create_vg', autospec=True)
+    @mock.patch('wok.plugins.ginger.model.utils._create_vg', autospec=True)
     def test_create_vg(self, mock_create_vg):
         vgs = vol_group.VolumeGroupsModel(objstore=self._objstore)
         vgname = 'testvg'
@@ -60,7 +60,7 @@ class VolumeGroupsTests(unittest.TestCase):
         self.task_model.wait(task_obj.get('id'))
         mock_create_vg.assert_called_with(vgname, pvpaths)
 
-    @mock.patch('wok.plugins.ginger.models.utils._extend_vg', autospec=True)
+    @mock.patch('wok.plugins.ginger.model.utils._extend_vg', autospec=True)
     def test_extend_vg(self, mock_extend_vg):
         vg = vol_group.VolumeGroupModel(objstore=self._objstore)
         vgname = 'testvg'
@@ -68,7 +68,7 @@ class VolumeGroupsTests(unittest.TestCase):
         vg.extend(vgname, pvpaths)
         mock_extend_vg.assert_called_with(vgname, pvpaths)
 
-    @mock.patch('wok.plugins.ginger.models.utils._reduce_vg', autospec=True)
+    @mock.patch('wok.plugins.ginger.model.utils._reduce_vg', autospec=True)
     def test_reduce_vg(self, mock_reduce_vg):
         vg = vol_group.VolumeGroupModel(objstore=self._objstore)
         vgname = 'testvg'
@@ -76,7 +76,7 @@ class VolumeGroupsTests(unittest.TestCase):
         vg.reduce(vgname, pvpaths)
         mock_reduce_vg.assert_called_with(vgname, pvpaths)
 
-    @mock.patch('wok.plugins.ginger.models.utils._remove_vg',
+    @mock.patch('wok.plugins.ginger.model.utils._remove_vg',
                 autospec=True)
     def test_delete_vg(self, mock_delete_vg):
         vg = vol_group.VolumeGroupModel(objstore=self._objstore)

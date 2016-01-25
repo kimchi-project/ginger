@@ -1,7 +1,7 @@
 #
 # Project Ginger
 #
-# Copyright IBM, Corp. 2015
+# Copyright IBM, Corp. 2015-2016
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -21,7 +21,7 @@ import crypt
 import spwd
 import unittest
 
-import plugins.ginger.models.users as users
+import plugins.ginger.model.users as users
 
 from wok.exception import OperationFailed
 from wok.rollbackcontext import RollbackContext

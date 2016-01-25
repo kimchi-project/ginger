@@ -1,7 +1,7 @@
 #
 # Project Ginger
 #
-# Copyright IBM, Corp. 2015
+# Copyright IBM, Corp. 2015-2016
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -20,7 +20,7 @@
 import mock
 import unittest
 
-from plugins.ginger.models.cfginterfaces import CfginterfaceModel
+from plugins.ginger.model.cfginterfaces import CfginterfaceModel
 from wok.exception import MissingParameter
 
 
@@ -33,7 +33,7 @@ class CfgInterfacesTests(unittest.TestCase):
         self.assertEquals('testdevice', ethinfo['BASIC_INFO']['DEVICE'])
         self.assertEquals('Yes', ethinfo['BASIC_INFO']['ONBOOT'])
 
-    @mock.patch('plugins.ginger.models.cfginterfaces.platform')
+    @mock.patch('plugins.ginger.model.cfginterfaces.platform')
     def test_get_basic_info_s390Architecture(self, mock_platform):
         cfgmap = {'NAME': 'testiface', 'DEVICE': 'testdevice',
                   'ONBOOT': 'Yes', 'TYPE': 'Ethernet',
@@ -46,7 +46,7 @@ class CfgInterfacesTests(unittest.TestCase):
         self.assertEquals('qeth', ethinfo['BASIC_INFO']['NETTYPE'])
         self.assertEquals('OSAPORT', ethinfo['BASIC_INFO']['PORTNAME'])
 
-    @mock.patch('plugins.ginger.models.cfginterfaces.CfginterfaceModel.'
+    @mock.patch('plugins.ginger.model.cfginterfaces.CfginterfaceModel.'
                 'get_slaves')
     def test_get_basic_info_bond(self, mock_slaves):
         cfgmap = {'NAME': 'testiface', 'DEVICE': 'testdevice', 'ONBOOT': 'Yes',
@@ -77,13 +77,13 @@ class CfgInterfacesTests(unittest.TestCase):
         self.assertEquals('testpd', ethinfo['BASIC_INFO']['VLANINFO'][
             'PHYSDEV'])
 
-    @mock.patch('plugins.ginger.models.cfginterfaces.CfginterfaceModel.'
+    @mock.patch('plugins.ginger.model.cfginterfaces.CfginterfaceModel.'
                 'read_ifcfg_file')
-    @mock.patch('plugins.ginger.models.cfginterfaces.CfginterfaceModel.'
+    @mock.patch('plugins.ginger.model.cfginterfaces.CfginterfaceModel.'
                 'update_basic_info')
-    @mock.patch('plugins.ginger.models.cfginterfaces.CfginterfaceModel.'
+    @mock.patch('plugins.ginger.model.cfginterfaces.CfginterfaceModel.'
                 'write_attributes_to_cfg')
-    @mock.patch('plugins.ginger.models.cfginterfaces.CfginterfaceModel.'
+    @mock.patch('plugins.ginger.model.cfginterfaces.CfginterfaceModel.'
                 'update_cfgfile')
     def test_update(self, mock_update_cfgfile, mock_write,
                     mock_basic_info, mock_read):
@@ -107,7 +107,7 @@ class CfgInterfacesTests(unittest.TestCase):
                                                 cfgmap)
         mock_read.assert_called_once_with('test_iface')
 
-    @mock.patch('plugins.ginger.models.cfginterfaces.CfginterfaceModel'
+    @mock.patch('plugins.ginger.model.cfginterfaces.CfginterfaceModel'
                 '.read_ifcfg_file')
     def test_update_missingbasic_info(self, mock_read):
         cfgmap = {'NAME': 'testiface', 'DEVICE': 'testdevice',
@@ -119,8 +119,8 @@ class CfgInterfacesTests(unittest.TestCase):
         self.assertRaises(MissingParameter, CfginterfaceModel().update,
                           interface_name, cfgmap)
 
-    @mock.patch('plugins.ginger.models.cfginterfaces.os')
-    @mock.patch('plugins.ginger.models.cfginterfaces.parser')
+    @mock.patch('plugins.ginger.model.cfginterfaces.os')
+    @mock.patch('plugins.ginger.model.cfginterfaces.parser')
     def test_write(self, mock_parser, mock_os):
         cfgmap = {'NAME': 'testiface', 'DEVICE': 'testdevice',
                   'ONBOOT': 'Yes'}
@@ -131,9 +131,9 @@ class CfgInterfacesTests(unittest.TestCase):
         mock_parser.load.assert_called_once_with()
         mock_parser.save.assert_called_once_with()
 
-    @mock.patch('plugins.ginger.models.cfginterfaces.os')
-    @mock.patch('plugins.ginger.models.cfginterfaces.parser')
-    @mock.patch('plugins.ginger.models.cfginterfaces.open')
+    @mock.patch('plugins.ginger.model.cfginterfaces.os')
+    @mock.patch('plugins.ginger.model.cfginterfaces.parser')
+    @mock.patch('plugins.ginger.model.cfginterfaces.open')
     def test_write_create_interfacefile(self, mock_open, mock_parser,
                                         mock_os):
         """Write attributes to interface file. This method tests

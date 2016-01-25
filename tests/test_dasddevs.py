@@ -1,7 +1,7 @@
 #
 # Project Ginger
 #
-# Copyright IBM, Corp. 2015
+# Copyright IBM, Corp. 2015-2016
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -19,7 +19,7 @@
 
 import unittest
 
-from wok.plugins.ginger.models.dasd_utils import _parse_lsdasd_output
+from wok.plugins.ginger.model.dasd_utils import _parse_lsdasd_output
 
 
 class DASDdevsTests(unittest.TestCase):

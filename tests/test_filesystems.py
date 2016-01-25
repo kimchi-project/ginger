@@ -1,7 +1,7 @@
 #
 # Project Ginger
 #
-# Copyright IBM, Corp. 2015
+# Copyright IBM, Corp. 2015-2016
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -25,8 +25,8 @@ from wok.exception import OperationFailed, MissingParameter, InvalidParameter
 from wok.rollbackcontext import RollbackContext
 from wok.utils import run_command
 
-import wok.plugins.ginger.models.filesystem as filesystem
-from wok.plugins.ginger.models.fs_utils import _parse_df_output
+import wok.plugins.ginger.model.filesystem as filesystem
+from wok.plugins.ginger.model.fs_utils import _parse_df_output
 
 
 def create_file(self):
@@ -131,8 +131,8 @@ tmpfs                   tmpfs     760M  8.0K  759M   1% /run/user/1000"""
         if parse_out[0]['mounted_on'] != '/dev':
             self.fail("Parsing of df failed : mounted on")
 
-    @mock.patch('wok.plugins.ginger.models.fs_utils.nfsmount', autospec=True)
-    @mock.patch('wok.plugins.ginger.models.fs_utils.make_persist',
+    @mock.patch('wok.plugins.ginger.model.fs_utils.nfsmount', autospec=True)
+    @mock.patch('wok.plugins.ginger.model.fs_utils.make_persist',
                 autospec=True)
     def test_nfs_mount(self, mock_make_persist, mock_nfsmount):
         fs = filesystem.FileSystemsModel()

@@ -20,8 +20,8 @@
 import mock
 import unittest
 
-from wok.plugins.ginger.models.powermanagement import PowerProfilesModel
-from wok.plugins.ginger.models.powermanagement import PowerProfileModel
+from wok.plugins.ginger.model.powermanagement import PowerProfilesModel
+from wok.plugins.ginger.model.powermanagement import PowerProfileModel
 
 
 def mock_powerprofiles_init(self):
@@ -41,7 +41,7 @@ class PowerManagementTests(unittest.TestCase):
         PowerProfileModel.__init__ = mock_powerprofile_init
         self.power_profile_model = PowerProfileModel()
 
-    @mock.patch('wok.plugins.ginger.models.powermanagement.run_command')
+    @mock.patch('wok.plugins.ginger.model.powermanagement.run_command')
     def test_powermanagement_get_list(self, mock_run_command):
         mock_run_command.return_value = ["", "", 0]
         self.power_profiles_model.get_list()
@@ -51,7 +51,7 @@ class PowerManagementTests(unittest.TestCase):
         lookup = self.power_profile_model.lookup('test_profile')
         self.assertEqual(lookup, {"name": 'test_profile', "active": False})
 
-    @mock.patch('wok.plugins.ginger.models.powermanagement.run_command')
+    @mock.patch('wok.plugins.ginger.model.powermanagement.run_command')
     def test_powermanagement_update(self, mock_run_command):
         mock_run_command.return_value = ["", "", 0]
         self.power_profile_model.update(

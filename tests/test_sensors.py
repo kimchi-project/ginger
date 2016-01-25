@@ -21,13 +21,13 @@
 import mock
 import unittest
 
-from wok.plugins.ginger.models.sensors import SensorsModel
+from wok.plugins.ginger.model.sensors import SensorsModel
 
 
 class SensorsTests(unittest.TestCase):
 
-    @mock.patch('wok.plugins.ginger.models.sensors.run_command')
-    @mock.patch('wok.plugins.ginger.models.sensors.SensorsModel.'
+    @mock.patch('wok.plugins.ginger.model.sensors.run_command')
+    @mock.patch('wok.plugins.ginger.model.sensors.SensorsModel.'
                 '_get_default_temperature_unit')
     def test_sensors_output(self, mock_temperature, mock_run_command):
         sensors_output = """acpitz-virtual-0

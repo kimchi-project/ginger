@@ -20,13 +20,13 @@
 import mock
 import unittest
 
-from wok.plugins.ginger.models.ibm_sep import SepModel, SubscribersModel
-from wok.plugins.ginger.models.ibm_sep import SubscriptionModel
+from wok.plugins.ginger.model.ibm_sep import SepModel, SubscribersModel
+from wok.plugins.ginger.model.ibm_sep import SubscriptionModel
 
 
 class IBMSepTests(unittest.TestCase):
 
-    @mock.patch('wok.plugins.ginger.models.ibm_sep.run_command')
+    @mock.patch('wok.plugins.ginger.model.ibm_sep.run_command')
     def test_sep_lookup(self, mock_run_command):
         mock_run_command.return_value = ["", "", 0]
 
@@ -37,7 +37,7 @@ class IBMSepTests(unittest.TestCase):
 
         self.assertEqual(lookup, {"status": "running"})
 
-    @mock.patch('wok.plugins.ginger.models.ibm_sep.run_command')
+    @mock.patch('wok.plugins.ginger.model.ibm_sep.run_command')
     def test_sep_start(self, mock_run_command):
         mock_run_command.return_value = ["", "", 0]
 
@@ -46,7 +46,7 @@ class IBMSepTests(unittest.TestCase):
         cmd = ['systemctl', 'start', 'sepctl']
         mock_run_command.assert_called_once_with(cmd)
 
-    @mock.patch('wok.plugins.ginger.models.ibm_sep.run_command')
+    @mock.patch('wok.plugins.ginger.model.ibm_sep.run_command')
     def test_sep_stop(self, mock_run_command):
         mock_run_command.return_value = ["", "", 0]
 
@@ -55,7 +55,7 @@ class IBMSepTests(unittest.TestCase):
         cmd = ['systemctl', 'stop', 'sepctl']
         mock_run_command.assert_called_once_with(cmd)
 
-    @mock.patch('wok.plugins.ginger.models.ibm_sep.run_command')
+    @mock.patch('wok.plugins.ginger.model.ibm_sep.run_command')
     def test_subscribers_get_list(self, mock_run_command):
         cmd_output = "Subscriber_1: hostname=localhost,port=1,community=com\n"
         mock_run_command.return_value = [cmd_output, "", 0]
@@ -67,7 +67,7 @@ class IBMSepTests(unittest.TestCase):
 
         self.assertEqual(sub_list, ['localhost'])
 
-    @mock.patch('wok.plugins.ginger.models.ibm_sep.run_command')
+    @mock.patch('wok.plugins.ginger.model.ibm_sep.run_command')
     def test_subscribers_create(self, mock_run_command):
         mock_run_command.return_value = ["", "", 0]
 
@@ -84,7 +84,7 @@ class IBMSepTests(unittest.TestCase):
 
         self.assertEqual(added, 'fake_hostname')
 
-    @mock.patch('wok.plugins.ginger.models.ibm_sep.run_command')
+    @mock.patch('wok.plugins.ginger.model.ibm_sep.run_command')
     def test_subscription_lookup(self, mock_run_command):
         cmd_output = "Subscriber_1: hostname=localhost,port=1,community=com\n"
         mock_run_command.return_value = [cmd_output, "", 0]
@@ -99,8 +99,8 @@ class IBMSepTests(unittest.TestCase):
             {'hostname': 'localhost', 'port': '1', 'community': 'com'}
         )
 
-    @mock.patch('wok.plugins.ginger.models.ibm_sep.SubscriptionModel.lookup')
-    @mock.patch('wok.plugins.ginger.models.ibm_sep.run_command')
+    @mock.patch('wok.plugins.ginger.model.ibm_sep.SubscriptionModel.lookup')
+    @mock.patch('wok.plugins.ginger.model.ibm_sep.run_command')
     def test_subscription_delete(self, mock_run_command, mock_lookup):
         mock_run_command.return_value = ["", "", 0]
         mock_lookup.return_value = {'hostname': 'fake_hostname'}
@@ -112,9 +112,9 @@ class IBMSepTests(unittest.TestCase):
         cmd = ['/opt/ibm/seprovider/bin/unsubscribe', '-h', 'fake_hostname']
         mock_run_command.assert_called_once_with(cmd)
 
-    @mock.patch('wok.plugins.ginger.models.ibm_sep.SubscriptionModel.delete')
-    @mock.patch('wok.plugins.ginger.models.ibm_sep.SubscriptionModel.lookup')
-    @mock.patch('wok.plugins.ginger.models.ibm_sep.run_command')
+    @mock.patch('wok.plugins.ginger.model.ibm_sep.SubscriptionModel.delete')
+    @mock.patch('wok.plugins.ginger.model.ibm_sep.SubscriptionModel.lookup')
+    @mock.patch('wok.plugins.ginger.model.ibm_sep.run_command')
     def test_subscription_update(self, mock_run_command, mock_lookup,
                                  mock_delete):
 

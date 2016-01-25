@@ -19,7 +19,7 @@
 
 import mock
 import unittest
-import wok.plugins.ginger.models.diskparts as diskparts
+import wok.plugins.ginger.model.diskparts as diskparts
 
 from wok import config
 from wok.exception import MissingParameter, NotFoundError
@@ -50,7 +50,7 @@ class PartitionTests(unittest.TestCase):
         params = {'devname': dev}
         self.assertRaises(MissingParameter, parts.create, params)
 
-    @mock.patch('wok.plugins.ginger.models.utils.create_disk_part',
+    @mock.patch('wok.plugins.ginger.model.utils.create_disk_part',
                 autospec=True)
     def test_create_part(self, mock_create_part):
         parts = diskparts.PartitionsModel()
@@ -61,7 +61,7 @@ class PartitionTests(unittest.TestCase):
         mock_create_part.return_value = 'sdb1'
         mock_create_part.assert_called_with(dev, size)
 
-    @mock.patch('wok.plugins.ginger.models.utils.change_part_type',
+    @mock.patch('wok.plugins.ginger.model.utils.change_part_type',
                 autospec=True)
     def test_change_part_type(self, mock_change_type):
         part = diskparts.PartitionModel(objstore=self._objstore)
@@ -71,7 +71,7 @@ class PartitionTests(unittest.TestCase):
         part.change_type(part_name, type)
         mock_change_type.assert_called_with(part_name, type)
 
-    @mock.patch('wok.plugins.ginger.models.utils.delete_part',
+    @mock.patch('wok.plugins.ginger.model.utils.delete_part',
                 autospec=True)
     def test_delete_part(self, mock_delete_part):
         part = diskparts.PartitionModel(objstore=self._objstore)
@@ -79,8 +79,8 @@ class PartitionTests(unittest.TestCase):
         part.delete(part_name)
         mock_delete_part.assert_called_with(part_name)
 
-    @mock.patch('wok.plugins.ginger.models.utils._makefs', autospec=True)
-    @mock.patch('wok.plugins.ginger.models.utils._is_mntd', autospec=True)
+    @mock.patch('wok.plugins.ginger.model.utils._makefs', autospec=True)
+    @mock.patch('wok.plugins.ginger.model.utils._is_mntd', autospec=True)
     def test_format_part(self, mock_is_mntd, mock_makefs):
         mock_is_mntd.return_value = False
         part = diskparts.PartitionModel(objstore=self._objstore)
@@ -90,7 +90,7 @@ class PartitionTests(unittest.TestCase):
         self.task_model.wait(task_obj.get('id'))
         mock_makefs.assert_called_with(fstype, name)
 
-    @mock.patch('wok.plugins.ginger.models.diskparts.get_partition_details',
+    @mock.patch('wok.plugins.ginger.model.diskparts.get_partition_details',
                 autospec=True)
     def test_lookup_invalid_part_returns_404(self, mock_get_part_details):
         mock_get_part_details.side_effect = [NotFoundError]

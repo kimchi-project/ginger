@@ -19,7 +19,7 @@
 import mock
 import unittest
 
-from wok.plugins.ginger.models import utils
+from wok.plugins.ginger.model import utils
 
 
 class StorageDevsTests(unittest.TestCase):
@@ -112,11 +112,11 @@ NAME="dasda1" TYPE="part" SIZE="22.5G" TRAN=""
         self.assertEqual(ret_dict['sde']['transport'], 'fc')
         self.assertEqual(ret_dict['sde']['size'], '20G')
 
-    @mock.patch('wok.plugins.ginger.models.dasd_utils.get_dasd_devs')
-    @mock.patch('wok.plugins.ginger.models.utils.get_fc_path_elements')
-    @mock.patch('wok.plugins.ginger.models.utils.get_lsblk_keypair_out')
-    @mock.patch('wok.plugins.ginger.models.utils.get_disks_by_id_out')
-    @mock.patch('wok.plugins.ginger.models.utils.os.listdir')
+    @mock.patch('wok.plugins.ginger.model.dasd_utils.get_dasd_devs')
+    @mock.patch('wok.plugins.ginger.model.utils.get_fc_path_elements')
+    @mock.patch('wok.plugins.ginger.model.utils.get_lsblk_keypair_out')
+    @mock.patch('wok.plugins.ginger.model.utils.get_disks_by_id_out')
+    @mock.patch('wok.plugins.ginger.model.utils.os.listdir')
     def test_get_dev_list(
             self,
             mock_list_dir,
@@ -308,7 +308,7 @@ class FormatLscssUnitTests(unittest.TestCase):
         formated_devices = utils._format_lscss(device)
         self.assertEqual(formated_devices, device)
 
-    @mock.patch('wok.plugins.ginger.models.utils.wok_log', autospec=True)
+    @mock.patch('wok.plugins.ginger.model.utils.wok_log', autospec=True)
     def test_format_lscss_keyerror(self, mock_log):
         """
         unit test to validate _format_lscss() with wrong keys
@@ -377,8 +377,8 @@ class GetDeviceInfoUnitTests(unittest.TestCase):
     """
     unit tests for _get_deviceinfo() method
     """
-    @mock.patch('wok.plugins.ginger.models.utils.get_row_data', autospec=True)
-    @mock.patch('wok.plugins.ginger.models.utils._format_lscss', autospec=True)
+    @mock.patch('wok.plugins.ginger.model.utils.get_row_data', autospec=True)
+    @mock.patch('wok.plugins.ginger.model.utils._format_lscss', autospec=True)
     def test_get_deviceinfo_somedevice(self, mock_format_lscss,
                                        mock_get_row_data):
         """
@@ -401,8 +401,8 @@ class GetDeviceInfoUnitTests(unittest.TestCase):
                                              return_value)
         self.assertEqual(deviceinfo, {})
 
-    @mock.patch('wok.plugins.ginger.models.utils', autospec=True)
-    @mock.patch('wok.plugins.ginger.models.utils._format_lscss', autospec=True)
+    @mock.patch('wok.plugins.ginger.model.utils', autospec=True)
+    @mock.patch('wok.plugins.ginger.model.utils._format_lscss', autospec=True)
     def test_get_deviceinfo_emptydevice(self, mock_format_lscss, mock_utils):
         """
         unit test to validate _get_deviceinfo() with empty device i/p

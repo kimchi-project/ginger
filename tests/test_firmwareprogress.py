@@ -22,7 +22,7 @@ import unittest
 from wok import config
 from wok.model.tasks import TaskModel
 from wok.objectstore import ObjectStore
-from wok.plugins.ginger.models.firmware import FirmwareProgressModel
+from wok.plugins.ginger.model.firmware import FirmwareProgressModel
 
 
 class FirmwareProgressTests(unittest.TestCase):

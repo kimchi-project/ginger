@@ -20,12 +20,12 @@
 import mock
 import unittest
 
-import wok.plugins.ginger.models.swaps as swaps
+import wok.plugins.ginger.model.swaps as swaps
 
 from wok import config
 from wok.exception import InvalidParameter, NotFoundError, OperationFailed
 from wok.objectstore import ObjectStore
-from wok.plugins.ginger.models import utils
+from wok.plugins.ginger.model import utils
 
 
 class SwapTests(unittest.TestCase):
@@ -33,9 +33,9 @@ class SwapTests(unittest.TestCase):
         objstore_loc = config.get_object_store() + '_ginger'
         self._objstore = ObjectStore(objstore_loc)
 
-    @mock.patch('wok.plugins.ginger.models.swaps.wok_log')
-    @mock.patch('wok.plugins.ginger.models.swaps.add_task')
-    @mock.patch('wok.plugins.ginger.models.swaps.TaskModel')
+    @mock.patch('wok.plugins.ginger.model.swaps.wok_log')
+    @mock.patch('wok.plugins.ginger.model.swaps.add_task')
+    @mock.patch('wok.plugins.ginger.model.swaps.TaskModel')
     def test_create_swap_missing_file_loc(self, mock_task_model,
                                           mock_add_task, mock_wok_log):
         """
@@ -58,9 +58,9 @@ class SwapTests(unittest.TestCase):
         msg = "File location required for creating a swap device."
         mock_wok_log.error.assert_called_once_with(msg)
 
-    @mock.patch('wok.plugins.ginger.models.swaps.wok_log')
-    @mock.patch('wok.plugins.ginger.models.swaps.add_task')
-    @mock.patch('wok.plugins.ginger.models.swaps.TaskModel')
+    @mock.patch('wok.plugins.ginger.model.swaps.wok_log')
+    @mock.patch('wok.plugins.ginger.model.swaps.add_task')
+    @mock.patch('wok.plugins.ginger.model.swaps.TaskModel')
     def test_create_swap_missing_type(self, mock_task_model,
                                       mock_add_task, mock_wok_log):
         """
@@ -82,9 +82,9 @@ class SwapTests(unittest.TestCase):
         msg = "Type required for creating a swap device."
         mock_wok_log.error.assert_called_once_with(msg)
 
-    @mock.patch('wok.plugins.ginger.models.swaps.wok_log')
-    @mock.patch('wok.plugins.ginger.models.swaps.add_task')
-    @mock.patch('wok.plugins.ginger.models.swaps.TaskModel')
+    @mock.patch('wok.plugins.ginger.model.swaps.wok_log')
+    @mock.patch('wok.plugins.ginger.model.swaps.add_task')
+    @mock.patch('wok.plugins.ginger.model.swaps.TaskModel')
     def test_create_swap_missing_size(self, mock_task_model,
                                       mock_add_task, mock_wok_log):
         """
@@ -107,9 +107,9 @@ class SwapTests(unittest.TestCase):
         msg = "Size is required file type swap device."
         mock_wok_log.error.assert_called_once_with(msg)
 
-    @mock.patch('wok.plugins.ginger.models.swaps.wok_log')
-    @mock.patch('wok.plugins.ginger.models.swaps.add_task')
-    @mock.patch('wok.plugins.ginger.models.swaps.TaskModel')
+    @mock.patch('wok.plugins.ginger.model.swaps.wok_log')
+    @mock.patch('wok.plugins.ginger.model.swaps.add_task')
+    @mock.patch('wok.plugins.ginger.model.swaps.TaskModel')
     def test_create_swap_wrong_type(self, mock_task_model,
                                     mock_add_task, mock_wok_log):
         """
@@ -157,7 +157,7 @@ class SwapTests(unittest.TestCase):
         dev_list = utils._get_swapdev_list_parser(input_text)
         self.assertEqual(dev_list[0], '/myswap')
 
-    @mock.patch('wok.plugins.ginger.models.utils.run_command')
+    @mock.patch('wok.plugins.ginger.model.utils.run_command')
     def test_swap_output_returns_404_when_device_not_found(self,
                                                            mock_run_command):
         mock_run_command.return_value = ["", "", 1]
@@ -167,7 +167,7 @@ class SwapTests(unittest.TestCase):
             cmd = ['grep', '-w', 'fake_device_name', '/proc/swaps']
             mock_run_command.assert_called_once_with(cmd)
 
-    @mock.patch('wok.plugins.ginger.models.utils.run_command')
+    @mock.patch('wok.plugins.ginger.model.utils.run_command')
     def test_swap_output_returns_500_when_system_dir_not_found(
             self, mock_run_command):
 
@@ -179,7 +179,7 @@ class SwapTests(unittest.TestCase):
             cmd = ['grep', '-w', 'valid_device_name', '/proc/swaps']
             mock_run_command.assert_called_once_with(cmd)
 
-    @mock.patch('wok.plugins.ginger.models.utils.run_command')
+    @mock.patch('wok.plugins.ginger.model.utils.run_command')
     def test_swap_output_returns_500_when_unknown_error_occurs(
             self, mock_run_command):
 

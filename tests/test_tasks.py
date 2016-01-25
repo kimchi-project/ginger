@@ -2,7 +2,7 @@
 #
 # Project Ginger
 #
-# Copyright IBM, Corp. 2015
+# Copyright IBM, Corp. 2015-2016
 #
 # Code derived from Project Kimchi
 #
@@ -26,7 +26,7 @@ import unittest
 import urllib2
 from functools import partial
 
-from wok.plugins.ginger.models import GingerModel
+from wok.plugins.ginger.model import GingerModel
 
 from tests.utils import get_free_port, patch_auth, request
 from tests.utils import run_server, wait_task

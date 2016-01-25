@@ -1,7 +1,7 @@
 #
 # Project Ginger
 #
-# Copyright IBM, Corp. 2015
+# Copyright IBM, Corp. 2015-2016
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -19,12 +19,12 @@
 
 import mock
 import unittest
-import wok.plugins.ginger.models.physical_vol as physical_vol
+import wok.plugins.ginger.model.physical_vol as physical_vol
 
 from wok import config
 from wok.exception import MissingParameter, NotFoundError, OperationFailed
 from wok.objectstore import ObjectStore
-from wok.plugins.ginger.models import utils
+from wok.plugins.ginger.model import utils
 
 
 class PhysicalVolumeTests(unittest.TestCase):
@@ -42,7 +42,7 @@ class PhysicalVolumeTests(unittest.TestCase):
         params = {}
         self.assertRaises(MissingParameter, pvs.create, params)
 
-    @mock.patch('wok.plugins.ginger.models.utils._remove_pv',
+    @mock.patch('wok.plugins.ginger.model.utils._remove_pv',
                 autospec=True)
     def test_delete_pv(self, mock_delete_pv):
         pv = physical_vol.PhysicalVolumeModel(objstore=self._objstore)
@@ -75,7 +75,7 @@ class PhysicalVolumeTests(unittest.TestCase):
         self.assertEqual(pv_out['PV UUID'],
                          'NMLPlg-ozfg-pFuJ-Q0ld-rvqb-KAda-4MywSM')
 
-    @mock.patch('wok.plugins.ginger.models.utils.run_command', autospec=True)
+    @mock.patch('wok.plugins.ginger.model.utils.run_command', autospec=True)
     def test_utils_remove_pv_returns_404_if_vol_not_found(
             self, mock_run_command):
 
@@ -88,7 +88,7 @@ class PhysicalVolumeTests(unittest.TestCase):
                 ['pvremove', '-f', 'fake_dev']
             )
 
-    @mock.patch('wok.plugins.ginger.models.utils.run_command', autospec=True)
+    @mock.patch('wok.plugins.ginger.model.utils.run_command', autospec=True)
     def test_utils_remove_pv_returns_500_if_unknown_error(
             self, mock_run_command):
 
@@ -101,7 +101,7 @@ class PhysicalVolumeTests(unittest.TestCase):
                 ['pvremove', '-f', 'fake_dev']
             )
 
-    @mock.patch('wok.plugins.ginger.models.utils.run_command', autospec=True)
+    @mock.patch('wok.plugins.ginger.model.utils.run_command', autospec=True)
     def test_utils_pvdisplay_returns_404_if_vol_not_found(
             self, mock_run_command):
 
@@ -118,7 +118,7 @@ class PhysicalVolumeTests(unittest.TestCase):
                 ['pvdisplay', 'fake_dev']
             )
 
-    @mock.patch('wok.plugins.ginger.models.utils.run_command', autospec=True)
+    @mock.patch('wok.plugins.ginger.model.utils.run_command', autospec=True)
     def test_utils_pvdisplay_returns_500_if_unknown_error(
             self, mock_run_command):
 
