@@ -18,8 +18,10 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 
 from wok.control.base import AsyncResource, Resource
+from wok.control.utils import UrlSubNode
 
 
+@UrlSubNode('firmware', True)
 class Firmware(Resource):
     def __init__(self, model, id=None):
         super(Firmware, self).__init__(model, id)
@@ -38,6 +40,7 @@ class Firmware(Resource):
         return self.info
 
 
+@UrlSubNode('fwprogress', True)
 class FirmwareProgress(AsyncResource):
     def __init__(self, model, id=None):
         super(FirmwareProgress, self).__init__(model, id)

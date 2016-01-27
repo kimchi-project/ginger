@@ -1,7 +1,7 @@
 #
 # Project Ginger
 #
-# Copyright IBM, Corp. 2014
+# Copyright IBM, Corp. 2014-2016
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -19,8 +19,10 @@
 
 
 from wok.control.base import Collection, Resource
+from wok.control.utils import UrlSubNode
 
 
+@UrlSubNode('users', True)
 class Users(Collection):
     def __init__(self, model):
         super(Users, self).__init__(model)

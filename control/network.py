@@ -1,7 +1,7 @@
 #
 # Project Ginger
 #
-# Copyright IBM, Corp. 2014
+# Copyright IBM, Corp. 2014-2016
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -17,11 +17,14 @@
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 
+from wok.control.base import Resource
+from wok.control.utils import UrlSubNode
+
 from cfginterfaces import Cfginterfaces
 from interfaces import Interfaces
-from wok.control.base import Resource
 
 
+@UrlSubNode('network', True)
 class Network(Resource):
 
     def __init__(self, model):

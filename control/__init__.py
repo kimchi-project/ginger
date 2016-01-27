@@ -1,7 +1,7 @@
 #
 # Project Ginger
 #
-# Copyright IBM, Corp. 2014
+# Copyright IBM, Corp. 2014-2016
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -16,6 +16,10 @@
 # You should have received a copy of the GNU Lesser General Public
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
+
+import os
+
+from wok.control.utils import load_url_sub_node
 
 from backup import Backup
 from capabilities import Capabilities
@@ -37,6 +41,9 @@ from users import Users
 from swaps import Swaps
 from sysmodules import SysModules
 from vol_group import VolumeGroups
+
+
+sub_nodes = load_url_sub_node(os.path.dirname(__file__), __name__)
 
 __all__ = [
     Backup,

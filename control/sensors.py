@@ -1,7 +1,7 @@
 #
 # Project Ginger
 #
-# Copyright IBM, Corp. 2014
+# Copyright IBM, Corp. 2014-2016
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -18,8 +18,10 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 
 from wok.control.base import Resource
+from wok.control.utils import UrlSubNode
 
 
+@UrlSubNode('sensors', True)
 class Sensors(Resource):
     def __init__(self, model, id=None):
         super(Sensors, self).__init__(model, id)
