@@ -37,6 +37,7 @@ class Backup(Resource):
         # In future we will add self.schedules
 
 
+@UrlSubNode('archives', True)
 class Archives(Collection):
     def __init__(self, model):
         super(Archives, self).__init__(model)

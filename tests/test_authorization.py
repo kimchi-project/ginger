@@ -58,7 +58,10 @@ class AuthorizationTests(unittest.TestCase):
         # Test APIs that require authentication
         apis = ['/firmware', '/fwprogress', '/backup', '/ibm_sep', '/network'
                 '/network/interfaces', '/network/cfginterfaces',
-                '/powerprofiles', '/san_adapters', '/sensors', '/users']
+                '/powerprofiles', '/san_adapters', '/sensors', '/users',
+                '/archives', '/dasddevs', '/dasdpartitions', '/partitions',
+                '/filesystems', '/lvs', '/pvs', '/storagedevs', '/swaps',
+                '/sysmodules', '/vgs']
 
         for api in apis:
             resp = self.request('/plugins/ginger' + api, '{}', 'GET')

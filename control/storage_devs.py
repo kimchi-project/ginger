@@ -1,7 +1,7 @@
 #
 # Project Ginger
 #
-# Copyright IBM, Corp. 2015
+# Copyright IBM, Corp. 2015-2016
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -18,8 +18,10 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 
 from wok.control.base import SimpleCollection
+from wok.control.utils import UrlSubNode
 
 
+@UrlSubNode('storagedevs', True)
 class StorageDevs(SimpleCollection):
     """
     Collections representing the storage devices on the system

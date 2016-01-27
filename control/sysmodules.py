@@ -1,7 +1,7 @@
 #
 # Project Ginger
 #
-# Copyright IBM, Corp. 2015
+# Copyright IBM, Corp. 2015-2016
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -18,8 +18,10 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 
 from wok.control.base import Collection, Resource
+from wok.control.utils import UrlSubNode
 
 
+@UrlSubNode('sysmodules', True)
 class SysModules(Collection):
     def __init__(self, model):
         super(SysModules, self).__init__(model)
