@@ -75,9 +75,9 @@ sig_hashalgo=sha256\0
     modinfo_dict['aliases'] = []
     modinfo_dict['authors'] = []
     modinfo_dict['parms'] = {}
-    dict_attr_to_array = {
-       'alias': 'aliases', 'author': 'authors', 'parm': 'parms'
-    }
+    dict_attr_to_array = {'alias': 'aliases',
+                          'author': 'authors',
+                          'parm': 'parms'}
 
     lines = lines[1:]
     for line in lines:

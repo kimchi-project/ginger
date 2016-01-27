@@ -73,8 +73,8 @@ sig_hashalgo=sha256\0"""
         )
 
         self.assertEqual(
-             modinfo_dict['filename'],
-             '/lib/modules/4.2.8-300.fc23.x86_64/kernel/net/tipc/tipc.ko.xz'
+            modinfo_dict['filename'],
+            '/lib/modules/4.2.8-300.fc23.x86_64/kernel/net/tipc/tipc.ko.xz'
         )
         self.assertEqual(modinfo_dict['version'], '2.0.0')
         self.assertEqual(modinfo_dict['license'], 'Dual BSD/GPL')
@@ -123,9 +123,9 @@ device (int)\0"""
         )
 
         self.assertEqual(
-             modinfo_dict['filename'],
-             '/lib/modules/4.2.8-300.fc23.x86_64/kernel/drivers'
-             '/block/loop.ko.xz'
+            modinfo_dict['filename'],
+            '/lib/modules/4.2.8-300.fc23.x86_64/kernel/drivers'
+            '/block/loop.ko.xz'
         )
         self.assertEqual(modinfo_dict['license'], 'GPL')
         self.assertEqual(modinfo_dict['depends'], [])
@@ -180,9 +180,9 @@ sig_hashalgo=sha256\0"""
             ]
         )
         self.assertEqual(
-             modinfo_dict['filename'],
-             '/lib/modules/4.2.8-300.fc23.x86_64/kernel/drivers'
-             '/net/wireless/rtlwifi/rtl_pci.ko.xz'
+            modinfo_dict['filename'],
+            '/lib/modules/4.2.8-300.fc23.x86_64/kernel/drivers'
+            '/net/wireless/rtlwifi/rtl_pci.ko.xz'
         )
         self.assertEqual(modinfo_dict['license'], 'GPL')
         self.assertEqual(modinfo_dict['depends'], ['mac80211', 'rtlwifi'])

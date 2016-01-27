@@ -1011,8 +1011,8 @@ class CfginterfaceModel(object):
         self.update_cfgfile(cfgmap, params)
 
     def update_cfgfile(self, cfgmap, params):
-        p_file = os.sep + self.get_iface_cfg_fullpath(
-                self.get_iface_identifier(cfgmap))
+        iface_id = self.get_iface_identifier(cfgmap)
+        p_file = os.sep + self.get_iface_cfg_fullpath(iface_id)
         if os.path.isfile(p_file):
             backupfile = p_file + "bak"
             try:
@@ -1025,12 +1025,12 @@ class CfginterfaceModel(object):
                     if (os.path.isfile(route_filepath)):
                         os.remove(route_filepath)
                 self.write_attributes_to_cfg(
-                        self.get_iface_identifier(cfgmap),
-                        cfgmap)
+                    self.get_iface_identifier(cfgmap),
+                    cfgmap)
             except Exception, e:
                 wok_log.error(
-                        'Exception occured while updating the cfg '
-                        'information' + str(e))
+                    'Exception occured while updating the cfg '
+                    'information' + str(e))
                 if os.path.isfile(backupfile):
                     shutil.copy(backupfile, p_file)
                 raise OperationFailed("GINNET0063E", {'Error': e})
