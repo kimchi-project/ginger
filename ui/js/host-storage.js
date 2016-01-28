@@ -571,7 +571,7 @@ ginger.loadStorageDeviceDetails = function(){
     },
    {
       "column-id": 'mpath_count',
-      "type": 'number',
+      "type": 'numeric',
       "width": "20%",
       "title": i18n['GINTITLE0019M']
     },
