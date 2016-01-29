@@ -50,7 +50,7 @@ messages = {
                      "'%(error)s'."),
     "GINNET0018E": _("Invalid ipv4 address '%(ip)s', "
                      "'%(error)s'."),
-    "GINNET0019E": _("Invalid netmask '%(NETMASK)s', "
+    "GINNET0019E": _("Invalid prefix '%(PREFIX)s', "
                      "'%(error)s'."),
     "GINNET0020E": _("IP address is missing."),
     "GINNET0021E": _("PREFIX missing."),
@@ -101,6 +101,7 @@ messages = {
     "GINNET0062E": _("The prefix value %(PREFIX)s is not in range 1-32"),
     "GINNET0063E": _("Exception updating the interface settings"),
     "GINNET0064E": _("Boot protocol is missing for ipv6 settings."),
+    "GINNET0065E": _("The prefix value %(PREFIX)s is not in range 1-128"),
 
     "GINUSER0001E": _("Specify name, password, group and profile for the new "
                       "user."),

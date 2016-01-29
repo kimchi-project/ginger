@@ -24,6 +24,7 @@ import ethtool
 import os
 import platform
 import shutil
+import re
 
 from netaddr import IPAddress
 
@@ -57,6 +58,7 @@ HWADDR = 'HWADDR'
 UUID = 'UUID'
 MTU = 'MTU'
 ZONE = 'ZONE'
+COLON = ':'
 # z parameters
 SUBCHANNELS = 'SUBCHANNELS'
 NETTYPE = 'NETTYPE'
@@ -781,9 +783,12 @@ class CfginterfaceModel(object):
 
     def validate_ipv4_address(self, ip):
         try:
-            ip = IPAddress(ip)
-            if ip.version == 4:
-                return
+            match = re.match(
+                "^(\d{0,3})\.(\d{0,3})\.(\d{0,3})\.(\d{0,3})$", ip)
+            if match:
+                ip = IPAddress(ip)
+                if ip.version == 4:
+                    return
             raise Exception("Not an ipv4 address")
         except Exception, e:
             wok_log.error(("Invalid ipv4 address:" + str(e)))
@@ -794,8 +799,8 @@ class CfginterfaceModel(object):
             ip = IPAddress(ip)
             return ip.netmask_bits()
         except Exception, e:
-            wok_log.error(("Invalid netmask:" + str(e)))
-            raise InvalidParameter('GINNET0019E', {'NETMASK': ip, 'error': e})
+            wok_log.error(("Invalid prefix:" + str(e)))
+            raise InvalidParameter('GINNET0019E', {'PREFIX': ip, 'error': e})
 
     def assign_ipv4_address(self, cfgmap, params):
         if IPV4Addresses in params:
@@ -813,17 +818,27 @@ class CfginterfaceModel(object):
                     raise MissingParameter('GINNET0020E')
                 # Fix for issue 169
                 if PREFIX in ipaddrinfo:
-                    if (type(ipaddrinfo[PREFIX]) == int):
-                        if ipaddrinfo[PREFIX] >= 1 and \
-                                ipaddrinfo[PREFIX] <= 32:
-                            cfgmap[PREFIX + postfix] = ipaddrinfo[PREFIX]
+                    try:
+                        match = re.match("^(\d{0,3})\.(\d{0,3})\.(\d{0,3})"
+                                         "\.(\d{0,3})$", ipaddrinfo[PREFIX])
+                        if match:
+                            self.validate_ipv4_address(ipaddrinfo[PREFIX])
+                            cfgmap[PREFIX + postfix] = self.get_ipv4_prefix(
+                                ipaddrinfo[PREFIX])
                         else:
-                            raise InvalidParameter('GINNET0062E', {
-                                'PREFIX': ipaddrinfo[PREFIX]})
-                    else:
-                        self.validate_ipv4_address(ipaddrinfo[PREFIX])
-                        cfgmap[PREFIX + postfix] = self.get_ipv4_prefix(
-                            ipaddrinfo[PREFIX])
+                            if int(ipaddrinfo[PREFIX]) >= 1 and \
+                                    int(ipaddrinfo[PREFIX]) <= 32:
+                                cfgmap[PREFIX + postfix] = \
+                                    int(ipaddrinfo[PREFIX])
+                            else:
+                                raise InvalidParameter('GINNET0062E', {
+                                          'PREFIX': ipaddrinfo[PREFIX]})
+                    except Exception, e:
+                        wok_log.error(("Invalid prefix:" + str(e)))
+                        raise InvalidParameter('GINNET0019E',
+                                               {'PREFIX': ipaddrinfo[PREFIX],
+                                                'error': e})
+
                 else:
                     wok_log.error("No prefix provided for IPv4 addresses.")
                     raise MissingParameter('GINNET0021E')
@@ -1132,8 +1147,8 @@ class CfginterfaceModel(object):
             ip = IPAddress(ip)
             return ip.netmask_bits()
         except Exception, e:
-            wok_log.error(("Invalid netmask:" + str(e)))
-            raise InvalidParameter('GINNET0019E', {'NETMASK': ip, 'error': e})
+            wok_log.error(("Invalid prefix:" + str(e)))
+            raise InvalidParameter('GINNET0019E', {'PREFIX': ip, 'error': e})
 
     def validateipinfo(self, ipaddrinfo):
         """
@@ -1145,13 +1160,23 @@ class CfginterfaceModel(object):
             self.validate_ipv6_address(ipaddrinfo[IPADDR])
         else:
             wok_log.error(("No ip address provided"))
-            raise MissingParameter('GINNET0020E')
-        if NETMASK in ipaddrinfo:
-            self.validate_ipv6_address(ipaddrinfo[NETMASK])
-            ipaddrinfo[PREFIX] = self.get_ipv6_prefix(
-                ipaddrinfo[NETMASK])
-        elif PREFIX in ipaddrinfo:
-            ipaddrinfo[PREFIX] = ipaddrinfo[PREFIX]
+        if PREFIX in ipaddrinfo:
+            try:
+                if COLON in ipaddrinfo[PREFIX]:
+                    self.validate_ipv6_address(ipaddrinfo[PREFIX])
+                    ipaddrinfo[PREFIX] = self.get_ipv6_prefix(
+                        ipaddrinfo[PREFIX])
+                else:
+                    if int(ipaddrinfo[PREFIX]) >= 1 and \
+                                    int(ipaddrinfo[PREFIX]) <= 128:
+                        ipaddrinfo[PREFIX] = int(ipaddrinfo[PREFIX])
+                    else:
+                        raise InvalidParameter('GINNET0065E', {
+                            'PREFIX': ipaddrinfo[PREFIX]})
+            except Exception, e:
+                wok_log.error(("Invalid prefix:" + str(e)))
+                raise InvalidParameter(
+                    'GINNET0019E', {'PREFIX': ipaddrinfo[PREFIX], 'error': e})
         else:
             wok_log.error(("No netmask or prefix provided"))
             raise MissingParameter('GINNET0021E')
@@ -1170,7 +1195,7 @@ class CfginterfaceModel(object):
                 if (primary):
                     ipaddrinfo = self.validateipinfo(ipaddrinfo)
                     cfgmap[IPV6ADDR] = \
-                        ipaddrinfo[IPADDR] + '/' + ipaddrinfo[PREFIX]
+                        ipaddrinfo[IPADDR] + '/' + str(ipaddrinfo[PREFIX])
                     primary = False
                 else:
                     ipaddrinfo = self.validateipinfo(ipaddrinfo)
