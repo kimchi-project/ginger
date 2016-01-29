@@ -81,7 +81,7 @@ class PhysicalVolumeTests(unittest.TestCase):
 
         mock_run_command.return_value = ['', '  Device fake_dev not found', 5]
 
-        expected_error = "GINPV00010E: GINPV00010E"
+        expected_error = "GINPV00010E"
         with self.assertRaisesRegexp(NotFoundError, expected_error):
             utils._remove_pv('fake_dev')
             mock_run_command.assert_called_once_with(
@@ -94,7 +94,7 @@ class PhysicalVolumeTests(unittest.TestCase):
 
         mock_run_command.return_value = ['', '', 1]
 
-        expected_error = "GINPV00009E: GINPV00009E"
+        expected_error = "GINPV00009E"
         with self.assertRaisesRegexp(OperationFailed, expected_error):
             utils._remove_pv('fake_dev')
             mock_run_command.assert_called_once_with(
@@ -111,7 +111,7 @@ class PhysicalVolumeTests(unittest.TestCase):
             5
         ]
 
-        expected_error = "GINPV00011E: GINPV00011E"
+        expected_error = "GINPV00011E"
         with self.assertRaisesRegexp(NotFoundError, expected_error):
             utils._pvdisplay_out('fake_dev')
             mock_run_command.assert_called_once_with(
@@ -124,7 +124,7 @@ class PhysicalVolumeTests(unittest.TestCase):
 
         mock_run_command.return_value = ['', '', 1]
 
-        expected_error = "GINPV00007E: GINPV00007E"
+        expected_error = "GINPV00007E"
         with self.assertRaisesRegexp(OperationFailed, expected_error):
             utils._pvdisplay_out('fake_dev')
             mock_run_command.assert_called_once_with(
