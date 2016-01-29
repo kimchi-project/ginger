@@ -81,6 +81,8 @@ class InterfaceModel(object):
                         'netmask': "",
                         'macaddr': ""}
                 return info
+            else:
+                raise ValueError('unknown interface: %s' % name)
         except ValueError:
             raise NotFoundError("GINNET0014E", {'name': name})
 

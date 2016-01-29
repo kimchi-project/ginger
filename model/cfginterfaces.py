@@ -168,7 +168,10 @@ def get_bond_vlan_interfaces():
                 cfg_device = parser.get(cfg_file + '/DEVICE')
                 # Fix for ginger issue #70
                 cfg_device = trim_quotes(cfg_device)
-                nics.append(cfg_device)
+                if(is_cfgfileexist(cfg_device)):
+                    nics.append(cfg_device)
+                else:
+                    wok_log.warn("no ifcfg file found,skipping"+cfg_device)
             except Exception, e:
                 wok_log.warn("no device name found,skipping", e)
     return nics
@@ -1580,7 +1583,7 @@ class CfginterfaceModel(object):
         output_file = open(route_filepath, "w")
         for routes in routes_map:
             if ADDRESS in routes and NETMASK in routes and GATEWAY in routes:
-                if METRIC in routes:
+                if METRIC in routes and routes[METRIC] != "":
                     format_routes = '{}/{} via {} metric {}'.format(
                         routes[ADDRESS],
                         routes[NETMASK],
