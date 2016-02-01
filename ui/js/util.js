@@ -283,7 +283,7 @@ ginger.validateMask = function(mask){
             binMask += parseInt(secs[i]).toString(2);
         return /^1+0+$/.test(binMask);
     }else{
-        return mask > 0 && mask < 32;
+        return mask >= 1 && mask <= 32;
     }
 };
 
@@ -752,5 +752,5 @@ ginger.isValidIPv6 = function(ipv6addr) {
 }
 
 ginger.isValidIPv6Prefix = function(prefix) {
-  return prefix > 0 && prefix < 127;
+  return prefix >= 1 && prefix <= 128;
 }

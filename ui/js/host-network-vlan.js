@@ -102,13 +102,17 @@ var applyOnClick = function() {
 
     nwApplyButton.prop('disabled', true);
     var interfaceDevice = nwVLANInterfaceTextbox.val();
+    if(interfaceDevice == "") {
+      wok.message.error(i18n['GINNWVLANS0001M'], '#alert-nw-vlan-modal-container', true);
+      nwApplyButton.prop('disabled', false);
+      return;
+    }
 
     var getBasicInfoData = function() {
       var basic_info = {};
       var vlan_info = {};
 
       basic_info['TYPE'] = "Vlan";
-      basic_info['DEVICE'] = interfaceDevice; // Keep till Jaya fix
       if (onBootCheckbox.is(":checked")) {
         basic_info["ONBOOT"] = "yes";
       } else {
@@ -118,12 +122,37 @@ var applyOnClick = function() {
 
 
       vlan_info['VLAN'] = 'yes';
+
+      if(isValidDeviceName(interfaceDevice)) {
+        basic_info['DEVICE'] = interfaceDevice
+      } else {
+        wok.message.error(i18n['GINNWVLANS0001M'], '#alert-nw-vlan-modal-container', true);
+        nwApplyButton.prop('disabled', false);
+        return false;
+      }
+
+      // If interface do not have VLANID in it then VLANID is must if interface name doesn't contains it
+      var vlanID = nwVLANIDTextbox.val();
+      if(vlanID != "" && isValidVLAN(vlanID)) {
+        // Take out VLAN ID
+        vlan_info['VLAN_ID'] = vlanID;
+      } else if(getVLANIDFromDeviceName(interfaceDevice) != "") {
+        vlan_info['VLAN_ID'] = getVLANIDFromDeviceName(interfaceDevice);
+      } else if ((getVLANIDFromDeviceName(interfaceDevice) == "") && (vlanID == "") && (interfaceDevice.length <= 15)) {
+      // If interface length is <= 15 && if it doesn't have vlan details within it or VLAND ID field
+        wok.message.error(i18n['GINNWVLANS0002M'], '#alert-nw-vlan-modal-container', true);
+        nwApplyButton.prop('disabled', false);
+        return false;
+      }
+
       vlan_info['PHYSDEV'] = parentInterfaceSelect.val();
-      vlan_info['VLANID'] = nwVLANIDTextbox.val();
       basic_info['VLANINFO'] = vlan_info;
       data['BASIC_INFO'] = basic_info;
+      return true;
     }
-    getBasicInfoData();
+
+    if(getBasicInfoData() == false)
+      return;
 
     var getIpv4InfoData = function() {
       var ipv4_info = {}; //All ipv4 info from ipv4 tab
@@ -276,11 +305,20 @@ var populateGeneralTab = function(interface) {
           .attr("value", (result[i].BASIC_INFO.DEVICE).replace(/"/g, ""))
           .text((result[i].BASIC_INFO.DEVICE).replace(/"/g, "")));
       }
-      if (ginger.selectedInterface == null)
-        nwVLANIDTextbox.val(1);
 
-      nwVLANInterfaceTextbox.val(formInterfaceName());
-      if (interface != null && (interface.BASIC_INFO.VLANINFO.PHYSDEV).replace(/"/g, "")) {
+      if ((interface != null) && (interface.BASIC_INFO.VLANINFO.PHYSDEV).replace(/"/g, "")) {
+        var exists = false;
+        $('#nw-vlan-interfaces-select option').each(function() {
+          if (this.value == (interface.BASIC_INFO.VLANINFO.PHYSDEV).replace(/"/g, "")) {
+            exists = true;
+            return false;
+          }
+        });
+        if (!exists) {
+          parentInterfaceSelect.append($("<option></option>")
+            .attr("value", (interface.BASIC_INFO.VLANINFO.PHYSDEV).replace(/"/g, ""))
+            .text((interface.BASIC_INFO.VLANINFO.PHYSDEV).replace(/"/g, "")));
+        }
         parentInterfaceSelect.val((interface.BASIC_INFO.VLANINFO.PHYSDEV).replace(/"/g, ""));
       }
     }
@@ -288,24 +326,18 @@ var populateGeneralTab = function(interface) {
 
   if (interface == null) {
     nwTitle.append("VLAN");
-    nwVLANIDTextbox.val(1);
   } else {
     nwTitle.append(interface.BASIC_INFO.DEVICE);
-    //  nwNameTextbox.val(interface.BASIC_INFO.Device);
-    parentInterfaceSelect.prop('disabled', true);
+    nwVLANInterfaceTextbox.val(interface.BASIC_INFO.DEVICE);
 
     if (interface.BASIC_INFO.HWADDR)
       nwHwaddressTextbox.val(interface.BASIC_INFO.HWADDR);
 
-    var VLANID = -1;
+    nwVLANInterfaceTextbox.prop('disabled', true);
+    var VLANID;
     // Some issue with VLANID vs VLAN_ID
-    if (interface.BASIC_INFO.VLANINFO.VLANID)
-      VLANID = interface.BASIC_INFO.VLANINFO.VLANID;
-    else if (interface.BASIC_INFO.VLANINFO.VLAN_ID)
-      VLANID = interface.BASIC_INFO.VLANINFO.VLAN_ID;
-
-    nwVLANIDTextbox.val(VLANID)
-    nwVLANIDTextbox.prop('disabled', true);
+    if (interface.BASIC_INFO.VLANINFO.VLAN_ID)
+      nwVLANIDTextbox.val(interface.BASIC_INFO.VLANINFO.VLAN_ID);
 
     if (interface.BASIC_INFO.DEVICE)
       nwVLANInterfaceTextbox.val(interface.BASIC_INFO.DEVICE)
@@ -318,35 +350,88 @@ var populateGeneralTab = function(interface) {
   nwVLANIDTextbox.on('keyup', function() {
     // Validate VLAN Id value, It should be integer and range 0-4094
     var vlanID = nwVLANIDTextbox.val();
-    $(this).toggleClass("invalid-field", !((ginger.isInteger(vlanID) && !(vlanID < 1 || vlanID > 4094)) ? true : false));
-    nwVLANInterfaceTextbox.val(formInterfaceName());
+    if (vlanID.length > 0) {
+      $(this).toggleClass("invalid-field", !(isValidVLAN(vlanID)));
+    } else {
+      $(this).toggleClass("invalid-field", false);
+    }
   });
 
-  parentInterfaceSelect.on('change', function() {
-    nwVLANInterfaceTextbox.val(formInterfaceName());
+  nwVLANInterfaceTextbox.on('keyup', function() {
+    var deviceName = nwVLANInterfaceTextbox.val();
+    if (isValidDeviceName(deviceName)) {
+      $("#nw-vlan-interface-textbox").toggleClass("invalid-field", false);
+      if (getVLANIDFromDeviceName(deviceName) != "")
+        nwVLANIDTextbox.val(getVLANIDFromDeviceName(deviceName));
+      else
+        nwVLANIDTextbox.val("");
+    } else {
+      $("#nw-vlan-interface-textbox").toggleClass("invalid-field", true);
+      nwVLANIDTextbox.val("");
+    }
   });
-
 };
 
-var formInterfaceName = function() {
-  var vlanID = nwVLANIDTextbox.val();
-  var vlanIfName = parentInterfaceSelect.val();
-
-  if (ginger.hostarch == "s390x") {
-    vlanIfName = vlanIfName.replace(/ccw/g, "");
-    vlanIfName = vlanIfName.replace(/\./g, "");
-  }
-
-  if (vlanID.length == 4) {
-    return vlanIfName + "." + vlanID;
+var validateAndUpdateVLANFields = function(vlanID, deviceName) {
+  if (isValidVLAN(vlanID)) {
+    $("#nw-vlan-interface-textbox").toggleClass("invalid-field", !(/^[0-9a-zA-Z.]+$/.test(deviceName)));
+    nwVLANIDTextbox.val(vlanID);
   } else {
-    for (var i = vlanID.length; i < 4; i++) {
-      vlanID = "0" + vlanID;
-    }
-    return vlanIfName + "." + vlanID;
+    $("#nw-vlan-interface-textbox").toggleClass("invalid-field", true);
+    nwVLANIDTextbox.val("");
   }
-  return vlanIfName;
 }
+
+var isValidDeviceName = function(deviceName) {
+  var vlanID = ""
+  // Check if vlan name contains string of formatters
+  if ((deviceName.length >= 1) && (deviceName.length <= 15)) {
+    if ((deviceName.split(".").length > 2)) {
+      return false;
+    } else if ((deviceName.indexOf("vlan") == 0) && (deviceName.length > 4)) {
+      // vlan name convention vlan<VLANID> or vlan.<VLANID>
+      if ((deviceName.length <= 9) && (deviceName.indexOf(".") != -1)) {
+        vlanID = deviceName.split(".", 2).length == 2 ? deviceName.split(".", 2)[1] : null;
+      } else if ((deviceName.length < 9) && (deviceName.indexOf(".") == -1)) {
+        vlanID = deviceName.split("vlan", 2).length == 2 ? deviceName.split("vlan", 2)[1] : null;
+      }
+    } else if (deviceName.length <= 15) {
+      // In this case String can be 15 characters ifname.<VLANID>
+      if (deviceName.indexOf(".") != -1) {
+        vlanID = deviceName.split(".", 2).length == 2 ? deviceName.split(".", 2)[1] : null;
+      } else {
+        return (/^[0-9a-zA-Z()]+$/.test(deviceName))
+      }
+    }
+    if(isValidVLAN(vlanID))
+      return true;
+    else
+      return false;
+  }  else if (deviceName.length > 15) {
+    return false;
+  }
+  return true;
+};
+
+var isValidVLAN = function(vlanID) {
+  return ((ginger.isInteger(vlanID) && !(vlanID < 0 || vlanID > 4095)) ? true : false)
+};
+
+var getVLANIDFromDeviceName  = function(deviceName) {
+  if ((deviceName.indexOf("vlan") == 0) && (deviceName.length > 4)) {
+    // vlan name convention vlan<VLANID> or vlan.<VLANID>
+    if ((deviceName.length <= 9) && (deviceName.indexOf(".") != -1)) {
+      return deviceName.split(".", 2).length == 2 ? deviceName.split(".", 2)[1] : null;
+    } else if ((deviceName.length < 9) && (deviceName.indexOf(".") == -1)) {
+      return deviceName.split("vlan", 2).length == 2 ? deviceName.split("vlan", 2)[1] : null;
+    }
+  } else if ((deviceName.length <= 15) && (deviceName.indexOf(".") != -1)) {
+      // In this case String can be 15 characters  or ifname.<VLANID>
+      return deviceName.split(".", 2).length == 2 ? deviceName.split(".", 2)[1] : null;
+  } else  {
+    return "";
+  }
+};
 
 // function to populate advance tab
 var populateAdvanceTab = function(interface) {
