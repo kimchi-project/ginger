@@ -78,8 +78,10 @@ ARCH_S390 = 's390x'
 VLANINFO = 'VLANINFO'
 REORDER_HDR = 'REORDER_HDR'
 VLAN = 'VLAN'
-VLANID = 'VLANID'
+VLAN_ID = 'VLAN_ID'
 PHYSDEV = 'PHYSDEV'
+DOT = "."
+VLANSTRING = "vlan"
 FAIL_OVER_MAC = '/sys/class/net/%s/bonding/fail_over_mac'
 
 # Bond parameters
@@ -283,29 +285,20 @@ class CfginterfacesModel(object):
             raise InvalidParameter("GINNET0052E")
 
     def create_bond(self, params):
-        if DEVICE in params[BASIC_INFO]:
+        if DEVICE in params[BASIC_INFO] and params[BASIC_INFO][DEVICE] != "":
             name = params[BASIC_INFO][DEVICE]
             params[BASIC_INFO][NAME] = name
             CfginterfaceModel().update(name, params)
             return name
         else:
-            wok_log.error("Device info is missing")
+            wok_log.error("Device info is missing  or invalid")
             raise MissingParameter("GINNET0025E")
 
     def create_vlan(self, params):
         self.validate_info_for_vlan(params)
         self.validate_vlan_driver()
-        vlanid = str(params[BASIC_INFO][VLANINFO][VLANID])
-        if platform.machine() == ARCH_S390:
-            name = \
-                params[BASIC_INFO][VLANINFO][PHYSDEV].replace(
-                    "ccw", "").replace(".", "") + "." + vlanid.zfill(4)
-        else:
-            name = \
-                params[BASIC_INFO][VLANINFO][PHYSDEV]\
-                + "." + vlanid.zfill(4)
+        name = params[BASIC_INFO][DEVICE]
         params[BASIC_INFO][NAME] = name
-        params[BASIC_INFO][DEVICE] = name
         parent_iface = params[BASIC_INFO][VLANINFO][PHYSDEV]
         if netinfo.get_interface_type(parent_iface) == IFACE_BOND:
             self.validate_bond_for_vlan(parent_iface)
@@ -327,13 +320,6 @@ class CfginterfacesModel(object):
         if PHYSDEV not in params[BASIC_INFO][VLANINFO]:
             wok_log.error("Phydev is missing")
             raise MissingParameter("GINNET0045E")
-        if VLANID not in params[BASIC_INFO][VLANINFO]:
-            wok_log.error("Vlan id is missing")
-            raise MissingParameter("GINNET0044E")
-        vlanid = params[BASIC_INFO][VLANINFO][VLANID]
-        if int(vlanid.zfill(4)) > 4096:
-            wok_log.error("VLAN id exceeds the ranges from '0' to '4096'")
-            raise InvalidParameter("GINNET0050E")
 
     def validate_vlan_driver(self):
         cmd = ['modprobe', '8021q']
@@ -723,7 +709,7 @@ class CfginterfaceModel(object):
         wok_log.debug('Begin get_vlan_info')
         info[BASIC_INFO][VLANINFO] = {}
         if info.__len__() != 0 and cfgmap.__len__() != 0:
-            vlan_info_keys = [VLANID, VLAN, REORDER_HDR, PHYSDEV]
+            vlan_info_keys = [VLAN_ID, VLAN, REORDER_HDR, PHYSDEV]
             for key in vlan_info_keys:
                 if key in cfgmap:
                     info[BASIC_INFO][VLANINFO][key] = cfgmap[key]
@@ -1425,7 +1411,15 @@ class CfginterfaceModel(object):
         wok_log.info('Validating vlan info given for interface')
         if DEVICE not in params[BASIC_INFO]:
             wok_log.error("Missing parameter: DEVICE")
-            raise MissingParameter("GINNET0031E")
+            raise MissingParameter("GINNET0025E")
+        if len(params[BASIC_INFO][DEVICE]) > 15:
+            wok_log.error("Maximum length of device name is 15 characters "
+                          "only")
+            raise MissingParameter("GINNET0067E")
+        device = params[BASIC_INFO][DEVICE]
+        if device.count(DOT) > 1:
+            wok_log.error("Invalid Vlan device name has given")
+            raise MissingParameter("GINNET0068E")
         if VLANINFO not in params[BASIC_INFO]:
             wok_log.error("Missing parameter: VLANINFO")
             raise MissingParameter("GINNET0042E")
@@ -1438,21 +1432,45 @@ class CfginterfaceModel(object):
         else:
             wok_log.error("Missing parameter: VLAN")
             raise MissingParameter("GINNET0043E")
-
-        if VLANID not in params[BASIC_INFO][VLANINFO]:
-            wok_log.error("Missing parameter(s): VLANID")
-            raise MissingParameter("GINNET0044E")
-        else:
-            vlan_info[VLANID] = params[BASIC_INFO][VLANINFO][VLANID]
-
+        vlan_info = self.validate_and_get_vlanid(params, vlan_info, device)
         if PHYSDEV not in params[BASIC_INFO][VLANINFO]:
             wok_log.error("Missing parameter(s): PHYSDEV")
             raise MissingParameter("GINNET0045E")
         else:
             vlan_info[PHYSDEV] = params[BASIC_INFO][VLANINFO][PHYSDEV]
         vlan_info[TYPE] = params[BASIC_INFO][TYPE]
-
         return vlan_info
+
+    def validate_and_get_vlanid(self, params, vlan_info, device):
+        vlanid_range = range(0, 4096)
+        vlanid_fromdevice = ''
+        if DOT not in device and device.startswith(VLANSTRING):
+            vlanid_fromdevice = self.convert_to_int_ifvalid(device[4:])
+        elif device.count(DOT) == 1:
+            vlanid_fromdevice = self.convert_to_int_ifvalid(device.split(
+                DOT)[1])
+        elif VLAN_ID not in params[BASIC_INFO][VLANINFO]:
+            wok_log.error("Vlan id is missing")
+            raise MissingParameter("GINNET0044E")
+        if vlanid_fromdevice:
+            if vlanid_fromdevice not in vlanid_range:
+                wok_log.error("VLAN id exceeds the ranges from '0' to '4095'")
+                raise InvalidParameter("GINNET0050E")
+        if VLAN_ID in params[BASIC_INFO][VLANINFO]:
+            vlan_id = params[BASIC_INFO][VLANINFO][VLAN_ID]
+            if int(vlan_id) not in vlanid_range:
+                wok_log.error("VLAN id exceeds the ranges from '0' to '4095'")
+                raise InvalidParameter("GINNET0050E")
+            vlan_info[VLAN_ID] = params[BASIC_INFO][VLANINFO][VLAN_ID]
+        return vlan_info
+
+    def convert_to_int_ifvalid(self, value):
+        try:
+            int_value = int(value)
+        except ValueError, e:
+            wok_log.error("Given vlanid is not an integer type")
+            raise InvalidParameter("GINNET0066E", {'error': e})
+        return int_value
 
     # TODO this code can be later made to have strict regex to get the right
     # info(optimize)

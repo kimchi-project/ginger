@@ -67,11 +67,11 @@ class CfgInterfacesTests(unittest.TestCase):
 
     def test_get_basic_info_vlan(self):
         cfgmap = {'NAME': 'testiface', 'DEVICE': 'testdevice',
-                  'ONBOOT': 'Yes', 'VLANID': 10, 'VLAN': 'yes',
+                  'ONBOOT': 'Yes', 'VLAN_ID': 10, 'VLAN': 'yes',
                   'REORDER_HDR': 0,
                   'PHYSDEV': 'testpd'}
         ethinfo = CfginterfaceModel().get_basic_info(cfgmap)
-        self.assertEquals(10, ethinfo['BASIC_INFO']['VLANINFO']['VLANID'])
+        self.assertEquals(10, ethinfo['BASIC_INFO']['VLANINFO']['VLAN_ID'])
         self.assertEquals('Vlan', ethinfo['BASIC_INFO']['TYPE'])
         self.assertEquals(0, ethinfo['BASIC_INFO']['VLANINFO']['REORDER_HDR'])
         self.assertEquals('testpd', ethinfo['BASIC_INFO']['VLANINFO'][

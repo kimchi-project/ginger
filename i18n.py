@@ -57,7 +57,7 @@ messages = {
     "GINNET0022E": _("Invalid boot protocol '%(mode)s', "),
     "GINNET0023E": _("Boot protocol is missing for ipv4 settings."),
     "GINNET0024E": _("Basic information of interface is missing."),
-    "GINNET0025E": _("Device name of interface is missing."),
+    "GINNET0025E": _("Device name of interface is missing or invalid."),
     "GINNET0026E": _("Missing ipv4 initialization key."),
     "GINNET0027E": _("Missing ipv6 initialization key."),
     "GINNET0028E": _("Invalid ipv6 address '%(ip)s', "
@@ -82,7 +82,7 @@ messages = {
     "GINNET0047E": _("For vlan creation over bond, slaves has to be up"),
     "GINNET0048E": _("Module 802q is not loaded into kernel"),
     "GINNET0049E": _("Failed to delete ifcfg file, Error: '%(error)s'"),
-    "GINNET0050E": _("VLAN id exceeds the ranges from '0' to '4096'"),
+    "GINNET0050E": _("VLAN id exceeds the ranges from '0' to '4095'"),
     "GINNET0051E": _("Parent interface of type 'Bond' is not active"),
     "GINNET0052E": _("Type is unknown"),
     "GINNET0053E": _("Persistent file for slave '%(slave)s' is missing"),
@@ -102,6 +102,10 @@ messages = {
     "GINNET0063E": _("Exception updating the interface settings"),
     "GINNET0064E": _("Boot protocol is missing for ipv6 settings."),
     "GINNET0065E": _("The prefix value %(PREFIX)s is not in range 1-128"),
+    "GINNET0066E": _("Given vlan id is not an integer type, Error: '%("
+                     "error)s'"),
+    "GINNET0067E": _("Maximum length of device name is 15 characters only."),
+    "GINNET0068E": _("Vlan device name is invalid."),
 
     "GINUSER0001E": _("Specify name, password, group and profile for the new "
                       "user."),
