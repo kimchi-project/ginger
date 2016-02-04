@@ -509,7 +509,8 @@ ginger.loadStorageActionButtons = function(){
                               });
                             }
                         },function(result){
-                            wok.message.error("Failed to remove " + deviceId,'#alert-modal-nw-container');
+                            var errText = result['responseJSON']['reason'];
+                            wok.message.error(errText, '#alert-modal-nw-container', true);
                             rowNums = rowNums - 1;
                             if (rowNums == 0) {
                               ginger.getStgdevs(function(result){
