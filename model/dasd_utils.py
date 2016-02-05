@@ -69,21 +69,23 @@ def _parse_lsdasd_output(output):
             fs_dict = {}
             p = re.compile(r'^\s+(\w+)\:\s+(.+)$')
             parsed_out = i.splitlines()
-            first_spl = i.splitlines()[0].split("/")
-            fs_dict['bus-id'] = first_spl[0]
-            fs_dict['name'] = first_spl[1]
-            fs_dict['device'] = first_spl[2]
-            for fs in parsed_out[1:]:
-                m = p.search(fs)
-                if not m:
-                    continue
-                fs_dict[m.group(1)] = m.group(2)
-                if fs_dict['status'] == 'n/f':
-                    fs_dict['blksz'] = 'None'
-                    fs_dict['blocks'] = 'None'
-            if fs_dict['size'] == '\t':
-                fs_dict['size'] = 'Unknown'
-            out_list.append(fs_dict)
+            if parsed_out and '/' in parsed_out[0] and \
+               len(parsed_out[0].split('/')) == 3:
+                first_spl = i.splitlines()[0].split("/")
+                fs_dict['bus-id'] = first_spl[0]
+                fs_dict['name'] = first_spl[1]
+                fs_dict['device'] = first_spl[2]
+                for fs in parsed_out[1:]:
+                    m = p.search(fs)
+                    if not m:
+                        continue
+                    fs_dict[m.group(1)] = m.group(2)
+                    if 'status' in fs_dict and fs_dict['status'] == 'n/f':
+                        fs_dict['blksz'] = 'None'
+                        fs_dict['blocks'] = 'None'
+                if 'size' in fs_dict and fs_dict['size'] == '\t':
+                    fs_dict['size'] = 'Unknown'
+                out_list.append(fs_dict)
     except:
         wok_log.error("Parsing lsdasd output failed")
         raise OperationFailed("GINDASD0003E")
