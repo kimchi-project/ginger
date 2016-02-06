@@ -18,6 +18,8 @@ SUBDIRS = DEBIAN
 
 EXTRA_DIST = \
 	make-deb.sh.in \
+        gingerd.service.fedora \
+        gingerd.service.ubuntu \
 	$(NULL)
 
 make-deb.sh: make-deb.sh.in $(top_builddir)/config.status

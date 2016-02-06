@@ -83,9 +83,13 @@ service wokd restart
 %{_datadir}/wok/plugins/ginger/ui/pages/tabs/*.html.tmpl
 %{_datadir}/wok/plugins/ginger/ui/pages/i18n.json.tmpl
 %{_sysconfdir}/wok/plugins.d/ginger.conf
+%{_sysconfdir}/systemd/system/wokd.service.d/ginger.conf
 
 
 %changelog
+* Sat Feb 6 2016 Chandra Shekhar Reddy Potula <chandra@linux.vnet.ibm.com>
+- Add libvirt service dependencies to Ginger
+
 * Mon Jan 25 2016 Daniel Henrique Barboza <dhbarboza82@gmail.com>
 - Changed 'controls' dir to 'control' in %files
 - Added %{_datadir}/wok/plugins/ginger/ui/pages/*.html.tmpl to %files

@@ -103,8 +103,22 @@ all-local:
 
 
 install-data-local:
+	@if test -d "$(systemdsystemunitdir)" ; then \
+		mkdir -p $(DESTDIR)/etc/systemd/system/wokd.service.d; \
+		if test -f /etc/debian_version; then \
+			$(INSTALL_DATA) contrib/gingerd.service.ubuntu $(DESTDIR)/etc/systemd/system/wokd.service.d/ginger.conf; \
+		else \
+			$(INSTALL_DATA) contrib/gingerd.service.fedora $(DESTDIR)/etc/systemd/system/wokd.service.d/ginger.conf; \
+		fi; \
+	fi; \
 	$(MKDIR_P) $(DESTDIR)$(gingerdir)
 	$(INSTALL_DATA) API.json $(DESTDIR)$(gingerdir)/API.json
+
+
+uninstall-local:
+	@if test -f $(DESTDIR)/etc/systemd/system/wokd.service.d/ginger.conf; then \
+		$(RM) $(DESTDIR)/etc/systemd/system/wokd.service.d/ginger.conf; \
+	fi;
 
 
 rpm: dist ginger.spec

@@ -47,6 +47,14 @@ AC_PYTHON_MODULE([unittest])
 AC_SUBST([HAVE_PYMOD_UNITTEST])
 AC_SUBST([PYTHON_VERSION])
 
+# check for systemd
+PKG_PROG_PKG_CONFIG
+AC_ARG_WITH([systemdsystemunitdir],
+    AS_HELP_STRING([--with-systemdsystemunitdir=DIR], [Directory for systemd service files]),
+    [], [with_systemdsystemunitdir=$($PKG_CONFIG --variable=systemdsystemunitdir systemd)])
+if test "x$with_systemdsystemunitdir" != xno; then
+    AC_SUBST([systemdsystemunitdir], [$with_systemdsystemunitdir])
+fi
 
 # Checking for pyflakes
 AC_PATH_PROG([PYFLAKES], [pyflakes])
