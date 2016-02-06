@@ -39,7 +39,7 @@ about host system networking information.</shortdesc>
 <dt>Network Configuration</dt>
 <dd>Use Network Configuration to set up networking for your host server.</dd>
 <dd>* Listing all network interfaces.</dd>
-<dd>* Up/Down the network interface</dd>
+<dd>* Up/Down/Restart the network interface</dd>
 <dd>* Create/Modify/Delete Bond/VLAN interfaces</dd>
 </dlentry></dl><?Pub Caret 2101?>
 </csbody>

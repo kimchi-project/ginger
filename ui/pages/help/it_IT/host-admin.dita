@@ -31,7 +31,7 @@ https://w3.opensource.ibm.com/projects/dita-cshelp/-->
 sistema.</shortdesc>
 <csbody>
 <p>Utilizzare queste sezioni per aggiornare il firmware, creare file di backup e
-configurare opzioni di alimentazione, di rete, utenti e altro. </p>
+configurare opzioni di alimentazione, utenti e altro. </p>
 <dl><dlentry>
 <dt>Aggiornamento firmware</dt>
 <dd>La sezione Aggiornamento firmware mostra la versione firmware corrente.
@@ -60,15 +60,8 @@ per generare il file.</dd>
 <dd>Utilizzare questa opzione per eliminare un intervallo di file di backup.</dd>
 </dlentry></dl></dd>
 </dlentry><dlentry>
-<dt>Configurazione di rete</dt>
-<dd>Utilizzare Configurazione di rete per configurare la rete per il server host.
-Immettere un indirizzo IP e una maschera di sottorete per ciascuna interfaccia che si desidera utilizzare. Quindi, fare clic su <uicontrol>Salva</uicontrol>. È possibile modificare le immissioni selezionado <uicontrol>Modifica</uicontrol>.</dd>
-</dlentry><dlentry>
 <dt>Opzioni di alimentazione</dt>
 <dd>Utilizzare Opzioni di alimentazione per selezionare le opzioni che si desidera utilizzare per gestire l'alimentazione sul sistema host. </dd>
-</dlentry><dlentry>
-<dt>Adattatori SAN</dt>
-<dd>La sezione Adattatori SAN, elenca tutti gli adattatori SAN disponibili per il server.</dd>
 </dlentry><dlentry>
 <dt>Controllo sensore</dt>
 <dd>Utilizzare Controllo sensore, per visualizzare le informazioni sul sensore per il proprio

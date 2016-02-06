@@ -48,15 +48,8 @@ Sie können diese Version aktualisieren, indem Sie die RPM-Datei in Fix Central 
 <dd>Verwenden Sie diese Option, um einen Bereich Sicherungsdateien zu löschen. </dd>
 </dlentry></dl></dd>
 </dlentry><dlentry>
-<dt>Netzkonfiguration</dt>
-<dd>Verwenden Sie die Netzkonfiguration zum Einrichten des Netzbetriebs für Ihren Host-Server.
-Geben Sie eine IP-Adresse und eine Teilnetzmaske für jede Schnittstelle ein, die verwendet werden soll. Klicken Sie dann auf <uicontrol>Speichern</uicontrol>. Zum Bearbeiten Ihrer Einträge können Sie <uicontrol>Bearbeiten</uicontrol> auswählen. </dd>
-</dlentry><dlentry>
 <dt>Stromoptionen</dt>
 <dd>Verwenden Sie die Stromoptionen, um die Optionen auszuwählen, die zum Verwalten der Stromversorgung Ihres Hostsystems verwendet werden sollen. </dd>
-</dlentry><dlentry>
-<dt>SAN-Adapter</dt>
-<dd>Der Abschnitt für SAN-Adapter enthält eine Auflistung aller SAN-Adapter, die für den Server verfügbar sind. </dd>
 </dlentry><dlentry>
 <dt>Sensorenmonitor</dt>
 <dd>Verwenden Sie den Sensorenmonitor zur Anzeige der Sensorinformationen für Ihren Server. </dd>

@@ -31,7 +31,7 @@ https://w3.opensource.ibm.com/projects/dita-cshelp/-->
 about your system.</shortdesc>
 <csbody>
 <p>Use these sections to update firmware, create backup files, and
-configure network, power options, users, and more.</p>
+configure power options, users, and more.</p>
 <dl><dlentry>
 <dt>Firmware Update</dt>
 <dd>The Firmware Updates section displays the current firmware version.
@@ -60,19 +60,9 @@ generate the file.</dd>
 <dd>Use this option to delete a range of backup files.</dd>
 </dlentry></dl></dd>
 </dlentry><dlentry>
-<dt>Network Configuration</dt>
-<dd>Use Network Configuration to set up networking for your host server.
-Enter an IP address and subnet mask for each interface that you want
-to use. Then, click <uicontrol>Save</uicontrol>. You can edit your
-entries by selecting <uicontrol>Edit</uicontrol>.</dd>
-</dlentry><dlentry>
 <dt>Power Options</dt>
 <dd>Use Power Options to select the options that you want to use to
 manage power on your host system.</dd>
-</dlentry><dlentry>
-<dt>SAN Adapters</dt>
-<dd>The SAN Adapters section lists all of the SAN Adapters that are
-available to the server.</dd>
 </dlentry><dlentry>
 <dt>Sensor Monitor</dt>
 <dd>Use the Sensor Monitor to display sensor information for your

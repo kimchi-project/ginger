@@ -29,7 +29,7 @@ https://w3.opensource.ibm.com/projects/dita-cshelp/-->
 <title>管理</title>
 <shortdesc>“<wintitle>管理</wintitle>”页面显示有关系统的信息。</shortdesc>
 <csbody>
-<p>使用以下部分来更新固件、创建备份文件以及配置网络、电源选项和用户等。
+<p>使用以下部分来更新固件、创建备份文件以及配置 电源选项和用户等。
 </p>
 <dl><dlentry>
 <dt>固件更新</dt>
@@ -50,14 +50,8 @@ https://w3.opensource.ibm.com/projects/dita-cshelp/-->
 <dd>使用此选项可删除一系列备份文件。</dd>
 </dlentry></dl></dd>
 </dlentry><dlentry>
-<dt>网络配置</dt>
-<dd>使用“网络配置”来设置主机服务器的联网。输入要使用的每个接口的 IP 地址和子网掩码。然后，单击<uicontrol>保存</uicontrol>。可以通过选择<uicontrol>编辑</uicontrol>来编辑您输入的内容。</dd>
-</dlentry><dlentry>
 <dt>电源选项</dt>
 <dd>使用“电源选项”来选择要用来管理主机系统上的电源的选项。</dd>
-</dlentry><dlentry>
-<dt>SAN 适配器</dt>
-<dd>“SAN 适配器”部分列示可供服务器使用的所有 SAN 适配器。</dd>
 </dlentry><dlentry>
 <dt>传感器监视器</dt>
 <dd>使用“传感器监视器”来显示服务器的传感器信息。</dd>

@@ -44,7 +44,7 @@ about host system storage information.</shortdesc>
 </dlentry>
 <dlentry>
 <dt>Swap Devices</dt>
-<dd>Swap device is repository of memory segments that are paged out of physical RAM. Swap space can be of partition of file.</dd>
+<dd>Swap device is repository of memory segments that are paged out of physical RAM. Swap space can be of type partition or of type file.</dd>
 <dd>* Listing </dd>
 </dlentry>
 <dlentry>
@@ -55,6 +55,7 @@ about host system storage information.</shortdesc>
 <dd>* Remove</dd>
 <dd>* ADD ECKD</dd>
 <dd>* ADD FCP</dd>
+<dd>* Enable or Disable LUN Scan via ADD FCP</dd>
 </dlentry>
 <dlentry>
 <dt>FCP Tape Devices</dt>

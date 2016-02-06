@@ -29,7 +29,7 @@ https://w3.opensource.ibm.com/projects/dita-cshelp/-->
 <title>Administration</title>
 <shortdesc>La page <wintitle>Administration</wintitle> affiche les informations relatives à votre système.</shortdesc>
 <csbody>
-<p>Utilisez ces sections pour mettre à jour le microprogramme, créer des fichiers de sauvegarde, et configurer le réseau, les options d'alimentation, les utilisateurs, etc.</p>
+<p>Utilisez ces sections pour mettre à jour le microprogramme, créer des fichiers de sauvegarde, et configurer les options d'alimentation, les utilisateurs, etc.</p>
 <dl><dlentry>
 <dt>Mise à jour du microprogramme</dt>
 <dd>La section Mises à jour du microcode affiche la version de microprogramme en cours.
@@ -58,15 +58,8 @@ du fichier de sauvegarde. Cliquez sur <uicontrol>OK</uicontrol> pour générer l
 <dd>Utilisez cette option pour supprimer une plage de fichiers de sauvegarde.</dd>
 </dlentry></dl></dd>
 </dlentry><dlentry>
-<dt>Configuration de réseau</dt>
-<dd>Utilisez cette option pour configurer la gestion de réseau pour le serveur hôte.
-Entrez une adresse IP et un masque de sous-réseau pour chaque interface que vous voulez utiliser. Cliquez ensuite sur <uicontrol>Enregistrer</uicontrol>. Vous pouvez modifier les entrées en sélectionnant <uicontrol>Editer</uicontrol>.</dd>
-</dlentry><dlentry>
 <dt>Options d'alimentation</dt>
 <dd>Utilisez les options d'alimentation pour sélectionner les options à utiliser pour gérer l'alimentation sur votre système hôte.</dd>
-</dlentry><dlentry>
-<dt>Adaptateurs SAN</dt>
-<dd>La section Adaptateurs SAN répertorie tous les adaptateurs SAN disponibles sur le serveur.</dd>
 </dlentry><dlentry>
 <dt>Moniteur de détecteur</dt>
 <dd>Utilisez cette option pour afficher les informations relatives au détecteur de votre serveur.</dd>

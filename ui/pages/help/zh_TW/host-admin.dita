@@ -29,7 +29,7 @@ https://w3.opensource.ibm.com/projects/dita-cshelp/-->
 <title>管理</title>
 <shortdesc>「<wintitle>管理</wintitle>」頁面顯示系統的相關資訊。</shortdesc>
 <csbody>
-<p>使用這些區段來更新韌體、建立備份檔以及配置網路、電源選項、使用者等。</p>
+<p>使用這些區段來更新韌體、建立備份檔以及配置 電源選項、使用者等。</p>
 <dl><dlentry>
 <dt>韌體更新</dt>
 <dd>「韌體更新項目」區段顯示現行韌體版本。
@@ -48,17 +48,8 @@ https://w3.opensource.ibm.com/projects/dita-cshelp/-->
 <dd>使用此選項來刪除一系列的備份檔。</dd>
 </dlentry></dl></dd>
 </dlentry><dlentry>
-<dt>網路配置</dt>
-<dd>使用「網路配置」來設定主伺服器的網路。
-輸入您要使用之每一個介面的 IP 位址及子網路遮罩。
-然後，按一下<uicontrol>儲存</uicontrol>。您可以透過選取<uicontrol>編輯</uicontrol>來編輯項目。</dd>
-</dlentry><dlentry>
 <dt>電源選項</dt>
 <dd>使用「電源選項」來選取您要用來對主機系統上的電源進行管理的選項。
-</dd>
-</dlentry><dlentry>
-<dt>SAN 配接卡</dt>
-<dd>「SAN 配接卡」區段會列出可供伺服器使用的所有 SAN 配接卡。
 </dd>
 </dlentry><dlentry>
 <dt>感應器監視器</dt>

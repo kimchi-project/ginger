@@ -29,7 +29,7 @@ https://w3.opensource.ibm.com/projects/dita-cshelp/-->
 <title>Administração</title>
 <shortdesc>A página <wintitle>Administração</wintitle> mostra informações sobre o seu sistema.</shortdesc>
 <csbody>
-<p>Use essas seções para atualizar firmware, criar arquivos de backup e configurar rede, opções de energia, usuários e mais.</p>
+<p>Use essas seções para atualizar firmware, criar arquivos de backup e configurar opções de energia, usuários e mais.</p>
 <dl><dlentry>
 <dt>Atualização de Firmware</dt>
 <dd>A seção Atualizações de firmware exibe a versão de firmware atual.
@@ -57,15 +57,8 @@ gerar o arquivo.</dd>
 <dd>Use essa opção para excluir um intervalo de arquivos de backup.</dd>
 </dlentry></dl></dd>
 </dlentry><dlentry>
-<dt>Configuração de rede</dt>
-<dd>Use a Configuração de rede para configurar rede para o seu servidor host.
-Insira um endereço IP e uma máscara de sub-rede para cada interface que desejar usar. Depois, clique em <uicontrol>Salvar</uicontrol>. É possível editar suas entradas selecionando <uicontrol>Editar</uicontrol>.</dd>
-</dlentry><dlentry>
 <dt>Opções de Energia</dt>
 <dd>Use Opções de Energia para selecionar as opções que você deseja usar para gerenciar energia em seu sistema host.</dd>
-</dlentry><dlentry>
-<dt>Adaptadores SAN (rede de área de armazenamento)</dt>
-<dd>A seção Adaptadores SAN lista todos os Adaptadores SAN que estão disponíveis ao servidor.</dd>
 </dlentry><dlentry>
 <dt>Monitor Sensor</dt>
 <dd>Use o Monitor de Sensor para exibir informações sobre o sensor para o seu servidor.</dd>
