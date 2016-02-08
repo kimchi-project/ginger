@@ -105,7 +105,9 @@ messages = {
     "GINNET0066E": _("Given vlan id is not an integer type, Error: '%("
                      "error)s'"),
     "GINNET0067E": _("Maximum length of device name is 15 characters only."),
-    "GINNET0068E": _("Vlan device name is invalid."),
+    "GINNET0068E": _("Device name is invalid."),
+    "GINNET0070E": _("Gateway information is missing."),
+    "GINNET0071E": _("Invalid prefix '%(PREFIX)s'."),
 
     "GINUSER0001E": _("Specify name, password, group and profile for the new "
                       "user."),

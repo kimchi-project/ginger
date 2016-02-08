@@ -252,7 +252,7 @@ def trim_quotes(param):
        param.
     """
     if (param[0] == param[-1]) \
-       and param.startswith(("'", '"')):
+       and param.startswith(("'", '"')) and ' ' not in param:
         param = param[1:-1]
     return param
 
@@ -275,7 +275,9 @@ class CfginterfacesModel(object):
         return sorted(nics_with_ifcfgfile)
 
     def create(self, params):
-        self.validate_minimal_info(params)
+        cfg_map = self.validate_minimal_info(params)
+        CfginterfaceModel().write_attributes_to_cfg(
+            params[BASIC_INFO][DEVICE], cfg_map)
         if params[BASIC_INFO][TYPE] == IFACE_BOND:
             return self.create_bond(params)
         elif params[BASIC_INFO][TYPE] == IFACE_VLAN:
@@ -305,13 +307,32 @@ class CfginterfacesModel(object):
         CfginterfaceModel().update(name, params)
         return name
 
+    def validate_device_name(self, device_name):
+        if len(device_name) > 15:
+            wok_log.error("Maximum length of device name is 15 characters "
+                          "only")
+            raise InvalidParameter("GINNET0067E")
+        if ' ' in device_name:
+            wok_log.error("Invalid device id")
+            raise InvalidParameter("GINNET0068E")
+
     def validate_minimal_info(self, params):
+        cfg_map = {}
         if BASIC_INFO not in params:
             wok_log.error("Basic info is missing")
             raise MissingParameter("GINNET0024E")
+        if DEVICE not in params[BASIC_INFO]:
+            wok_log.error("Missing parameter: DEVICE")
+            raise MissingParameter("GINNET0025E")
+        else:
+            self.validate_device_name(params[BASIC_INFO][DEVICE])
+            cfg_map[DEVICE] = params[BASIC_INFO][DEVICE]
         if TYPE not in params[BASIC_INFO]:
             wok_log.error("Type info is missing")
             raise MissingParameter("GINNET0038E")
+        else:
+            cfg_map[TYPE] = params[BASIC_INFO][TYPE]
+        return cfg_map
 
     def validate_info_for_vlan(self, params):
         if VLANINFO not in params[BASIC_INFO]:
@@ -496,9 +517,6 @@ class CfginterfaceModel(object):
                              'interface :' + interface_name)
                 return cfgmap
             for single in listout:
-                # Fix for ginger issue #70
-                if parser.label(single) in CFGMAP_QUOTES:
-                    cfgmap[parser.label(single)] = parser.get(single)
                 labelVal = parser.get(single)
                 labelVal = trim_quotes(labelVal)
                 cfgmap[parser.label(single)] = labelVal
@@ -571,6 +589,8 @@ class CfginterfaceModel(object):
                 dict.update(IPADDR=cfgmap[IPADDR + postfix])
             else:
                 break
+            if NETMASK + postfix in cfgmap:
+                dict.update(PREFIX=cfgmap[NETMASK + postfix])
             if PREFIX + postfix in cfgmap:
                 dict.update(PREFIX=cfgmap[PREFIX + postfix])
             if GATEWAY + postfix in cfgmap:
@@ -786,10 +806,14 @@ class CfginterfaceModel(object):
     def get_ipv4_prefix(selfself, ip):
         try:
             ip = IPAddress(ip)
-            return ip.netmask_bits()
+            val = ip.is_netmask()
+            if val:
+                return ip.netmask_bits()
+            else:
+                raise Exception('')
         except Exception, e:
             wok_log.error(("Invalid prefix:" + str(e)))
-            raise InvalidParameter('GINNET0019E', {'PREFIX': ip, 'error': e})
+            raise InvalidParameter('GINNET0071E', {'PREFIX': ip})
 
     def assign_ipv4_address(self, cfgmap, params):
         if IPV4Addresses in params:
@@ -807,27 +831,22 @@ class CfginterfaceModel(object):
                     raise MissingParameter('GINNET0020E')
                 # Fix for issue 169
                 if PREFIX in ipaddrinfo:
-                    try:
-                        match = re.match("^(\d{0,3})\.(\d{0,3})\.(\d{0,3})"
-                                         "\.(\d{0,3})$", ipaddrinfo[PREFIX])
-                        if match:
-                            self.validate_ipv4_address(ipaddrinfo[PREFIX])
-                            cfgmap[PREFIX + postfix] = self.get_ipv4_prefix(
-                                ipaddrinfo[PREFIX])
+                    match = re.match("^(\d{0,3})\.(\d{0,3})\.(\d{0,3})"
+                                     "\.(\d{0,3})$", ipaddrinfo[PREFIX])
+                    if match:
+                        self.validate_ipv4_address(ipaddrinfo[PREFIX])
+                        # Below it will validate if valid prefix.
+                        # If prefix is valid,then subnet can be assigned safe
+                        self.get_ipv4_prefix(ipaddrinfo[PREFIX])
+                        cfgmap[NETMASK + postfix] = ipaddrinfo[PREFIX]
+                    else:
+                        if int(ipaddrinfo[PREFIX]) >= 1 and \
+                                        int(ipaddrinfo[PREFIX]) <= 32:
+                            cfgmap[PREFIX + postfix] = \
+                                int(ipaddrinfo[PREFIX])
                         else:
-                            if int(ipaddrinfo[PREFIX]) >= 1 and \
-                                    int(ipaddrinfo[PREFIX]) <= 32:
-                                cfgmap[PREFIX + postfix] = \
-                                    int(ipaddrinfo[PREFIX])
-                            else:
-                                raise InvalidParameter('GINNET0062E', {
-                                          'PREFIX': ipaddrinfo[PREFIX]})
-                    except Exception, e:
-                        wok_log.error(("Invalid prefix:" + str(e)))
-                        raise InvalidParameter('GINNET0019E',
-                                               {'PREFIX': ipaddrinfo[PREFIX],
-                                                'error': e})
-
+                            raise InvalidParameter('GINNET0062E', {
+                                'PREFIX': ipaddrinfo[PREFIX]})
                 else:
                     wok_log.error("No prefix provided for IPv4 addresses.")
                     raise MissingParameter('GINNET0021E')
@@ -845,9 +864,6 @@ class CfginterfaceModel(object):
     def update_basic_info(self, cfgmap, params):
         if DEVICE in params[BASIC_INFO]:
             cfgmap[DEVICE] = params[BASIC_INFO][DEVICE]
-        else:
-            wok_log.error(("DEVICE value is mandatory"))
-            raise MissingParameter('GINNET0025E')
         if NAME in params[BASIC_INFO]:
             cfgmap[NAME] = params[BASIC_INFO][NAME]
         if ONBOOT in params[BASIC_INFO]:
@@ -861,7 +877,7 @@ class CfginterfaceModel(object):
             cfgmap.update(self.validate_and_get_bond_info(params))
         if TYPE in params[BASIC_INFO] \
                 and params[BASIC_INFO][TYPE] == IFACE_VLAN:
-            cfgmap.update(self.validate_and_get_vlan_info(params))
+            cfgmap.update(self.validate_and_get_vlan_info(params, cfgmap))
         return cfgmap
 
     def update_ipv4_bootproto(self, cfgmap, params):
@@ -894,9 +910,9 @@ class CfginterfaceModel(object):
         return cfgmap
 
     def update_dnsv4_info(self, cfgmap, params):
+        cfgmap = self.clean_DNS_attributes(cfgmap)
         if DNSAddresses in params[IPV4_ID]:
             list_dns_addresses = params[IPV4_ID][DNSAddresses]
-            cfgmap = self.clean_DNS_attributes(cfgmap)
             if len(list_dns_addresses) == 1:
                 cfgmap[DNS] = list_dns_addresses[0]
             else:
@@ -909,6 +925,7 @@ class CfginterfaceModel(object):
     def update_ipv4(self, cfgmap, params):
         if IPV4INIT in params[IPV4_ID] and params[IPV4_ID][IPV4INIT] == \
                 CONST_YES:
+            cfgmap = self.cleanup_ipv4attributes(cfgmap)
             if IPV4_FAILURE_FATAL in params[IPV4_ID]:
                 cfgmap[IPV4_FAILURE_FATAL] = \
                     params[IPV4_ID][IPV4_FAILURE_FATAL]
@@ -919,6 +936,9 @@ class CfginterfaceModel(object):
             cfgmap = self.update_ipv4_bootproto(cfgmap, params)
             cfgmap = self.update_dnsv4_info(cfgmap, params)
             if ROUTES in params[IPV4_ID]:
+                params[IPV4_ID][ROUTES] = \
+                    self.validate_populate_ipv4_routes(
+                            params[IPV4_ID][ROUTES])
                 self.write_cfgroutes(params[IPV4_ID][ROUTES],
                                      params[BASIC_INFO][DEVICE], 4)
             else:
@@ -932,6 +952,38 @@ class CfginterfaceModel(object):
             wok_log.error(("IPV4INIT value is mandatory"))
             raise MissingParameter('GINNET0026E')
         return cfgmap
+
+    def validate_populate_ipv4_routes(self, routes_input):
+        modified_routes = []
+        for routes in routes_input:
+            route_info = routes
+            if ADDRESS in routes:
+                self.validate_ipv4_address(routes[ADDRESS])
+            else:
+                wok_log.error(("IPV4 address is missing for routes"))
+                raise MissingParameter('GINNET0061E')
+            if NETMASK in routes:
+                match = re.match("^(\d{0,3})\.(\d{0,3})\.(\d{0,3})"
+                                 "\.(\d{0,3})$", routes[NETMASK])
+                if match:
+                    self.validate_ipv4_address(routes[NETMASK])
+                    route_info[NETMASK] = self.get_ipv4_prefix(
+                            routes[NETMASK])
+                else:
+                    if not int(routes[NETMASK]) >= 1 and \
+                                    int(routes[NETMASK]) <= 32:
+                        raise InvalidParameter('GINNET0062E', {
+                            'PREFIX': routes[NETMASK]})
+            else:
+                wok_log.error(("Netmask/Prefix is missing for routes"))
+                raise MissingParameter('GINNET0021E')
+            if GATEWAY in routes:
+                self.validate_ipv4_address(routes[GATEWAY])
+            else:
+                wok_log.error(("Gateway address is missing for routes"))
+                raise MissingParameter('GINNET0070E')
+            modified_routes.append(route_info)
+        return modified_routes
 
     def clean_routes(self, interface_name, version):
         """
@@ -971,7 +1023,7 @@ class CfginterfaceModel(object):
         """
         SINGLE_ATTRIBUTES = [IPV4_FAILURE_FATAL, PEERDNS, PEERROUTES,
                              BOOTPROTO, DEFROUTE]
-        MULITPLE_ATTRIBUTES = [IPADDR, PREFIX, GATEWAY, DNS]
+        MULITPLE_ATTRIBUTES = [IPADDR, PREFIX, GATEWAY, DNS, NETMASK]
         delattributes = []
         for attr in SINGLE_ATTRIBUTES:
             if attr in cfgmap:
@@ -1014,12 +1066,12 @@ class CfginterfaceModel(object):
                     if (os.path.isfile(route_filepath)):
                         os.remove(route_filepath)
                 self.write_attributes_to_cfg(
-                    self.get_iface_identifier(cfgmap),
-                    cfgmap)
+                        self.get_iface_identifier(cfgmap),
+                        cfgmap)
             except Exception, e:
                 wok_log.error(
-                    'Exception occured while updating the cfg '
-                    'information' + str(e))
+                        'Exception occured while updating the cfg '
+                        'information' + str(e))
                 if os.path.isfile(backupfile):
                     shutil.copy(backupfile, p_file)
                 raise OperationFailed("GINNET0063E", {'Error': e})
@@ -1406,17 +1458,17 @@ class CfginterfaceModel(object):
                 wok_log.error("Slave file is not exist for " + slave)
                 raise OperationFailed("GINNET0053E", {'slave': slave})
 
-    def validate_and_get_vlan_info(self, params):
+    def validate_and_get_vlan_info(self, params, cfgmap):
         vlan_info = {}
         wok_log.info('Validating vlan info given for interface')
-        if DEVICE not in params[BASIC_INFO]:
+        if DEVICE not in cfgmap:
             wok_log.error("Missing parameter: DEVICE")
             raise MissingParameter("GINNET0025E")
-        if len(params[BASIC_INFO][DEVICE]) > 15:
-            wok_log.error("Maximum length of device name is 15 characters "
-                          "only")
-            raise MissingParameter("GINNET0067E")
-        device = params[BASIC_INFO][DEVICE]
+        # if len(cfgmap[DEVICE]) > 15:
+        #     wok_log.error("Maximum length of device name is 15 characters "
+        #                   "only")
+        #     raise MissingParameter("GINNET0067E")
+        device = cfgmap[DEVICE]
         if device.count(DOT) > 1:
             wok_log.error("Invalid Vlan device name has given")
             raise MissingParameter("GINNET0068E")
@@ -1603,10 +1655,10 @@ class CfginterfaceModel(object):
             if ADDRESS in routes and NETMASK in routes and GATEWAY in routes:
                 if METRIC in routes and routes[METRIC] != "":
                     format_routes = '{}/{} via {} metric {}'.format(
-                        routes[ADDRESS],
-                        routes[NETMASK],
-                        routes[GATEWAY],
-                        routes[METRIC])
+                            routes[ADDRESS],
+                            routes[NETMASK],
+                            routes[GATEWAY],
+                            routes[METRIC])
                 else:
                     format_routes = '{}/{} via {}'.format(routes[ADDRESS],
                                                           routes[NETMASK],
