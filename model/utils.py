@@ -813,7 +813,11 @@ def get_final_list():
             if 'id' in final_dict:
                 if final_dict['id'] in ll_id_dict:
                     final_dict['name'] = ll_id_dict[final_dict['id']][0]
-                final_list.append(final_dict)
+                if 'hba_id' in final_dict.keys():
+                    if final_dict['hba_id']:
+                        final_list.append(final_dict)
+                else:
+                    final_list.append(final_dict)
     except Exception as e:
         wok_log.error("Error getting list of storage devices")
         raise OperationFailed("GINSD00005E", {'err': e.message})
@@ -853,7 +857,6 @@ def get_fc_path_elements(blk):
     if not wwpn or not fcp_lun or not hba_id:
         wok_log.error(
             "Unable to find FC elements for given fc block device: " + blk)
-        raise OperationFailed("GINSD00007E", {'blk': blk})
 
     return hba_id, wwpn, fcp_lun
 
