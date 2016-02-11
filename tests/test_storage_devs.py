@@ -88,8 +88,8 @@ lrwxrwxrwx. 1 root root 10 Nov 24 10:58 wwn-0x6005076802810d50480000000000\
         self.assertEqual(ret_dict['sda'], '36005076802810d504800000000002ede')
         self.assertEqual(ret_dict['dm-3'], '36005076802810d504800000000002edf')
         self.assertEqual(
-            ret_id_dict['36005076802810d504800000000002edf1'][0],
-            'dm-3')
+            ret_id_dict['36005076802810d504800000000002edf'][0],
+            'dm-1')
         self.assertEqual(
             len(ret_id_dict['36005076802810d504800000000002edf']), 3)
 

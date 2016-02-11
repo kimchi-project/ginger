@@ -702,7 +702,7 @@ def parse_ll_out(ll_out):
             if disk_id.startswith('wwn-'):
                 continue
 
-            if disk_id.startswith('dm-uuid-mpath'):
+            if disk_id.startswith('dm-name'):
                 continue
 
             disk_name = ls_columns[-1]
