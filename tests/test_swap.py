@@ -141,7 +141,7 @@ class SwapTests(unittest.TestCase):
 
         output_dict = utils._parse_swapon_output(input_text)
         self.assertEqual(output_dict['priority'], '-1')
-        self.assertEqual(output_dict['size'], '10236')
+        self.assertEqual(output_dict['size'], 10481664)
         self.assertEqual(output_dict['type'], 'file')
         self.assertEqual(output_dict['used'], '72')
         self.assertEqual(output_dict['filename'], '/myswap')

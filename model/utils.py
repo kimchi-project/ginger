@@ -139,7 +139,7 @@ def _parse_swapon_output(output):
         output_list = output.split()
         output_dict['filename'] = output_list[0]
         output_dict['type'] = output_list[1]
-        output_dict['size'] = output_list[2]
+        output_dict['size'] = int(output_list[2])*1024
         output_dict['used'] = output_list[3]
         output_dict['priority'] = output_list[4]
     except Exception as e:
