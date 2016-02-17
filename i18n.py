@@ -297,6 +297,15 @@ messages = {
     "GINSYSMOD00004E": _("Error loading module %(module)s, reason: %(err)s"),
     "GINSYSMOD00005E": _("Error unloading module %(module)s, reason: %(err)s"),
 
+    "GINOVS00001E": _("Error executing OVS command. Please check if 'openvswitch' service is running."),
+    "GINOVS00002E": _("Error executing OVS command: %(err)s"),
+    "GINOVS00003E": _("Error creating OVS bridge %(name)s. OVS bridge already exists."),
+    "GINOVS00004E": _("Error retrieving OVS bridge %(name)s. OVS bridge does not exist."),
+    "GINOVS00005E": _("Error adding port %(port)s in bridge %(name)s. Port already exists."),
+    "GINOVS00006E": _("Unable to create bond with less than two interfaces."),
+    "GINOVS00007E": _("Bridge %(bridge)s does not have a bond named %(bond)s."),
+    "GINOVS00008E": _("Interface %(iface)s not found in openvswitch database."),
+
     "GINSD00001E": _("Error executing 'ls -l /dev/disk/by-id, %(err)s"),
     "GINSD00002E": _("Error executing 'lsblk -Po, %(err)s"),
     "GINSD00003E": _("Error parsing 'ls -l /dev/disk/by-id', %(err)s"),

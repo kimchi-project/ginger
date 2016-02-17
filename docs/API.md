@@ -806,3 +806,42 @@ of all available modules, not just the loaded ones. At this moment there is no a
 **Methods**
 
 * **DELETE**: delete the given user
+
+### Collection: OVSBridges
+
+**URI:** /plugins/ginger/ovsbridges
+
+**Methods:**
+
+* **GET**: Retrieve the list of OVS bridges of the current host
+
+* **POST**: Create a new OVS bridge
+    * name: name of the new OVS Bridge
+
+### Resource: OVSBridge
+
+**URI:** /plugins/ginger/ovsbridges/*:name*
+
+**Methods**
+
+* **DELETE**: delete the given OVS bridge from the host
+
+**Actions (POST):**
+
+* add_interface: add an interface (port) to the OVS bridge
+    * interface: name of the interface to be added
+
+* del_interface: delete an interface (port) of the OVS Bridge
+    * interface: name of the interface to be deleted
+
+* add_bond: add a bond (port) to the OVS bridge
+    * bond: name of the new bond
+    * interfaces: array of interfaces to be added to this bond. This array must contain at least two interfaces
+
+* del_bond: delete an interface (port) of the OVS Bridge
+    * bond: name of the bond to be deleted
+
+* modify_bond: changes the setup of a given bond, switching one of its interfaces to another without disrupting existing traffic in the bond.
+    * bond: name of the bond to be modified
+    * interface_del: interface to be discarded from the bond
+    * interface_add: interface to be used in the bond
