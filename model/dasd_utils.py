@@ -21,11 +21,12 @@ import os
 import platform
 import re
 import subprocess
+import utils
 
 from wok.exception import InvalidParameter, OperationFailed
 from wok.utils import run_command, wok_log
 
-from wok.plugins.ginger.model.utils import get_storagedevice, get_directories
+from wok.plugins.ginger.model.utils import get_directories
 from wok.plugins.ginger.model.utils import syspath_eckd, get_dirname
 
 
@@ -203,6 +204,7 @@ def get_dasd_devs():
     """
     devs = []
     if platform.machine() == "s390x":
+        dasd_pim_dict = _get_dasd_pim()
         dasd_devices = _get_lsdasd_devs()
         for device in dasd_devices:
             uf_dev = {}
@@ -226,11 +228,39 @@ def get_dasd_devs():
                     uf_dev['size'] = dasdsize
             uf_dev['id'] = device['uid']
             uf_dev['bus_id'] = device['bus-id']
-            uf_dev['mpath_count'] = len(
-                get_storagedevice(
-                    uf_dev['bus_id'])['enabled_chipids'])
+            uf_dev['mpath_count'] = dasd_pim_dict[uf_dev['bus_id']]
             devs.append(uf_dev)
     return devs
+
+
+def _get_dasd_pim():
+    """
+    Return a dictionary with bus ids of
+    DASD devices as keys and number of
+    paths as values
+    """
+    pim_dict = {}
+    # execute lscss -d
+    command = ['lscss', '-d']
+    out, err, rc = run_command(command)
+    if rc:
+        wok_log.error("lscss -d failed")
+        raise OperationFailed("GINDASD0012E", {'err': err})
+    if out:
+        try:
+            output_lines = out.splitlines()
+            for line in output_lines[2:]:
+                clms = line.split()
+                pim = clms[-5]
+                bus_id = clms[0]
+                chipid = clms[-2]+" "+clms[-1]
+                binaryval_pam = utils._hex_to_binary(pim)
+                enabled_chipids = utils._get_paths(binaryval_pam, chipid)
+                pim_dict[bus_id] = len(enabled_chipids)
+        except Exception as err:
+            wok_log.error("Error in parsing lscss -d output")
+            raise OperationFailed("GINDASD0013E", {'err': err})
+    return pim_dict
 
 
 def get_dasd_bus_id(blk):

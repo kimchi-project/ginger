@@ -280,6 +280,8 @@ messages = {
     "GINDASD0009E": _("Require DASD device name to be formatted"),
     "GINDASD0010E": _("Require block size for formatting DASD device"),
     "GINDASD0011E": _("Invalid bus ID, %(bus_id)s"),
+    "GINDASD0012E": _("Error in executing 'lscss -d' command : %(err)s"),
+    "GINDASD0013E": _("Error in parsing 'lscss -d' command : %(err)s"),
 
     "GINDASDPAR0005E": _("Require name to create DASD device partition"),
     "GINDASDPAR0006E": _("Require partition size to create DASD device partition"),
