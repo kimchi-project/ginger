@@ -209,7 +209,21 @@ def get_dasd_devs():
             uf_dev['type'] = 'dasd'
             uf_dev['name'] = device['name']
             uf_dev['mpath_count'] = 'N/A'
-            uf_dev['size'] = device['size']
+            dasdsize = device['size']
+            if dasdsize == "Unknown":
+                uf_dev['size'] = dasdsize
+            else:
+                p = re.compile(r'^(\d+)(\w+)$')
+                m = p.search(dasdsize)
+                if not m:
+                    continue
+                if m.group(1) >= 1024 and m.group(2) == "MB":
+                    dasdsize = float(m.group(1))/1024
+                    dasdsize = format(dasdsize, '.2f')
+                    dasdsize = dasdsize + "G"
+                    uf_dev['size'] = dasdsize
+                else:
+                    uf_dev['size'] = dasdsize
             uf_dev['id'] = device['uid']
             uf_dev['bus_id'] = device['bus-id']
             uf_dev['mpath_count'] = len(

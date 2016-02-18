@@ -421,7 +421,6 @@ ginger.loadStorageActionButtons = function(){
                     }
                     },function(result){
                     trackingNums = trackingNums - 1;
-                    wok.message.error("Failed to format " + deviceId,'#alert-modal-nw-container');
                     errorMsg = i18n['GINDASD0001E'].replace("%1", deviceId);
                     wok.message.error(errorMsg,'#alert-modal-nw-container', true);
                     if(trackingNums == 0){
