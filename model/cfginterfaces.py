@@ -840,8 +840,8 @@ class CfginterfaceModel(object):
                         self.get_ipv4_prefix(ipaddrinfo[PREFIX])
                         cfgmap[NETMASK + postfix] = ipaddrinfo[PREFIX]
                     else:
-                        if int(ipaddrinfo[PREFIX]) >= 1 and \
-                                        int(ipaddrinfo[PREFIX]) <= 32:
+                        if (int(ipaddrinfo[PREFIX]) >= 1 and
+                           int(ipaddrinfo[PREFIX]) <= 32):
                             cfgmap[PREFIX + postfix] = \
                                 int(ipaddrinfo[PREFIX])
                         else:
@@ -872,8 +872,8 @@ class CfginterfaceModel(object):
             cfgmap[MTU] = params[BASIC_INFO][MTU]
         if ZONE in params[BASIC_INFO]:
             cfgmap[ZONE] = params[BASIC_INFO][ZONE]
-        if TYPE in params[BASIC_INFO] \
-                and params[BASIC_INFO][TYPE] == IFACE_BOND:
+        if (TYPE in params[BASIC_INFO] and
+           params[BASIC_INFO][TYPE] == IFACE_BOND):
             cfgmap.update(self.validate_and_get_bond_info(params))
         if TYPE in params[BASIC_INFO] \
                 and params[BASIC_INFO][TYPE] == IFACE_VLAN:
@@ -938,7 +938,7 @@ class CfginterfaceModel(object):
             if ROUTES in params[IPV4_ID]:
                 params[IPV4_ID][ROUTES] = \
                     self.validate_populate_ipv4_routes(
-                            params[IPV4_ID][ROUTES])
+                        params[IPV4_ID][ROUTES])
                 self.write_cfgroutes(params[IPV4_ID][ROUTES],
                                      params[BASIC_INFO][DEVICE], 4)
             else:
@@ -968,10 +968,10 @@ class CfginterfaceModel(object):
                 if match:
                     self.validate_ipv4_address(routes[NETMASK])
                     route_info[NETMASK] = self.get_ipv4_prefix(
-                            routes[NETMASK])
+                        routes[NETMASK])
                 else:
-                    if not int(routes[NETMASK]) >= 1 and \
-                                    int(routes[NETMASK]) <= 32:
+                    if (not int(routes[NETMASK]) >= 1 and
+                       int(routes[NETMASK]) <= 32):
                         raise InvalidParameter('GINNET0062E', {
                             'PREFIX': routes[NETMASK]})
             else:
@@ -1066,12 +1066,11 @@ class CfginterfaceModel(object):
                     if (os.path.isfile(route_filepath)):
                         os.remove(route_filepath)
                 self.write_attributes_to_cfg(
-                        self.get_iface_identifier(cfgmap),
-                        cfgmap)
+                    self.get_iface_identifier(cfgmap), cfgmap)
             except Exception, e:
                 wok_log.error(
-                        'Exception occured while updating the cfg '
-                        'information' + str(e))
+                    'Exception occured while updating the cfg '
+                    'information' + str(e))
                 if os.path.isfile(backupfile):
                     shutil.copy(backupfile, p_file)
                 raise OperationFailed("GINNET0063E", {'Error': e})
@@ -1208,8 +1207,8 @@ class CfginterfaceModel(object):
                     ipaddrinfo[PREFIX] = self.get_ipv6_prefix(
                         ipaddrinfo[PREFIX])
                 else:
-                    if int(ipaddrinfo[PREFIX]) >= 1 and \
-                                    int(ipaddrinfo[PREFIX]) <= 128:
+                    if (int(ipaddrinfo[PREFIX]) >= 1 and
+                       int(ipaddrinfo[PREFIX]) <= 128):
                         ipaddrinfo[PREFIX] = int(ipaddrinfo[PREFIX])
                     else:
                         raise InvalidParameter('GINNET0065E', {
@@ -1655,10 +1654,10 @@ class CfginterfaceModel(object):
             if ADDRESS in routes and NETMASK in routes and GATEWAY in routes:
                 if METRIC in routes and routes[METRIC] != "":
                     format_routes = '{}/{} via {} metric {}'.format(
-                            routes[ADDRESS],
-                            routes[NETMASK],
-                            routes[GATEWAY],
-                            routes[METRIC])
+                        routes[ADDRESS],
+                        routes[NETMASK],
+                        routes[GATEWAY],
+                        routes[METRIC])
                 else:
                     format_routes = '{}/{} via {}'.format(routes[ADDRESS],
                                                           routes[NETMASK],
