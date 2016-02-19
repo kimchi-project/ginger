@@ -45,12 +45,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
                         </a>
                     </h3>
                     <div id="sysmodules-content-area" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
-                         <div class="sysmodules-actions btn-group" id="sysmodules-actions-area">
-                            <button class="btn btn-primary load-modules-btn" type="button" id="load_sysmodules_button"><i class="fa fa-download"></i> $_("Load Modules")</button>
-                         </div>
-                         <div class="pull-right">
-                            <label for="search_input" class="sr-only">$_("Filter"):</label>
-                            <input type="text" class="filter form-control search" id="search_input" placeholder="$_("Filter")">
+                        <div class="row grid-control">
+                             <div class="sysmodules-actions btn-group" id="sysmodules-actions-area">
+                                <button class="btn btn-primary load-modules-btn" type="button" id="load_sysmodules_button"><i class="fa fa-download"></i> $_("Load Modules")</button>
+                             </div>
+                             <div class="pull-right">
+                                <label for="search_input" class="sr-only">$_("Filter"):</label>
+                                <input type="text" class="filter form-control search" id="search_input" placeholder="$_("Filter")">
+                             </div>
                          </div>
                          <div class="wok-datagrid" id="sysmodules-datagrid">
                             <div class="wok-datagrid-header">
@@ -77,7 +79,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
             </div>
         </div>
     </div>
-    <div id="modalWindow" class="modal fade host-modal sysmodules-modal" tabindex="-1" role="dialog" aria-labelledby="sysmodulesModalLabel" aria-hidden="true"></div>
 <script id="sysmodulesItem" type="html/text">
     <li class="wok-datagrid-row in" name="sysmodulesBodyItem" id="{name}" data-id="{name}">
         <span class="column-name name-filter" title="{name}">{name}</span><!--
@@ -95,7 +96,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 </script>
 <script id="detail-head" type="text/html">
     <span class="column-{key}">
-        <span class='header-{key}'>{key}</span>
+        <span class='header-{key}'>{title}</span>
         <span class='body-{key}'></span>
     </span>
 </script>
@@ -111,5 +112,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 <script>
     ginger.initSysmodules();
 </script>
+<div id="modalWindow" class="modal fade host-modal sysmodules-modal ginger" tabindex="-1" role="dialog" aria-labelledby="sysmodulesModalLabel" aria-hidden="true"></div>
 </body>
 </html>

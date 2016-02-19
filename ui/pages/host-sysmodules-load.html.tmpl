@@ -1,0 +1,82 @@
+#*
+ * Project Ginger
+ *
+ * Copyright IBM, Corp. 2013-2016
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *#
+#unicode UTF-8
+#import gettext
+#from wok.cachebust import href
+#silent t = gettext.translation($lang.domain, $lang.localedir, languages=$lang.lang, fallback=True)
+#silent _ = t.gettext
+#silent _t = t.gettext
+<!DOCTYPE html>
+<html>
+<body>
+<head>
+
+</head>
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">$_("Load Module")</h4>
+      </div>
+      <div class="modal-body">
+        <form name="sysmodule">
+          <span id="alert-modal-container"></span>
+          <div class="form-group  has-feedback">
+            <label for="module">$_("Module Name")</label>
+            <input id="module" name="name" class="form-control typeahead" />
+            <span class="wok-loading-icon form-control-feedback"></span>
+          </div>
+          <div id="parameters">
+            <div class="form-group" id="hidden-parms-table">
+              <div id="parms-grid">
+                <div>
+                  <span class="column-name">$_("Parameter")</span></span><!--
+             --><span class="column-name">$_("Description")</span>
+                </div>
+                <div id="parms-body" data-module="none"></div></div>
+            </div>
+            <div class="parms-fields" data-module="none">
+              <div class="form-group" id="special-load-radio"></div>
+              <div class="parms-pager"></div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" id="loadButton">$_("Load")</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">$_("Close")</button>
+      </div>
+    </div><!-- /.modal-content -->
+<script id="parms-item" type="html/text">
+    <div id='{name}' class='wok-datagrid-row'>
+           <span class='column-name' title="{name}" val="{name}">{name}</span><!--
+      --><span class='column-description' val="{description}">{description}</span>
+    </div>
+</script>
+<script id="specialparms-radio" type="html/text">
+    <input type="radio" name="load-type" id="{configname}" value="parms-{configname}" class="wok-radio"><label for="{configname}">$_('Load Special Config'): <span class="configname">{configname}</span></label>
+</script>
+<script id="specialparms-item" type="html/text">
+    <span class="col-md-6">
+      <label for="field-{parmName}">{parmName}</label>
+      <input id="field-{parmName}" data-parm="{parmName}" name="{parmName}" class="form-control" type="text"  />
+    </span>
+</script>
+<script>
+    ginger.modalSysmodules();
+</script>
+</body>
+</html>

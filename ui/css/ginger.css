@@ -1,6 +1,6 @@
 @charset "UTF-8";
 /*
- * Copyright IBM Corp, 2014-2016
+ * Copyright IBM Corp, 2015-2016
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -1493,4 +1493,204 @@
 #sysmodules-content-area .btn .fa-upload {
   margin-right: 10px;
   font-size: 20px;
+}
+
+.sysmodules-modal .parms-fields {
+  position: relative;
+}
+
+.sysmodules-modal .parms-fields #special-load-radio {
+  padding-bottom: 7px;
+  margin-bottom: 0;
+}
+
+.sysmodules-modal .parms-fields #special-load-radio label {
+  font-size: 16px;
+  margin-bottom: 5;
+}
+
+.sysmodules-modal div.special-load .alert,
+.sysmodules-modal div.special-load .alert[style] {
+  margin: 0 10px 10px;
+  display: block;
+}
+
+.sysmodules-modal div.special-load .form-control-static,
+.sysmodules-modal div.special-load .col-md-6,
+.sysmodules-modal div.special-load .col-md-12 {
+  padding: 0 10px;
+}
+
+.sysmodules-modal .special-load {
+  margin-left: -10px;
+  margin-right: -10px;
+}
+
+.sysmodules-modal .form-control-static {
+  font-weight: 400;
+  font-size: 20px;
+  margin-top: 0;
+  padding-top: 0;
+  margin-bottom: 5px;
+}
+
+.sysmodules-modal #parms-custom-load {
+  display: none;
+}
+
+.sysmodules-modal span.twitter-typeahead .tt-menu,
+.sysmodules-modal span.twitter-typeahead .tt-dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 1000;
+  display: none;
+  float: left;
+  min-width: 100%;
+  padding: 5px 0;
+  margin: 2px 0 0;
+  list-style: none;
+  font-size: 14px;
+  text-align: left;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-radius: 4px;
+  -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+  background-clip: padding-box;
+}
+
+.sysmodules-modal span.twitter-typeahead .tt-suggestion {
+  display: block;
+  padding: 3px 20px;
+  clear: both;
+  font-weight: normal;
+  line-height: 1.42857143;
+  color: #333;
+  white-space: nowrap;
+}
+
+.sysmodules-modal span.twitter-typeahead .tt-suggestion.tt-cursor,
+.sysmodules-modal span.twitter-typeahead .tt-suggestion:hover,
+.sysmodules-modal span.twitter-typeahead .tt-suggestion:focus {
+  color: #151515;
+  text-decoration: none;
+  outline: 0;
+  background-color: #f5f5f5;
+}
+
+.sysmodules-modal .input-group.input-group-lg span.twitter-typeahead .form-control {
+  height: 46px;
+  padding: 10px 16px;
+  font-size: 18px;
+  line-height: 1.3333333;
+  border-radius: 6px;
+}
+
+.sysmodules-modal .input-group.input-group-sm span.twitter-typeahead .form-control {
+  height: 30px;
+  padding: 5px 10px;
+  font-size: 12px;
+  line-height: 1.5;
+  border-radius: 3px;
+}
+
+.sysmodules-modal span.twitter-typeahead {
+  width: 100%;
+}
+
+.sysmodules-modal .input-group span.twitter-typeahead {
+  display: block !important;
+  height: 34px;
+}
+
+.sysmodules-modal .input-group span.twitter-typeahead .tt-menu,
+.sysmodules-modal .input-group span.twitter-typeahead .tt-dropdown-menu {
+  top: 32px !important;
+}
+
+.sysmodules-modal .input-group span.twitter-typeahead:not(:first-child):not(:last-child) .form-control {
+  border-radius: 0;
+}
+
+.sysmodules-modal .input-group span.twitter-typeahead:first-child .form-control {
+  border-top-left-radius: 4px;
+  border-bottom-left-radius: 4px;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.sysmodules-modal .input-group span.twitter-typeahead:last-child .form-control {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  border-top-right-radius: 4px;
+  border-bottom-right-radius: 4px;
+}
+
+.sysmodules-modal .input-group.input-group-sm span.twitter-typeahead {
+  height: 30px;
+}
+
+.sysmodules-modal .input-group.input-group-sm span.twitter-typeahead .tt-menu,
+.sysmodules-modal .input-group.input-group-sm span.twitter-typeahead .tt-dropdown-menu {
+  top: 30px !important;
+}
+
+.sysmodules-modal .input-group.input-group-lg span.twitter-typeahead {
+  height: 46px;
+}
+
+.sysmodules-modal .input-group.input-group-lg span.twitter-typeahead .tt-menu,
+.sysmodules-modal .input-group.input-group-lg span.twitter-typeahead .tt-dropdown-menu {
+  top: 46px !important;
+}
+
+.sysmodules-modal .form-control.tt-input {
+  font-weight: 600;
+  color: #000 !important;
+}
+
+.sysmodules-modal .form-control.tt-hint {
+  font-weight: 600;
+  color: #999 !important;
+}
+
+.sysmodules-modal div#parameters {
+  display: none;
+}
+
+.sysmodules-modal div#parms-grid .wok-datagrid-body {
+  overflow-x: hidden;
+  overflow-y: auto;
+  max-height: 175px;
+}
+
+.sysmodules-modal div#parms-grid .wok-datagrid-body > .wok-datagrid-row > span {
+  font-size: 10pt;
+  padding: 2px;
+}
+
+.sysmodules-modal div#parms-grid span.column-name {
+  width: 190px;
+}
+
+.sysmodules-modal div#parms-grid span.column-full {
+  width: 100%;
+}
+
+.sysmodules-modal div#parms-grid .wok-datagrid-header {
+  border-bottom: 1px solid #eee;
+}
+
+.sysmodules-modal div#parms-grid .wok-datagrid-body > .wok-datagrid-row > span.column-name {
+  font-weight: 600;
+}
+
+.sysmodules-modal div#parms-grid .wok-datagrid-body > .wok-datagrid-row > span.column-description {
+  width: 539px;
+}
+
+.sysmodules-modal div#parms-grid > .wok-datagrid-body > .wok-datagrid-row:first-child {
+  border-top: 0;
 }

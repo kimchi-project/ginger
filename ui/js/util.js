@@ -781,6 +781,20 @@ ginger.getSysmodule = function(module, suc, err) {
      });
  }
 
+ ginger.loadSysmodule = function(parms, suc, err){
+    $.ajax({
+        url : "plugins/ginger/sysmodules",
+        type : 'POST',
+        contentType : 'application/json',
+        dataType : 'json',
+        data : JSON.stringify(parms),
+        success: suc,
+        error: err || function(data) {
+            wok.message.error(data.responseJSON.reason);
+        }
+    });
+};
+
 ginger.removeSysmodule = function(moduleId, suc, err) {
     wok.requestJSON({
         url: 'plugins/ginger/sysmodules/' + moduleId,
