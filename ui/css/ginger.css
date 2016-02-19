@@ -153,7 +153,9 @@
   background-color: #008abf;
 }
 
-.ginger .modal-body .nav-tabs > li.active > a, .ginger .modal-body .nav-tabs > li.active > a:hover, .ginger .modal-body .nav-tabs > li.active > a:focus {
+.ginger .modal-body .nav-tabs > li.active > a,
+.ginger .modal-body .nav-tabs > li.active > a:hover,
+.ginger .modal-body .nav-tabs > li.active > a:focus {
   border-color: -moz-use-text-color -moz-use-text-color #008abf;
 }
 
@@ -948,49 +950,60 @@
 #form-nw-vlan-ipv4,
 #form-nw-vlan-general,
 #form-nw-vlan-ipv6,
-#form-nw-vlan-advance {
+#form-nw-vlan-advance,
+#form-nw-bond-general,
+#form-nw-bond-ipv4,
+#form-nw-bond-ipv6,
+#form-nw-bond-advance {
   margin: 15px 0 0;
   width: 98%;
 }
 
 #nw-settings-window .tab-content,
-#nw-vlan-window .tab-content {
+#nw-vlan-window .tab-content,
+#nw-bond-window .tab-content {
   height: 559px;
   overflow: auto;
 }
 
 #nw-settings-window .tab-content .tab-pane,
-#nw-vlan-window .tab-content .tab-pane {
+#nw-vlan-window .tab-content .tab-pane,
+#nw-bond-window .tab-content .tab-pane {
   position: relative;
 }
 
 #nw-settings-tabs .form-horizontal .control-label,
-#nw-vlan-tabs .form-horizontal .control-label {
+#nw-vlan-tabs .form-horizontal .control-label,
+#nw-bond-tabs .form-horizontal .control-label {
   text-align: left;
   padding-top: 0px;
 }
 
 #nw-settings-tabs .bootgrid-table,
-#nw-vlan-tabs .bootgrid-table {
+#nw-vlan-tabs .bootgrid-table,
+#nw-bond-tabs .bootgrid-table {
   height: 140px;
   width: 99%;
   margin-left: 1%;
 }
 
 #nw-settings-tabs .bootgrid-table th > .column-header-anchor > .icon,
-#nw-vlan-tabs .bootgrid-table th > .column-header-anchor > .icon {
+#nw-vlan-tabs .bootgrid-table th > .column-header-anchor > .icon,
+#nw-bond-tabs .bootgrid-table th > .column-header-anchor > .icon {
   right: 40%;
 }
 
 #nw-settings-tabs .bootgrid-table thead,
-#nw-vlan-tabs .bootgrid-table thead {
+#nw-vlan-tabs .bootgrid-table thead,
+#nw-bond-tabs .bootgrid-table thead {
   display: block;
   width: 100%;
   padding: 0;
 }
 
 #nw-settings-tabs .bootgrid-table tbody,
-#nw-vlan-tabs .bootgrid-table tbody {
+#nw-vlan-tabs .bootgrid-table tbody,
+#nw-bond-tabs .bootgrid-table tbody {
   height: 120px;
   overflow: auto;
   position: absolute;
@@ -999,13 +1012,15 @@
 }
 
 #nw-settings-tabs .bootgrid-table tr,
-#nw-vlan-tabs .bootgrid-table tr {
+#nw-vlan-tabs .bootgrid-table tr,
+#nw-bond-tabs .bootgrid-table tr {
   width: 100%;
   display: inline-table;
 }
 
 #nw-settings-tabs .bootgrid-table th,
-#nw-vlan-tabs .bootgrid-table th {
+#nw-vlan-tabs .bootgrid-table th,
+#nw-bond-tabs .bootgrid-table th {
   background-color: #eee;
 }
 
@@ -1250,4 +1265,176 @@
 #san-adapter-content-area .bootgrid-header div.search {
   margin: 0;
   width: 160px;
+}
+
+#host-sysmodules-root-container .accordion {
+  margin: 12px 20px 12px 60px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid #eee;
+  overflow: visible;
+  clear: both;
+}
+
+#host-sysmodules-root-container .accordion:first-chld {
+  margin-top: 24px;
+}
+
+#host-sysmodules-root-container .accordion > h3 {
+  margin: 0;
+  padding: 0;
+  font-size: 26px;
+  font-weight: 300;
+  height: 44px;
+  display: block;
+}
+
+#host-sysmodules-root-container .accordion > h3 a {
+  color: #3a393b;
+  text-decoration: none;
+  display: block;
+  padding: 6px 30px;
+  margin-left: -30px;
+  margin-right: -30px;
+}
+
+#host-sysmodules-root-container .accordion > h3 a span.accordion-icon {
+  margin-left: -52px;
+  vertical-align: middle;
+  display: inline-block;
+  font: normal normal normal 32px/1 FontAwesome;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  color: #3a393b;
+}
+
+#host-sysmodules-root-container .accordion > h3 a[aria-expanded="false"] span.accordion-icon:before {
+  content: "\f01a";
+}
+
+#host-sysmodules-root-container .accordion > h3 a[aria-expanded="true"] span.accordion-icon:before {
+  content: "\f01b";
+}
+
+#host-sysmodules-root-container .accordion > h3 a span.accordion-text {
+  margin-left: 23px;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+#host-sysmodules-root-container .navbar-default.toolbar {
+  background-color: #008abf !important;
+}
+
+#sysmodules-content-area {
+  padding: 0;
+  list-style-type: none;
+}
+
+#sysmodules-content-area .li:nth-child(even) {
+  background-color: #fcfcfc;
+}
+
+#sysmodules-content-area .li:nth-child(odd) {
+  background-color: #fff;
+}
+
+#sysmodules-content-area .header > span,
+#sysmodules-content-area .header > div,
+#sysmodules-content-area .body > span,
+#sysmodules-content-area .body > div {
+  padding: 6px 2px;
+  display: inline-block;
+  font-family: "Open Sans", Helvetica, Arial, "Lucida Grande", sans-serif;
+}
+
+#sysmodules-content-area .header {
+  border-top: 0 none;
+}
+
+#sysmodules-content-area .header > span,
+#sysmodules-content-area .header > div {
+  vertical-align: bottom;
+  height: 36px;
+  font-weight: 300;
+  font-size: 12.5pt;
+  line-height: 1.42857;
+  border-bottom: 0;
+  border-top: 0;
+}
+
+#sysmodules-content-area .body {
+  border-top: 1px solid #eee;
+}
+
+#sysmodules-content-area .body > span,
+#sysmodules-content-area .body > div {
+  vertical-align: middle;
+  font-size: 11pt;
+  line-height: 2.42857;
+  font-weight: 400;
+}
+
+#sysmodules-content-area .btn-group {
+  margin-bottom: 20px;
+}
+
+#sysmodules-content-area .column-name {
+  width: 30%;
+}
+
+#sysmodules-content-area .column-depends {
+  width: 30%;
+}
+
+#sysmodules-content-area .column-details {
+  width: 12%;
+  vertical-align: middle;
+  text-align: center;
+}
+
+#sysmodules-content-area .column-version {
+  width: 14%;
+}
+
+#sysmodules-content-area .column-actions {
+  width: 14%;
+}
+
+#sysmodules-content-area .sysmodules-details {
+  width: 100%;
+  padding: 22px;
+  background: #ddd;
+}
+
+#sysmodules-content-area .details-list {
+  max-height: 285px;
+  min-height: 140px;
+  background: #fff;
+  padding: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+#sysmodules-content-area .arrow-down,
+#sysmodules-content-area .arrow-up {
+  display: inline-block;
+  font: normal normal normal 14px/1 FontAwesome;
+  font-size: inherit;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  cursor: pointer;
+}
+
+#sysmodules-content-area .arrow-down:before {
+  content: "\f078";
+}
+
+#sysmodules-content-area .arrow-up:before {
+  content: "\f077";
+}
+
+#sysmodules-content-area .btn .fa-upload {
+  margin-right: 10px;
+  font-size: 20px;
 }
