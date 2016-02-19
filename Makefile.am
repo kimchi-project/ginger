@@ -78,7 +78,7 @@ check-local:
 		$(GIT) diff-tree --check                                  \
 			'4b825dc642cb6eb9a060e54bf8d69288fbee4904' HEAD ; \
 		echo "IBM copyright year verification ..." ;               \
-		./check-IBM-license-header.sh ;                           \
+		/bin/bash ../../../../check-IBM-license-header.sh ;       \
 	fi
 	@echo "Ok"
 
