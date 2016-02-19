@@ -45,9 +45,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
                         </a>
                     </h3>
                     <div id="sysmodules-content-area" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
-                         <div class="sysmodules-actions btn-group" id="sysmodules-actions-
-                         area">
-                            <button class="btn btn-primary actBtn load-modules-btn" type="submit" data-toggle="modal" data-target="#loadModule"><i class="fa fa-download"></i> $_("Load Modules")</button>
+                         <div class="sysmodules-actions btn-group" id="sysmodules-actions-area">
+                            <button class="btn btn-primary load-modules-btn" type="button" id="load_sysmodules_button"><i class="fa fa-download"></i> $_("Load Modules")</button>
                          </div>
                          <div class="pull-right">
                             <label for="search_input" class="sr-only">$_("Filter"):</label>
@@ -60,18 +59,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
                                 --><span class="column-version">$_("Version")</span><!--
                                 --><span class="column-details">$_("Details")</span><!--
                                 --><span class="column-actions" style="display:none">
-                                    <span class="sr-only">Actions</span><!--
+                                    <span class="sr-only">$_("Actions")</span><!--
                                 --></span>
                             </div>
                             <ul class="wok-datagrid-body list" id="sysmodules-body"></ul>
                          </div>
+                        <div class="wok-mask">
+                            <div class="wok-mask-loader-container">
+                                <div class="wok-mask-loading">
+                                    <div class="wok-mask-loading-icon"></div>
+                                    <div class="wok-mask-loading-text">$_("Loading...")</div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    <div id="modalWindow" class="modal fade host-modal sysmodules-modal" tabindex="-1" role="dialog" aria-labelledby="sysmodulesModalLabel" aria-hidden="true"></div>
 <script id="sysmodulesItem" type="html/text">
-    <li class="wok-datagrid-row in" name="sysmodulesBodyItem" id="{name}">
+    <li class="wok-datagrid-row in" name="sysmodulesBodyItem" id="{name}" data-id="{name}">
         <span class="column-name name-filter" title="{name}">{name}</span><!--
         --><span class="column-depends depends-filter">{depends}</span><!--
         --><span class="column-version version-filter">{version}</span><!--
@@ -80,10 +88,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
         </span><!--
         --><span class="column-actions btn btn-link btn-unload"><i class="fa fa-upload"></i> $_("Unload")</span>
         <div class="sysmodules-details" style="display: none;">
-            <div class="details-list" ></div>
+            <div class="details-list"></div>
         </div>
         <div class="clear"></div>
     </li>
+</script>
+<script id="detail-head" type="text/html">
+    <span class="column-{key}">
+        <span class='header-{key}'>{key}</span>
+        <span class='body-{key}'></span>
+    </span>
+</script>
+<script id="detail-body" type="text/html">
+    <span class="row-{index}">{object}</span>
+</script>
+<script id="detail-body-obj" type="text/html">
+    <span  class="row-{index}">
+        <span class="col-key">{key}:</span>
+        <span class="col-value">{value}</span>
+    </span>
 </script>
 <script>
     ginger.initSysmodules();

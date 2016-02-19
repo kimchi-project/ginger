@@ -17,6 +17,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 //
+
 #host-sysmodules-root-container {
     .accordion {
         @include ginger-accordion();
@@ -96,12 +97,117 @@
         background: $table-bg-active;
     }
     .details-list {
+        display: flex;
+        flex-wrap: wrap;
+        width: 100%;
         max-height: 285px;
         min-height: 140px;
         background: $table-bg;
         padding: 0;
         overflow-x: hidden;
         overflow-y: auto;
+        align-items: stretch;
+        align-content: stretch;
+
+        > span[class^=column-] {
+            display: block;
+            font-size: 15px;
+            float: left;
+            align-self: flex-start;
+            flex-grow: 1;
+        }
+
+        span[class^=header-] {
+            width: 100%;
+            display: block;
+            font-family: $font-family-base;
+            font-weight: 300;
+            font-size: 12.5pt;
+            border-bottom: none;
+            border-top: 0;
+            line-height: 1.42857;
+            height: 36px;
+            padding: 6px 12px;
+            text-transform: capitalize;
+        }
+
+        span[class^=body-] {
+            width: 100%;
+            display: block;
+        }
+
+        span[class^=row-] {
+            display: block;
+            width: 100%;
+            padding: 6px 12px;
+            font-weight: 600;
+            .col-value {
+              font-weight: 400;
+            }
+        }
+
+        span.column-filename {
+            order: 1;
+            width: 36%;
+        }
+
+        span.column-description {
+            order: 2;
+            width: 22.025%;
+        }
+
+        span.column-authors {
+            order: 3;
+            width: 17.80%;
+        }
+
+        span.column-license {
+            order: 4;
+        }
+
+        span.column-signer {
+            order: 5;
+        }
+
+        span.column-sig_key {
+            order: 6;
+            width: 36%;
+        }
+
+        span.column-sig_hashalgo {
+            order: 7;
+            width: 10.40%;
+        }
+
+        span.column-intree {
+            order: 8;
+            width: 10.40%;
+        }
+
+        span.column-srcversion {
+            order: 9;
+            width: 17.80%;
+        }
+
+        span.column-vermagic {
+            order: 10;
+        }
+
+        span.column-features {
+            order: 11;
+            width: 100%;
+        }
+
+        span.column-aliases {
+            order: 12;
+            width: 100%;
+        }
+
+        span.column-parms {
+            order: 13;
+            width: 100%;
+        }
+
     }
     .arrow-down,
     .arrow-up {

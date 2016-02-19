@@ -26,25 +26,24 @@ ginger.loadSysmodules = function() {
         $("#sysmodules-body").empty();
         for (var i = 0; i < data.length; i++) {
 
-            data[i].depends = data[i].depends.length != 0 ? data[i].depends : 'None';
-            data[i].version = data[i].version != undefined ? data[i].version : 'n/a';
+            data[i].depends = data[i].depends.length != 0 ? data[i].depends : i18n['GINSYS0001M'];
+            data[i].version = data[i].version != undefined ? data[i].version : i18n['GINSYS0002M'];
 
             var tempNode = $.parseHTML(wok.substitute($("#sysmodulesItem").html(), data[i]));
 
             $("#sysmodules-body").append(tempNode);
-
-            // TODO: Implement logic to fill details
-            $(".details-list", tempNode).append('Details');
+            $('#sysmodules-datagrid').removeClass('hidden');
+            $('.wok-mask').fadeOut(300, function() {});
 
             $(".btn-unload").on("click", function(event) {
                 event.preventDefault();
                 event.stopImmediatePropagation();
 
                 var settings = {
-                    title: i18n['KCHAPI6001M'],
-                    content: i18n['GINSYSMOD00001M'],
-                    confirm: i18n['KCHAPI6002M'],
-                    cancel: i18n['KCHAPI6003M']
+                    title: i18n['GINSYS0005M'],
+                    content: i18n['GINSYS0006M'],
+                    confirm: i18n['GINSYS0003M'],
+                    cancel: i18n['GINSYS0004M']
                 };
 
                 wok.confirm(settings, function() {
@@ -59,20 +58,22 @@ ginger.loadSysmodules = function() {
             });
         }
 
-        $('.load-modules-btn').on('click', function(event) {
-            // TODO: Implement load modules action
+        $('#load_sysmodules_button').on('click', function(event) {
+            // wok.window.open();
         });
 
         $('.arrow').on('click', function(event) {
             var that = $(this).parent().parent();
+            var module = that.data("id");
             var slide = $('.sysmodules-details', $(this).parent().parent());
             if (that.hasClass('in')) {
+                ginger.loadSysmodule(module);
                 that.css('height', 'auto');
                 that.removeClass('in');
                 ginger.changeArrow($('.arrow-down', that));
-                slide.slideDown('slow');
+                slide.slideDown();
             } else {
-                slide.slideUp('slow', function() {
+                slide.slideUp(function() {
                     that.css('height', '');
                 });
                 that.addClass('in');
@@ -87,6 +88,48 @@ ginger.loadSysmodules = function() {
 
         sysModFilterList.sort('name-filter', {
             order: "asc"
+        });
+    });
+};
+
+ginger.loadSysmodule = function(module) {
+    var that = $('[data-id='+module+']').find('.details-list');
+    that.html('');
+    ginger.getSysmodule(module, function(data) {
+        $.each(data, function(key, obj) {
+            if(key !== 'name' && key !== 'depends' && key !== 'version') {
+                if(obj && obj.length > 0){
+                    var pathNode = $.parseHTML(wok.substitute($("#detail-head").html(), {
+                        key: key
+                    }));
+                    $(that).append(pathNode);
+                    if(typeof obj !== 'object') {
+                        obj = obj.split(',');
+                    }
+                    $.each(obj, function(i,j){
+                        var parentPathNode = $.parseHTML(wok.substitute($("#detail-body").html(), {
+                            index: key,
+                            object: j
+                        }));
+                        $(that).find('.body-'+key).append(parentPathNode);
+                    });
+                } else if (typeof key !== 'object' && key.length > 0) {
+                    $.each(obj, function(i,j){
+                        if (j && j.length > 0) {
+                            var paramBody = $.parseHTML(wok.substitute($("#detail-head").html(),{
+                                key: key
+                            }));
+                            $(that).append(paramBody);
+                            var paramPathNode = $.parseHTML(wok.substitute($("#detail-body-obj").html(), {
+                                index: key,
+                                key: i,
+                                value: j
+                            }));
+                            $(that).find('.body-'+key).append(paramPathNode);
+                        }
+                    });
+                }
+            }
         });
     });
 };

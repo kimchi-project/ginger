@@ -748,26 +748,19 @@
   background-color: #008abf !important;
 }
 
-#network-ppc-content-area,
 #network-content-area {
   padding: 0;
   list-style-type: none;
 }
 
-#network-ppc-content-area .li:nth-child(even),
 #network-content-area .li:nth-child(even) {
   background-color: #fcfcfc;
 }
 
-#network-ppc-content-area .li:nth-child(odd),
 #network-content-area .li:nth-child(odd) {
   background-color: #fff;
 }
 
-#network-ppc-content-area .header > span,
-#network-ppc-content-area .header > div,
-#network-ppc-content-area .body > span,
-#network-ppc-content-area .body > div,
 #network-content-area .header > span,
 #network-content-area .header > div,
 #network-content-area .body > span,
@@ -777,13 +770,10 @@
   font-family: "Open Sans", Helvetica, Arial, "Lucida Grande", sans-serif;
 }
 
-#network-ppc-content-area .header,
 #network-content-area .header {
   border-top: 0 none;
 }
 
-#network-ppc-content-area .header > span,
-#network-ppc-content-area .header > div,
 #network-content-area .header > span,
 #network-content-area .header > div {
   vertical-align: bottom;
@@ -795,13 +785,10 @@
   border-top: 0;
 }
 
-#network-ppc-content-area .body,
 #network-content-area .body {
   border-top: 1px solid #eee;
 }
 
-#network-ppc-content-area .body > span,
-#network-ppc-content-area .body > div,
 #network-content-area .body > span,
 #network-content-area .body > div {
   vertical-align: middle;
@@ -810,132 +797,92 @@
   font-weight: 400;
 }
 
-#network-ppc-content-area .nw-interface-status-enabled .fa,
 #network-content-area .nw-interface-status-enabled .fa {
   font-size: 23px;
   color: #a8d46f;
 }
 
-#network-ppc-content-area .nw-interface-status-disabled .fa,
 #network-content-area .nw-interface-status-disabled .fa {
   font-size: 23px;
   color: #9E9E9E;
 }
 
-#network-ppc-content-area .gridHeader,
 #network-content-area .gridHeader {
   text-align: left;
 }
 
-#network-ppc-content-area .bootgrid-table,
 #network-content-area .bootgrid-table {
   height: 300px;
   width: 100%;
 }
 
-#network-ppc-content-area .bootgrid-table th > .column-header-anchor > .icon,
 #network-content-area .bootgrid-table th > .column-header-anchor > .icon {
   right: 40%;
 }
 
-#network-ppc-content-area .bootgrid-table thead,
 #network-content-area .bootgrid-table thead {
   display: block;
   width: 100%;
   padding: 0;
 }
 
-#network-ppc-content-area .bootgrid-table tbody,
 #network-content-area .bootgrid-table tbody {
   height: 250px;
-  overflow-y: scroll;
+  overflow: scroll;
   position: absolute;
   width: 87%;
 }
 
-#network-ppc-content-area .bootgrid-table tr,
 #network-content-area .bootgrid-table tr {
   width: 100%;
   display: inline-table;
 }
 
-#network-ppc-content-area .bootgrid-header .actionBar,
 #network-content-area .bootgrid-header .actionBar {
   padding: 0.5% 0 0;
   text-align: right;
 }
 
-#network-ppc-content-area .bootgrid-header div.search,
 #network-content-area .bootgrid-header div.search {
   margin: 0;
   width: 160px;
 }
 
-#network-ppc-content-area .column-name {
-  width: 22.9%;
+#network-global-content-area {
+  height: 325px;
 }
 
-@media (min-width: 1715px) {
-  #network-ppc-content-area .column-name {
-    width: 164px;
-  }
-}
-
-#network-ppc-content-area .column-ip-address {
-  width: 30%;
-}
-
-@media (min-width: 1715px) {
-  #network-ppc-content-area .column-ip-address {
-    width: 290px;
-  }
-}
-
-#network-ppc-content-area .column-ip-mask {
-  width: 30%;
-}
-
-@media (min-width: 1715px) {
-  #network-ppc-content-area .column-ip-mask {
-    width: 290px;
-  }
-}
-
-#network-ppc-content-area .column-actions {
-  width: 70px;
-}
-
-#network-ppc-content-area .network-item {
-  padding: 2px;
-  font-family: "Open Sans", Helvetica, Arial, "Lucida Grande", sans-serif;
-  font-size: 11pt;
-}
-
-#network-ppc-content-area .form-inline {
-  margin-top: 15px;
-}
-
-#network-ppc-content-area .form-control {
-  width: 82.75%;
-}
-
-#network-ppc-content-area .column-dns-ip-address {
-  width: 62%;
-}
-
-#network-ppc-content-area .column-dns-ip-address .form-control {
+#network-global-content-area .bootgrid-table {
+  height: 200px;
   width: 100%;
+  margin-left: 1%;
 }
 
-#network-ppc-content-area .addBtn {
-  margin-bottom: 20px;
-  width: 115px;
+#network-global-content-area .bootgrid-table th > .column-header-anchor > .icon {
+  right: 40%;
 }
 
-#network-ppc-content-area .btn-link {
-  width: 32px;
-  padding: 3px 2px;
-  text-align: center;
+#network-global-content-area .bootgrid-table thead {
+  display: block;
+  width: 100%;
+  padding: 0;
+}
+
+#network-global-content-area .bootgrid-table tbody {
+  height: 180px;
+  overflow: auto;
+  width: 100%;
+  position: absolute;
+  border: 1px solid #eee;
+}
+
+#network-global-content-area .bootgrid-table tr {
+  width: 100%;
+  display: inline-table;
+}
+
+#network-global-content-area .bootgrid-table th {
+  background-color: #eee;
 }
 
 #nw-settings-window .tab-content {
@@ -1378,6 +1325,10 @@
   margin-bottom: 20px;
 }
 
+#sysmodules-content-area .actBtn {
+  width: 115px;
+}
+
 #sysmodules-content-area .column-name {
   width: 30%;
 }
@@ -1407,12 +1358,117 @@
 }
 
 #sysmodules-content-area .details-list {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
   max-height: 285px;
   min-height: 140px;
   background: #fff;
   padding: 0;
   overflow-x: hidden;
   overflow-y: auto;
+  align-items: stretch;
+  align-content: stretch;
+}
+
+#sysmodules-content-area .details-list > span[class^=column-] {
+  display: block;
+  font-size: 15px;
+  float: left;
+  align-self: flex-start;
+  flex-grow: 1;
+}
+
+#sysmodules-content-area .details-list span[class^=header-] {
+  width: 100%;
+  display: block;
+  font-family: "Open Sans", Helvetica, Arial, "Lucida Grande", sans-serif;
+  font-weight: 300;
+  font-size: 12.5pt;
+  border-bottom: none;
+  border-top: 0;
+  line-height: 1.42857;
+  height: 36px;
+  padding: 6px 12px;
+  text-transform: capitalize;
+}
+
+#sysmodules-content-area .details-list span[class^=body-] {
+  width: 100%;
+  display: block;
+}
+
+#sysmodules-content-area .details-list span[class^=row-] {
+  display: block;
+  width: 100%;
+  padding: 6px 12px;
+  font-weight: 600;
+}
+
+#sysmodules-content-area .details-list span[class^=row-] .col-value {
+  font-weight: 400;
+}
+
+#sysmodules-content-area .details-list span.column-filename {
+  order: 1;
+  width: 36%;
+}
+
+#sysmodules-content-area .details-list span.column-description {
+  order: 2;
+  width: 22.025%;
+}
+
+#sysmodules-content-area .details-list span.column-authors {
+  order: 3;
+  width: 17.80%;
+}
+
+#sysmodules-content-area .details-list span.column-license {
+  order: 4;
+}
+
+#sysmodules-content-area .details-list span.column-signer {
+  order: 5;
+}
+
+#sysmodules-content-area .details-list span.column-sig_key {
+  order: 6;
+  width: 36%;
+}
+
+#sysmodules-content-area .details-list span.column-sig_hashalgo {
+  order: 7;
+  width: 10.40%;
+}
+
+#sysmodules-content-area .details-list span.column-intree {
+  order: 8;
+  width: 10.40%;
+}
+
+#sysmodules-content-area .details-list span.column-srcversion {
+  order: 9;
+  width: 17.80%;
+}
+
+#sysmodules-content-area .details-list span.column-vermagic {
+  order: 10;
+}
+
+#sysmodules-content-area .details-list span.column-features {
+  order: 11;
+  width: 100%;
+}
+
+#sysmodules-content-area .details-list span.column-aliases {
+  order: 12;
+  width: 100%;
+}
+
+#sysmodules-content-area .details-list span.column-parms {
+  order: 13;
+  width: 100%;
 }
 
 #sysmodules-content-area .arrow-down,
