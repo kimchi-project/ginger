@@ -108,6 +108,7 @@ messages = {
     "GINNET0068E": _("Device name is invalid."),
     "GINNET0070E": _("Gateway information is missing."),
     "GINNET0071E": _("Invalid prefix '%(PREFIX)s'."),
+    "GINNET0072E": _("Interface with the name '%(iface)s' already exists ."),
 
     "GINUSER0001E": _("Specify name, password, group and profile for the new "
                       "user."),

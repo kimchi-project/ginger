@@ -44,9 +44,7 @@ class InterfacesModel(object):
         and interfaces that are inactive and are of type of bond and vlan.
         :return:
         """
-        nics = [nic for nic in netinfo.all_interfaces()]
-        nics_with_cfgfiles = (cfginterfaces.get_bond_vlan_interfaces())
-        return set(nics + nics_with_cfgfiles)
+        return cfginterfaces.get_interface_list()
 
 
 class InterfaceModel(object):
@@ -216,7 +214,7 @@ class InterfaceModel(object):
                              "activating an interface may not as expected.")
             else:
                 wok_log.info(
-                    'Successfully brought up the interface ' + ifacename)
+                        'Successfully brought up the interface ' + ifacename)
         wok_log.info('Activating an interface ' + ifacename)
         cmd_ifup = ['ifup', '%s' % ifacename]
         out, error, returncode = run_command(cmd_ifup)
@@ -265,7 +263,17 @@ class InterfaceModel(object):
                              "activating an interface may not as expected.")
             else:
                 wok_log.info(
-                    'Successfully brought down the interface ' + ifacename)
+                        'Successfully brought down the interface ' + ifacename)
+        vlan_or_bond = [cfginterfaces.IFACE_BOND, cfginterfaces.IFACE_VLAN]
+        if iface_type in vlan_or_bond:
+            if ifacename in ethtool.get_devices():
+                cmd_ip_link_del = ['ip', 'link', 'delete', '%s' % ifacename]
+                out, error, returncode = run_command(cmd_ip_link_del)
+                if returncode != 0 and ifacename in ethtool.get_devices():
+                    wok_log.error('Unable to delete the interface ' +
+                                  ifacename + ', ' + error)
+                raise OperationFailed('GINNET0017E', {'name': ifacename,
+                                                      'error': error})
 
     def wait_time(self, ifacename):
         timeout = 0

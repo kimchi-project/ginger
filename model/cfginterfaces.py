@@ -23,8 +23,9 @@ import augeas
 import ethtool
 import os
 import platform
-import shutil
 import re
+import shutil
+import threading
 
 from netaddr import IPAddress
 
@@ -34,6 +35,7 @@ from interfaces import InterfaceModel
 from wok.exception import InvalidParameter, MissingParameter, OperationFailed
 from wok.utils import run_command, wok_log
 
+gingerNetworkLock = threading.RLock()
 parser = augeas.Augeas("/")
 
 
@@ -105,6 +107,7 @@ BOOTPROTO = 'BOOTPROTO'
 DHCP = 'dhcp'
 AUTOIP = 'autoip'
 MANUAL = 'none'
+STATIC = "static"
 BOOTPROTO_OPTIONS = [DHCP, AUTOIP, MANUAL]
 
 # Use this connection only for resources on its network
@@ -149,6 +152,30 @@ CONST_NO = 'no'
 CONST_SPACE = ' '
 
 
+def get_interface_list():
+    nics = [nic for nic in netinfo.all_interfaces()]
+    # skip nics other than ethernet,bond and type
+    nics = filter_nics(nics)
+    nics_with_cfgfiles = (get_bond_vlan_interfaces())
+    return set(nics + nics_with_cfgfiles)
+
+
+def filter_nics(interfaces):
+    """
+    This method will filter and return interfaces which are of type
+    bond , ethernet and vlan
+    :param interfaces:
+    :return:
+    """
+    nics = []
+    for nic in interfaces:
+        if netinfo.get_interface_type(nic) in \
+                [IFACE_ETHERNET, IFACE_BOND,
+                 IFACE_VLAN]:
+            nics.append(nic)
+    return nics
+
+
 def get_bond_vlan_interfaces():
     """
     This will return nics which are bond/vlan and are inactive with ifcfg
@@ -157,25 +184,30 @@ def get_bond_vlan_interfaces():
     :return: nics
     """
     nics = []
-    pattern = network_configpath + '*/TYPE'
-    parser.load()
-    listout = parser.match(pattern)
-    for input in listout:
-        interface_type = parser.get(input)
-        # Fix for ginger issue #70
-        interface_type = trim_quotes(interface_type)
-        if interface_type in [IFACE_BOND, IFACE_VLAN]:
-            cfg_file = input.rsplit('/', 1)[0]
-            try:
-                cfg_device = parser.get(cfg_file + '/DEVICE')
-                # Fix for ginger issue #70
-                cfg_device = trim_quotes(cfg_device)
-                if(is_cfgfileexist(cfg_device)):
-                    nics.append(cfg_device)
-                else:
-                    wok_log.warn("no ifcfg file found,skipping"+cfg_device)
-            except Exception, e:
-                wok_log.warn("no device name found,skipping", e)
+    try:
+        gingerNetworkLock.acquire()
+        pattern = network_configpath + '*/TYPE'
+        parser.load()
+        listout = parser.match(pattern)
+        for input in listout:
+            interface_type = parser.get(input)
+            # Fix for ginger issue #70
+            interface_type = trim_quotes(interface_type)
+            if interface_type in [IFACE_BOND, IFACE_VLAN]:
+                cfg_file = input.rsplit('/', 1)[0]
+                try:
+                    cfg_device = parser.get(cfg_file + '/DEVICE')
+                    # Fix for ginger issue #70
+                    cfg_device = trim_quotes(cfg_device)
+                    if (is_cfgfileexist(cfg_device)):
+                        nics.append(cfg_device)
+                    else:
+                        wok_log.warn("no ifcfg file found,skipping" +
+                                     cfg_device)
+                except Exception, e:
+                    wok_log.warn("no device name found,skipping", e)
+    finally:
+        gingerNetworkLock.release()
     return nics
 
 
@@ -216,15 +248,19 @@ def getValue(iface, key):
     :param key: attribute/key to be checked in ifcfg file
     :return:value of key in ifcfgfile
     """
-    if is_cfgfileexist(iface):
-        file = network_configpath + ifcfg_filename_format % iface
-        if token_exist(file, str(key)):
-            key_val = parser.get(file + "/" + str(key))
-            # Fix for ginger issue #70
-            key_val = trim_quotes(key_val)
-            return str(key_val)
-    else:
-        return ""
+    key_val = ""
+    try:
+        gingerNetworkLock.acquire()
+        if is_cfgfileexist(iface):
+            file = network_configpath + ifcfg_filename_format % iface
+            if token_exist(file, str(key)):
+                key_val = parser.get(file + "/" + str(key))
+                # Fix for ginger issue #70
+                key_val = trim_quotes(key_val)
+                return str(key_val)
+    finally:
+        gingerNetworkLock.release()
+    return key_val
 
 
 def token_exist(ifcfg_file, key):
@@ -234,13 +270,16 @@ def token_exist(ifcfg_file, key):
     :param key: key to be checked/
     :return:True if key found
     """
-
-    parser.load()
-    l = parser.match(ifcfg_file + os.sep + key)
-    if len(l) == 1:
-        return True
-    else:
-        return False
+    is_token_exist = False
+    try:
+        gingerNetworkLock.acquire()
+        parser.load()
+        l = parser.match(ifcfg_file + os.sep + key)
+        if len(l) == 1:
+            is_token_exist = True
+    finally:
+        gingerNetworkLock.release()
+    return is_token_exist
 
 
 # Fix for ginger issue #70
@@ -259,10 +298,10 @@ def trim_quotes(param):
 
 class CfginterfacesModel(object):
     def get_list(self):
-        nics = ethtool.get_devices()
+        nics = get_interface_list()
         # To handle issue https://github.com/kimchi-project/ginger/issues/99
         # cfginterface resource model deals with interface which has config
-        # files. remove interface from interface list if ifcfg file not exist.
+        # files.remove interface from interface list if ifcfg file not exist.
         nics_with_ifcfgfile = []
         for iface in nics:
             filename = ifcfg_filename_format % iface
@@ -273,11 +312,9 @@ class CfginterfacesModel(object):
             else:
                 nics_with_ifcfgfile.append(iface)
         return sorted(nics_with_ifcfgfile)
+        # return get_interface_list()
 
     def create(self, params):
-        cfg_map = self.validate_minimal_info(params)
-        CfginterfaceModel().write_attributes_to_cfg(
-            params[BASIC_INFO][DEVICE], cfg_map)
         if params[BASIC_INFO][TYPE] == IFACE_BOND:
             return self.create_bond(params)
         elif params[BASIC_INFO][TYPE] == IFACE_VLAN:
@@ -287,9 +324,12 @@ class CfginterfacesModel(object):
             raise InvalidParameter("GINNET0052E")
 
     def create_bond(self, params):
+        cfg_map = self.validate_minimal_info(params)
         if DEVICE in params[BASIC_INFO] and params[BASIC_INFO][DEVICE] != "":
             name = params[BASIC_INFO][DEVICE]
             params[BASIC_INFO][NAME] = name
+            CfginterfaceModel().write_attributes_to_cfg(
+                params[BASIC_INFO][DEVICE], cfg_map)
             CfginterfaceModel().update(name, params)
             return name
         else:
@@ -297,13 +337,16 @@ class CfginterfacesModel(object):
             raise MissingParameter("GINNET0025E")
 
     def create_vlan(self, params):
+        cfg_map = self.validate_minimal_info(params)
         self.validate_info_for_vlan(params)
         self.validate_vlan_driver()
         name = params[BASIC_INFO][DEVICE]
         params[BASIC_INFO][NAME] = name
-        parent_iface = params[BASIC_INFO][VLANINFO][PHYSDEV]
-        if netinfo.get_interface_type(parent_iface) == IFACE_BOND:
-            self.validate_bond_for_vlan(parent_iface)
+        # parent_iface = params[BASIC_INFO][VLANINFO][PHYSDEV]
+        # if netinfo.get_interface_type(parent_iface) == IFACE_BOND:
+        #     self.validate_bond_for_vlan(parent_iface)
+        CfginterfaceModel().write_attributes_to_cfg(
+            params[BASIC_INFO][DEVICE], cfg_map)
         CfginterfaceModel().update(name, params)
         return name
 
@@ -327,6 +370,11 @@ class CfginterfacesModel(object):
         else:
             self.validate_device_name(params[BASIC_INFO][DEVICE])
             cfg_map[DEVICE] = params[BASIC_INFO][DEVICE]
+            if cfg_map[DEVICE] in get_bond_vlan_interfaces():
+                wok_log.error("Interface with the name %s already exists"
+                              % params[BASIC_INFO][DEVICE])
+                raise InvalidParameter('GINNET0072E', {'iface': cfg_map[
+                    DEVICE]})
         if TYPE not in params[BASIC_INFO]:
             wok_log.error("Type info is missing")
             raise MissingParameter("GINNET0038E")
@@ -463,26 +511,31 @@ class CfginterfaceModel(object):
         if params:
             slave_list = self.get_slaves(params)
             for each_slave in slave_list:
-                wok_log.info("Removing slave information from slave " +
-                             each_slave)
-                # TODO restart an interface or leave it as it is based on
-                # investigation
-                token_to_del = ["MASTER", "SLAVE"]
-                for each_token in token_to_del:
-                    self.delete_token_from_cfg(each_slave, each_token)
+                self.clean_slave_tokens(each_slave)
         p_file = self.get_iface_cfg_fullpath(interface_name)
         self.delete_persist_file(os.sep + p_file)
         self.clean_routes(interface_name, 4)
         self.clean_routes(interface_name, 6)
 
+    def clean_slave_tokens(self, slave):
+        wok_log.info("Removing slave information from slave " + slave)
+        # TODO restart an interface or leave it as it is based on
+        # investigation
+        token_to_del = [MASTER, SLAVE]
+        for each_token in token_to_del:
+            self.delete_token_from_cfg(slave, each_token)
+
     def delete_token_from_cfg(self, name, token):
         filename = self.get_iface_cfg_fullpath(name)
         try:
+            gingerNetworkLock.acquire()
             parser.remove(filename + os.sep + token)
             parser.save()
         except Exception, e:
             wok_log.error("Augeas parser throw run time exception ", e)
             raise OperationFailed("GINNET0058E", {'error': e})
+        finally:
+            gingerNetworkLock.release()
 
     def delete_persist_file(self, ifcfg_file):
         wok_log.info('Deleting persist file ' + ifcfg_file)
@@ -510,6 +563,7 @@ class CfginterfaceModel(object):
             return cfgmap
         # load everytime to reflect the current configuration in folder
         try:
+            gingerNetworkLock.acquire()
             parser.load()
             listout = parser.match(ifcfg_file_pattern)
             if not listout:
@@ -525,6 +579,8 @@ class CfginterfaceModel(object):
             # u'etc/sysconfig/network-scripts/ifcfg-virbr0
             wok_log.error('Augeas parser throw run time exception', e)
             raise OperationFailed('GINNET0015E', {'error': e})
+        finally:
+            gingerNetworkLock.release()
         wok_log.info('reading finished. Key value :' + str(cfgmap))
         return cfgmap
 
@@ -608,7 +664,8 @@ class CfginterfaceModel(object):
             for key in ipv4_info_keys:
                 if key in cfgmap:
                     info[IPV4_ID][key] = cfgmap[key]
-            if BOOTPROTO in cfgmap and info[IPV4_ID][BOOTPROTO] == MANUAL:
+            if BOOTPROTO in cfgmap and (info[IPV4_ID][BOOTPROTO] == MANUAL or
+                                        info[IPV4_ID][BOOTPROTO] == STATIC):
                 info[IPV4_ID][IPV4Addresses] = self.get_ipv4_addresses(cfgmap)
             dnsaddresses = self.get_dnsv4_info(cfgmap)
             if len(dnsaddresses) > 0:
@@ -747,7 +804,8 @@ class CfginterfaceModel(object):
             if BONDING_OPTS in cfgmap:
                 bonding_opts_str = cfgmap[BONDING_OPTS]
                 bonding_opts_str = bonding_opts_str[1:-1]
-                bonding_opts_str = bonding_opts_str.rstrip()
+                bonding_opts_str = bonding_opts_str.strip()
+                bonding_opts_str = re.sub(' +', ' ', bonding_opts_str)
                 bonding_opts_dict = dict(
                     x.split('=') for x in bonding_opts_str.split(' '))
                 info[BASIC_INFO][BONDINFO][BONDING_OPTS] = bonding_opts_dict
@@ -756,38 +814,48 @@ class CfginterfaceModel(object):
         return info
 
     def get_master(self, cfgmap):
-        if MASTER in cfgmap:
-            master_bond = cfgmap[MASTER]
-            pattern = network_configpath + '*/DEVICE'
-            parser.load()
-            listout = parser.match(pattern)
-            master_found = False
-            for device in listout:
-                if master_bond == parser.get(device):
-                    master_found = True
-                    master_bond = parser.get(device)
-                    return master_bond
-            if not master_found:
-                wok_log.info('No master found for slave:')
-                return ''
-                # TODO write logic to get master bond in case MASTER
-                #  = UUID//NMsupport
+        master_bond = ''
+        try:
+            gingerNetworkLock.acquire()
+            if MASTER in cfgmap:
+                master_bond = cfgmap[MASTER]
+                pattern = network_configpath + '*/DEVICE'
+                parser.load()
+                listout = parser.match(pattern)
+                master_found = False
+                for device in listout:
+                    if master_bond == trim_quotes(parser.get(device)):
+                        master_found = True
+                        master_bond = trim_quotes(parser.get(device))
+                        return master_bond
+                if not master_found:
+                    wok_log.info('No master found for slave:')
+                    # TODO write logic to get master bond in case MASTER
+                    #  = UUID//NMsupport
+        finally:
+            gingerNetworkLock.release()
+        return master_bond
 
     def get_slaves(self, cfgmap):
-        master_device = cfgmap[DEVICE]
-        pattern = network_configpath + '*/MASTER'
-        parser.load()
-        listout = parser.match(pattern)
-        slave_found = False
         slaves = []
-        for a_slave in listout:
-            if master_device == parser.get(a_slave):
-                slave_found = True
-                slave_cfg_file = a_slave.rsplit('/', 1)[0]
-                slave_name = parser.get(slave_cfg_file + '/DEVICE')
-                slaves.append(slave_name)
-        if not slave_found:
-            wok_log.info('No slaves found for master:' + master_device)
+        try:
+            gingerNetworkLock.acquire()
+            master_device = cfgmap[DEVICE]
+            pattern = network_configpath + '*/MASTER'
+            parser.load()
+            listout = parser.match(pattern)
+            slave_found = False
+            for a_slave in listout:
+                if master_device == trim_quotes(parser.get(a_slave)):
+                    slave_found = True
+                    slave_cfg_file = a_slave.rsplit('/', 1)[0]
+                    slave_name = trim_quotes(parser.get(slave_cfg_file +
+                                                        '/DEVICE'))
+                    slaves.append(slave_name)
+            if not slave_found:
+                wok_log.info('No slaves found for master:' + master_device)
+        finally:
+            gingerNetworkLock.release()
         return slaves
 
     def validate_ipv4_address(self, ip):
@@ -874,7 +942,7 @@ class CfginterfaceModel(object):
             cfgmap[ZONE] = params[BASIC_INFO][ZONE]
         if (TYPE in params[BASIC_INFO] and
            params[BASIC_INFO][TYPE] == IFACE_BOND):
-            cfgmap.update(self.validate_and_get_bond_info(params))
+            cfgmap.update(self.validate_and_get_bond_info(params, cfgmap))
         if TYPE in params[BASIC_INFO] \
                 and params[BASIC_INFO][TYPE] == IFACE_VLAN:
             cfgmap.update(self.validate_and_get_vlan_info(params, cfgmap))
@@ -1051,6 +1119,11 @@ class CfginterfaceModel(object):
             cfgmap = self.update_ipv6(cfgmap, params)
         self.update_cfgfile(cfgmap, params)
 
+    def clean_slaves(self, cfgmap):
+        existing_slaves = CfginterfaceModel().get_slaves(cfgmap)
+        for each_slave in existing_slaves:
+            self.clean_slave_tokens(each_slave)
+
     def update_cfgfile(self, cfgmap, params):
         iface_id = self.get_iface_identifier(cfgmap)
         p_file = os.sep + self.get_iface_cfg_fullpath(iface_id)
@@ -1088,18 +1161,22 @@ class CfginterfaceModel(object):
             return None
 
     def write_attributes_to_cfg(self, interface_name, cfgmap):
-        filename = ifcfg_filename_format % interface_name
-        ifcfgFile = os.sep + network_configpath + filename
-        fileexist = os.path.isfile(ifcfgFile)
-        if not fileexist:
-            open(ifcfgFile, "w").close()
-            os.system('chmod 644 ' + ifcfgFile)
-        parser.load()
-        ifcfg_file_pattern = network_configpath + filename + '/'
-        for key, value in cfgmap.iteritems():
-            path = ifcfg_file_pattern + key
-            parser.set(path, str(value))
-        parser.save()
+        try:
+            gingerNetworkLock.acquire()
+            filename = ifcfg_filename_format % interface_name
+            ifcfgFile = os.sep + network_configpath + filename
+            fileexist = os.path.isfile(ifcfgFile)
+            if not fileexist:
+                open(ifcfgFile, "w").close()
+                os.system('chmod 644 ' + ifcfgFile)
+            parser.load()
+            ifcfg_file_pattern = network_configpath + filename + '/'
+            for key, value in cfgmap.iteritems():
+                path = ifcfg_file_pattern + key
+                parser.set(path, str(value))
+            parser.save()
+        finally:
+            gingerNetworkLock.release()
 
     def update_ipv6(self, cfgmap, params):
         """
@@ -1286,12 +1363,15 @@ class CfginterfaceModel(object):
                 dnsstartindexcount += 1
         return cfgmap
 
-    def validate_and_get_bond_info(self, params):
+    def validate_and_get_bond_info(self, params, cfgmap):
+        if cfgmap[TYPE] == IFACE_BOND:
+            self.clean_slaves(cfgmap)
         bond_info = {}
         wok_log.info('Validating bond info given for interface')
-        if DEVICE not in params[BASIC_INFO]:
+        if DEVICE not in cfgmap:
             wok_log.error("Missing parameter: DEVICE")
             raise MissingParameter("GINNET0025E")
+        CfginterfacesModel().validate_device_name(cfgmap[DEVICE])
         if BONDINFO not in params[BASIC_INFO]:
             wok_log.error("Missing parameter: BONDINFO")
             raise MissingParameter("GINNET0032E")
@@ -1334,7 +1414,7 @@ class CfginterfaceModel(object):
             wok_log.error("Minimum one slave has to be given for the bond "
                           "interface")
             raise MissingParameter("GINNET0037E")
-        name = params[BASIC_INFO][DEVICE]
+        name = cfgmap[DEVICE]
         self.create_slaves(name, params)
         bond_info[TYPE] = params[BASIC_INFO][TYPE]
         return bond_info
@@ -1392,7 +1472,7 @@ class CfginterfaceModel(object):
             validate_integer(opt_value)
 
         def validate_mode(opt_value):
-            possible_values = ["balance-rr", "active-backup", "balance-xo",
+            possible_values = ["balance-rr", "active-backup", "balance-xor",
                                "broadcast", "802.3ad", "balance-tlb",
                                "balance-alb", "0", "1", "2", "3", "4", "5",
                                "6"]
@@ -1463,10 +1543,7 @@ class CfginterfaceModel(object):
         if DEVICE not in cfgmap:
             wok_log.error("Missing parameter: DEVICE")
             raise MissingParameter("GINNET0025E")
-        # if len(cfgmap[DEVICE]) > 15:
-        #     wok_log.error("Maximum length of device name is 15 characters "
-        #                   "only")
-        #     raise MissingParameter("GINNET0067E")
+        CfginterfacesModel().validate_device_name(cfgmap[DEVICE])
         device = cfgmap[DEVICE]
         if device.count(DOT) > 1:
             wok_log.error("Invalid Vlan device name has given")
