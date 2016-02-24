@@ -23,6 +23,7 @@ from wok.control.utils import load_url_sub_node
 
 from backup import Backup
 from capabilities import Capabilities
+from config import Config
 from dasddevs import DASDdevs
 from dasdpartitions import DASDPartitions
 from diskparts import Partitions
@@ -48,6 +49,7 @@ sub_nodes = load_url_sub_node(os.path.dirname(__file__), __name__)
 __all__ = [
     Backup,
     Capabilities,
+    Config,
     DASDdevs,
     DASDPartitions,
     FileSystems,

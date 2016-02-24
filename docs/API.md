@@ -64,6 +64,23 @@ server.
 *No actions defined*
 
 
+### Resource: Configuration
+
+**URI:** /plugins/ginger/config
+
+Contains information about Ginger configuration.
+
+**Methods:**
+
+* **GET**: Retrieve configuration information
+    * version: The version of the Ginger plugin
+* **POST**: *See Configuration Actions*
+
+**Actions (POST):**
+
+*No actions defined*
+
+
 ### Resource: Firmware (Power System firmware)
 
 **URI:** /plugins/ginger/firmware

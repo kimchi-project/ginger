@@ -17,30 +17,7 @@
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
-controls_PYTHON = \
-	__init__.py \
-	backup.py \
-	capabilities.py \
-	cfginterfaces.py \
-	dasddevs.py \
-	dasdpartitions.py \
-	diskparts.py \
-	firmware.py \
-	ibm_sep.py \
-	interfaces.py \
-	network.py \
-	physical_vol.py \
-	powermanagement.py \
-	sanadapters.py \
-	sensors.py \
-	storage_devs.py \
-	sysmodules.py \
-	users.py \
-	swaps.py \
-	filesystems.py \
-	vol_group.py \
-	log_volumes.py \
-	$(NULL)
+controls_PYTHON = $(wildcard *.py)
 
 controlsdir = $(pythondir)/wok/plugins/ginger/control
 

@@ -21,6 +21,7 @@ import inspect
 
 from backup import ArchiveModel, ArchivesModel, BackupModel
 from capabilities import CapabilitiesModel
+from config import ConfigModel
 from cfginterfaces import CfginterfaceModel, CfginterfacesModel
 from dasddevs import DASDdevsModel, DASDdevModel
 from dasdpartitions import DASDPartitionsModel, DASDPartitionModel
@@ -41,7 +42,7 @@ from sysmodules import SysModulesModel, SysModuleModel
 from users import UsersModel, UserModel
 from vol_group import VolumeGroupsModel, VolumeGroupModel
 
-from wok import config
+from wok import config as wok_config
 from wok.basemodel import BaseModel
 from wok.objectstore import ObjectStore
 from wok.utils import import_module, upgrade_objectstore_schema
@@ -61,7 +62,7 @@ class GingerModel(BaseModel):
 
             return instances
 
-        objstore_loc = config.get_object_store() + '_ginger'
+        objstore_loc = wok_config.get_object_store() + '_ginger'
         self._objstore = ObjectStore(objstore_loc)
         # Some paths or URI's present in the objectstore have changed after
         # Wok 2.0.0 release. Check here if a schema upgrade is necessary.
@@ -115,6 +116,7 @@ class GingerModel(BaseModel):
                     vol_groups, log_volumes, stgdevs, firmwareprogress,
                     sysmodules, cfginterfaces]
         capabilities = CapabilitiesModel(features)
+        config = ConfigModel()
 
         sub_models = [
             backup, archives, archive,
@@ -136,7 +138,7 @@ class GingerModel(BaseModel):
             sysmodules, sysmodule,
             vol_groups, vol_group,
             ibm_sep, subscription, subscriber,
-            capabilities]
+            capabilities, config]
 
         # Import task model from Wok
         kargs = {'objstore': self._objstore}

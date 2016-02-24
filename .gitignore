@@ -16,6 +16,7 @@ config.status
 configure
 contrib/DEBIAN/control
 contrib/make-deb.sh
+model/config.py
 data/
 ginger-*.tar.gz
 ginger.spec

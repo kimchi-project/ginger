@@ -20,10 +20,11 @@
 import json
 import os
 
-from control import Backup, Capabilities, DASDdevs, DASDPartitions, Firmware
-from control import FirmwareProgress, FileSystems, LogicalVolumes, Network
-from control import Partitions, PhysicalVolumes, PowerProfiles, SanAdapters
-from control import Sensors, Sep, StorageDevs, Swaps, SysModules, Users
+from control import Backup, Capabilities, Config, DASDdevs, DASDPartitions
+from control import Firmware, FirmwareProgress, FileSystems, LogicalVolumes
+from control import Network, Partitions, PhysicalVolumes, PowerProfiles
+from control import SanAdapters, Sensors, Sep, StorageDevs, Swaps, SysModules
+from control import Users
 from control import VolumeGroups
 from i18n import messages
 
@@ -51,6 +52,7 @@ class Ginger(WokRoot):
 
         self.backup = Backup(self.model)
         self.capabilities = Capabilities(self.model)
+        self.config = Config(self.model)
         self.dasddevs = DASDdevs(self.model)
         self.dasdpartitions = DASDPartitions(self.model)
         self.filesystems = FileSystems(self.model)
