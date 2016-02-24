@@ -21,6 +21,7 @@ ginger.hostarch = null;
 ginger.selectedInterface = null;
 
 trackingTasks = [];
+s390xtrackingTasks = [];
 ginger.getFirmware = function(suc, err){
     wok.requestJSON({
         url : 'plugins/ginger/firmware',
@@ -205,6 +206,24 @@ ginger.deleteInterface = function(name, suc, err) {
       contentType : 'application/json',
       dataType : 'json',
       success : suc,
+      error : err || function(data) {
+          wok.message.error(data.responseJSON.reason);
+      }
+  });
+};
+
+ginger.deleteEthernetInterface = function(name, suc, err, progress) {
+  var name = encodeURIComponent(name);
+  var onResponse = function(data) {
+      taskID = data['id'];
+      ginger.tracks390xTask(taskID, suc, err, progress);
+  };
+  wok.requestJSON({
+      url : 'plugins/gingers390x/nwdevices/' + name + '/unconfigure',
+      type : 'POST',
+      contentType : 'application/json',
+      dataType : 'json',
+      success : onResponse,
       error : err || function(data) {
           wok.message.error(data.responseJSON.reason);
       }
@@ -648,6 +667,42 @@ ginger.trackTask = function(taskID, suc, err, progress) {
     ginger.getTask(taskID, onTaskResponse, err);
     if(trackingTasks.indexOf(taskID) < 0)
         trackingTasks.push(taskID);
+}
+
+ginger.gets390xTask = function(taskId, suc, err) {
+    wok.requestJSON({
+      url: 'plugins/gingers390x/tasks/' + encodeURIComponent(taskId),
+      type: 'GET',
+      contentType: 'application/json',
+      dataType: 'json',
+      success: suc,
+      error: err
+  });
+}
+ginger.tracks390xTask = function(taskID, suc, err, progress) {
+    var onTaskResponse = function(result) {
+        var taskStatus = result['status'];
+        switch(taskStatus) {
+        case 'running':
+            progress && progress(result);
+            setTimeout(function() {
+                ginger.tracks390xTask(taskID, suc, err, progress);
+            }, 2000);
+            break;
+        case 'finished':
+            suc && suc(result);
+            break;
+        case 'failed':
+            err && err(result);
+            break;
+        default:
+            break;
+        }
+    };
+
+    ginger.gets390xTask(taskID, onTaskResponse, err);
+    if(s390xtrackingTasks.indexOf(taskID) < 0)
+        s390xtrackingTasks.push(taskID);
 }
 
 ginger.trackdevices = function(trackDevicelist,removeItem) {
