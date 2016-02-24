@@ -214,7 +214,7 @@ class InterfaceModel(object):
                              "activating an interface may not as expected.")
             else:
                 wok_log.info(
-                        'Successfully brought up the interface ' + ifacename)
+                    'Successfully brought up the interface ' + ifacename)
         wok_log.info('Activating an interface ' + ifacename)
         cmd_ifup = ['ifup', '%s' % ifacename]
         out, error, returncode = run_command(cmd_ifup)
@@ -263,7 +263,7 @@ class InterfaceModel(object):
                              "activating an interface may not as expected.")
             else:
                 wok_log.info(
-                        'Successfully brought down the interface ' + ifacename)
+                    'Successfully brought down the interface ' + ifacename)
         vlan_or_bond = [cfginterfaces.IFACE_BOND, cfginterfaces.IFACE_VLAN]
         if iface_type in vlan_or_bond:
             if ifacename in ethtool.get_devices():
