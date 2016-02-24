@@ -300,11 +300,10 @@ ginger.populateNwSettingsIpv4SettingsTab = function(interface) {
       $('.ipv4-on-off').bootstrapSwitch('state', false);
       ginger.disableIPSettings('ipv4');
     }
-
-    if (interface.IPV4_INFO.BOOTPROTO && (interface.IPV4_INFO.BOOTPROTO == "None" || interface.IPV4_INFO.BOOTPROTO == "none")) {
+    if (interface.IPV4_INFO.BOOTPROTO && ((interface.IPV4_INFO.BOOTPROTO).toLowerCase() == "none" || (interface.IPV4_INFO.BOOTPROTO).toLowerCase() == "static")) {
       ipv4MethodSelect.val(i18n['GINNWS0003M']);
       ginger.enableclass('form-nw-settings-ipv4-manual');
-    } else if (interface.IPV4_INFO.BOOTPROTO && (interface.IPV4_INFO.BOOTPROTO == "dhcp")) {
+    } else if (interface.IPV4_INFO.BOOTPROTO && ((interface.IPV4_INFO.BOOTPROTO).toLowerCase() == "dhcp" || (interface.IPV4_INFO.BOOTPROTO).toLowerCase() == "bootp")) {
       ipv4MethodSelect.val(i18n['GINNWS0010M']);
       ginger.disableclass('form-nw-settings-ipv4-manual');
     }
@@ -364,7 +363,7 @@ ginger.createNwSettingsIpv4AddressGrid = function(interface) {
     "column-id": 'PREFIX',
     "type": 'string',
     "width": "30%",
-    "title": i18n['GINNWS0005M'],
+    "title": i18n['GINNWS0007M'],
     "header-class": "text-center",
     "data-class": "center",
     "formatter": "editable-nw-ipv4-addresses"
@@ -726,7 +725,7 @@ ginger.createNwSettingsIpv6AddressGrid = function(interface) {
       'width': '30%',
       "td-class": "text-center",
       'validation': function() {
-        var isValid = ginger.isValidIPv6($(this).val()) || ginger.isValidIPv6Prefix($(this).val());
+        var isValid = ginger.isValidIPv6Prefix($(this).val());
         ginger.markInputInvalid($(this), isValid);
       }
     }];
@@ -823,7 +822,7 @@ ginger.createNwSettingsIpv6RouteGrid = function(interface) {
     "header-class": "text-center",
     "data-class": "center",
     "width": "20%",
-    "title": i18n['GINNWS0007M'],
+    "title": i18n['GINNWS0005M'],
     "formatter": "editable-nw-ipv6-routes"
   }, {
     "column-id": 'GATEWAY',
@@ -873,7 +872,7 @@ ginger.createNwSettingsIpv6RouteGrid = function(interface) {
       'width': '20%',
       "td-class": "text-center",
       'validation': function() {
-        var isValid = ginger.isValidIPv6($(this).val()) || ginger.isValidIPv6Prefix($(this).val());
+        var isValid = ginger.isValidIPv6Prefix($(this).val());
         ginger.markInputInvalid($(this), isValid);
       }
     }, {

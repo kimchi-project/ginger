@@ -294,16 +294,32 @@ ginger.validateHostName = function(hostname) {
   return hostNameRegex.test(hostname);
 };
 
-ginger.validateMask = function(mask){
-    if(mask.indexOf('.')!=-1){
-        var secs = mask.split('.');
+ginger.validateMask = function(mask) {
+  if (mask.indexOf('.') != -1) {
+    var secs = mask.split('.');
+    if (secs.length == 4) {
+      // Check first if the given input is following valid IP format.
+      if (ginger.validateIp(mask)) {
+        // Validate the netmask format
         var binMask = "";
-        for(var i=0; i<secs.length; i++)
-            binMask += parseInt(secs[i]).toString(2);
-        return /^1+0+$/.test(binMask);
-    }else{
-        return mask >= 1 && mask <= 32;
+        for (var i = 0; i < secs.length; i++) {
+          var binNumber = parseInt(secs[i]).toString(2);
+          if (binNumber.length != 8) {
+            for (var bits = binNumber.length; bits < 8; bits++) {
+              // Binary number should be of 8 digits to validate netmask properly
+              binNumber = '0' + binNumber;
+            }
+          }
+          binMask += binNumber;
+        }
+        return /^1+0*$/.test(binMask);
+      }
+    } else {
+      return false;
     }
+  } else {
+    return mask >= 1 && mask <= 32;
+  }
 };
 
 ginger.getPowerProfiles = function(suc, err){
