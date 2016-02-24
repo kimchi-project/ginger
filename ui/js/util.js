@@ -862,3 +862,16 @@ ginger.removeSysmodule = function(moduleId, suc, err) {
         }
      });
 }
+
+ginger.getLunsScanStatus = function(suc, err) {
+  wok.requestJSON({
+    url: 'plugins/gingers390x/lunscan',
+    type: 'GET',
+    contentType: 'application/json',
+    dataType: 'json',
+    success: suc,
+    error: function(data) {
+      wok.message.error(data.responseJSON.reason);
+    }
+  });
+}
