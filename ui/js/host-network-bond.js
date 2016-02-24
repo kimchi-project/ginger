@@ -36,12 +36,14 @@
   ipv4RoutesAddButton = $('#nw-bond-ipv4-routes-add', interfaceBondTabs);
   ipv4DnsAddButton = $('#nw-bond-ipv4-dns-add', interfaceBondTabs);
   ipv4BondIPv4Method = $('#nw-bond-ipv4-method', interfaceBondTabs);
+  ipv4DefRouteCheckbox = $('#nw-bond-ipv4-defroute', interfaceBondTabs);
 
   ipv6GatewayTextbox = $('#nw-bond-ipv6-gateway-textbox', interfaceBondTabs);
   ipv6AddressAddButton = $('#nw-bond-ipv6-address-add', interfaceBondTabs);
   ipv6RoutesAddButton = $('#nw-bond-ipv6-routes-add', interfaceBondTabs);
   ipv6DnsAddButton = $('#nw-bond-ipv6-dns-add', interfaceBondTabs);
   ipv6BondMethod = $('#nw-bond-ipv6-method', interfaceBondTabs);
+  ipv6DefRouteCheckbox = $('#nw-bond-ipv6-defroute', interfaceBondTabs);
   // Comment all firewall zone code till proper API to get the firewall zone info.
   // zoneSelect = $('#nw-bond-firewall-select', interfaceBondTabs);
   linkMonitoring = $('#nw-bond-link-monitoring', interfaceBondTabs);
@@ -78,6 +80,11 @@
     wok.window.close();
     ginger.refreshInterfaces();
   });
+
+  nwGeneralForm.on('submit',function(e){
+    e.preventDefault()
+  });
+
 };
 
 ginger.refreshInterfaces = function() {
@@ -96,6 +103,11 @@ var applyOnClick = function() {
     var opts = {};
     nwApplyButton.prop('disabled', true);
     var interfaceDevice = nwBondDeviceTextbox.val();
+    if(!validateInterfaceName(interfaceDevice)){
+        wok.message.error(i18n['GINNWBONDS0001M'], '#alert-nw-bond-modal-container', true);
+        nwApplyButton.prop('disabled', false);
+        return false;
+    };
 
     var getBasicInfoData = function() {
       var basic_info = {};
@@ -181,6 +193,12 @@ var applyOnClick = function() {
         if (ipv4Routes.length > 0) {
           ipv4_info['ROUTES'] = ipv4Routes;
         }
+
+        if (ipv4DefRouteCheckbox.is(":checked")) {
+          ipv4_info["DEFROUTE"] = "yes";
+        } else {
+          ipv4_info["DEFROUTE"] = "no";
+        }
       } else {
         ipv4_info['IPV4INIT'] = 'no';
       }
@@ -238,6 +256,12 @@ var applyOnClick = function() {
 
         if (ipv6Routes.length > 0) {
           ipv6_info['ROUTES'] = ipv6Routes;
+        }
+
+        if (ipv6DefRouteCheckbox.is(":checked")) {
+          ipv6_info["IPV6_DEFROUTE"] = "yes";
+        } else {
+          ipv6_info["IPV6_DEFROUTE"] = "no";
         }
       } else {
         ipv6_info['IPV6INIT'] = 'no';
@@ -300,6 +324,12 @@ var populateGeneralTab = function(interface) {
       .text((bondOptionValue).replace(/"/g, "")));
 
   }
+
+  nwBondDeviceTextbox.on('blur', function() {
+  var interfaceName = $(this).val();
+  $(this).toggleClass("invalid-field", !validateInterfaceName(interfaceName));
+  });
+
 
   createBondMembersGrid(interface);
   if (interface == null) {
@@ -433,6 +463,10 @@ var createBondMembersGrid = function(interface) {
       for (var i = 0; i < interfaceList.length; i++) {
         var interfacedetails = interfaceList[i];
         if ("BASIC_INFO" in interfacedetails && "DEVICE" in (interfacedetails.BASIC_INFO)) {
+          if ((interface != null) &&
+             (interfaceList[i].BASIC_INFO.DEVICE == interface.BASIC_INFO.DEVICE)) {
+              continue;
+          }
           $('select', selectField).append($("<option></option>")
             .attr("value", (interfaceList[i].BASIC_INFO.DEVICE).replace(/"/g, ""))
             .text((interfaceList[i].BASIC_INFO.DEVICE).replace(/"/g, "")));
@@ -522,12 +556,15 @@ var populateIpv4SettingsTab = function(interface) {
       ginger.disableIPSettings('ipv4');
     }
 
-    if (interface.IPV4_INFO.BOOTPROTO && (interface.IPV4_INFO.BOOTPROTO == "None" || interface.IPV4_INFO.BOOTPROTO == "none")) {
+    if (interface.IPV4_INFO.BOOTPROTO && ((interface.IPV4_INFO.BOOTPROTO).toLowerCase() == "none" || (interface.IPV4_INFO.BOOTPROTO).toLowerCase() == "static")) {
       ipv4BondIPv4Method.val(i18n["Manual"]);
-    } else if (interface.IPV4_INFO.BOOTPROTO && (interface.IPV4_INFO.BOOTPROTO == "dhcp")) {
+    } else if (interface.IPV4_INFO.BOOTPROTO && ((interface.IPV4_INFO.BOOTPROTO).toLowerCase() == "dhcp" || (interface.IPV4_INFO.BOOTPROTO).toLowerCase() == "bootp")) {
       ipv4BondIPv4Method.val(i18n["Automatic(DHCP)"]);
       ginger.disableclass('form-nw-bond-ipv4-manual');
     }
+
+    if (interface.IPV4_INFO.DEFROUTE == "yes" || interface.IPV4_INFO.DEFROUTE == "\"yes\"")
+      ipv4DefRouteCheckbox.prop('checked', true);
   } else {
     $('.ipv4-on-off').bootstrapSwitch('state', true);
     ipv4BondIPv4Method.val(i18n['Automatic(DHCP)']);
@@ -589,7 +626,7 @@ var createIpv4AddressGrid = function(interface) {
     "column-id": 'PREFIX',
     "type": 'string',
     "width": "30%",
-    "title": i18n['GINNWS0011M'],
+    "title": i18n['GINNWS0007M'],
     "header-class": "text-center",
     "data-class": "center",
     "formatter": "editable-nw-ipv4-addresses"
@@ -750,7 +787,7 @@ var createIpv4RouteGrid = function(interface) {
     'width': '20%',
     "header-class": "text-center",
     "data-class": "center",
-    "title": i18n['GINNWS0011M'],
+    "title": i18n['GINNWS0007M'],
     "formatter": "editable-nw-ipv4-routes"
   }, {
     "column-id": 'GATEWAY',
@@ -856,6 +893,9 @@ var populateIpv6SettingsTab = function(interface) {
     if (interface.IPV6_INFO.IPV6_DEFAULTGW) {
       ipv6GatewayTextbox.val(interface.IPV6_INFO.IPV6_DEFAULTGW);
     }
+
+    if (interface.IPV6_INFO.IPV6_DEFROUTE == "yes" || interface.IPV6_INFO.IPV6_DEFROUTE == "\"yes\"")
+      ipv6DefRouteCheckbox.prop('checked', true);
   } else {
     $('.ipv6-on-off').bootstrapSwitch('state', true);
     ipv6BondMethod.val(i18n['Automatic']);
@@ -926,7 +966,7 @@ var createIpv6AddressGrid = function(interface) {
     "column-id": 'PREFIX',
     "type": 'string',
     "width": "30%",
-    "title": i18n['GINNWS0011M'],
+    "title": i18n['GINNWS0005M'],
     "header-class": "text-center",
     "data-class": "center",
     "formatter": "editable-nw-ipv6-addresses"
@@ -964,7 +1004,7 @@ var createIpv6AddressGrid = function(interface) {
       'width': '30%',
       'validation': function() {
         //var isValid = ginger.validateMask($(this).val());
-        ginger.markInputInvalid($(this), (ginger.isValidIPv6Prefix($(this).val()) || ginger.isValidIPv6($(this).val())));
+        ginger.markInputInvalid($(this), (ginger.isValidIPv6Prefix($(this).val())));
       }
     }];
 
@@ -1001,7 +1041,7 @@ var createIpv6RouteGrid = function(interface) {
     'width': '20%',
     "header-class": "text-center",
     "data-class": "center",
-    "title": i18n['GINNWS0011M'],
+    "title": i18n['GINNWS0005M'],
     "formatter": "editable-nw-ipv6-routes"
   }, {
     "column-id": 'GATEWAY',
@@ -1009,7 +1049,7 @@ var createIpv6RouteGrid = function(interface) {
     'width': '20%',
     "header-class": "text-center",
     "data-class": "center",
-    "title": i18n['GINNWS0012M'],
+    "title": i18n['GINNWS0008M'],
     "formatter": "editable-nw-ipv6-routes"
   }, {
     "column-id": 'METRIC',
@@ -1051,7 +1091,7 @@ var createIpv6RouteGrid = function(interface) {
       'id': 'NETMASK',
       'width': '20%',
       'validation': function() {
-        ginger.markInputInvalid($(this), (ginger.isValidIPv6Prefix($(this).val()) || ginger.isValidIPv6($(this).val())));
+        ginger.markInputInvalid($(this), (ginger.isValidIPv6Prefix($(this).val())));
       }
     }, {
       'id': 'GATEWAY',
@@ -1148,3 +1188,10 @@ var validateIntField = function(field) {
     field.toggleClass("invalid-field", true);
   }
 }
+
+var validateInterfaceName = function(InterfaceName){
+    if(InterfaceName.length <=15 && InterfaceName.length != 0 &&  (InterfaceName.indexOf(' ') === -1))
+          return true;
+    else
+          return false
+};
