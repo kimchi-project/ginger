@@ -559,6 +559,10 @@ ginger.loadGlobalNetworks = function() {
     if ("gateway" in (dnsAddresses)) {
       globalDnsGateway.val(dnsAddresses.gateway);
     }
+  }, function(error){
+    ginger.hideBootgridLoading(ginger.opts_global_dns);
+    errmsg = i18n['GINNET0035E'] + ' ' + error.responseJSON.reason;
+    wok.message.error(errmsg, '#message-nw-global-container-area', true);
   });
 }
 

@@ -21,6 +21,7 @@ from collections import namedtuple
 
 import ethtool
 import libvirt
+import os
 from ipaddr import IPv4Network
 from threading import Timer
 
@@ -44,6 +45,8 @@ class NetworkModel(object):
                 'gateway': self._get_default_gateway()}
 
     def _get_nameservers(self):
+        if not os.path.isfile(RESOLV_CONF):
+            return []
         try:
             with open(RESOLV_CONF) as f:
                 return [line.split()[1] for line in f
@@ -67,7 +70,7 @@ class NetworkModel(object):
                 f.write(''.join('%s\n' % line for line in new_data))
                 f.close()
         except Exception, e:
-            raise OperationFailed('GINNET0002E', {'reason': e.message})
+            raise OperationFailed('GINNET0002E', {'reason': e.__str__()})
 
     def _get_default_route_entry(self):
         # Default route entry reads like this:
