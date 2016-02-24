@@ -33,6 +33,8 @@ ginger.initStorage = function() {
   ginger.loadStorageDeviceDetails();
 };
 
+// ******************** File Systems ********************
+
 ginger.loadFileSystemDetails = function() {
   var gridFields = [];
   var opts = [];
@@ -72,16 +74,25 @@ ginger.loadFileSystemDetails = function() {
 
   ginger.createBootgrid(opts);
   ginger.initFileSystemsGridData();
+
+  $('#file-systems-refresh-btn').on('click', function(event) {
+    ginger.hideBootgridData(opts);
+    ginger.showBootgridLoading(opts);
+    ginger.initFileSystemsGridData();
+  });
 };
 
 ginger.initFileSystemsGridData = function() {
   var opts = [];
   opts['gridId'] = "fileSystemsGrid";
-  ginger.clearBootgridData(opts['gridId']);
   ginger.getFilesystems(function(result) {
     ginger.loadBootgridData(opts['gridId'], result);
+    ginger.showBootgridData(opts);
+    ginger.hideBootgridLoading(opts);
   });
 };
+
+// ******************** Swap Devices ********************
 
 ginger.loadSwapDeviceDetails = function() {
   var gridFields = [];
@@ -115,12 +126,18 @@ ginger.loadSwapDeviceDetails = function() {
   opts['gridFields'] = JSON.stringify(gridFields);
   ginger.createBootgrid(opts);
   ginger.initSwapDevicesGridData();
+
+  $('#swap-devices-refresh-btn').on('click', function(event) {
+    ginger.hideBootgridData(opts);
+    ginger.showBootgridLoading(opts);
+    ginger.initSwapDevicesGridData();
+  });
+
 };
 
 ginger.initSwapDevicesGridData = function() {
   var opts = [];
   opts['gridId'] = "swapDevicesGrid";
-  ginger.clearBootgridData(opts['gridId']);
   ginger.getSwapdevices(function(result) {
     for (i = 0; i < result.length; i++) {
       //calculate usage % from size and used (both are in bytes)
@@ -133,8 +150,12 @@ ginger.initSwapDevicesGridData = function() {
       result[i]['size'] = result[i]['size'].toString();
     }
     ginger.loadBootgridData(opts['gridId'], result);
+    ginger.showBootgridData(opts);
+    ginger.hideBootgridLoading(opts);
   });
 };
+
+// ******************** Volume Group ********************
 
 ginger.loadVolumeGroupDetails = function() {
   var gridFields = [];
@@ -159,16 +180,24 @@ ginger.loadVolumeGroupDetails = function() {
   ginger.createBootgrid(opts);
   ginger.initVolumeGroupGridData();
 
-};
-
-ginger.initVolumeGroupGridData = function(){
-  var opts = [];
-  opts['gridId'] = "volumeGroupsGrid";
-  ginger.clearBootgridData(opts['gridId']);
-  ginger.getVolumegroups(function(result) {
-    ginger.loadBootgridData(opts['gridId'], result);
+  $('#volume-groups-refresh-btn').on('click', function(event) {
+    ginger.hideBootgridData(opts);
+    ginger.showBootgridLoading(opts);
+    ginger.initVolumeGroupGridData();
   });
 };
+
+ginger.initVolumeGroupGridData = function() {
+  var opts = [];
+  opts['gridId'] = "volumeGroupsGrid";
+  ginger.getVolumegroups(function(result) {
+    ginger.loadBootgridData(opts['gridId'], result);
+    ginger.showBootgridData(opts);
+    ginger.hideBootgridLoading(opts);
+  });
+};
+
+// ******************** SAN Adapters ********************
 
 ginger.loadSanAdapters = function() {
   var gridFields = [];
@@ -250,33 +279,45 @@ ginger.loadSanAdapters = function() {
   opts['gridFields'] = JSON.stringify(gridFields);
   ginger.createBootgrid(opts);
   ginger.initSanAdaterGridData();
-  ginger.getPlugins(function(result){
+  ginger.getPlugins(function(result) {
     if ((ginger.hostarch == "s390x") && ($.inArray("gingers390x", result) != -1)) {
       var actionButtonHtml = '<div class="btn-group">' +
         '<button class="btn btn-primary" id="add-san-button" aria-expanded="false"><i class="fa fa-plus-circle"></i>' + i18n['GINTITLE0020M'] + '</button>' +
         '</div>';
       $(actionButtonHtml).appendTo('#san-adapter-add');
-      }
+    }
+
+    var refreshButtonHtml = '<div class="btn-group">' +
+      '<button class="btn btn-primary" id="refresh-san-button" aria-expanded="false"><i class="fa fa-refresh"></i> ' + i18n['GINTITLE0021M'] + '</button>' +
+      '</div>';
+    $(refreshButtonHtml).appendTo('#san-adapter-refresh');
 
     $('#add-san-button').on('click', function() {
       wok.window.open('plugins/gingers390x/fcpsanadapter.html');
     });
+    $('#refresh-san-button').on('click', function() {
+      ginger.hideBootgridData(opts);
+      ginger.showBootgridLoading(opts);
+      ginger.initSanAdaterGridData();
+    });
   });
-
 };
 
-ginger.initSanAdaterGridData = function(){
+ginger.initSanAdaterGridData = function() {
   var opts = [];
   opts['gridId'] = "SanAdaptersGrid";
-  ginger.clearBootgridData(opts['gridId']);
   ginger.getSANAdapters(function(result) {
     for (i = 0; i < result.length; i++) {
       //format ports information
       result[i]['ports_info'] = result[i]['vports_inuse'] + '/' + result[i]['max_vports'];
     }
     ginger.loadBootgridData(opts['gridId'], result);
+    ginger.showBootgridData(opts);
+    ginger.hideBootgridLoading(opts);
   });
 };
+
+// ******************** FCP Tape Devices ********************
 
 ginger.loadFcpTapeDevices = function() {
   $("#fcp-tape-devices-panel").removeClass("hidden")
@@ -319,25 +360,34 @@ ginger.loadFcpTapeDevices = function() {
   opts['gridFields'] = JSON.stringify(gridFields);
   ginger.createBootgrid(opts);
   ginger.initFcpTapeGridData();
+
+  $('#refresh-fcp-tape-devices-btn').on('click', function(event) {
+    ginger.hideBootgridData(opts);
+    ginger.showBootgridLoading(opts);
+    ginger.initFcpTapeGridData();
+  });
 };
 
 ginger.initFcpTapeGridData = function() {
   var opts = [];
   opts['gridId'] = "fcptapeDevicesGrid";
-  ginger.clearBootgridData(opts['gridId']);
   ginger.getFcpTapeDevices(function(result) {
     ginger.loadBootgridData(opts['gridId'], result);
+    ginger.showBootgridData(opts);
+    ginger.hideBootgridLoading(opts);
   });
 };
 
-ginger.cleanModalDialog = function(){
-   $(document).ready(function(){
-      $('body').on('hidden.bs.modal', '.modal', function () {
-         $(this).removeData('bs.modal');
-         $("#" + $(this).attr("id") + " .modal-content").empty();
-         $("#" + $(this).attr("id") + " .modal-content").append("Loading...");
-      });
-   });
+// ******************** Storage Devices ********************
+
+ginger.cleanModalDialog = function() {
+  $(document).ready(function() {
+    $('body').on('hidden.bs.modal', '.modal', function() {
+      $(this).removeData('bs.modal');
+      $("#" + $(this).attr("id") + " .modal-content").empty();
+      $("#" + $(this).attr("id") + " .modal-content").append("Loading...");
+    });
+  });
 }
 
 ginger.loadStorageActionButtons = function(){
@@ -370,16 +420,15 @@ ginger.loadStorageActionButtons = function(){
     // }
   ];
 
-  var actionButton = [
-    {
-        id:'sd-format-button',
-        class: 'fa fa-pencil-square-o',
-        label: 'Format DASD',
-        onClick: function(event) {
-        var opts = [];
-        opts['gridId'] = "stgDevGrid";
-        opts['identifier'] = "id";
-        opts['loadingMessage'] = 'Formatting...';
+  var actionButton = [{
+    id: 'sd-format-button',
+    class: 'fa fa-pencil-square-o',
+    label: 'Format ECKD',
+    onClick: function(event) {
+      var opts = [];
+      opts['gridId'] = "stgDevGrid";
+      opts['identifier'] = "id";
+      opts['loadingMessage'] = 'Formatting...';
 
         var selectedIf = ginger.getSelectedRowsData(opts);
         if ((selectedIf && selectedIf.length > 0)){
@@ -391,75 +440,55 @@ ginger.loadStorageActionButtons = function(){
                 cancel: i18n['GGBAPI6003M']
             };
 
-            wok.confirm(settings, function() {
-                var selectedRows = ginger.getSelectedRowsData(opts);
-                ginger.selectedrows = selectedRows;
-                var trackingNums = selectedRows.length;
-                var taskAccepted = false;
-                var onTaskAccepted = function() {
-                    if(taskAccepted) {
-                        return;
-                    }
-                    taskAccepted = true;
-                };
-                var selectedRowDetails = JSON.stringify(ginger.selectedrows);
-                ginger.showBootgridLoading(opts);
-                $('#sd-format-button').hide();
-                $.each(ginger.selectedrows,function(i,row){
-                    var busId = row['bus_id'];
-                    var deviceId = row['id'];
-                    var settings = {'blk_size' : '4096'};
-                    ginger.formatDASDDevice(busId, settings, function(result){
-                    trackingNums = trackingNums - 1;
-                    wok.message.success(deviceId + " formatted successfully",'#alert-modal-nw-container');
-                    if(trackingNums == 0){
-                        ginger.hideBootgridLoading(opts);
-                        $('#sd-format-button').show();
-                        ginger.getStgdevs(function(result){
-                        ginger.loadBootgridData("stgDevGrid",result);
-                        });
-                    }
-                    },function(result){
-                    trackingNums = trackingNums - 1;
-                    errorMsg = i18n['GINDASD0001E'].replace("%1", deviceId);
-                    wok.message.error(errorMsg,'#alert-modal-nw-container', true);
-                    if(trackingNums == 0){
-                        $('#sd-format-button').show();
-                        ginger.hideBootgridLoading(opts);
-                        ginger.getStgdevs(function(result){
-                        opts['loadingMessage'] = 'Loading...';
-                        ginger.showBootgridLoading(opts);
-                        ginger.loadBootgridData("stgDevGrid",result);
-                        });
-                    }
-                    }, onTaskAccepted);
-               });
-               }, function(){});
-               }else{
-                    var settings = {
-                    content: i18n["GINSD00003M"],
-                    confirm: i18n["GINSD00004M"]
-                    };
-                    wok.confirm(settings, function() {});
-               }
-        }
-    },
-    {
-        id:'sd-remove-button',
-        class: 'fa fa-minus-circle',
-        label: 'Remove',
-        critical: true,
-        onClick: function(event) {
-        var opts = [];
-        opts['gridId'] = "stgDevGrid";
-        opts['identifier'] = "id";
-        var selectedIf = ginger.getSelectedRowsData(opts);
-        if ((selectedIf && selectedIf.length > 0)){
+      wok.confirm(settings, function() {
+        var selectedRows = ginger.getSelectedRowsData(opts);
+        ginger.selectedrows = selectedRows;
+        var taskAccepted = false;
+        var onTaskAccepted = function() {
+          if (taskAccepted) {
+            return;
+          }
+          taskAccepted = true;
+        };
+        var selectedRowDetails = JSON.stringify(ginger.selectedrows);
+        ginger.showBootgridLoading(opts);
+        ginger.hideBootgridData(opts);
+        $('#sd-format-button').hide();
+        $.each(ginger.selectedrows, function(i, row) {
+          if (row['type'] == "dasd") {
+            var busId = row['bus_id'];
+            var deviceId = row['id'];
             var settings = {
-                content: i18n['GINSD00001'],
-                confirm: i18n['GGBAPI6002M'],
-                cancel: i18n['GGBAPI6003M']
+              'blk_size': '4096'
             };
+
+            ginger.formatDASDDevice(busId, settings, function(result) {
+              wok.message.success(deviceId + " formatted successfully", '#alert-modal-nw-container');
+            }, function(result) {
+              trackingNums = trackingNums - 1;
+              errorMsg = i18n['GINDASD0001E'].replace("%1", deviceId);
+              wok.message.error(errorMsg, '#alert-modal-nw-container', true);
+            }, onTaskAccepted);
+          }
+        });
+        $("#storage-device-refresh-btn").trigger('click');
+        $('#sd-format-button').show();
+      }, function() {});
+    }
+  }, {
+    id: 'sd-remove-button',
+    class: 'fa fa-minus-circle',
+    label: 'Remove',
+    critical: true,
+    onClick: function(event) {
+      var opts = [];
+      opts['gridId'] = "stgDevGrid";
+      opts['identifier'] = "id";
+      var settings = {
+        content: i18n['GINSD00001'],
+        confirm: i18n['GGBAPI6002M'],
+        cancel: i18n['GGBAPI6003M']
+      };
 
             wok.confirm(settings, function() {
                 var selectedRows = ginger.getSelectedRowsData(opts);
@@ -589,16 +618,25 @@ ginger.loadStorageDeviceDetails = function(){
     }
   ];
 
-  opts['gridFields']=JSON.stringify(gridFields);
-  ginger.createBootgrid(opts);
+  opts['gridFields'] = JSON.stringify(gridFields);
+  grid = ginger.createBootgrid(opts);
+  ginger.hideBootgridData(opts);
+  ginger.showBootgridLoading(opts);
   ginger.initStorageDevicesGridData();
+  ginger.initStorageDevicesGridEvents(grid);
+  $('#storage-device-refresh-btn').on('click', function(event) {
+    ginger.hideBootgridData(opts);
+    ginger.showBootgridLoading(opts);
+    ginger.initStorageDevicesGridData();
+  });
 };
 
 ginger.initStorageDevicesGridData = function() {
   var opts = [];
   opts['gridId'] = "stgDevGrid";
-  ginger.clearBootgridData(opts['gridId']);
-  ginger.getStgdevs(function(result){
-    ginger.loadBootgridData(opts['gridId'],result);
+  ginger.getStgdevs(function(result) {
+    ginger.loadBootgridData(opts['gridId'], result);
+    ginger.hideBootgridLoading(opts);
+    ginger.showBootgridData(opts);
   });
 };
