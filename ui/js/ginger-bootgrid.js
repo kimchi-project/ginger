@@ -120,9 +120,19 @@ ginger.createBootgrid = function(opts) {
       search: "Filter",
       noResults: (opts['noResults']) ? opts['noResults'] : "No results found!"
     }
-  }).on("load.rs.jquery.bootgrid", function(e) {
+  }).on("loaded.rs.jquery.bootgrid", function(e) {
+	    $('.input-group .glyphicon-search').removeClass('.glyphicon-search').addClass('fa fa-search');
+	    if ($('#' + gridId).bootgrid('getTotalRowCount') > 0) {
+	      // This need to be in if block to avoid showing no-record-found
+	      ginger.showBootgridData(opts);
+	    }
+	  }).on("load.rs.jquery.bootgrid", function(e) {
     $('.input-group .glyphicon-search').removeClass('.glyphicon-search').addClass('fa fa-search');
-  });
+  }).on("appended.rs.jquery.bootgrid", function(e, appendedRows) {
+	    if ($('#' + gridId).bootgrid('getTotalRowCount') === 0 && appendedRows == 0) {
+	        ginger.deselectAll(opts);
+	      }
+	    });
   ginger.hideBootgridLoading(opts);
   return grid;
 }
@@ -131,6 +141,11 @@ ginger.loadBootgridData = function(gridId, data) {
   ginger.clearBootgridData(gridId);
   ginger.appendBootgridData(gridId, data);
 };
+
+ginger.deselectAll = function(opts) {
+	  $('#' + opts['gridId']).bootgrid("deselect");
+	  $('#' + opts['gridId'] + ' input.select-box').attr('checked', false);
+	};
 
 ginger.clearBootgridData = function(gridId) {
   $('#' + gridId).bootgrid("clear");
@@ -189,7 +204,7 @@ ginger.createActionList = function(settings) {
   $.each(toolbarButtons, function(i, button) {
     var btnHTML = [
       '<li role="presentation"', button.critical === true ? ' class="critical"' : '', '>',
-      '<a role="menuitem" tabindex="-1" data-dismiss="modal"', (button.id ? (' id="' + button.id + '"') : ''), (button.disabled === true ? ' class="disabled"' : ''),
+      '<a role="menuitem" tabindex="-1" data-backdrop="static"  data-keyboard="false" data-dismiss="modal"', (button.id ? (' id="' + button.id + '"') : ''), (button.disabled === true ? ' class="disabled"' : ''),
       '>',
       button.class ? ('<i class="' + button.class) + '"></i>' : '',
       button.label,
@@ -222,6 +237,14 @@ ginger.hideBootgridLoading = function(opts) {
   $("#" + opts['gridId'] + "-loading .wok-list-loading-text").text(gridMessage);
   $("#" + opts['gridId'] + "-loading").hide();
   $("#" + opts['gridId'] + "-loading").css("zIndex", 1);
+};
+
+ginger.showBootgridData = function(opts) {
+  $("#" + opts['gridId'] + " tbody").show();
+};
+
+ginger.hideBootgridData = function(opts) {
+  $("#" + opts['gridId'] + " tbody").hide();
 };
 
 ginger.createEditableBootgrid = function(gridInstance, opts, rowKey) {

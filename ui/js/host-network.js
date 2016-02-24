@@ -21,7 +21,7 @@
 ginger.selectedNWInterface = null;
 
 ginger.initNetworkConfig = function() {
-  ginger.opts_nw_if = [];
+  ginger.opts_nw_if = {};
   ginger.opts_nw_if['id'] = 'nw-configuration';
   ginger.opts_nw_if['gridId'] = "nwConfigGrid";
   ginger.opts_nw_if['identifier'] = "device";
@@ -304,6 +304,11 @@ ginger.loadBootgridNWActions = function() {
 
   ginger.createActionList(actionListSettings);
 
+  $("#nw-configuration-refresh-btn").on('click', function() {
+	  ginger.networkConfiguration.disableAllButtons();
+	  ginger.initNetworkConfigGridData();
+  });
+  ginger.networkConfiguration.disableActions();
 }
 
 ginger.listNetworkConfig = function() {
@@ -380,11 +385,15 @@ ginger.listNetworkConfig = function() {
     // Based on the interface status hide/show the right buttons
     var selectedIf = ginger.getSelectedRowsData(ginger.opts_nw_if);
     if (selectedIf && selectedIf.length == 1) {
+      ginger.networkConfiguration.enableActions();
       if (selectedIf && (selectedIf[0]["status"] == 'up' || selectedIf[0]["status"] == 'unknown')) {
         ginger.changeButtonStatus(["nw-up-button"], false);
       } else {
         ginger.changeButtonStatus(["nw-down-button"], false);
       }
+    }
+    else{
+       ginger.networkConfiguration.disableActions();
     }
 
     // Do not disable certain options even multiple interfaces selected.
@@ -404,8 +413,14 @@ ginger.initNetworkConfigGridData = function() {
   // var opts = [];
   // opts['gridId'] = "nwConfigGrid";
   ginger.clearBootgridData(ginger.opts_nw_if['gridId']);
+  ginger.hideBootgridData(ginger.opts_nw_if);
+  ginger.showBootgridLoading(ginger.opts_nw_if);
+
   ginger.getInterfaces(function(result) {
     ginger.loadBootgridData(ginger.opts_nw_if['gridId'], result);
+    ginger.showBootgridData(ginger.opts_nw_if);
+    ginger.hideBootgridLoading(ginger.opts_nw_if);
+    ginger.networkConfiguration.enableAllButtons();
   });
 };
 
@@ -413,8 +428,9 @@ ginger.initGlobalNetworkConfig = function() {
   globalDnsAddButton = $('#nw-global-dns-add');
   globalDnsGateway = $('#nw-global-gateway-textbox');
   nwGlobalApplyBtn = $('#nw-global-apply-btn');
+  nwGlobalRefreshBtn = $('#nw-global-dns-refresh-btn');
 
-  ginger.opts_global_dns = [];
+  ginger.opts_global_dns = {};
   ginger.opts_global_dns['id'] = 'nw-global-dns';
   ginger.opts_global_dns['gridId'] = "nw-global-dns-grid";
   ginger.opts_global_dns['noResults'] = " ";
@@ -502,9 +518,17 @@ ginger.initGlobalNetworkConfig = function() {
       wok.message.error(error.responseJSON.reason, '#message-nw-global-container-area', true);
     });
   });
+
+  nwGlobalRefreshBtn.on('click',function(){
+	  ginger.loadGlobalNetworks();
+  });
 };
 
 ginger.loadGlobalNetworks = function() {
+	ginger.clearBootgridData(ginger.opts_global_dns['gridId']);
+	ginger.hideBootgridData(ginger.opts_global_dns);
+	ginger.showBootgridLoading(ginger.opts_global_dns);
+
   ginger.getNetworkGlobals(function(dnsAddresses) {
     if ("nameservers" in (dnsAddresses)) {
       var DNSNameServers = dnsAddresses.nameservers
@@ -514,6 +538,8 @@ ginger.loadGlobalNetworks = function() {
         }
       }
       ginger.loadBootgridData(ginger.opts_global_dns['gridId'], DNSNameServers);
+      ginger.showBootgridData(ginger.opts_global_dns);
+      ginger.hideBootgridLoading(ginger.opts_global_dns);
     }
     if ("gateway" in (dnsAddresses)) {
       globalDnsGateway.val(dnsAddresses.gateway);
@@ -540,4 +566,43 @@ ginger.initNetwork = function() {
       });
     });
   });
+};
+
+
+ginger.networkConfiguration = {};
+
+ginger.networkConfiguration.enableAllButtons = function(){
+	ginger.networkConfiguration.enableActions();
+	ginger.networkConfiguration.enableRefresh();
+	ginger.networkConfiguration.enableAdd();
+}
+
+ginger.networkConfiguration.disableAllButtons = function(){
+	ginger.networkConfiguration.disableActions();
+	ginger.networkConfiguration.disableRefresh();
+	ginger.networkConfiguration.disableAdd();
+}
+
+ginger.networkConfiguration.enableActions = function (){
+	$("#action-dropdown-button-nw-configuration-actions").prop("disabled", false);
+};
+
+ginger.networkConfiguration.disableActions = function (){
+	$("#action-dropdown-button-nw-configuration-actions").parent().removeClass('open');
+	$("#action-dropdown-button-nw-configuration-actions").prop("disabled", true);
+};
+
+ginger.networkConfiguration.enableRefresh = function (){
+	$("#nw-configuration-refresh-btn").prop("disabled", false);
+};
+
+ginger.networkConfiguration.disableRefresh = function (){
+	$("#nw-configuration-refresh-btn").prop("disabled", true);
+};
+ginger.networkConfiguration.enableAdd = function (){
+	$("#action-dropdown-button-nw-configuration-add").prop("disabled", false);
+};
+
+ginger.networkConfiguration.disableAdd = function (){
+	$("#action-dropdown-button-nw-configuration-add").prop("disabled", true);
 };
