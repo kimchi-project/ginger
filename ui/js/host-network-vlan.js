@@ -41,12 +41,14 @@ ginger.initVLANInterfaceSettings = function() {
   ipv4AddressAddButton = $('#nw-vlan-ipv4-add', interfaceVLANTabs);
   ipv4DnsAddButton = $('#nw-vlan-ipv4-dns-add', interfaceVLANTabs);
   ipv4RoutesAddButton = $('#nw-vlan-ipv4-routes-add', interfaceVLANTabs);
+  ipv4DefRouteCheckbox = $('#nw-vlan-ipv4-defroute', interfaceVLANTabs);
 
   ipv6GatewayTextbox = $('#nw-vlan-ipv6-gateway-textbox', interfaceVLANTabs);
   ipv6MethodSelect = $('#nw-vlan-ipv6-method', interfaceVLANTabs);
   ipv6AddressAddButton = $('#nw-vlan-ipv6-add', interfaceVLANTabs);
   ipv6DnsAddButton = $('#nw-vlan-ipv6-dns-add', interfaceVLANTabs);
   ipv6RoutesAddButton = $('#nw-vlan-ipv6-routes-add', interfaceVLANTabs);
+  ipv6DefRouteCheckbox = $('#nw-vlan-ipv6-defroute', interfaceVLANTabs);
 
   //Advanced Tab fields
   mtuTextbox = $('#nw-vlan-mtu-textbox', interfaceVLANTabs);
@@ -189,7 +191,7 @@ var applyOnClick = function() {
         }
 
         if (ipv4Dns.length > 0) {
-          dns = []
+          dns = [];
           for (var i = 0; i < ipv4Dns.length; i++) {
             dnsValue = ipv4Dns[i].DNS;
             dns.push(dnsValue);
@@ -199,6 +201,12 @@ var applyOnClick = function() {
 
         if (ipv4Routes.length > 0) {
           ipv4_info['ROUTES'] = ipv4Routes;
+        }
+
+        if (ipv4DefRouteCheckbox.is(":checked")) {
+          ipv4_info["DEFROUTE"] = "yes";
+        } else {
+          ipv4_info["DEFROUTE"] = "no";
         }
       } else {
         ipv4_info['IPV4INIT'] = 'no';
@@ -261,6 +269,12 @@ var applyOnClick = function() {
         if (ipv6Routes.length > 0) {
           ipv6_info['ROUTES'] = ipv6Routes;
         }
+
+        if (ipv6DefRouteCheckbox.is(":checked")) {
+          ipv6_info["IPV6_DEFROUTE"] = "yes";
+        } else {
+          ipv6_info["IPV6_DEFROUTE"] = "no";
+        }
       } else {
         ipv6_info['IPV6INIT'] = 'no';
       }
@@ -301,26 +315,32 @@ var populateGeneralTab = function(interface) {
     parentInterfaceSelect.empty();
     for (var i = 0; i < result.length; i++) {
       if (result[i].BASIC_INFO.DEVICE) {
+        if ((interface != null) &&
+           (result[i].BASIC_INFO.DEVICE == interface.BASIC_INFO.DEVICE)) {
+            continue;
+        }
         parentInterfaceSelect.append($("<option></option>")
           .attr("value", (result[i].BASIC_INFO.DEVICE).replace(/"/g, ""))
           .text((result[i].BASIC_INFO.DEVICE).replace(/"/g, "")));
       }
 
-      if ((interface != null) && (interface.BASIC_INFO.VLANINFO.PHYSDEV).replace(/"/g, "")) {
-        var exists = false;
-        $('#nw-vlan-interfaces-select option').each(function() {
-          if (this.value == (interface.BASIC_INFO.VLANINFO.PHYSDEV).replace(/"/g, "")) {
-            exists = true;
-            return false;
-          }
-        });
-        if (!exists) {
-          parentInterfaceSelect.append($("<option></option>")
-            .attr("value", (interface.BASIC_INFO.VLANINFO.PHYSDEV).replace(/"/g, ""))
-            .text((interface.BASIC_INFO.VLANINFO.PHYSDEV).replace(/"/g, "")));
+    }
+
+    if ((interface != null) && (interface.BASIC_INFO.VLANINFO.PHYSDEV).replace(/"/g, "")) {
+      var exists = false;
+      $('#nw-vlan-interfaces-select option').each(function() {
+        if (this.value == (interface.BASIC_INFO.VLANINFO.PHYSDEV).replace(/"/g, "")) {
+          exists = true;
+          return false;
         }
-        parentInterfaceSelect.val((interface.BASIC_INFO.VLANINFO.PHYSDEV).replace(/"/g, ""));
+      });
+
+      if (!exists) {
+        parentInterfaceSelect.append($("<option></option>")
+          .attr("value", (interface.BASIC_INFO.VLANINFO.PHYSDEV).replace(/"/g, ""))
+          .text((interface.BASIC_INFO.VLANINFO.PHYSDEV).replace(/"/g, "")));
       }
+      parentInterfaceSelect.val((interface.BASIC_INFO.VLANINFO.PHYSDEV).replace(/"/g, ""));
     }
   });
 
@@ -372,65 +392,71 @@ var populateGeneralTab = function(interface) {
   });
 };
 
-var validateAndUpdateVLANFields = function(vlanID, deviceName) {
-  if (isValidVLAN(vlanID)) {
-    $("#nw-vlan-interface-textbox").toggleClass("invalid-field", !(/^[0-9a-zA-Z.]+$/.test(deviceName)));
-    nwVLANIDTextbox.val(vlanID);
-  } else {
-    $("#nw-vlan-interface-textbox").toggleClass("invalid-field", true);
-    nwVLANIDTextbox.val("");
-  }
-}
-
 var isValidDeviceName = function(deviceName) {
   var vlanID = ""
   // Check if vlan name contains string of formatters
   if ((deviceName.length >= 1) && (deviceName.length <= 15)) {
     if ((deviceName.split(".").length > 2)) {
       return false;
-    } else if ((deviceName.indexOf("vlan") == 0) && (deviceName.length > 4)) {
+    } else if ((deviceName.indexOf("vlan") == 0)) {
       // vlan name convention vlan<VLANID> or vlan.<VLANID>
       if ((deviceName.length <= 9) && (deviceName.indexOf(".") != -1)) {
         vlanID = deviceName.split(".", 2).length == 2 ? deviceName.split(".", 2)[1] : null;
+        return isValidVLAN(vlanID);
       } else if ((deviceName.length < 9) && (deviceName.indexOf(".") == -1)) {
         vlanID = deviceName.split("vlan", 2).length == 2 ? deviceName.split("vlan", 2)[1] : null;
+        if (ginger.isInteger(vlanID))
+          return isValidVLAN(vlanID);
+        else
+          return false;
       }
     } else if (deviceName.length <= 15) {
       // In this case String can be 15 characters ifname.<VLANID>
-      if (deviceName.indexOf(".") != -1) {
-        vlanID = deviceName.split(".", 2).length == 2 ? deviceName.split(".", 2)[1] : null;
-      } else {
-        return (/^[0-9a-zA-Z()]+$/.test(deviceName))
-      }
+      return isValidIFName(deviceName);
     }
-    if(isValidVLAN(vlanID))
-      return true;
-    else
-      return false;
-  }  else if (deviceName.length > 15) {
+    return isValidVLAN(vlanID);
+  } else if (deviceName.length > 15) {
     return false;
   }
   return true;
 };
 
+var isValidIFName = function (ifName) {
+  if (ifName.indexOf(".") != -1) {
+    vlanID = ifName.split(".", 2).length == 2 ? ifName.split(".", 2)[1] : null;
+    return isValidVLAN(vlanID);
+  } else {
+    return (/^[0-9a-zA-Z]+$/.test(ifName))
+  }
+  return false;
+};
+
 var isValidVLAN = function(vlanID) {
-  return ((ginger.isInteger(vlanID) && !(vlanID < 0 || vlanID > 4095)) ? true : false)
+  return ((ginger.isInteger(vlanID)) && (vlanID != "-0") &&
+    !((vlanID < 0 || vlanID > 4095) ? true : false))
 };
 
 var getVLANIDFromDeviceName  = function(deviceName) {
-  if ((deviceName.indexOf("vlan") == 0) && (deviceName.length > 4)) {
+  var vlanID = ""
+  if (deviceName.indexOf("vlan") == 0 && deviceName.length <= 15) {
     // vlan name convention vlan<VLANID> or vlan.<VLANID>
     if ((deviceName.length <= 9) && (deviceName.indexOf(".") != -1)) {
-      return deviceName.split(".", 2).length == 2 ? deviceName.split(".", 2)[1] : null;
+      vlanID = deviceName.split(".", 2).length == 2 ? deviceName.split(".", 2)[1] : null;
     } else if ((deviceName.length < 9) && (deviceName.indexOf(".") == -1)) {
-      return deviceName.split("vlan", 2).length == 2 ? deviceName.split("vlan", 2)[1] : null;
+        vlanID = deviceName.split("vlan", 2).length == 2 ? deviceName.split("vlan", 2)[1] : null;
+    } else {
+      return "";
     }
+
+    if (ginger.isInteger(vlanID) && isValidVLAN(vlanID))
+       return vlanID;
+
   } else if ((deviceName.length <= 15) && (deviceName.indexOf(".") != -1)) {
       // In this case String can be 15 characters  or ifname.<VLANID>
       return deviceName.split(".", 2).length == 2 ? deviceName.split(".", 2)[1] : null;
-  } else  {
-    return "";
   }
+
+  return "";
 };
 
 // function to populate advance tab
@@ -472,12 +498,16 @@ var populateIpv4SettingsTab = function(interface) {
       ginger.disableIPSettings('ipv4');
     }
 
-    if (interface.IPV4_INFO.BOOTPROTO && (interface.IPV4_INFO.BOOTPROTO == "None" || interface.IPV4_INFO.BOOTPROTO == "none")) {
+    if (interface.IPV4_INFO.BOOTPROTO && ((interface.IPV4_INFO.BOOTPROTO).toLowerCase() == "none" || (interface.IPV4_INFO.BOOTPROTO).toLowerCase() == "static")) {
       ipv4MethodSelect.val(i18n['Manual']);
-    } else if (interface.IPV4_INFO.BOOTPROTO && (interface.IPV4_INFO.BOOTPROTO == "dhcp")) {
+    } else if (interface.IPV4_INFO.BOOTPROTO && ((interface.IPV4_INFO.BOOTPROTO).toLowerCase() == "dhcp" || (interface.IPV4_INFO.BOOTPROTO).toLowerCase() == "bootp")) {
       ipv4MethodSelect.val(i18n['Automatic(DHCP)']);
       ginger.disableclass('form-nw-vlan-ipv4-manual');
     }
+
+    if (interface.IPV4_INFO.DEFROUTE == "yes" || interface.IPV4_INFO.DEFROUTE == "\"yes\"")
+      ipv4DefRouteCheckbox.prop('checked', true);
+
   } else {
     $('.ipv4-on-off').bootstrapSwitch('state', true);
     ipv4MethodSelect.val(i18n['Automatic(DHCP)']);
@@ -526,7 +556,7 @@ var createIpv4AddressGrid = function(interface) {
     "column-id": 'IPADDR',
     "type": 'string',
     "width": "20%",
-    "title": "Address",
+    "title": i18n['GINNWS0004M'],
     "identifier": true,
     "header-class": "text-center",
     "data-class": "center",
@@ -535,7 +565,7 @@ var createIpv4AddressGrid = function(interface) {
     "column-id": 'PREFIX',
     "type": 'string',
     "width": "30%",
-    "title": "Mask",
+    "title": i18n['GINNWS0007M'],
     "header-class": "text-center",
     "data-class": "center",
     "formatter": "editable-nw-ipv4-addresses"
@@ -543,7 +573,7 @@ var createIpv4AddressGrid = function(interface) {
     "column-id": 'GATEWAY',
     "type": 'string',
     "width": "30%",
-    "title": "Gateway",
+    "title": i18n['GINNWS0008M'],
     "header-class": "text-center",
     "data-class": "center",
     "formatter": "editable-nw-ipv4-addresses"
@@ -622,7 +652,7 @@ var createIpv4DnsGrid = function(interface) {
     "header-class": "text-center",
     "data-class": "center",
     "width": "80%",
-    "title": "DNS",
+    "title": i18n['GINNWS0006M'],
     "identifier": true,
     "formatter": "editable-nw-ipv4-dns"
   }, {
@@ -689,7 +719,7 @@ var createIpv4RouteGrid = function(interface) {
     "header-class": "text-center",
     "data-class": "center",
     "width": "20%",
-    "title": "Address",
+    "title": i18n['GINNWS0004M'],
     "identifier": true,
     "formatter": "editable-nw-ipv4-routes"
   }, {
@@ -697,7 +727,7 @@ var createIpv4RouteGrid = function(interface) {
     "type": 'string',
     "header-class": "text-center",
     "data-class": "center",
-    "title": "Mask",
+    "title": i18n['GINNWS0007M'],
     "width": "20%",
     "formatter": "editable-nw-ipv4-routes"
   }, {
@@ -706,7 +736,7 @@ var createIpv4RouteGrid = function(interface) {
     "header-class": "text-center",
     "data-class": "center",
     "width": "20%",
-    "title": "Gateway",
+    "title": i18n['GINNWS0008M'],
     "formatter": "editable-nw-ipv4-routes"
   }, {
     "column-id": 'METRIC',
@@ -714,7 +744,7 @@ var createIpv4RouteGrid = function(interface) {
     "header-class": "text-center",
     "data-class": "center",
     "width": "20%",
-    "title": "Metric",
+    "title": i18n['GINNWS0009M'],
     "formatter": "editable-nw-ipv4-routes"
   }, {
     "column-id": "ADDRESS",
@@ -811,6 +841,9 @@ var populateIpv6SettingsTab = function(interface) {
     if (interface.IPV6_INFO.IPV6_DEFAULTGW) {
       ipv6GatewayTextbox.val(interface.IPV6_INFO.IPV6_DEFAULTGW);
     }
+
+    if (interface.IPV6_INFO.IPV6_DEFROUTE == "yes" || interface.IPV6_INFO.IPV6_DEFROUTE == "\"yes\"")
+      ipv6DefRouteCheckbox.prop('checked', true);
   } else {
     $('.ipv6-on-off').bootstrapSwitch('state', true);
     ipv6MethodSelect.val(i18n['Automatic']);
@@ -874,7 +907,7 @@ var createIpv6AddressGrid = function(interface) {
       "column-id": 'IPADDR',
       "type": 'string',
       "width": "20%",
-      "title": "Address",
+      "title": i18n['GINNWS0004M'],
       "identifier": true,
       "header-class": "text-center",
       "data-class": "center",
@@ -883,7 +916,7 @@ var createIpv6AddressGrid = function(interface) {
       "column-id": 'PREFIX',
       "type": 'string',
       "width": "30%",
-      "title": "Mask",
+      "title": i18n['GINNWS0005M'],
       "header-class": "text-center",
       "data-class": "center",
       "formatter": "editable-nw-ipv6-addresses"
@@ -940,7 +973,7 @@ var createIpv6AddressGrid = function(interface) {
         "td-class": "text-center",
         'validation': function() {
           //  var isValid = ginger.isValidIPv6Prefix($(this).val());
-          ginger.markInputInvalid($(this), (ginger.isValidIPv6Prefix($(this).val()) || ginger.isValidIPv6($(this).val())));
+          ginger.markInputInvalid($(this), (ginger.isValidIPv6Prefix($(this).val())));
         }
       }]
       // {
@@ -976,7 +1009,7 @@ var createIpv6DnsGrid = function(interface) {
     "header-class": "text-center",
     "data-class": "center",
     "width": "80%",
-    "title": "DNS",
+    "title": i18n['GINNWS0006M'],
     "identifier": true,
     "formatter": "editable-nw-ipv6-dns"
   }, {
@@ -1043,7 +1076,7 @@ var createIpv6RouteGrid = function(interface) {
     "header-class": "text-center",
     "data-class": "center",
     "width": "20%",
-    "title": "Address",
+    "title": i18n['GINNWS0004M'],
     "identifier": true,
     "formatter": "editable-nw-ipv6-routes"
   }, {
@@ -1052,7 +1085,7 @@ var createIpv6RouteGrid = function(interface) {
     "header-class": "text-center",
     "data-class": "center",
     "width": "20%",
-    "title": "Mask",
+    "title": i18n['GINNWS0005M'],
     "formatter": "editable-nw-ipv6-routes"
   }, {
     "column-id": 'GATEWAY',
@@ -1060,7 +1093,7 @@ var createIpv6RouteGrid = function(interface) {
     "header-class": "text-center",
     "data-class": "center",
     "width": "20%",
-    "title": "Gateway",
+    "title": i18n['GINNWS0008M'],
     "formatter": "editable-nw-ipv6-routes"
   }, {
     "column-id": 'METRIC',
@@ -1068,7 +1101,7 @@ var createIpv6RouteGrid = function(interface) {
     "header-class": "text-center",
     "data-class": "center",
     "width": "20%",
-    "title": "Metric",
+    "title": i18n['GINNWS0009M'],
     "formatter": "editable-nw-ipv6-routes"
   }, {
     "column-id": "ADDRESS",
@@ -1106,7 +1139,7 @@ var createIpv6RouteGrid = function(interface) {
       "td-class": "text-center",
       'validation': function() {
         //  var isValid = ginger.isValidIPv6Prefix($(this).val());
-        ginger.markInputInvalid($(this), (ginger.isValidIPv6Prefix($(this).val()) || ginger.isValidIPv6($(this).val())));
+        ginger.markInputInvalid($(this), (ginger.isValidIPv6Prefix($(this).val())));
       }
     }, {
       'id': 'GATEWAY',

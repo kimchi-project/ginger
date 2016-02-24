@@ -53,7 +53,7 @@
         <div class="form-group">
           <label class="control-label col-sm-4" for="nw-vlan-hwaddress">$_("VLAN Interface name")</label>
           <div class="col-sm-8">
-            <input id="nw-vlan-interface-textbox" class="form-control" name="NAME" type="text" required="true"/>
+            <input id="nw-vlan-interface-textbox" class="form-control" name="NAME" type="text" required="true" />
           </div>
         </div>
         <div class="form-group">
@@ -62,7 +62,7 @@
         <div class="form-group">
           <label class="control-label col-sm-4" for="nw-vlan-vlanid-textbox">$_("VLAN Id")</label>
           <div class="col-sm-8 col-xs-3">
-            <input id="nw-vlan-vlanid-textbox" class="form-control" name="VLANID" type="text" required="true"/>
+            <input id="nw-vlan-vlanid-textbox" class="form-control" name="VLANID" type="text" required="true" />
           </div>
         </div>
 
@@ -78,8 +78,8 @@
           <label class="control-label col-sm-8" for="nw-vlan-ipv4-init">$_("IPv4")</label>
           <div class="col-sm-4">
             <div class="make-switch">
-                 <input type="checkbox" checked="true" class="ipv4-on-off" id="nw-vlan-ipv4-init"/>
-           </div>
+              <input type="checkbox" checked="true" class="ipv4-on-off" id="nw-vlan-ipv4-init" />
+            </div>
           </div>
         </div>
         <div class="form-group form-nw-vlan-ipv4-method">
@@ -93,45 +93,51 @@
         </div>
         <div class="form-group form-nw-vlan-ipv4-manual">
           <div class="form-group" style="margin-bottom:5px">
-        <label class="control-label" for="nw-vlan-ipv4-addresses">$_("IP Addresses")</label>
-        <div class="pull-right">
-          <button id="nw-vlan-ipv4-add" aria-expanded="false" type="button" class="row btn btn-primary"><i class="fa fa-plus-circle"></i>Add</button>
-        </div>
+            <label class="control-label" for="nw-vlan-ipv4-addresses">$_("IP Addresses")</label>
+            <div class="pull-right">
+              <button id="nw-vlan-ipv4-add" aria-expanded="false" type="button" class="row btn btn-primary"><i class="fa fa-plus-circle"></i>Add</button>
+            </div>
           </div>
-        <div id="nw-vlan-ipv4-addresses">
-          <!--Filled by JS-->
+          <div id="nw-vlan-ipv4-addresses">
+            <!--Filled by JS-->
+          </div>
         </div>
-      </div>
-      <div class="form-group form-nw-vlan-ipv4-manual-dhcp">
-      <div class="form-group" style="margin-bottom:5px">
-        <label class="control-label" for="nw-vlan-ipv4-dns">$_("DNS")</label>
-         <div class="pull-right">
-      <button id="nw-vlan-ipv4-dns-add" aria-expanded="false" type="button" class="row btn btn-primary"><i class="fa fa-plus-circle"></i>Add</button>
-    </div>
-      </div>
-        <div id="nw-vlan-ipv4-dns">
-          <!--Filled by JS-->
+        <div class="form-group form-nw-vlan-ipv4-manual-dhcp">
+          <div class="form-group" style="margin-bottom:5px">
+            <label class="control-label" for="nw-vlan-ipv4-dns">$_("DNS")</label>
+            <div class="pull-right">
+              <button id="nw-vlan-ipv4-dns-add" aria-expanded="false" type="button" class="row btn btn-primary"><i class="fa fa-plus-circle"></i>Add</button>
+            </div>
+          </div>
+          <div id="nw-vlan-ipv4-dns">
+            <!--Filled by JS-->
+          </div>
         </div>
-      </div>
-      <div class="form-group form-nw-vlan-ipv4-manual-dhcp">
-        <div class="form-group" style="margin-bottom:5px">
-        <label class="control-label" for="nw-vlan-ipv4-routes">$_("Routes")</label>
-           <div class="pull-right">
-        <button id="nw-vlan-ipv4-routes-add" aria-expanded="false" type="button" class="row btn btn-primary"><i class="fa fa-plus-circle"></i>Add</button>
-      </div>
+        <div class="form-group form-nw-vlan-ipv4-manual-dhcp">
+          <div class="form-group" style="margin-bottom:5px">
+            <label class="control-label" for="nw-vlan-ipv4-routes">$_("Routes")</label>
+            <div class="pull-right">
+              <button id="nw-vlan-ipv4-routes-add" aria-expanded="false" type="button" class="row btn btn-primary"><i class="fa fa-plus-circle"></i>Add</button>
+            </div>
+          </div>
+          <div id="nw-vlan-ipv4-routes">
+            <!--Filled by JS-->
+          </div>
         </div>
-        <div id="nw-vlan-ipv4-routes">
-          <!--Filled by JS-->
+        <div class="form-group form-nw-vlan-ipv4-manual-dhcp">
+          <div class="checkbox">
+            <label>
+              <input type="checkbox" value="" id="nw-vlan-ipv4-defroute" name="DEFROUTE">$_("Enable IPv4 Default Route")</label>
+          </div>
         </div>
-      </div>
       </form>
       <form role="tabpanel" class="tab-pane form-horizontal" id="form-nw-vlan-ipv6">
         <div class="form-group">
           <label class="control-label col-sm-8" for="nw-vlan-ipv6-init">$_("IPv6")</label>
           <div class="col-sm-4">
             <div class="make-switch">
-                 <input type="checkbox" checked="true" class="ipv6-on-off" id="nw-vlan-ipv6-init"/>
-           </div>
+              <input type="checkbox" checked="true" class="ipv6-on-off" id="nw-vlan-ipv6-init" />
+            </div>
           </div>
         </div>
         <div class="form-group form-nw-vlan-ipv6-method">
@@ -151,36 +157,42 @@
         </div>
         <div class="form-group form-nw-vlan-ipv6-manual">
           <div class="form-group" style="margin-bottom:5px">
-        <label class="control-label" for="nw-vlan-ipv6-addresses">$_("IP Addresses")</label>
-        <div class="pull-right">
-          <button id="nw-vlan-ipv6-add" aria-expanded="false" type="button" class="row btn btn-primary"><i class="fa fa-plus-circle"></i>Add</button>
-        </div>
+            <label class="control-label" for="nw-vlan-ipv6-addresses">$_("IP Addresses")</label>
+            <div class="pull-right">
+              <button id="nw-vlan-ipv6-add" aria-expanded="false" type="button" class="row btn btn-primary"><i class="fa fa-plus-circle"></i>Add</button>
+            </div>
           </div>
-        <div id="nw-vlan-ipv6-addresses">
-          <!--Filled by JS-->
-        </div>
-      </div>
-        <div class="form-group form-nw-vlan-ipv6-manual-dhcp">
-        <div class="form-group" style="margin-bottom:5px">
-        <label class="control-label" for="nw-vlan-ipv6-dns">$_("DNS")</label>
-           <div class="pull-right">
-        <button id="nw-vlan-ipv6-dns-add" aria-expanded="false" type="button" class="row btn btn-primary"><i class="fa fa-plus-circle"></i>Add</button>
-      </div>
-        </div>
-        <div id="nw-vlan-ipv6-dns">
-          <!--Filled by JS-->
-        </div>
+          <div id="nw-vlan-ipv6-addresses">
+            <!--Filled by JS-->
+          </div>
         </div>
         <div class="form-group form-nw-vlan-ipv6-manual-dhcp">
           <div class="form-group" style="margin-bottom:5px">
-        <label class="control-label" for="nw-vlan-ipv6-routes">$_("Routes")</label>
-             <div class="pull-right">
-          <button id="nw-vlan-ipv6-routes-add" aria-expanded="false" type="button" class="row btn btn-primary"><i class="fa fa-plus-circle"></i>Add</button>
-        </div>
+            <label class="control-label" for="nw-vlan-ipv6-dns">$_("DNS")</label>
+            <div class="pull-right">
+              <button id="nw-vlan-ipv6-dns-add" aria-expanded="false" type="button" class="row btn btn-primary"><i class="fa fa-plus-circle"></i>Add</button>
+            </div>
           </div>
-        <div id="nw-vlan-ipv6-routes">
-          <!--Filled by JS-->
+          <div id="nw-vlan-ipv6-dns">
+            <!--Filled by JS-->
+          </div>
         </div>
+        <div class="form-group form-nw-vlan-ipv6-manual-dhcp">
+          <div class="form-group" style="margin-bottom:5px">
+            <label class="control-label" for="nw-vlan-ipv6-routes">$_("Routes")</label>
+            <div class="pull-right">
+              <button id="nw-vlan-ipv6-routes-add" aria-expanded="false" type="button" class="row btn btn-primary"><i class="fa fa-plus-circle"></i>Add</button>
+            </div>
+          </div>
+          <div id="nw-vlan-ipv6-routes">
+            <!--Filled by JS-->
+          </div>
+        </div>
+        <div class="form-group form-nw-vlan-ipv6-manual-dhcp">
+          <div class="checkbox">
+            <label>
+              <input type="checkbox" value="" id="nw-vlan-ipv6-defroute" name="IPV6_DEFROUTE">$_("Enable IPv6 Default Route")</label>
+          </div>
         </div>
       </form>
       <!--form role="tabpanel" class="guest-edit-permission tab-pane" id="form-guest-edit-permission"-->
