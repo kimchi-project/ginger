@@ -42,14 +42,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
         <!-- Global Network Configuration Panel -->
         <div class="panel-group network-ppc-enabled accordion" id="network-global-accordion" role="tablist" aria-multiselectable="true">
           <h3>
-            <a role="button" data-toggle="collapse" data-parent="#network-global-accordion" href="#network-global-content-area" aria-expanded="false" aria-controls="network-global-content-area" class="">
+            <a role="button" aria-expanded="true" data-toggle="collapse" data-parent="#network-global-accordion" href="#network-global-content-area" aria-expanded="false" aria-controls="network-global-content-area" class="">
               <span class="accordion-icon"></span>
               <span class="accordion-text">$_("Global Network Configuration")</span>
             </a>
           </h3>
           <div id="network-global-content-area" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
-            <div class="row" id="nw-global-dns-action" style="padding-left:20px;">
-              <div class="nw-global-dns-actions btn-group" id="nw-global-dns-action-area">
+            <div class="row" id="nw-global-dns-action" style="padding:20px;">
+              <div class="nw-global-dns-actions btn-group pull-left" id="nw-global-dns-action-area">
                 <div class="dropdown menu-flat ">
                   <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false" aria-haspopup="true">
                     <span class="edit-alt"></span>$_("Actions")
@@ -62,6 +62,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
                   </ul>
                 </div>
               </div>
+              <div class="pull-right" id="nw-global-dns-refresh">
+                  <button id="nw-global-dns-refresh-btn" aria-expanded="false" type="button" class="row btn btn-primary"><i class="fa fa-refresh"></i> Refresh</button>
+                  </div>
             </div>
             <div class="row" style="padding-left:20px;">
               <div class="clearfix">
@@ -103,7 +106,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
         <!-- Network Configuration Panel -->
         <div class="panel-group network-ppc-enabled accordion" id="network-content-area-accordion" role="tablist" aria-multiselectable="true">
           <h3>
-            <a role="button" data-toggle="collapse" data-parent="#network-content-area-accordion" href="#network-content-area" aria-expanded="false" aria-controls="network-content-area" class="">
+            <a role="button" aria-expanded="true" data-toggle="collapse" data-parent="#network-content-area-accordion" href="#network-content-area" aria-expanded="false" aria-controls="network-content-area" class="">
               <span class="accordion-icon"></span>
               <span class="accordion-text">$_("Network Configuration")</span>
             </a>
@@ -112,13 +115,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
             <div class="row" id="nw-interfaces" style="padding-left:20px;">
               <div class="clearfix">
                 <span id='message-nw-container-area' style='display: none;'></span>
-                <div class="columm-md-12" class="row">
+                <div class="row">
                   <div id="nw-configuration-actions" class="pull-left">
                   </div>
-                  <div id="nw-configuration-add" class="pull-right">
+                  <div class="pull-right">
+                  <span id="nw-configuration-refresh">
+                  <button class="row btn btn-primary" type="button" aria-expanded="false" id="nw-configuration-refresh-btn"><i class="fa fa-refresh"></i> Refresh</button>
+                  </span>
+                  <span id="nw-configuration-add" class="">
+                  </span>
                   </div>
                 </div>
-                <div id="nw-configuration" class="row">
+                <div id="nw-configuration" class="row col-md-12">
                 </div>
               </div>
             </div>
