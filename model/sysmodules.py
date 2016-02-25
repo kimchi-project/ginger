@@ -34,7 +34,7 @@ vfio                   24576  2 vfio_iommu_type1,vfio_pci
 loop                   28672  0
 rfcomm                 69632  14
     """
-    lines = lsmod_output.strip().rstrip().split('\n')
+    lines = lsmod_output.strip().split('\n')
     lines = lines[1:]
     modules_array = []
     for line in lines:
@@ -66,7 +66,7 @@ signer=Fedora kernel signing key\0
 sig_key=89:CE:AF:53:80:B1:D1:50:40:56:CB:00:AA:3C:46:34:6B:EB:2E:05\0
 sig_hashalgo=sha256\0
     """
-    lines = modinfo_output.strip().rstrip().split('\0')
+    lines = modinfo_output.strip().split('\0')
     modinfo_dict = {}
 
     filename_line = lines[0].split()
