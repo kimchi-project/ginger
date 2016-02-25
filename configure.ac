@@ -75,6 +75,7 @@ AC_CONFIG_FILES([
     ui/css/base/Makefile
     ui/css/base/images/Makefile
     ui/js/Makefile
+    ui/images/Makefile
     ui/pages/Makefile
     ui/pages/tabs/Makefile
     ui/pages/help/Makefile

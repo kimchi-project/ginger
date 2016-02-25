@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
         <access role="admin" mode="admin" />
         <access role="user" mode="none" />
         <title>Administration</title>
-        <order>25</order>
+        <order>30</order>
         <path>plugins/ginger/tabs/host-admin.html</path>
     </tab>
     <tab>
@@ -43,6 +43,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
         <access role="admin" mode="admin" />
         <access role="user" mode="none" />
         <title>System Modules</title>
+        <order>25</order>
         <path>plugins/ginger/tabs/host-sysmodules.html</path>
     </tab>
 </tabs-ext>
