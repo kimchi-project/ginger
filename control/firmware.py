@@ -21,6 +21,15 @@ from wok.control.base import AsyncResource, Resource
 from wok.control.utils import UrlSubNode
 
 
+FIRMWARE_REQUESTS = {
+    'POST': {
+        'upgrade': "Upgrade firmware",
+        'commit': "Commit firmware image from temp side to perm side",
+        'reject': "Reject firmware image on temp side",
+    },
+}
+
+
 @UrlSubNode('firmware', True)
 class Firmware(Resource):
     def __init__(self, model, id=None):
@@ -34,6 +43,7 @@ class Firmware(Resource):
         upgrade_args = ['path', 'overwrite-perm']
         self.upgrade = self.generate_action_handler_task('upgrade',
                                                          upgrade_args)
+        self.log_map = FIRMWARE_REQUESTS
 
     @property
     def data(self):

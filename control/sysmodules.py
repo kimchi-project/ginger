@@ -21,6 +21,15 @@ from wok.control.base import Collection, Resource
 from wok.control.utils import UrlSubNode
 
 
+SYSMODULES_REQUESTS = {
+    'POST': {'default': "Load kernel module '%(name)s'"},
+}
+
+SYSMODULE_REQUESTS = {
+    'DELETE': {'default': "Unload kernel module '%(ident)s'"},
+}
+
+
 @UrlSubNode('sysmodules', True)
 class SysModules(Collection):
     def __init__(self, model):
@@ -28,6 +37,7 @@ class SysModules(Collection):
         self.role_key = 'adminstration'
         self.admin_methods = ['GET', 'POST']
         self.resource = SysModule
+        self.log_map = SYSMODULES_REQUESTS
 
 
 class SysModule(Resource):
@@ -36,6 +46,7 @@ class SysModule(Resource):
         self.role_key = 'administration'
         self.admin_methods = ['GET', 'DELETE']
         self.uri_fmt = "/sysmodules/%s"
+        self.log_map = SYSMODULE_REQUESTS
 
     @property
     def data(self):

@@ -21,6 +21,15 @@ from wok.control.base import AsyncCollection, Resource
 from wok.control.utils import UrlSubNode
 
 
+LOGICALVOLUMES_REQUESTS = {
+    'POST': {'default': "Create logical volume at volume group '%(vg_name)s'"},
+}
+
+LOGICALVOLUME_REQUESTS = {
+    'DELETE': {'default': "Remove logical volume '%(ident)s'"},
+}
+
+
 @UrlSubNode('lvs', True)
 class LogicalVolumes(AsyncCollection):
     """
@@ -31,6 +40,7 @@ class LogicalVolumes(AsyncCollection):
         self.role_key = 'host'
         self.admin_methods = ['GET', 'POST', 'DELETE']
         self.resource = LogicalVolume
+        self.log_map = LOGICALVOLUMES_REQUESTS
 
 
 class LogicalVolume(Resource):
@@ -42,6 +52,7 @@ class LogicalVolume(Resource):
         self.role_key = 'host'
         self.admin_methods = ['GET', 'POST', 'DELETE']
         self.uri_fmt = "/lvs/%s"
+        self.log_map = LOGICALVOLUME_REQUESTS
 
     @property
     def data(self):

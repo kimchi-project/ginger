@@ -21,6 +21,15 @@ from wok.control.base import Collection, Resource
 from wok.control.utils import UrlSubNode
 
 
+DASDPARTITIONS_REQUESTS = {
+    'POST': {'default': "Create DASD partition on '%(dev_name)s'"},
+}
+
+DASDPARTITION_REQUESTS = {
+    'DELETE': {'default': "Delete DASD partition '%(ident)s'"},
+}
+
+
 @UrlSubNode('dasdpartitions', True)
 class DASDPartitions(Collection):
     """
@@ -31,6 +40,7 @@ class DASDPartitions(Collection):
         self.role_key = 'storage'
         self.admin_methods = ['GET', 'POST', 'DELETE']
         self.resource = DASDPartition
+        self.log_map = DASDPARTITIONS_REQUESTS
 
 
 class DASDPartition(Resource):
@@ -42,6 +52,7 @@ class DASDPartition(Resource):
         self.role_key = 'storage'
         self.admin_methods = ['GET', 'POST', 'DELETE']
         self.uri_fmt = "/dasdpartitions/%s"
+        self.log_map = DASDPARTITION_REQUESTS
 
     @property
     def data(self):

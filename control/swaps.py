@@ -21,6 +21,15 @@ from wok.control.base import AsyncCollection, Resource
 from wok.control.utils import UrlSubNode
 
 
+SWAPS_REQUESTS = {
+    'POST': {'default': "Create swap device '%(file_loc)s'"},
+}
+
+SWAP_REQUESTS = {
+    'DELETE': {'default': "Delete swap device '%(ident)s'"},
+}
+
+
 @UrlSubNode('swaps', True)
 class Swaps(AsyncCollection):
     def __init__(self, model):
@@ -28,6 +37,7 @@ class Swaps(AsyncCollection):
         self.role_key = 'storage'
         self.admin_methods = ['GET', 'POST', 'DELETE']
         self.resource = Swap
+        self.log_map = SWAPS_REQUESTS
 
 
 class Swap(Resource):
@@ -36,6 +46,7 @@ class Swap(Resource):
         self.role_key = 'storage'
         self.admin_methods = ['GET', 'POST', 'DELETE']
         self.uri_fmt = "/swaps/%s"
+        self.log_map = SWAP_REQUESTS
 
     @property
     def data(self):

@@ -24,6 +24,21 @@ from wok.control.base import Collection, Resource
 from wok.control.utils import UrlSubNode
 
 
+BACKUP_REQUESTS = {
+    'POST': {
+        'discard_archives': "Delete old archives",
+    },
+}
+
+ARCHIVES_REQUESTS = {
+    'POST': {'default': "Create archive"},
+}
+
+ARCHIVE_REQUESTS = {
+    'DELETE': {'default': "Delete archive '%(ident)s'"},
+}
+
+
 @UrlSubNode('backup', True)
 class Backup(Resource):
     def __init__(self, model):
@@ -34,6 +49,7 @@ class Backup(Resource):
         self.discard_archives = self.generate_action_handler(
             'discard_archives', ['days_ago', 'counts_ago'])
         self.uri_fmt = '/backup/%s'
+        self.log_map = BACKUP_REQUESTS
         # In future we will add self.schedules
 
 
@@ -42,11 +58,13 @@ class Archives(Collection):
     def __init__(self, model):
         super(Archives, self).__init__(model)
         self.resource = Archive
+        self.log_map = ARCHIVES_REQUESTS
 
 
 class Archive(Resource):
     def __init__(self, model, ident):
         super(Archive, self).__init__(model, ident)
+        self.log_map = ARCHIVE_REQUESTS
 
     @property
     def data(self):

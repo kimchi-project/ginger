@@ -21,6 +21,19 @@ from wok.control.base import AsyncCollection, Resource
 from wok.control.utils import UrlSubNode
 
 
+VOLUMEGROUPS_REQUESTS = {
+    'POST': {'default': "Add volume group '%(vg_name)s'"},
+}
+
+VOLUMEGROUP_REQUESTS = {
+    'DELETE': {'default': "Delete volume group '%(ident)s'"},
+    'POST': {
+        'extend': "Extend volume group '%(ident)s'",
+        'reduce': "Reduce volume group '%(ident)s'",
+    },
+}
+
+
 @UrlSubNode('vgs', True)
 class VolumeGroups(AsyncCollection):
     """
@@ -31,6 +44,7 @@ class VolumeGroups(AsyncCollection):
         self.role_key = 'host'
         self.admin_methods = ['GET', 'POST', 'DELETE']
         self.resource = VolumeGroup
+        self.log_map = VOLUMEGROUPS_REQUESTS
 
 
 class VolumeGroup(Resource):
@@ -42,6 +56,7 @@ class VolumeGroup(Resource):
         self.role_key = 'host'
         self.admin_methods = ['GET', 'POST', 'DELETE']
         self.uri_fmt = "/vgs/%s"
+        self.log_map = VOLUMEGROUP_REQUESTS
         self.extend = self.generate_action_handler('extend', ['pv_paths'])
         self.reduce = self.generate_action_handler('reduce', ['pv_paths'])
 

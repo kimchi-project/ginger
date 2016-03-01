@@ -24,6 +24,14 @@ from cfginterfaces import Cfginterfaces
 from interfaces import Interfaces
 
 
+NETWORK_REQUESTS = {
+    'PUT': {'default': "Update network"},
+    'POST': {
+        'confirm_change': "Confirm changes for network '%(ident)s'",
+    },
+}
+
+
 @UrlSubNode('network', True)
 class Network(Resource):
 
@@ -36,6 +44,7 @@ class Network(Resource):
         self.uri_fmt = '/network/%s'
         self.update_params = ['nameservers', 'gateway']
         self.confirm_change = self.generate_action_handler('confirm_change')
+        self.log_map = NETWORK_REQUESTS
 
     @property
     def data(self):

@@ -21,6 +21,13 @@ from wok.control.base import Collection, Resource
 from wok.control.utils import model_fn, UrlSubNode
 
 
+DASDDEV_REQUESTS = {
+    'POST': {
+        'format': "Format DASD device %(ident)s",
+    },
+}
+
+
 @UrlSubNode('dasddevs', True)
 class DASDdevs(Collection):
     """
@@ -66,6 +73,7 @@ class DASDdev(Resource):
         self.uri_fmt = "/dasddevs/%s"
         self.format = self.generate_action_handler_task('format', ['blk_size'])
         self.info = {}
+        self.log_map = DASDDEV_REQUESTS
 
     @property
     def data(self):

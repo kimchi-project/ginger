@@ -20,16 +20,28 @@
 from wok.control.base import Collection, Resource
 
 
+CFGINTERFACES_REQUESTS = {
+    'POST': {'default': "Create ifcfg interface"},
+}
+
+CFGINTERFACE_REQUESTS = {
+    'DELETE': {'default': "Remove ifcfg interface '%(ident)s'"},
+    'PUT': {'default': "Update ifcfg interface"},
+}
+
+
 class Cfginterfaces(Collection):
     def __init__(self, model):
         super(Cfginterfaces, self).__init__(model)
         self.resource = Cfginterface
+        self.log_map = CFGINTERFACES_REQUESTS
 
 
 class Cfginterface(Resource):
     def __init__(self, model, ident):
         super(Cfginterface, self).__init__(model, ident)
         self.uri_fmt = '/network/cfginterfaces/%s'
+        self.log_map = CFGINTERFACE_REQUESTS
 
     @property
     def data(self):

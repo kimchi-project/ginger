@@ -22,6 +22,15 @@ from wok.control.base import Collection, Resource
 from wok.control.utils import UrlSubNode
 
 
+USERS_REQUESTS = {
+    'POST': {'default': "Add user '%(name)s'"},
+}
+
+USER_REQUESTS = {
+    'DELETE': {'default': "Delete user '%(ident)s'"},
+}
+
+
 @UrlSubNode('users', True)
 class Users(Collection):
     def __init__(self, model):
@@ -29,9 +38,13 @@ class Users(Collection):
         self.role_key = "administration"
         self.admin_methods = ['GET', 'POST', 'DELETE']
         self.resource = User
+        self.log_map = USERS_REQUESTS
 
 
 class User(Resource):
+    def __init__(self, model, ident):
+        super(User, self).__init__(model, ident)
+        self.log_map = USER_REQUESTS
 
     @property
     def data(self):

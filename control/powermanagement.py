@@ -21,6 +21,11 @@ from wok.control.base import Resource, Collection
 from wok.control.utils import UrlSubNode
 
 
+POWERPROFILE_REQUESTS = {
+    'PUT': {'default': "Activate power saving profile"},
+}
+
+
 @UrlSubNode('powerprofiles', True)
 class PowerProfiles(Collection):
     def __init__(self, model):
@@ -35,6 +40,7 @@ class PowerProfile(Resource):
         super(PowerProfile, self).__init__(model, ident)
         self.ident = ident
         self.update_params = ["active"]
+        self.log_map = POWERPROFILE_REQUESTS
 
     @property
     def data(self):

@@ -21,6 +21,19 @@ from wok.control.base import Collection, Resource
 from wok.control.utils import UrlSubNode
 
 
+PARTITIONS_REQUESTS = {
+    'POST': {'default': "Create partition on '%(devname)s'"},
+}
+
+PARTITION_REQUESTS = {
+    'DELETE': {'default': "Delete partition '%(ident)s'"},
+    'POST': {
+        'change_type': "Change type of partition %(ident)s",
+        'format': "Format partition %(ident)s",
+    },
+}
+
+
 @UrlSubNode('partitions', True)
 class Partitions(Collection):
     """
@@ -31,6 +44,7 @@ class Partitions(Collection):
         self.role_key = 'storage'
         self.admin_methods = ['GET', 'POST', 'DELETE']
         self.resource = Partition
+        self.log_map = PARTITIONS_REQUESTS
 
     # Defining get_resources in order to return list of
     # partitions/disks without mpath_member
@@ -53,6 +67,7 @@ class Partition(Resource):
         self.change_type = self.generate_action_handler('change_type',
                                                         ['type'])
         super(Partition, self).__init__(model, id)
+        self.log_map = PARTITION_REQUESTS
 
     @property
     def data(self):

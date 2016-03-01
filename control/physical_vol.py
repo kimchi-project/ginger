@@ -21,6 +21,15 @@ from wok.control.base import AsyncCollection, Resource
 from wok.control.utils import UrlSubNode
 
 
+PHYSICALVOLUMES_REQUESTS = {
+    'POST': {'default': "Add physical volume '%(pv_name)s'"},
+}
+
+PHYSICALVOLUME_REQUESTS = {
+    'DELETE': {'default': "Delete physical volume '%(ident)s'"},
+}
+
+
 @UrlSubNode('pvs', True)
 class PhysicalVolumes(AsyncCollection):
     """
@@ -31,6 +40,7 @@ class PhysicalVolumes(AsyncCollection):
         self.role_key = 'host'
         self.admin_methods = ['GET', 'POST', 'DELETE']
         self.resource = PhysicalVolume
+        self.log_map = PHYSICALVOLUMES_REQUESTS
 
 
 class PhysicalVolume(Resource):
@@ -42,6 +52,7 @@ class PhysicalVolume(Resource):
         self.role_key = 'host'
         self.admin_methods = ['GET', 'POST', 'DELETE']
         self.uri_fmt = "/pvs/%s"
+        self.log_map = PHYSICALVOLUME_REQUESTS
 
     @property
     def data(self):

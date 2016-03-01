@@ -21,6 +21,23 @@ from wok.control.base import Collection, Resource
 from wok.control.utils import UrlSubNode
 
 
+SEP_REQUESTS = {
+    'POST': {
+        'start': "Start IBM Serviceable Event Provider (SEP)",
+        'stop': "Stop IBM Serviceable Event Provider (SEP)",
+    },
+}
+
+SUBSCRIBERS_REQUESTS = {
+    'POST': {'default': "Subscribe '%(hostname)s' with IBM SEP"},
+}
+
+SUBSCRIPTION_REQUESTS = {
+    'DELETE': {'default': "Delete '%(ident)s' subscription with IBM SEP"},
+    'PUT': {'default': "Update subscription with IBM SEP"},
+}
+
+
 @UrlSubNode('ibm_sep', True)
 class Sep(Resource):
     def __init__(self, model):
@@ -31,6 +48,7 @@ class Sep(Resource):
         self.start = self.generate_action_handler('start')
         self.stop = self.generate_action_handler('stop')
         self.subscribers = Subscribers(model)
+        self.log_map = SEP_REQUESTS
 
     @property
     def data(self):
@@ -44,6 +62,7 @@ class Subscribers(Collection):
         self.admin_methods = ['GET', 'POST', 'PUT']
         self.update_params = ['hostname', 'port', 'community']
         self.uri_fmt = "/ibm_sep/subscribers/%s"
+        self.log_map = SUBSCRIBERS_REQUESTS
 
     @property
     def data(self):
@@ -53,6 +72,7 @@ class Subscribers(Collection):
 class Subscription(Resource):
     def __init__(self, model, ident):
         super(Subscription, self).__init__(model, ident)
+        self.log_map = SUBSCRIPTION_REQUESTS
 
     @property
     def data(self):

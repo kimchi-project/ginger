@@ -21,6 +21,15 @@ from wok.control.base import Collection, Resource
 from wok.control.utils import UrlSubNode
 
 
+FILESYSTEMS_REQUESTS = {
+    'POST': {'default': "Mount %(type)s filesystem at %(mount_point)s"},
+}
+
+FILESYSTEM_REQUESTS = {
+    'DELETE': {'default': "Unmount filesystem %(ident)s"},
+}
+
+
 @UrlSubNode('filesystems', True)
 class FileSystems(Collection):
     """
@@ -31,6 +40,7 @@ class FileSystems(Collection):
         self.role_key = 'host'
         self.admin_methods = ['GET', 'POST', 'DELETE']
         self.resource = FileSystem
+        self.log_map = FILESYSTEMS_REQUESTS
 
 
 class FileSystem(Resource):
@@ -42,6 +52,7 @@ class FileSystem(Resource):
         self.role_key = 'host'
         self.admin_methods = ['GET', 'POST', 'DELETE']
         self.uri_fmt = "/filesystems/%s"
+        self.log_map = FILESYSTEM_REQUESTS
 
     @property
     def data(self):
