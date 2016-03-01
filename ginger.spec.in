@@ -76,6 +76,7 @@ service wokd restart
 %{_datadir}/wok/plugins/ginger/ui/css/base/images/*.gif
 %{_datadir}/wok/plugins/ginger/ui/css/base/images/*.png
 %{_datadir}/wok/plugins/ginger/ui/css/ginger.css
+%{_datadir}/wok/plugins/ginger/ui/images/*.svg
 %{_datadir}/wok/plugins/ginger/ui/js/*.js
 %{_datadir}/wok/plugins/ginger/ui/pages/*.html.tmpl
 %{_datadir}/wok/plugins/ginger/ui/pages/help/ginger-help.css
@@ -87,6 +88,9 @@ service wokd restart
 
 
 %changelog
+* Tue Mar 1 2016 Daniel Henrique Barboza <dhbarboza82@gmail.com>
+- added ui/images/*.svg in %files
+
 * Sat Feb 6 2016 Chandra Shekhar Reddy Potula <chandra@linux.vnet.ibm.com>
 - Add libvirt service dependencies to Ginger
 
