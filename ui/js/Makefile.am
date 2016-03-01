@@ -17,13 +17,4 @@
 
 jsdir = $(datadir)/wok/plugins/ginger/ui/js
 
-dist_js_DATA = \
-	host-admin.js \
-	host-network.js \
-	util.js \
-        ginger-bootgrid.js \
-        host-storage.js \
-        host-network-vlan.js \
-				host-network-settings.js \
-        host-network-bond.js \
-	$(NULL)
+dist_js_DATA = $(wildcard *.js)
