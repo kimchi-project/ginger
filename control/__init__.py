@@ -33,6 +33,7 @@ from firmware import FirmwareProgress
 from ibm_sep import Sep
 from log_volumes import LogicalVolumes
 from network import Network
+from ovsbridges import OVSBridges
 from physical_vol import PhysicalVolumes
 from powermanagement import PowerProfiles
 from sanadapters import SanAdapters
@@ -57,6 +58,7 @@ __all__ = [
     FirmwareProgress,
     LogicalVolumes,
     Network,
+    OVSBridges,
     Partitions,
     PowerProfiles,
     PhysicalVolumes,

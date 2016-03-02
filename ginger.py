@@ -22,10 +22,9 @@ import os
 
 from control import Backup, Capabilities, Config, DASDdevs, DASDPartitions
 from control import Firmware, FirmwareProgress, FileSystems, LogicalVolumes
-from control import Network, Partitions, PhysicalVolumes, PowerProfiles
-from control import SanAdapters, Sensors, Sep, StorageDevs, Swaps, SysModules
-from control import Users
-from control import VolumeGroups
+from control import Network, OVSBridges, Partitions, PhysicalVolumes
+from control import PowerProfiles, SanAdapters, Sensors, Sep, StorageDevs
+from control import Swaps, SysModules, Users, VolumeGroups
 from i18n import messages
 
 from wok import config
@@ -61,6 +60,7 @@ class Ginger(WokRoot):
         self.ibm_sep = Sep(self.model)
         self.lvs = LogicalVolumes(self.model)
         self.network = Network(self.model)
+        self.ovsbridges = OVSBridges(self.model)
         self.partitions = Partitions(self.model)
         self.powerprofiles = PowerProfiles(self.model)
         self.pvs = PhysicalVolumes(self.model)

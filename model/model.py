@@ -32,6 +32,7 @@ from ibm_sep import SepModel, SubscribersModel, SubscriptionModel
 from interfaces import InterfacesModel, InterfaceModel
 from log_volume import LogicalVolumesModel, LogicalVolumeModel
 from network import NetworkModel
+from ovsbridges import OVSBridgesModel, OVSBridgeModel
 from powermanagement import PowerProfilesModel, PowerProfileModel
 from physical_vol import PhysicalVolumesModel, PhysicalVolumeModel
 from sanadapters import SanAdapterModel, SanAdaptersModel
@@ -88,6 +89,8 @@ class GingerModel(BaseModel):
         filesystem = FileSystemModel()
         log_volumes = LogicalVolumesModel(objstore=self._objstore)
         log_volume = LogicalVolumeModel(objstore=self._objstore)
+        ovsbridges = OVSBridgesModel()
+        ovsbridge = OVSBridgeModel()
         partitions = PartitionsModel()
         partition = PartitionModel(objstore=self._objstore)
         archives = ArchivesModel(objstore=self._objstore)
@@ -114,7 +117,7 @@ class GingerModel(BaseModel):
                     san_adapters, sensors, ibm_sep, users, filesystems,
                     dasddevs, dasdpartitions, partitions, physical_vols,
                     vol_groups, log_volumes, stgdevs, firmwareprogress,
-                    sysmodules, cfginterfaces]
+                    sysmodules, cfginterfaces, ovsbridges]
         capabilities = CapabilitiesModel(features)
         config = ConfigModel()
 
@@ -138,7 +141,7 @@ class GingerModel(BaseModel):
             sysmodules, sysmodule,
             vol_groups, vol_group,
             ibm_sep, subscription, subscriber,
-            capabilities, config]
+            capabilities, config, ovsbridge, ovsbridges]
 
         # Import task model from Wok
         kargs = {'objstore': self._objstore}
