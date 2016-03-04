@@ -52,9 +52,8 @@ ginger.loadSysmodules = function() {
                 };
 
                 wok.confirm(settings, function() {
-                    var sysmoduleItem = $(this).parent();
                     ginger.removeSysmodule(selectedModule, function() {
-                        wok.message.info(i18n['GINSYS0013M'].replace("%1", '<strong>'+selectedModule+'</strong>'));
+                        wok.message.success(i18n['GINSYS0013M'].replace("%1", '<strong>'+selectedModule+'</strong>'));
                         sysmoduleItem.remove();
                         $('body').animate({ scrollTop: 0 }, 1000);
                     }, function(err) {
