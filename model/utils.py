@@ -786,6 +786,8 @@ def get_final_list():
         out = get_disks_by_id_out()
         ll_dict, ll_id_dict = parse_ll_out(out)
 
+        fc_blk_dict = get_fc_path_elements()
+
         for blk in blk_dict:
             final_dict = {}
             if blk in ll_dict:
@@ -807,8 +809,9 @@ def get_final_list():
             final_dict['type'] = blk_dict[blk]['transport']
 
             if final_dict['type'] == 'fc':
-                final_dict['hba_id'], final_dict['wwpn'], final_dict[
-                    'fcp_lun'] = get_fc_path_elements(blk)
+                final_dict['hba_id'] = fc_blk_dict[blk]['hba_id']
+                final_dict['wwpn'] = fc_blk_dict[blk]['wwpn']
+                final_dict['fcp_lun'] = fc_blk_dict[blk]['fcp_lun']
 
             if 'id' in final_dict:
                 if final_dict['id'] in ll_id_dict:
@@ -825,24 +828,32 @@ def get_final_list():
     return final_list
 
 
-def get_fc_path_elements(blk):
+def get_fc_path_elements():
+
     """
     Get the FC LUN ID, remote wwpn and local host adapter
-    for the given block device based on FC LUN
-    :param blk: Block device
-    :return: tuple containing Host Adapter, WWPN, LUN ID
+    for the all block devices.
+    :return: dictionary containing key as blk and value as
+    dictionary of Host Adapter, WWPN, LUN ID
+    e.g. {'sda': {'wwpn': '0x5001738030bb0171',
+                 'fcp_lun': '0x00df000000000000',
+                 'hba_id': '0.0.7100'},
+          'sdb': {'wwpn': '0x5001738030bb0171',
+                  'fcp_lun': '0x41cf000000000000',
+                  'hba_id': '0.0.7100'},}
     """
-
     wwpn = ''
     fcp_lun = ''
     hba_id = ''
-
+    fc_blk_dict = {}
     for sg_dev in os.listdir(sg_dir):
         # skip devices whose transport is not FC
         sg_dev_path = sg_dir + "/" + sg_dev
-        if os.path.exists(sg_dev_path + "/device/wwpn"):
-            if os.path.exists(
-                    sg_dev_path + "/device/block/" + blk):
+        if os.path.exists(sg_dev_path + "/device/wwpn")\
+           and os.path.exists(sg_dev_path + "/device/block/"):
+            blk = os.listdir(sg_dev_path + "/device/block/")[0]
+
+            if os.path.exists(sg_dev_path + "/device/block/" + blk):
                 wwpn = open(
                     sg_dev_path +
                     "/device/wwpn").readline().rstrip()
@@ -852,13 +863,13 @@ def get_fc_path_elements(blk):
                 hba_id = open(
                     sg_dev_path +
                     "/device/hba_id").readline().rstrip()
-                break
+                blk_info_dict = {}
+                blk_info_dict['wwpn'] = wwpn
+                blk_info_dict['fcp_lun'] = fcp_lun
+                blk_info_dict['hba_id'] = hba_id
+                fc_blk_dict[blk] = blk_info_dict
 
-    if not wwpn or not fcp_lun or not hba_id:
-        wok_log.error(
-            "Unable to find FC elements for given fc block device: " + blk)
-
-    return hba_id, wwpn, fcp_lun
+    return fc_blk_dict
 
 
 def get_storagedevice(device):

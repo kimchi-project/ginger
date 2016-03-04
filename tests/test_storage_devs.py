@@ -125,10 +125,14 @@ NAME="dasda1" TYPE="part" SIZE="22.5G" TRAN=""
             mock_fc_elems,
             mock_get_dasd_devs):
         mock_get_dasd_devs.return_value = None
-        mock_fc_elems.return_value = (
-            '0.0.0000',
-            '0x0000000000000000',
-            '0x1000000000000000')
+        mock_fc_elems.return_value = {'sdd':
+                                      {'hba_id': '0.0.0000',
+                                       'wwpn': '0x0000000000000000',
+                                       'fcp_lun': '0x1000000000000000'},
+                                      'sde':
+                                      {'hba_id': '0.0.0000',
+                                       'wwpn': '0x0000000000000000',
+                                       'fcp_lun': '0x1100000000000000'}}
         mock_lsblk_cmd.return_value = """NAME="sda" TYPE="disk" \
         SIZE="5G" TRAN="iscsi"
 NAME="36005076802810d504800000000002ede" TRAN="" TYPE="mpath" SIZE="5G"
