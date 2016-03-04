@@ -370,14 +370,14 @@ ginger.initSEPConfig = function() {
     var sepStatus = function() {
         ginger.getSEPStatus(function(result) {
             if (result.status === "running") {
-                $("#sep-ppc-content-area, .fa-circle").removeClass("hidden");
-                $("#sep-ppc-content-area, .fa-times-circle").addClass("hidden");
+                $("#sep-ppc-content-area .fa-circle").removeClass("hidden");
+                $("#sep-ppc-content-area .fa-times-circle").addClass("hidden");
                 $("#sepStatusLog").text("Running");
                 $("#sepStart").button().attr("style", "display:none");
                 $("#sepStop").button().attr("style", "display");
             } else {
-                $("#sep-ppc-content-area, .fa-circle").addClass("hidden");
-                $("#sep-ppc-content-area, .fa-times-circle").removeClass("hidden");
+                $("#sep-ppc-content-area .fa-circle").addClass("hidden");
+                $("#sep-ppc-content-area .fa-times-circle").removeClass("hidden");
                 $("#sepStatusLog").text("Stopped");
                 $("#sepStart").button().attr("style", "display");
                 $("#sepStop").button().attr("style", "display:none");
