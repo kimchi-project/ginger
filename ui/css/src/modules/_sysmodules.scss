@@ -20,7 +20,7 @@
 
 #host-sysmodules-root-container {
     .accordion {
-        @include ginger-accordion();
+        @include wok-accordion();
     }
     .navbar-default.toolbar {
         background-color: $hosts-color !important;
