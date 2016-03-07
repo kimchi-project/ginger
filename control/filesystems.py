@@ -22,11 +22,11 @@ from wok.control.utils import UrlSubNode
 
 
 FILESYSTEMS_REQUESTS = {
-    'POST': {'default': "Mount %(type)s filesystem at %(mount_point)s"},
+    'POST': {'default': "Mount %(type)s filesystem at '%(mount_point)s'"},
 }
 
 FILESYSTEM_REQUESTS = {
-    'DELETE': {'default': "Unmount filesystem %(ident)s"},
+    'DELETE': {'default': "Unmount filesystem '%(ident)s'"},
 }
 
 

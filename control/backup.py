@@ -26,16 +26,16 @@ from wok.control.utils import UrlSubNode
 
 BACKUP_REQUESTS = {
     'POST': {
-        'discard_archives': "Delete old archives",
+        'discard_archives': "Discard old archives",
     },
 }
 
 ARCHIVES_REQUESTS = {
-    'POST': {'default': "Create archive"},
+    'POST': {'default': "Create archive with description '%(description)s'"},
 }
 
 ARCHIVE_REQUESTS = {
-    'DELETE': {'default': "Delete archive '%(ident)s'"},
+    'DELETE': {'default': "Remove archive '%(ident)s'"},
 }
 
 
@@ -59,6 +59,7 @@ class Archives(Collection):
         super(Archives, self).__init__(model)
         self.resource = Archive
         self.log_map = ARCHIVES_REQUESTS
+        self.log_args.update({'description': ''})
 
 
 class Archive(Resource):

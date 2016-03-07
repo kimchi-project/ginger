@@ -21,6 +21,25 @@ from wok.control.base import Resource, Collection
 from wok.control.utils import UrlSubNode
 
 
+OVSBRIDGES_REQUESTS = {'POST': {'default': "Create OVS bridge '%(name)s'"}}
+
+OVSBRIDGE_REQUESTS = {
+    'DELETE': {'default': "Remove OVS bridge '%(ident)s'"},
+    'POST': {
+        'add_interface': "Add interface '%(interface)s' to OVS bridge "
+                         "'%(ident)s'",
+        'del_interface': "Remove interface '%(interface)s' from OVS bridge "
+                         "'%(ident)s'",
+        'add_bond': "Add bonded port '%(bond)s' in OVS bridge '%(ident)s'",
+        'del_bond': "Remove bonded port '%(bond)s' from OVS bridge "
+                    "'%(ident)s'",
+        'modify_bond': "Modify bonded port '%(bond)s' to replace interface "
+                       "'%(interface_del)s' with interface '%(interface_add)s'"
+                       " in OVS bridge '%(ident)s'",
+    },
+}
+
+
 @UrlSubNode('ovsbridges', True)
 class OVSBridges(Collection):
     def __init__(self, model):
@@ -28,6 +47,7 @@ class OVSBridges(Collection):
         self.role_key = "administration"
         self.admin_methods = ['GET', 'POST']
         self.resource = OVSBridge
+        self.log_map = OVSBRIDGES_REQUESTS
 
 
 class OVSBridge(Resource):
@@ -36,6 +56,7 @@ class OVSBridge(Resource):
         self.ident = ident
         self.admin_methods = ['GET', 'DELETE']
         self.uri_fmt = "/ovsbridges/%s"
+        self.log_map = OVSBRIDGE_REQUESTS
 
         interface_args = ['interface']
         self.add_interface = \

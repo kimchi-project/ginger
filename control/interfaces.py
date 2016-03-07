@@ -20,16 +20,11 @@
 from wok.control.base import Collection, Resource
 
 
-INTERFACES_REQUESTS = {
-    'POST': {'default': "Create network interface"},
-}
-
 INTERFACE_REQUESTS = {
-    'DELETE': {'default': "Remove network interface '%(ident)s'"},
-    'PUT': {'default': "Update network interface"},
+    'PUT': {'default': "Redefine host network interface '%(ident)s'"},
     'POST': {
-        'activate': "Activate network interface '%(ident)s'",
-        'deactivate': "Deactivate network interface '%(ident)s'",
+        'activate': "Activate host network interface '%(ident)s'",
+        'deactivate': "Deactivate host network interface '%(ident)s'",
     },
 }
 
@@ -38,7 +33,6 @@ class Interfaces(Collection):
     def __init__(self, model):
         super(Interfaces, self).__init__(model)
         self.resource = Interface
-        self.log_map = INTERFACES_REQUESTS
 
 
 class Interface(Resource):

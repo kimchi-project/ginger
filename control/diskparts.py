@@ -22,14 +22,17 @@ from wok.control.utils import UrlSubNode
 
 
 PARTITIONS_REQUESTS = {
-    'POST': {'default': "Create partition on '%(devname)s'"},
+    'POST': {
+        'default': "Create disk partition at '%(devname)s' with size "
+                   "%(partsize)s"},
 }
 
 PARTITION_REQUESTS = {
-    'DELETE': {'default': "Delete partition '%(ident)s'"},
+    'DELETE': {'default': "Remove disk partition '%(ident)s'"},
     'POST': {
-        'change_type': "Change type of partition %(ident)s",
-        'format': "Format partition %(ident)s",
+        'change_type': "Update disk partition '%(ident)s' to type '%(type)s'",
+        'format': "Format disk partition '%(ident)s' with filesystem "
+                  "'%(fstype)s'",
     },
 }
 

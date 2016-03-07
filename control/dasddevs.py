@@ -23,7 +23,7 @@ from wok.control.utils import model_fn, UrlSubNode
 
 DASDDEV_REQUESTS = {
     'POST': {
-        'format': "Format DASD device %(ident)s",
+        'format': "Format DASD device '%(ident)s' with block size %(blk_size)s"
     },
 }
 

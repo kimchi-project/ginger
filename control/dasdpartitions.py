@@ -22,11 +22,13 @@ from wok.control.utils import UrlSubNode
 
 
 DASDPARTITIONS_REQUESTS = {
-    'POST': {'default': "Create DASD partition on '%(dev_name)s'"},
+    'POST': {
+        'default': "Create DASD partition on '%(dev_name)s' with size %(size)s"
+    },
 }
 
 DASDPARTITION_REQUESTS = {
-    'DELETE': {'default': "Delete DASD partition '%(ident)s'"},
+    'DELETE': {'default': "Remove DASD partition '%(ident)s'"},
 }
 
 

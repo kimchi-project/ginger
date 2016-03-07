@@ -21,12 +21,18 @@ from wok.control.base import Collection, Resource
 
 
 CFGINTERFACES_REQUESTS = {
-    'POST': {'default': "Create ifcfg interface"},
+    'POST': {'default': "Create configuration file for network interface"},
 }
 
 CFGINTERFACE_REQUESTS = {
-    'DELETE': {'default': "Remove ifcfg interface '%(ident)s'"},
-    'PUT': {'default': "Update ifcfg interface"},
+    'DELETE': {
+        'default': "Remove configuration file for network interface "
+                   "'%(ident)s'",
+    },
+    'PUT': {
+        'default': "Update configuration file for network interface "
+                   "'%(ident)s'",
+    },
 }
 
 

@@ -23,9 +23,9 @@ from wok.control.utils import UrlSubNode
 
 FIRMWARE_REQUESTS = {
     'POST': {
-        'upgrade': "Upgrade firmware",
-        'commit': "Commit firmware image from temp side to perm side",
-        'reject': "Reject firmware image on temp side",
+        'upgrade': "Upgrade host firmware with '%(path)s'",
+        'commit': "Commit host firmware image from temp side to perm side",
+        'reject': "Reject host firmware image on temp side",
     },
 }
 

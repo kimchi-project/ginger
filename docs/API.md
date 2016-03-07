@@ -746,7 +746,7 @@ URI: /plugins/ginger/sysmodules
 * Returns: a list of SysModule objects.
 
 * **POST**: Load a kernel module using modprobe.
-        * module: the name of the module.
+        * name: the name of the module.
         * parms: arguments to be passed to the module, as you would with modprobe.
 * Returns: the full description of the module loaded.
 

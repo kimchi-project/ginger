@@ -33,8 +33,8 @@ SUBSCRIBERS_REQUESTS = {
 }
 
 SUBSCRIPTION_REQUESTS = {
-    'DELETE': {'default': "Delete '%(ident)s' subscription with IBM SEP"},
-    'PUT': {'default': "Update subscription with IBM SEP"},
+    'DELETE': {'default': "Unsubscribe '%(ident)s' with IBM SEP"},
+    'PUT': {'default': "Update '%(ident)s' subscription with IBM SEP"},
 }
 
 

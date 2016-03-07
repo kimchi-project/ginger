@@ -26,7 +26,7 @@ PHYSICALVOLUMES_REQUESTS = {
 }
 
 PHYSICALVOLUME_REQUESTS = {
-    'DELETE': {'default': "Delete physical volume '%(ident)s'"},
+    'DELETE': {'default': "Remove physical volume '%(ident)s'"},
 }
 
 
