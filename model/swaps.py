@@ -43,7 +43,7 @@ class SwapsModel(object):
 
         file_loc = ''
 
-        if 'file_loc' not in params:
+        if 'file_loc' not in params or not params['file_loc']:
             wok_log.error("File location required for creating a swap device.")
             raise InvalidParameter('GINSP00001E')
 
@@ -70,12 +70,21 @@ class SwapsModel(object):
         cb('entering task to create swap file')
         with RollbackContext() as rollback:
             try:
-
                 if type == 'file':
                     cb('create a file')
                     size = params['size']
                     utils._create_file(size, file_loc)
-                elif type == 'device':
+
+            except (InvalidParameter) as e:
+                cb('OK', False)
+                raise InvalidParameter("GINSP00020E")
+            except (OperationFailed) as e:
+                cb('OK', False)
+                raise OperationFailed('GINSP00005E',
+                                      {'file_loc': file_loc,
+                                       'err': e.message})
+            try:
+                if type == 'device':
                     dev = file_loc.split("/")[-1]
                     if dev.startswith('dm-'):
                         dmname = utils.get_dm_name(file_loc.split("/")[-1])
@@ -99,7 +108,7 @@ class SwapsModel(object):
 
                 cb('OK', True)
 
-            except (OperationFailed), e:
+            except (OperationFailed) as e:
                 rollback.prependDefer(SwapsModel.delete_swap_file, file_loc)
                 cb('OK', False)
                 raise OperationFailed('GINSP00005E',
@@ -121,7 +130,7 @@ class SwapsModel(object):
 
             utils._swapoff_device(file_loc)
 
-        except Exception, e:
+        except Exception as e:
             wok_log.error("Error deleting a swap file, %s", e.message)
             raise OperationFailed('GINSP00006E')
 
@@ -152,6 +161,6 @@ class SwapModel(object):
         try:
             fs_utils.unpersist_swap_dev(name)
             utils._swapoff_device(name)
-        except Exception, e:
+        except Exception as e:
             wok_log.error("Error deleting a swap device, %s", e.message)
             raise OperationFailed("GINSP00009E", {'err': e.message})

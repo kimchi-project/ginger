@@ -163,17 +163,17 @@ def persist_swap_dev(dev):
     :param dev: path of the device
     :return:
     """
-    try:
-        if _fstab_dev_exists(dev):
-            wok_log.error("entry in fstab already exists")
-            raise OperationFailed("%s already used", dev)
-        else:
+    if _fstab_dev_exists(dev):
+        wok_log.error("entry in fstab already exists")
+        raise OperationFailed("GINSP00020E")
+    else:
+        try:
             fo = open("/etc/fstab", "a+")
             fo.write(dev + "    none    swap    sw      0   0\n")
             fo.close()
-    except:
-        wok_log.error("Unable to open fstab")
-        raise OperationFailed("GINFS00012E")
+        except:
+            wok_log.error("Unable to open fstab")
+            raise OperationFailed("GINFS00012E")
 
 
 def unpersist_swap_dev(dev):

@@ -91,6 +91,9 @@ def _create_file(size, file_loc):
         ["dd", "if=/dev/zero", "of=" + file_loc, "bs=" + size, "count=1"])
 
     if rc != 0:
+        if "Text file busy" in err:
+            wok_log.error("file already in use. %s", file_loc)
+            raise InvalidParameter("GINSP00020E")
         wok_log.error("Error creating a flat file. %s", file_loc)
         raise OperationFailed("GINSP00011E", {'err': err})
 

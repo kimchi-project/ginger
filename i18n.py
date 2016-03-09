@@ -200,7 +200,7 @@ messages = {
     "GINSP00002E": _("Type required for creating a swap device."),
     "GINSP00003E": _("Size is mandatory while creating file type swap device."),
     "GINSP00004E": _("Incorrect swap type, only 'device' and 'file' are allowed."),
-    "GINSP00005E": _("Type required for creating a swap device."),
+    "GINSP00005E": _("Error creating a swap device. %(err)s "),
     "GINSP00006E": _("Error deleting a swap file."),
     "GINSP00007E": _("Error deleting a swap device. %(err)s"),
     "GINSP00008E": _("Swap device not found. %(name)s"),
@@ -215,6 +215,7 @@ messages = {
     "GINSP00017E": _("No partitions found for disk . %(disk)s"),
     "GINSP00018E": _("Single swap device %(swap)s not found."),
     "GINSP00019E": _("Unable to get single swap device info: directory /proc/swaps not found."),
+    "GINSP00020E": _("File already in use."),
 
     "GINPART00001E": _("Fetching list of partitions failed"),
     "GINPART00002E": _("Create partition failed"),
