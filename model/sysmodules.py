@@ -144,6 +144,14 @@ def get_modinfo_0_output(module_name):
         return out
 
 
+def get_loaded_modules_list():
+    modules = parse_lsmod_output(get_lsmod_output())
+    mod_names = []
+    for mod in modules:
+        mod_names.append(mod['name'])
+    return mod_names
+
+
 def load_kernel_module(module_name, parms=None):
     cmd = ['modprobe', module_name]
     if parms:
@@ -183,11 +191,7 @@ class SysModulesModel(object):
         return module_name
 
     def get_list(self):
-        modules = parse_lsmod_output(get_lsmod_output())
-        mod_names = []
-        for mod in modules:
-            mod_names.append(mod['name'])
-        return mod_names
+        return get_loaded_modules_list()
 
 
 class SysModuleModel(object):
