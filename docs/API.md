@@ -731,6 +731,7 @@ URI: /plugins/ginger/partitions/*:part_name*
     * netmask: Netmaks of interface
     * type: Type of interface
      Example: Bond, Vlan, Ethernet etc
+    * module: the kernel module that loaded this interface. This info is taken from sysfs and matched against the loaded kernel modules (lsmod output). If for some reason the value taken from sysfs is not present in the lsmod output, 'unknown' is returned.
 
 * **POST**:
    * activate : Activates an interface

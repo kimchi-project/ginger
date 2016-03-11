@@ -52,4 +52,5 @@ class Interface(Resource):
                 'ipaddr': self.info['ipaddr'],
                 'netmask': self.info['netmask'],
                 'status': self.info['status'],
-                'macaddr': self.info['macaddr']}
+                'macaddr': self.info['macaddr'],
+                'module': self.info['module']}
