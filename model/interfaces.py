@@ -77,7 +77,8 @@ class InterfaceModel(object):
                         'status': "down",
                         'ipaddr': "",
                         'netmask': "",
-                        'macaddr': ""}
+                        'macaddr': "",
+                        'module': netinfo.get_interface_kernel_module(name)}
                 return info
             else:
                 raise ValueError('unknown interface: %s' % name)

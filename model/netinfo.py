@@ -23,6 +23,7 @@ import glob
 import os
 
 import cfginterfaces
+from sysmodules import get_loaded_modules_list
 
 NET_PATH = '/sys/class/net'
 NIC_PATH = '/sys/class/net/*/device'
@@ -36,6 +37,7 @@ PROC_NET_VLAN = '/proc/net/vlan/'
 BONDING_SLAVES = '/sys/class/net/%s/bonding/slaves'
 BRIDGE_PORTS = '/sys/class/net/%s/brif'
 MAC_ADDRESS = '/sys/class/net/%s/address'
+KERNEL_MODULE_LINK = '/sys/class/net/%s/device/driver/module'
 
 
 def wlans():
@@ -206,6 +208,19 @@ def get_interface_type(iface):
         return 'unknown'
 
 
+def get_interface_kernel_module(iface):
+    link_path = KERNEL_MODULE_LINK % iface
+    try:
+        link_target = os.readlink(link_path)
+    except OSError:
+        return 'unknown'
+    module = link_target.split('/')[-1]
+    if module in get_loaded_modules_list():
+        return module
+    else:
+        return 'unknown'
+
+
 def get_interface_info(iface):
     if iface not in ethtool.get_devices():
         raise ValueError('unknown interface: %s' % iface)
@@ -222,4 +237,5 @@ def get_interface_info(iface):
             'status': link_detected(iface),
             'ipaddr': ipaddr,
             'netmask': netmask,
-            'macaddr': macaddr(iface)}
+            'macaddr': macaddr(iface),
+            'module': get_interface_kernel_module(iface)}
