@@ -25,6 +25,8 @@ INTERFACE_REQUESTS = {
     'POST': {
         'activate': "Activate host network interface '%(ident)s'",
         'deactivate': "Deactivate host network interface '%(ident)s'",
+        'action': "Action '%(name)s' executed on network interface "
+                  "'%(ident)s'",
     },
 }
 
@@ -43,6 +45,8 @@ class Interface(Resource):
         self.confirm_change = self.generate_action_handler('confirm_change')
         self.activate = self.generate_action_handler('activate')
         self.deactivate = self.generate_action_handler('deactivate')
+        self.action = \
+            self.generate_action_handler('action', ['name', 'args'])
         self.log_map = INTERFACE_REQUESTS
 
     @property
@@ -53,4 +57,5 @@ class Interface(Resource):
                 'netmask': self.info['netmask'],
                 'status': self.info['status'],
                 'macaddr': self.info['macaddr'],
-                'module': self.info['module']}
+                'module': self.info['module'],
+                'actions': self.info['actions']}

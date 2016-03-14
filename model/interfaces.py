@@ -53,6 +53,7 @@ class InterfaceModel(object):
 
     def __init__(self):
         self._rollback_timer = None
+        self.actions_mod = self.get_actions_per_module()
 
     def lookup(self, name):
         """
@@ -62,10 +63,18 @@ class InterfaceModel(object):
         :param name:
         :return:
         """
+
+        def get_actions_info_without_method(kernel_mod):
+            info = self.actions_mod.get(kernel_mod, {})
+            for action in info.keys():
+                action_info = info[action]
+                action_info.pop('method')
+                info[action] = action_info
+            return info
+
         try:
             if name in ethtool.get_devices():
                 info = netinfo.get_interface_info(name)
-                return info
             elif cfginterfaces.is_cfgfileexist(name):
                 type = cfginterfaces.get_type(name).lower()
                 if type in [cfginterfaces.IFACE_BOND,
@@ -79,9 +88,12 @@ class InterfaceModel(object):
                         'netmask': "",
                         'macaddr': "",
                         'module': netinfo.get_interface_kernel_module(name)}
-                return info
             else:
                 raise ValueError('unknown interface: %s' % name)
+
+            info['actions'] = get_actions_info_without_method(info['module'])
+            return info
+
         except ValueError:
             raise NotFoundError("GINNET0014E", {'name': name})
 
@@ -291,3 +303,52 @@ class InterfaceModel(object):
         conn = self._conn
         self._rollback_timer.cancel()
         conn.changeCommit()
+
+    def get_actions_per_module(self):
+        mlx5_core_SRIOV = {
+            'desc': 'SR-IOV: Single Root I/O Virtualization',
+            'args': {'num_vfs': 'Number of virtual functions to enable'},
+            'method': self._mlx5_SRIOV_enable
+        }
+        actions_mod = {
+            'mlx5-core': {'SR-IOV': mlx5_core_SRIOV},
+            'mlx5_core': {'SR-IOV': mlx5_core_SRIOV}
+        }
+        return actions_mod
+
+    def _mlx5_SRIOV_enable(self, iface, args):
+        if not args or 'num_vfs' not in args.keys():
+            raise InvalidParameter("GINNET0074E")
+
+        num_vfs = args['num_vfs']
+
+        try:
+            int(num_vfs)
+        except ValueError:
+            raise InvalidParameter("GINNET0076E")
+
+        sriov_files = [
+            '/sys/class/net/%s/device/sriov_numvfs' % iface,
+            '/sys/class/net/%s/device/mlx5_num_vfs' % iface
+        ]
+        any_file_found = False
+
+        for sriov_file in sriov_files:
+            if os.path.isfile(sriov_file):
+                any_file_found = True
+                with open(sriov_file, 'w') as f:
+                    f.write(str(num_vfs) + '\n')
+                break
+
+        if not any_file_found:
+            raise OperationFailed("GINNET0075E")
+
+    def action(self, name, action_name, args):
+        kernel_mod = netinfo.get_interface_kernel_module(name)
+        actions = self.actions_mod.get(kernel_mod)
+        if not actions or not actions.get(action_name):
+            raise NotFoundError(
+                "GINNET0073E",
+                {'name': name, 'module': kernel_mod, 'action': action_name}
+            )
+        actions[action_name]['method'](name, args)
