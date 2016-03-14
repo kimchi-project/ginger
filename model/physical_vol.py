@@ -20,8 +20,8 @@
 import utils
 
 from diskparts import PartitionModel
-from wok.exception import MissingParameter,\
-    NotFoundError, OperationFailed
+from wok.exception import MissingParameter, NotFoundError
+from wok.exception import InvalidParameter, OperationFailed
 from wok.model.tasks import TaskModel
 from wok.utils import add_task, wok_log
 
@@ -100,6 +100,6 @@ class PhysicalVolumeModel(object):
     def delete(self, name):
         try:
             utils._remove_pv(name)
-        except OperationFailed:
+        except OperationFailed as e:
             wok_log.error("delete PV failed")
-            raise OperationFailed("GINPV00005E", {'name': name})
+            raise InvalidParameter("GINPV00005E", {'err': e.message})

@@ -443,6 +443,9 @@ def _remove_pv(name):
         raise NotFoundError("GINPV00010E", {'dev': name})
 
     elif rc != 0:
+        if 'PV %s belongs to Volume Group' % name in err:
+            err = 'PV %s belongs to a Volume Group,\
+                   please use vgreduce first' % name
         raise OperationFailed("GINPV00009E", {'err': err})
 
     return

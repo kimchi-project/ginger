@@ -236,7 +236,7 @@ messages = {
     "GINPV00002E": _("Failed to create PV"),
     "GINPV00003E": _("Failed to fetch PV list"),
     "GINPV00004E": _("Failed to fetch PV details"),
-    "GINPV00005E": _("Failed to delete PV"),
+    "GINPV00005E": _("Failed to delete PV, error: %(err)s"),
     "GINPV00006E": _("pvs command failed"),
     "GINPV00007E": _("Unable to get information of device %(dev)s, error: %(err)s"),
     "GINPV00008E": _("pvcreate command failed"),
