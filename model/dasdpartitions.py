@@ -21,7 +21,8 @@ import dasd_utils
 import platform
 import re
 
-from wok.exception import MissingParameter, NotFoundError, OperationFailed
+from wok.exception import InvalidParameter, MissingParameter
+from wok.exception import NotFoundError, OperationFailed
 from wok.plugins.gingerbase.disks import get_partitions_names
 from wok.plugins.gingerbase.disks import get_partition_details
 from wok.utils import wok_log
@@ -88,7 +89,13 @@ class DASDPartitionModel(object):
             name_split = re.split('(\D+)', name, flags=re.IGNORECASE)
             dev_name = name_split[1]
             part_num = name_split[2]
-            dasd_utils._delete_dasd_part(dev_name, part_num)
+            if dev_name != '' and part_num != '':
+                dasd_utils._delete_dasd_part(dev_name, part_num)
+            else:
+                raise InvalidParameter("GINDASDPAR0011E", {'name': name})
+        except InvalidParameter:
+            wok_log.error("Invalid DASD partition: %s" % name)
+            raise InvalidParameter("GINDASDPAR0011E", {'name': name})
         except OperationFailed as e:
             wok_log.error("Deletion of partition %s failed" % name)
             raise OperationFailed("GINDASDPAR0010E", {'err': e})
