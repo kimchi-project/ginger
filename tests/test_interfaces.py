@@ -17,12 +17,15 @@
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 
+import __builtin__ as builtins
 import mock
 import unittest
 
+from mock import call, mock_open, patch
+
 import wok.plugins.ginger.model.netinfo as netinfo
 
-from wok.exception import OperationFailed
+from wok.exception import InvalidParameter, NotFoundError, OperationFailed
 from wok.plugins.ginger.model.interfaces import InterfaceModel
 
 
@@ -140,3 +143,107 @@ class InterfacesTests(unittest.TestCase):
         self.assertEqual(iface_info.get('netmask'), '255.255.255.0')
         self.assertEqual(iface_info.get('macaddr'), 'aa:bb:cc:dd:ee:ff')
         self.assertEqual(iface_info.get('module'), 'dummy_net_module')
+
+    @mock.patch('wok.plugins.ginger.model.netinfo.get_interface_kernel_module')
+    @mock.patch('ethtool.get_devices')
+    @mock.patch('ethtool.get_ipaddr')
+    @mock.patch('ethtool.get_netmask')
+    @mock.patch('wok.plugins.ginger.model.netinfo.macaddr')
+    def test_mlx5_info_returns_SRIOV(self, mock_macaddr, mock_netmask,
+                                     mock_ipaddr, mock_getdevs,
+                                     mock_get_module):
+
+        mock_get_module.return_value = 'mlx5_core'
+        mock_getdevs.return_value = ['dev1', 'dummy_iface', 'dev2']
+        mock_ipaddr.return_value = '99.99.99.99'
+        mock_netmask.return_value = '255.255.255.0'
+        mock_macaddr.return_value = 'aa:bb:cc:dd:ee:ff'
+
+        iface_info = InterfaceModel().lookup('dummy_iface')
+
+        mock_macaddr.assert_called_once_with('dummy_iface')
+        mock_netmask.assert_called_once_with('dummy_iface')
+        mock_ipaddr.assert_called_once_with('dummy_iface')
+        mock_getdevs.assert_called_with()
+        mock_get_module.assert_called_once_with('dummy_iface')
+
+        self.assertEqual(iface_info.get('device'), 'dummy_iface')
+        self.assertEqual(iface_info.get('type'), 'unknown')
+        self.assertEqual(iface_info.get('status'), 'down')
+        self.assertEqual(iface_info.get('ipaddr'), '99.99.99.99')
+        self.assertEqual(iface_info.get('netmask'), '255.255.255.0')
+        self.assertEqual(iface_info.get('macaddr'), 'aa:bb:cc:dd:ee:ff')
+        self.assertEqual(iface_info.get('module'), 'mlx5_core')
+
+        self.assertNotEqual({}, iface_info.get('actions'))
+        sriov_dic = iface_info['actions']['SR-IOV']
+        self.assertIsNotNone(sriov_dic.get('desc'))
+        self.assertIsNotNone(sriov_dic.get('args'))
+        self.assertIsNone(sriov_dic.get('method'))
+        args = sriov_dic.get('args')
+        self.assertIn('num_vfs', args.keys())
+
+    @mock.patch('wok.plugins.ginger.model.netinfo.get_interface_kernel_module')
+    def test_interface_no_action_failure(self, mock_get_module):
+        mock_get_module.return_value = 'unknown'
+
+        expected_error_msg = "GINNET0073E"
+        with self.assertRaisesRegexp(NotFoundError, expected_error_msg):
+            InterfaceModel().action('any_iface_name', 'any_action', {})
+
+    @mock.patch('wok.plugins.ginger.model.netinfo.get_interface_kernel_module')
+    def test_mlx5_sriov_no_args_failure(self, mock_get_module):
+        mock_get_module.return_value = 'mlx5_core'
+
+        expected_error_msg = "GINNET0074E"
+        with self.assertRaisesRegexp(InvalidParameter, expected_error_msg):
+            InterfaceModel().action('any_iface_name', 'SR-IOV', {})
+
+    @mock.patch('wok.plugins.ginger.model.netinfo.get_interface_kernel_module')
+    def test_mlx5_sriov_argument_failure(self, mock_get_module):
+        mock_get_module.return_value = 'mlx5_core'
+
+        expected_error_msg = "GINNET0076E"
+        with self.assertRaisesRegexp(InvalidParameter, expected_error_msg):
+            InterfaceModel().action('mlx5_core', 'SR-IOV',
+                                    {'num_vfs': 'not_an_int'})
+
+    @mock.patch('wok.plugins.ginger.model.netinfo.get_interface_kernel_module')
+    @mock.patch('os.path.isfile')
+    def test_mlx5_sriov_no_system_files_failure(self, mock_isfile,
+                                                mock_get_module):
+        mock_get_module.return_value = 'mlx5_core'
+
+        call_file1_not_exist = \
+            '/sys/class/net/%s/device/sriov_numvfs' % 'iface1'
+        call_file2_not_exist = \
+            '/sys/class/net/%s/device/mlx5_num_vfs' % 'iface1'
+
+        mock_isfile.side_effect = [False, False]
+
+        mock_isfile_calls = [
+            call(call_file1_not_exist),
+            call(call_file2_not_exist)
+        ]
+
+        expected_error_msg = "GINNET0075E"
+        with self.assertRaisesRegexp(OperationFailed, expected_error_msg):
+            InterfaceModel().action('iface1', 'SR-IOV', {'num_vfs': 4})
+            mock_isfile.assert_has_calls(mock_isfile_calls)
+
+    @mock.patch('wok.plugins.ginger.model.netinfo.get_interface_kernel_module')
+    @mock.patch('os.path.isfile')
+    def test_mlx5_sriov_success(self, mock_isfile, mock_get_module):
+        mock_get_module.return_value = 'mlx5_core'
+
+        file1 = '/sys/class/net/%s/device/sriov_numvfs' % 'iface1'
+        mock_isfile.return_value = True
+
+        open_ = mock_open(read_data='')
+
+        with patch.object(builtins, 'open', open_):
+            InterfaceModel().action('iface1', 'SR-IOV', {'num_vfs': 4})
+            mock_isfile.assert_called_once_with(file1)
+
+        self.assertEqual(open_.call_args_list, [call(file1, 'w')])
+        self.assertEqual(open_().write.mock_calls, [call('4\n')])
