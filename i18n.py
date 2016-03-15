@@ -292,6 +292,8 @@ messages = {
     "GINDASDPAR0009E": _("Failed to retrieve details of the specified DASD partition"),
     "GINDASDPAR0010E": _("Failed to delete partition"),
     "GINDASDPAR0011E": _("Invalid DASD partition, %(name)s"),
+    "GINDASDPAR0012E": _("DASD device %(name)s not found"),
+    "GINDASDPAR0013E": _("Size must be of type integer"),
 
     "GINSYSMOD00001E": _("Error getting loaded module list: %(err)s"),
     "GINSYSMOD00002E": _("Module %(module)s not found."),

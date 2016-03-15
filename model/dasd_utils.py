@@ -23,7 +23,7 @@ import re
 import subprocess
 import utils
 
-from wok.exception import InvalidParameter, OperationFailed
+from wok.exception import InvalidParameter, NotFoundError, OperationFailed
 from wok.utils import run_command, wok_log
 
 from wok.plugins.ginger.model.utils import get_directories
@@ -130,6 +130,9 @@ def _create_dasd_part(dev, size):
     :param size: block size
     :return:
     """
+    dasd_devs = _get_dasd_names()
+    if dev not in dasd_devs:
+        raise NotFoundError("GINDASDPAR0012E", {'name': dev})
     p_str = _form_part_str(size)
     devname = '/dev/' + dev
     p1_out = subprocess.Popen(["echo", "-e", "\'", p_str, "\'"],
@@ -146,7 +149,7 @@ def _create_dasd_part(dev, size):
 
 
 def _form_part_str(size):
-    part_str = '\nn\n \n' + '+' + size + 'M' + '\n' + 'w\n'
+    part_str = '\nn\n \n' + '+' + str(size) + 'M' + '\n' + 'w\n'
     return part_str
 
 

@@ -41,12 +41,16 @@ class DASDPartitionsModel(object):
             return True
 
     def create(self, params):
-        if 'dev_name' not in params:
+        if not params.get('dev_name'):
             raise MissingParameter("GINDASDPAR0005E")
         dev_name = params['dev_name']
 
         if 'size' not in params:
             raise MissingParameter("GINDASDPAR0006E")
+
+        if params['size']:
+            if type(params['size']) != int:
+                raise InvalidParameter("GINDASDPAR0013E")
         size = params['size']
 
         try:

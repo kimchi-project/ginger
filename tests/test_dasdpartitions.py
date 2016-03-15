@@ -32,7 +32,7 @@ class DASDPartitionsTests(unittest.TestCase):
     def test_create_part(self, mock_create_part):
         parts = partitions.DASDPartitionsModel()
         dev = 'dasdb'
-        size = '10'
+        size = 10
         params = {'dev_name': dev, 'size': size}
         parts.create(params)
         mock_create_part.return_value = 'dasdb'

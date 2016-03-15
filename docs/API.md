@@ -524,7 +524,7 @@ URI: /plugins/ginger/dasdpartitions
 
 * **POST**: Create a DASD Partition
         * dev_name: Name of DASD device.
-        * size: Size of the partition to be created.
+        * size: Size of the partition to be created in Megabytes. Must be integer type.
 
 ### Resource: DASD Partition
 
