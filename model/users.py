@@ -266,17 +266,14 @@ class UserModel(object):
         if os.path.isfile(SUDOERS_FILE % user):
             return 'admin'
         else:
-            wheelgrp = adm.lookupGroupByName('wheel')
-            if wheelgrp is not None and user in wheelgrp.get('gr_mem'):
+            groups = adm.enumerateGroupsByUser(user)
+            # check for admin groups
+            if 'wheel' in groups or 'sudo' in groups:
                 return 'admin'
-            sudogrp = adm.lookupGroupByName('sudo')
-            if sudogrp is not None and user in sudogrp.get('gr_mem'):
-                return 'admin'
+            # VIRTUSER: Check kvm group
+            if 'kvm' in groups:
+                return 'virtuser'
 
-        # VIRTUSER: Check kvm group
-        kvmgrp = adm.lookupGroupByName('kvm')
-        if user in kvmgrp.get('gr_mem'):
-            return 'virtuser'
         # KIMCHIUSER: If not any before
         return 'kimchiuser'
 
