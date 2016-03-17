@@ -45,16 +45,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
                   </a>
               </h3>
               <div id="volume-groups-content-area" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
-                  <div class='fmw-content col-md-12'>
+                <div class='clearfix'>
                     <div class="row">
                       <div id="volume-groups-refresh" class="pull-right">
                       <div class="btn-group"><button class="btn btn-primary" id="volume-groups-refresh-btn" aria-expanded="false"><i class="fa fa-refresh"></i> Refresh</button></div></div>
-                  </div>
-                    <div class="row" id="volume-groups" style="padding-left:20px;"></div>
-                  </div>
+                    </div>
+                    <div class="row col-md-12" id="volume-groups" style="padding-left:20px;"></div>
+                </div>
               </div>
-              <hr>
-          </div>
+            </div>
           <!-- File Systems Panel -->
           <div class="panel-group accordion" id="file-systems-accordion" role="tablist" aria-multiselectable="true">
               <h3>
@@ -63,17 +62,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
                   </a>
               </h3>
               <div id="file-systems-content-area" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
-                  <div class='fmw-content col-md-12'>
+                  <div class='clearfix'>
                     <div class="row">
                       <div id="file-systems-refresh" class="pull-right">
                       <div class="btn-group"><button class="btn btn-primary" id="file-systems-refresh-btn" aria-expanded="false"><i class="fa fa-refresh"></i> Refresh</button></div></div>
                   </div>
-                    <div class="row" id="file-systems" style="padding-left:20px;">
+                    <div class="row col-md-12" id="file-systems" style="padding-left:20px;">
                     </div>
                   </div>
               </div>
-              <hr>
-          </div>
+            </div>
           <!-- Swap Devices Panel -->
           <div class="panel-group accordion" id="swap-devices-accordion" role="tablist" aria-multiselectable="true">
               <h3>
@@ -82,16 +80,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
                   </a>
               </h3>
               <div id="swap-devices-content-area" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
-                  <div class='fmw-content col-md-12'>
+                  <div class='clearfix'>
                     <div class="row">
                       <div id="swap-devices-refresh" class="pull-right">
                       <div class="btn-group"><button class="btn btn-primary" id="swap-devices-refresh-btn" aria-expanded="false"><i class="fa fa-refresh"></i> Refresh</button></div></div>
                   </div>
-                    <div class="row" id="swap-devices" style="padding-left:20px;"></div>
+                    <div class="row col-md-12" id="swap-devices" style="padding-left:20px;"></div>
                   </div>
               </div>
-              <hr>
-          </div>
+            </div>
           <!-- Storage device Panel -->
           <div class="panel-group accordion" id="storage-devices-accordion" role="tablist" aria-multiselectable="true">
               <h3>
@@ -100,7 +97,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
                   </a>
               </h3>
               <div id="storage-device-content-area" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
-                  <div class='fmw-content col-md-12'>
+                  <div class='clearfix'>
                     <div class="row"  style="padding-left:50px;">
                         <div id="file-systems-actions" class="pull-left">
                         </div>
@@ -112,12 +109,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
                         </span>
                     </div>
                        <span id='alert-modal-nw-container' style='display: none;'></span>
-                     <div class="row" id="stg-devs"  style="padding-left:20px;">
+                     <div class="row col-md-12" id="stg-devs"  style="padding-left:20px;">
                     </div>
                   </div>
               </div>
-              <hr>
-          </div>
+            </div>
           <!-- FCP tape device Panel -->
           <div id="fcp-tape-devices-panel" class="panel-group hidden accordion" role="tablist" aria-multiselectable="true">
               <h3>
@@ -126,16 +122,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
                   </a>
               </h3>
               <div id="fcp-tape-devices-content-area" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
-                <div class='fmw-content col-md-12'>
+                <div class='clearfix'>
                   <div class="row">
                       <div id="fcp-tape-devices-refresh" class="pull-right">
                       <div class="btn-group"><button class="btn btn-primary" id="refresh-fcp-tape-devices-btn" aria-expanded="false"><i class="fa fa-refresh"></i> Refresh</button></div></div>
                   </div>
-                  <div class="row" id="fcp-tape-devices" style="padding-left:20px;"></div>
+                  <div class="row col-md-12" id="fcp-tape-devices" style="padding-left:20px;"></div>
                 </div>
               </div>
-              <hr>
-          </div>
+            </div>
           <!-- SAN adapter Panel -->
           <div class="panel-group accordion" id="SAN-adapter-panel" role="tablist" aria-multiselectable="true">
               <h3>
@@ -144,7 +139,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
                   </a>
               </h3>
               <div id="san-adapter-content-area" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
-                <div class='fmw-content col-md-12'>
+                <div class='clearfix'>
                   <div class="row">
                     <span class="pull-right">
                       <span id="san-adapter-refresh">
@@ -153,11 +148,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
                       </span>
                     </span>
                   </div>
-                  <div class="row" id="san-adapter-list" style="padding-left:20px;"></div>
+                  <div class="row col-md-12" id="san-adapter-list" style="padding-left:20px;"></div>
                 </div>
               </div>
-              <hr>
-          </div>
+            </div>
         </div>
     </div>
     <div id="modalWindow" class="modal fade host-modal guests-modal" tabindex="-1" role="dialog" aria-labelledby="guestsModalLabel" aria-hidden="true">
