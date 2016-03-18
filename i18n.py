@@ -132,6 +132,7 @@ messages = {
     "GINUSER0010E": _("Could not delete user '%(user)s'."),
     "GINUSER0011E": _("User '%(user)s' does not exist."),
     "GINUSER0012E": _("Could not delete group '%(group)s'"),
+    "GINUSER0013E": _("Failed to remove user '%(user)s' from sudoers list"),
 
     "GINFW0001E": _("Cannot update system firmware while running VMs."),
     "GINFW0002E": _("Firmware image unpack failed: rc = %(rc)s. "

@@ -71,13 +71,19 @@ def create_group(groupname, gid):
 
 def delete_group(groupname):
     adm = libuser.admin()
-    group_obj = adm.lookupGroupById(
-        int(get_group_gid(groupname))
-    )
+    group_id = int(get_group_gid(groupname))
 
-    if group_obj is None:
-        wok_log.error('Could not delete group "%s"', groupname)
-        raise OperationFailed('GINUSER0012E', {'group': groupname})
+    if group_id <= 1000:
+        wok_log.error('Ignoring deletion of system group "%s" with gid %s'
+                      % (groupname, group_id))
+        return
+
+    group_obj = adm.lookupGroupById(group_id)
+
+    if not group_obj:
+        wok_log.error('Could not locate group "%s" with gid %s'
+                      % (groupname, group_id))
+        return
 
     if not adm.enumerateUsersByGroup(groupname):
         try:
@@ -161,14 +167,49 @@ def delete_user(username):
     adm = libuser.admin()
     user_obj = adm.lookupUserByName(username)
 
-    if user_obj is None:
+    if not user_obj:
         wok_log.error('User "%s" does not exist', username)
         raise OperationFailed('GINUSER0011E', {'user': username})
+
+    groups = adm.enumerateGroupsByUser(username)
+    for group in groups:
+        # remove user from all groups
+        remove_user_from_group(username, group)
+
+    f = SUDOERS_FILE % username
+    if os.path.isfile(f):
+        try:
+            os.unlink(f)
+        except Exception as e:
+            wok_log.error('Error removing file "%s": %s', f, e)
+            raise OperationFailed('GINUSER0013E', {'user': username})
     try:
         adm.deleteUser(user_obj, True, True)
     except Exception as e:
         wok_log.error('Could not delete user %s: %s', username, e)
         raise OperationFailed('GINUSER0010E', {'user': username})
+
+
+def remove_user_from_group(user, group):
+    if not user:
+        wok_log.error('In remove_user_from_group(), received empty user')
+        return
+    if not group:
+        wok_log.error('In remove_user_from_group(), received empty group')
+        return
+
+    try:
+        adm = libuser.admin()
+        grpobj = adm.lookupGroupByName(group)
+        # Remove all ocurrences
+        members = set(grpobj.get('gr_mem'))
+        if user in members:
+            members = set(grpobj.get('gr_mem')) - set([user])
+            grpobj.set('gr_mem', list(members))
+            adm.modifyGroup(grpobj)
+    except Exception as e:
+        wok_log.error(
+            'Error while removing user %s from group %s. Error: %s', e)
 
 
 class UsersModel(object):
@@ -229,16 +270,13 @@ class UsersModel(object):
 class UserModel(object):
     def delete(self, user):
         user_obj = get_user_obj(user)
-        group_obj = get_group_obj_by_gid(
-            int(user_obj.get('pw_gid')[0])
-        )
+        group_id = int(user_obj.get('pw_gid')[0])
+        group_obj = get_group_obj_by_gid(group_id)
 
         delete_user(user)
-        if group_obj is not None:
+        if group_id > 1000 and group_obj:
             groupname = group_obj.get('gr_name')[0]
             delete_group(groupname)
-
-        self._delete_profile_settings(user)
 
     def lookup(self, user):
         try:
@@ -276,26 +314,3 @@ class UserModel(object):
 
         # KIMCHIUSER: If not any before
         return 'kimchiuser'
-
-    def _delete_profile_settings(self, user):
-        profile = self._get_user_profile(user)
-        if profile == 'kimchiuser':
-            return
-        # Removing from sudoers
-        elif profile == 'admin':
-            f = SUDOERS_FILE % user
-            try:
-                os.unlink(f)
-            except Exception as e:
-                wok_log.error('Error removing file "%s": %s', f, e)
-
-        # Finally remove from kvm group
-        try:
-            adm = libuser.admin()
-            kvmgrp = adm.lookupGroupByName('kvm')
-            # Remove all ocurrences
-            members = set(kvmgrp.get('gr_mem')) - set([user])
-            kvmgrp.set('gr_mem', list(members))
-            adm.modifyGroup(kvmgrp)
-        except Exception as e:
-            wok_log.error('Error while removing user from kvm group: %s', e)
