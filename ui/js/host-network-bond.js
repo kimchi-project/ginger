@@ -139,7 +139,7 @@ var applyOnClick = function() {
       bond_info['BONDING_MASTER'] = 'yes';
 
       bond_opts['mode'] = bondMode.val();
-      bond_opts['miimon'] = bondMonitoringInterval.val() >= 1 ? bondMonitoringInterval.val() : 1;
+      bond_opts['miimon'] = bondMonitoringInterval.val() >= 0 ? bondMonitoringInterval.val() : 0;
       bond_opts['updelay'] = linkUpDelay.val() >= 0 ? linkUpDelay.val() : 0;
       bond_opts['downdelay'] = linkDownDelay.val() >= 0 ? linkDownDelay.val() : 0;
 
@@ -500,7 +500,7 @@ var populateAdvanceTab = function(interface) {
     // zoneSelect.append($("<option></option>")
     //   .attr("value", "Default")
     //   .text("Default"));
-    bondMonitoringInterval.val(1);
+    bondMonitoringInterval.val(0);
     linkUpDelay.val(0);
     linkDownDelay.val(0);
   } else {
@@ -508,7 +508,7 @@ var populateAdvanceTab = function(interface) {
       if ("miimon" in (interface.BASIC_INFO.BONDINFO.BONDING_OPTS)) {
         bondMonitoringInterval.val(interface.BASIC_INFO.BONDINFO.BONDING_OPTS.miimon)
       } else {
-        bondMonitoringInterval.val(1);
+        bondMonitoringInterval.val(0);
       }
 
       if ("updelay" in (interface.BASIC_INFO.BONDINFO.BONDING_OPTS)) {

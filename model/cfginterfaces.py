@@ -315,8 +315,8 @@ class CfginterfacesModel(object):
         # return get_interface_list()
 
     def create(self, params):
-        if params[BASIC_INFO][TYPE] == IFACE_BOND or \
-                        params[BASIC_INFO][TYPE] == IFACE_VLAN:
+        if params[BASIC_INFO][TYPE] == IFACE_BOND \
+                or params[BASIC_INFO][TYPE] == IFACE_VLAN:
             cfg_map = self.validate_minimal_info(params)
             if params[BASIC_INFO][TYPE] == IFACE_VLAN:
                 self.validate_info_for_vlan(params)
@@ -325,10 +325,13 @@ class CfginterfacesModel(object):
             params[BASIC_INFO][NAME] = name
             cfg_map = CfginterfaceModel().populate_ifcfg_atributes(params,
                                                                    cfg_map)
+            # Check for any empty key value in cfg_map
+            for key in cfg_map:
+                if len(cfg_map[key]) == 0:
+                    raise InvalidParameter("GINNET0073E", {'key': key})
             CfginterfaceModel().write_attributes_to_cfg(params[BASIC_INFO][
-                                                            DEVICE], cfg_map)
+                                                        DEVICE], cfg_map)
         else:
-            wok_log.error("Type is unkown")
             raise InvalidParameter("GINNET0052E")
         return name
 
@@ -896,8 +899,8 @@ class CfginterfaceModel(object):
                         try:
                             if int(ipaddrinfo[PREFIX]) >= 1 and int(
                                     ipaddrinfo[PREFIX]) <= 32:
-                                cfgmap[PREFIX + postfix] = int(ipaddrinfo[
-                                                                   PREFIX])
+                                cfgmap[PREFIX + postfix] = int(
+                                    ipaddrinfo[PREFIX])
                             else:
                                 raise InvalidParameter(
                                     'GINNET0062E', {'PREFIX': ipaddrinfo[
@@ -1113,10 +1116,20 @@ class CfginterfaceModel(object):
             cfg_map = self.update_ipv6(cfg_map, params)
         return cfg_map
 
-    def clean_slaves(self, cfgmap):
+    def clean_slaves(self, cfgmap, params):
         existing_slaves = CfginterfaceModel().get_slaves(cfgmap)
-        for each_slave in existing_slaves:
-            self.clean_slave_tokens(each_slave)
+        # Check for atleast one slave is required for a bond
+        # interface.
+        bondinfo = params[BASIC_INFO][BONDINFO]
+        if SLAVES not in bondinfo:
+            raise MissingParameter("GINNET0075E")
+        new_slaves = bondinfo[SLAVES]
+        common_slaves = list(set(existing_slaves).intersection(
+            set(new_slaves)))
+        slaves_to_be_deleted = list(set(existing_slaves) - set(common_slaves))
+        if slaves_to_be_deleted:
+            for each_slave in slaves_to_be_deleted:
+                self.clean_slave_tokens(each_slave)
 
     def update_cfgfile(self, cfgmap, params):
         iface_id = self.get_iface_identifier(cfgmap)
@@ -1158,17 +1171,15 @@ class CfginterfaceModel(object):
         try:
             gingerNetworkLock.acquire()
             filename = ifcfg_filename_format % interface_name
-            ifcfgFile = os.sep + network_configpath + filename
-            fileexist = os.path.isfile(ifcfgFile)
-            if not fileexist:
-                open(ifcfgFile, "w").close()
-                os.system('chmod 644 ' + ifcfgFile)
             parser.load()
             ifcfg_file_pattern = network_configpath + filename + '/'
             for key, value in cfgmap.iteritems():
                 path = ifcfg_file_pattern + key
                 parser.set(path, str(value))
             parser.save()
+        # Exception raised for any issue in writing to ifcfg file.
+        except Exception:
+            raise InvalidParameter('GINNET0074E')
         finally:
             gingerNetworkLock.release()
 
@@ -1359,7 +1370,7 @@ class CfginterfaceModel(object):
 
     def validate_and_get_bond_info(self, params, cfgmap):
         if cfgmap[TYPE] == IFACE_BOND:
-            self.clean_slaves(cfgmap)
+            self.clean_slaves(cfgmap, params)
         bond_info = {}
         wok_log.info('Validating bond info given for interface')
         if DEVICE not in cfgmap:
