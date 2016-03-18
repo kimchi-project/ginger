@@ -104,7 +104,7 @@ ginger.initBakDialog = function() {
                 $("body button").prop("disabled", false);
                 $("body input").css("cursor", "text");
                 $("body button").css("cursor", "pointer");
-                wok.message.error(result.responseJSON.reason,'#alert-backup-modal');
+                wok.message.error(result.responseJSON.reason,'#alert-backup-modal',true);
             });
         });
 
