@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 #
 # Project Ginger
 #
@@ -886,25 +887,29 @@ def get_storagedevice(device):
     :return: device info dict
     """
     device = _validate_device(device)
+    if device and isinstance(device, unicode):
+        device = device.encode('utf-8')
+    device = str(device)
     if dasd_utils._is_dasdeckd_device(device) or _is_zfcp_device(device):
         command = [lscss, '-d', device]
-        msg = 'The command is "%s" ' % command
+        msg = 'The command is "%s" ' % ' '.join(command)
         wok_log.debug(msg)
         out, err, rc = run_command(command)
-        messge = 'The output of command "%s" is %s' % (command, out)
+        messge = 'The output of command "%s" is %s' % (' '.
+                                                       join(command), out)
         wok_log.debug(messge)
         if rc:
             err = err.strip().replace("lscss:", '').strip()
             wok_log.error(err)
             raise OperationFailed("GS390XCMD0001E",
-                                  {'command': command,
+                                  {'command': ' '.join(command),
                                    'rc': rc, 'reason': err})
         if out.strip():
             device_info = _get_deviceinfo(out, device)
             return device_info
         wok_log.error("lscss output is either blank or None")
         raise OperationFailed("GS390XCMD0001E",
-                              {'command': command,
+                              {'command': ' '.join(command),
                                'rc': rc, 'reason': out})
     else:
         wok_log.error("Given device id is of type dasd-eckd or zfcp. "
@@ -923,8 +928,11 @@ def _validate_device(device):
     :param device: device id
     """
     pattern_with_dot = r'^\d\.\d\.[0-9a-fA-F]{4}$'
-    if device and not str(device).isspace():
-        device = str(device).strip()
+    if device and isinstance(device, unicode):
+        device = device.encode('utf-8')
+    device = str(device)
+    if device and not device.isspace():
+        device = device.strip()
         if "." in device:
             out = re.search(pattern_with_dot, device)
         else:
