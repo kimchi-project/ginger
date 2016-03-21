@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 #
 # Project Ginger
 #
@@ -151,7 +152,8 @@ class ArchivesModel(object):
             reason = 'GINHBK0009E'
 
         if error is not None:
-            msg = 'Error creating archive %s: %s' % (params['identity'], error)
+            msg = 'Error creating archive %s: %s' % (params['identity'],
+                                                     error.message)
             wok_log.error(msg)
 
             try:
@@ -172,7 +174,10 @@ class ArchivesModel(object):
             raise OperationFailed(reason, {'identity': params['identity']})
 
     def create(self, params):
-        archive_id = str(uuid.uuid4())
+        uuid_uuid4 = uuid.uuid4()
+        if isinstance(uuid_uuid4, unicode):
+            uuid_uuid4 = uuid_uuid4.encode('utf-8')
+        archive_id = str(uuid_uuid4)
         stamp = int(time.mktime(time.localtime()))
 
         # Though formally we ask front-end to not send "include" at all when
