@@ -30,7 +30,7 @@ ginger.initBakDialog = function() {
             $(".delete", pathItem).on("click", function() {
                 if (pathItem.parent().children().length === 1) {
                     $("input", pathItem).prop("value", null);
-                    $("input", pathItem).toggleClass("invalid-field", $(this).val().trim() === "");
+                    $("input", pathItem).toggleClass("invalid-field", $(this).val().trim() === "" && pathItem.parent().prop('id') !=='excludeBox');
                 } else {
                     pathItem.remove();
                 }
