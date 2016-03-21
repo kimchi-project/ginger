@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-17 16:34-0200\n"
+"POT-Creation-Date: 2016-03-21 17:21-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,6 +19,13 @@ msgstr ""
 
 #, python-format
 msgid "%(name)s is not valid network interface"
+msgstr ""
+
+#, python-format
+msgid "'%(key)s' value is missing."
+msgstr ""
+
+msgid "'Exception updating/creating the ifcfg file."
 msgstr ""
 
 msgid "'yes' or 'no' is allowed value for the BONDING_MASTER"
@@ -32,10 +39,63 @@ msgid ""
 "option"
 msgstr ""
 
+msgid "Add"
+msgstr ""
+
+msgid "Add Adapter"
+msgstr ""
+
+msgid "Add Bond"
+msgstr ""
+
+msgid "Add VLAN"
+msgstr ""
+
+msgid "Address"
+msgstr ""
+
+msgid "Address Space"
+msgstr ""
+
+msgid "Addresses"
+msgstr ""
+
 msgid "Administration"
 msgstr ""
 
+msgid "Aliases"
+msgstr ""
+
+msgid "Apply"
+msgstr ""
+
+msgid "Are you sure you want to delete interface %1?"
+msgstr ""
+
+msgid ""
+"Are you sure you want to delete interface %1? <br> This may affect network "
+"connectivity!"
+msgstr ""
+
+msgid "At least one slave is required for the bond interface"
+msgstr ""
+
+msgid "Authors"
+msgstr ""
+
+msgid "Automatic"
+msgstr ""
+
+msgid "Automatic(DHCP)"
+msgstr ""
+
+msgid "BOND interface name is missing or invalid"
+msgstr ""
+
 msgid "Basic information of interface is missing."
+msgstr ""
+
+msgid "Bond Members"
 msgstr ""
 
 msgid "Bond info is missing"
@@ -44,13 +104,38 @@ msgstr ""
 msgid "Bonding master is missing"
 msgstr ""
 
-msgid "Boot protocol is missing."
+msgid "Boot protocol is missing for ipv4 settings."
+msgstr ""
+
+msgid "Boot protocol is missing for ipv6 settings."
+msgstr ""
+
+#, python-format
+msgid "Bridge %(bridge)s does not have a bond named %(bond)s."
+msgstr ""
+
+msgid "Bring down interface"
+msgstr ""
+
+msgid "Bring up interface"
+msgstr ""
+
+msgid "Cancel"
 msgstr ""
 
 msgid "Cannot update system firmware while running VMs."
 msgstr ""
 
+msgid "Capacity"
+msgstr ""
+
 msgid "Change type for partition failed"
+msgstr ""
+
+msgid "Close"
+msgstr ""
+
+msgid "Connect Automatically"
 msgstr ""
 
 #, python-format
@@ -73,20 +158,89 @@ msgstr ""
 msgid "Could not delete user '%(user)s'."
 msgstr ""
 
+msgid "Create"
+msgstr ""
+
 msgid "Create partition failed"
+msgstr ""
+
+msgid "Custom Load"
+msgstr ""
+
+#, python-format
+msgid "DASD device %(name)s not found"
+msgstr ""
+
+msgid "DNS"
+msgstr ""
+
+msgid "DNS Server"
+msgstr ""
+
+msgid "Default Gateway"
+msgstr ""
+
+msgid "Delete"
+msgstr ""
+
+msgid "Delete interface"
 msgstr ""
 
 msgid "Delete partition failed"
 msgstr ""
 
+msgid "Deletion of Ethernet interfaces is not supported."
+msgstr ""
+
+msgid "Deletion of Ethernet interfaces not supported."
+msgstr ""
+
+msgid "Description"
+msgstr ""
+
 msgid "Description too long."
 msgstr ""
 
-msgid "Device name of interface is missing."
+msgid "Device"
+msgstr ""
+
+msgid "Device name is invalid."
+msgstr ""
+
+msgid "Device name of interface is missing or invalid."
+msgstr ""
+
+msgid "Do you want to format the selected ECKD device(s)?"
+msgstr ""
+
+msgid ""
+"Do you want to format the selected ECKD device(s)? Non-ECKD device(s) which "
+"will be skipped i.e. not be formatted!"
+msgstr ""
+
+msgid "Do you want to remove the selected Storage device(s)?"
+msgstr ""
+
+msgid "Down"
+msgstr ""
+
+msgid ""
+"Either no network interface or multiple network interfaces selected. Please "
+"select one."
+msgstr ""
+
+msgid "Enable IPv4 Default Route"
+msgstr ""
+
+msgid "Enable IPv6 Default Route"
 msgstr ""
 
 #, python-format
 msgid "Error activating power saving profile %(profile)s."
+msgstr ""
+
+#, python-format
+msgid "Error adding port %(port)s in bridge %(name)s. Port already exists."
 msgstr ""
 
 #, python-format
@@ -96,7 +250,15 @@ msgid ""
 msgstr ""
 
 #, python-format
+msgid "Error creating OVS bridge %(name)s. OVS bridge already exists."
+msgstr ""
+
+#, python-format
 msgid "Error creating a flat file. %(err)s"
+msgstr ""
+
+#, python-format
+msgid "Error creating a swap device. %(err)s "
 msgstr ""
 
 #, python-format
@@ -122,6 +284,19 @@ msgstr ""
 msgid "Error executing 'lsblk -Po, %(err)s"
 msgstr ""
 
+msgid ""
+"Error executing OVS command. Please check if 'openvswitch' service is "
+"running."
+msgstr ""
+
+#, python-format
+msgid "Error executing OVS command: %(err)s"
+msgstr ""
+
+#, python-format
+msgid "Error fetching info of module %(module)s, reason: %(err)s"
+msgstr ""
+
 #, python-format
 msgid ""
 "Error flashing firmware. rc = %(rc)s.                      Please see /usr/"
@@ -140,10 +315,15 @@ msgstr ""
 msgid "Error getting list of storage devices, %(err)s"
 msgstr ""
 
+#, python-format
+msgid "Error getting loaded module list: %(err)s"
+msgstr ""
+
 msgid "Error in executing 'df -hT' command"
 msgstr ""
 
-msgid "Error in executing 'lsblk -Pbo' command"
+#, python-format
+msgid "Error in executing 'lscss -d' command : %(err)s"
 msgstr ""
 
 msgid "Error in executing 'lsdasd -l bus_id' command"
@@ -152,7 +332,15 @@ msgstr ""
 msgid "Error in executing 'lsdasd -l' command"
 msgstr ""
 
+#, python-format
+msgid "Error in parsing 'lscss -d' command : %(err)s"
+msgstr ""
+
 msgid "Error loading SEP subscriptions data from server."
+msgstr ""
+
+#, python-format
+msgid "Error loading module %(module)s, reason: %(err)s"
 msgstr ""
 
 #, python-format
@@ -174,7 +362,15 @@ msgid ""
 msgstr ""
 
 #, python-format
+msgid "Error retrieving OVS bridge %(name)s. OVS bridge does not exist."
+msgstr ""
+
+#, python-format
 msgid "Error retrieving SEP subscribers data: '%(error)s'."
+msgstr ""
+
+#, python-format
+msgid "Error retrieving information of partition %(name)s : %(err)s"
 msgstr ""
 
 #, python-format
@@ -189,10 +385,14 @@ msgstr ""
 msgid "Error subscribing SEP data to server: '%(error)s'."
 msgstr ""
 
-msgid "Error while getting block device information"
+#, python-format
+msgid "Error unloading module %(module)s, reason: %(err)s"
 msgstr ""
 
 msgid "Exception getting the route information"
+msgstr ""
+
+msgid "Exception updating the interface settings"
 msgstr ""
 
 msgid "FW update failed: No image file found in the package file."
@@ -235,7 +435,8 @@ msgstr ""
 msgid "Failed to delete LV"
 msgstr ""
 
-msgid "Failed to delete PV"
+#, python-format
+msgid "Failed to delete PV, error: %(err)s"
 msgstr ""
 
 msgid "Failed to delete VG"
@@ -270,7 +471,21 @@ msgstr ""
 msgid "Failed to find specified DASD device"
 msgstr ""
 
-msgid "Failed to format DASD device"
+#, python-format
+msgid ""
+"Failed to format %(name)s. Either format currently going on or device not "
+"available for format"
+msgstr ""
+
+#, python-format
+msgid ""
+"Failed to format %(name)s. Either format currently going on or device not "
+"available for format. Please try after sometime."
+msgstr ""
+
+msgid ""
+"Failed to format %1. Either format currently going on or device not "
+"available for format. Please try after sometime."
 msgstr ""
 
 msgid "Failed to identify the type of interface"
@@ -292,6 +507,9 @@ msgstr ""
 msgid "Failed to reduce VG"
 msgstr ""
 
+msgid "Failed to retrieve Globl DNS and Gateway!"
+msgstr ""
+
 msgid "Failed to retrieve details of the specified DASD device"
 msgstr ""
 
@@ -308,6 +526,9 @@ msgid "Failed to retrieve list of DASD partitions"
 msgstr ""
 
 msgid "Failed to retrieve list of filesystems."
+msgstr ""
+
+msgid "Failed to retrieve list of interfaces!"
 msgstr ""
 
 msgid ""
@@ -328,14 +549,29 @@ msgstr ""
 msgid "Failed to unmount the filesystems"
 msgstr ""
 
+msgid "Failed to verify 'Ginger s390x' plugin installation. Please try again."
+msgstr ""
+
 #, python-format
 msgid "Failed to write /etc/resolv.conf because %(reason)s"
+msgstr ""
+
+msgid "Features"
 msgstr ""
 
 msgid "Fetching list of partitions failed"
 msgstr ""
 
+msgid "File already in use."
+msgstr ""
+
 msgid "File location required for creating a swap device."
+msgstr ""
+
+msgid "File name"
+msgstr ""
+
+msgid "Firewall Zone"
 msgstr ""
 
 #, python-format
@@ -348,17 +584,56 @@ msgstr ""
 msgid "Format partition failed"
 msgstr ""
 
-msgid "Formatting of DASD device failed"
+msgid "Gateway"
+msgstr ""
+
+msgid "Gateway information is missing."
+msgstr ""
+
+msgid "Generic"
+msgstr ""
+
+#, python-format
+msgid "Given vlan id is not an integer type, Error: '%(error)s'"
+msgstr ""
+
+msgid "Global DNS and Gateway applied "
+msgstr ""
+
+msgid "Hardware Address"
 msgstr ""
 
 #, python-format
 msgid "Hostname %(hostname)s not found."
 msgstr ""
 
+msgid "IP Addresses"
+msgstr ""
+
 msgid "IP address is missing."
 msgstr ""
 
+msgid "IPv4"
+msgstr ""
+
+msgid "IPv6"
+msgstr ""
+
+msgid "Id"
+msgstr ""
+
+msgid ""
+"In order to enable the selected feature you must fill the parameters below:"
+msgstr ""
+
+msgid "In-Use/Max Ports"
+msgstr ""
+
 msgid "Incorrect swap type, only 'device' and 'file' are allowed."
+msgstr ""
+
+#, python-format
+msgid "Interface %(iface)s not found in openvswitch database."
 msgstr ""
 
 #, python-format
@@ -371,11 +646,32 @@ msgid ""
 "Interface '%(name)s' is neither Vlan nor Bond to perform delete operation"
 msgstr ""
 
+msgid "Interface : "
+msgstr ""
+
+msgid "Interface Name"
+msgstr ""
+
+#, python-format
+msgid "Interface with the name '%(iface)s' already exists ."
+msgstr ""
+
+msgid "Intree"
+msgstr ""
+
+#, python-format
+msgid "Invalid DASD partition, %(name)s"
+msgstr ""
+
 msgid "Invalid bonding option parameter"
 msgstr ""
 
 #, python-format
 msgid "Invalid boot protocol '%(mode)s', "
+msgstr ""
+
+#, python-format
+msgid "Invalid bus ID, %(bus_id)s"
 msgstr ""
 
 msgid "Invalid counts_ago number."
@@ -398,10 +694,6 @@ msgid "Invalid ipv6 address '%(ip)s', '%(error)s'."
 msgstr ""
 
 #, python-format
-msgid "Invalid netmask '%(NETMASK)s', '%(error)s'."
-msgstr ""
-
-#, python-format
 msgid "Invalid network parameters. Details: %(err)s"
 msgstr ""
 
@@ -417,10 +709,63 @@ msgstr ""
 msgid "Invalid parameter for network gateway"
 msgstr ""
 
+#, python-format
+msgid "Invalid prefix '%(PREFIX)s', '%(error)s'."
+msgstr ""
+
+#, python-format
+msgid "Invalid prefix '%(PREFIX)s'."
+msgstr ""
+
 msgid "Invalid type needs to be either local or nfs"
 msgstr ""
 
+msgid "License"
+msgstr ""
+
+msgid "Link Down Delay"
+msgstr ""
+
+msgid "Link Monitoring"
+msgstr ""
+
+msgid "Link Up Delay"
+msgstr ""
+
+msgid "Load"
+msgstr ""
+
+msgid "Load Module"
+msgstr ""
+
+msgid "Load Special Config"
+msgstr ""
+
+msgid "MTU"
+msgstr ""
+
+msgid "Mac Address"
+msgstr ""
+
+msgid "Manual"
+msgstr ""
+
+msgid "Mask"
+msgstr ""
+
+msgid "Maximum length of device name is 15 characters only."
+msgstr ""
+
+msgid "Method"
+msgstr ""
+
+msgid "Metric"
+msgstr ""
+
 msgid "Minimum one slave has to be given for the bond interface"
+msgstr ""
+
+msgid "Missing IPV4 addresses information"
 msgstr ""
 
 msgid "Missing ipv4 initialization key."
@@ -432,10 +777,53 @@ msgstr ""
 msgid "Missing ipv6 initialization key."
 msgstr ""
 
+msgid "Mixed selection of ECKD and non-ECKD devices"
+msgstr ""
+
+msgid "Mode"
+msgstr ""
+
+msgid "Model"
+msgstr ""
+
+#, python-format
+msgid "Module %(module)s not found."
+msgstr ""
+
+msgid "Module %1 was successfully loaded"
+msgstr ""
+
+msgid "Module %1 was successfully unloaded"
+msgstr ""
+
 msgid "Module 802q is not loaded into kernel"
 msgstr ""
 
+msgid "Module Name"
+msgstr ""
+
+msgid "Monitoring Interval"
+msgstr ""
+
+msgid "Mount Point"
+msgstr ""
+
+msgid "Multipath Links"
+msgstr ""
+
+msgid "N/A"
+msgstr ""
+
 msgid "NFS mount failed"
+msgstr ""
+
+msgid "Name"
+msgstr ""
+
+msgid "Netmask"
+msgstr ""
+
+msgid "Network"
 msgstr ""
 
 msgid "No partitions found"
@@ -445,6 +833,35 @@ msgstr ""
 msgid "No partitions found for disk . %(disk)s"
 msgstr ""
 
+msgid "No storage device selected. Please select one."
+msgstr ""
+
+msgid "None"
+msgstr ""
+
+msgid "OK"
+msgstr ""
+
+msgid "Ok"
+msgstr ""
+
+msgid "PREFIX missing."
+msgstr ""
+
+msgid "Parameter"
+msgstr ""
+
+msgid "Parameters"
+msgstr ""
+
+msgid ""
+"Parameters must be set with an equals sign (=) and separated by a whitespace "
+"( ). <br /> Example: param1=value param2=value"
+msgstr ""
+
+msgid "Parent Interface"
+msgstr ""
+
 msgid "Parent interface of type 'Bond' is not active"
 msgstr ""
 
@@ -452,6 +869,10 @@ msgid "Parsing df output failed."
 msgstr ""
 
 msgid "Parsing lsdasd output failed"
+msgstr ""
+
+#, python-format
+msgid "Partition %(name)s not found."
 msgstr ""
 
 msgid "Partition already mounted"
@@ -468,13 +889,43 @@ msgstr ""
 msgid "Persistent file is not available for an interface, '%(name)s'"
 msgstr ""
 
+msgid "Persistent file is not available for interface %1."
+msgstr ""
+
 msgid "Physical device name is missing"
 msgstr ""
 
 msgid "Please check the uniqueness of the paths or patterns."
 msgstr ""
 
+msgid ""
+"Please install plugin 'Ginger s390x' to avail 'Delete' functionality for "
+"Ethernet interface."
+msgstr ""
+
+msgid "Please wait..."
+msgstr ""
+
+msgid ""
+"Plugin Ginger s390x not installed. Please install plugin 'Ginger s390x' to "
+"avail 'Add Adapter' functionality"
+msgstr ""
+
+msgid "Prefix"
+msgstr ""
+
 msgid "Provide required parameters: hostname, port, community."
+msgstr ""
+
+msgid "Refresh"
+msgstr ""
+
+#, python-format
+msgid "Remove failed: device %(dev)s not found."
+msgstr ""
+
+#, python-format
+msgid "Remove failed: error: %(err)s"
 msgstr ""
 
 msgid "Require DASD device name to be formatted"
@@ -513,6 +964,15 @@ msgstr ""
 msgid "Required vg_name parameter"
 msgstr ""
 
+msgid "Restart"
+msgstr ""
+
+msgid "Restart interface"
+msgstr ""
+
+msgid "Routes"
+msgstr ""
+
 #, python-format
 msgid "SAN adapter '%(adapter)s' does not exist in the system."
 msgstr ""
@@ -520,7 +980,32 @@ msgstr ""
 msgid "SNMP community name must be a single word."
 msgstr ""
 
+msgid "SRC Version"
+msgstr ""
+
+msgid "Settings"
+msgstr ""
+
+msgid "Signature Key"
+msgstr ""
+
+msgid "Signer"
+msgstr ""
+
+msgid "Signer Hash Algorithm"
+msgstr ""
+
+#, python-format
+msgid "Single swap device %(swap)s not found."
+msgstr ""
+
+msgid "Size"
+msgstr ""
+
 msgid "Size is mandatory while creating file type swap device."
+msgstr ""
+
+msgid "Size must be of type integer"
 msgstr ""
 
 msgid "Slave(s) is missing"
@@ -529,11 +1014,29 @@ msgstr ""
 msgid "Specify name, password, group and profile for the new user."
 msgstr ""
 
-msgid "Subnet is missing."
+msgid "Speed"
+msgstr ""
+
+msgid "State"
+msgstr ""
+
+msgid "Status"
+msgstr ""
+
+msgid "Storage"
+msgstr ""
+
+msgid "Subchannels"
+msgstr ""
+
+msgid "Successfully applied setting for interface: "
 msgstr ""
 
 #, python-format
 msgid "Swap device not found. %(name)s"
+msgstr ""
+
+msgid "Symbolic Name"
 msgstr ""
 
 msgid "System hostname must be a valid string."
@@ -544,14 +1047,34 @@ msgid ""
 "65535."
 msgstr ""
 
+msgid "Target"
+msgstr ""
+
+#, python-format
+msgid "The prefix value %(PREFIX)s is not in range 1-128"
+msgstr ""
+
+#, python-format
+msgid "The prefix value %(PREFIX)s is not in range 1-32"
+msgstr ""
+
 #, python-format
 msgid "The user name '%(user)s' is already in use'."
+msgstr ""
+
+msgid "This module does not have any parameters."
+msgstr ""
+
+msgid "This will unload the module %1. Do you want to continue?"
 msgstr ""
 
 #, python-format
 msgid ""
 "Timeout while creating archive \"%(identity)s\", the files might be too "
 "large for a configuration backup."
+msgstr ""
+
+msgid "Type"
 msgstr ""
 
 msgid "Type is missing"
@@ -572,6 +1095,17 @@ msgid "Unable to activate the interface on '%(name)s', '%(error)s'."
 msgstr ""
 
 #, python-format
+msgid "Unable to bring down the interface '%(name)s', '%(error)s'."
+msgstr ""
+
+#, python-format
+msgid "Unable to bring up the interface '%(name)s', '%(error)s'."
+msgstr ""
+
+msgid "Unable to create bond with less than two interfaces."
+msgstr ""
+
+#, python-format
 msgid "Unable to deactivate the interface on '%(name)s', '%(error)s'."
 msgstr ""
 
@@ -580,7 +1114,7 @@ msgid "Unable to delete default gateway: %(err)s"
 msgstr ""
 
 #, python-format
-msgid "Unable to find FC elements for given fc block device, %(blk)s"
+msgid "Unable to find device %(dev)s ."
 msgstr ""
 
 #, python-format
@@ -592,7 +1126,14 @@ msgid "Unable to get default gateway: %(err)s"
 msgstr ""
 
 #, python-format
+msgid "Unable to get information of device %(dev)s, error: %(err)s"
+msgstr ""
+
+#, python-format
 msgid "Unable to get single swap device info. %(err)s"
+msgstr ""
+
+msgid "Unable to get single swap device info: directory /proc/swaps not found."
 msgstr ""
 
 msgid "Unable to open fstab"
@@ -613,6 +1154,18 @@ msgstr ""
 msgid "Unable to write fstab"
 msgstr ""
 
+msgid "Unload Module"
+msgstr ""
+
+msgid "Up"
+msgstr ""
+
+msgid "Update"
+msgstr ""
+
+msgid "Usage"
+msgstr ""
+
 #, python-format
 msgid "User '%(user)s' does not exist."
 msgstr ""
@@ -631,7 +1184,22 @@ msgid ""
 "admin."
 msgstr ""
 
-msgid "VLAN id exceeds the ranges from '0' to '4096'"
+msgid "VLAN Id"
+msgstr ""
+
+msgid "VLAN Interface name"
+msgstr ""
+
+msgid "VLAN id exceeds the ranges from '0' to '4095'"
+msgstr ""
+
+msgid "VLAN interface name is missing or provided incorrectly"
+msgstr ""
+
+msgid "VLANID mandatory in case VLAN interface do not have VLANID in it."
+msgstr ""
+
+msgid "Vermagic"
 msgstr ""
 
 msgid "Vlan id is missing"
@@ -643,6 +1211,12 @@ msgstr ""
 msgid "Vlan is missing"
 msgstr ""
 
+msgid "WWNN"
+msgstr ""
+
+msgid "WWPN"
+msgstr ""
+
 msgid "error in filesystem get list util"
 msgstr ""
 
@@ -652,10 +1226,10 @@ msgstr ""
 msgid "error in unmount util"
 msgstr ""
 
-msgid "fdisk command failed"
+msgid "failed !"
 msgstr ""
 
-msgid "lookup method of partition failed"
+msgid "fdisk command failed"
 msgstr ""
 
 msgid "lvcreate command failed"
@@ -676,12 +1250,6 @@ msgstr ""
 msgid "pvcreate command failed"
 msgstr ""
 
-msgid "pvdisplay command failed"
-msgstr ""
-
-msgid "pvremove command failed"
-msgstr ""
-
 msgid "pvs command failed"
 msgstr ""
 
@@ -692,6 +1260,9 @@ msgid "required server ip addr"
 msgstr ""
 
 msgid "required type as local or nfs"
+msgstr ""
+
+msgid "successfull"
 msgstr ""
 
 msgid "vgcreate command failed"
