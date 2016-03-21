@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 #
 # Project Ginger
 #
@@ -51,6 +52,8 @@ def get_group_obj_by_gid(gid):
 
 def get_group_gid(groupname):
     adm = libuser.admin()
+    if isinstance(groupname, unicode):
+        groupname = groupname.encode('utf-8')
     group = adm.lookupGroupByName(groupname)
     if group is None:
         return None
@@ -58,19 +61,32 @@ def get_group_gid(groupname):
 
 
 def create_group(groupname, gid):
-    adm = libuser.admin()
-    group = adm.lookupGroupByName(groupname)
-    if not group:
-        new_group = adm.initGroup(groupname)
-        new_group.set(libuser.GIDNUMBER, gid)
-        adm.addGroup(new_group)
-        return gid
-    else:
-        return group.get('pw_gid')[0]
+    try:
+        adm = libuser.admin()
+        if isinstance(groupname, unicode):
+            groupname = groupname.encode('utf-8')
+        if isinstance(gid, unicode):
+            gid = gid.encode('utf-8')
+        group = adm.lookupGroupByName(groupname)
+        if not group:
+            new_group = adm.initGroup(groupname)
+            new_group.set(libuser.GIDNUMBER, gid)
+            adm.addGroup(new_group)
+            return gid
+        else:
+            return group.get('pw_gid')[0]
+    except Exception as e:
+        wok_log.error('Could not create group name %s, error: %s',
+                      groupname, e)
+        raise OperationFailed('GINUSER0014E', {'group': groupname, 'err': e})
 
 
 def delete_group(groupname):
     adm = libuser.admin()
+
+    if isinstance(groupname, unicode):
+        groupname = groupname.encode('utf-8')
+
     group_id = int(get_group_gid(groupname))
 
     if group_id <= 1000:
@@ -95,6 +111,8 @@ def delete_group(groupname):
 
 def get_users_from_group(groupname):
     adm = libuser.admin()
+    if isinstance(groupname, unicode):
+        groupname = groupname.encode('utf-8')
     group_obj = adm.lookupGroupById(
         int(get_group_gid(groupname))
     )
@@ -114,6 +132,8 @@ def get_users(exclude_system_users=True):
 
 def get_user_obj(username):
     adm = libuser.admin()
+    if isinstance(username, unicode):
+        username = username.encode('utf-8')
     return adm.lookupUserByName(username)
 
 
@@ -126,6 +146,10 @@ def gen_salt():
 
 def create_user(name, plain_passwd, profile=None, gid=None):
     adm = libuser.admin()
+    if isinstance(name, unicode):
+        name = name.encode('utf-8')
+    if isinstance(gid, unicode):
+        gid = gid.encode('utf-8')
     user = adm.lookupUserByName(name)
     if user:
         msg = 'User/Login "%s" already in use' % name
@@ -156,15 +180,27 @@ def create_user(name, plain_passwd, profile=None, gid=None):
         enc_pwd = crypt.crypt(plain_passwd, salt)
 
         adm.setpassUser(new_user, enc_pwd, True)
+
+    except UnicodeEncodeError as ue:
+        err_msg = ue.message if ue.message else 'Username / password \
+            has NON - ASCII charater'
+        wok_log.error('Could not create user %s, error: %s', name, err_msg)
+        raise OperationFailed('GINUSER0009E', {'user': name, 'err': err_msg})
+
     except Exception as e:
-        wok_log.error('Could not create user %s, error: %s', name, e)
-        raise OperationFailed('GINUSER0009E', {'user': name})
+        err_msg = e.message if e.message else e
+        wok_log.error('Could not create user %s, error: %s', name, err_msg)
+        raise OperationFailed('GINUSER0009E', {'user': name, 'err': err_msg})
 
     return new_user
 
 
 def delete_user(username):
     adm = libuser.admin()
+
+    if isinstance(username, unicode):
+        username = username.encode('utf-8')
+
     user_obj = adm.lookupUserByName(username)
 
     if not user_obj:
@@ -223,6 +259,11 @@ class UsersModel(object):
         profile = params['profile']
         groupname = params['group']
 
+        if isinstance(username, unicode):
+            username = username.encode('utf-8')
+        if isinstance(groupname, unicode):
+            groupname = groupname.encode('utf-8')
+
         gid = get_group_gid(groupname)
         if gid is None:
             user = create_user(username, passwd, profile=profile)
@@ -254,6 +295,8 @@ class UsersModel(object):
         # Add new user to KVM group
         adm = libuser.admin()
         kvmgrp = get_group_obj('kvm')
+        if isinstance(user, unicode):
+            user = user.encode('utf-8')
         kvmgrp.add('gr_mem', user)
         ret = adm.modifyGroup(kvmgrp)
         if ret != 1:
@@ -290,7 +333,10 @@ class UserModel(object):
             group_name = grp.getgrgid(user_info.pw_gid).gr_name
 
         except KeyError:
-            group_name = str(user_info.pw_gid)
+            pw_gid = user_info.pw_gid
+            if isinstance(pw_gid, unicode):
+                pw_gid = pw_gid.encode('utf-8')
+            group_name = str(pw_gid)
 
         return {"name": user,
                 "uid": user_info.pw_uid,
@@ -301,6 +347,8 @@ class UserModel(object):
     def _get_user_profile(self, user):
         # ADMIN: Check /etc/sudoers.d
         adm = libuser.admin()
+        if isinstance(user, unicode):
+            user = user.encode('utf-8')
         if os.path.isfile(SUDOERS_FILE % user):
             return 'admin'
         else:
