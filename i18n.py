@@ -111,7 +111,7 @@ messages = {
     "GINNET0072E": _("Interface with the name '%(iface)s' already exists ."),
     "GINNET0073E": _("'%(key)s' value is missing."),
     "GINNET0074E": _("'Exception updating/creating the ifcfg file."),
-    "GINNET0075E": _("Atleast one slave is "
+    "GINNET0075E": _("At least one slave is "
                      "required for the bond interface"),
 
     "GINUSER0001E": _("Specify name, password, group and profile for the new "
