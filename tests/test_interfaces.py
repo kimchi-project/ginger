@@ -187,7 +187,7 @@ class InterfacesTests(unittest.TestCase):
     def test_interface_no_action_failure(self, mock_get_module):
         mock_get_module.return_value = 'unknown'
 
-        expected_error_msg = "GINNET0073E"
+        expected_error_msg = "GINNET0076E"
         with self.assertRaisesRegexp(NotFoundError, expected_error_msg):
             InterfaceModel().action('any_iface_name', 'any_action', {})
 
@@ -195,7 +195,7 @@ class InterfacesTests(unittest.TestCase):
     def test_mlx5_sriov_no_args_failure(self, mock_get_module):
         mock_get_module.return_value = 'mlx5_core'
 
-        expected_error_msg = "GINNET0074E"
+        expected_error_msg = "GINNET0077E"
         with self.assertRaisesRegexp(InvalidParameter, expected_error_msg):
             InterfaceModel().action('any_iface_name', 'SR-IOV', {})
 
@@ -203,7 +203,7 @@ class InterfacesTests(unittest.TestCase):
     def test_mlx5_sriov_argument_failure(self, mock_get_module):
         mock_get_module.return_value = 'mlx5_core'
 
-        expected_error_msg = "GINNET0076E"
+        expected_error_msg = "GINNET0079E"
         with self.assertRaisesRegexp(InvalidParameter, expected_error_msg):
             InterfaceModel().action('mlx5_core', 'SR-IOV',
                                     {'num_vfs': 'not_an_int'})
@@ -226,7 +226,7 @@ class InterfacesTests(unittest.TestCase):
             call(call_file2_not_exist)
         ]
 
-        expected_error_msg = "GINNET0075E"
+        expected_error_msg = "GINNET0078E"
         with self.assertRaisesRegexp(OperationFailed, expected_error_msg):
             InterfaceModel().action('iface1', 'SR-IOV', {'num_vfs': 4})
             mock_isfile.assert_has_calls(mock_isfile_calls)

@@ -318,14 +318,14 @@ class InterfaceModel(object):
 
     def _mlx5_SRIOV_enable(self, iface, args):
         if not args or 'num_vfs' not in args.keys():
-            raise InvalidParameter("GINNET0074E")
+            raise InvalidParameter("GINNET0077E")
 
         num_vfs = args['num_vfs']
 
         try:
             int(num_vfs)
         except ValueError:
-            raise InvalidParameter("GINNET0076E")
+            raise InvalidParameter("GINNET0079E")
 
         sriov_files = [
             '/sys/class/net/%s/device/sriov_numvfs' % iface,
@@ -341,14 +341,14 @@ class InterfaceModel(object):
                 break
 
         if not any_file_found:
-            raise OperationFailed("GINNET0075E")
+            raise OperationFailed("GINNET0078E")
 
     def action(self, name, action_name, args):
         kernel_mod = netinfo.get_interface_kernel_module(name)
         actions = self.actions_mod.get(kernel_mod)
         if not actions or not actions.get(action_name):
             raise NotFoundError(
-                "GINNET0073E",
+                "GINNET0076E",
                 {'name': name, 'module': kernel_mod, 'action': action_name}
             )
         actions[action_name]['method'](name, args)
