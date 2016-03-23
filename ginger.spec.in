@@ -8,9 +8,8 @@ License:	LGPL/ASL2
 Source0:	%{name}-%{version}.tar.gz
 BuildArch:	noarch
 BuildRequires:	gettext-devel >= 0.17
-BuildRequires:	python-cheetah
 Requires:	gettext >= 0.17
-Requires:	wok
+Requires:	wok >= 2.1.0
 Requires:	ginger-base
 Requires:	libuser-python
 Requires:   libvirt
@@ -20,7 +19,6 @@ Requires:	python-magic
 Requires:	python-netaddr
 Requires:	python-augeas
 Requires:   libvirt-python
-Requires:	pyparted
 
 
 %description
@@ -88,6 +86,11 @@ service wokd restart
 
 
 %changelog
+* Wed Mar 23 2016 Daniel Henrique Barboza <dhbarboza82@gmail.com>
+- Removed 'pyparted' from dependencies because it is a Ginger-base dependency
+- Removed 'python-cheetah' from build dependencies
+- Added wok version restriction >= 2.1.0
+
 * Tue Mar 1 2016 Daniel Henrique Barboza <dhbarboza82@gmail.com>
 - added ui/images/*.svg in %files
 

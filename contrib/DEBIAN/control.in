@@ -3,7 +3,7 @@ Version: @PACKAGE_VERSION@
 Section: base
 Priority: optional
 Architecture: all
-Depends: wok,
+Depends: wok (>= 2.1.0),
          ginger-base,
          libvirt-bin,
          python-libvirt,
@@ -12,7 +12,6 @@ Depends: wok,
          python-ipaddr,
          python-magic,
          python-netaddr,
-         python-augeas,
-         python-parted
+         python-augeas
 Maintainer: Daniel Henrique Barboza <dhbarboza82@gmail.com>
 Description: Ginger plug-in for Wok - Webserver Originated from Kimchi

@@ -2,6 +2,8 @@ CHANGELOG
 =========
 
 #### [2.1.0] ####
+ * [f670a48] Github #260: packaging changes and wok version restiction                      (Daniel Henrique Barboza)
+ * [b04ea6e] ChangeLog for 2.1.0 release                                                    (Daniel Henrique Barboza)
  * [79b48f8] po files update prior to 2.1 release                                           (Daniel Henrique Barboza)
  * [ab717b7] Fixing i18n.py and ui/pages/i18n.json.tmpl messages                            (Daniel Henrique Barboza)
  * [130e5c2] Fixed Issue #233 error message appears in closeable format                     (Rajat Gupta)
@@ -386,6 +388,8 @@ CHANGELOG
  * [5ce4a73] Adapt to new Kimchi authorization scheme                                       (Zhou Zheng Sheng)
 
 #### [] ####
+ * [f670a48] Github #260: packaging changes and wok version restiction                      (Daniel Henrique Barboza)
+ * [b04ea6e] ChangeLog for 2.1.0 release                                                    (Daniel Henrique Barboza)
  * [79b48f8] po files update prior to 2.1 release                                           (Daniel Henrique Barboza)
  * [ab717b7] Fixing i18n.py and ui/pages/i18n.json.tmpl messages                            (Daniel Henrique Barboza)
  * [130e5c2] Fixed Issue #233 error message appears in closeable format                     (Rajat Gupta)
