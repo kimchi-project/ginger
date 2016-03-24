@@ -199,6 +199,18 @@ ginger.enableInterface = function(name, status, suc, err) {
     });
 };
 
+ginger.enableNetworkSRIOV = function(settings, suc, err) {
+    wok.requestJSON({
+        url: "plugins/ginger/network/interfaces/" + name + "/action",
+        type: 'POST',
+        contentType: "application/json",
+        dataType: 'json',
+        data : JSON.stringify(settings),
+        success: suc,
+        error: err
+    });
+}
+
 ginger.deleteInterface = function(name, suc, err) {
   wok.requestJSON({
       url : 'plugins/ginger/network/cfginterfaces/' + name,

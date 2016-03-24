@@ -226,7 +226,16 @@ ginger.loadBootgridNWActions = function() {
         wok.confirm(settings, function() {});
       }
     }
-  }, {
+  },{
+    id: 'nw-enable-sriov',
+    class: 'fa fa-minus-circle',
+    label: i18n['GINNET0037E'],
+    onClick: function(event) {
+      var selectedIf = ginger.getSelectedRowsData(ginger.opts_nw_if);
+      ginger.selectedInterface = selectedIf[0];
+      wok.window.open('plugins/ginger/host-network-enable-sriov.html');
+    }
+  },{
     id: 'nw-delete-button',
     class: 'fa fa-minus-circle',
     label: i18n['GINNET0013M'],
@@ -357,8 +366,14 @@ ginger.listNetworkConfig = function() {
       "column-id": 'ipaddr',
       "formatter": "nw-address-space",
       "type": 'string',
-      "width": "25%",
+      "width": "20%",
       "title": i18n['GINNET0004M']
+    },
+    {
+      "column-id": 'module',
+      "type": 'string',
+      "width": "10%",
+      "title": i18n['GINNET0036E']
     },
     // {
     //   "column-id": 'enslavedby',
@@ -369,7 +384,7 @@ ginger.listNetworkConfig = function() {
     {
       "column-id": 'macaddr',
       "type": 'string',
-      "width": "40%",
+      "width": "35%",
       "title": i18n['GINNET0005M']
     }
   ];
@@ -390,7 +405,7 @@ ginger.listNetworkConfig = function() {
   var changeActionButtonsState = function() {
     // By default enable them all
     ginger.changeButtonStatus(["nw-up-button", "nw-down-button", "nw-restart-button",
-      "nw-settings-button", "nw-delete-button"
+      "nw-settings-button", "nw-delete-button", "nw-enable-sriov"
     ], true);
     // Based on the interface status hide/show the right buttons
     var selectedIf = ginger.getSelectedRowsData(ginger.opts_nw_if);
@@ -400,6 +415,9 @@ ginger.listNetworkConfig = function() {
         ginger.changeButtonStatus(["nw-up-button"], false);
       } else {
         ginger.changeButtonStatus(["nw-down-button"], false);
+      }
+      if(selectedIf[0]["module"] != 'mlx5_core' && selectedIf[0]["module"] != 'mlx5-core') {
+        ginger.changeButtonStatus(["nw-enable-sriov"], false);
       }
     }
     else{
