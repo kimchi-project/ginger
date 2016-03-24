@@ -242,9 +242,9 @@ URI: /plugins/ginger/filesystems/*:mount_point*
 
        * use%: Percentage of the filesystem used
        * used: Amount of space used in filesystem
-       * size:  Total size of the filesystem
+       * size:  Total size of the filesystem in KBs
        * mounted_on: Mount point of the filesystem
-       * avail : Total space available on the filesystem
+       * avail : Total space available on the filesystem in KBs
        * filesystem : Name of the filesystem.
        * type : Filesystem type.
 
@@ -471,8 +471,8 @@ URI: /plugins/ginger/filesystems/*:mount_point*
 
    *filename : File name of the Swap Device
    *type : The type of the Swap Device. `partition` for the block device and `file` for the regular file.
-   *size : Size of the Swap Device
-   *used : Amount of Swap Device space used
+   *size : Size of the Swap Device in KBs
+   *used : Amount of Swap Device space used in KBs
    *priority : Priority of the Swap Device
 
 * **DELETE**: Remove the Swap Device
@@ -631,23 +631,23 @@ URI: /plugins/ginger/partitions/*:part_name*
 
    * vgName : Name of the volume group.
    * vgStatus : `extendable` if the VG is extendable.
-   * vgSize : Size of the volume group.
+   * vgSize : Size of the volume group in KBs.
    * maxLV : Maximum number of LVs allowed in VG or 0 if unlimited.
-   * freePESize : Size of free PE.
+   * freePESize : Size of free PE in KBs.
    * format: Type of metadata.
    * curLV: Number of LVs.
    * metadataAreas : Number of metadata areas on this VG.
    * permission : VG permissions.
    * allocPE : Number of allocated PEs.
    * pvNames : List of PVs in the VG.
-   * peSize : Size of each PE.
+   * peSize : Size of each PE in KBs.
    * systemID : System ID.
    * curPV : Number of PVs.
    * freePE : Amount of free PEs.
    * maxPV : Maximum number of PVs allowed in VG or 0 if unlimited.
    * totalPE : Total number of Physical Extents.
    * vgUUID : UUID of the volume group.
-   * allocPESize : Size of allocated PE.
+   * allocPESize : Size of allocated PE in KBs.
    * metadataSequenceNo : Revision number of internal metadata.
 
 * **DELETE**: Remove the Volume Group.

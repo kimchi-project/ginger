@@ -38,9 +38,9 @@ def _parse_df_output(output):
             fs_list = fs.split()
             fs_dict['filesystem'] = fs_list[0]
             fs_dict['type'] = fs_list[1]
-            fs_dict['size'] = fs_list[2]
+            fs_dict['size'] = int(fs_list[2])
             fs_dict['used'] = fs_list[3]
-            fs_dict['avail'] = fs_list[4]
+            fs_dict['avail'] = int(fs_list[4])
             fs_dict['use%'] = fs_list[5]
             fs_dict['mounted_on'] = fs_list[6]
 
@@ -93,13 +93,13 @@ def _get_fs_info(mnt_pt):
 
 def _get_df_output():
     """
-    Executes 'df -hT' command and returns
-    :return: output of 'df -hT' command
+    Executes 'df -kT' command and returns
+    :return: output of 'df -kT' command
     """
-    command = ['df', '-hT']
+    command = ['df', '-kT']
     dfout, err, rc = run_command(command)
     if rc:
-        wok_log.error("df -hT failed")
+        wok_log.error("df -kT failed")
         raise OperationFailed("GINFS00006E", {'err': err})
     return _parse_df_output(dfout)
 

@@ -81,6 +81,13 @@ ginger.createBootgrid = function(opts) {
         }
         return ipaddr + "/" + netmask;
       },
+      "sizeFormatter": function(column, row) {
+        var size = row['size'];
+        if (size==null) {
+          return "unknown";
+        }
+        return row['size'];
+      },
       "editable-global-dns": function(column, row) {
         return '<span class="xedit" data-xedit=true data-column-name="' + column.id + '" data-row-id="' + row.GLOBAL + '">' + row[column.id] + '</span>	';
       },

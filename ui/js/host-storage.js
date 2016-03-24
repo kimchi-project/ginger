@@ -60,7 +60,7 @@ ginger.loadFileSystemDetails = function() {
     "title": i18n['GINTITLE0002M']
   }, {
     "column-id": 'size',
-    "type": 'string',
+    "type": 'numeric',
     "width": "10%",
     "title": i18n['GINTITLE0004M']
   }, {
@@ -86,6 +86,11 @@ ginger.initFileSystemsGridData = function() {
   var opts = [];
   opts['gridId'] = "fileSystemsGrid";
   ginger.getFilesystems(function(result) {
+    for (i = 0; i < result.length; i++) {
+      // convert size in KBs to MBs
+        result[i]['size'] = parseInt(result[i]['size']) / 1024;
+        result[i]['size'] = result[i]['size'].toFixed(2);
+    }
     ginger.loadBootgridData(opts['gridId'], result);
     ginger.showBootgridData(opts);
     ginger.hideBootgridLoading(opts);
@@ -115,7 +120,7 @@ ginger.loadSwapDeviceDetails = function() {
     "title": i18n['GINTITLE0006M'],
     "column-id": "size",
     "width": "10%",
-    "type": 'string'
+    "type": 'numeric'
   }, {
     "title": i18n['GINTITLE0005M'],
     "column-id": "use_percent",
@@ -143,11 +148,9 @@ ginger.initSwapDevicesGridData = function() {
       //calculate usage % from size and used (both are in bytes)
       result[i]['use_percent'] = (parseInt(result[i]['used']) / parseInt(result[i]['size'])) * 100;
       result[i]['use_percent'] = result[i]['use_percent'].toFixed(2) + "%";
-      // convert size in bytes to readable format
-      result[i]['size'] = wok.formatMeasurement(parseInt(result[i]['size']), {
-        fixed: 2
-      });
-      result[i]['size'] = result[i]['size'].toString();
+      //convert size in KBs to MBs
+      result[i]['size'] = parseInt(result[i]['size']) / 1024;
+      result[i]['size'] = result[i]['size'].toFixed(2)
     }
     ginger.loadBootgridData(opts['gridId'], result);
     ginger.showBootgridData(opts);
@@ -171,7 +174,7 @@ ginger.loadVolumeGroupDetails = function() {
     "title": i18n['GINTITLE0001M']
   }, {
     "column-id": 'vgSize',
-    "type": 'string',
+    "type": 'numeric',
     "width": "70%",
     "title": i18n['GINTITLE0006M']
   }];
@@ -191,6 +194,11 @@ ginger.initVolumeGroupGridData = function() {
   var opts = [];
   opts['gridId'] = "volumeGroupsGrid";
   ginger.getVolumegroups(function(result) {
+    for (i = 0; i < result.length; i++) {
+      // convert size in bytes to Mega bytes
+      result[i]['vgSize'] = parseInt(result[i]['vgSize']) / 1024;
+      result[i]['vgSize'] = result[i]['vgSize'].toFixed(2);
+    }
     ginger.loadBootgridData(opts['gridId'], result);
     ginger.showBootgridData(opts);
     ginger.hideBootgridLoading(opts);
@@ -598,9 +606,10 @@ ginger.loadStorageDeviceDetails = function() {
     "title": i18n['GINTITLE0002M']
   }, {
     "column-id": 'size',
-    "type": 'string',
+    "type": 'numeric',
     "width": "10%",
-    "title": i18n['GINTITLE0004M']
+    "title": i18n['GINTITLE0004M'],
+    "formatter":"sizeFormatter"
   }];
 
   opts['gridFields'] = JSON.stringify(gridFields);

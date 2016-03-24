@@ -94,23 +94,25 @@ lrwxrwxrwx. 1 root root 10 Nov 24 10:58 wwn-0x6005076802810d50480000000000\
             len(ret_id_dict['36005076802810d504800000000002edf']), 3)
 
     def test_parse_lsblk(self):
-        out = """NAME="sda" TYPE="disk" SIZE="5G" TRAN="iscsi"
-NAME="36005076802810d504800000000002ede" TYPE="mpath" SIZE="5G" TRAN=""
-NAME="sdb" TYPE="disk" SIZE="5G" TRAN="iscsi"
-NAME="sdb1" TYPE="part" SIZE="5G" TRAN=""
-NAME="sdc" TYPE="disk" SIZE="5G" TRAN="iscsi"
-NAME="sdc1" TYPE="part" SIZE="10M" TRAN=""
-NAME="sdd" TYPE="disk" SIZE="20G" TRAN="fc"
-NAME="36005076802810d504800000000002c1e" TYPE="mpath" SIZE="20G" TRAN=""
-NAME="sde" TYPE="disk" SIZE="20G" TRAN="fc"
-NAME="36005076802810d504800000000002c1e" TYPE="mpath" SIZE="20G" TRAN=""
-NAME="dasda" TYPE="disk" SIZE="22.5G" TRAN=""
-NAME="dasda1" TYPE="part" SIZE="22.5G" TRAN=""
+        out = """NAME="sda" TYPE="disk" SIZE="5368709120" TRAN="iscsi"
+NAME="36005076802810d504800000000002ede" TYPE="mpath" SIZE="5368709120" TRAN=""
+NAME="sdb" TYPE="disk" SIZE="5368709120" TRAN="iscsi"
+NAME="sdb1" TYPE="part" SIZE="5368709120" TRAN=""
+NAME="sdc" TYPE="disk" SIZE="5368709120" TRAN="iscsi"
+NAME="sdc1" TYPE="part" SIZE="10485760" TRAN=""
+NAME="sdd" TYPE="disk" SIZE="21474836480" TRAN="fc"
+NAME="36005076802810d504800000000002c1e" TYPE="mpath" SIZE="21474836480" \
+TRAN=""
+NAME="sde" TYPE="disk" SIZE="21474836480" TRAN="fc"
+NAME="36005076802810d504800000000002c1e" TYPE="mpath" SIZE="21474836480" \
+TRAN=""
+NAME="dasda" TYPE="disk" SIZE="24153292800" TRAN=""
+NAME="dasda1" TYPE="part" SIZE="24153292800" TRAN=""
 """
         ret_dict = utils.parse_lsblk_out(out)
         self.assertEqual(ret_dict['sda']['transport'], 'iscsi')
         self.assertEqual(ret_dict['sde']['transport'], 'fc')
-        self.assertEqual(ret_dict['sde']['size'], '20G')
+        self.assertEqual(ret_dict['sde']['size'], 20480)
 
     @mock.patch('wok.plugins.ginger.model.dasd_utils.get_dasd_devs')
     @mock.patch('wok.plugins.ginger.model.utils.get_fc_path_elements')
@@ -134,18 +136,20 @@ NAME="dasda1" TYPE="part" SIZE="22.5G" TRAN=""
                                        'wwpn': '0x0000000000000000',
                                        'fcp_lun': '0x1100000000000000'}}
         mock_lsblk_cmd.return_value = """NAME="sda" TYPE="disk" \
-        SIZE="5G" TRAN="iscsi"
-NAME="36005076802810d504800000000002ede" TRAN="" TYPE="mpath" SIZE="5G"
-NAME="sdb" TYPE="disk" SIZE="5G" TRAN="iscsi"
-NAME="sdb1" TYPE="part" SIZE="5G" TRAN=""
-NAME="sdc" TYPE="disk" SIZE="5G" TRAN="iscsi"
-NAME="sdc1" TYPE="part" SIZE="10M" TRAN=""
-NAME="36005076802810d504800000000002c1e" TYPE="mpath" SIZE="20G" TRAN=""
-NAME="sdd" TYPE="disk" SIZE="20G" TRAN="fc"
-NAME="sde" TYPE="disk" SIZE="20G" TRAN="fc"
-NAME="36005076802810d504800000000002c1e" TYPE="mpath" SIZE="20G" TRAN=""
-NAME="dasda" TYPE="disk" SIZE="22.5G" TRAN=""
-NAME="dasda1" TYPE="part" SIZE="22.5G" TRAN=""
+        SIZE="5368709120" TRAN="iscsi"
+NAME="36005076802810d504800000000002ede" TRAN="" TYPE="mpath" SIZE="5368709120"
+NAME="sdb" TYPE="disk" SIZE="5368709120" TRAN="iscsi"
+NAME="sdb1" TYPE="part" SIZE="5368709120" TRAN=""
+NAME="sdc" TYPE="disk" SIZE="5368709120" TRAN="iscsi"
+NAME="sdc1" TYPE="part" SIZE="10485760" TRAN=""
+NAME="36005076802810d504800000000002c1e" TYPE="mpath" SIZE="21474836480" \
+TRAN=""
+NAME="sdd" TYPE="disk" SIZE="21474836480" TRAN="fc"
+NAME="sde" TYPE="disk" SIZE="21474836480" TRAN="fc"
+NAME="36005076802810d504800000000002c1e" TYPE="mpath" SIZE="21474836480" \
+TRAN=""
+NAME="dasda" TYPE="disk" SIZE="24153292800" TRAN=""
+NAME="dasda1" TYPE="part" SIZE="24153292800" TRAN=""
 """
         mock_by_id.return_value = """total 0
 lrwxrwxrwx. 1 root root 11 Nov 24 10:58 ccw-0X5184 -> ../../dasda

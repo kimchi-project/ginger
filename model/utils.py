@@ -143,8 +143,8 @@ def _parse_swapon_output(output):
         output_list = output.split()
         output_dict['filename'] = output_list[0]
         output_dict['type'] = output_list[1]
-        output_dict['size'] = int(output_list[2])*1024
-        output_dict['used'] = output_list[3]
+        output_dict['size'] = int(output_list[2])
+        output_dict['used'] = int(output_list[3])
         output_dict['priority'] = output_list[4]
     except Exception as e:
         wok_log.error("Unable to parse 'swapon -s' output")
@@ -475,7 +475,8 @@ def _vgdisplay_out(name):
                         "vg_extendable,max_lv,lv_count,max_pv,pv_count,"
                         "vg_size,vg_extent_size,pv_pe_count,"
                         "pv_pe_alloc_count,pv_used,vg_free_count,pv_free,"
-                        "vg_uuid,pv_name", "--separator", ":", name]
+                        "vg_uuid,pv_name", "--separator", ":", name,
+                        "--units", "K"]
     out, err, rc = run_command(cmd)
     if rc != 0:
         raise OperationFailed("GINVG00008E")
@@ -502,13 +503,13 @@ def parse_vgdisplay_output(vgout):
         output['Cur LV'] = i.split(':')[8]
         output['Max PV'] = i.split(':')[9]
         output['Cur PV'] = i.split(':')[10]
-        output['VG Size'] = i.split(':')[11]
-        output['PE Size'] = i.split(':')[12]
+        output['VG Size'] = float(i.split(':')[11][:-1])
+        output['PE Size'] = float(i.split(':')[12][:-1])
         output['Total PE'] = i.split(':')[13]
         output['Alloc PE'] = i.split(':')[14]
-        output['Alloc PE Size'] = i.split(':')[15]
+        output['Alloc PE Size'] = float(i.split(':')[15][:-1])
         output['Free PE'] = i.split(':')[16]
-        output['Free PE Size'] = i.split(':')[17]
+        output['Free PE Size'] = float(i.split(':')[17][:-1])
         output['VG UUID'] = i.split(':')[18]
         if 'PV Names' in output:
             output['PV Names'].append(i.split(':')[19])
@@ -671,11 +672,11 @@ def get_lsblk_keypair_out(transport=True):
 
     """
     if transport:
-        cmd = ['lsblk', '-Po', 'NAME,TYPE,SIZE,TRAN']
+        cmd = ['lsblk', '-Pbo', 'NAME,TYPE,SIZE,TRAN']
     else:
         # Some distributions don't ship 'lsblk' with transport
         # support.
-        cmd = ['lsblk', '-Po', 'NAME,TYPE,SIZE']
+        cmd = ['lsblk', '-Pbo', 'NAME,TYPE,SIZE']
 
     out, err, rc = run_command(cmd)
     if rc != 0:
@@ -737,8 +738,8 @@ def parse_ll_out(ll_out):
 
 def parse_lsblk_out(lsblk_out):
     """
-    Parse the output of 'lsblk -Po'
-    :param lsblk_out: output of 'lsblk -Po'
+    Parse the output of 'lsblk -Pbo'
+    :param lsblk_out: output of 'lsblk -Pbo'
     :return: Dictionary containing information about
             disks on the system
     """
@@ -760,7 +761,8 @@ def parse_lsblk_out(lsblk_out):
             else:
                 disk_info['transport'] = "unknown"
 
-            disk_info['size'] = disk_attrs[2].split("=")[1][1:-1]
+            disk_info['size'] = int(disk_attrs[2].split("=")[1][1:-1])
+            disk_info['size'] = disk_info['size'] / (1024*1024)
             return_dict[disk_attrs[0].split("=")[1][1:-1]] = disk_info
 
     except Exception as e:

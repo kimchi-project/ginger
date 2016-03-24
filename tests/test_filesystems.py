@@ -107,24 +107,23 @@ class FileSystemTests(unittest.TestCase):
         delete_file(self)
 
     def test_df_parser(self):
-        df_out = """Filesystem              Type      Size  Used Avail Use% Mounted on
-devtmpfs                devtmpfs  3.7G     0  3.7G   0% /dev
-tmpfs                   tmpfs     3.8G  240K  3.8G   1% /dev/shm
-tmpfs                   tmpfs     3.8G  1.1M  3.8G   1% /run
-tmpfs                   tmpfs     3.8G     0  3.8G   0% /sys/fs/cgroup
-/dev/mapper/fedora-root ext4       50G   17G   31G  35% /
-tmpfs                   tmpfs     3.8G  520K  3.8G   1% /tmp
-/dev/sda1               ext4      477M  159M  289M  36% /boot
-/dev/mapper/fedora-home ext4      237G   15G  211G   7% /home
-tmpfs                   tmpfs     760M  8.0K  759M   1% /run/user/1000"""
+        df_out = """Filesystem Type 1K-blocks Used Available Use% Mounted on
+devtmpfs                devtmpfs   3875092        0   3875092   0% /dev
+tmpfs                   tmpfs      3886100     1772   3884328   1% /dev/shm
+tmpfs                   tmpfs      3886100     1120   3884980   1% /run
+tmpfs                 tmpfs      3886100        0   3886100   0% /sys/fs/cgroup
+/dev/mapper/fedora-root ext4      51475068 18194240  30643004  38% /
+tmpfs                   tmpfs      3886100    25748   3860352   1% /tmp
+/dev/sda1               ext4        487652   162811    295145  36% /boot
+/dev/mapper/fedora-home ext4     247613436 26170364 208841936  12% /home"""
         parse_out = _parse_df_output(df_out)
         if parse_out[0]['filesystem'] != 'devtmpfs':
             self.fail("Parsing of df failed : filesystem")
-        if parse_out[0]['size'] != '3.7G':
+        if parse_out[0]['size'] != 3875092:
             self.fail("Parsing of df failed : size")
         if parse_out[0]['used'] != '0':
             self.fail("Parsing of df failed : used")
-        if parse_out[0]['avail'] != '3.7G':
+        if parse_out[0]['avail'] != 3875092:
             self.fail("Parsing of df failed : avail")
         if parse_out[0]['use%'] != '0%':
             self.fail("Parsing of df failed : use%")
