@@ -32,7 +32,7 @@ from wok.plugins.ginger.model.interfaces import InterfaceModel
 class InterfacesTests(unittest.TestCase):
 
     @mock.patch('wok.plugins.ginger.model.netinfo.get_interface_type')
-    @mock.patch('wok.plugins.ginger.model.interfaces.run_command')
+    @mock.patch('wok.plugins.ginger.model.nw_interfaces_utils.run_command')
     def test_activate(self, mock_run_command, mock_get_interface_type):
         mock_run_command.return_value = ["", "", 0]
         mock_get_interface_type.return_value = "Ethernet"
@@ -46,7 +46,7 @@ class InterfacesTests(unittest.TestCase):
         assert mock_run_command.call_count == 2
 
     @mock.patch('wok.plugins.ginger.model.netinfo.get_interface_type')
-    @mock.patch('wok.plugins.ginger.model.interfaces.run_command')
+    @mock.patch('wok.plugins.ginger.model.nw_interfaces_utils.run_command')
     def test_activate_fail(self, mock_run_command, mock_get_interface_type):
         mock_run_command.return_value = ["", "Unable to activate", 1]
         mock_get_interface_type.return_value = "Ethernet"
@@ -57,7 +57,7 @@ class InterfacesTests(unittest.TestCase):
         mock_run_command.assert_called_once_with(cmd)
 
     @mock.patch('wok.plugins.ginger.model.netinfo.get_interface_type')
-    @mock.patch('wok.plugins.ginger.model.interfaces.run_command')
+    @mock.patch('wok.plugins.ginger.model.nw_interfaces_utils.run_command')
     def test_deactivate(self, mock_run_command, mock_get_interface_type):
         mock_run_command.return_value = ["", "", 0]
         mock_get_interface_type.return_value = "Ethernet"
@@ -71,7 +71,7 @@ class InterfacesTests(unittest.TestCase):
         assert mock_run_command.call_count == 2
 
     @mock.patch('wok.plugins.ginger.model.netinfo.get_interface_type')
-    @mock.patch('wok.plugins.ginger.model.interfaces.run_command')
+    @mock.patch('wok.plugins.ginger.model.nw_interfaces_utils.run_command')
     def test_deactivate_fail(self, mock_run_command, mock_get_interface_type):
         mock_run_command.return_value = ["", "Unable to deactivate", 1]
         mock_get_interface_type.return_value = "Ethernet"
@@ -94,8 +94,7 @@ class InterfacesTests(unittest.TestCase):
         module = netinfo.get_interface_kernel_module('dummy_iface')
         mock_loaded_mod_list.assert_called_once_with()
         mock_readlink.assert_called_once_with(
-           '/sys/class/net/dummy_iface/device/driver/module'
-        )
+            '/sys/class/net/dummy_iface/device/driver/module')
 
         self.assertEqual(module, 'dummy_net_module')
 
@@ -110,8 +109,7 @@ class InterfacesTests(unittest.TestCase):
         module = netinfo.get_interface_kernel_module('dummy_iface')
         self.assertEqual(module, 'unknown')
         mock_readlink.assert_called_once_with(
-           '/sys/class/net/dummy_iface/device/driver/module'
-        )
+            '/sys/class/net/dummy_iface/device/driver/module')
         mock_loaded_mod_list.assert_called_once_with()
 
     @mock.patch('wok.plugins.ginger.model.netinfo.get_interface_kernel_module')
