@@ -23,18 +23,19 @@ import ipaddr
 import libvirt
 import lxml.etree as ET
 import os
-import time
-
-import cfginterfaces
 
 from lxml.builder import E
 from threading import Timer
 
 import netinfo
 
+from nw_interfaces_utils import cfgInterfacesHelper
+from nw_interfaces_utils import InterfacesHelper
 from wok.exception import InvalidParameter, NotFoundError, OperationFailed
-from wok.utils import wok_log, run_command
 from wok.xmlutils.utils import xpath_get_text
+
+from nw_cfginterfaces_utils import IFACE_BOND
+from nw_cfginterfaces_utils import IFACE_VLAN
 
 
 class InterfacesModel(object):
@@ -44,7 +45,7 @@ class InterfacesModel(object):
         and interfaces that are inactive and are of type of bond and vlan.
         :return:
         """
-        return cfginterfaces.get_interface_list()
+        return cfgInterfacesHelper.get_interface_list()
 
 
 class InterfaceModel(object):
@@ -75,14 +76,13 @@ class InterfaceModel(object):
         try:
             if name in ethtool.get_devices():
                 info = netinfo.get_interface_info(name)
-            elif cfginterfaces.is_cfgfileexist(name):
-                type = cfginterfaces.get_type(name).lower()
-                if type in [cfginterfaces.IFACE_BOND,
-                            cfginterfaces.IFACE_VLAN]:
+            elif cfgInterfacesHelper.is_cfgfileexist(name):
+                type = cfgInterfacesHelper.get_type(name).lower()
+                if type in [IFACE_BOND, IFACE_VLAN]:
                     raise ValueError
-                device = cfginterfaces.get_device(name)
+                device = cfgInterfacesHelper.get_device(name)
                 info = {'device': device,
-                        'type': cfginterfaces.get_type(name),
+                        'type': cfgInterfacesHelper.get_type(name),
                         'status': "down",
                         'ipaddr': "",
                         'netmask': "",
@@ -126,7 +126,7 @@ class InterfaceModel(object):
 
             search_prefix = \
                 xpath_get_text(libvirt_interface_xml,
-                               "/interface/protocol[@family='ipv4']"
+                               "/interfac/protocol[@family='ipv4']"
                                "/ip/@prefix")
 
             ip_obj = ipaddr.IPv4Network('%s/%s' % (search_ip[0],
@@ -205,99 +205,10 @@ class InterfaceModel(object):
                 raise
 
     def activate(self, ifacename):
-        wok_log.info('Bring up an interface ' + ifacename)
-        iface_type = netinfo.get_interface_type(ifacename)
-        if iface_type == "Ethernet":
-            cmd_ipup = ['ip', 'link', 'set', '%s' % ifacename, 'up']
-            out, error, returncode = run_command(cmd_ipup)
-            if returncode != 0:
-                wok_log.error(
-                    'Unable to bring up the interface on ' + ifacename +
-                    ', ' + error)
-                raise OperationFailed('GINNET0059E', {'name': ifacename,
-                                                      'error': error})
-            # Some times based on system load, it takes few seconds to
-            # reflect the  /sys/class/net files upon execution of 'ip link
-            # set' command.  Following snippet is to wait util files get
-            # reflect.
-            timeout = self.wait_time(ifacename)
-            if timeout == 5:
-                wok_log.warn("Time-out has happened upon execution of 'ip "
-                             "link set <interface> up', hence behavior of "
-                             "activating an interface may not as expected.")
-            else:
-                wok_log.info(
-                    'Successfully brought up the interface ' + ifacename)
-        wok_log.info('Activating an interface ' + ifacename)
-        cmd_ifup = ['ifup', '%s' % ifacename]
-        out, error, returncode = run_command(cmd_ifup)
-        if returncode != 0:
-            wok_log.error(
-                'Unable to activate the interface on ' + ifacename +
-                ', ' + error)
-            raise OperationFailed('GINNET0016E',
-                                  {'name': ifacename, 'error': error})
-        wok_log.info(
-            'Connection successfully activated for the interface ' + ifacename)
+        InterfacesHelper().activate_iface(ifacename)
 
     def deactivate(self, ifacename):
-        wok_log.info('Deactivating an interface ' + ifacename)
-        cmd_ifdown = ['ifdown', '%s' % ifacename]
-        out, error, returncode = run_command(cmd_ifdown)
-        if returncode != 0:
-            wok_log.error(
-                'Unable to deactivate the interface on ' + ifacename +
-                ', ' + error)
-            raise OperationFailed('GINNET0017E',
-                                  {'name': ifacename, 'error': error})
-        wok_log.info(
-            'Connection successfully deactivated for the interface ' +
-            ifacename)
-
-        wok_log.info('Bringing down an interface ' + ifacename)
-        iface_type = netinfo.get_interface_type(ifacename)
-        if iface_type == "Ethernet":
-            cmd_ipdown = ['ip', 'link', 'set', '%s' % ifacename, 'down']
-            out, error, returncode = run_command(cmd_ipdown)
-            if returncode != 0:
-                wok_log.error(
-                    'Unable to bring down the interface on ' + ifacename +
-                    ', ' + error)
-                raise OperationFailed('GINNET0060E', {'name': ifacename,
-                                                      'error': error})
-            # Some times based on system load, it takes few seconds to
-            # reflect the  /sys/class/net files upon execution of 'ip link
-            # set' command. Following snippet is to wait util files get
-            # reflect.
-            timeout = self.wait_time(ifacename)
-            if timeout == 5:
-                wok_log.warn("Time-out has happened upon execution of 'ip "
-                             "link set <interface> down', hence behavior of "
-                             "activating an interface may not as expected.")
-            else:
-                wok_log.info(
-                    'Successfully brought down the interface ' + ifacename)
-        vlan_or_bond = [cfginterfaces.IFACE_BOND, cfginterfaces.IFACE_VLAN]
-        if iface_type in vlan_or_bond:
-            if ifacename in ethtool.get_devices():
-                cmd_ip_link_del = ['ip', 'link', 'delete', '%s' % ifacename]
-                out, error, returncode = run_command(cmd_ip_link_del)
-                if returncode != 0 and ifacename in ethtool.get_devices():
-                    wok_log.error('Unable to delete the interface ' +
-                                  ifacename + ', ' + error)
-                raise OperationFailed('GINNET0017E', {'name': ifacename,
-                                                      'error': error})
-
-    def wait_time(self, ifacename):
-        timeout = 0
-        while timeout < 5:
-            pathtocheck = "/sys/class/net/%s/operstate"
-            if os.path.exists(pathtocheck % ifacename):
-                break
-            else:
-                timeout += 0.5
-                time.sleep(0.5)
-        return timeout
+        InterfacesHelper().deactivate_iface(ifacename)
 
     def confirm_change(self, _name):
         conn = self._conn
