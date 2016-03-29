@@ -110,7 +110,7 @@ messages = {
     "GINNET0071E": _("Invalid prefix '%(PREFIX)s'."),
     "GINNET0072E": _("Interface with the name '%(iface)s' already exists ."),
     "GINNET0073E": _("'%(key)s' value is missing."),
-    "GINNET0074E": _("'Exception updating/creating the ifcfg file."),
+    "GINNET0074E": _("Exception updating/creating the ifcfg file."),
     "GINNET0075E": _("At least one slave is "
                      "required for the bond interface"),
     "GINNET0076E": _("Interface %(name)s loaded with driver %(module)s does not have an action %(action)s available."),

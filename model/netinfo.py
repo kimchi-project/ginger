@@ -22,7 +22,10 @@ import ethtool
 import glob
 import os
 
-import cfginterfaces
+from nw_cfginterfaces_utils import IFACE_VLAN
+from nw_cfginterfaces_utils import IFACE_BOND
+from nw_cfginterfaces_utils import IFACE_ETHERNET
+
 from sysmodules import get_loaded_modules_list
 
 NET_PATH = '/sys/class/net'
@@ -196,13 +199,13 @@ def get_interface_type(iface):
     # want to expose this 4 kinds of interface
     try:
         if is_nic(iface):
-            return cfginterfaces.IFACE_ETHERNET
+            return IFACE_ETHERNET
         if is_bonding(iface):
-            return cfginterfaces.IFACE_BOND
+            return IFACE_BOND
         if is_bridge(iface):
             return "Bridge"
         if is_vlan(iface):
-            return cfginterfaces.IFACE_VLAN
+            return IFACE_VLAN
         return 'unknown'
     except IOError:
         return 'unknown'
