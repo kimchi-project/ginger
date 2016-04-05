@@ -241,7 +241,6 @@ messages = {
     "GINPART00013E": _("No partitions found"),
     "GINPART00014E": _("Partition %(name)s not found."),
 
-
     "GINPV00001E": _("Required pv_name parameter"),
     "GINPV00002E": _("Failed to create PV"),
     "GINPV00003E": _("Failed to fetch PV list"),
@@ -253,7 +252,6 @@ messages = {
     "GINPV00009E": _("Remove failed: error: %(err)s"),
     "GINPV00010E": _("Remove failed: device %(dev)s not found."),
     "GINPV00011E": _("Unable to find device %(dev)s ."),
-
 
     "GINVG00001E": _("Failed to create VG"),
     "GINVG00002E": _("Failed to list VGs"),
@@ -325,5 +323,8 @@ messages = {
     "GINSD00003E": _("Error parsing 'ls -l /dev/disk/by-id', %(err)s"),
     "GINSD00004E": _("Error parsing 'lsblk -Po', %(err)s"),
     "GINSD00005E": _("Error getting list of storage devices, %(err)s"),
-    "GINSD00006E": _("Error getting bus id of DASD device, %(err)s")
+    "GINSD00006E": _("Error getting bus id of DASD device, %(err)s"),
+
+    "GINSERV00001E": _("Error executing SystemD command %(cmd)s, reason: %(err)s"),
+    "GINSERV00002E": _("Service name %(name)s not found.")
 }

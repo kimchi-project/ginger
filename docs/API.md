@@ -852,3 +852,41 @@ of all available modules, not just the loaded ones. At this moment there is no a
     * bond: name of the bond to be modified
     * interface_del: interface to be discarded from the bond
     * interface_add: interface to be used in the bond
+
+
+### Collection: Services
+
+URI: /plugins/ginger/services
+
+**Methods:**
+
+* **GET**: Retrieve a list of all services of the host, in any state. This is the parsed output of 'systemctl --type=service --all' command.
+* Returns: a list of Service objects.
+
+### Resource: Service
+
+URI: /plugins/ginger/services/*:service_name*
+
+*Methods:**
+
+* **GET**: Retrieve the state of the service:
+        * name: string. The name of the service.
+        * load: string. The load state of the service. Values: 'loaded', 'not-found', 'masked'
+        * active: string. The active state of the service. Values: 'active', 'inactive', 'failed'
+        * sub: string. The sub state of the service. Values: 'running', 'dead', 'exited', 'failed'
+        * desc: string. The description of the service.
+        * autostart: boolean. If true, the service will start on boot time (= enabled).
+        * cgroup: dictionary. The cgroup (control group) of the service. Control group is a kernel feature that groups processes in a way to better manage the resources they consume.
+            * name: string. name of the cgroup.
+            * processes: dictionary in the format pid (process ID): command
+
+* Returns: a dictionary describing the service state.
+
+**Actions (POST)**:
+    * enable: enable the service to start on boot time.
+    * disable: disable the service, removing it from the boot time.
+    * start : starts the service.
+    * stop: stops the service.
+    * restart: restarts the service.
+
+* Returns: a dictionary with the updated service state.
