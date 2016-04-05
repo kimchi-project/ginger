@@ -37,6 +37,7 @@ from powermanagement import PowerProfilesModel, PowerProfileModel
 from physical_vol import PhysicalVolumesModel, PhysicalVolumeModel
 from sanadapters import SanAdapterModel, SanAdaptersModel
 from sensors import SensorsModel
+from services import ServicesModel, ServiceModel
 from storage_devs import StorageDevsModel
 from swaps import SwapsModel, SwapModel
 from sysmodules import SysModulesModel, SysModuleModel
@@ -112,12 +113,14 @@ class GingerModel(BaseModel):
         physical_vol = PhysicalVolumeModel(objstore=self._objstore)
         vol_groups = VolumeGroupsModel(objstore=self._objstore)
         vol_group = VolumeGroupModel(objstore=self._objstore)
+        services = ServicesModel()
+        service = ServiceModel()
 
         features = [firmware, swaps, backup, network, powerprofiles,
                     san_adapters, sensors, ibm_sep, users, filesystems,
                     dasddevs, dasdpartitions, partitions, physical_vols,
                     vol_groups, log_volumes, stgdevs, firmwareprogress,
-                    sysmodules, cfginterfaces, ovsbridges]
+                    sysmodules, cfginterfaces, ovsbridges, services]
         capabilities = CapabilitiesModel(features)
         config = ConfigModel()
 
@@ -141,7 +144,8 @@ class GingerModel(BaseModel):
             sysmodules, sysmodule,
             vol_groups, vol_group,
             ibm_sep, subscription, subscriber,
-            capabilities, config, ovsbridge, ovsbridges]
+            capabilities, config, ovsbridge, ovsbridges,
+            services, service]
 
         # Import task model from Wok
         kargs = {'objstore': self._objstore}
