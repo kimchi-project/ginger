@@ -23,8 +23,8 @@ import os
 from control import Backup, Capabilities, Config, DASDdevs, DASDPartitions
 from control import Firmware, FirmwareProgress, FileSystems, LogicalVolumes
 from control import Network, OVSBridges, Partitions, PhysicalVolumes
-from control import PowerProfiles, SanAdapters, Sensors, Sep, StorageDevs
-from control import Swaps, SysModules, Users, VolumeGroups
+from control import PowerProfiles, SanAdapters, Sensors, Sep, Services
+from control import StorageDevs, Swaps, SysModules, Users, VolumeGroups
 from i18n import messages
 
 from wok import config
@@ -66,6 +66,7 @@ class Ginger(WokRoot):
         self.pvs = PhysicalVolumes(self.model)
         self.san_adapters = SanAdapters(self.model)
         self.sensors = Sensors(self.model)
+        self.services = Services(self.model)
         self.stgdevs = StorageDevs(self.model)
         self.swaps = Swaps(self.model)
         self.sysmodules = SysModules(self.model)
