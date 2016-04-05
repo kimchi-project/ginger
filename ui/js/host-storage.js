@@ -455,6 +455,7 @@ ginger.loadStorageActionButtons = function() {
       wok.confirm(settings, function() {
         var selectedRows = ginger.getSelectedRowsData(opts);
         ginger.selectedrows = selectedRows;
+        var trackingNums = selectedRows.length;
         var taskAccepted = false;
         var onTaskAccepted = function() {
           if (taskAccepted) {
@@ -475,16 +476,29 @@ ginger.loadStorageActionButtons = function() {
             };
 
             ginger.formatDASDDevice(busId, settings, function(result) {
+            trackingNums = trackingNums - 1;
               wok.message.success(deviceId + " formatted successfully", '#alert-modal-nw-container');
+              if(trackingNums == 0){
+                        $("#storage-device-refresh-btn").trigger('click');
+                        $('#sd-format-button').show();
+              }
             }, function(result) {
               trackingNums = trackingNums - 1;
               errorMsg = i18n['GINDASD0001E'].replace("%1", deviceId);
               wok.message.error(errorMsg, '#alert-modal-nw-container', true);
+              if(trackingNums == 0){
+                $("#storage-device-refresh-btn").trigger('click');
+                $('#sd-format-button').show();
+              }
             }, onTaskAccepted);
+          }else{
+             trackingNums = trackingNums - 1;
+             if(trackingNums == 0){
+             $("#storage-device-refresh-btn").trigger('click');
+             $('#sd-format-button').show();
+        }
           }
         });
-        $("#storage-device-refresh-btn").trigger('click');
-        $('#sd-format-button').show();
       }, function() {});
     }
   }, {
@@ -508,8 +522,12 @@ ginger.loadStorageActionButtons = function() {
           lunsScanStatus = result.current;
         var selectedRows = ginger.getSelectedRowsData(opts);
         ginger.selectedrows = selectedRows;
+        var rowNums = selectedRows.length;
         var selectedRowDetails = JSON.stringify(ginger.selectedrows);
         var fcpDeviceNo = 0;
+        opts['loadingMessage'] = 'Removing...';
+        ginger.showBootgridLoading(opts);
+        ginger.hideBootgridData(opts);
         $.each(ginger.selectedrows, function(i, row) {
           var diskType = row['type'];
           var deviceId = row['id'];
@@ -521,11 +539,19 @@ ginger.loadStorageActionButtons = function() {
             };
             ginger.removeDASDDevice(busId, settings, function(result) {
               wok.message.success(deviceId + " removed successfully", '#alert-modal-nw-container');
+              rowNums = rowNums - 1;
+              if (rowNums == 0) {
+                $("#storage-device-refresh-btn").trigger('click');
+              }
             }, function(result) {
               if (result['responseJSON']) {
                 var errText = result['responseJSON']['reason'];
               }
               result && wok.message.error(errText, '#alert-modal-nw-container', true);
+              rowNums = rowNums - 1;
+                if (rowNums == 0) {
+                  $("#storage-device-refresh-btn").trigger('click');
+                }
             }, function() {});
 
           } else if (diskType == "fc") {
@@ -539,18 +565,27 @@ ginger.loadStorageActionButtons = function() {
             if (!lunsScanStatus) {
             ginger.removeFCDevice(lun_path, settings, function(result) {
               wok.message.success(deviceId + " removed successfully", '#alert-modal-nw-container');
+              rowNums = rowNums - 1;
+              if (rowNums == 0) {
+                $("#storage-device-refresh-btn").trigger('click');
+              }
             }, function(result) {
               var errText = result['responseJSON']['reason'];
               wok.message.error(errText, '#alert-modal-nw-container', true);
+              rowNums = rowNums - 1;
+              if (rowNums == 0) {
+                $("#storage-device-refresh-btn").trigger('click');
+              }
             }, function() {});
           }else {
             if (fcpDeviceNo <= 1)
               wok.message.error('Lun scan is enabled.Cannot add/remove LUNs manually', '#alert-modal-nw-container', true);
+            rowNums = rowNums - 1;
+            if (rowNums == 0) {
+              $("#storage-device-refresh-btn").trigger('click');
+              }
           }
          }
-        });
-        ginger.getStgdevs(function(result) {
-          ginger.loadBootgridData("stgDevGrid", result);
         });
       });
       }, function() {});
