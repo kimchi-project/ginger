@@ -89,7 +89,7 @@ ginger.initFileSystemsGridData = function() {
     for (i = 0; i < result.length; i++) {
       // convert size in KBs to MBs
         result[i]['size'] = parseInt(result[i]['size']) / 1024;
-        result[i]['size'] = result[i]['size'].toFixed(2);
+        result[i]['size'] = Number(result[i]['size'].toFixed(2));
     }
     ginger.loadBootgridData(opts['gridId'], result);
     ginger.showBootgridData(opts);
@@ -150,7 +150,7 @@ ginger.initSwapDevicesGridData = function() {
       result[i]['use_percent'] = result[i]['use_percent'].toFixed(2) + "%";
       //convert size in KBs to MBs
       result[i]['size'] = parseInt(result[i]['size']) / 1024;
-      result[i]['size'] = result[i]['size'].toFixed(2)
+      result[i]['size'] = Number(result[i]['size'].toFixed(2));
     }
     ginger.loadBootgridData(opts['gridId'], result);
     ginger.showBootgridData(opts);
@@ -197,7 +197,7 @@ ginger.initVolumeGroupGridData = function() {
     for (i = 0; i < result.length; i++) {
       // convert size in bytes to Mega bytes
       result[i]['vgSize'] = parseInt(result[i]['vgSize']) / 1024;
-      result[i]['vgSize'] = result[i]['vgSize'].toFixed(2);
+      result[i]['vgSize'] = Number(result[i]['vgSize'].toFixed(2));
     }
     ginger.loadBootgridData(opts['gridId'], result);
     ginger.showBootgridData(opts);
