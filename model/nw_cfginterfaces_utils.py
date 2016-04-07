@@ -311,7 +311,9 @@ class CfgInterfacesHelper(object):
         else:
             self.validate_device_name(params[BASIC_INFO][DEVICE])
             cfg_map[DEVICE] = params[BASIC_INFO][DEVICE]
-            if cfg_map[DEVICE] in self.get_bond_vlan_interfaces():
+            # Check for all the available interfaces to avoid
+            # recreation of the same interface
+            if cfg_map[DEVICE] in self.get_interface_list():
                 wok_log.error("Interface with the name %s already exists"
                               % params[BASIC_INFO][DEVICE])
                 raise InvalidParameter('GINNET0072E', {'iface': cfg_map[
