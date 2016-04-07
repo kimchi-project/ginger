@@ -205,8 +205,9 @@ class CfginterfaceModel(object):
         cfgmap = cfgInterfacesHelper.read_ifcfg_file(iface)
         if cfgmap:
             ethinfo.update(self.get_interface_info(cfgmap))
+        # When cfgmap is empty or ifcfg file doesn't exist
         else:
-            raise OperationFailed("GINNET0057E", {'name': iface})
+            raise OperationFailed("GINNET0080E", {'name': iface})
         return ethinfo
 
     def get_interface_info(self, cfgmap):
