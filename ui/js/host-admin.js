@@ -54,7 +54,7 @@ ginger.initBakDialog = function() {
             e.preventDefault();
             e.stopImmediatePropagation();
             var pathNode = $.parseHTML('<div class="path-item">' +
-                '<input type="text" class="form-control input" />' +
+                '<input type="text" class="form-control input"  placeholder="/Path/to/folder/" />' +
                 '<span class="column-delete btn btn-link delete del-label">' +
                 '<i class="fa fa-minus-circle"></i>Remove</span>' +
                 '</div>');
