@@ -177,6 +177,17 @@ ginger.initBatDelDialog = function() {
             activeInput.prop("disabled", false);
             validateInput(activeInput);
         });
+
+        $("label[for=days-ago-text]").on("click", function() {
+              $("#days-ago-radio").prop('checked',true);
+              $("#days-ago-radio").trigger('click');
+        });
+
+        $("label[for=counts-ago-text]").on("click", function() {
+              $("#counts-ago-radio").prop('checked',true);
+              $("#counts-ago-radio").trigger('click');
+        });
+
         $("input:text", "#batDelDialog").on("keyup", function() {
             validateInput($(this));
         });
