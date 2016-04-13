@@ -466,7 +466,9 @@ ginger.loadStorageActionButtons = function() {
         var selectedRowDetails = JSON.stringify(ginger.selectedrows);
         ginger.showBootgridLoading(opts);
         ginger.hideBootgridData(opts);
-        $('#sd-format-button').hide();
+        $("#storage-device-refresh-btn").hide();
+        $("#action-dropdown-button-file-systems-actions").hide();
+
         $.each(ginger.selectedrows, function(i, row) {
           if (row['type'] == "dasd") {
             var busId = row['bus_id'];
@@ -479,16 +481,24 @@ ginger.loadStorageActionButtons = function() {
             trackingNums = trackingNums - 1;
               wok.message.success(deviceId + " formatted successfully", '#alert-modal-nw-container');
               if(trackingNums == 0){
-                        $("#storage-device-refresh-btn").trigger('click');
-                        $('#sd-format-button').show();
+                  $("#action-dropdown-button-file-systems-actions").show();
+                  $("#storage-device-refresh-btn").show();
+                  $("#storage-device-refresh-btn").trigger('click');
               }
             }, function(result) {
               trackingNums = trackingNums - 1;
               errorMsg = i18n['GINDASD0001E'].replace("%1", deviceId);
+              if ('responseJSON' in result) {
+                  errorMsg = result['responseJSON']['reason'];
+              } else {
+                  errorMsg = result['message'];
+              }
+
               wok.message.error(errorMsg, '#alert-modal-nw-container', true);
               if(trackingNums == 0){
+                $("#action-dropdown-button-file-systems-actions").show();
+                $("#storage-device-refresh-btn").show();
                 $("#storage-device-refresh-btn").trigger('click');
-                $('#sd-format-button').show();
               }
             }, onTaskAccepted);
           }else{

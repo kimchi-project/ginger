@@ -293,6 +293,7 @@ messages = {
     "GINDASD0011E": _("Invalid bus ID, %(bus_id)s"),
     "GINDASD0012E": _("Error in executing 'lscss -d' command : %(err)s"),
     "GINDASD0013E": _("Error in parsing 'lscss -d' command : %(err)s"),
+    "GINDASD0014E": _("No more than %(max_dasd_fmt)s concurrent DASD format operations are permitted."),
 
     "GINDASDPAR0005E": _("Require name to create DASD device partition"),
     "GINDASDPAR0006E": _("Require partition size to create DASD device partition"),

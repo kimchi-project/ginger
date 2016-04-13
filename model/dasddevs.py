@@ -22,15 +22,20 @@ import dasd_utils
 import platform
 import threading
 
-from wok.exception import MissingParameter, NotFoundError, OperationFailed
+from wok.exception import InvalidOperation, MissingParameter
+from wok.exception import NotFoundError, OperationFailed
 from wok.model.tasks import TaskModel
 from wok.utils import add_task, run_command, wok_log
+
+# Max no of permitted concurrent DASD format operations
+MAX_DASD_FMT = 24
 
 
 class DASDdevsModel(object):
     """
     Model class for listing DASD devices (lsdasd -l)
     """
+
     def is_feature_available(self):
         _, _, returncode = run_command(['lsdasd', '-l'])
         ptfm = platform.machine()
@@ -72,6 +77,7 @@ class DASDdevModel(object):
         return self.dev_details
 
     def format(self, bus_id, blk_size):
+        tasks = []
         dasd_utils.validate_bus_id(bus_id)
         woklock = threading.Lock()
         name = self.dev_details['name']
@@ -81,6 +87,24 @@ class DASDdevModel(object):
         task_params = {'blk_size': blk_size, 'name': name}
         try:
             woklock.acquire()
+            with self.objstore as session:
+                tasks = session.get_list('task')
+
+            running_tasks = []
+            for task in tasks:
+                with self.objstore as session:
+                    current_task = session.get('task', str(task))
+                    if current_task['target_uri'].startswith(
+                          '/dasddevs') and current_task['status'] == 'running':
+                        running_tasks.append(current_task)
+
+            # Limit the number of concurrent DASD format operations to
+            # MAX_DASD_FMT.
+            if len(running_tasks) > MAX_DASD_FMT:
+                raise InvalidOperation(
+                    "GINDASD0014E", {
+                        'max_dasd_fmt': str(MAX_DASD_FMT)})
+
             taskid = add_task(u'/dasddevs/%s/blksize/%s' % (name, blk_size),
                               self._format_task, self.objstore, task_params)
         except OperationFailed:
