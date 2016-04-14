@@ -49,8 +49,8 @@ class NetworkModel(object):
             return []
         try:
             with open(RESOLV_CONF) as f:
-                return [line.split()[1] for line in f
-                        if line.startswith('nameserver')]
+                return [line.split()[1] for line in f if line.startswith(
+                    'nameserver') and len(line.split()) == 2]
         except IOError as e:
             raise OperationFailed('GINNET0001E', {'reason': e.message})
 
@@ -66,7 +66,8 @@ class NetworkModel(object):
                     if NAMESERVER not in line:
                         new_data.append(line)
                 for server in nameservers:
-                    new_data.append(NAMESERVER + ' ' + server)
+                    if server:
+                        new_data.append(NAMESERVER + ' ' + server)
                 f.write(''.join('%s\n' % line for line in new_data))
                 f.close()
         except Exception, e:
