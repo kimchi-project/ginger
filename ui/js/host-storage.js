@@ -662,7 +662,7 @@ ginger.loadStorageDeviceDetails = function() {
   ginger.hideBootgridData(opts);
   ginger.showBootgridLoading(opts);
   ginger.initStorageDevicesGridData();
-  ginger.initStorageDevicesGridEvents(grid);
+  ginger.initStorageDevicesGridEvents(grid,opts);
   $('#storage-device-refresh-btn').on('click', function(event) {
     ginger.hideBootgridData(opts);
     ginger.showBootgridLoading(opts);
@@ -676,17 +676,20 @@ ginger.initStorageDevicesGridData = function() {
   ginger.getStgdevs(function(result) {
     ginger.loadBootgridData(opts['gridId'], result);
     ginger.hideBootgridLoading(opts);
-    ginger.showBootgridData(opts);
   });
 };
 
-ginger.initStorageDevicesGridEvents = function(grid) {
+ginger.initStorageDevicesGridEvents = function(grid,opts) {
   grid.bootgrid().on("selected.rs.jquery.bootgrid", function(e, rows) {
     ginger.changeActionButtonsState();
   }).on("deselected.rs.jquery.bootgrid", function(e, rows) {
     ginger.changeActionButtonsState();
   }).on("loaded.rs.jquery.bootgrid", function(e, rows) {
     ginger.changeActionButtonsState();
+  }).on("appended.rs.jquery.bootgrid", function(e, rows) {
+     if(rows.length==0){
+      ginger.showBootgridData(opts);
+    }
   });
 };
 
