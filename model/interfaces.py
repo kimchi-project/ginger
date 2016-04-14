@@ -69,7 +69,10 @@ class InterfaceModel(object):
             info = self.actions_mod.get(kernel_mod, {})
             for action in info.keys():
                 action_info = info[action]
-                action_info.pop('method')
+
+                # not all interface has method
+                if 'method' in action_info.keys():
+                    action_info.pop('method')
                 info[action] = action_info
             return info
 
