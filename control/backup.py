@@ -20,7 +20,7 @@
 import cherrypy
 from cherrypy.lib.static import serve_file
 
-from wok.control.base import Collection, Resource
+from wok.control.base import AsyncCollection, Resource
 from wok.control.utils import UrlSubNode
 
 
@@ -54,7 +54,7 @@ class Backup(Resource):
 
 
 @UrlSubNode('archives', True)
-class Archives(Collection):
+class Archives(AsyncCollection):
     def __init__(self, model):
         super(Archives, self).__init__(model)
         self.resource = Archive

@@ -95,8 +95,21 @@ ginger.initBakDialog = function() {
             $("body button").prop("disabled", "disabled");
             $("body input").css("cursor", "wait");
             $("body button").css("cursor", "wait");
+            var taskAccepted = false;
+            var onTaskAccepted = function() {
+              if (taskAccepted) {
+                return;
+              }
+              taskAccepted = true;
+            };
+            $('#newBakDialog').modal('hide');
+            wok.message.success(i18n['GINCFGB00001M'], '#alert-modal-container');
+            $("#newDefaultBakBtn").hide();
+            $("#newCustomBakBtn").hide();
             ginger.createBackupArchive(content, function() {
-                $('#newBakDialog').modal('hide');
+                wok.message.success(i18n['GINCFGB00002M'], '#alert-modal-container');
+                $("#newDefaultBakBtn").show();
+                $("#newCustomBakBtn").show();
                 ginger.setupBakGrid();
             }, function(result) {
                 $("body").css('cursor', 'default');
@@ -105,7 +118,7 @@ ginger.initBakDialog = function() {
                 $("body input").css("cursor", "text");
                 $("body button").css("cursor", "pointer");
                 wok.message.error(result.responseJSON.reason,'#alert-backup-modal',true);
-            });
+            }, onTaskAccepted);
         });
 
         var tempNode = $.parseHTML($("#pathItem").html());
@@ -262,9 +275,22 @@ ginger.changeArrow = function(obj) {
 ginger.initConfigBak = function() {
     $("#newDefaultBakBtn").on("click", function(event) {
         event.preventDefault();
+        var taskAccepted = false;
+        var onTaskAccepted = function() {
+          if (taskAccepted) {
+            return;
+          }
+          taskAccepted = true;
+        };
+        wok.message.success(i18n['GINCFGB00001M'], '#alert-modal-container');
+        $("#newDefaultBakBtn").hide();
+        $("#newCustomBakBtn").hide();
         ginger.createBackupArchive({}, function() {
+            wok.message.success(i18n['GINCFGB00002M'], '#alert-modal-container');
+            $("#newDefaultBakBtn").show();
+            $("#newCustomBakBtn").show();
             ginger.setupBakGrid();
-        })
+        }, function() {}, onTaskAccepted )
     });
 
     ginger.setupBakGrid();

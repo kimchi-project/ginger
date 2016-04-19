@@ -54,8 +54,8 @@ class BackupArchiveTests(unittest.TestCase):
         mock_sha256sum.return_value = 'sha256sum'
 
         params = {'include': [], 'exclude': [], 'description': descr}
-        archive_id = ArchivesModel(objstore=self._objstore).create(params)
-
+        task_obj = ArchivesModel(objstore=self._objstore).create(params)
+        archive_id = task_obj['target_uri'].split("/")[-1]
         archive_file = os.path.join('/tmp', archive_id + '.tar.gz')
 
         cmd = ['tar', '--create', '--gzip', '--absolute-names',

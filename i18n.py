@@ -171,6 +171,8 @@ messages = {
                      'Inspect error log for more information.'),
     "GINHBK0010E": _('Timeout while creating archive "%(identity)s", the '
                      'files might be too large for a configuration backup.'),
+    "GINHBK0011E": _('Archive creation task failed. "%(err)s".'),
+
 
     "GINADAP0001E": _("SAN adapter '%(adapter)s' does not exist in the system."
                       ),

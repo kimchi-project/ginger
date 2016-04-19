@@ -29,10 +29,12 @@ import cherrypy
 
 from wok.config import PluginPaths
 from wok.exception import NotFoundError, OperationFailed, TimeoutExpired
-from wok.utils import wok_log, run_command
+from wok.model.tasks import TaskModel
+from wok.utils import add_task, run_command, wok_log
 
 
 class BackupModel(object):
+
     def __init__(self, **kargs):
         self._objstore = kargs['objstore']
         self._archives_model = kargs['archives_model']
@@ -107,6 +109,7 @@ class ArchivesModel(object):
 
     def __init__(self, **kargs):
         self._objstore = kargs['objstore']
+        self.task = TaskModel(**kargs)
         self._create_archive_dir()
 
     @classmethod
@@ -197,9 +200,23 @@ class ArchivesModel(object):
                      'checksum': {},
                      'timestamp': stamp,
                      'file': ''}
-        self._create_archive(ar_params)
 
-        return archive_id
+        taskid = add_task(u'/backup/create/%s' % (archive_id),
+                          self._create_task, self._objstore, ar_params)
+        return self.task.lookup(taskid)
+
+    def _create_task(self, cb, params):
+
+        cb('entering task to create config backup')
+        try:
+            self._create_archive(params)
+            cb('OK', True)
+
+        except (OperationFailed) as e:
+            cb('OK', False)
+            raise OperationFailed('GINHBK0011E',
+                                  {'params': 'params',
+                                   'err': e.message})
 
     def _session_get_list(self, session):
         # Assume session is already locked.
@@ -211,6 +228,7 @@ class ArchivesModel(object):
 
 
 class ArchiveModel(object):
+
     def __init__(self, **kargs):
         self._objstore = kargs['objstore']
 

@@ -104,14 +104,20 @@ ginger.listBackupArchives = function(suc, err){
     });
 };
 
-ginger.createBackupArchive = function(bak, suc, err) {
+ginger.createBackupArchive = function(bak, suc, err, progress) {
+
+  var onResponse = function(data) {
+     taskID = data['id'];
+     ginger.trackTask(taskID, suc, err, progress);
+  };
+
     wok.requestJSON({
         url : 'plugins/ginger/backup/archives',
         type : 'POST',
         contentType : 'application/json',
         dataType : 'json',
         data : JSON.stringify(bak),
-        success : suc,
+        success : onResponse,
         error : err || function(data) {
             wok.message.error(data.responseJSON.reason);
         }
