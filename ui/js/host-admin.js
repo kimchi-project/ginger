@@ -524,7 +524,41 @@ ginger.initUserManagement = function() {
     };
 
     $('#hostUserAdd').on('show.bs.modal', function(event) {
-        $("#kimchiuser").prop("checked", true);
+        var enableFields = function() {
+          $("#user-cancel").prop("disabled", false);
+          $(".modal-body .inputbox").attr("disabled", false);
+          $("#hostUserAdd, .inputbox[name='userGroup']", ".modal-body").attr("disabled", false);
+          $(".modal-body input[type=radio]").attr("disabled", false);
+          $("#hostUserAdd, .inputbox[name='userName']", ".modal-body").focus();
+        };
+        var clearPasswords = function() {
+          $("#hostUserAdd, .inputbox[name='userPasswd']", ".modal-body").parent().addClass('has-error');
+          $("#hostUserAdd, .inputbox[name='userConfirmPasswd']", ".modal-body").parent().addClass('has-error');
+          $(".modal-body .inputbox").attr("disabled", false);
+          $(".modal-body input[type=radio]").attr("disabled", false);
+          $(".modal-body .inputbox").attr("disabled", false);
+          $("#hostUserAdd, .inputbox[name='userGroup']", ".modal-body").attr("disabled", false);
+          $("#user-submit").prop("disabled", true);
+          $("#user-cancel").prop("disabled", false);
+          $("#hostUserAdd, .inputbox[name='userConfirmPasswd']", ".modal-body").val('');
+          $("#hostUserAdd, .inputbox[name='userPasswd']", ".modal-body").focus();
+        };
+        var clearUMSubmit = function() {
+          $("#hostUserAdd, .inputbox[name='userPasswd']", ".modal-body").parent().removeClass('has-error');
+          $("#hostUserAdd, .inputbox[name='userConfirmPasswd']", ".modal-body").parent().removeClass('has-error');
+          $("#userLogin").prop("checked", true);
+          $("#enableEditGroup").prop("checked", false);
+          $(".modal-body .inputbox").val("");
+          $(".modal-body .inputbox").attr("disabled", false);
+          $(".modal-body input[type=radio]").attr("disabled", false);
+          $(".modal-body .inputbox").attr("disabled", false);
+          $("#hostUserAdd, .inputbox[name='userGroup']", ".modal-body").attr("disabled", true);
+          $("#user-submit").prop("disabled", true);
+          $("#user-cancel").prop("disabled", false);
+        };
+        $("#userLogin").prop("checked", true);
+        // clear user-submit handlers before assigning
+        $("#user-submit").off();
         $("#hostUserAdd, .inputbox[name='userName']", ".modal-body").keyup(function() {
             var tmpVal = $(this).val();
             $("#hostUserAdd, .inputbox[name='userName']", ".modal-body").val(tmpVal);
@@ -549,7 +583,7 @@ ginger.initUserManagement = function() {
                 $("#user-submit").prop("disabled", false);
             }
         });
-        $("#user-submit", $(this)).on('click', function(event) {
+        $("#user-submit").on('click', function(event) {
             event.preventDefault();
             $(".modal-body .inputbox").attr("disabled", true);
             $(".modal-body input[type=radio]").attr("disabled", true);
@@ -603,38 +637,6 @@ ginger.initUserManagement = function() {
         $("#user-cancel", $(this)).button().click(function(event) {
             $('#hostUserAdd').modal('hide')
         });
-        var enableFields = function() {
-            $("#user-cancel").prop("disabled", false);
-            $(".modal-body .inputbox").attr("disabled", false);
-            $("#hostUserAdd, .inputbox[name='userGroup']", ".modal-body").attr("disabled", false);
-            $(".modal-body input[type=radio]").attr("disabled", false);
-            $("#hostUserAdd, .inputbox[name='userName']", ".modal-body").focus();
-        }
-        var clearPasswords = function() {
-            $("#hostUserAdd, .inputbox[name='userPasswd']", ".modal-body").parent().addClass('has-error');
-            $("#hostUserAdd, .inputbox[name='userConfirmPasswd']", ".modal-body").parent().addClass('has-error');
-            $(".modal-body .inputbox").attr("disabled", false);
-            $(".modal-body input[type=radio]").attr("disabled", false);
-            $(".modal-body .inputbox").attr("disabled", false);
-            $("#hostUserAdd, .inputbox[name='userGroup']", ".modal-body").attr("disabled", false);
-            $("#user-submit").prop("disabled", true);
-            $("#user-cancel").prop("disabled", false);
-            $("#hostUserAdd, .inputbox[name='userConfirmPasswd']", ".modal-body").val('');
-            $("#hostUserAdd, .inputbox[name='userPasswd']", ".modal-body").focus();
-        };
-        var clearUMSubmit = function() {
-            $("#hostUserAdd, .inputbox[name='userPasswd']", ".modal-body").parent().removeClass('has-error');
-            $("#hostUserAdd, .inputbox[name='userConfirmPasswd']", ".modal-body").parent().removeClass('has-error');
-            $("#kimchiuser").prop("checked", true);
-            $("#enableEditGroup").prop("checked", false);
-            $(".modal-body .inputbox").val("");
-            $(".modal-body .inputbox").attr("disabled", false);
-            $(".modal-body input[type=radio]").attr("disabled", false);
-            $(".modal-body .inputbox").attr("disabled", false);
-            $("#hostUserAdd, .inputbox[name='userGroup']", ".modal-body").attr("disabled", true);
-            $("#user-submit").prop("disabled", true);
-            $("#user-cancel").prop("disabled", false);
-        };
     });
     listUsers();
 };
