@@ -500,10 +500,25 @@ ginger.initUserManagement = function() {
                 $(".ginger .host-admin .user-manage").append(nodeNameItem);
             }
             $(".detach", ".ginger .host-admin .user-manage").on('click', function(event) {
+                var wokUserName = wok.user.getUserName();
                 var that = $(this).parent().parent();
-                ginger.deleteUser($("span[data-type='name']", that).text(), function() {
+                var currentUser = $("span[data-type='name']", that).text()
+                if (wokUserName === currentUser ) {
+                  errorMsg = i18n['GINUSR0003M'];
+                  wok.message.error(errorMsg, '#alert-modal-user-container', true);
+                } else {
+                var settings = [];
+                settings = {
+                  title: i18n['GINUSR0001M'] + " - " + currentUser,
+                  content: i18n['GINUSR0002M'],
+                  cancel: i18n['GGBAPI6003M']
+                };
+                wok.confirm(settings,function (){
+                ginger.deleteUser(currentUser, function() {
                     that.remove();
-                }, function() {});
+                }, function() {})},
+                 function() {});
+                }
             });
         }, function() {});
     };
@@ -546,16 +561,22 @@ ginger.initUserManagement = function() {
             var userConfirmPasswd = $("#hostUserAdd, .inputbox[name='userConfirmPasswd']", ".modal-body").val();
             var userGroup = $("#hostUserAdd, .inputbox[name='userGroup']", ".modal-body").val();
             var userProfile = $(".modal-body input[name=userProfile]:checked").val();
-
+            var no_login = false
+            if (userProfile === "userNologin") {
+                userProfile = "regularuser"
+                no_login = true
+            }
             var dataSubmit = {
                 name: userName,
                 password: userPasswd,
-                profile: userProfile
+                profile: userProfile,
+                no_login : no_login
             };
             if ($("#enableEditGroup").prop('checked')) {
                 dataSubmit['group'] = userGroup;
             } else {
-                dataSubmit['group'] = userName;
+                //dataSubmit['group'] = userName;
+                dataSubmit['group'] = "";
             }
             if (userPasswd === userConfirmPasswd) {
                 ginger.addUser(dataSubmit, function() {

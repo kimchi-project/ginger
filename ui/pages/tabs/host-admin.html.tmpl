@@ -186,6 +186,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
                 <div class="btn-group">
                     <button class="btn btn-primary actBtn add-user" type="submit" data-toggle="modal" data-target="#hostUserAdd"><i class="fa fa-plus-circle"></i> $_("Add User")</button>
                 </div>
+                <span id='alert-modal-user-container' style='display: none;'></span>
                 <div class="wok-datagrid">
                     <div class="wok-datagrid-header">
                         <span class="column-username">$_("Name")</span><!--
@@ -346,8 +347,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
                 <div class="form-group">
                     <label>$_("Profile")</label>
                     <div id="radio-buttons">
-                        <input type="radio"  checked="checked" name="userProfile" class="wok-radio" id="kimchiuser" value="kimchiuser"/>
-                        <label for="kimchiuser">$_("Kimchi User")</label>
+                        <input type="radio"  checked="checked" name="userProfile" class="wok-radio" id="userLogin" value="regularuser"/>
+                        <label for="userLogin">$_("Standard")</label>
+                        <input type="radio"  name="userProfile" class="wok-radio" id="userNologin" value="userNologin"/>
+                        <label for="userNologin">$_("Standard (No Shell)")</label>
                          <input type="radio" name="userProfile" class="wok-radio" id="virtuser" value="virtuser"/>
                         <label for="virtuser">$_("Virt User")</label>
                         <input type="radio" name="userProfile" class="wok-radio" id="admin" value="admin" />
