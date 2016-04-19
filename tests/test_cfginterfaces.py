@@ -17,12 +17,15 @@
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 
+import __builtin__ as builtins
 import mock
 import unittest
 
+from mock import call, mock_open, patch
+
 from wok.plugins.ginger.model.cfginterfaces import CfginterfaceModel
 from wok.plugins.ginger.model.nw_interfaces_utils import cfgInterfacesHelper
-from wok.exception import MissingParameter
+from wok.exception import MissingParameter, OperationFailed
 
 
 class CfgInterfacesTests(unittest.TestCase):
@@ -131,3 +134,62 @@ class CfgInterfacesTests(unittest.TestCase):
         assert mock_parser.set.call_count == 3
         mock_parser.load.assert_called_once_with()
         mock_parser.save.assert_called_once_with()
+
+    @mock.patch('wok.plugins.ginger.model.nw_cfginterfaces_utils.run_command')
+    def test_verify_new_cfgfile_content(self, mock_run_cmd):
+        interface = 'dummyiface'
+
+        ip_link_cmd = ['ip', '-o', 'link', 'show', 'dev', interface]
+        ip_link_return = 'dummyiface: <BROADCAST,MULTICAST,UP,LOWER_UP> '\
+            'mtu 1500 qdisc noqueue state UP mode DEFAULT group default '\
+            'qlen 1000\    link/ether 52:54:00:e0:95:c0 brd ff:ff:ff:ff:ff:ff'
+
+        mock_run_cmd.return_value = [ip_link_return, 0, 0]
+
+        expected_content = "DEVICE=%(dev)s\nHWADDR=%(mac)s\nONBOOT=yes\n" \
+            "BOOTPROTO=none\n" % {'dev': interface, 'mac': '52:54:00:e0:95:c0'}
+
+        cfg_file_content = cfgInterfacesHelper.get_cfgfile_content(interface)
+        mock_run_cmd.assert_called_once_with(ip_link_cmd)
+        self.assertEquals(cfg_file_content, expected_content)
+
+    @mock.patch('wok.plugins.ginger.model.nw_cfginterfaces_utils.run_command')
+    @mock.patch('os.path.isfile')
+    def test_create_minimal_config_file(self, mock_isfile, mock_run_cmd):
+        interface = 'dummyiface'
+
+        file_path = '/etc/sysconfig/network-scripts/ifcfg-%s' % interface
+        mock_isfile.return_value = False
+
+        ip_link_return = 'dummyiface: (...) qlen 1000\    '\
+            'link/ether 52:54:00:e0:95:c0 brd ff:ff:ff:ff:ff:ff'
+
+        mock_run_cmd.return_value = [ip_link_return, 0, 0]
+
+        cfg_file_content = cfgInterfacesHelper.get_cfgfile_content(interface)
+
+        open_ = mock_open(read_data='')
+
+        with patch.object(builtins, 'open', open_):
+            cfgInterfacesHelper.create_interface_cfg_file('dummyiface')
+            mock_isfile.assert_called_once_with(file_path)
+
+        self.assertEqual(open_.call_args_list, [call(file_path, 'w')])
+        self.assertEqual(open_().write.mock_calls, [call(cfg_file_content)])
+
+    @mock.patch('wok.plugins.ginger.model.nw_cfginterfaces_utils.run_command')
+    @mock.patch('os.path.isfile')
+    def test_create_cfg_file_fails_no_mac_address(self, mock_isfile,
+                                                  mock_run_cmd):
+        interface = 'dummyiface'
+
+        file_path = '/etc/sysconfig/network-scripts/ifcfg-%s' % interface
+        mock_isfile.return_value = False
+
+        ip_link_no_macaddr_return = 'dummyiface: there is no mac address here'
+
+        mock_run_cmd.return_value = [ip_link_no_macaddr_return, 0, 0]
+
+        with self.assertRaisesRegexp(OperationFailed, 'GINNET0081E'):
+            cfgInterfacesHelper.create_interface_cfg_file('dummyiface')
+            mock_isfile.assert_called_once_with(file_path)
