@@ -58,15 +58,18 @@
                 "group": {
                     "description": "The group name of the new user",
                     "type": "string",
-                    "required": true,
                     "error": "GINUSER0004E"
                 },
                 "profile": {
                     "description": "The profile of the new user",
                     "type": "string",
-                    "pattern": "^kimchiuser|virtuser|admin$",
-                    "required": true,
+                    "pattern": "^regularuser|virtuser|admin$",
                     "error": "GINUSER0005E"
+                },
+                "no_login": {
+                    "description": "User with Shell or not",
+                    "type": "boolean",
+                    "error": "GINUSER0015E"
                 }
             }
         },

@@ -791,20 +791,23 @@ of all available modules, not just the loaded ones. At this moment there is no a
 **Methods:**
 
 * **GET**: Retrieve the list of users of the current host
-    * profile: user role in Wok (kimchiuser, virtuser, admin)
+    * profile: user role in Wok (regularuser, virtuser, admin)
     * gid: group user id
     * uid: user id
     * group: group name
     * name: user name
 
 * **POST**: Create a new user
-    * profile: user role in Wok:
-        * kimchiuser: user with no admin rights, disabled login
+    * profile *(optional)*: user role in Wok:
+        * regularuser: standard user with no admin rights
         * admin: user with admin rights (added to sudoers)
         * virtuser: user added to kvm group
+        Default profile will be regularuser
     * name: user name
     * password: user password
-    * group: user group
+    * group *(optional)*: primary group of the user. Default user name is used for group.
+    * no_login: Boolean to indicate user with log in shell or not.
+        Required for regular user. Default user is created with log in shell.
 
 ### Resource: User
 

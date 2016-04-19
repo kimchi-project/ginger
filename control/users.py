@@ -19,7 +19,7 @@
 
 
 from wok.control.base import Collection, Resource
-from wok.control.utils import UrlSubNode
+from wok.control.utils import model_fn, UrlSubNode
 
 
 USERS_REQUESTS = {
@@ -39,6 +39,28 @@ class Users(Collection):
         self.admin_methods = ['GET', 'POST', 'DELETE']
         self.resource = User
         self.log_map = USERS_REQUESTS
+
+    def _get_resources(self, flag_filter):
+        """
+        Overriding this method to avoid lookup call for each user,
+        here get_list should return list of dict
+        which will be set to the resource, this way we avoid calling lookup
+        and hence avoiding augeas parsing for each user.
+        :param flag_filter:
+        :return: list of resources.
+        """
+        try:
+            get_list = getattr(self.model, model_fn(self, 'get_list'))
+            idents = get_list(*self.model_args, **flag_filter)
+            res_list = []
+            for ident in idents:
+                args = self.resource_args + [ident]
+                res = self.resource(self.model, *args)
+                res.info = ident
+                res_list.append(res)
+            return res_list
+        except AttributeError:
+            return []
 
 
 class User(Resource):
