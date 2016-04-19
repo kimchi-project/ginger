@@ -117,8 +117,9 @@ messages = {
     "GINNET0077E": _("SR-IOV action of mlx5 module requires 'num_vfs' argument."),
     "GINNET0078E": _("SR-IOV enablement failed: required files under /sys directory not found."),
     "GINNET0079E": _("SR-IOV enablement failed: num_vfs must be an integer."),
-    "GINNET0080E": _("Interface '%(name)s' doesn't exist. Please refresh the network list to fetch"
-                     " the latest list of interfaces"),
+    "GINNET0080E": _("Interface '%(name)s' doesn't exist. Please refresh the network list to fetch the latest list of interfaces"),
+    "GINNET0081E": _("Unable to create a new network script file for the interface %(name)s."),
+
     "GINUSER0001E": _("Specify name, password, group and profile for the new "
                       "user."),
     "GINUSER0002E": _("User name is a required string."),

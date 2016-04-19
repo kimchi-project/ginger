@@ -1307,3 +1307,40 @@ class CfgInterfacesHelper(object):
             vlan_info[PHYSDEV] = params[BASIC_INFO][VLANINFO][PHYSDEV]
         vlan_info[TYPE] = params[BASIC_INFO][TYPE]
         return vlan_info
+
+    def get_cfgfile_content(self, interface):
+        def get_interface_current_macaddress(interface):
+            ip_link_cmd = ['ip', '-o', 'link', 'show', 'dev', interface]
+            out, err, rc = run_command(ip_link_cmd)
+            if out and rc == 0:
+                out_tokens = out.strip().split()
+                mac_index = 0
+                for i in range(0, len(out_tokens)):
+                    if out_tokens[i] == 'link/ether':
+                        mac_index = i + 1
+                        break
+                if mac_index != 0:
+                    return out_tokens[mac_index].strip()
+
+            wok_log.error("Unable to get mac address of %s, error %s."
+                          % (interface, err))
+            return None
+
+        mac_addr = get_interface_current_macaddress(interface)
+        if not mac_addr:
+            return None
+
+        content = "DEVICE=%(dev)s\nHWADDR=%(mac)s\nONBOOT=yes\n" \
+            "BOOTPROTO=none\n" % {'dev': interface, 'mac': mac_addr}
+
+        return content
+
+    def create_interface_cfg_file(self, interface):
+        file_path = '/etc/sysconfig/network-scripts/ifcfg-%s' % interface
+        if not os.path.isfile(file_path):
+            file_content = self.get_cfgfile_content(interface)
+            if not file_content:
+                raise OperationFailed('GINNET0081E', {'name': interface})
+
+            with open(file_path, 'w') as new_cfg_file:
+                new_cfg_file.write(file_content)
