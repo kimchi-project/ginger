@@ -119,6 +119,8 @@ messages = {
     "GINNET0079E": _("SR-IOV enablement failed: num_vfs must be an integer."),
     "GINNET0080E": _("Interface '%(name)s' doesn't exist. Please refresh the network list to fetch the latest list of interfaces"),
     "GINNET0081E": _("Unable to create a new network script file for the interface %(name)s."),
+    "GINNET0082E": _("SR-IOV is not enabled in the firmware of the interface %(name)s."),
+    "GINNET0083E": _("Unable to set %(num_vf)s virtual functions for interface %(name)s. Maximum allowed in the firmware is %(max_vf)s."),
 
     "GINUSER0001E": _("Specify name, password, group and profile for the new "
                       "user."),

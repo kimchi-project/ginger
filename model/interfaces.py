@@ -230,16 +230,41 @@ class InterfaceModel(object):
         }
         return actions_mod
 
-    def _mlx5_SRIOV_enable(self, iface, args):
+    def _mlx5_SRIOV_get_max_VF(self, iface):
+        max_vf_file = '/sys/class/net/%s/device/sriov_totalvfs' % iface
+        max_vf = None
+
+        if os.path.isfile(max_vf_file):
+            with open(max_vf_file, 'r') as vf_file:
+                max_vf = vf_file.read().strip('\n')
+
+        return max_vf
+
+    def _mlx5_SRIOV_precheck(self, iface, args):
+        max_vfs_str = self._mlx5_SRIOV_get_max_VF(iface)
+        if not max_vfs_str:
+            raise OperationFailed("GINNET0082E", {'name': iface})
+
         if not args or 'num_vfs' not in args.keys():
             raise InvalidParameter("GINNET0077E")
 
         num_vfs = args['num_vfs']
-
         try:
-            int(num_vfs)
+            num_vfs = int(num_vfs)
         except ValueError:
             raise InvalidParameter("GINNET0079E")
+
+        max_vfs = int(max_vfs_str)
+        if num_vfs > max_vfs:
+            raise InvalidParameter(
+                "GINNET0083E",
+                {'num_vf': num_vfs, 'max_vf': max_vfs, 'name': iface}
+            )
+
+        return num_vfs
+
+    def _mlx5_SRIOV_enable(self, iface, args):
+        num_vfs = self._mlx5_SRIOV_precheck(iface, args)
 
         sriov_files = [
             '/sys/class/net/%s/device/sriov_numvfs' % iface,
