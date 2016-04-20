@@ -190,7 +190,12 @@ class InterfacesTests(unittest.TestCase):
             InterfaceModel().action('any_iface_name', 'any_action', {})
 
     @mock.patch('wok.plugins.ginger.model.netinfo.get_interface_kernel_module')
-    def test_mlx5_sriov_no_args_failure(self, mock_get_module):
+    @mock.patch('wok.plugins.ginger.model.interfaces.InterfaceModel.'
+                '_mlx5_SRIOV_get_max_VF')
+    def test_mlx5_sriov_no_args_failure(self, mock_get_max_VF,
+                                        mock_get_module):
+
+        mock_get_max_VF.return_value = '1'
         mock_get_module.return_value = 'mlx5_core'
 
         expected_error_msg = "GINNET0077E"
@@ -198,7 +203,12 @@ class InterfacesTests(unittest.TestCase):
             InterfaceModel().action('any_iface_name', 'SR-IOV', {})
 
     @mock.patch('wok.plugins.ginger.model.netinfo.get_interface_kernel_module')
-    def test_mlx5_sriov_argument_failure(self, mock_get_module):
+    @mock.patch('wok.plugins.ginger.model.interfaces.InterfaceModel.'
+                '_mlx5_SRIOV_get_max_VF')
+    def test_mlx5_sriov_argument_failure(self, mock_get_max_VF,
+                                         mock_get_module):
+
+        mock_get_max_VF.return_value = '1'
         mock_get_module.return_value = 'mlx5_core'
 
         expected_error_msg = "GINNET0079E"
@@ -208,8 +218,12 @@ class InterfacesTests(unittest.TestCase):
 
     @mock.patch('wok.plugins.ginger.model.netinfo.get_interface_kernel_module')
     @mock.patch('os.path.isfile')
-    def test_mlx5_sriov_no_system_files_failure(self, mock_isfile,
+    @mock.patch('wok.plugins.ginger.model.interfaces.InterfaceModel.'
+                '_mlx5_SRIOV_get_max_VF')
+    def test_mlx5_sriov_no_system_files_failure(self, mock_get_max_VF,
+                                                mock_isfile,
                                                 mock_get_module):
+        mock_get_max_VF.return_value = '8'
         mock_get_module.return_value = 'mlx5_core'
 
         call_file1_not_exist = \
@@ -231,7 +245,55 @@ class InterfacesTests(unittest.TestCase):
 
     @mock.patch('wok.plugins.ginger.model.netinfo.get_interface_kernel_module')
     @mock.patch('os.path.isfile')
-    def test_mlx5_sriov_success(self, mock_isfile, mock_get_module):
+    def test_mlx5_sriov_not_enabled_in_FW(self, mock_isfile, mock_get_module):
+        mock_get_module.return_value = 'mlx5_core'
+
+        file1 = '/sys/class/net/%s/device/sriov_totalvfs' % 'iface1'
+        mock_isfile.return_value = False
+
+        with self.assertRaisesRegexp(OperationFailed, 'GINNET0082E'):
+            InterfaceModel().action('iface1', 'SR-IOV', {'num_vfs': 4})
+            mock_isfile.assert_called_once_with(file1)
+
+    @mock.patch('os.path.isfile')
+    def test_mlx5_sriov_get_maxVF_value(self, mock_isfile):
+        file1 = '/sys/class/net/%s/device/sriov_totalvfs' % 'iface1'
+        mock_isfile.return_value = True
+
+        open_ = mock_open(read_data='8\n')
+
+        with patch.object(builtins, 'open', open_):
+            max_vf_str = InterfaceModel()._mlx5_SRIOV_get_max_VF('iface1')
+            mock_isfile.assert_called_once_with(file1)
+            self.assertEqual(max_vf_str, '8')
+
+        self.assertEqual(open_.call_args_list, [call(file1, 'r')])
+
+    @mock.patch('wok.plugins.ginger.model.netinfo.get_interface_kernel_module')
+    @mock.patch('os.path.isfile')
+    @mock.patch('wok.plugins.ginger.model.interfaces.InterfaceModel.'
+                '_mlx5_SRIOV_get_max_VF')
+    def test_mlx5_sriov_fails_if_VF_greater_max(self, mock_get_max_VF,
+                                                mock_isfile, mock_get_module):
+
+        mock_get_max_VF.return_value = '8'
+        mock_get_module.return_value = 'mlx5_core'
+
+        file1 = '/sys/class/net/%s/device/sriov_numvfs' % 'iface1'
+        mock_isfile.return_value = True
+
+        with self.assertRaisesRegexp(InvalidParameter, 'GINNET0083E'):
+            InterfaceModel().action('iface1', 'SR-IOV', {'num_vfs': 16})
+            mock_isfile.assert_called_once_with(file1)
+
+    @mock.patch('wok.plugins.ginger.model.netinfo.get_interface_kernel_module')
+    @mock.patch('os.path.isfile')
+    @mock.patch('wok.plugins.ginger.model.interfaces.InterfaceModel.'
+                '_mlx5_SRIOV_get_max_VF')
+    def test_mlx5_sriov_success(self, mock_get_max_VF, mock_isfile,
+                                mock_get_module):
+
+        mock_get_max_VF.return_value = '8'
         mock_get_module.return_value = 'mlx5_core'
 
         file1 = '/sys/class/net/%s/device/sriov_numvfs' % 'iface1'
