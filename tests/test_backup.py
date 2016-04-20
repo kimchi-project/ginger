@@ -22,6 +22,7 @@ import os
 import tempfile
 import unittest
 
+from wok.model.tasks import TaskModel
 from wok.objectstore import ObjectStore
 from wok.plugins.ginger.model.backup import ArchivesModel, ArchiveModel
 
@@ -32,6 +33,8 @@ class BackupArchiveTests(unittest.TestCase):
         self.temp_file = tempfile.NamedTemporaryFile(delete=False)
         objstore_loc = self.temp_file.name
         self._objstore = ObjectStore(objstore_loc)
+
+        self.task = TaskModel(objstore=self._objstore)
 
         ArchivesModel._archive_dir = '/tmp'
         ArchivesModel._default_include = []
@@ -55,6 +58,8 @@ class BackupArchiveTests(unittest.TestCase):
 
         params = {'include': [], 'exclude': [], 'description': descr}
         task_obj = ArchivesModel(objstore=self._objstore).create(params)
+        self.task.wait(task_obj['id'])
+
         archive_id = task_obj['target_uri'].split("/")[-1]
         archive_file = os.path.join('/tmp', archive_id + '.tar.gz')
 
