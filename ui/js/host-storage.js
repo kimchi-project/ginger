@@ -222,27 +222,27 @@ ginger.loadSanAdapters = function() {
     }, {
       "column-id": 'wwpn',
       "type": 'string',
-      "width": "14%",
+      "width": "18%",
       "title": i18n['GINTITLE0007M']
     }, {
       "column-id": 'wwnn',
       "type": 'string',
-      "width": "13.5%",
+      "width": "18%",
       "title": i18n['GINTITLE0008M']
     }, {
       "column-id": 'state',
       "type": 'string',
-      "width": "4.5%",
+      "width": "8%",
       "title": i18n['GINTITLE0009M']
     }, {
       "column-id": 'speed',
       "type": 'string',
-      "width": "4.5%",
+      "width": "8%",
       "title": i18n['GINTITLE0011M']
     }, {
       "column-id": 'symbolic_name',
       "type": 'string',
-      "width": "58.5%",
+      "width": "38%",
       "title": i18n['GINTITLE0012M']
     }];
   } else {
@@ -336,13 +336,13 @@ ginger.loadFcpTapeDevices = function() {
   gridFields = [{
     "column-id": 'Generic',
     "type": 'string',
-    "width": "10%",
+    "width": "12.5%",
     "title": i18n['GINTITLE0013M'],
     "identifier": true
   }, {
     "title": i18n['GINTITLE0014M'],
     "column-id": 'Device',
-    "width": "10%",
+    "width": "12.5%",
     "type": 'string'
   }, {
     "title": i18n['GINTITLE0015M'],

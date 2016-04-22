@@ -146,6 +146,11 @@
             width:100% ;
             display:inline-table;
             }
+      td {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: normal;
+         }
     }
     .bootgrid-header {
       div.search{

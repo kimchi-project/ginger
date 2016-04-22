@@ -1208,6 +1208,17 @@
   display: inline-table;
 }
 
+#volume-groups-content-area .bootgrid-table td,
+#file-systems-content-area .bootgrid-table td,
+#swap-devices-content-area .bootgrid-table td,
+#storage-device-content-area .bootgrid-table td,
+#fcp-tape-devices-content-area .bootgrid-table td,
+#san-adapter-content-area .bootgrid-table td {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: normal;
+}
+
 #volume-groups-content-area .bootgrid-header div.search,
 #file-systems-content-area .bootgrid-header div.search,
 #swap-devices-content-area .bootgrid-header div.search,
