@@ -514,8 +514,9 @@ ginger.initGlobalNetworkConfig = function() {
 
   globalDnsGateway.on('keyup', function() {
     var gatewayIP = globalDnsGateway.val();
+
     if(gatewayIP.trim() == "") {
-      $(this).toggleClass("invalid-field", false);
+      $(this).toggleClass("invalid-field", true);
     } else {
       $(this).toggleClass("invalid-field", !((ginger.isValidIPv6(gatewayIP)) || ginger.validateIp(gatewayIP)));
     }
