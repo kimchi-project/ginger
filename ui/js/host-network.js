@@ -478,7 +478,7 @@ ginger.initGlobalNetworkConfig = function() {
     "header-class": "text-center",
     "data-class": "center",
     "width": "80%",
-    "title": "DNS",
+    "title": i18n['GINNET0038M'],
     "identifier": true,
     "formatter": "editable-global-dns"
   }, {

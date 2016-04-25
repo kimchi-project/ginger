@@ -402,7 +402,7 @@ ginger.loadStorageActionButtons = function() {
   var addButton = [{
       id: 'sd-add-FCP-button',
       class: 'fa fa-plus-circle',
-      label: 'Add FCP Device',
+      label: i18n['GINTITLE0023M'],
       onClick: function(event) {
         $('#sd-add-FCP-button').attr('href', 'plugins/gingers390x/addFCPLuns.html');
         $('#sd-add-FCP-button').attr('data-toggle', 'modal');
@@ -412,7 +412,7 @@ ginger.loadStorageActionButtons = function() {
     }, {
       id: 'sd-add-ECKD-button',
       class: 'fa fa-plus-circle',
-      label: 'Add ECKD Device',
+      label: i18n['GINTITLE0024M'],
       onClick: function(event) {
         wok.window.open('plugins/gingers390x/eckd.html');
       }
@@ -429,12 +429,12 @@ ginger.loadStorageActionButtons = function() {
   var actionButton = [{
     id: 'sd-format-button',
     class: 'fa fa-pencil-square-o',
-    label: 'Format ECKD',
+    label: i18n['GINTITLE0025M'],
     onClick: function(event) {
       var opts = [];
       opts['gridId'] = "stgDevGrid";
       opts['identifier'] = "id";
-      opts['loadingMessage'] = 'Formatting...';
+      opts['loadingMessage'] = i18n['GINSD00006M'];
 
       var settings = [];
       if (ginger.selectionContainNonDasdDevices()) {
@@ -479,7 +479,7 @@ ginger.loadStorageActionButtons = function() {
 
             ginger.formatDASDDevice(busId, settings, function(result) {
             trackingNums = trackingNums - 1;
-              wok.message.success(deviceId + " formatted successfully", '#alert-modal-nw-container');
+              wok.message.success(deviceId + ' ' + i18n['GINSD00007M'], '#alert-modal-nw-container');
               if(trackingNums == 0){
                   $("#action-dropdown-button-file-systems-actions").show();
                   $("#storage-device-refresh-btn").show();
@@ -514,7 +514,7 @@ ginger.loadStorageActionButtons = function() {
   }, {
     id: 'sd-remove-button',
     class: 'fa fa-minus-circle',
-    label: 'Remove',
+    label: i18n['GINTITLE0022M'],
     critical: true,
     onClick: function(event) {
       var opts = [];
@@ -535,7 +535,7 @@ ginger.loadStorageActionButtons = function() {
         var rowNums = selectedRows.length;
         var selectedRowDetails = JSON.stringify(ginger.selectedrows);
         var fcpDeviceNo = 0;
-        opts['loadingMessage'] = 'Removing...';
+        opts['loadingMessage'] = i18n['GINSD00008M'];
         ginger.showBootgridLoading(opts);
         ginger.hideBootgridData(opts);
         $.each(ginger.selectedrows, function(i, row) {
@@ -548,7 +548,7 @@ ginger.loadStorageActionButtons = function() {
               'blk_size': '4096'
             };
             ginger.removeDASDDevice(busId, settings, function(result) {
-              wok.message.success(deviceId + " removed successfully", '#alert-modal-nw-container');
+              wok.message.success(deviceId + " " + i18n['GINSD00009M'], '#alert-modal-nw-container');
               rowNums = rowNums - 1;
               if (rowNums == 0) {
                 $("#storage-device-refresh-btn").trigger('click');
@@ -574,7 +574,7 @@ ginger.loadStorageActionButtons = function() {
 
             if (!lunsScanStatus) {
             ginger.removeFCDevice(lun_path, settings, function(result) {
-              wok.message.success(deviceId + " removed successfully", '#alert-modal-nw-container');
+              wok.message.success(deviceId + " " + i18n['GINSD00009M'], '#alert-modal-nw-container');
               rowNums = rowNums - 1;
               if (rowNums == 0) {
                 $("#storage-device-refresh-btn").trigger('click');
@@ -589,7 +589,7 @@ ginger.loadStorageActionButtons = function() {
             }, function() {});
           }else {
             if (fcpDeviceNo <= 1)
-              wok.message.error('Lun scan is enabled.Cannot add/remove LUNs manually', '#alert-modal-nw-container', true);
+              wok.message.error(i18n['GINSD00010M'], '#alert-modal-nw-container', true);
             rowNums = rowNums - 1;
             if (rowNums == 0) {
               $("#storage-device-refresh-btn").trigger('click');

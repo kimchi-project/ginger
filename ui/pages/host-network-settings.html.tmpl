@@ -34,10 +34,10 @@
   <div class="modal-body">
     <span id="alert-nw-settings-modal-container"></span>
     <ul class="nav nav-tabs" role="tablist">
-      <li role="presentation" class="active"><a href="#form-nw-settings-general" aria-controls="form-nw-settings-general" role="tab" data-id="form-nw-settings-general" data-toggle="tab">General</a></li>
-      <li role="presentation"><a href="#form-nw-settings-ipv4" aria-controls="form-nw-settings-ipv4" role="tab" data-id="form-nw-settings-ipv4" data-toggle="tab">IPv4 Settings</a></li>
-      <li role="presentation"><a href="#form-nw-settings-ipv6" aria-controls="form-nw-settings-ipv6" role="tab" data-id="form-nw-settings-ipv6" data-toggle="tab">IPv6 Settings</a></li>
-      <li role="presentation"><a href="#form-nw-settings-advance" aria-controls="form-nw-settings-advance" role="tab" data-id="form-nw-settings-advance" data-toggle="tab">Advanced</a></li>
+      <li role="presentation" class="active"><a href="#form-nw-settings-general" aria-controls="form-nw-settings-general" role="tab" data-id="form-nw-settings-general" data-toggle="tab">$_("General")</a></li>
+      <li role="presentation"><a href="#form-nw-settings-ipv4" aria-controls="form-nw-settings-ipv4" role="tab" data-id="form-nw-settings-ipv4" data-toggle="tab">$_("IPv4 Settings")</a></li>
+      <li role="presentation"><a href="#form-nw-settings-ipv6" aria-controls="form-nw-settings-ipv6" role="tab" data-id="form-nw-settings-ipv6" data-toggle="tab">$_("IPv6 Settings")</a></li>
+      <li role="presentation"><a href="#form-nw-settings-advance" aria-controls="form-nw-settings-advance" role="tab" data-id="form-nw-settings-advance" data-toggle="tab">$_("Advanced")</a></li>
     </ul>
     <div class="tab-content" id="nw-settings-tabs">
       <input type="hidden" id="interface-device" name="interfaceDevice" />
@@ -96,7 +96,7 @@
           <div class="form-group" style="margin-bottom:5px">
             <label class="control-label" for="nw-settings-ipv4-addresses">$_("IP Addresses")</label>
             <div class="pull-right">
-              <button id="nw-settings-ipv4-add" aria-expanded="false" type="button" class="row btn btn-primary"><i class="fa fa-plus-circle"></i>Add</button>
+              <button id="nw-settings-ipv4-add" aria-expanded="false" type="button" class="row btn btn-primary"><i class="fa fa-plus-circle"></i>$_("Add")</button>
             </div>
           </div>
           <div id="nw-settings-ipv4-addresses">
@@ -107,7 +107,7 @@
           <div class="form-group" style="margin-bottom:5px">
             <label class="control-label" for="nw-settings-ipv4-dns">$_("DNS")</label>
             <div class="pull-right">
-              <button id="nw-settings-ipv4-dns-add" aria-expanded="false" type="button" class="row btn btn-primary"><i class="fa fa-plus-circle"></i>Add</button>
+              <button id="nw-settings-ipv4-dns-add" aria-expanded="false" type="button" class="row btn btn-primary"><i class="fa fa-plus-circle"></i>$_("Add")</button>
             </div>
           </div>
           <div id="nw-settings-ipv4-dns">
@@ -118,7 +118,7 @@
           <div class="form-group" style="margin-bottom:5px">
             <label class="control-label" for="nw-settings-ipv4-routes">$_("Routes")</label>
             <div class="pull-right">
-              <button id="nw-settings-ipv4-routes-add" aria-expanded="false" type="button" class="row btn btn-primary"><i class="fa fa-plus-circle"></i>Add</button>
+              <button id="nw-settings-ipv4-routes-add" aria-expanded="false" type="button" class="row btn btn-primary"><i class="fa fa-plus-circle"></i>$_("Add")</button>
             </div>
           </div>
           <div id="nw-settings-ipv4-routes">
@@ -161,7 +161,7 @@
           <div class="form-group" style="margin-bottom:5px">
             <label class="control-label" for="nw-settings-ipv6-addresses">$_("IP Addresses")</label>
             <div class="pull-right">
-              <button id="nw-settings-ipv6-add" aria-expanded="false" type="button" class="row btn btn-primary"><i class="fa fa-plus-circle"></i>Add</button>
+              <button id="nw-settings-ipv6-add" aria-expanded="false" type="button" class="row btn btn-primary"><i class="fa fa-plus-circle"></i>$_("Add")</button>
             </div>
           </div>
           <div id="nw-settings-ipv6-addresses">
@@ -172,7 +172,7 @@
           <div class="form-group" style="margin-bottom:5px">
             <label class="control-label" for="nw-settings-ipv6-dns">$_("DNS")</label>
             <div class="pull-right">
-              <button id="nw-settings-ipv6-dns-add" aria-expanded="false" type="button" class="row btn btn-primary"><i class="fa fa-plus-circle"></i>Add</button>
+              <button id="nw-settings-ipv6-dns-add" aria-expanded="false" type="button" class="row btn btn-primary"><i class="fa fa-plus-circle"></i>$_("Add")</button>
             </div>
           </div>
           <!-- <label class="control-label" for="nw-settings-ipv4-dns">$_("DNS")</label> -->
@@ -184,7 +184,7 @@
           <div class="form-group" style="margin-bottom:5px">
             <label class="control-label" for="nw-settings-ipv6-routes">$_("Routes")</label>
             <div class="pull-right">
-              <button id="nw-settings-ipv6-routes-add" aria-expanded="false" type="button" class="row btn btn-primary"><i class="fa fa-plus-circle"></i>Add</button>
+              <button id="nw-settings-ipv6-routes-add" aria-expanded="false" type="button" class="row btn btn-primary"><i class="fa fa-plus-circle"></i>$_("Add")</button>
             </div>
           </div>
           <div id="nw-settings-ipv6-routes">
@@ -215,9 +215,9 @@
         <div class="form-group hidden">
           <div class="checkbox">
             <label>
-              <input type="checkbox" value="" id="nw-settings-enable-brg">$("Enable Bridge Port")</label>
+              <input type="checkbox" value="" id="nw-settings-enable-brg">$_("Enable Bridge Port")</label>
           </div>
-          <span class="help-block">Equivalent to enabling promisicuous mode on regular Ethernet adapters</span>
+          <span class="help-block">$_("Equivalent to enabling promiscuous mode on regular Ethernet adapters")</span>
         </div>
       </form>
     </div>

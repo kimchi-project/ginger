@@ -1,2 +1,3 @@
 ./ui/pages/*.tmpl
 i18n.py
+./ui/pages/tabs/*.tmpl

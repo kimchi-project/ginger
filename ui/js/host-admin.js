@@ -56,7 +56,7 @@ ginger.initBakDialog = function() {
             var pathNode = $.parseHTML('<div class="path-item">' +
                 '<input type="text" class="form-control input"  placeholder="/Path/to/folder/" />' +
                 '<span class="column-delete btn btn-link delete del-label">' +
-                '<i class="fa fa-minus-circle"></i>Remove</span>' +
+                '<i class="fa fa-minus-circle"></i>'+ i18n['GINTITLE0022M'] + '</span>' +
                 '</div>');
             if (this.parentElement != undefined) {
                 if (this.parentElement.className === 'add-path-to-include') {
