@@ -25,11 +25,19 @@ from mock import call, mock_open, patch
 
 import wok.plugins.ginger.model.netinfo as netinfo
 
+from wok import config
 from wok.exception import InvalidParameter, NotFoundError, OperationFailed
+from wok.model.tasks import TaskModel
+from wok.objectstore import ObjectStore
 from wok.plugins.ginger.model.interfaces import InterfaceModel
 
 
 class InterfacesTests(unittest.TestCase):
+
+    def setUp(self):
+        objstore_loc = config.get_object_store() + '_ginger'
+        self._objstore = ObjectStore(objstore_loc)
+        self.task = TaskModel(objstore=self._objstore)
 
     @mock.patch('wok.plugins.ginger.model.netinfo.get_interface_type')
     @mock.patch('wok.plugins.ginger.model.nw_interfaces_utils.run_command')
@@ -39,7 +47,7 @@ class InterfacesTests(unittest.TestCase):
         interface = "test_eth0"
         calls = [(['ip', 'link', 'set', '%s' % interface, 'up'],),
                  (['ifup', '%s' % interface],)]
-        InterfaceModel().activate(interface)
+        InterfaceModel(objstore=self._objstore).activate(interface)
         for i in range(0, 1):
             x, y = mock_run_command.call_args_list[i]
             assert x == calls[i]
@@ -52,7 +60,8 @@ class InterfacesTests(unittest.TestCase):
         mock_get_interface_type.return_value = "Ethernet"
         interface = "test_eth0"
         cmd = ['ip', 'link', 'set', '%s' % interface, 'up']
-        self.assertRaises(OperationFailed, InterfaceModel().activate,
+        self.assertRaises(OperationFailed,
+                          InterfaceModel(objstore=self._objstore).activate,
                           interface)
         mock_run_command.assert_called_once_with(cmd)
 
@@ -64,7 +73,7 @@ class InterfacesTests(unittest.TestCase):
         interface = "test_eth0"
         calls = [(['ifdown', '%s' % interface],),
                  (['ip', 'link', 'set', '%s' % interface, 'down'],)]
-        InterfaceModel().deactivate(interface)
+        InterfaceModel(objstore=self._objstore).deactivate(interface)
         for i in range(0, 1):
             x, y = mock_run_command.call_args_list[i]
             assert x == calls[i]
@@ -77,7 +86,8 @@ class InterfacesTests(unittest.TestCase):
         mock_get_interface_type.return_value = "Ethernet"
         interface = "test_eth0"
         cmd = ['ifdown', '%s' % interface]
-        self.assertRaises(OperationFailed, InterfaceModel().deactivate,
+        self.assertRaises(OperationFailed,
+                          InterfaceModel(objstore=self._objstore).deactivate,
                           interface)
         mock_run_command.assert_called_once_with(cmd)
 
@@ -157,7 +167,8 @@ class InterfacesTests(unittest.TestCase):
         mock_netmask.return_value = '255.255.255.0'
         mock_macaddr.return_value = 'aa:bb:cc:dd:ee:ff'
 
-        iface_info = InterfaceModel().lookup('dummy_iface')
+        iface_model = InterfaceModel(objstore=self._objstore)
+        iface_info = iface_model.lookup('dummy_iface')
 
         mock_macaddr.assert_called_once_with('dummy_iface')
         mock_netmask.assert_called_once_with('dummy_iface')
@@ -187,7 +198,8 @@ class InterfacesTests(unittest.TestCase):
 
         expected_error_msg = "GINNET0076E"
         with self.assertRaisesRegexp(NotFoundError, expected_error_msg):
-            InterfaceModel().action('any_iface_name', 'any_action', {})
+            iface_model = InterfaceModel(objstore=self._objstore)
+            iface_model.action('any_iface_name', 'any_action', {})
 
     @mock.patch('wok.plugins.ginger.model.netinfo.get_interface_kernel_module')
     @mock.patch('wok.plugins.ginger.model.interfaces.InterfaceModel.'
@@ -200,7 +212,8 @@ class InterfacesTests(unittest.TestCase):
 
         expected_error_msg = "GINNET0077E"
         with self.assertRaisesRegexp(InvalidParameter, expected_error_msg):
-            InterfaceModel().action('any_iface_name', 'SR-IOV', {})
+            iface_model = InterfaceModel(objstore=self._objstore)
+            iface_model.action('any_iface_name', 'SR-IOV', {})
 
     @mock.patch('wok.plugins.ginger.model.netinfo.get_interface_kernel_module')
     @mock.patch('wok.plugins.ginger.model.interfaces.InterfaceModel.'
@@ -213,8 +226,9 @@ class InterfacesTests(unittest.TestCase):
 
         expected_error_msg = "GINNET0079E"
         with self.assertRaisesRegexp(InvalidParameter, expected_error_msg):
-            InterfaceModel().action('mlx5_core', 'SR-IOV',
-                                    {'num_vfs': 'not_an_int'})
+            iface_model = InterfaceModel(objstore=self._objstore)
+            iface_model.action('mlx5_core', 'SR-IOV',
+                               {'num_vfs': 'not_an_int'})
 
     @mock.patch('wok.plugins.ginger.model.netinfo.get_interface_kernel_module')
     @mock.patch('os.path.isfile')
@@ -240,7 +254,10 @@ class InterfacesTests(unittest.TestCase):
 
         expected_error_msg = "GINNET0078E"
         with self.assertRaisesRegexp(OperationFailed, expected_error_msg):
-            InterfaceModel().action('iface1', 'SR-IOV', {'num_vfs': 4})
+            iface_model = InterfaceModel(objstore=self._objstore)
+            task_obj = iface_model.action('iface1', 'SR-IOV', {'num_vfs': 4})
+            self.task.wait(task_obj['id'])
+
             mock_isfile.assert_has_calls(mock_isfile_calls)
 
     @mock.patch('wok.plugins.ginger.model.netinfo.get_interface_kernel_module')
@@ -252,7 +269,8 @@ class InterfacesTests(unittest.TestCase):
         mock_isfile.return_value = False
 
         with self.assertRaisesRegexp(OperationFailed, 'GINNET0082E'):
-            InterfaceModel().action('iface1', 'SR-IOV', {'num_vfs': 4})
+            iface_model = InterfaceModel(objstore=self._objstore)
+            iface_model.action('iface1', 'SR-IOV', {'num_vfs': 4})
             mock_isfile.assert_called_once_with(file1)
 
     @mock.patch('os.path.isfile')
@@ -263,9 +281,25 @@ class InterfacesTests(unittest.TestCase):
         open_ = mock_open(read_data='8\n')
 
         with patch.object(builtins, 'open', open_):
-            max_vf_str = InterfaceModel()._mlx5_SRIOV_get_max_VF('iface1')
+            iface_model = InterfaceModel(objstore=self._objstore)
+            max_vf_str = iface_model._mlx5_SRIOV_get_max_VF('iface1')
             mock_isfile.assert_called_once_with(file1)
             self.assertEqual(max_vf_str, '8')
+
+        self.assertEqual(open_.call_args_list, [call(file1, 'r')])
+
+    @mock.patch('os.path.isfile')
+    def test_mlx5_sriov_get_currentVF_value(self, mock_isfile):
+        file1 = '/sys/class/net/%s/device/sriov_numvfs' % 'iface1'
+        mock_isfile.return_value = True
+
+        open_ = mock_open(read_data='5\n')
+
+        with patch.object(builtins, 'open', open_):
+            iface_model = InterfaceModel(objstore=self._objstore)
+            curr_vf_str = iface_model._mlx5_SRIOV_get_current_VFs('iface1')
+            mock_isfile.assert_called_once_with(file1)
+            self.assertEqual(curr_vf_str, '5')
 
         self.assertEqual(open_.call_args_list, [call(file1, 'r')])
 
@@ -283,17 +317,44 @@ class InterfacesTests(unittest.TestCase):
         mock_isfile.return_value = True
 
         with self.assertRaisesRegexp(InvalidParameter, 'GINNET0083E'):
-            InterfaceModel().action('iface1', 'SR-IOV', {'num_vfs': 16})
+            iface_model = InterfaceModel(objstore=self._objstore)
+            iface_model.action('iface1', 'SR-IOV', {'num_vfs': 16})
             mock_isfile.assert_called_once_with(file1)
 
     @mock.patch('wok.plugins.ginger.model.netinfo.get_interface_kernel_module')
     @mock.patch('os.path.isfile')
     @mock.patch('wok.plugins.ginger.model.interfaces.InterfaceModel.'
+                '_mlx5_SRIOV_get_current_VFs')
+    @mock.patch('wok.plugins.ginger.model.interfaces.InterfaceModel.'
                 '_mlx5_SRIOV_get_max_VF')
-    def test_mlx5_sriov_success(self, mock_get_max_VF, mock_isfile,
-                                mock_get_module):
+    def test_mlx5_sriov_fails_if_VF_equal_to_current(
+        self, mock_get_max_VF, mock_get_current_VF,
+        mock_isfile, mock_get_module
+    ):
+
+        mock_get_max_VF.return_value = '16'
+        mock_get_current_VF.return_value = '8'
+        mock_get_module.return_value = 'mlx5_core'
+
+        file1 = '/sys/class/net/%s/device/sriov_numvfs' % 'iface1'
+        mock_isfile.return_value = True
+
+        with self.assertRaisesRegexp(InvalidParameter, 'GINNET0084E'):
+            iface_model = InterfaceModel(objstore=self._objstore)
+            iface_model.action('iface1', 'SR-IOV', {'num_vfs': 8})
+            mock_isfile.assert_called_once_with(file1)
+
+    @mock.patch('wok.plugins.ginger.model.netinfo.get_interface_kernel_module')
+    @mock.patch('os.path.isfile')
+    @mock.patch('wok.plugins.ginger.model.interfaces.InterfaceModel.'
+                '_mlx5_SRIOV_get_current_VFs')
+    @mock.patch('wok.plugins.ginger.model.interfaces.InterfaceModel.'
+                '_mlx5_SRIOV_get_max_VF')
+    def test_mlx5_sriov_success(self, mock_get_max_VF, mock_get_current_VF,
+                                mock_isfile, mock_get_module):
 
         mock_get_max_VF.return_value = '8'
+        mock_get_current_VF.return_value = '2'
         mock_get_module.return_value = 'mlx5_core'
 
         file1 = '/sys/class/net/%s/device/sriov_numvfs' % 'iface1'
@@ -302,8 +363,14 @@ class InterfacesTests(unittest.TestCase):
         open_ = mock_open(read_data='')
 
         with patch.object(builtins, 'open', open_):
-            InterfaceModel().action('iface1', 'SR-IOV', {'num_vfs': 4})
+            iface_model = InterfaceModel(objstore=self._objstore)
+            task_obj = iface_model.action('iface1', 'SR-IOV', {'num_vfs': 4})
+            self.task.wait(task_obj['id'])
+
+            finished_task = self.task.lookup(task_obj['id'])
+            self.assertEquals(finished_task['status'], 'finished')
             mock_isfile.assert_called_once_with(file1)
 
-        self.assertEqual(open_.call_args_list, [call(file1, 'w')])
-        self.assertEqual(open_().write.mock_calls, [call('4\n')])
+        self.assertEqual(open_.call_args_list,
+                         [call(file1, 'w'), call(file1, 'w')])
+        self.assertEqual(open_().write.mock_calls, [call('0\n'), call('4\n')])
