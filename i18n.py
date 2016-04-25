@@ -121,6 +121,8 @@ messages = {
     "GINNET0081E": _("Unable to create a new network script file for the interface %(name)s."),
     "GINNET0082E": _("SR-IOV is not enabled in the firmware of the interface %(name)s."),
     "GINNET0083E": _("Unable to set %(num_vf)s virtual functions for interface %(name)s. Maximum allowed in the firmware is %(max_vf)s."),
+    "GINNET0084E": _("SR-IOV is already configured in interface %(name)s with %(num_vf)s virtual functions."),
+    "GINNET0085E": _("Unable to read SR-IOV system file %(file)s. Error: %(err)s"),
 
     "GINUSER0001E": _("Specify name, password, group and profile for the new "
                       "user."),

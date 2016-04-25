@@ -29,13 +29,14 @@ from threading import Timer
 
 import netinfo
 
+from nw_cfginterfaces_utils import IFACE_BOND
+from nw_cfginterfaces_utils import IFACE_VLAN
 from nw_interfaces_utils import cfgInterfacesHelper
 from nw_interfaces_utils import InterfacesHelper
 from wok.exception import InvalidParameter, NotFoundError, OperationFailed
+from wok.model.tasks import TaskModel
+from wok.utils import add_task
 from wok.xmlutils.utils import xpath_get_text
-
-from nw_cfginterfaces_utils import IFACE_BOND
-from nw_cfginterfaces_utils import IFACE_VLAN
 
 
 class InterfacesModel(object):
@@ -52,9 +53,11 @@ class InterfaceModel(object):
     _confirm_timout = 10.0  # Second
     _conn = libvirt.open("qemu:///system")
 
-    def __init__(self):
+    def __init__(self, **kargs):
         self._rollback_timer = None
         self.actions_mod = self.get_actions_per_module()
+        self.objstore = kargs['objstore']
+        self.task = TaskModel(**kargs)
 
     def lookup(self, name):
         """
@@ -235,10 +238,35 @@ class InterfaceModel(object):
         max_vf = None
 
         if os.path.isfile(max_vf_file):
-            with open(max_vf_file, 'r') as vf_file:
-                max_vf = vf_file.read().strip('\n')
+            try:
+                with open(max_vf_file, 'r') as vf_file:
+                    max_vf = vf_file.read().strip('\n')
+            except Exception as e:
+                raise OperationFailed("GINNET0085E",
+                                      {'file': max_vf_file, 'err': e.message})
 
         return max_vf
+
+    def _mlx5_SRIOV_get_numvf_config_file(self, iface):
+        sriov_files = [
+            '/sys/class/net/%s/device/sriov_numvfs' % iface,
+            '/sys/class/net/%s/device/mlx5_num_vfs' % iface
+        ]
+        for sriov_file in sriov_files:
+            if os.path.isfile(sriov_file):
+                return sriov_file
+
+        raise OperationFailed("GINNET0078E")
+
+    def _mlx5_SRIOV_get_current_VFs(self, iface):
+        sriov_file = self._mlx5_SRIOV_get_numvf_config_file(iface)
+        try:
+            with open(sriov_file, 'r') as vf_file:
+                current_vf = vf_file.read().strip('\n')
+            return current_vf
+        except Exception as e:
+            raise OperationFailed("GINNET0085E",
+                                  {'file': sriov_file, 'err': e.message})
 
     def _mlx5_SRIOV_precheck(self, iface, args):
         max_vfs_str = self._mlx5_SRIOV_get_max_VF(iface)
@@ -261,26 +289,44 @@ class InterfaceModel(object):
                 {'num_vf': num_vfs, 'max_vf': max_vfs, 'name': iface}
             )
 
+        current_vfs_str = self._mlx5_SRIOV_get_current_VFs(iface)
+        if num_vfs == int(current_vfs_str):
+            raise InvalidParameter("GINNET0084E",
+                                   {'name': iface, 'num_vf': num_vfs})
+
         return num_vfs
 
     def _mlx5_SRIOV_enable(self, iface, args):
         num_vfs = self._mlx5_SRIOV_precheck(iface, args)
 
-        sriov_files = [
-            '/sys/class/net/%s/device/sriov_numvfs' % iface,
-            '/sys/class/net/%s/device/mlx5_num_vfs' % iface
-        ]
-        any_file_found = False
+        params = {'name': iface, 'num_vfs': num_vfs}
 
-        for sriov_file in sriov_files:
-            if os.path.isfile(sriov_file):
-                any_file_found = True
-                with open(sriov_file, 'w') as f:
-                    f.write(str(num_vfs) + '\n')
-                break
+        task_id = add_task(
+            '/plugins/ginger/network/%s/sr-iov',
+            self._mlx5_SRIOV_enable_task,
+            self.objstore, params
+        )
+        return self.task.lookup(task_id)
 
-        if not any_file_found:
-            raise OperationFailed("GINNET0078E")
+    def _mlx5_SRIOV_enable_task(self, cb, params):
+        iface = params.get('name')
+        num_vfs = params.get('num_vfs')
+
+        sriov_file = self._mlx5_SRIOV_get_numvf_config_file(iface)
+
+        cb('Setting SR-IOV for %s' % iface)
+
+        try:
+            with open(sriov_file, 'w') as f:
+                f.write('0\n')
+
+            with open(sriov_file, 'w') as f:
+                f.write(str(num_vfs) + '\n')
+        except Exception as e:
+            raise OperationFailed("GINNET0085E",
+                                  {'file': sriov_file, 'err': e.message})
+
+        cb('SR-IOV setup for %s completed' % iface, True)
 
     def action(self, name, action_name, args):
         kernel_mod = netinfo.get_interface_kernel_module(name)
@@ -290,4 +336,4 @@ class InterfaceModel(object):
                 "GINNET0076E",
                 {'name': name, 'module': kernel_mod, 'action': action_name}
             )
-        actions[action_name]['method'](name, args)
+        return actions[action_name]['method'](name, args)

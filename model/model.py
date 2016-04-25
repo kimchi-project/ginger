@@ -78,7 +78,7 @@ class GingerModel(BaseModel):
         users = UsersModel()
         user = UserModel()
         interfaces = InterfacesModel()
-        interface = InterfaceModel()
+        interface = InterfaceModel(objstore=self._objstore)
         cfginterface = CfginterfaceModel()
         cfginterfaces = CfginterfacesModel()
         dasddevs = DASDdevsModel()
