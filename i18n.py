@@ -123,6 +123,9 @@ messages = {
     "GINNET0083E": _("Unable to set %(num_vf)s virtual functions for interface %(name)s. Maximum allowed in the firmware is %(max_vf)s."),
     "GINNET0084E": _("SR-IOV is already configured in interface %(name)s with %(num_vf)s virtual functions."),
     "GINNET0085E": _("Unable to read SR-IOV system file %(file)s. Error: %(err)s"),
+    "GINNET0086E": _("Unable to read or update SR-IOV boot script file. Error: %(err)s"),
+    "GINNET0087E": _("Unable to read or update openib.conf file. Error: %(err)s"),
+    "GINNET0088E": _("Error: openib.conf file does not exist or does not have the 'OPENIBD_POST_START' variable."),
 
     "GINUSER0001E": _("Specify name, password, group and profile for the new "
                       "user."),

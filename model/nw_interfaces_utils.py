@@ -33,6 +33,94 @@ from wok.utils import encode_value, run_command, wok_log
 cfgInterfacesHelper = CfgInterfacesHelper()
 
 
+MLX5_SRIOV_BOOT_FILE = '/etc/infiniband/ginger_sriov_start.sh'
+OPENIB_CONF_FILE = '/etc/infiniband/openib.conf'
+
+
+def add_mlx5_SRIOV_boot_script_in_openib_conf():
+    if not os.path.isfile(OPENIB_CONF_FILE):
+        raise OperationFailed("GINNET0088E")
+
+    try:
+        script_line = "OPENIBD_POST_START=%s\n" % MLX5_SRIOV_BOOT_FILE
+        line_found = False
+
+        with open(OPENIB_CONF_FILE, 'r') as f:
+            contents = f.readlines()
+
+        for i in range(0, len(contents)):
+            line = contents[i]
+            if 'OPENIBD_POST_START' in line:
+                line_found = True
+                contents[i] = script_line
+                break
+
+        if not line_found:
+            raise OperationFailed("GINNET0088E")
+
+        with open(OPENIB_CONF_FILE, 'w') as f:
+            f.writelines(contents)
+
+    except OperationFailed:
+        raise
+    except Exception as e:
+        raise OperationFailed("GINNET0087E", {'err': e.message})
+
+
+def create_initial_mlx5_SRIOV_boot_script(iface, num_vfs):
+    template = """#!/bin/sh\n\
+# ginger_sriov_start.sh: Connectx-4 SR-IOV init script - created by Ginger\n\
+\n# %(iface)s setup\n\
+echo %(num_vf)s > /sys/class/net/%(iface)s/device/sriov_numvfs\n"""
+    template = template % {'iface': iface, 'num_vf': num_vfs}
+
+    try:
+        with open(MLX5_SRIOV_BOOT_FILE, 'w+') as f:
+            f.write(template)
+        os.chmod(MLX5_SRIOV_BOOT_FILE, 0744)
+    except Exception as e:
+        raise OperationFailed("GINNET0086E", {'err': e.message})
+
+    add_mlx5_SRIOV_boot_script_in_openib_conf()
+
+
+def update_mlx5_SRIOV_script_content(script_content, iface, num_vfs):
+    line_template = \
+        "echo %(num_vf)s > /sys/class/net/%(iface)s/device/sriov_numvfs\n"
+    updated_line = line_template % {'iface': iface, 'num_vf': num_vfs}
+
+    line_found = False
+    iface_marker = "# %s setup" % iface
+
+    for i in range(0, len(script_content)):
+        line = script_content[i]
+        if iface_marker in line:
+            line_found = True
+            i = i + 1
+            script_content[i] = updated_line
+            break
+
+    if not line_found:
+        script_content.append(iface_marker + '\n')
+        script_content.append(updated_line)
+
+    return script_content
+
+
+def add_config_to_mlx5_SRIOV_boot_script(iface, num_vfs):
+    if not os.path.isfile(MLX5_SRIOV_BOOT_FILE):
+        create_initial_mlx5_SRIOV_boot_script(iface, num_vfs)
+        return
+
+    try:
+        with open(MLX5_SRIOV_BOOT_FILE, 'w+') as f:
+            content = update_mlx5_SRIOV_script_content(f.readlines(),
+                                                       iface, num_vfs)
+            f.writelines(content)
+    except Exception as e:
+        raise OperationFailed("GINNET0086E", {'err': e.message})
+
+
 class InterfacesHelper(object):
     """
     Class to help the interfaces perform some operations.
