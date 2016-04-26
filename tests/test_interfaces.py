@@ -23,6 +23,7 @@ import unittest
 
 from mock import call, mock_open, patch
 
+import wok.plugins.ginger.model.nw_interfaces_utils as ifaces_utils
 import wok.plugins.ginger.model.netinfo as netinfo
 
 from wok import config
@@ -334,3 +335,171 @@ class InterfacesTests(unittest.TestCase):
         self.assertEqual(open_.call_args_list,
                          [call(file1, 'w'), call(file1, 'w')])
         self.assertEqual(open_().write.mock_calls, [call('0\n'), call('4\n')])
+
+    @mock.patch('os.path.isfile')
+    def test_mlx5_sriov_edit_openib_conf(self, mock_isfile):
+        openib_conf_file = ifaces_utils.OPENIB_CONF_FILE
+        sriov_boot_file = ifaces_utils.MLX5_SRIOV_BOOT_FILE
+
+        conf_file_content = "OPENIBD_PRE_START\nOPENIBD_POST_START\n"\
+            "OPENIBD_PRE_STOP\nOPENIBD_POST_STOP\n"
+
+        conf_file_writelines_content = [
+            "OPENIBD_PRE_START\n",
+            "OPENIBD_POST_START=%s\n" % sriov_boot_file,
+            "OPENIBD_PRE_STOP\n",
+            "OPENIBD_POST_STOP\n"
+        ]
+
+        mock_isfile.return_value = True
+
+        open_ = mock_open(read_data=conf_file_content)
+
+        with patch.object(builtins, 'open', open_):
+            ifaces_utils.add_mlx5_SRIOV_boot_script_in_openib_conf()
+            mock_isfile.assert_called_once_with(openib_conf_file)
+
+        self.assertEqual(
+            open_.call_args_list,
+            [call(openib_conf_file, 'r'), call(openib_conf_file, 'w')]
+        )
+        self.assertEqual(
+            open_().writelines.mock_calls,
+            [call(conf_file_writelines_content)]
+        )
+
+    @mock.patch('os.path.isfile')
+    def test_mlx5_sriov_edit_openib_conf_notfound(self, mock_isfile):
+        openib_conf_file = ifaces_utils.OPENIB_CONF_FILE
+
+        mock_isfile.return_value = False
+
+        with self.assertRaisesRegexp(OperationFailed, 'GINNET0088E'):
+            ifaces_utils.add_mlx5_SRIOV_boot_script_in_openib_conf()
+            mock_isfile.assert_called_once_with(openib_conf_file)
+
+    @mock.patch('os.path.isfile')
+    def test_mlx5_sriov_openib_conf_variable_notfound(self, mock_isfile):
+        openib_conf_file = ifaces_utils.OPENIB_CONF_FILE
+
+        conf_file_content = "OPENIBD_PRE_START\n"\
+            "OPENIBD_PRE_STOP\nOPENIBD_POST_STOP\n"
+
+        mock_isfile.return_value = True
+
+        open_ = mock_open(read_data=conf_file_content)
+
+        with self.assertRaisesRegexp(OperationFailed, 'GINNET0088E'):
+            with patch.object(builtins, 'open', open_):
+                ifaces_utils.add_mlx5_SRIOV_boot_script_in_openib_conf()
+                mock_isfile.assert_called_once_with(openib_conf_file)
+
+        self.assertEqual(
+            open_.call_args_list, [call(openib_conf_file, 'r')]
+        )
+
+    @mock.patch('wok.plugins.ginger.model.nw_interfaces_utils.'
+                'add_mlx5_SRIOV_boot_script_in_openib_conf')
+    @mock.patch('os.chmod')
+    def test_mlx5_sriov_fresh_boot_script_content(self, mock_chmod,
+                                                  mock_add_openib):
+
+        ginger_boot_script = ifaces_utils.MLX5_SRIOV_BOOT_FILE
+
+        template = """#!/bin/sh\n\
+# ginger_sriov_start.sh: Connectx-4 SR-IOV init script - created by Ginger\n\
+\n# %(iface)s setup\n\
+echo %(num_vf)s > /sys/class/net/%(iface)s/device/sriov_numvfs\n"""
+        interface = 'dummyiface'
+        num_vfs = '4'
+        template = template % {'iface': interface, 'num_vf': num_vfs}
+
+        open_ = mock_open(read_data='')
+        with patch.object(builtins, 'open', open_):
+            ifaces_utils.create_initial_mlx5_SRIOV_boot_script(interface,
+                                                               num_vfs)
+
+        self.assertEqual(
+            open_.call_args_list, [call(ginger_boot_script, 'w+')]
+        )
+        self.assertEqual(
+            open_().write.mock_calls, [call(template)]
+        )
+        mock_chmod.assert_called_once_with(ginger_boot_script, 0744)
+        mock_add_openib.assert_called_once_with()
+
+    @mock.patch('os.path.isfile')
+    def test_update_mlx5_sriov_boot_script_append(self, mock_isfile):
+        ginger_boot_script = ifaces_utils.MLX5_SRIOV_BOOT_FILE
+        mock_isfile.return_value = True
+
+        initial_file = """#!/bin/sh\n\
+# ginger_sriov_start.sh: Connectx-4 SR-IOV init script - created by Ginger\n\
+\n# iface1 setup\n\
+echo 4 > /sys/class/net/iface1/device/sriov_numvfs\n"""
+
+        expected_writelines = [
+            "#!/bin/sh\n",
+            "# ginger_sriov_start.sh: Connectx-4 SR-IOV init script - "
+            "created by Ginger\n", "\n",
+            "# iface1 setup\n",
+            "echo 4 > /sys/class/net/iface1/device/sriov_numvfs\n",
+            "# iface2 setup\n",
+            "echo 8 > /sys/class/net/iface2/device/sriov_numvfs\n"
+        ]
+
+        open_ = mock_open(read_data=initial_file)
+        with patch.object(builtins, 'open', open_):
+            ifaces_utils.add_config_to_mlx5_SRIOV_boot_script('iface2',
+                                                              8)
+            mock_isfile.assert_called_once_with(ginger_boot_script)
+
+        self.assertEqual(
+            open_.call_args_list, [call(ginger_boot_script, 'w+')]
+        )
+        self.assertEqual(
+            open_().writelines.mock_calls, [call(expected_writelines)]
+        )
+
+    @mock.patch('os.path.isfile')
+    def test_update_mlx5_sriov_script_modify_line(self, mock_isfile):
+        ginger_boot_script = ifaces_utils.MLX5_SRIOV_BOOT_FILE
+        mock_isfile.return_value = True
+
+        initial_file = """#!/bin/sh\n\
+# ginger_sriov_start.sh: Connectx-4 SR-IOV init script - created by Ginger\n\
+\n# iface1 setup\n\
+echo 4 > /sys/class/net/iface1/device/sriov_numvfs\n\
+# iface2 setup\n\
+echo 6 > /sys/class/net/iface2/device/sriov_numvfs\n\
+# iface3 setup\n\
+echo 8 > /sys/class/net/iface3/device/sriov_numvfs\n\
+# iface4 setup\n\
+echo 10 > /sys/class/net/iface4/device/sriov_numvfs\n\
+"""
+        expected_writelines = [
+            "#!/bin/sh\n",
+            "# ginger_sriov_start.sh: Connectx-4 SR-IOV init script - "
+            "created by Ginger\n", "\n",
+            "# iface1 setup\n",
+            "echo 4 > /sys/class/net/iface1/device/sriov_numvfs\n",
+            "# iface2 setup\n",
+            "echo 6 > /sys/class/net/iface2/device/sriov_numvfs\n",
+            "# iface3 setup\n",
+            "echo 2 > /sys/class/net/iface3/device/sriov_numvfs\n",
+            "# iface4 setup\n",
+            "echo 10 > /sys/class/net/iface4/device/sriov_numvfs\n",
+        ]
+
+        open_ = mock_open(read_data=initial_file)
+        with patch.object(builtins, 'open', open_):
+            ifaces_utils.add_config_to_mlx5_SRIOV_boot_script('iface3',
+                                                              2)
+            mock_isfile.assert_called_once_with(ginger_boot_script)
+
+        self.assertEqual(
+            open_.call_args_list, [call(ginger_boot_script, 'w+')]
+        )
+        self.assertEqual(
+            open_().writelines.mock_calls, [call(expected_writelines)]
+        )
