@@ -33,7 +33,8 @@ from nw_cfginterfaces_utils import IFACE_BOND
 from nw_cfginterfaces_utils import IFACE_VLAN
 from nw_interfaces_utils import cfgInterfacesHelper
 from nw_interfaces_utils import InterfacesHelper
-from wok.exception import InvalidParameter, NotFoundError, OperationFailed
+from wok.exception import InvalidOperation, InvalidParameter, NotFoundError
+from wok.exception import OperationFailed
 from wok.model.tasks import TaskModel
 from wok.utils import add_task
 from wok.xmlutils.utils import xpath_get_text
@@ -55,7 +56,6 @@ class InterfaceModel(object):
 
     def __init__(self, **kargs):
         self._rollback_timer = None
-        self.actions_mod = self.get_actions_per_module()
         self.objstore = kargs['objstore']
         self.task = TaskModel(**kargs)
 
@@ -67,18 +67,6 @@ class InterfaceModel(object):
         :param name:
         :return:
         """
-
-        def get_actions_info_without_method(kernel_mod):
-            info = self.actions_mod.get(kernel_mod, {})
-            for action in info.keys():
-                action_info = info[action]
-
-                # not all interface has method
-                if 'method' in action_info.keys():
-                    action_info.pop('method')
-                info[action] = action_info
-            return info
-
         try:
             if name in ethtool.get_devices():
                 info = netinfo.get_interface_info(name)
@@ -97,7 +85,6 @@ class InterfaceModel(object):
             else:
                 raise ValueError('unknown interface: %s' % name)
 
-            info['actions'] = get_actions_info_without_method(info['module'])
             return info
 
         except ValueError:
@@ -221,18 +208,6 @@ class InterfaceModel(object):
         self._rollback_timer.cancel()
         conn.changeCommit()
 
-    def get_actions_per_module(self):
-        mlx5_core_SRIOV = {
-            'desc': 'SR-IOV: Single Root I/O Virtualization',
-            'args': {'num_vfs': 'Number of virtual functions to enable'},
-            'method': self._mlx5_SRIOV_enable
-        }
-        actions_mod = {
-            'mlx5-core': {'SR-IOV': mlx5_core_SRIOV},
-            'mlx5_core': {'SR-IOV': mlx5_core_SRIOV}
-        }
-        return actions_mod
-
     def _mlx5_SRIOV_get_max_VF(self, iface):
         max_vf_file = '/sys/class/net/%s/device/sriov_totalvfs' % iface
         max_vf = None
@@ -296,13 +271,18 @@ class InterfaceModel(object):
 
         return num_vfs
 
-    def _mlx5_SRIOV_enable(self, iface, args):
-        num_vfs = self._mlx5_SRIOV_precheck(iface, args)
+    def enable_sriov(self, name, args):
+        kernel_mod = netinfo.get_interface_kernel_module(name)
+        if kernel_mod not in ['mlx5_core', 'mlx5-core']:
+            raise InvalidOperation("GINNET0076E",
+                                   {'name': name, 'module': kernel_mod})
 
-        params = {'name': iface, 'num_vfs': num_vfs}
+        num_vfs = self._mlx5_SRIOV_precheck(name, args)
+
+        params = {'name': name, 'num_vfs': num_vfs}
 
         task_id = add_task(
-            '/plugins/ginger/network/%s/sr-iov',
+            '/plugins/ginger/network/%s/enable_sriov',
             self._mlx5_SRIOV_enable_task,
             self.objstore, params
         )
@@ -327,13 +307,3 @@ class InterfaceModel(object):
                                   {'file': sriov_file, 'err': e.message})
 
         cb('SR-IOV setup for %s completed' % iface, True)
-
-    def action(self, name, action_name, args):
-        kernel_mod = netinfo.get_interface_kernel_module(name)
-        actions = self.actions_mod.get(kernel_mod)
-        if not actions or not actions.get(action_name):
-            raise NotFoundError(
-                "GINNET0076E",
-                {'name': name, 'module': kernel_mod, 'action': action_name}
-            )
-        return actions[action_name]['method'](name, args)

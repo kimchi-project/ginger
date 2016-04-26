@@ -732,16 +732,12 @@ URI: /plugins/ginger/partitions/*:part_name*
     * type: Type of interface
      Example: Bond, Vlan, Ethernet etc
     * module: the kernel module that loaded this interface. This info is taken from sysfs and matched against the loaded kernel modules (lsmod output). If for some reason the value taken from sysfs is not present in the lsmod output, 'unknown' is returned.
-   * actions - a dictionary that describes the available actions for this interface. This dictionary has the format {'action1':{'desc': description_of_action, 'args': {arg1: desc1, arg2: desc2}}, 'action2':(...)}. Note that 'args' is a dictionary that can be empty.
-
 
 * **POST**:
    * activate : Activates an interface
    * deactivate : Deactivates an interface
-   * action: executes an action in the interface. Available actions can be fetched by the GET method.
-    * name: action to be executed
-    * args: dictionary of arguments to be passed to the action. The description and usage of the parameters is available in the 'GET' method of the specific interface.
-
+   * enable_sriov: Enables the SR-IOV feature for this interface. Available only for interfaces loaded with the 'mlx5_core' module. Using this action with any other interface throws an error.
+       * num_vfs: number of virtual functions to be enabled.
 
 ### Collection: SysModules
 

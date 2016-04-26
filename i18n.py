@@ -113,7 +113,7 @@ messages = {
     "GINNET0074E": _("Exception updating/creating the ifcfg file."),
     "GINNET0075E": _("At least one slave is "
                      "required for the bond interface"),
-    "GINNET0076E": _("Interface %(name)s loaded with driver %(module)s does not have an action %(action)s available."),
+    "GINNET0076E": _("Interface %(name)s loaded with driver %(module)s does not support SR-IOV."),
     "GINNET0077E": _("SR-IOV action of mlx5 module requires 'num_vfs' argument."),
     "GINNET0078E": _("SR-IOV enablement failed: required files under /sys directory not found."),
     "GINNET0079E": _("SR-IOV enablement failed: num_vfs must be an integer."),
