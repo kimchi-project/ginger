@@ -26,7 +26,7 @@ from mock import call, mock_open, patch
 import wok.plugins.ginger.model.netinfo as netinfo
 
 from wok import config
-from wok.exception import InvalidParameter, NotFoundError, OperationFailed
+from wok.exception import InvalidOperation, InvalidParameter, OperationFailed
 from wok.model.tasks import TaskModel
 from wok.objectstore import ObjectStore
 from wok.plugins.ginger.model.interfaces import InterfaceModel
@@ -153,53 +153,13 @@ class InterfacesTests(unittest.TestCase):
         self.assertEqual(iface_info.get('module'), 'dummy_net_module')
 
     @mock.patch('wok.plugins.ginger.model.netinfo.get_interface_kernel_module')
-    @mock.patch('ethtool.get_devices')
-    @mock.patch('ethtool.get_ipaddr')
-    @mock.patch('ethtool.get_netmask')
-    @mock.patch('wok.plugins.ginger.model.netinfo.macaddr')
-    def test_mlx5_info_returns_SRIOV(self, mock_macaddr, mock_netmask,
-                                     mock_ipaddr, mock_getdevs,
-                                     mock_get_module):
-
-        mock_get_module.return_value = 'mlx5_core'
-        mock_getdevs.return_value = ['dev1', 'dummy_iface', 'dev2']
-        mock_ipaddr.return_value = '99.99.99.99'
-        mock_netmask.return_value = '255.255.255.0'
-        mock_macaddr.return_value = 'aa:bb:cc:dd:ee:ff'
-
-        iface_model = InterfaceModel(objstore=self._objstore)
-        iface_info = iface_model.lookup('dummy_iface')
-
-        mock_macaddr.assert_called_once_with('dummy_iface')
-        mock_netmask.assert_called_once_with('dummy_iface')
-        mock_ipaddr.assert_called_once_with('dummy_iface')
-        mock_getdevs.assert_called_with()
-        mock_get_module.assert_called_once_with('dummy_iface')
-
-        self.assertEqual(iface_info.get('device'), 'dummy_iface')
-        self.assertEqual(iface_info.get('type'), 'unknown')
-        self.assertEqual(iface_info.get('status'), 'down')
-        self.assertEqual(iface_info.get('ipaddr'), '99.99.99.99')
-        self.assertEqual(iface_info.get('netmask'), '255.255.255.0')
-        self.assertEqual(iface_info.get('macaddr'), 'aa:bb:cc:dd:ee:ff')
-        self.assertEqual(iface_info.get('module'), 'mlx5_core')
-
-        self.assertNotEqual({}, iface_info.get('actions'))
-        sriov_dic = iface_info['actions']['SR-IOV']
-        self.assertIsNotNone(sriov_dic.get('desc'))
-        self.assertIsNotNone(sriov_dic.get('args'))
-        self.assertIsNone(sriov_dic.get('method'))
-        args = sriov_dic.get('args')
-        self.assertIn('num_vfs', args.keys())
-
-    @mock.patch('wok.plugins.ginger.model.netinfo.get_interface_kernel_module')
-    def test_interface_no_action_failure(self, mock_get_module):
+    def test_invalid_module_enable_sriov_failure(self, mock_get_module):
         mock_get_module.return_value = 'unknown'
 
         expected_error_msg = "GINNET0076E"
-        with self.assertRaisesRegexp(NotFoundError, expected_error_msg):
+        with self.assertRaisesRegexp(InvalidOperation, expected_error_msg):
             iface_model = InterfaceModel(objstore=self._objstore)
-            iface_model.action('any_iface_name', 'any_action', {})
+            iface_model.enable_sriov('any_iface_name', {'num_vfs': 4})
 
     @mock.patch('wok.plugins.ginger.model.netinfo.get_interface_kernel_module')
     @mock.patch('wok.plugins.ginger.model.interfaces.InterfaceModel.'
@@ -213,7 +173,7 @@ class InterfacesTests(unittest.TestCase):
         expected_error_msg = "GINNET0077E"
         with self.assertRaisesRegexp(InvalidParameter, expected_error_msg):
             iface_model = InterfaceModel(objstore=self._objstore)
-            iface_model.action('any_iface_name', 'SR-IOV', {})
+            iface_model.enable_sriov('any_iface_name', {})
 
     @mock.patch('wok.plugins.ginger.model.netinfo.get_interface_kernel_module')
     @mock.patch('wok.plugins.ginger.model.interfaces.InterfaceModel.'
@@ -227,8 +187,8 @@ class InterfacesTests(unittest.TestCase):
         expected_error_msg = "GINNET0079E"
         with self.assertRaisesRegexp(InvalidParameter, expected_error_msg):
             iface_model = InterfaceModel(objstore=self._objstore)
-            iface_model.action('mlx5_core', 'SR-IOV',
-                               {'num_vfs': 'not_an_int'})
+            iface_model.enable_sriov('any_iface_name',
+                                     {'num_vfs': 'not_an_int'})
 
     @mock.patch('wok.plugins.ginger.model.netinfo.get_interface_kernel_module')
     @mock.patch('os.path.isfile')
@@ -255,7 +215,7 @@ class InterfacesTests(unittest.TestCase):
         expected_error_msg = "GINNET0078E"
         with self.assertRaisesRegexp(OperationFailed, expected_error_msg):
             iface_model = InterfaceModel(objstore=self._objstore)
-            task_obj = iface_model.action('iface1', 'SR-IOV', {'num_vfs': 4})
+            task_obj = iface_model.enable_sriov('iface1', {'num_vfs': 4})
             self.task.wait(task_obj['id'])
 
             mock_isfile.assert_has_calls(mock_isfile_calls)
@@ -270,7 +230,7 @@ class InterfacesTests(unittest.TestCase):
 
         with self.assertRaisesRegexp(OperationFailed, 'GINNET0082E'):
             iface_model = InterfaceModel(objstore=self._objstore)
-            iface_model.action('iface1', 'SR-IOV', {'num_vfs': 4})
+            iface_model.enable_sriov('iface1', {'num_vfs': 4})
             mock_isfile.assert_called_once_with(file1)
 
     @mock.patch('os.path.isfile')
@@ -318,7 +278,7 @@ class InterfacesTests(unittest.TestCase):
 
         with self.assertRaisesRegexp(InvalidParameter, 'GINNET0083E'):
             iface_model = InterfaceModel(objstore=self._objstore)
-            iface_model.action('iface1', 'SR-IOV', {'num_vfs': 16})
+            iface_model.enable_sriov('iface1', {'num_vfs': 16})
             mock_isfile.assert_called_once_with(file1)
 
     @mock.patch('wok.plugins.ginger.model.netinfo.get_interface_kernel_module')
@@ -341,7 +301,7 @@ class InterfacesTests(unittest.TestCase):
 
         with self.assertRaisesRegexp(InvalidParameter, 'GINNET0084E'):
             iface_model = InterfaceModel(objstore=self._objstore)
-            iface_model.action('iface1', 'SR-IOV', {'num_vfs': 8})
+            iface_model.enable_sriov('iface1', {'num_vfs': 8})
             mock_isfile.assert_called_once_with(file1)
 
     @mock.patch('wok.plugins.ginger.model.netinfo.get_interface_kernel_module')
@@ -364,7 +324,7 @@ class InterfacesTests(unittest.TestCase):
 
         with patch.object(builtins, 'open', open_):
             iface_model = InterfaceModel(objstore=self._objstore)
-            task_obj = iface_model.action('iface1', 'SR-IOV', {'num_vfs': 4})
+            task_obj = iface_model.enable_sriov('iface1', {'num_vfs': 4})
             self.task.wait(task_obj['id'])
 
             finished_task = self.task.lookup(task_obj['id'])
