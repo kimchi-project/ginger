@@ -112,12 +112,14 @@ ginger.initBakDialog = function() {
                 $("#newCustomBakBtn").show();
                 ginger.setupBakGrid();
             }, function(result) {
+                wok.message.error(result.message,'#alert-modal-container',true);
+                $("#newDefaultBakBtn").show();
+                $("#newCustomBakBtn").show();
                 $("body").css('cursor', 'default');
                 $("body input").prop("readonly", false);
                 $("body button").prop("disabled", false);
                 $("body input").css("cursor", "text");
                 $("body button").css("cursor", "pointer");
-                wok.message.error(result.responseJSON.reason,'#alert-backup-modal',true);
             }, onTaskAccepted);
         });
 
