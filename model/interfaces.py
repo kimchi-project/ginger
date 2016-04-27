@@ -31,6 +31,7 @@ import netinfo
 
 from nw_cfginterfaces_utils import IFACE_BOND
 from nw_cfginterfaces_utils import IFACE_VLAN
+from nw_interfaces_utils import add_config_to_mlx5_SRIOV_boot_script
 from nw_interfaces_utils import cfgInterfacesHelper
 from nw_interfaces_utils import InterfacesHelper
 from wok.exception import InvalidOperation, InvalidParameter, NotFoundError
@@ -301,8 +302,17 @@ class InterfaceModel(object):
             with open(sriov_file, 'w') as f:
                 f.write('0\n')
 
+            ifaces_without_sriov = cfgInterfacesHelper.get_interface_list()
+
             with open(sriov_file, 'w') as f:
                 f.write(str(num_vfs) + '\n')
+
+            ifaces_after_sriov = cfgInterfacesHelper.get_interface_list()
+            new_ifaces = ifaces_without_sriov ^ ifaces_after_sriov
+            for new_iface in new_ifaces:
+                cfgInterfacesHelper.create_interface_cfg_file(new_iface)
+
+            add_config_to_mlx5_SRIOV_boot_script(iface, num_vfs)
         except Exception as e:
             raise OperationFailed("GINNET0085E",
                                   {'file': sriov_file, 'err': e.message})

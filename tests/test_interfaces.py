@@ -305,6 +305,12 @@ class InterfacesTests(unittest.TestCase):
             iface_model.enable_sriov('iface1', {'num_vfs': 8})
             mock_isfile.assert_called_once_with(file1)
 
+    @mock.patch('wok.plugins.ginger.model.interfaces.'
+                'add_config_to_mlx5_SRIOV_boot_script')
+    @mock.patch('wok.plugins.ginger.model.nw_cfginterfaces_utils.'
+                'CfgInterfacesHelper.create_interface_cfg_file')
+    @mock.patch('wok.plugins.ginger.model.nw_cfginterfaces_utils.'
+                'CfgInterfacesHelper.get_interface_list')
     @mock.patch('wok.plugins.ginger.model.netinfo.get_interface_kernel_module')
     @mock.patch('os.path.isfile')
     @mock.patch('wok.plugins.ginger.model.interfaces.InterfaceModel.'
@@ -312,7 +318,9 @@ class InterfacesTests(unittest.TestCase):
     @mock.patch('wok.plugins.ginger.model.interfaces.InterfaceModel.'
                 '_mlx5_SRIOV_get_max_VF')
     def test_mlx5_sriov_success(self, mock_get_max_VF, mock_get_current_VF,
-                                mock_isfile, mock_get_module):
+                                mock_isfile, mock_get_module,
+                                mock_get_iface_list, mock_create_cfg_file,
+                                mock_add_boot_script):
 
         mock_get_max_VF.return_value = '8'
         mock_get_current_VF.return_value = '2'
@@ -320,6 +328,11 @@ class InterfacesTests(unittest.TestCase):
 
         file1 = '/sys/class/net/%s/device/sriov_numvfs' % 'iface1'
         mock_isfile.return_value = True
+
+        mock_get_iface_list.side_effect = [
+            set(['iface1', 'iface2']),
+            set(['iface1', 'sriov1', 'sriov2', 'iface2'])
+        ]
 
         open_ = mock_open(read_data='')
 
@@ -335,6 +348,10 @@ class InterfacesTests(unittest.TestCase):
         self.assertEqual(open_.call_args_list,
                          [call(file1, 'w'), call(file1, 'w')])
         self.assertEqual(open_().write.mock_calls, [call('0\n'), call('4\n')])
+        mock_create_cfg_file.assert_has_calls(
+            [call('sriov1'), call('sriov2')]
+        )
+        mock_add_boot_script.assert_called_once_with('iface1', 4)
 
     @mock.patch('os.path.isfile')
     def test_mlx5_sriov_edit_openib_conf(self, mock_isfile):
