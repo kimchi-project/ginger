@@ -18,6 +18,7 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301 USA
 
+
 import ethtool
 import netinfo
 import os
@@ -25,7 +26,7 @@ import os
 from interfaces import InterfaceModel
 from nw_interfaces_utils import cfgInterfacesHelper
 from wok.exception import InvalidParameter, MissingParameter, OperationFailed
-from wok.utils import wok_log
+from wok.utils import decode_value, encode_value, wok_log
 
 from nw_cfginterfaces_utils import network_configpath
 from nw_cfginterfaces_utils import ifcfg_filename_format
@@ -101,7 +102,8 @@ class CfginterfacesModel(object):
                              ' interface :' + iface)
             else:
                 nics_with_ifcfgfile.append(iface)
-        return sorted(nics_with_ifcfgfile)
+        # Ensure comparison are done in same type.
+        return sorted(map(decode_value, nics_with_ifcfgfile))
         # return get_interface_list()
 
     def create(self, params):
@@ -132,7 +134,7 @@ class CfginterfacesModel(object):
         configured over bond with the fail_over_mac=follow option.
         :param parent_iface:
         """
-        if parent_iface in ethtool.get_devices():
+        if encode_value(parent_iface) in ethtool.get_devices():
             try:
                 with open(FAIL_OVER_MAC % parent_iface) as dev_file:
                     fail_over_mac = dev_file.readline().strip()
@@ -158,7 +160,7 @@ class CfginterfacesModel(object):
                     active_slave_found = False
                 else:
                     active_slave_found = True
-                    wok_log.info("One active slave okis found:" + slave)
+                    wok_log.info("One active slave is found:" + slave)
                     break
             if (not active_slave_found):
                 raise OperationFailed("GINNET0047E")
@@ -377,11 +379,11 @@ class CfginterfaceModel(object):
                         if type(value) is not list:
                             bond_opt_value = \
                                 bond_opt_value + bond_opt_key + "=" + \
-                                str(bondinfo[BONDING_OPTS][
+                                encode_value(bondinfo[BONDING_OPTS][
                                     bond_opt_key]) + " "
                         else:
-                            values_as_str = map(str, value)
-                            values_as_str = str(values_as_str)
+                            values_as_str = map(encode_value, value)
+                            values_as_str = encode_value(values_as_str)
                             v = values_as_str.replace(" ", "")
                             bond_opt_value = \
                                 bond_opt_value + bond_opt_key + "=" + v + " "
@@ -441,15 +443,13 @@ class CfginterfaceModel(object):
                             route_info['METRIC'] = options[6]
                         cfg_map.append(route_info)
                     else:
-                        wok_log.warn(
-                            "Skipping the invalid route information" + str(
-                                options))
+                        wok_log.warn("Skipping the invalid route information" +
+                                     encode_value(options))
             except Exception, e:
                 wok_log.error(
                     'Exception occured while reading the route information' +
-                    str(
-                        e))
-                raise OperationFailed("GINNET0030E", {'Error': e})
+                    encode_value(e.message))
+                raise OperationFailed("GINNET0030E", {'Error': e.message})
             return cfg_map
 
     def get_routes_directiveformat(self, routecfg_path):
@@ -475,8 +475,8 @@ class CfginterfaceModel(object):
                     wok_log.error(
                         'Exception occured while reading the route '
                         'information' +
-                        str(e))
-                    raise OperationFailed("GINNET0030E", {'Error': e})
+                        encode_value(e.message))
+                    raise OperationFailed("GINNET0030E", {'Error': e.message})
         route_list = []
         i = 0
         # construct list of dictionaries from the given key=value list.
