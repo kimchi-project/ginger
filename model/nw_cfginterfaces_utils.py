@@ -30,7 +30,7 @@ import threading
 
 from netaddr import IPAddress
 from wok.exception import InvalidParameter, MissingParameter, OperationFailed
-from wok.utils import run_command, wok_log
+from wok.utils import decode_value, encode_value, run_command, wok_log
 
 gingerNetworkLock = threading.RLock()
 parser = augeas.Augeas("/")
@@ -158,7 +158,9 @@ class CfgInterfacesHelper(object):
         # skip nics other than ethernet,bond and type
         nics = self.filter_nics(nics)
         nics_with_cfgfiles = (self.get_bond_vlan_interfaces())
-        return set(nics + nics_with_cfgfiles)
+        # To ensure that comparision are done in same type.
+        return set(map(encode_value, nics) +
+                   map(encode_value, nics_with_cfgfiles))
 
     def filter_nics(self, interfaces):
         """
@@ -187,15 +189,16 @@ class CfgInterfacesHelper(object):
             gingerNetworkLock.acquire()
             pattern = network_configpath + '*/TYPE'
             parser.load()
-            listout = parser.match(pattern)
+            listout = parser.match(decode_value(pattern))
             for input in listout:
-                interface_type = parser.get(input)
+                interface_type = parser.get(decode_value(input))
                 # Fix for ginger issue #70
                 interface_type = self.trim_quotes(interface_type)
                 if interface_type in [IFACE_BOND, IFACE_VLAN]:
                     cfg_file = input.rsplit('/', 1)[0]
                     try:
-                        cfg_device = parser.get(cfg_file + '/DEVICE')
+                        cfg_device = parser.get(decode_value(cfg_file +
+                                                             '/DEVICE'))
                         # Fix for ginger issue #70
                         cfg_device = self.trim_quotes(cfg_device)
                         if (self.is_cfgfileexist(cfg_device)):
@@ -204,7 +207,8 @@ class CfgInterfacesHelper(object):
                             wok_log.warn("no ifcfg file found,skipping" +
                                          cfg_device)
                     except Exception, e:
-                        wok_log.warn("no device name found,skipping", e)
+                        wok_log.warn("no device name found,skipping",
+                                     e.message)
         finally:
             gingerNetworkLock.release()
         return nics
@@ -248,11 +252,12 @@ class CfgInterfacesHelper(object):
             gingerNetworkLock.acquire()
             if self.is_cfgfileexist(iface):
                 file = network_configpath + ifcfg_filename_format % iface
-                if self.token_exist(file, str(key)):
-                    key_val = parser.get(file + "/" + str(key))
+                if self.token_exist(file, encode_value(key)):
+                    key_val = parser.get(decode_value(file + "/" +
+                                                      encode_value(key)))
                     # Fix for ginger issue #70
                     key_val = self.trim_quotes(key_val)
-                    return str(key_val)
+                    return encode_value(key_val)
         finally:
             gingerNetworkLock.release()
         return key_val
@@ -268,7 +273,7 @@ class CfgInterfacesHelper(object):
         try:
             gingerNetworkLock.acquire()
             parser.load()
-            l = parser.match(ifcfg_file + os.sep + key)
+            l = parser.match(decode_value(ifcfg_file + os.sep + key))
             if len(l) == 1:
                 is_token_exist = True
         finally:
@@ -313,7 +318,9 @@ class CfgInterfacesHelper(object):
             cfg_map[DEVICE] = params[BASIC_INFO][DEVICE]
             # Check for all the available interfaces to avoid
             # recreation of the same interface
-            if cfg_map[DEVICE] in self.get_interface_list():
+            # ensure comparision are in same type.
+            if decode_value(cfg_map[DEVICE]) in map(decode_value,
+                                                    self.get_interface_list()):
                 wok_log.error("Interface with the name %s already exists"
                               % params[BASIC_INFO][DEVICE])
                 raise InvalidParameter('GINNET0072E', {'iface': cfg_map[
@@ -353,13 +360,11 @@ class CfgInterfacesHelper(object):
             raise MissingParameter("GINNET0036E")
 
     def validate_interface(self, name):
-        if name not in ethtool.get_devices():
+        if encode_value(name) not in ethtool.get_devices():
             raise InvalidParameter('GINNET0014E', {'name': name})
 
     def read_ifcfg_file(self, interface_name):
         cfgmap = {}
-        # import pdb
-        # pdb.set_trace()
         wok_log.info('Reading ifcfg file for interface ' + interface_name)
         filename = ifcfg_filename_format % interface_name
         # TODO file pattern to be changed to parse the device name inside
@@ -374,23 +379,24 @@ class CfgInterfacesHelper(object):
         try:
             gingerNetworkLock.acquire()
             parser.load()
-            listout = parser.match(ifcfg_file_pattern)
+            listout = parser.match(decode_value(ifcfg_file_pattern))
             if not listout:
                 wok_log.info('No attributes present in ifcfg file for '
                              'interface :' + interface_name)
                 return cfgmap
             for single in listout:
+                single = decode_value(single)
                 labelVal = parser.get(single)
                 labelVal = self.trim_quotes(labelVal)
                 cfgmap[parser.label(single)] = labelVal
         except Exception, e:
             # typical error message e='Error during match procedure!',
             # u'etc/sysconfig/network-scripts/ifcfg-virbr0
-            wok_log.error('Augeas parser throw run time exception', e)
-            raise OperationFailed('GINNET0015E', {'error': e})
+            wok_log.error('Augeas parser throw run time exception', e.message)
+            raise OperationFailed('GINNET0015E', {'error': e.message})
         finally:
             gingerNetworkLock.release()
-        wok_log.info('reading finished Key value :' + str(cfgmap))
+        wok_log.info('reading finished Key value :' + encode_value(cfgmap))
         return cfgmap
 
     def get_master(self, cfgmap):
@@ -401,12 +407,14 @@ class CfgInterfacesHelper(object):
                 master_bond = cfgmap[MASTER]
                 pattern = network_configpath + '*/DEVICE'
                 parser.load()
-                listout = parser.match(pattern)
+                listout = parser.match(decode_value(pattern))
                 master_found = False
                 for device in listout:
-                    if master_bond == self.trim_quotes(parser.get(device)):
+                    if master_bond == self.trim_quotes(parser.get(
+                                                       decode_value(device))):
                         master_found = True
-                        master_bond = self.trim_quotes(parser.get(device))
+                        master_bond = self.trim_quotes(parser.get(
+                                                       decode_value(device)))
                         return master_bond
                 if not master_found:
                     wok_log.info('No master found for slave:')
@@ -423,14 +431,16 @@ class CfgInterfacesHelper(object):
             master_device = cfgmap[DEVICE]
             pattern = network_configpath + '*/MASTER'
             parser.load()
-            listout = parser.match(pattern)
+            listout = parser.match(decode_value(pattern))
             slave_found = False
             for a_slave in listout:
-                if master_device == self.trim_quotes(parser.get(a_slave)):
+                if master_device == self.trim_quotes(parser.get(
+                                                     decode_value(a_slave))):
                     slave_found = True
                     slave_cfg_file = a_slave.rsplit('/', 1)[0]
-                    slave_name = self.trim_quotes(parser.get(slave_cfg_file +
-                                                  '/DEVICE'))
+                    slave_name = self.trim_quotes(parser.get(
+                                                  decode_value(slave_cfg_file +
+                                                               '/DEVICE')))
                     slaves.append(slave_name)
             if not slave_found:
                 wok_log.info('No slaves found for master:' + master_device)
@@ -448,18 +458,20 @@ class CfgInterfacesHelper(object):
                     return
             raise Exception("Not an ipv4 address")
         except Exception, e:
-            wok_log.error(("Invalid ipv4 address:" + str(e)))
-            raise InvalidParameter('GINNET0018E', {'ip': ip, 'error': e})
+            wok_log.error("Invalid ipv4 address:" + encode_value(e.message))
+            raise InvalidParameter('GINNET0018E', {'ip': ip,
+                                                   'error': e.message})
 
     def delete_token_from_cfg(self, name, token):
         filename = self.get_iface_cfg_fullpath(name)
         try:
             gingerNetworkLock.acquire()
-            parser.remove(filename + os.sep + token)
+            parser.remove(decode_value(filename + os.sep + token))
             parser.save()
         except Exception, e:
-            wok_log.error("Augeas parser throw run time exception ", e)
-            raise OperationFailed("GINNET0058E", {'error': e})
+            wok_log.error("Augeas parser throw run time exception ",
+                          encode_value(e.message))
+            raise OperationFailed("GINNET0058E", {'error': e.message})
         finally:
             gingerNetworkLock.release()
 
@@ -471,7 +483,7 @@ class CfgInterfacesHelper(object):
             ifcfg_file_pattern = network_configpath + filename + '/'
             for key, value in cfgmap.iteritems():
                 path = ifcfg_file_pattern + key
-                parser.set(path, str(value))
+                parser.set(path, decode_value(value))
             parser.save()
         except Exception:
             raise InvalidParameter('GINNET0074E')
@@ -496,8 +508,9 @@ class CfgInterfacesHelper(object):
                 return
             raise Exception("Not an ipv6 address")
         except Exception, e:
-            wok_log.error(("Invalid ipv6 address:" + str(e)))
-            raise InvalidParameter('GINNET0028E', {'ip': ip, 'error': e})
+            wok_log.error(("Invalid ipv6 address:" + encode_value(e.message)))
+            raise InvalidParameter('GINNET0028E', {'ip': ip,
+                                                   'error': e.message})
 
     def validateipinfo(self, ipaddrinfo):
         """
@@ -523,9 +536,10 @@ class CfgInterfacesHelper(object):
                         raise InvalidParameter('GINNET0065E', {
                             'PREFIX': ipaddrinfo[PREFIX]})
             except Exception, e:
-                wok_log.error(("Invalid prefix:" + str(e)))
+                wok_log.error(("Invalid prefix:" + encode_value(e.message)))
                 raise InvalidParameter(
-                    'GINNET0019E', {'PREFIX': ipaddrinfo[PREFIX], 'error': e})
+                    'GINNET0019E', {'PREFIX': ipaddrinfo[PREFIX],
+                                    'error': e.message})
         else:
             wok_log.error(("No netmask or prefix provided"))
             raise MissingParameter('GINNET0021E')
@@ -541,8 +555,9 @@ class CfgInterfacesHelper(object):
             ip = IPAddress(ip)
             return ip.netmask_bits()
         except Exception, e:
-            wok_log.error(("Invalid prefix:" + str(e)))
-            raise InvalidParameter('GINNET0019E', {'PREFIX': ip, 'error': e})
+            wok_log.error(("Invalid prefix:" + encode_value(e.message)))
+            raise InvalidParameter('GINNET0019E', {'PREFIX': ip,
+                                                   'error': e.message})
 
     def get_ipv4_prefix(self, ip):
         try:
@@ -553,7 +568,7 @@ class CfgInterfacesHelper(object):
             else:
                 raise Exception('')
         except Exception, e:
-            wok_log.error(("Invalid prefix:" + str(e)))
+            wok_log.error(("Invalid prefix:" + encode_value(e.message)))
             raise InvalidParameter('GINNET0071E', {'PREFIX': ip})
 
     def validate_populate_ipv4_routes(self, routes_input):
@@ -764,7 +779,7 @@ class CfgInterfacesHelper(object):
             int_value = int(value)
         except ValueError, e:
             wok_log.error("Given vlanid is not an integer type")
-            raise InvalidParameter("GINNET0066E", {'error': e})
+            raise InvalidParameter("GINNET0066E", {'error': e.message})
         return int_value
 
     def clean_routes(self, interface_name, version):
@@ -1036,8 +1051,8 @@ class CfgInterfacesHelper(object):
             for ipaddrinfo in params[IPV6Addresses]:
                 if (primary):
                     ipaddrinfo = self.validateipinfo(ipaddrinfo)
-                    cfgmap[IPV6ADDR] = \
-                        ipaddrinfo[IPADDR] + '/' + str(ipaddrinfo[PREFIX])
+                    cfgmap[IPV6ADDR] = ipaddrinfo[IPADDR] + '/' + \
+                        encode_value(ipaddrinfo[PREFIX])
                     primary = False
                 else:
                     ipaddrinfo = self.validateipinfo(ipaddrinfo)
@@ -1167,10 +1182,10 @@ class CfgInterfacesHelper(object):
                     self.get_iface_identifier(cfgmap), cfgmap)
             except Exception, e:
                 wok_log.error('Exception occured while updating the'
-                              ' cfg information' + str(e))
+                              ' cfg information' + encode_value(e.message))
                 if os.path.isfile(backupfile):
                     shutil.copy(backupfile, p_file)
-                raise OperationFailed("GINNET0063E", {'Error': e})
+                raise OperationFailed("GINNET0063E", {'Error': e.message})
             finally:
                 if os.path.isfile(backupfile):
                     os.remove(backupfile)
@@ -1183,8 +1198,8 @@ class CfgInterfacesHelper(object):
         try:
             os.remove(ifcfg_file)
         except OSError, e:
-            wok_log.error("Failed to delete persistent fail ", e)
-            raise OperationFailed("GINNET0049E", {'error': e})
+            wok_log.error("Failed to delete persistent fail ", e.message)
+            raise OperationFailed("GINNET0049E", {'error': e.message})
 
     def remove_vlan_persistent(self, name):
         p_file = self.get_iface_cfg_fullpath(name)
