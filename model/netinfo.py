@@ -1,5 +1,5 @@
-# Project Ginger
 #
+# Project Ginger
 # Copyright IBM Corp, 2016
 #
 # This library is free software; you can redistribute it and/or
@@ -27,6 +27,7 @@ from nw_cfginterfaces_utils import IFACE_BOND
 from nw_cfginterfaces_utils import IFACE_ETHERNET
 
 from sysmodules import get_loaded_modules_list
+from wok.utils import encode_value
 
 NET_PATH = '/sys/class/net'
 NIC_PATH = '/sys/class/net/*/device'
@@ -48,7 +49,7 @@ def wlans():
 
 
 def is_wlan(iface):
-    return iface in wlans()
+    return encode_value(iface) in map(encode_value, wlans())
 
 
 # FIXME if we do not want to list usb nic
@@ -58,7 +59,7 @@ def nics():
 
 
 def is_nic(iface):
-    return iface in nics()
+    return encode_value(iface) in map(encode_value, nics())
 
 
 def bondings():
@@ -66,7 +67,7 @@ def bondings():
 
 
 def is_bonding(iface):
-    return iface in bondings()
+    return encode_value(iface) in map(encode_value, bondings())
 
 
 def vlans():
@@ -77,7 +78,7 @@ def vlans():
 
 
 def is_vlan(iface):
-    return iface in vlans()
+    return encode_value(iface) in map(encode_value, vlans())
 
 
 def bridges():
@@ -85,7 +86,7 @@ def bridges():
 
 
 def is_bridge(iface):
-    return iface in bridges()
+    return encode_value(iface) in map(encode_value, bridges())
 
 
 def all_interfaces():
@@ -155,17 +156,17 @@ def get_vlan_device(vlan):
 def get_bridge_port_device(bridge):
     """Return the nics list that belongs to bridge."""
     #   br  --- v  --- bond --- nic1
-    if bridge not in bridges():
+    if encode_value(bridge) not in map(encode_value, bridges()):
         raise ValueError('unknown bridge %s' % bridge)
     nics = []
     for port in ports(bridge):
-        if port in vlans():
+        if encode_value(port) in map(encode_value, vlans()):
             device = get_vlan_device(port)
-            if device in bondings():
+            if encode_value(device) in map(encode_value, bondings()):
                 nics.extend(slaves(device))
             else:
                 nics.append(device)
-        if port in bondings():
+        if encode_value(port) in map(encode_value, bondings()):
             nics.extend(slaves(port))
         else:
             nics.append(port)
@@ -183,7 +184,7 @@ def bare_nics():
 
 
 def is_bare_nic(iface):
-    return iface in bare_nics()
+    return encode_value(iface) in map(encode_value, bare_nics())
 
 
 #  The nic will not be exposed when it is a port of a bridge or
@@ -218,21 +219,22 @@ def get_interface_kernel_module(iface):
     except OSError:
         return 'unknown'
     module = link_target.split('/')[-1]
-    if module in get_loaded_modules_list():
+    if encode_value(module) in map(encode_value,
+                                   get_loaded_modules_list()):
         return module
     else:
         return 'unknown'
 
 
 def get_interface_info(iface):
-    if iface not in ethtool.get_devices():
+    if encode_value(iface) not in map(encode_value, ethtool.get_devices()):
         raise ValueError('unknown interface: %s' % iface)
 
     ipaddr = ''
     netmask = ''
     try:
-        ipaddr = ethtool.get_ipaddr(iface)
-        netmask = ethtool.get_netmask(iface)
+        ipaddr = ethtool.get_ipaddr(encode_value(iface))
+        netmask = ethtool.get_netmask(encode_value(iface))
     except IOError:
         pass
     return {'device': iface,
