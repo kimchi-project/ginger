@@ -27,7 +27,7 @@ from threading import Timer
 
 from interfaces import InterfaceModel
 from wok.exception import OperationFailed
-from wok.utils import run_command
+from wok.utils import encode_value, run_command
 
 
 RESOLV_CONF = '/etc/resolv.conf'
@@ -71,7 +71,7 @@ class NetworkModel(object):
                 f.write(''.join('%s\n' % line for line in new_data))
                 f.close()
         except Exception, e:
-            raise OperationFailed('GINNET0002E', {'reason': e.__str__()})
+            raise OperationFailed('GINNET0002E', {'reason': e.message})
 
     def _get_default_route_entry(self):
         # Default route entry reads like this:
@@ -110,12 +110,13 @@ class NetworkModel(object):
 
     def _save_gateway_changes(self, old_iface, old_gateway):
         def save_config(conn, iface, gateway=None):
-            nic_info = ethtool.get_interfaces_info(iface)[0]
+            nic_info = ethtool.get_interfaces_info(encode_value(iface))[0]
             ipv4 = ''
             if nic_info.ipv4_address:
                 ipv4 = "%s/%s" % (nic_info.ipv4_address, nic_info.ipv4_netmask)
             n = IPv4Network(ipv4)
-            net_params = {'ipaddr': str(n.ip), 'netmask': str(n.netmask)}
+            net_params = {'ipaddr': n.ip,
+                          'netmask': n.netmask}
             if gateway:
                 net_params['gateway'] = gateway
             iface_xml = InterfaceModel()._create_iface_xml(iface,
@@ -128,7 +129,7 @@ class NetworkModel(object):
         conn = self._conn
         conn.changeBegin()
         save_config(conn, new_iface, gateway)
-        if old_iface and new_iface != old_iface:
+        if old_iface and encode_value(new_iface) != encode_value(old_iface):
             save_config(conn, old_iface)
 
         self._rollback_timer = Timer(
