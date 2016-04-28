@@ -36,7 +36,7 @@ from nw_interfaces_utils import InterfacesHelper
 from wok.exception import InvalidOperation, InvalidParameter, NotFoundError
 from wok.exception import OperationFailed
 from wok.model.tasks import TaskModel
-from wok.utils import add_task
+from wok.utils import add_task, encode_value
 from wok.xmlutils.utils import xpath_get_text
 
 
@@ -68,7 +68,8 @@ class InterfaceModel(object):
         :return:
         """
         try:
-            if name in ethtool.get_devices():
+            # encode name to ensure comparision are in same type.
+            if encode_value(name) in ethtool.get_devices():
                 info = netinfo.get_interface_info(name)
             elif cfgInterfacesHelper.is_cfgfileexist(name):
                 type = cfgInterfacesHelper.get_type(name).lower()
@@ -124,7 +125,7 @@ class InterfaceModel(object):
 
             ip_obj = ipaddr.IPv4Network('%s/%s' % (search_ip[0],
                                                    search_prefix[0]))
-            return str(ip_obj.ip), str(ip_obj.netmask)
+            return encode_value(ip_obj.ip), encode_value(ip_obj.netmask)
 
         conn = self._conn
         iface_obj = conn.interfaceLookupByName(name)
@@ -151,7 +152,7 @@ class InterfaceModel(object):
         if net_params['ipaddr'] and net_params['netmask']:
             n = ipaddr.IPv4Network('%s/%s' % (net_params['ipaddr'],
                                               net_params['netmask']))
-            protocol_elem = E.protocol(E.ip(address=str(n.ip),
+            protocol_elem = E.protocol(E.ip(address=encode_value(n.ip),
                                             prefix=str(n.prefixlen)),
                                        family='ipv4')
 
