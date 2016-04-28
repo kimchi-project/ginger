@@ -26,8 +26,8 @@ import time
 import nw_cfginterfaces_utils
 
 from nw_cfginterfaces_utils import CfgInterfacesHelper
-from wok.utils import wok_log, run_command
 from wok.exception import OperationFailed
+from wok.utils import encode_value, run_command, wok_log
 
 
 cfgInterfacesHelper = CfgInterfacesHelper()
@@ -45,11 +45,12 @@ class InterfacesHelper(object):
             cmd_ipup = ['ip', 'link', 'set', '%s' % ifacename, 'up']
             out, error, returncode = run_command(cmd_ipup)
             if returncode != 0:
-                wok_log.error(
-                    'Unable to bring up the interface on ' + ifacename +
-                    ', ' + error)
-                raise OperationFailed('GINNET0059E', {'name': ifacename,
-                                                      'error': error})
+                # non-ascii encoded value and unicode value
+                # cannot be concatenated, so convert both variable
+                # to one format.
+                raise OperationFailed('GINNET0059E',
+                                      {'name': encode_value(ifacename),
+                                       'error': encode_value(error)})
             # Some times based on system load, it takes few seconds to
             # reflect the  /sys/class/net files upon execution of 'ip link
             # set' command.  Following snippet is to wait util files get
@@ -63,14 +64,12 @@ class InterfacesHelper(object):
                 wok_log.info('Successfully brought up the interface ' +
                              ifacename)
         wok_log.info('Activating an interface ' + ifacename)
-        cmd_ifup = ['ifup', '%s' % ifacename]
+        cmd_ifup = ['ifup', ifacename]
         out, error, returncode = run_command(cmd_ifup)
         if returncode != 0:
-            wok_log.error(
-                'Unable to activate the interface on ' + ifacename +
-                ', ' + error)
             raise OperationFailed('GINNET0016E',
-                                  {'name': ifacename, 'error': error})
+                                  {'name': encode_value(ifacename),
+                                   'error': encode_value(error)})
         wok_log.info(
             'Connection successfully activated for the interface ' + ifacename)
 
@@ -79,11 +78,9 @@ class InterfacesHelper(object):
         cmd_ifdown = ['ifdown', '%s' % ifacename]
         out, error, returncode = run_command(cmd_ifdown)
         if returncode != 0:
-            wok_log.error(
-                'Unable to deactivate the interface on ' + ifacename +
-                ', ' + error)
             raise OperationFailed('GINNET0017E',
-                                  {'name': ifacename, 'error': error})
+                                  {'name': encode_value(ifacename),
+                                   'error': encode_value(error)})
         wok_log.info(
             'Connection successfully deactivated for the interface ' +
             ifacename)
@@ -94,11 +91,9 @@ class InterfacesHelper(object):
             cmd_ipdown = ['ip', 'link', 'set', '%s' % ifacename, 'down']
             out, error, returncode = run_command(cmd_ipdown)
             if returncode != 0:
-                wok_log.error(
-                    'Unable to bring down the interface on ' + ifacename +
-                    ', ' + error)
-                raise OperationFailed('GINNET0060E', {'name': ifacename,
-                                                      'error': error})
+                raise OperationFailed('GINNET0060E',
+                                      {'name': encode_value(ifacename),
+                                       'error': encode_value(error)})
             # Some times based on system load, it takes few seconds to
             # reflect the  /sys/class/net files upon execution of 'ip link
             # set' command. Following snippet is to wait util files get
@@ -114,14 +109,14 @@ class InterfacesHelper(object):
         vlan_or_bond = [nw_cfginterfaces_utils.IFACE_BOND,
                         nw_cfginterfaces_utils.IFACE_VLAN]
         if iface_type in vlan_or_bond:
-            if ifacename in ethtool.get_devices():
+            if encode_value(ifacename) in ethtool.get_devices():
                 cmd_ip_link_del = ['ip', 'link', 'delete', '%s' % ifacename]
                 out, error, returncode = run_command(cmd_ip_link_del)
-                if returncode != 0 and ifacename in ethtool.get_devices():
-                    wok_log.error('Unable to delete the interface ' +
-                                  ifacename + ', ' + error)
-                raise OperationFailed('GINNET0017E', {'name': ifacename,
-                                                      'error': error})
+                if (returncode != 0 and
+                   (encode_value(ifacename) in ethtool.get_devices())):
+                    raise OperationFailed('GINNET0017E',
+                                          {'name': encode_value(ifacename),
+                                           'error': encode_value(error)})
 
     def wait_time(self, ifacename):
         timeout = 0
