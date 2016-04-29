@@ -36,7 +36,8 @@ from model import GingerModel
 
 class Ginger(WokRoot):
     def __init__(self, wok_options=None):
-        objstore_dir = os.path.dirname(os.path.abspath(config.get_object_store()))
+        object_store = config.get_object_store()
+        objstore_dir = os.path.dirname(os.path.abspath(object_store))
         if not os.path.isdir(objstore_dir):
             os.makedirs(objstore_dir)
 

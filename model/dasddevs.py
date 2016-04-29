@@ -94,8 +94,8 @@ class DASDdevModel(object):
             for task in tasks:
                 with self.objstore as session:
                     current_task = session.get('task', str(task))
-                    if current_task['target_uri'].startswith(
-                          '/dasddevs') and current_task['status'] == 'running':
+                    if (current_task['target_uri'].startswith('/dasddevs') and
+                       current_task['status']) == 'running':
                         running_tasks.append(current_task)
 
             # Limit the number of concurrent DASD format operations to
