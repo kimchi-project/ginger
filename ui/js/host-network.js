@@ -370,21 +370,21 @@ ginger.listNetworkConfig = function() {
       "title": i18n['GINNET0004M']
     },
     {
+      "column-id": 'rdma_enabled',
+      "type": 'string',
+      "width": "15%",
+      "title": i18n['GINNET0039E']
+    },
+    {
       "column-id": 'module',
       "type": 'string',
       "width": "10%",
       "title": i18n['GINNET0036E']
     },
-    // {
-    //   "column-id": 'enslavedby',
-    //     "type": 'string',
-    //     "width":"20%",
-    //     "title":"Enslaved By"
-    // },
     {
       "column-id": 'macaddr',
       "type": 'string',
-      "width": "35%",
+      "width": "20%",
       "title": i18n['GINNET0005M']
     }
   ];
@@ -445,6 +445,15 @@ ginger.initNetworkConfigGridData = function() {
   ginger.showBootgridLoading(ginger.opts_nw_if);
 
   ginger.getInterfaces(function(result) {
+
+    $.each(result, function(index, value){
+        if(value.rdma_enabled) {
+          value.rdma_enabled = 'Yes';
+        } else {
+          value.rdma_enabled = 'No';
+        }
+    });
+
     ginger.loadBootgridData(ginger.opts_nw_if['gridId'], result);
     ginger.showBootgridData(ginger.opts_nw_if);
     ginger.hideBootgridLoading(ginger.opts_nw_if);
