@@ -21,11 +21,6 @@ ginger.initStorage = function() {
   ginger.getHostDetails(function(result) {
     ginger.hostarch = result["architecture"]
     ginger.loadSanAdapters();
-    ginger.getPlugins(function(result) {
-      if ((ginger.hostarch == "s390x") && ($.inArray("gingers390x", result) != -1)) {
-        ginger.loadFcpTapeDevices();
-      }
-    });
   });
   ginger.loadFileSystemDetails();
   ginger.loadSwapDeviceDetails();
@@ -212,40 +207,6 @@ ginger.loadSanAdapters = function() {
   var opts = [];
   opts['id'] = 'san-adapter-list';
   opts['gridId'] = "SanAdaptersGrid";
-  if (ginger.hostarch == 's390x') {
-    gridFields = [{
-      "column-id": 'name',
-      "type": 'string',
-      "identifier": true,
-      "width": "5%",
-      "title": i18n['GINTITLE0001M']
-    }, {
-      "column-id": 'wwpn',
-      "type": 'string',
-      "width": "18%",
-      "title": i18n['GINTITLE0007M']
-    }, {
-      "column-id": 'wwnn',
-      "type": 'string',
-      "width": "18%",
-      "title": i18n['GINTITLE0008M']
-    }, {
-      "column-id": 'state',
-      "type": 'string',
-      "width": "8%",
-      "title": i18n['GINTITLE0009M']
-    }, {
-      "column-id": 'speed',
-      "type": 'string',
-      "width": "8%",
-      "title": i18n['GINTITLE0011M']
-    }, {
-      "column-id": 'symbolic_name',
-      "type": 'string',
-      "width": "38%",
-      "title": i18n['GINTITLE0012M']
-    }];
-  } else {
     gridFields = [{
       "column-id": 'name',
       "type": 'string',
@@ -283,32 +244,19 @@ ginger.loadSanAdapters = function() {
       "width": "35%",
       "title": i18n['GINTITLE0012M']
     }];
-  }
   opts['gridFields'] = JSON.stringify(gridFields);
   ginger.createBootgrid(opts);
   ginger.initSanAdaterGridData();
-  ginger.getPlugins(function(result) {
-    if ((ginger.hostarch == "s390x") && ($.inArray("gingers390x", result) != -1)) {
-      var actionButtonHtml = '<div class="btn-group">' +
-        '<button class="btn btn-primary" id="add-san-button" aria-expanded="false"><i class="fa fa-plus-circle"></i>' + i18n['GINTITLE0020M'] + '</button>' +
-        '</div>';
-      $(actionButtonHtml).appendTo('#san-adapter-add');
-    }
-
     var refreshButtonHtml = '<div class="btn-group">' +
       '<button class="btn btn-primary" id="refresh-san-button" aria-expanded="false"><i class="fa fa-refresh"></i> ' + i18n['GINTITLE0021M'] + '</button>' +
       '</div>';
     $(refreshButtonHtml).appendTo('#san-adapter-refresh');
 
-    $('#add-san-button').on('click', function() {
-      wok.window.open('plugins/gingers390x/fcpsanadapter.html');
-    });
     $('#refresh-san-button').on('click', function() {
       ginger.hideBootgridData(opts);
       ginger.showBootgridLoading(opts);
       ginger.initSanAdaterGridData();
     });
-  });
 };
 
 ginger.initSanAdaterGridData = function() {
@@ -319,67 +267,6 @@ ginger.initSanAdaterGridData = function() {
       //format ports information
       result[i]['ports_info'] = result[i]['vports_inuse'] + '/' + result[i]['max_vports'];
     }
-    ginger.loadBootgridData(opts['gridId'], result);
-    ginger.showBootgridData(opts);
-    ginger.hideBootgridLoading(opts);
-  });
-};
-
-// ******************** FCP Tape Devices ********************
-
-ginger.loadFcpTapeDevices = function() {
-  $("#fcp-tape-devices-panel").removeClass("hidden")
-  var gridFields = [];
-  var opts = [];
-  opts['id'] = 'fcp-tape-devices';
-  opts['gridId'] = "fcptapeDevicesGrid";
-  gridFields = [{
-    "column-id": 'Generic',
-    "type": 'string',
-    "width": "12.5%",
-    "title": i18n['GINTITLE0013M'],
-    "identifier": true
-  }, {
-    "title": i18n['GINTITLE0014M'],
-    "column-id": 'Device',
-    "width": "12.5%",
-    "type": 'string'
-  }, {
-    "title": i18n['GINTITLE0015M'],
-    "column-id": "Target",
-    "width": "10%",
-    "type": 'string'
-  }, {
-    "title": i18n['GINTITLE0016M'],
-    "column-id": "Model",
-    "type": 'string',
-    "width": "20%",
-  }, {
-    "title": i18n['GINTITLE0002M'],
-    "column-id": 'Type',
-    "width": "20%",
-    "type": 'string'
-  }, {
-    "title": i18n['GINTITLE0009M'],
-    "column-id": "State",
-    "width": "20%",
-    "type": 'string'
-  }];
-  opts['gridFields'] = JSON.stringify(gridFields);
-  ginger.createBootgrid(opts);
-  ginger.initFcpTapeGridData();
-
-  $('#refresh-fcp-tape-devices-btn').on('click', function(event) {
-    ginger.hideBootgridData(opts);
-    ginger.showBootgridLoading(opts);
-    ginger.initFcpTapeGridData();
-  });
-};
-
-ginger.initFcpTapeGridData = function() {
-  var opts = [];
-  opts['gridId'] = "fcptapeDevicesGrid";
-  ginger.getFcpTapeDevices(function(result) {
     ginger.loadBootgridData(opts['gridId'], result);
     ginger.showBootgridData(opts);
     ginger.hideBootgridLoading(opts);
@@ -398,241 +285,12 @@ ginger.cleanModalDialog = function() {
   });
 }
 
-ginger.loadStorageActionButtons = function() {
-  var addButton = [{
-      id: 'sd-add-FCP-button',
-      class: 'fa fa-plus-circle',
-      label: i18n['GINTITLE0023M'],
-      onClick: function(event) {
-        $('#sd-add-FCP-button').attr('href', 'plugins/gingers390x/addFCPLuns.html');
-        $('#sd-add-FCP-button').attr('data-toggle', 'modal');
-        $('#sd-add-FCP-button').attr('data-target', '#storage-AddFCP-modal');
-        ginger.cleanModalDialog();
-      }
-    }, {
-      id: 'sd-add-ECKD-button',
-      class: 'fa fa-plus-circle',
-      label: i18n['GINTITLE0024M'],
-      onClick: function(event) {
-        wok.window.open('plugins/gingers390x/eckd.html');
-      }
-    },
-    // {
-    //     id:'sd-add-iSCSI-button',
-    //     class: 'fa fa-plus-circle',
-    //     label: 'Add iSCSI',
-    //     onClick: function(event) {
-    //     }
-    // }
-  ];
-
-  var actionButton = [{
-    id: 'sd-format-button',
-    class: 'fa fa-pencil-square-o',
-    label: i18n['GINTITLE0025M'],
-    onClick: function(event) {
-      var opts = [];
-      opts['gridId'] = "stgDevGrid";
-      opts['identifier'] = "id";
-      opts['loadingMessage'] = i18n['GINSD00006M'];
-
-      var settings = [];
-      if (ginger.selectionContainNonDasdDevices()) {
-        settings = {
-          title: i18n['GINSD00005M'],
-          content: i18n['GINSD00003'],
-          confirm: i18n['GGBAPI6002M'],
-          cancel: i18n['GGBAPI6003M']
-        };
-      } else {
-        settings = {
-          content: i18n['GINSD00002'],
-          confirm: i18n['GGBAPI6002M'],
-          cancel: i18n['GGBAPI6003M']
-        };
-      }
-
-      wok.confirm(settings, function() {
-        var selectedRows = ginger.getSelectedRowsData(opts);
-        ginger.selectedrows = selectedRows;
-        var trackingNums = selectedRows.length;
-        var taskAccepted = false;
-        var onTaskAccepted = function() {
-          if (taskAccepted) {
-            return;
-          }
-          taskAccepted = true;
-        };
-        var selectedRowDetails = JSON.stringify(ginger.selectedrows);
-        ginger.showBootgridLoading(opts);
-        ginger.hideBootgridData(opts);
-        $("#storage-device-refresh-btn").hide();
-        $("#action-dropdown-button-file-systems-actions").hide();
-
-        $.each(ginger.selectedrows, function(i, row) {
-          if (row['type'] == "dasd") {
-            var busId = row['bus_id'];
-            var deviceId = row['id'];
-            var settings = {
-              'blk_size': '4096'
-            };
-
-            ginger.formatDASDDevice(busId, settings, function(result) {
-            trackingNums = trackingNums - 1;
-              wok.message.success(deviceId + ' ' + i18n['GINSD00007M'], '#alert-modal-nw-container');
-              if(trackingNums == 0){
-                  $("#action-dropdown-button-file-systems-actions").show();
-                  $("#storage-device-refresh-btn").show();
-                  $("#storage-device-refresh-btn").trigger('click');
-              }
-            }, function(result) {
-              trackingNums = trackingNums - 1;
-              errorMsg = i18n['GINDASD0001E'].replace("%1", deviceId);
-              if ('responseJSON' in result) {
-                  errorMsg = result['responseJSON']['reason'];
-              } else {
-                  errorMsg = result['message'];
-              }
-
-              wok.message.error(errorMsg, '#alert-modal-nw-container', true);
-              if(trackingNums == 0){
-                $("#action-dropdown-button-file-systems-actions").show();
-                $("#storage-device-refresh-btn").show();
-                $("#storage-device-refresh-btn").trigger('click');
-              }
-            }, onTaskAccepted);
-          }else{
-             trackingNums = trackingNums - 1;
-             if(trackingNums == 0){
-             $("#storage-device-refresh-btn").trigger('click');
-             $('#sd-format-button').show();
-        }
-          }
-        });
-      }, function() {});
-    }
-  }, {
-    id: 'sd-remove-button',
-    class: 'fa fa-minus-circle',
-    label: i18n['GINTITLE0022M'],
-    critical: true,
-    onClick: function(event) {
-      var opts = [];
-      opts['gridId'] = "stgDevGrid";
-      opts['identifier'] = "id";
-      var settings = {
-        content: i18n['GINSD00001'],
-        confirm: i18n['GGBAPI6002M'],
-        cancel: i18n['GGBAPI6003M']
-      };
-
-      wok.confirm(settings, function() {
-        var lunsScanStatus = null;
-        ginger.getLunsScanStatus(function(result) {
-          lunsScanStatus = result.current;
-        var selectedRows = ginger.getSelectedRowsData(opts);
-        ginger.selectedrows = selectedRows;
-        var rowNums = selectedRows.length;
-        var selectedRowDetails = JSON.stringify(ginger.selectedrows);
-        var fcpDeviceNo = 0;
-        opts['loadingMessage'] = i18n['GINSD00008M'];
-        ginger.showBootgridLoading(opts);
-        ginger.hideBootgridData(opts);
-        $.each(ginger.selectedrows, function(i, row) {
-          var diskType = row['type'];
-          var deviceId = row['id'];
-
-          if (diskType == "dasd") {
-            var busId = row['bus_id'];
-            var settings = {
-              'blk_size': '4096'
-            };
-            ginger.removeDASDDevice(busId, settings, function(result) {
-              wok.message.success(deviceId + " " + i18n['GINSD00009M'], '#alert-modal-nw-container');
-              rowNums = rowNums - 1;
-              if (rowNums == 0) {
-                $("#storage-device-refresh-btn").trigger('click');
-              }
-            }, function(result) {
-              if (result['responseJSON']) {
-                var errText = result['responseJSON']['reason'];
-              }
-              result && wok.message.error(errText, '#alert-modal-nw-container', true);
-              rowNums = rowNums - 1;
-                if (rowNums == 0) {
-                  $("#storage-device-refresh-btn").trigger('click');
-                }
-            }, function() {});
-
-          } else if (diskType == "fc") {
-            var fcp_lun = row['fcp_lun'];
-            var wwpn = row['wwpn'];
-            var hba_id = row['hba_id'];
-            var lun_path = hba_id + ":" + wwpn + ":" + fcp_lun
-            var settings = {};
-            fcpDeviceNo++;
-
-            if (!lunsScanStatus) {
-            ginger.removeFCDevice(lun_path, settings, function(result) {
-              wok.message.success(deviceId + " " + i18n['GINSD00009M'], '#alert-modal-nw-container');
-              rowNums = rowNums - 1;
-              if (rowNums == 0) {
-                $("#storage-device-refresh-btn").trigger('click');
-              }
-            }, function(result) {
-              var errText = result['responseJSON']['reason'];
-              wok.message.error(errText, '#alert-modal-nw-container', true);
-              rowNums = rowNums - 1;
-              if (rowNums == 0) {
-                $("#storage-device-refresh-btn").trigger('click');
-              }
-            }, function() {});
-          }else {
-            if (fcpDeviceNo <= 1)
-              wok.message.error(i18n['GINSD00010M'], '#alert-modal-nw-container', true);
-            rowNums = rowNums - 1;
-            if (rowNums == 0) {
-              $("#storage-device-refresh-btn").trigger('click');
-              }
-          }
-         }
-        });
-      });
-      }, function() {});
-    }
-  }];
-
-  var addListSettings = {
-    panelID: 'file-systems-add',
-    buttons: addButton,
-    type: 'add'
-  };
-
-  var actionListSettings = {
-    panelID: 'file-systems-actions',
-    buttons: actionButton,
-    type: 'action'
-  };
-
-  ginger.createActionList(addListSettings);
-  ginger.getHostDetails(function(result) {
-    ginger.hostarch = result["architecture"]
-    ginger.getPlugins(function(result) {
-      if ((ginger.hostarch == "s390x") && ($.inArray("gingers390x", result) != -1)) {
-        ginger.createActionList(actionListSettings);
-        ginger.changeActionButtonsState();
-      }
-    });
-  });
-};
-
 ginger.loadStorageDeviceDetails = function() {
   var gridFields = [];
   var opts = [];
   opts['id'] = 'stg-devs';
   opts['gridId'] = "stgDevGrid";
 
-  ginger.loadStorageActionButtons();
   gridFields = [{
     "column-id": 'id',
     "type": 'string',

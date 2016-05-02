@@ -51,32 +51,7 @@ ginger.loadBootgridNWActions = function() {
       ginger.selectedInterface = null;
       wok.window.open('plugins/ginger/host-network-vlan.html');
     }
-  }, {
-    id: 'nw-add-adapter-button',
-    class: 'fa fa-plus-circle',
-    label: i18n['GINNET0008M'],
-    onClick: function(event) {
-      ginger.getPlugins(function(result) {
-        if ($.inArray("gingers390x", result) != -1) {
-          wok.window.open('plugins/gingers390x/network.html');
-        } else {
-          var settings = {
-            content: i18n["GINNET0014M"],
-            confirm: i18n["GINNET0015M"]
-          };
-          wok.confirm(settings, function() {});
-        }
-      });
-    }
   }];
-  // }, {
-  //   id: 'nw-add-bridge-button',
-  //   class: 'fa fa-plus-circle',
-  //   label: 'Add Bridge',
-  //   onClick: function(event) {
-  //     // wok.window.open('plugins/ginger/host-create-bridge.html');
-  //   }
-  // }];
 
   // Actions for Network Configuration
   var actionButton = [{
@@ -242,11 +217,8 @@ ginger.loadBootgridNWActions = function() {
     critical: true,
     onClick: function(event) {
       var selectedIf = ginger.getSelectedRowsData(ginger.opts_nw_if);
-      if (selectedIf && (selectedIf.length == 1)) {
+      if (selectedIf && (selectedIf.length == 1) && selectedIf[0]["type"] != 'Ethernet') {
         ginger.selectedNWInterface = selectedIf[0]["device"];
-        if (selectedIf[0]["type"] == 'Ethernet') {
-          ginger.removeEthernetInterface();
-        } else {
           var settings = {
             content: i18n['GINNET0028M'].replace("%1", ginger.selectedNWInterface),
             confirm: i18n["GINNET0015M"]
@@ -272,8 +244,7 @@ ginger.loadBootgridNWActions = function() {
           }, function() {
             ginger.hideBootgridLoading(ginger.opts_nw_if);
           });
-        }
-      } else {
+      } else if (selectedIf.length > 1) {
         var settings = {
           content: i18n["GINNET0022M"],
           confirm: i18n["GINNET0015M"]
@@ -300,25 +271,15 @@ ginger.loadBootgridNWActions = function() {
 
   ginger.createActionList(addListSettings);
 
-  // Remove button "Add Adapter" in case of architecture != s390x
-  if (ginger.hostarch != "s390x") {
-    $('#' + "nw-add-adapter-button").hide();
-  } else {
-    $('#' + "nw-add-adapter-button").show();
-  }
-
   // Hide button "Add VLAN" and "Add BOND "in case of capability "cfginterfaces" false
-  if (!ginger.cfginterfaces) {
+  if (ginger.cfginterfaces != undefined && !ginger.cfginterfaces) {
     $('#nw-add-bond-button').hide();
     $('#nw-add-vlan-button').hide();
-    if (ginger.hostarch != "s390x") {
-      $('#action-dropdown-button-nw-configuration-add').hide();
-    } else {
-      $('#action-dropdown-button-nw-configuration-add').show();
-    }
+    $('#nw-configuration-add').hide();
   } else {
     $('#nw-add-bond-button').show();
     $('#nw-add-vlan-button').show();
+    $('#nw-configuration-add').show();
   }
 
   ginger.createActionList(actionListSettings);
@@ -334,14 +295,6 @@ ginger.listNetworkConfig = function() {
 
   var nwGrid = [];
   var gridFields = [];
-
-  // Network Configuration section options.
-  // var gridId = "nwConfigGrid";
-  // var opts = [];
-  // opts['id'] = 'nw-configuration';
-  // opts['gridId'] = gridId;
-  // opts['identifier'] = "device";
-  // ginger.hideBootgridData(opts);
 
   ginger.loadBootgridNWActions();
   //Network Configuration grid columns
@@ -419,18 +372,13 @@ ginger.listNetworkConfig = function() {
       if(selectedIf[0]["module"] != 'mlx5_core' && selectedIf[0]["module"] != 'mlx5-core') {
         ginger.changeButtonStatus(["nw-enable-sriov"], false);
       }
+      if (selectedIf[0]["type"] == 'Ethernet') {
+        ginger.changeButtonStatus(["nw-delete-button"], false);
+      }
     }
     else{
        ginger.networkConfiguration.disableActions();
     }
-
-    // Do not disable certain options even multiple interfaces selected.
-    // else if (selectedIf && selectedIf.length > 1) {
-    //   ginger.changeButtonStatus(["nw-up-button", "nw-down-button", "nw-restart-button",
-    //     "nw-settings-button"
-    //   ], false);
-    // }
-
     //hide or show settings button based on cfginterfaces value
     ginger.changeButtonStatus(["nw-settings-button"], ginger.cfginterfaces);
   };
@@ -438,8 +386,6 @@ ginger.listNetworkConfig = function() {
 };
 
 ginger.initNetworkConfigGridData = function() {
-  // var opts = [];
-  // opts['gridId'] = "nwConfigGrid";
   ginger.clearBootgridData(ginger.opts_nw_if['gridId']);
   ginger.hideBootgridData(ginger.opts_nw_if);
   ginger.showBootgridLoading(ginger.opts_nw_if);
@@ -608,70 +554,12 @@ ginger.initNetwork = function() {
             break;
           case "cfginterfaces":
             ginger.cfginterfaces = capability;
+            ginger.changeButtonStatus(["nw-add-bond-button", "nw-add-vlan-button", "nw-configuration-add"], capability);
             break;
         }
       });
     });
   });
-};
-
-ginger.removeEthernetInterface = function() {
-  // check architecture and gingers390x plugin for ethernet deletion
-  if (ginger.hostarch == 's390x') {
-    ginger.getPlugins(function(result) {
-      if ($.inArray("gingers390x", result) != -1) {
-        var settings = {
-          content: i18n['GINNET0032M'].replace("%1", ginger.selectedNWInterface),
-          confirm: i18n["GINNET0015M"]
-        };
-        // get confirmation from user
-        wok.confirm(settings, function() {
-          // remove ethernet device if user confirms
-          ginger.showBootgridLoading(ginger.opts_nw_if);
-          var taskAccepted = false;
-          var onTaskAccepted = function() {
-            if (taskAccepted) {
-              return;
-            }
-            taskAccepted = true;
-          };
-          ginger.deleteEthernetInterface(ginger.selectedNWInterface, function(result) {
-            onTaskAccepted();
-            var message = i18n['GINNET0019M'] + " " + ginger.selectedNWInterface + " " + i18n['GINNET0020M'];
-            wok.message.success(message, '#message-nw-container-area');
-            //Re-load the network interfaces after delete action
-            ginger.initNetworkConfigGridData();
-          }, function(error) {
-            ginger.hideBootgridLoading(ginger.opts_nw_if);
-            var message = i18n['GINNET0019M'] + " " + ginger.selectedNWInterface + " " + i18n['GINNET0021M'];
-            wok.message.error(message + " " + error.responseJSON.reason, '#message-nw-container-area', true);
-          }, onTaskAccepted);
-        }, function() {
-          ginger.hideBootgridLoading(ginger.opts_nw_if);
-        });
-
-      } else {
-        // display message asking user to install gingers390x plugin to avail delete Ethernet interfaces functionality
-        var settings = {
-          content: i18n["GINNET0029M"],
-          confirm: i18n["GINNET0015M"]
-        };
-        wok.confirm(settings, function() {});
-      }
-    }, function(error) {
-      // display error message asking user to try delete again since it
-      // failed check gingers390x plugin
-      wok.message.error(i18n['GINNET0031M'], '#message-nw-container-area', true);
-    });
-  } else {
-    // if not s390x architecture, display error message that deletion of ethernet
-    // devices is not supported
-    var settings = {
-      content: i18n["GINNET0030M"],
-      confirm: i18n["GINNET0015M"]
-    };
-    wok.confirm(settings, function() {});
-  };
 };
 
 ginger.networkConfiguration = {};
