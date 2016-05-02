@@ -29,6 +29,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
   <script type="text/javascript" src="plugins/ginger/js/ginger-bootgrid.js"></script>
   <script type="text/javascript" src="plugins/ginger/js/host-network.js"></script>
   <script type="text/javascript" src="plugins/ginger/js/host-network-enable-sriov.js"></script>
+  #for $script in $data.scripts
+  <script type="text/javascript" src="$script"></script>
+  #end for
 </head>
 
 <body>
