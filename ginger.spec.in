@@ -27,6 +27,9 @@ that provides an intuitive web panel with common tools for configuring and
 operating Linux systems. Kimchi is a Wok plugin for managing KVM/Qemu virtual
 machines.
 
+%if 0%{?fedora} >= 15 || 0%{?rhel} >= 7
+%global with_systemd 1
+%endif
 
 %prep
 %setup
@@ -48,18 +51,20 @@ rm -rf $RPM_BUILD_ROOT
 
 %post
 %if 0%{?with_systemd}
-install -dm 0755 /usr/lib/systemd/system/wokd.service.requires
-ln -sf ../tuned.service /usr/lib/systemd/system/wokd.service.requires
-/bin/systemctl daemon-reload >/dev/null 2>&1 || :
-service wokd restart
+    install -dm 0755 /usr/lib/systemd/system/wokd.service.requires
+    ln -sf ../tuned.service /usr/lib/systemd/system/wokd.service.requires
+    /bin/systemctl daemon-reload >/dev/null 2>&1 || :
+    service wokd restart
 %endif
 
 
 %postun
 %if 0%{?with_systemd}
-rm -f /usr/lib/systemd/system/wokd.service.requires/tuned.service
-/bin/systemctl daemon-reload >/dev/null 2>&1 || :
-service wokd restart
+    if [ $1 == 0 ]; then  # uninstall
+        rm -f /usr/lib/systemd/system/wokd.service.requires/tuned.service
+        /bin/systemctl daemon-reload >/dev/null 2>&1 || :
+        service wokd restart
+    fi
 %endif
 
 
@@ -86,6 +91,9 @@ service wokd restart
 
 
 %changelog
+* Mon May 16 2016 Ramon Medeiros <ramonn@linux.vnet.ibm.com>
+- Does not disable tuned service as dependency when update package
+
 * Wed Mar 23 2016 Daniel Henrique Barboza <dhbarboza82@gmail.com>
 - Removed 'pyparted' from dependencies because it is a Ginger-base dependency
 - Removed 'python-cheetah' from build dependencies
