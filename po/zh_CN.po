@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ginger 1.2.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-03-21 17:21-0300\n"
+"POT-Creation-Date: 2016-05-02 15:09-0300\n"
 "PO-Revision-Date: 2014-06-22 14:00+0800\n"
 "Last-Translator: Zhou Zheng Sheng <zhshzhou@linux.vnet.ibm.com>\n"
 "Language-Team: Zhou Zheng Sheng <zhshzhou@linux.vnet.ibm.com>\n"
@@ -23,9 +23,6 @@ msgstr ""
 msgid "'%(key)s' value is missing."
 msgstr ""
 
-msgid "'Exception updating/creating the ifcfg file."
-msgstr ""
-
 msgid "'yes' or 'no' is allowed value for the BONDING_MASTER"
 msgstr ""
 
@@ -37,6 +34,15 @@ msgid ""
 "option"
 msgstr ""
 
+msgid "Absolute path to firmware RPM"
+msgstr ""
+
+msgid "Actions"
+msgstr ""
+
+msgid "Activate"
+msgstr "激活"
+
 msgid "Add"
 msgstr ""
 
@@ -46,7 +52,22 @@ msgstr ""
 msgid "Add Bond"
 msgstr ""
 
+msgid "Add ECKD Device"
+msgstr ""
+
+msgid "Add FCP Device"
+msgstr ""
+
+msgid "Add Subscription"
+msgstr "添加预订"
+
+msgid "Add User"
+msgstr "添加用户"
+
 msgid "Add VLAN"
+msgstr ""
+
+msgid "Add a Path"
 msgstr ""
 
 msgid "Address"
@@ -61,10 +82,20 @@ msgstr ""
 msgid "Administration"
 msgstr "管理"
 
+msgid "Administrator"
+msgstr "管理员"
+
+msgid "Advanced"
+msgstr ""
+
 msgid "Aliases"
 msgstr ""
 
 msgid "Apply"
+msgstr ""
+
+#, python-format
+msgid "Archive creation task failed. \"%(err)s\"."
 msgstr ""
 
 msgid "Are you sure you want to delete interface %1?"
@@ -73,6 +104,9 @@ msgstr ""
 msgid ""
 "Are you sure you want to delete interface %1? <br> This may affect network "
 "connectivity!"
+msgstr ""
+
+msgid "Are you sure you want to delete this user?"
 msgstr ""
 
 msgid "At least one slave is required for the bond interface"
@@ -92,6 +126,9 @@ msgstr ""
 
 msgid "Basic information of interface is missing."
 msgstr ""
+
+msgid "Batch Delete"
+msgstr "批量删除"
 
 msgid "Bond Members"
 msgstr ""
@@ -124,7 +161,7 @@ msgstr "取消"
 msgid "Cannot update system firmware while running VMs."
 msgstr "运行 VM 时无法更新系统固件。"
 
-msgid "Capacity"
+msgid "Capacity (MB)"
 msgstr ""
 
 msgid "Change type for partition failed"
@@ -132,6 +169,15 @@ msgstr ""
 
 msgid "Close"
 msgstr ""
+
+msgid "Community"
+msgstr "社区"
+
+msgid "Configuration Backup"
+msgstr "配置备份"
+
+msgid "Confirm Password"
+msgstr "确认密码"
 
 msgid "Connect Automatically"
 msgstr ""
@@ -141,25 +187,19 @@ msgid "Could not add user '%(user)s' to kvm group."
 msgstr "无法将用户“%(user)s”添加至 KVM 组。"
 
 #, python-format
-msgid "Could not add user '%(user)s' to sudoers list."
-msgstr "无法将用户“%(user)s”添加至 sudoer 列表。"
-
-#, python-format
-msgid "Could not create user '%(user)s'."
-msgstr "无法创建用户“%(user)s”。"
-
-#, python-format
-msgid "Could not delete group '%(group)s'"
-msgstr "无法删除组“%(group)s”"
-
-#, python-format
-msgid "Could not delete user '%(user)s'."
-msgstr "无法删除用户“%(user)s”。"
+msgid "Could not add user '%(user)s' to sudoers list, error: '%(err)s'."
+msgstr ""
 
 msgid "Create"
 msgstr ""
 
+msgid "Create a backup"
+msgstr "创建备份"
+
 msgid "Create partition failed"
+msgstr ""
+
+msgid "Currently logged user of this session is not allowed to be deleted."
 msgstr ""
 
 msgid "Custom Load"
@@ -181,16 +221,28 @@ msgstr ""
 msgid "Delete"
 msgstr ""
 
+msgid "Delete Backups in Batch"
+msgstr ""
+
 msgid "Delete interface"
 msgstr ""
 
 msgid "Delete partition failed"
 msgstr ""
 
-msgid "Deletion of Ethernet interfaces is not supported."
+#, python-format
+msgid ""
+"Deletion is not supported for group found in '/etc/sudoers' file. Group: "
+"%(group)s"
 msgstr ""
 
-msgid "Deletion of Ethernet interfaces not supported."
+#, python-format
+msgid ""
+"Deletion is not supported for users found in '/etc/sudoers' file. User: "
+"%(user)s"
+msgstr ""
+
+msgid "Depends On"
 msgstr ""
 
 msgid "Description"
@@ -198,6 +250,12 @@ msgstr "描述"
 
 msgid "Description too long."
 msgstr "描述内容太长。"
+
+msgid "Detach"
+msgstr ""
+
+msgid "Details"
+msgstr ""
 
 msgid "Device"
 msgstr ""
@@ -222,15 +280,30 @@ msgstr ""
 msgid "Down"
 msgstr ""
 
+msgid "Download"
+msgstr ""
+
 msgid ""
 "Either no network interface or multiple network interfaces selected. Please "
 "select one."
+msgstr ""
+
+msgid "Enable Bridge Port"
 msgstr ""
 
 msgid "Enable IPv4 Default Route"
 msgstr ""
 
 msgid "Enable IPv6 Default Route"
+msgstr ""
+
+msgid "Enable SR-IOV"
+msgstr ""
+
+msgid "Enable SR-IOV for"
+msgstr ""
+
+msgid "Equivalent to enabling promiscuous mode on regular Ethernet adapters"
 msgstr ""
 
 #, python-format
@@ -291,6 +364,10 @@ msgstr ""
 
 #, python-format
 msgid "Error executing OVS command: %(err)s"
+msgstr ""
+
+#, python-format
+msgid "Error executing SystemD command %(cmd)s, reason: %(err)s"
 msgstr ""
 
 #, python-format
@@ -393,10 +470,21 @@ msgstr "向服务器预订 SEP 数据时出错：“%(error)s”。"
 msgid "Error unloading module %(module)s, reason: %(err)s"
 msgstr ""
 
+msgid ""
+"Error: openib.conf file does not exist or does not have the "
+"'OPENIBD_POST_START' variable."
+msgstr ""
+
 msgid "Exception getting the route information"
 msgstr ""
 
 msgid "Exception updating the interface settings"
+msgstr ""
+
+msgid "Exception updating/creating the ifcfg file."
+msgstr ""
+
+msgid "FCP Tape Devices"
 msgstr ""
 
 msgid "FW update failed: No image file found in the package file."
@@ -506,10 +594,23 @@ msgid "Failed to mount the filesystem"
 msgstr ""
 
 #, python-format
+msgid "Failed to parse '/etc/sudoers' file. Error: %(error)s"
+msgstr ""
+
+#, python-format
 msgid "Failed to read /etc/resolv.conf because %(reason)s"
 msgstr "未能读取 /etc/resolv.conf，原因为 %(reason)s"
 
 msgid "Failed to reduce VG"
+msgstr ""
+
+#, python-format
+msgid ""
+"Failed to remove user '%(user)s' from group '%(group)s'. Error: '%(err)s'"
+msgstr ""
+
+#, python-format
+msgid "Failed to remove user '%(user)s' from sudoers list"
 msgstr ""
 
 msgid "Failed to retrieve Globl DNS and Gateway!"
@@ -558,9 +659,6 @@ msgstr ""
 msgid "Failed to unmount the filesystems"
 msgstr ""
 
-msgid "Failed to verify 'Ginger s390x' plugin installation. Please try again."
-msgstr ""
-
 #, python-format
 msgid "Failed to write /etc/resolv.conf because %(reason)s"
 msgstr "未能写入 /etc/resolv.conf，原因为 %(reason)s"
@@ -569,6 +667,12 @@ msgid "Features"
 msgstr ""
 
 msgid "Fetching list of partitions failed"
+msgstr ""
+
+msgid "File"
+msgstr "文件"
+
+msgid "File Systems"
 msgstr ""
 
 msgid "File already in use."
@@ -580,17 +684,34 @@ msgstr ""
 msgid "File name"
 msgstr ""
 
+msgid "Filter"
+msgstr ""
+
 msgid "Firewall Zone"
 msgstr ""
+
+msgid "Firmware Update"
+msgstr "固件更新"
 
 #, python-format
 msgid "Firmware image unpack failed: rc = %(rc)s. Details: %(err)s"
 msgstr "固件映像解包失败：rc = %(rc)s。详细信息：%(err)s"
 
+msgid ""
+"Firmware update is initializing. System will reboot in order to flash the "
+"firmware."
+msgstr "正在初始化固件更新。系统会重新引导以刷新固件。"
+
 msgid "For vlan creation over bond, slaves has to be up"
 msgstr ""
 
+msgid "Format ECKD"
+msgstr ""
+
 msgid "Format partition failed"
+msgstr ""
+
+msgid "Formatting..."
 msgstr ""
 
 msgid "Gateway"
@@ -599,6 +720,15 @@ msgstr "网关"
 msgid "Gateway information is missing."
 msgstr ""
 
+msgid "General"
+msgstr ""
+
+msgid "Generate Backup"
+msgstr ""
+
+msgid "Generate Default Backup"
+msgstr "生成缺省备份"
+
 msgid "Generic"
 msgstr ""
 
@@ -606,11 +736,27 @@ msgstr ""
 msgid "Given vlan id is not an integer type, Error: '%(error)s'"
 msgstr ""
 
+msgid "Global DNS Addresses"
+msgstr ""
+
 msgid "Global DNS and Gateway applied "
+msgstr ""
+
+msgid "Global Network Configuration"
+msgstr ""
+
+msgid "Group"
+msgstr "组"
+
+#, python-format
+msgid "Group name '%(group)s' is already in use'."
 msgstr ""
 
 msgid "Hardware Address"
 msgstr ""
+
+msgid "Hostname"
+msgstr "主机名"
 
 #, python-format
 msgid "Hostname %(hostname)s not found."
@@ -625,7 +771,13 @@ msgstr ""
 msgid "IPv4"
 msgstr ""
 
+msgid "IPv4 Settings"
+msgstr ""
+
 msgid "IPv6"
+msgstr ""
+
+msgid "IPv6 Settings"
 msgstr ""
 
 msgid "Id"
@@ -649,6 +801,17 @@ msgstr ""
 msgid ""
 "Interface %(name)s is not editable because it belongs to a vlan or bridge"
 msgstr "接口 %(name)s 不可编辑，因为它属于某个 VLAN 或网桥"
+
+#, python-format
+msgid ""
+"Interface %(name)s loaded with driver %(module)s does not support SR-IOV."
+msgstr ""
+
+#, python-format
+msgid ""
+"Interface '%(name)s' doesn't exist. Please refresh the network list to fetch "
+"the latest list of interfaces"
+msgstr ""
 
 #, python-format
 msgid ""
@@ -749,7 +912,16 @@ msgstr ""
 msgid "Load Module"
 msgstr ""
 
+msgid "Load Modules"
+msgstr ""
+
 msgid "Load Special Config"
+msgstr ""
+
+msgid "Loading..."
+msgstr ""
+
+msgid "Lun scan is enabled. Cannot add/remove LUNs manually"
 msgstr ""
 
 msgid "MTU"
@@ -797,6 +969,9 @@ msgstr ""
 msgid "Model"
 msgstr ""
 
+msgid "Module"
+msgstr ""
+
 #, python-format
 msgid "Module %(module)s not found."
 msgstr ""
@@ -837,6 +1012,18 @@ msgstr ""
 msgid "Network"
 msgstr ""
 
+msgid "Network Configuration"
+msgstr "网络配置"
+
+msgid "New Custom Backup"
+msgstr "新建定制备份"
+
+#, python-format
+msgid ""
+"No more than %(max_dasd_fmt)s concurrent DASD format operations are "
+"permitted."
+msgstr ""
+
 msgid "No partitions found"
 msgstr ""
 
@@ -857,6 +1044,9 @@ msgid "Ok"
 msgstr ""
 
 msgid "PREFIX missing."
+msgstr ""
+
+msgid "Packaging Path "
 msgstr ""
 
 msgid "Parameter"
@@ -889,8 +1079,20 @@ msgstr ""
 msgid "Partition already mounted"
 msgstr ""
 
+msgid "Password"
+msgstr "密码"
+
 msgid "Path or pattern is too long or too short."
 msgstr "路径或模式太长或太短。"
+
+msgid "Paths"
+msgstr ""
+
+msgid "Paths Excluded"
+msgstr ""
+
+msgid "Paths Included"
+msgstr ""
 
 #, python-format
 msgid "Persistent file for slave '%(slave)s' is missing"
@@ -909,26 +1111,31 @@ msgstr ""
 msgid "Please check the uniqueness of the paths or patterns."
 msgstr "请检查路径或模式的唯一性。"
 
-msgid ""
-"Please install plugin 'Ginger s390x' to avail 'Delete' functionality for "
-"Ethernet interface."
-msgstr ""
-
 msgid "Please wait..."
 msgstr ""
 
-msgid ""
-"Plugin Ginger s390x not installed. Please install plugin 'Ginger s390x' to "
-"avail 'Add Adapter' functionality"
-msgstr ""
+msgid "Port"
+msgstr "端口"
+
+msgid "Power Options"
+msgstr "电源选项"
 
 msgid "Prefix"
 msgstr ""
+
+msgid "Preserve the latest"
+msgstr "保留最新"
+
+msgid "Profile"
+msgstr "概要文件"
 
 msgid "Provide required parameters: hostname, port, community."
 msgstr "提供必需参数：hostname、port 和 community。"
 
 msgid "Refresh"
+msgstr ""
+
+msgid "Remove"
 msgstr ""
 
 #, python-format
@@ -937,6 +1144,9 @@ msgstr ""
 
 #, python-format
 msgid "Remove failed: error: %(err)s"
+msgstr ""
+
+msgid "Removing..."
 msgstr ""
 
 msgid "Require DASD device name to be formatted"
@@ -984,14 +1194,50 @@ msgstr ""
 msgid "Routes"
 msgstr ""
 
+msgid "SAN Adapters"
+msgstr "SAN 适配器"
+
 #, python-format
 msgid "SAN adapter '%(adapter)s' does not exist in the system."
 msgstr "SAN 适配器“%(adapter)s”在系统中不存在。"
 
+msgid "SEP Configuration"
+msgstr "SEP 配置"
+
 msgid "SNMP community name must be a single word."
 msgstr "SNMP 社区名必须是单个单词。"
 
+msgid "SR-IOV action of mlx5 module requires 'num_vfs' argument."
+msgstr ""
+
+msgid "SR-IOV enablement failed: num_vfs must be an integer."
+msgstr ""
+
+msgid ""
+"SR-IOV enablement failed: required files under /sys directory not found."
+msgstr ""
+
+#, python-format
+msgid ""
+"SR-IOV is already configured in interface %(name)s with %(num_vf)s virtual "
+"functions."
+msgstr ""
+
+#, python-format
+msgid "SR-IOV is not enabled in the firmware of the interface %(name)s."
+msgstr ""
+
+msgid "SR-IOV: Single Root I/O Virtualization"
+msgstr ""
+
 msgid "SRC Version"
+msgstr ""
+
+msgid "Sensor Monitor"
+msgstr "传感器监视器"
+
+#, python-format
+msgid "Service name %(name)s not found."
 msgstr ""
 
 msgid "Settings"
@@ -1010,7 +1256,7 @@ msgstr ""
 msgid "Single swap device %(swap)s not found."
 msgstr ""
 
-msgid "Size"
+msgid "Size (MB)"
 msgstr ""
 
 msgid "Size is mandatory while creating file type swap device."
@@ -1028,19 +1274,43 @@ msgstr "指定新用户的名称、密码、组和概要文件。"
 msgid "Speed"
 msgstr "速度"
 
+msgid "Standard"
+msgstr ""
+
+msgid "Standard (No Shell)"
+msgstr ""
+
+msgid "Start"
+msgstr "启动"
+
 msgid "State"
 msgstr "状态"
 
 msgid "Status"
 msgstr ""
 
+msgid "Stop"
+msgstr "停止"
+
 msgid "Storage"
+msgstr ""
+
+msgid "Storage Devices"
 msgstr ""
 
 msgid "Subchannels"
 msgstr ""
 
+msgid "Submit"
+msgstr "提交"
+
+msgid "Subscribe"
+msgstr ""
+
 msgid "Successfully applied setting for interface: "
+msgstr ""
+
+msgid "Swap Devices"
 msgstr ""
 
 #, python-format
@@ -1050,6 +1320,9 @@ msgstr ""
 msgid "Symbolic Name"
 msgstr "符号名称"
 
+msgid "System Modules Management"
+msgstr ""
+
 msgid "System hostname must be a valid string."
 msgstr "系统主机名必须是有效字符串。"
 
@@ -1057,6 +1330,9 @@ msgid ""
 "System port number must be an integer between 1 and                      "
 "65535."
 msgstr "系统端口号必须是一个介于 1 到 65535 之间的整数。"
+
+msgid "System users are not supported"
+msgstr ""
 
 msgid "Target"
 msgstr ""
@@ -1070,8 +1346,26 @@ msgid "The prefix value %(PREFIX)s is not in range 1-32"
 msgstr ""
 
 #, python-format
-msgid "The user name '%(user)s' is already in use'."
-msgstr "用户名“%(user)s”已在使用中。"
+msgid "There was a problem while creating group '%(group)s', error: %(err)s'."
+msgstr ""
+
+#, python-format
+msgid "There was a problem while creating user '%(user)s', error: '%(err)s'."
+msgstr ""
+
+#, python-format
+msgid "There was a problem while deleting group '%(group)s', error: '%(err)s'."
+msgstr ""
+
+#, python-format
+msgid "There was a problem while deleting user '%(user)s', error: '%(err)s'."
+msgstr ""
+
+msgid "There was a problem while fetching user profile, see log for details"
+msgstr ""
+
+msgid "There was a problem while reading users details, see log for details"
+msgstr ""
 
 msgid "This module does not have any parameters."
 msgstr ""
@@ -1084,6 +1378,9 @@ msgid ""
 "Timeout while creating archive \"%(identity)s\", the files might be too "
 "large for a configuration backup."
 msgstr "创建归档“%(identity)s”超时，这些文件可能太大，无法进行配置备份。"
+
+msgid "Timestamp"
+msgstr "时间戳记"
 
 msgid "Type"
 msgstr ""
@@ -1111,6 +1408,10 @@ msgstr ""
 
 #, python-format
 msgid "Unable to bring up the interface '%(name)s', '%(error)s'."
+msgstr ""
+
+#, python-format
+msgid "Unable to create a new network script file for the interface %(name)s."
 msgstr ""
 
 msgid "Unable to create bond with less than two interfaces."
@@ -1155,6 +1456,24 @@ msgid "Unable to parse 'swapon -s' output. %(err)s"
 msgstr ""
 
 #, python-format
+msgid "Unable to read SR-IOV system file %(file)s. Error: %(err)s"
+msgstr ""
+
+#, python-format
+msgid "Unable to read or update SR-IOV boot script file. Error: %(err)s"
+msgstr ""
+
+#, python-format
+msgid "Unable to read or update openib.conf file. Error: %(err)s"
+msgstr ""
+
+#, python-format
+msgid ""
+"Unable to set %(num_vf)s virtual functions for interface %(name)s. Maximum "
+"allowed in the firmware is %(max_vf)s."
+msgstr ""
+
+#, python-format
 msgid "Unable to set default gateway: %(err)s"
 msgstr "无法设置缺省网关：%(err)s"
 
@@ -1165,7 +1484,13 @@ msgstr "无法更新接口配置。详细信息：%(err)s"
 msgid "Unable to write fstab"
 msgstr ""
 
+msgid "Unload"
+msgstr ""
+
 msgid "Unload Module"
+msgstr ""
+
+msgid "Unsubscribe"
 msgstr ""
 
 msgid "Up"
@@ -1174,15 +1499,33 @@ msgstr ""
 msgid "Update"
 msgstr "更新"
 
+msgid "Update Progress"
+msgstr ""
+
 msgid "Usage"
 msgstr ""
+
+msgid "Use Other"
+msgstr "使用其他组"
 
 #, python-format
 msgid "User '%(user)s' does not exist."
 msgstr "用户“%(user)s”不存在。"
 
-msgid "User group is a required string."
-msgstr "用户组是必需字符串。"
+msgid "User 'no_login' should be boolean."
+msgstr ""
+
+msgid "User Deletion"
+msgstr ""
+
+msgid "User Management"
+msgstr "用户管理"
+
+msgid "User Name"
+msgstr "用户名"
+
+msgid "User group should be non-empty string."
+msgstr ""
 
 msgid "User name is a required string."
 msgstr "用户名是必需字符串。"
@@ -1190,11 +1533,12 @@ msgstr "用户名是必需字符串。"
 msgid "User password is a required string."
 msgstr "用户密码是必需字符串。"
 
-msgid ""
-"User profile is required and should be one among kimchiuser, virtuser or "
-"admin."
+msgid "User profile should be one among regularuser, virtuser or admin."
 msgstr ""
-"用户概要文件为必需项，并且应该是 kimchiuser、virtuser 或admin 中的一个。"
+
+#, python-format
+msgid "User/Login '%(user)s' already in use."
+msgstr ""
 
 msgid "VLAN Id"
 msgstr ""
@@ -1214,6 +1558,12 @@ msgstr ""
 msgid "Vermagic"
 msgstr ""
 
+msgid "Version"
+msgstr ""
+
+msgid "Virt User"
+msgstr "Virt 用户"
+
 msgid "Vlan id is missing"
 msgstr ""
 
@@ -1223,11 +1573,23 @@ msgstr ""
 msgid "Vlan is missing"
 msgstr ""
 
+msgid "Volume Group"
+msgstr ""
+
 msgid "WWNN"
 msgstr "WWNN"
 
 msgid "WWPN"
 msgstr "WWPN"
+
+msgid "backups"
+msgstr "个备份"
+
+msgid "days of backups"
+msgstr "天备份"
+
+msgid "eg. vlan4094 or vlan.4094 or eth0.4094 or 15 characters device name"
+msgstr ""
 
 msgid "error in filesystem get list util"
 msgstr ""
@@ -1242,6 +1604,9 @@ msgid "failed !"
 msgstr ""
 
 msgid "fdisk command failed"
+msgstr ""
+
+msgid "formatted successfully"
 msgstr ""
 
 msgid "lvcreate command failed"
@@ -1259,10 +1624,16 @@ msgstr ""
 msgid "mkfs command failed"
 msgstr ""
 
+msgid "num_vfs (Number of virtual functions to enable):"
+msgstr ""
+
 msgid "pvcreate command failed"
 msgstr ""
 
 msgid "pvs command failed"
+msgstr ""
+
+msgid "removed successfully"
 msgstr ""
 
 msgid "required remote share location"
@@ -1274,7 +1645,7 @@ msgstr ""
 msgid "required type as local or nfs"
 msgstr ""
 
-msgid "successfull"
+msgid "successfully"
 msgstr ""
 
 msgid "vgcreate command failed"
@@ -1295,61 +1666,38 @@ msgstr ""
 msgid "vgs command for given VG failed"
 msgstr ""
 
-#~ msgid "Activate"
-#~ msgstr "激活"
+#~ msgid "Could not add user '%(user)s' to sudoers list."
+#~ msgstr "无法将用户“%(user)s”添加至 sudoer 列表。"
+
+#~ msgid "Could not create user '%(user)s'."
+#~ msgstr "无法创建用户“%(user)s”。"
+
+#~ msgid "Could not delete group '%(group)s'"
+#~ msgstr "无法删除组“%(group)s”"
+
+#~ msgid "Could not delete user '%(user)s'."
+#~ msgstr "无法删除用户“%(user)s”。"
+
+#~ msgid "The user name '%(user)s' is already in use'."
+#~ msgstr "用户名“%(user)s”已在使用中。"
+
+#~ msgid "User group is a required string."
+#~ msgstr "用户组是必需字符串。"
+
+#~ msgid ""
+#~ "User profile is required and should be one among kimchiuser, virtuser or "
+#~ "admin."
+#~ msgstr ""
+#~ "用户概要文件为必需项，并且应该是 kimchiuser、virtuser 或admin 中的一个。"
 
 #~ msgid "Activated Option"
 #~ msgstr "已激活选项"
 
-#~ msgid "Add Subscription"
-#~ msgstr "添加预订"
-
-#~ msgid "Add User"
-#~ msgstr "添加用户"
-
-#~ msgid "Administrator"
-#~ msgstr "管理员"
-
-#~ msgid "Batch Delete"
-#~ msgstr "批量删除"
-
-#~ msgid "Community"
-#~ msgstr "社区"
-
-#~ msgid "Configuration Backup"
-#~ msgstr "配置备份"
-
-#~ msgid "Confirm Password"
-#~ msgstr "确认密码"
-
-#~ msgid "Create a backup"
-#~ msgstr "创建备份"
-
 #~ msgid "Delete backups in batch"
 #~ msgstr "批处理删除备份"
 
-#~ msgid "File"
-#~ msgstr "文件"
-
-#~ msgid "Firmware Update"
-#~ msgstr "固件更新"
-
 #~ msgid "Firmware Version: "
 #~ msgstr "固件版本："
-
-#~ msgid ""
-#~ "Firmware update is initializing. System will reboot in order to flash the "
-#~ "firmware."
-#~ msgstr "正在初始化固件更新。系统会重新引导以刷新固件。"
-
-#~ msgid "Generate Default Backup"
-#~ msgstr "生成缺省备份"
-
-#~ msgid "Group"
-#~ msgstr "组"
-
-#~ msgid "Hostname"
-#~ msgstr "主机名"
 
 #~ msgid "IP"
 #~ msgstr "IP"
@@ -1360,17 +1708,8 @@ msgstr ""
 #~ msgid "Kimchi User"
 #~ msgstr "Kimchi 用户"
 
-#~ msgid "Network Configuration"
-#~ msgstr "网络配置"
-
-#~ msgid "New Custom Backup"
-#~ msgstr "新建定制备份"
-
 #~ msgid "Package Path: "
 #~ msgstr "软件包路径："
-
-#~ msgid "Password"
-#~ msgstr "密码"
 
 #~ msgid "Path Excluded"
 #~ msgstr "排除路径"
@@ -1378,65 +1717,14 @@ msgstr ""
 #~ msgid "Path Included"
 #~ msgstr "包含路径"
 
-#~ msgid "Port"
-#~ msgstr "端口"
-
-#~ msgid "Power Options"
-#~ msgstr "电源选项"
-
-#~ msgid "Preserve the latest"
-#~ msgstr "保留最新"
-
-#~ msgid "Profile"
-#~ msgstr "概要文件"
-
-#~ msgid "SAN Adapters"
-#~ msgstr "SAN 适配器"
-
-#~ msgid "SEP Configuration"
-#~ msgstr "SEP 配置"
-
 #~ msgid "Selected Option"
 #~ msgstr "选择的选项"
-
-#~ msgid "Sensor Monitor"
-#~ msgstr "传感器监视器"
-
-#~ msgid "Start"
-#~ msgstr "启动"
 
 #~ msgid "Status:"
 #~ msgstr "状态："
 
-#~ msgid "Stop"
-#~ msgstr "停止"
-
-#~ msgid "Submit"
-#~ msgstr "提交"
-
 #~ msgid "The absolute path to the firmware rpm/hpm."
 #~ msgstr "固件 rpm/hpm 的绝对路径。"
 
-#~ msgid "Timestamp"
-#~ msgstr "时间戳记"
-
 #~ msgid "Unselected Option"
 #~ msgstr "未选择的选项"
-
-#~ msgid "Use Other"
-#~ msgstr "使用其他组"
-
-#~ msgid "User Management"
-#~ msgstr "用户管理"
-
-#~ msgid "User Name"
-#~ msgstr "用户名"
-
-#~ msgid "Virt User"
-#~ msgstr "Virt 用户"
-
-#~ msgid "backups"
-#~ msgstr "个备份"
-
-#~ msgid "days of backups"
-#~ msgstr "天备份"

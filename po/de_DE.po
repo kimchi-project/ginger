@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ginger 1.2.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-03-21 17:21-0300\n"
+"POT-Creation-Date: 2016-05-02 15:09-0300\n"
 "PO-Revision-Date: 2014-06-22 14:00+0800\n"
 "Last-Translator: Zhou Zheng Sheng <zhshzhou@linux.vnet.ibm.com>\n"
 "Language-Team: Zhou Zheng Sheng <zhshzhou@linux.vnet.ibm.com>\n"
@@ -23,9 +23,6 @@ msgstr ""
 msgid "'%(key)s' value is missing."
 msgstr ""
 
-msgid "'Exception updating/creating the ifcfg file."
-msgstr ""
-
 msgid "'yes' or 'no' is allowed value for the BONDING_MASTER"
 msgstr ""
 
@@ -37,6 +34,15 @@ msgid ""
 "option"
 msgstr ""
 
+msgid "Absolute path to firmware RPM"
+msgstr ""
+
+msgid "Actions"
+msgstr ""
+
+msgid "Activate"
+msgstr "Aktivieren"
+
 msgid "Add"
 msgstr ""
 
@@ -46,7 +52,22 @@ msgstr ""
 msgid "Add Bond"
 msgstr ""
 
+msgid "Add ECKD Device"
+msgstr ""
+
+msgid "Add FCP Device"
+msgstr ""
+
+msgid "Add Subscription"
+msgstr "Subskription hinzufügen"
+
+msgid "Add User"
+msgstr "Benutzer hinzufügen"
+
 msgid "Add VLAN"
+msgstr ""
+
+msgid "Add a Path"
 msgstr ""
 
 msgid "Address"
@@ -61,10 +82,20 @@ msgstr ""
 msgid "Administration"
 msgstr "Administration"
 
+msgid "Administrator"
+msgstr "Administrator"
+
+msgid "Advanced"
+msgstr ""
+
 msgid "Aliases"
 msgstr ""
 
 msgid "Apply"
+msgstr ""
+
+#, python-format
+msgid "Archive creation task failed. \"%(err)s\"."
 msgstr ""
 
 msgid "Are you sure you want to delete interface %1?"
@@ -73,6 +104,9 @@ msgstr ""
 msgid ""
 "Are you sure you want to delete interface %1? <br> This may affect network "
 "connectivity!"
+msgstr ""
+
+msgid "Are you sure you want to delete this user?"
 msgstr ""
 
 msgid "At least one slave is required for the bond interface"
@@ -92,6 +126,9 @@ msgstr ""
 
 msgid "Basic information of interface is missing."
 msgstr ""
+
+msgid "Batch Delete"
+msgstr "Löschen im Stapelbetrieb"
 
 msgid "Bond Members"
 msgstr ""
@@ -126,7 +163,7 @@ msgstr ""
 "Während der Ausführung von VMs kann die Systemfirmware nicht aktualisiert "
 "werden."
 
-msgid "Capacity"
+msgid "Capacity (MB)"
 msgstr ""
 
 msgid "Change type for partition failed"
@@ -134,6 +171,15 @@ msgstr ""
 
 msgid "Close"
 msgstr ""
+
+msgid "Community"
+msgstr "Community"
+
+msgid "Configuration Backup"
+msgstr "Konfigurationssicherung"
+
+msgid "Confirm Password"
+msgstr "Kennwort bestätigen"
 
 msgid "Connect Automatically"
 msgstr ""
@@ -143,26 +189,19 @@ msgid "Could not add user '%(user)s' to kvm group."
 msgstr "Benutzer '%(user)s' konnte nicht zur KVM-Gruppe hinzugefügt werden."
 
 #, python-format
-msgid "Could not add user '%(user)s' to sudoers list."
+msgid "Could not add user '%(user)s' to sudoers list, error: '%(err)s'."
 msgstr ""
-"Benutzer '%(user)s' konnte nicht zur Liste 'sudoers' hinzugefügt werden."
-
-#, python-format
-msgid "Could not create user '%(user)s'."
-msgstr "Der Benutzer '%(user)s' konnte nicht erstellt werden."
-
-#, python-format
-msgid "Could not delete group '%(group)s'"
-msgstr "Die Gruppe '%(group)s' konnte nicht gelöscht werden"
-
-#, python-format
-msgid "Could not delete user '%(user)s'."
-msgstr "Der Benutzer '%(user)s' konnte nicht gelöscht werden."
 
 msgid "Create"
 msgstr ""
 
+msgid "Create a backup"
+msgstr "Sicherung erstellen"
+
 msgid "Create partition failed"
+msgstr ""
+
+msgid "Currently logged user of this session is not allowed to be deleted."
 msgstr ""
 
 msgid "Custom Load"
@@ -184,16 +223,28 @@ msgstr ""
 msgid "Delete"
 msgstr ""
 
+msgid "Delete Backups in Batch"
+msgstr ""
+
 msgid "Delete interface"
 msgstr ""
 
 msgid "Delete partition failed"
 msgstr ""
 
-msgid "Deletion of Ethernet interfaces is not supported."
+#, python-format
+msgid ""
+"Deletion is not supported for group found in '/etc/sudoers' file. Group: "
+"%(group)s"
 msgstr ""
 
-msgid "Deletion of Ethernet interfaces not supported."
+#, python-format
+msgid ""
+"Deletion is not supported for users found in '/etc/sudoers' file. User: "
+"%(user)s"
+msgstr ""
+
+msgid "Depends On"
 msgstr ""
 
 msgid "Description"
@@ -201,6 +252,12 @@ msgstr "Beschreibung"
 
 msgid "Description too long."
 msgstr "Die Beschreibung ist zu lang."
+
+msgid "Detach"
+msgstr ""
+
+msgid "Details"
+msgstr ""
 
 msgid "Device"
 msgstr ""
@@ -225,15 +282,30 @@ msgstr ""
 msgid "Down"
 msgstr ""
 
+msgid "Download"
+msgstr ""
+
 msgid ""
 "Either no network interface or multiple network interfaces selected. Please "
 "select one."
+msgstr ""
+
+msgid "Enable Bridge Port"
 msgstr ""
 
 msgid "Enable IPv4 Default Route"
 msgstr ""
 
 msgid "Enable IPv6 Default Route"
+msgstr ""
+
+msgid "Enable SR-IOV"
+msgstr ""
+
+msgid "Enable SR-IOV for"
+msgstr ""
+
+msgid "Equivalent to enabling promiscuous mode on regular Ethernet adapters"
 msgstr ""
 
 #, python-format
@@ -294,6 +366,10 @@ msgstr ""
 
 #, python-format
 msgid "Error executing OVS command: %(err)s"
+msgstr ""
+
+#, python-format
+msgid "Error executing SystemD command %(cmd)s, reason: %(err)s"
 msgstr ""
 
 #, python-format
@@ -397,10 +473,21 @@ msgstr "Fehler beim Subskribieren der SEP-Daten auf dem Server: '%(error)s'."
 msgid "Error unloading module %(module)s, reason: %(err)s"
 msgstr ""
 
+msgid ""
+"Error: openib.conf file does not exist or does not have the "
+"'OPENIBD_POST_START' variable."
+msgstr ""
+
 msgid "Exception getting the route information"
 msgstr ""
 
 msgid "Exception updating the interface settings"
+msgstr ""
+
+msgid "Exception updating/creating the ifcfg file."
+msgstr ""
+
+msgid "FCP Tape Devices"
 msgstr ""
 
 msgid "FW update failed: No image file found in the package file."
@@ -517,10 +604,23 @@ msgid "Failed to mount the filesystem"
 msgstr ""
 
 #, python-format
+msgid "Failed to parse '/etc/sudoers' file. Error: %(error)s"
+msgstr ""
+
+#, python-format
 msgid "Failed to read /etc/resolv.conf because %(reason)s"
 msgstr "Lesen der Datei '/etc/resolv.conf' fehlgeschlagen, da %(reason)s"
 
 msgid "Failed to reduce VG"
+msgstr ""
+
+#, python-format
+msgid ""
+"Failed to remove user '%(user)s' from group '%(group)s'. Error: '%(err)s'"
+msgstr ""
+
+#, python-format
+msgid "Failed to remove user '%(user)s' from sudoers list"
 msgstr ""
 
 msgid "Failed to retrieve Globl DNS and Gateway!"
@@ -571,9 +671,6 @@ msgstr ""
 msgid "Failed to unmount the filesystems"
 msgstr ""
 
-msgid "Failed to verify 'Ginger s390x' plugin installation. Please try again."
-msgstr ""
-
 #, python-format
 msgid "Failed to write /etc/resolv.conf because %(reason)s"
 msgstr "Schreiben der Datei '/etc/resolv.conf' fehlgeschlagen, da %(reason)s"
@@ -582,6 +679,12 @@ msgid "Features"
 msgstr ""
 
 msgid "Fetching list of partitions failed"
+msgstr ""
+
+msgid "File"
+msgstr "Datei"
+
+msgid "File Systems"
 msgstr ""
 
 msgid "File already in use."
@@ -593,8 +696,14 @@ msgstr ""
 msgid "File name"
 msgstr ""
 
+msgid "Filter"
+msgstr ""
+
 msgid "Firewall Zone"
 msgstr ""
+
+msgid "Firmware Update"
+msgstr "Firmware-Update"
 
 #, python-format
 msgid "Firmware image unpack failed: rc = %(rc)s. Details: %(err)s"
@@ -602,10 +711,23 @@ msgstr ""
 "Das Entpacken des Firmware-Image ist fehlgeschlagen: Rückgabecode = %(rc)s. "
 "Details: %(err)s"
 
+msgid ""
+"Firmware update is initializing. System will reboot in order to flash the "
+"firmware."
+msgstr ""
+"Firmware-Update wird initialisiert. Das System wird erneut gestartet, um den "
+"Flashspeicher der Firmware zu überschreiben."
+
 msgid "For vlan creation over bond, slaves has to be up"
 msgstr ""
 
+msgid "Format ECKD"
+msgstr ""
+
 msgid "Format partition failed"
+msgstr ""
+
+msgid "Formatting..."
 msgstr ""
 
 msgid "Gateway"
@@ -614,6 +736,15 @@ msgstr "Gateway"
 msgid "Gateway information is missing."
 msgstr ""
 
+msgid "General"
+msgstr ""
+
+msgid "Generate Backup"
+msgstr ""
+
+msgid "Generate Default Backup"
+msgstr "Standardsicherung generieren"
+
 msgid "Generic"
 msgstr ""
 
@@ -621,11 +752,27 @@ msgstr ""
 msgid "Given vlan id is not an integer type, Error: '%(error)s'"
 msgstr ""
 
+msgid "Global DNS Addresses"
+msgstr ""
+
 msgid "Global DNS and Gateway applied "
+msgstr ""
+
+msgid "Global Network Configuration"
+msgstr ""
+
+msgid "Group"
+msgstr "Gruppe"
+
+#, python-format
+msgid "Group name '%(group)s' is already in use'."
 msgstr ""
 
 msgid "Hardware Address"
 msgstr ""
+
+msgid "Hostname"
+msgstr "Hostname"
 
 #, python-format
 msgid "Hostname %(hostname)s not found."
@@ -640,7 +787,13 @@ msgstr ""
 msgid "IPv4"
 msgstr ""
 
+msgid "IPv4 Settings"
+msgstr ""
+
 msgid "IPv6"
+msgstr ""
+
+msgid "IPv6 Settings"
 msgstr ""
 
 msgid "Id"
@@ -666,6 +819,17 @@ msgid ""
 msgstr ""
 "Die Schnittstelle %(name)s kann nicht bearbeitet werden, weil sie zu einem "
 "VLAN oder einer Bridge gehört"
+
+#, python-format
+msgid ""
+"Interface %(name)s loaded with driver %(module)s does not support SR-IOV."
+msgstr ""
+
+#, python-format
+msgid ""
+"Interface '%(name)s' doesn't exist. Please refresh the network list to fetch "
+"the latest list of interfaces"
+msgstr ""
 
 #, python-format
 msgid ""
@@ -767,7 +931,16 @@ msgstr ""
 msgid "Load Module"
 msgstr ""
 
+msgid "Load Modules"
+msgstr ""
+
 msgid "Load Special Config"
+msgstr ""
+
+msgid "Loading..."
+msgstr ""
+
+msgid "Lun scan is enabled. Cannot add/remove LUNs manually"
 msgstr ""
 
 msgid "MTU"
@@ -815,6 +988,9 @@ msgstr ""
 msgid "Model"
 msgstr ""
 
+msgid "Module"
+msgstr ""
+
 #, python-format
 msgid "Module %(module)s not found."
 msgstr ""
@@ -855,6 +1031,18 @@ msgstr ""
 msgid "Network"
 msgstr ""
 
+msgid "Network Configuration"
+msgstr "Netzkonfiguration"
+
+msgid "New Custom Backup"
+msgstr "Neue angepasste Sicherung"
+
+#, python-format
+msgid ""
+"No more than %(max_dasd_fmt)s concurrent DASD format operations are "
+"permitted."
+msgstr ""
+
 msgid "No partitions found"
 msgstr ""
 
@@ -875,6 +1063,9 @@ msgid "Ok"
 msgstr ""
 
 msgid "PREFIX missing."
+msgstr ""
+
+msgid "Packaging Path "
 msgstr ""
 
 msgid "Parameter"
@@ -907,8 +1098,20 @@ msgstr ""
 msgid "Partition already mounted"
 msgstr ""
 
+msgid "Password"
+msgstr "Kennwort"
+
 msgid "Path or pattern is too long or too short."
 msgstr "Pfad oder Muster ist zu lang oder zu kurz."
+
+msgid "Paths"
+msgstr ""
+
+msgid "Paths Excluded"
+msgstr ""
+
+msgid "Paths Included"
+msgstr ""
 
 #, python-format
 msgid "Persistent file for slave '%(slave)s' is missing"
@@ -927,26 +1130,31 @@ msgstr ""
 msgid "Please check the uniqueness of the paths or patterns."
 msgstr "Bitte überprüfen Sie die Eindeutigkeit der Pfade oder Muster."
 
-msgid ""
-"Please install plugin 'Ginger s390x' to avail 'Delete' functionality for "
-"Ethernet interface."
-msgstr ""
-
 msgid "Please wait..."
 msgstr ""
 
-msgid ""
-"Plugin Ginger s390x not installed. Please install plugin 'Ginger s390x' to "
-"avail 'Add Adapter' functionality"
-msgstr ""
+msgid "Port"
+msgstr "Port"
+
+msgid "Power Options"
+msgstr "Stromoptionen"
 
 msgid "Prefix"
 msgstr ""
+
+msgid "Preserve the latest"
+msgstr "Aktuellste Version aufbewahren"
+
+msgid "Profile"
+msgstr "Profil"
 
 msgid "Provide required parameters: hostname, port, community."
 msgstr "Geben Sie erforderliche Parameter an: Hostname, Port, Community."
 
 msgid "Refresh"
+msgstr ""
+
+msgid "Remove"
 msgstr ""
 
 #, python-format
@@ -955,6 +1163,9 @@ msgstr ""
 
 #, python-format
 msgid "Remove failed: error: %(err)s"
+msgstr ""
+
+msgid "Removing..."
 msgstr ""
 
 msgid "Require DASD device name to be formatted"
@@ -1002,14 +1213,50 @@ msgstr ""
 msgid "Routes"
 msgstr ""
 
+msgid "SAN Adapters"
+msgstr "SAN-Adapter"
+
 #, python-format
 msgid "SAN adapter '%(adapter)s' does not exist in the system."
 msgstr "SAN-Adapter '%(adapter)s' ist nicht im System vorhanden."
 
+msgid "SEP Configuration"
+msgstr "SEP-Konfiguration"
+
 msgid "SNMP community name must be a single word."
 msgstr "Der Name der SNMP-Community muss ein einziges Wort sein."
 
+msgid "SR-IOV action of mlx5 module requires 'num_vfs' argument."
+msgstr ""
+
+msgid "SR-IOV enablement failed: num_vfs must be an integer."
+msgstr ""
+
+msgid ""
+"SR-IOV enablement failed: required files under /sys directory not found."
+msgstr ""
+
+#, python-format
+msgid ""
+"SR-IOV is already configured in interface %(name)s with %(num_vf)s virtual "
+"functions."
+msgstr ""
+
+#, python-format
+msgid "SR-IOV is not enabled in the firmware of the interface %(name)s."
+msgstr ""
+
+msgid "SR-IOV: Single Root I/O Virtualization"
+msgstr ""
+
 msgid "SRC Version"
+msgstr ""
+
+msgid "Sensor Monitor"
+msgstr "Sensorenmonitor"
+
+#, python-format
+msgid "Service name %(name)s not found."
 msgstr ""
 
 msgid "Settings"
@@ -1028,7 +1275,7 @@ msgstr ""
 msgid "Single swap device %(swap)s not found."
 msgstr ""
 
-msgid "Size"
+msgid "Size (MB)"
 msgstr ""
 
 msgid "Size is mandatory while creating file type swap device."
@@ -1047,19 +1294,43 @@ msgstr ""
 msgid "Speed"
 msgstr "Geschwindigkeit"
 
+msgid "Standard"
+msgstr ""
+
+msgid "Standard (No Shell)"
+msgstr ""
+
+msgid "Start"
+msgstr "Starten"
+
 msgid "State"
 msgstr "Status"
 
 msgid "Status"
 msgstr ""
 
+msgid "Stop"
+msgstr "Stoppen"
+
 msgid "Storage"
+msgstr ""
+
+msgid "Storage Devices"
 msgstr ""
 
 msgid "Subchannels"
 msgstr ""
 
+msgid "Submit"
+msgstr "Übergeben"
+
+msgid "Subscribe"
+msgstr ""
+
 msgid "Successfully applied setting for interface: "
+msgstr ""
+
+msgid "Swap Devices"
 msgstr ""
 
 #, python-format
@@ -1069,6 +1340,9 @@ msgstr ""
 msgid "Symbolic Name"
 msgstr "Symbolischer Name"
 
+msgid "System Modules Management"
+msgstr ""
+
 msgid "System hostname must be a valid string."
 msgstr "Der Hostname des Systems muss eine gültige Zeichenfolge sein."
 
@@ -1077,6 +1351,9 @@ msgid ""
 "65535."
 msgstr ""
 "Die Portnummer des Systems muss eine Ganzzahl zwischen 1 und 65535 sein."
+
+msgid "System users are not supported"
+msgstr ""
 
 msgid "Target"
 msgstr ""
@@ -1090,8 +1367,26 @@ msgid "The prefix value %(PREFIX)s is not in range 1-32"
 msgstr ""
 
 #, python-format
-msgid "The user name '%(user)s' is already in use'."
-msgstr "Der Benutzername '%(user)s' ist belegt."
+msgid "There was a problem while creating group '%(group)s', error: %(err)s'."
+msgstr ""
+
+#, python-format
+msgid "There was a problem while creating user '%(user)s', error: '%(err)s'."
+msgstr ""
+
+#, python-format
+msgid "There was a problem while deleting group '%(group)s', error: '%(err)s'."
+msgstr ""
+
+#, python-format
+msgid "There was a problem while deleting user '%(user)s', error: '%(err)s'."
+msgstr ""
+
+msgid "There was a problem while fetching user profile, see log for details"
+msgstr ""
+
+msgid "There was a problem while reading users details, see log for details"
+msgstr ""
 
 msgid "This module does not have any parameters."
 msgstr ""
@@ -1106,6 +1401,9 @@ msgid ""
 msgstr ""
 "Zeitlimitüberschreitung beim Erstellen des Archivs \"%(identity)s\", "
 "möglicherweise sind die Dateien zu groß für eine Konfigurationssicherung."
+
+msgid "Timestamp"
+msgstr "Zeitmarke"
 
 msgid "Type"
 msgstr ""
@@ -1133,6 +1431,10 @@ msgstr ""
 
 #, python-format
 msgid "Unable to bring up the interface '%(name)s', '%(error)s'."
+msgstr ""
+
+#, python-format
+msgid "Unable to create a new network script file for the interface %(name)s."
 msgstr ""
 
 msgid "Unable to create bond with less than two interfaces."
@@ -1177,6 +1479,24 @@ msgid "Unable to parse 'swapon -s' output. %(err)s"
 msgstr ""
 
 #, python-format
+msgid "Unable to read SR-IOV system file %(file)s. Error: %(err)s"
+msgstr ""
+
+#, python-format
+msgid "Unable to read or update SR-IOV boot script file. Error: %(err)s"
+msgstr ""
+
+#, python-format
+msgid "Unable to read or update openib.conf file. Error: %(err)s"
+msgstr ""
+
+#, python-format
+msgid ""
+"Unable to set %(num_vf)s virtual functions for interface %(name)s. Maximum "
+"allowed in the firmware is %(max_vf)s."
+msgstr ""
+
+#, python-format
 msgid "Unable to set default gateway: %(err)s"
 msgstr "Standardgateway kann nicht festgelegt werden: %(err)s"
 
@@ -1189,7 +1509,13 @@ msgstr ""
 msgid "Unable to write fstab"
 msgstr ""
 
+msgid "Unload"
+msgstr ""
+
 msgid "Unload Module"
+msgstr ""
+
+msgid "Unsubscribe"
 msgstr ""
 
 msgid "Up"
@@ -1198,15 +1524,33 @@ msgstr ""
 msgid "Update"
 msgstr "Aktualisieren"
 
+msgid "Update Progress"
+msgstr ""
+
 msgid "Usage"
 msgstr ""
+
+msgid "Use Other"
+msgstr "Andere verwenden"
 
 #, python-format
 msgid "User '%(user)s' does not exist."
 msgstr "Benutzer '%(user)s' ist nicht vorhanden."
 
-msgid "User group is a required string."
-msgstr "Die Benutzergruppe ist eine erforderliche Zeichenfolge."
+msgid "User 'no_login' should be boolean."
+msgstr ""
+
+msgid "User Deletion"
+msgstr ""
+
+msgid "User Management"
+msgstr "Benutzerverwaltung"
+
+msgid "User Name"
+msgstr "Benutzername"
+
+msgid "User group should be non-empty string."
+msgstr ""
 
 msgid "User name is a required string."
 msgstr "Der Benutzername ist eine erforderliche Zeichenfolge."
@@ -1214,12 +1558,12 @@ msgstr "Der Benutzername ist eine erforderliche Zeichenfolge."
 msgid "User password is a required string."
 msgstr "Das Benutzerkennwort ist eine erforderliche Zeichenfolge."
 
-msgid ""
-"User profile is required and should be one among kimchiuser, virtuser or "
-"admin."
+msgid "User profile should be one among regularuser, virtuser or admin."
 msgstr ""
-"Das Benutzerprofil ist erforderlich und sollte 'kimchiuser', 'virtuser' oder "
-"'admin' sein."
+
+#, python-format
+msgid "User/Login '%(user)s' already in use."
+msgstr ""
 
 msgid "VLAN Id"
 msgstr ""
@@ -1239,6 +1583,12 @@ msgstr ""
 msgid "Vermagic"
 msgstr ""
 
+msgid "Version"
+msgstr ""
+
+msgid "Virt User"
+msgstr "Virt. Benutzer"
+
 msgid "Vlan id is missing"
 msgstr ""
 
@@ -1248,11 +1598,23 @@ msgstr ""
 msgid "Vlan is missing"
 msgstr ""
 
+msgid "Volume Group"
+msgstr ""
+
 msgid "WWNN"
 msgstr "Weltweiter Knotenname"
 
 msgid "WWPN"
 msgstr "Weltweiter Portname"
+
+msgid "backups"
+msgstr "Sicherungen"
+
+msgid "days of backups"
+msgstr "Sicherungstage"
+
+msgid "eg. vlan4094 or vlan.4094 or eth0.4094 or 15 characters device name"
+msgstr ""
 
 msgid "error in filesystem get list util"
 msgstr ""
@@ -1267,6 +1629,9 @@ msgid "failed !"
 msgstr ""
 
 msgid "fdisk command failed"
+msgstr ""
+
+msgid "formatted successfully"
 msgstr ""
 
 msgid "lvcreate command failed"
@@ -1284,10 +1649,16 @@ msgstr ""
 msgid "mkfs command failed"
 msgstr ""
 
+msgid "num_vfs (Number of virtual functions to enable):"
+msgstr ""
+
 msgid "pvcreate command failed"
 msgstr ""
 
 msgid "pvs command failed"
+msgstr ""
+
+msgid "removed successfully"
 msgstr ""
 
 msgid "required remote share location"
@@ -1299,7 +1670,7 @@ msgstr ""
 msgid "required type as local or nfs"
 msgstr ""
 
-msgid "successfull"
+msgid "successfully"
 msgstr ""
 
 msgid "vgcreate command failed"
@@ -1320,63 +1691,40 @@ msgstr ""
 msgid "vgs command for given VG failed"
 msgstr ""
 
-#~ msgid "Activate"
-#~ msgstr "Aktivieren"
+#~ msgid "Could not add user '%(user)s' to sudoers list."
+#~ msgstr ""
+#~ "Benutzer '%(user)s' konnte nicht zur Liste 'sudoers' hinzugefügt werden."
+
+#~ msgid "Could not create user '%(user)s'."
+#~ msgstr "Der Benutzer '%(user)s' konnte nicht erstellt werden."
+
+#~ msgid "Could not delete group '%(group)s'"
+#~ msgstr "Die Gruppe '%(group)s' konnte nicht gelöscht werden"
+
+#~ msgid "Could not delete user '%(user)s'."
+#~ msgstr "Der Benutzer '%(user)s' konnte nicht gelöscht werden."
+
+#~ msgid "The user name '%(user)s' is already in use'."
+#~ msgstr "Der Benutzername '%(user)s' ist belegt."
+
+#~ msgid "User group is a required string."
+#~ msgstr "Die Benutzergruppe ist eine erforderliche Zeichenfolge."
+
+#~ msgid ""
+#~ "User profile is required and should be one among kimchiuser, virtuser or "
+#~ "admin."
+#~ msgstr ""
+#~ "Das Benutzerprofil ist erforderlich und sollte 'kimchiuser', 'virtuser' "
+#~ "oder 'admin' sein."
 
 #~ msgid "Activated Option"
 #~ msgstr "Aktivierte Option"
 
-#~ msgid "Add Subscription"
-#~ msgstr "Subskription hinzufügen"
-
-#~ msgid "Add User"
-#~ msgstr "Benutzer hinzufügen"
-
-#~ msgid "Administrator"
-#~ msgstr "Administrator"
-
-#~ msgid "Batch Delete"
-#~ msgstr "Löschen im Stapelbetrieb"
-
-#~ msgid "Community"
-#~ msgstr "Community"
-
-#~ msgid "Configuration Backup"
-#~ msgstr "Konfigurationssicherung"
-
-#~ msgid "Confirm Password"
-#~ msgstr "Kennwort bestätigen"
-
-#~ msgid "Create a backup"
-#~ msgstr "Sicherung erstellen"
-
 #~ msgid "Delete backups in batch"
 #~ msgstr "Sicherungen im Stapelbetrieb löschen"
 
-#~ msgid "File"
-#~ msgstr "Datei"
-
-#~ msgid "Firmware Update"
-#~ msgstr "Firmware-Update"
-
 #~ msgid "Firmware Version: "
 #~ msgstr "Firmwareversion: "
-
-#~ msgid ""
-#~ "Firmware update is initializing. System will reboot in order to flash the "
-#~ "firmware."
-#~ msgstr ""
-#~ "Firmware-Update wird initialisiert. Das System wird erneut gestartet, um "
-#~ "den Flashspeicher der Firmware zu überschreiben."
-
-#~ msgid "Generate Default Backup"
-#~ msgstr "Standardsicherung generieren"
-
-#~ msgid "Group"
-#~ msgstr "Gruppe"
-
-#~ msgid "Hostname"
-#~ msgstr "Hostname"
 
 #~ msgid "IP"
 #~ msgstr "IP"
@@ -1387,17 +1735,8 @@ msgstr ""
 #~ msgid "Kimchi User"
 #~ msgstr "Kimchi-Benutzer"
 
-#~ msgid "Network Configuration"
-#~ msgstr "Netzkonfiguration"
-
-#~ msgid "New Custom Backup"
-#~ msgstr "Neue angepasste Sicherung"
-
 #~ msgid "Package Path: "
 #~ msgstr "Paketpfad: "
-
-#~ msgid "Password"
-#~ msgstr "Kennwort"
 
 #~ msgid "Path Excluded"
 #~ msgstr "Ausgeschlossener Pfad"
@@ -1405,65 +1744,14 @@ msgstr ""
 #~ msgid "Path Included"
 #~ msgstr "Einbezogener Pfad"
 
-#~ msgid "Port"
-#~ msgstr "Port"
-
-#~ msgid "Power Options"
-#~ msgstr "Stromoptionen"
-
-#~ msgid "Preserve the latest"
-#~ msgstr "Aktuellste Version aufbewahren"
-
-#~ msgid "Profile"
-#~ msgstr "Profil"
-
-#~ msgid "SAN Adapters"
-#~ msgstr "SAN-Adapter"
-
-#~ msgid "SEP Configuration"
-#~ msgstr "SEP-Konfiguration"
-
 #~ msgid "Selected Option"
 #~ msgstr "Ausgewählte Option"
-
-#~ msgid "Sensor Monitor"
-#~ msgstr "Sensorenmonitor"
-
-#~ msgid "Start"
-#~ msgstr "Starten"
 
 #~ msgid "Status:"
 #~ msgstr "Status:"
 
-#~ msgid "Stop"
-#~ msgstr "Stoppen"
-
-#~ msgid "Submit"
-#~ msgstr "Übergeben"
-
 #~ msgid "The absolute path to the firmware rpm/hpm."
 #~ msgstr "Der absolute Pfad zur RPM/HPM-Datei der Firmware."
 
-#~ msgid "Timestamp"
-#~ msgstr "Zeitmarke"
-
 #~ msgid "Unselected Option"
 #~ msgstr "Nicht ausgewählte Option"
-
-#~ msgid "Use Other"
-#~ msgstr "Andere verwenden"
-
-#~ msgid "User Management"
-#~ msgstr "Benutzerverwaltung"
-
-#~ msgid "User Name"
-#~ msgstr "Benutzername"
-
-#~ msgid "Virt User"
-#~ msgstr "Virt. Benutzer"
-
-#~ msgid "backups"
-#~ msgstr "Sicherungen"
-
-#~ msgid "days of backups"
-#~ msgstr "Sicherungstage"
