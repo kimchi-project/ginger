@@ -51,22 +51,11 @@ about host system storage information.</shortdesc>
 <dt>Storage Devices</dt>
 <dd>Storage device is any computing hardware that is used for storing, porting and extracting data files and objects.</dd>
 <dd>* Listing FCP/ECKD (DASD) devices</dd>
-<dd>* Format ECKD</dd>
-<dd>* Remove</dd>
-<dd>* ADD ECKD</dd>
-<dd>* ADD FCP</dd>
-<dd>* Enable or Disable LUN Scan via ADD FCP</dd>
-</dlentry>
-<dlentry>
-<dt>FCP Tape Devices</dt>
-<dd>FCP Tape device is any computing hardware that is used for storing, porting and extracting data files and objects. This feature is available for s390x architecture.</dd>
-<dd>* Listing FCP Tape devices</dd>
 </dlentry>
 <dlentry>
 <dt>SAN Adapters</dt>
-<dd>A SAN Adapter is IO device used to connect to the remote SAN storage devices. This feature is available for s390x architecture.</dd>
+<dd>A SAN Adapter is IO device used to connect to the remote SAN storage devices.</dd>
 <dd>* Listing SAN Adapters</dd>
-<dd>* Add SAN Adapter</dd>
 </dlentry>
 </dl><?Pub Caret 2101?>
 </csbody>
