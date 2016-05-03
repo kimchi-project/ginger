@@ -31,7 +31,7 @@ from wok.exception import MissingParameter, OperationFailed
 class CfgInterfacesTests(unittest.TestCase):
     def test_get_basic_info(self):
         cfgmap = {'NAME': 'testiface', 'DEVICE': 'testdevice',
-                  'ONBOOT': 'Yes', 'TYPE': 'Ethernet'}
+                  'ONBOOT': 'Yes', 'TYPE': 'nic'}
         ethinfo = CfginterfaceModel().get_basic_info(cfgmap)
         self.assertEquals('testiface', ethinfo['BASIC_INFO']['NAME'])
         self.assertEquals('testdevice', ethinfo['BASIC_INFO']['DEVICE'])
@@ -40,7 +40,7 @@ class CfgInterfacesTests(unittest.TestCase):
     @mock.patch('wok.plugins.ginger.model.nw_cfginterfaces_utils.platform')
     def test_get_basic_info_s390Architecture(self, mock_platform):
         cfgmap = {'NAME': 'testiface', 'DEVICE': 'testdevice',
-                  'ONBOOT': 'Yes', 'TYPE': 'Ethernet',
+                  'ONBOOT': 'Yes', 'TYPE': 'nic',
                   'SUBCHANNELS': '0.0.09a0,0.0.09a1,0.0.09a2',
                   'NETTYPE': 'qeth', 'PORTNAME': 'OSAPORT'}
         mock_platform.machine.return_value = 's390x'
@@ -54,7 +54,7 @@ class CfgInterfacesTests(unittest.TestCase):
                 'CfgInterfacesHelper.get_slaves')
     def test_get_basic_info_bond(self, mock_slaves):
         cfgmap = {'NAME': 'testiface', 'DEVICE': 'testdevice', 'ONBOOT': 'Yes',
-                  'TYPE': 'Bond',
+                  'TYPE': 'bonding',
                   'BONDING_OPTS':
                       'miimon=1 updelay=0 downdelay=0 mode=balance-rr',
                   'BONDING_MASTER': 'yes'}
@@ -76,7 +76,7 @@ class CfgInterfacesTests(unittest.TestCase):
                   'PHYSDEV': 'testpd'}
         ethinfo = CfginterfaceModel().get_basic_info(cfgmap)
         self.assertEquals(10, ethinfo['BASIC_INFO']['VLANINFO']['VLAN_ID'])
-        self.assertEquals('Vlan', ethinfo['BASIC_INFO']['TYPE'])
+        self.assertEquals('vlan', ethinfo['BASIC_INFO']['TYPE'])
         self.assertEquals(0, ethinfo['BASIC_INFO']['VLANINFO']['REORDER_HDR'])
         self.assertEquals('testpd', ethinfo['BASIC_INFO']['VLANINFO'][
             'PHYSDEV'])

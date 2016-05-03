@@ -24,7 +24,7 @@ import unittest
 from mock import call, mock_open, patch
 
 import wok.plugins.ginger.model.nw_interfaces_utils as ifaces_utils
-import wok.plugins.ginger.model.netinfo as netinfo
+import wok.plugins.gingerbase.netinfo as netinfo
 
 from wok import config
 from wok.exception import InvalidOperation, InvalidParameter, OperationFailed
@@ -40,11 +40,11 @@ class InterfacesTests(unittest.TestCase):
         self._objstore = ObjectStore(objstore_loc)
         self.task = TaskModel(objstore=self._objstore)
 
-    @mock.patch('wok.plugins.ginger.model.netinfo.get_interface_type')
+    @mock.patch('wok.plugins.gingerbase.netinfo.get_interface_type')
     @mock.patch('wok.plugins.ginger.model.nw_interfaces_utils.run_command')
     def test_activate(self, mock_run_command, mock_get_interface_type):
         mock_run_command.return_value = ["", "", 0]
-        mock_get_interface_type.return_value = "Ethernet"
+        mock_get_interface_type.return_value = "nic"
         interface = "test_eth0"
         calls = [(['ip', 'link', 'set', '%s' % interface, 'up'],),
                  (['ifup', '%s' % interface],)]
@@ -54,11 +54,11 @@ class InterfacesTests(unittest.TestCase):
             assert x == calls[i]
         assert mock_run_command.call_count == 2
 
-    @mock.patch('wok.plugins.ginger.model.netinfo.get_interface_type')
+    @mock.patch('wok.plugins.gingerbase.netinfo.get_interface_type')
     @mock.patch('wok.plugins.ginger.model.nw_interfaces_utils.run_command')
     def test_activate_fail(self, mock_run_command, mock_get_interface_type):
         mock_run_command.return_value = ["", "Unable to activate", 1]
-        mock_get_interface_type.return_value = "Ethernet"
+        mock_get_interface_type.return_value = "nic"
         interface = "test_eth0"
         cmd = ['ip', 'link', 'set', '%s' % interface, 'up']
         self.assertRaises(OperationFailed,
@@ -66,11 +66,11 @@ class InterfacesTests(unittest.TestCase):
                           interface)
         mock_run_command.assert_called_once_with(cmd)
 
-    @mock.patch('wok.plugins.ginger.model.netinfo.get_interface_type')
+    @mock.patch('wok.plugins.gingerbase.netinfo.get_interface_type')
     @mock.patch('wok.plugins.ginger.model.nw_interfaces_utils.run_command')
     def test_deactivate(self, mock_run_command, mock_get_interface_type):
         mock_run_command.return_value = ["", "", 0]
-        mock_get_interface_type.return_value = "Ethernet"
+        mock_get_interface_type.return_value = "nic"
         interface = "test_eth0"
         calls = [(['ifdown', '%s' % interface],),
                  (['ip', 'link', 'set', '%s' % interface, 'down'],)]
@@ -80,11 +80,11 @@ class InterfacesTests(unittest.TestCase):
             assert x == calls[i]
         assert mock_run_command.call_count == 2
 
-    @mock.patch('wok.plugins.ginger.model.netinfo.get_interface_type')
+    @mock.patch('wok.plugins.gingerbase.netinfo.get_interface_type')
     @mock.patch('wok.plugins.ginger.model.nw_interfaces_utils.run_command')
     def test_deactivate_fail(self, mock_run_command, mock_get_interface_type):
         mock_run_command.return_value = ["", "Unable to deactivate", 1]
-        mock_get_interface_type.return_value = "Ethernet"
+        mock_get_interface_type.return_value = "nic"
         interface = "test_eth0"
         cmd = ['ifdown', '%s' % interface]
         self.assertRaises(OperationFailed,
@@ -92,42 +92,21 @@ class InterfacesTests(unittest.TestCase):
                           interface)
         mock_run_command.assert_called_once_with(cmd)
 
-    @mock.patch('wok.plugins.ginger.model.netinfo.get_loaded_modules_list')
     @mock.patch('os.readlink')
-    def test_netinfo_interface_module_lookup_success(
-        self, mock_readlink, mock_loaded_mod_list
-    ):
-        mock_loaded_mod_list.return_value = [
-            'mod1', 'mod2', 'dummy_net_module', 'mod3', 'mod4'
-        ]
+    def test_netinfo_interface_module_lookup_success(self, mock_readlink):
         mock_readlink.return_value = '../../../../module/dummy_net_module'
 
         module = netinfo.get_interface_kernel_module('dummy_iface')
-        mock_loaded_mod_list.assert_called_once_with()
         mock_readlink.assert_called_once_with(
             '/sys/class/net/dummy_iface/device/driver/module')
 
         self.assertEqual(module, 'dummy_net_module')
 
-    @mock.patch('wok.plugins.ginger.model.netinfo.get_loaded_modules_list')
-    @mock.patch('os.readlink')
-    def test_netinfo_module_lookup_not_loaded_unknown(
-        self, mock_readlink, mock_loaded_mod_list
-    ):
-        mock_loaded_mod_list.return_value = ['mod1', 'mod2', 'mod3', 'mod4']
-        mock_readlink.return_value = '../../../../module/dummy_net_module'
-
-        module = netinfo.get_interface_kernel_module('dummy_iface')
-        self.assertEqual(module, 'unknown')
-        mock_readlink.assert_called_once_with(
-            '/sys/class/net/dummy_iface/device/driver/module')
-        mock_loaded_mod_list.assert_called_once_with()
-
-    @mock.patch('wok.plugins.ginger.model.netinfo.get_interface_kernel_module')
+    @mock.patch('wok.plugins.gingerbase.netinfo.get_interface_kernel_module')
     @mock.patch('ethtool.get_devices')
     @mock.patch('ethtool.get_ipaddr')
     @mock.patch('ethtool.get_netmask')
-    @mock.patch('wok.plugins.ginger.model.netinfo.macaddr')
+    @mock.patch('wok.plugins.gingerbase.netinfo.macaddr')
     def test_netinfo_get_interface_info(self, mock_macaddr, mock_netmask,
                                         mock_ipaddr, mock_getdevs,
                                         mock_get_module):
@@ -153,7 +132,7 @@ class InterfacesTests(unittest.TestCase):
         self.assertEqual(iface_info.get('macaddr'), 'aa:bb:cc:dd:ee:ff')
         self.assertEqual(iface_info.get('module'), 'dummy_net_module')
 
-    @mock.patch('wok.plugins.ginger.model.netinfo.get_interface_kernel_module')
+    @mock.patch('wok.plugins.gingerbase.netinfo.get_interface_kernel_module')
     def test_invalid_module_enable_sriov_failure(self, mock_get_module):
         mock_get_module.return_value = 'unknown'
 
@@ -162,7 +141,7 @@ class InterfacesTests(unittest.TestCase):
             iface_model = InterfaceModel(objstore=self._objstore)
             iface_model.enable_sriov('any_iface_name', {'num_vfs': 4})
 
-    @mock.patch('wok.plugins.ginger.model.netinfo.get_interface_kernel_module')
+    @mock.patch('wok.plugins.gingerbase.netinfo.get_interface_kernel_module')
     @mock.patch('wok.plugins.ginger.model.interfaces.InterfaceModel.'
                 '_mlx5_SRIOV_get_max_VF')
     def test_mlx5_sriov_no_args_failure(self, mock_get_max_VF,
@@ -176,7 +155,7 @@ class InterfacesTests(unittest.TestCase):
             iface_model = InterfaceModel(objstore=self._objstore)
             iface_model.enable_sriov('any_iface_name', {})
 
-    @mock.patch('wok.plugins.ginger.model.netinfo.get_interface_kernel_module')
+    @mock.patch('wok.plugins.gingerbase.netinfo.get_interface_kernel_module')
     @mock.patch('wok.plugins.ginger.model.interfaces.InterfaceModel.'
                 '_mlx5_SRIOV_get_max_VF')
     def test_mlx5_sriov_argument_failure(self, mock_get_max_VF,
@@ -191,7 +170,7 @@ class InterfacesTests(unittest.TestCase):
             iface_model.enable_sriov('any_iface_name',
                                      {'num_vfs': 'not_an_int'})
 
-    @mock.patch('wok.plugins.ginger.model.netinfo.get_interface_kernel_module')
+    @mock.patch('wok.plugins.gingerbase.netinfo.get_interface_kernel_module')
     @mock.patch('os.path.isfile')
     @mock.patch('wok.plugins.ginger.model.interfaces.InterfaceModel.'
                 '_mlx5_SRIOV_get_max_VF')
@@ -221,7 +200,7 @@ class InterfacesTests(unittest.TestCase):
 
             mock_isfile.assert_has_calls(mock_isfile_calls)
 
-    @mock.patch('wok.plugins.ginger.model.netinfo.get_interface_kernel_module')
+    @mock.patch('wok.plugins.gingerbase.netinfo.get_interface_kernel_module')
     @mock.patch('os.path.isfile')
     def test_mlx5_sriov_not_enabled_in_FW(self, mock_isfile, mock_get_module):
         mock_get_module.return_value = 'mlx5_core'
@@ -264,7 +243,7 @@ class InterfacesTests(unittest.TestCase):
 
         self.assertEqual(open_.call_args_list, [call(file1, 'r')])
 
-    @mock.patch('wok.plugins.ginger.model.netinfo.get_interface_kernel_module')
+    @mock.patch('wok.plugins.gingerbase.netinfo.get_interface_kernel_module')
     @mock.patch('os.path.isfile')
     @mock.patch('wok.plugins.ginger.model.interfaces.InterfaceModel.'
                 '_mlx5_SRIOV_get_max_VF')
@@ -282,7 +261,7 @@ class InterfacesTests(unittest.TestCase):
             iface_model.enable_sriov('iface1', {'num_vfs': 16})
             mock_isfile.assert_called_once_with(file1)
 
-    @mock.patch('wok.plugins.ginger.model.netinfo.get_interface_kernel_module')
+    @mock.patch('wok.plugins.gingerbase.netinfo.get_interface_kernel_module')
     @mock.patch('os.path.isfile')
     @mock.patch('wok.plugins.ginger.model.interfaces.InterfaceModel.'
                 '_mlx5_SRIOV_get_current_VFs')
@@ -311,7 +290,7 @@ class InterfacesTests(unittest.TestCase):
                 'CfgInterfacesHelper.create_interface_cfg_file')
     @mock.patch('wok.plugins.ginger.model.nw_cfginterfaces_utils.'
                 'CfgInterfacesHelper.get_interface_list')
-    @mock.patch('wok.plugins.ginger.model.netinfo.get_interface_kernel_module')
+    @mock.patch('wok.plugins.gingerbase.netinfo.get_interface_kernel_module')
     @mock.patch('os.path.isfile')
     @mock.patch('wok.plugins.ginger.model.interfaces.InterfaceModel.'
                 '_mlx5_SRIOV_get_current_VFs')
