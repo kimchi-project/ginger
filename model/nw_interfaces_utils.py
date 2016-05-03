@@ -130,7 +130,7 @@ class InterfacesHelper(object):
     def activate_iface(self, ifacename):
         wok_log.info('Bring up an interface ' + ifacename)
         iface_type = netinfo.get_interface_type(ifacename)
-        if iface_type == "Ethernet":
+        if iface_type == "nic":
             cmd_ipup = ['ip', 'link', 'set', '%s' % ifacename, 'up']
             out, error, returncode = run_command(cmd_ipup)
             if returncode != 0:
@@ -176,7 +176,7 @@ class InterfacesHelper(object):
 
         wok_log.info('Bringing down an interface ' + ifacename)
         iface_type = netinfo.get_interface_type(ifacename)
-        if iface_type == "Ethernet":
+        if iface_type == "nic":
             cmd_ipdown = ['ip', 'link', 'set', '%s' % ifacename, 'down']
             out, error, returncode = run_command(cmd_ipdown)
             if returncode != 0:

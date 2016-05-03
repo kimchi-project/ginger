@@ -263,10 +263,10 @@ URI: /plugins/ginger/filesystems/*:mount_point*
         * DEVICE: Device name of the interface.
         * ONBOOT: 'Yes' if interface is to be brought up during boot,
                   'No' if interface should not be brought up during boot.
-        * TYPE: Interface type (Ethernet,Bond,Vlan)
+        * TYPE: Interface type ('nic', 'bonding', 'vlan')
         * MACADDR: Mac address of ethernet device.
         * VLAN: 'Yes' If its vlan device.
-        * VLAN_ID: Vland of the vlan device.
+        * VLAN_ID: vlan id of the vlan device.
         * PHYSDEV: physical device associated with the vlan device.
         * BONDING_OPTS: Bonding parameters of the Bond device.
         * BONDING_MASTER: 'yes' if its bond device.
@@ -400,14 +400,14 @@ URI: /plugins/ginger/filesystems/*:mount_point*
                 * xmit_hash_policy *(OPTIONAL)*: value
                     Possible values are: layer2, layer2+3, layer3+4,
                     encap2+3, encap3+4
-        * VLAN_INFO *(Needed if TYPE is Vlan)*: Dictionary containing the vlan information
+        * VLAN_INFO *(Needed if TYPE is vlan)*: Dictionary containing the vlan information
          of interface to be created
             * PHYSDEV *: A previously configured interface can be selected.
             * VLAN *: 'yes'
             * VLANID *: The identification number to be used to tag the VLAN
              network traffic.
         * TYPE *: Type of an interface
-                Example: Ethernet, Bond, Vlan
+                Example: nic, bonding, vlan
     * IPV4_INFO *(optional)*: Dictionary containing the ipv4 information of
             interface to be created
         * IPV4INIT : Yes, initialize ipv4.
@@ -730,7 +730,7 @@ URI: /plugins/ginger/partitions/*:part_name*
     * ipaddr: IP address currently assigned to this interface
     * netmask: Netmaks of interface
     * type: Type of interface
-     Example: Bond, Vlan, Ethernet etc
+     Example: bonding, vlan, nic, etc
     * module: the kernel module that loaded this interface. This info is taken from sysfs and matched against the loaded kernel modules (lsmod output). If for some reason the value taken from sysfs is not present in the lsmod output, 'unknown' is returned.
 
 * **POST**:

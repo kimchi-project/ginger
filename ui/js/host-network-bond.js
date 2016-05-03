@@ -114,7 +114,7 @@ var applyOnClick = function() {
       var bond_info = {};
       var bond_opts = {};
 
-      basic_info['TYPE'] = "Bond";
+      basic_info['TYPE'] = "bonding";
       basic_info['DEVICE'] = interfaceDevice; // Keep till Jaya fix
       if (onBootCheckbox.is(":checked")) {
         basic_info["ONBOOT"] = "yes";

@@ -217,7 +217,7 @@ ginger.loadBootgridNWActions = function() {
     critical: true,
     onClick: function(event) {
       var selectedIf = ginger.getSelectedRowsData(ginger.opts_nw_if);
-      if (selectedIf && (selectedIf.length == 1) && selectedIf[0]["type"] != 'Ethernet') {
+      if (selectedIf && (selectedIf.length == 1) && selectedIf[0]["type"] != 'nic') {
         ginger.selectedNWInterface = selectedIf[0]["device"];
           var settings = {
             content: i18n['GINNET0028M'].replace("%1", ginger.selectedNWInterface),
@@ -372,7 +372,7 @@ ginger.listNetworkConfig = function() {
       if(selectedIf[0]["module"] != 'mlx5_core' && selectedIf[0]["module"] != 'mlx5-core') {
         ginger.changeButtonStatus(["nw-enable-sriov"], false);
       }
-      if (selectedIf[0]["type"] == 'Ethernet') {
+      if (selectedIf[0]["type"] == 'nic') {
         ginger.changeButtonStatus(["nw-delete-button"], false);
       }
     }

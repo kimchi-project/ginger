@@ -114,7 +114,7 @@ var applyOnClick = function() {
       var basic_info = {};
       var vlan_info = {};
 
-      basic_info['TYPE'] = "Vlan";
+      basic_info['TYPE'] = "vlan";
       if (onBootCheckbox.is(":checked")) {
         basic_info["ONBOOT"] = "yes";
       } else {

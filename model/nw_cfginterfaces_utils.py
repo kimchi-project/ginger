@@ -68,9 +68,9 @@ OPTIONS = 'OPTIONS'
 SLAVE = 'SLAVE'
 MASTER = 'MASTER'
 # interface types
-IFACE_ETHERNET = 'Ethernet'
-IFACE_BOND = 'Bond'
-IFACE_VLAN = 'Vlan'
+IFACE_ETHERNET = 'nic'
+IFACE_BOND = 'bonding'
+IFACE_VLAN = 'vlan'
 
 # Architecture type
 ARCH_S390 = 's390x'

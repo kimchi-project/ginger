@@ -187,9 +187,9 @@ class CfginterfaceModel(object):
     def delete(self, name):
         self.deactivate_if_itis_active(name)
         iface_type = cfgInterfacesHelper.get_type_from_cfg(name)
-        if iface_type == "Bond":
+        if iface_type == IFACE_BOND:
             cfgInterfacesHelper.remove_bond_persistent(name)
-        elif iface_type == "Vlan":
+        elif iface_type == IFACE_VLAN:
             cfgInterfacesHelper.remove_vlan_persistent(name)
         elif iface_type == "n/a":
             raise OperationFailed("GINNET0057E", {'name': name})
