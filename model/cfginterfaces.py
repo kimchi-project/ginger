@@ -20,13 +20,15 @@
 
 
 import ethtool
-import netinfo
 import os
+
+from wok.exception import InvalidParameter, MissingParameter, OperationFailed
+from wok.utils import decode_value, encode_value, wok_log
+
+from wok.plugins.gingerbase import netinfo
 
 from interfaces import InterfaceModel
 from nw_interfaces_utils import cfgInterfacesHelper
-from wok.exception import InvalidParameter, MissingParameter, OperationFailed
-from wok.utils import decode_value, encode_value, wok_log
 
 from nw_cfginterfaces_utils import network_configpath
 from nw_cfginterfaces_utils import ifcfg_filename_format

@@ -19,7 +19,6 @@
 
 
 import ethtool
-import netinfo
 import os
 import time
 
@@ -28,6 +27,8 @@ import nw_cfginterfaces_utils
 from nw_cfginterfaces_utils import CfgInterfacesHelper
 from wok.exception import OperationFailed
 from wok.utils import encode_value, run_command, wok_log
+
+from wok.plugins.gingerbase import netinfo
 
 
 cfgInterfacesHelper = CfgInterfacesHelper()

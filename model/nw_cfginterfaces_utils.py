@@ -21,7 +21,6 @@
 import atexit
 import augeas
 import ethtool
-import netinfo
 import os
 import platform
 import re
@@ -29,8 +28,12 @@ import shutil
 import threading
 
 from netaddr import IPAddress
+
 from wok.exception import InvalidParameter, MissingParameter, OperationFailed
 from wok.utils import decode_value, encode_value, run_command, wok_log
+
+from wok.plugins.gingerbase import netinfo
+
 
 gingerNetworkLock = threading.RLock()
 parser = augeas.Augeas("/")
@@ -154,7 +157,7 @@ class CfgInterfacesHelper(object):
     """
 
     def get_interface_list(self):
-        nics = [nic for nic in netinfo.all_interfaces()]
+        nics = [nic for nic in ethtool.get_devices()]
         # skip nics other than ethernet,bond and type
         nics = self.filter_nics(nics)
         nics_with_cfgfiles = (self.get_bond_vlan_interfaces())

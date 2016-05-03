@@ -27,8 +27,6 @@ import os
 from lxml.builder import E
 from threading import Timer
 
-import netinfo
-
 from nw_cfginterfaces_utils import IFACE_BOND
 from nw_cfginterfaces_utils import IFACE_VLAN
 from nw_interfaces_utils import add_config_to_mlx5_SRIOV_boot_script
@@ -39,6 +37,8 @@ from wok.exception import OperationFailed
 from wok.model.tasks import TaskModel
 from wok.utils import add_task, encode_value
 from wok.xmlutils.utils import xpath_get_text
+
+from wok.plugins.gingerbase import netinfo
 
 
 class InterfacesModel(object):
