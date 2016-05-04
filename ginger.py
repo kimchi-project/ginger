@@ -74,3 +74,23 @@ class Ginger(WokRoot):
         self.tasks = Tasks(self.model)
         self.users = Users(self.model)
         self.vgs = VolumeGroups(self.model)
+
+    def get_custom_conf(self):
+        custom_config = {
+            '/help': {
+                'tools.staticdir.on': True,
+                'tools.nocache.on': True,
+                'tools.staticdir.dir':  os.path.join(self.paths.ui_dir,
+                                                     'pages/help')
+            }
+        }
+
+        for dirname in ('css', 'js', 'images'):
+            custom_config['/' + dirname] = {
+                'tools.staticdir.on': True,
+                'tools.staticdir.dir': os.path.join(self.paths.ui_dir,
+                                                    dirname),
+                'tools.wokauth.on': False,
+                'tools.nocache.on': False}
+
+        return custom_config
