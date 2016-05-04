@@ -367,6 +367,7 @@ ginger.getSensors = function(suc, err){
     wok.requestJSON({
         url : 'plugins/ginger/sensors',
         type : 'GET',
+        headers: {'Wok-Robot': 'wok-robot'},
         contentType : 'application/json',
         dataType : 'json',
         resend : true,
