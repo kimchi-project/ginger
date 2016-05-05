@@ -213,7 +213,7 @@ ginger.setupBakGrid = function() {
     ginger.listBackupArchives(function(data) {
         $("#bakGridBody").empty();
         for (var i = 0; i < data.length; i++) {
-            data[i].timestamp = new Date(data[i].timestamp * 1000).toLocaleString();
+            data[i].timestamp = new Date(data[i].timestamp * 1000).toLocaleString(wok.lang.get_locale());
             data[i].filename = data[i].file.split('/');
             data[i].filename = data[i].filename[data[i].filename.length - 1];
             var tempNode = $.parseHTML(wok.substitute($("#backupItem").html(), data[i]));
