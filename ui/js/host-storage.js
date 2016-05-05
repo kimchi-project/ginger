@@ -57,6 +57,7 @@ ginger.loadFileSystemDetails = function() {
     "column-id": 'size',
     "type": 'numeric',
     "width": "10%",
+    "converters": "locale_num",
     "title": i18n['GINTITLE0004M']
   }, {
     "column-id": "use%",
@@ -82,6 +83,9 @@ ginger.initFileSystemsGridData = function() {
   opts['gridId'] = "fileSystemsGrid";
   ginger.getFilesystems(function(result) {
     for (i = 0; i < result.length; i++) {
+      //convert string representing percent to decimal
+      //to enable formatting based on locale
+        result[i]['use%'] = Number(result[i]['use%'].slice(0,-1)) / 100;
       // convert size in KBs to MBs
         result[i]['size'] = parseInt(result[i]['size']) / 1024;
         result[i]['size'] = Number(result[i]['size'].toFixed(2));
@@ -115,11 +119,12 @@ ginger.loadSwapDeviceDetails = function() {
     "title": i18n['GINTITLE0006M'],
     "column-id": "size",
     "width": "10%",
+    "converters": "locale_num",
     "type": 'numeric'
   }, {
     "title": i18n['GINTITLE0005M'],
     "column-id": "use_percent",
-    "type": 'string',
+    "type": 'numeric',
     "width": "50%",
     "formatter": "percentage-used"
   }];
@@ -141,8 +146,7 @@ ginger.initSwapDevicesGridData = function() {
   ginger.getSwapdevices(function(result) {
     for (i = 0; i < result.length; i++) {
       //calculate usage % from size and used (both are in bytes)
-      result[i]['use_percent'] = (parseInt(result[i]['used']) / parseInt(result[i]['size'])) * 100;
-      result[i]['use_percent'] = result[i]['use_percent'].toFixed(2) + "%";
+      result[i]['use_percent'] = (parseInt(result[i]['used']) / parseInt(result[i]['size']));
       //convert size in KBs to MBs
       result[i]['size'] = parseInt(result[i]['size']) / 1024;
       result[i]['size'] = Number(result[i]['size'].toFixed(2));
@@ -171,6 +175,7 @@ ginger.loadVolumeGroupDetails = function() {
     "column-id": 'vgSize',
     "type": 'numeric',
     "width": "70%",
+    "converters": "locale_num",
     "title": i18n['GINTITLE0006M']
   }];
   opts['gridFields'] = JSON.stringify(gridFields);
