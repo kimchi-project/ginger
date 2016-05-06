@@ -732,6 +732,7 @@ URI: /plugins/ginger/partitions/*:part_name*
     * type: Type of interface
      Example: bonding, vlan, nic, etc
     * module: the kernel module that loaded this interface. This info is taken from sysfs and matched against the loaded kernel modules (lsmod output). If for some reason the value taken from sysfs is not present in the lsmod output, 'unknown' is returned.
+    * rdma_enabled: 'true' if the interface has RDMA capabilities. Note that this info depends on the interface kernel module and also the current status of the RDMA service in the host.
 
 * **POST**:
    * activate : Activates an interface

@@ -132,6 +132,35 @@ class InterfacesTests(unittest.TestCase):
         self.assertEqual(iface_info.get('macaddr'), 'aa:bb:cc:dd:ee:ff')
         self.assertEqual(iface_info.get('module'), 'dummy_net_module')
 
+    @mock.patch('ethtool.get_devices')
+    @mock.patch('wok.plugins.gingerbase.netinfo.is_rdma_enabled')
+    @mock.patch('wok.plugins.gingerbase.netinfo.get_interface_info')
+    def test_interface_lookup(self, mock_iface_info, mock_rdma_enabled,
+                              mock_getdevs):
+        iface_info_return = {
+            'device': 'dummy_iface', 'type': 'unknown', 'status': 'down',
+            'ipaddr': '99.99.99.99', 'netmask': '255.255.255.0',
+            'macaddr': 'aa:bb:cc:dd:ee:ff', 'module': 'dummy_net_module'
+        }
+        mock_iface_info.return_value = iface_info_return
+        mock_rdma_enabled.return_value = True
+        mock_getdevs.return_value = ['dev1', 'dummy_iface', 'dev2']
+
+        iface_model = InterfaceModel(objstore=self._objstore)
+        iface_info = iface_model.lookup('dummy_iface')
+        mock_iface_info.assert_called_once_with('dummy_iface')
+        mock_rdma_enabled.assert_called_once_with('dummy_iface')
+        mock_getdevs.called_once_with()
+
+        self.assertEqual(iface_info.get('device'), 'dummy_iface')
+        self.assertEqual(iface_info.get('type'), 'unknown')
+        self.assertEqual(iface_info.get('status'), 'down')
+        self.assertEqual(iface_info.get('ipaddr'), '99.99.99.99')
+        self.assertEqual(iface_info.get('netmask'), '255.255.255.0')
+        self.assertEqual(iface_info.get('macaddr'), 'aa:bb:cc:dd:ee:ff')
+        self.assertEqual(iface_info.get('module'), 'dummy_net_module')
+        self.assertTrue(iface_info.get('rdma_enabled'))
+
     @mock.patch('wok.plugins.gingerbase.netinfo.get_interface_kernel_module')
     def test_invalid_module_enable_sriov_failure(self, mock_get_module):
         mock_get_module.return_value = 'unknown'

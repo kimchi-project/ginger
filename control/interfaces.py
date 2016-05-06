@@ -57,4 +57,5 @@ class Interface(Resource):
                 'netmask': self.info['netmask'],
                 'status': self.info['status'],
                 'macaddr': self.info['macaddr'],
-                'module': self.info['module']}
+                'module': self.info['module'],
+                'rdma_enabled': self.info['rdma_enabled']}

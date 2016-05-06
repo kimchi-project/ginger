@@ -87,6 +87,8 @@ class InterfaceModel(object):
             else:
                 raise ValueError('unknown interface: %s' % name)
 
+            info['rdma_enabled'] = netinfo.is_rdma_enabled(name)
+
             return info
 
         except ValueError:
