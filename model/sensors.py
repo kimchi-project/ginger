@@ -116,11 +116,22 @@ class SensorsModel(object):
                             data_line = line.split(': ')
                             data_line = [x.strip().strip(':')
                                          for x in data_line]
+
                             if len(data_line) > 1:  # name:value pair
+
+                                # this case gets this statement:
+                                # ['ERROR', "Can't ... <sensor>", 'I/O error']
+                                # so, will be added <sensor> with value 0
+                                if len(data_line) == 3:
+                                    data_line = [data_line[1].split()[5], 0]
+
                                 sensor.append(convert_units(
                                     dev_name, data_line, temperature_unit))
+
+                                set_unit(sensor)
                             else:  # Sub-device name
                                 sensor_name = data_line[0]
+
                                 sub_devices[sensor_name] = \
                                     OrderedDict(reversed(sensor))
                                 sensor = []
@@ -133,14 +144,26 @@ class SensorsModel(object):
                     """
                     devices[dev_name] = \
                         OrderedDict(reversed(sub_devices.items()))
-                    # Also add the unit for the device:
-                    unit = temperature_unit
-                    if 'fan' in sensor_name:
-                        unit = 'RPM'
-                    elif 'power' in sensor_name:
-                        unit = 'W'
-                    devices[dev_name]['unit'] = unit
             return devices
+
+        def set_unit(sensor):
+            # iterate over sensor OrderedDict
+            # sensor is empty: exit
+            if len(sensor) == 0:
+                return
+
+            # verify if unit is present
+            for keys in sensor:
+                if sensor[0] == "unit":
+                    return
+
+            # append unit
+            if 'fan' in sensor[0][0]:
+                sensor.append(("unit", "RPM"))
+            elif 'power' in sensor[0][0]:
+                sensor.append(("unit", "W"))
+            elif 'temp' in sensor[0][0]:
+                sensor.append(("unit", self._get_default_temperature_unit()))
 
         def parse_hdds(temperature_unit):
             # hddtemp will strangely convert a non-number (see error case
