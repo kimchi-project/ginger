@@ -33,7 +33,11 @@ from wok.plugins.gingerbase.disks import _get_dev_major_min
 from wok.plugins.gingerbase.disks import _get_dev_node_path
 
 
-sg_dir = "/sys/class/scsi_generic/"
+FC_PATHS = "/dev/disk/by-path/*fc*"
+PATTERN_CCW = "ccw-(?P<hba_id>[\d.]+)-zfcp-(?P<wwpn>[\w]+):(?P<fcp_lun>[\w]+)$"
+PATTERN_PCI = "pci-(?P<hba_id>[\d.:]+)(-vport-(?P<vport>[\w]+))?-fc-" \
+              "(?P<wwpn>[\w]+)-lun-(?P<fcp_lun>[\d]+)$"
+
 DEV_TYPES = ["dasd-eckd", "zfcp"]
 syspath_eckd = "/sys/bus/ccw/drivers/dasd-eckd/0.*/"
 syspath_zfcp = "/sys/bus/ccw/drivers/zfcp/0.*/"
@@ -818,9 +822,10 @@ def get_final_list():
             final_dict['type'] = blk_dict[blk]['transport']
 
             if final_dict['type'] == 'fc':
-                final_dict['hba_id'] = fc_blk_dict[blk]['hba_id']
-                final_dict['wwpn'] = fc_blk_dict[blk]['wwpn']
-                final_dict['fcp_lun'] = fc_blk_dict[blk]['fcp_lun']
+                final_dict['hba_id'] = fc_blk_dict[blk].get('hba_id', '')
+                final_dict['wwpn'] = fc_blk_dict[blk].get('wwpn', '')
+                final_dict['fcp_lun'] = fc_blk_dict[blk].get('fcp_lun', '')
+                final_dict['vport'] = fc_blk_dict[blk].get('vport', '')
 
             if 'id' in final_dict:
                 if final_dict['id'] in ll_id_dict:
@@ -841,42 +846,35 @@ def get_fc_path_elements():
 
     """
     Get the FC LUN ID, remote wwpn and local host adapter
-    for the all block devices.
-    :return: dictionary containing key as blk and value as
+    for all the 'fc' type block devices.
+    :return: dictionary containing key as block device and value as
     dictionary of Host Adapter, WWPN, LUN ID
-    e.g. {'sda': {'wwpn': '0x5001738030bb0171',
+    e.g. for s390x:
+         {'sda': {'wwpn': '0x5001738030bb0171',
                  'fcp_lun': '0x00df000000000000',
                  'hba_id': '0.0.7100'},
           'sdb': {'wwpn': '0x5001738030bb0171',
                   'fcp_lun': '0x41cf000000000000',
                   'hba_id': '0.0.7100'},}
     """
-    wwpn = ''
-    fcp_lun = ''
-    hba_id = ''
     fc_blk_dict = {}
-    for sg_dev in os.listdir(sg_dir):
-        # skip devices whose transport is not FC
-        sg_dev_path = sg_dir + "/" + sg_dev
-        if os.path.exists(sg_dev_path + "/device/wwpn")\
-           and os.path.exists(sg_dev_path + "/device/block/"):
-            blk = os.listdir(sg_dev_path + "/device/block/")[0]
 
-            if os.path.exists(sg_dev_path + "/device/block/" + blk):
-                wwpn = open(
-                    sg_dev_path +
-                    "/device/wwpn").readline().rstrip()
-                fcp_lun = open(
-                    sg_dev_path +
-                    "/device/fcp_lun").readline().rstrip()
-                hba_id = open(
-                    sg_dev_path +
-                    "/device/hba_id").readline().rstrip()
-                blk_info_dict = {}
-                blk_info_dict['wwpn'] = wwpn
-                blk_info_dict['fcp_lun'] = fcp_lun
-                blk_info_dict['hba_id'] = hba_id
-                fc_blk_dict[blk] = blk_info_dict
+    fc_devs = glob.glob(FC_PATHS)
+    for path in fc_devs:
+        blkdev = os.path.basename(os.path.realpath(path))
+
+        try:
+            pattern = re.compile(PATTERN_PCI)
+            blk_info_dict = pattern.search(path).groupdict()
+        except:
+            try:
+                pattern = re.compile(PATTERN_CCW)
+                blk_info_dict = pattern.search(path).groupdict()
+            except:
+                # no pattern match, probably a partition (...-partN), ignore it
+                continue
+
+        fc_blk_dict[blkdev] = blk_info_dict
 
     return fc_blk_dict
 
