@@ -20,6 +20,254 @@
 // to pass the interface name in case of error message print
 ginger.selectedNWInterface = null;
 
+ginger.initOvsBridges = function() {
+  if(ginger.ovsbridges !== undefined && !ginger.ovsbridges){
+    $('#ovsbridge-container').remove();
+  }else {
+    $('#ovsbridge-container').removeClass('hidden');
+    var ovsAccordion = wok.substitute($('#ovsBridgesPanel').html());
+    $('#ovsbridge-container').append(ovsAccordion);
+    ginger.listOvsBridges();
+    ginger.initOvsClickHandler();
+  }
+}
+
+ginger.refreshOvsBridges = function() {
+  if($("#ovsbridgeList .collapse.in").length > 0) {
+    $("#ovsbridgeList .collapse.in").one('hidden.bs.collapse',function(e){
+      e.stopPropagation();
+      ginger.refreshOvsBridgesUi();
+    });
+    $("#ovsbridgeList .collapse.in").collapse("hide");
+  }else {
+    ginger.refreshOvsBridgesUi();
+  }
+}
+
+ginger.refreshOvsBridgesUi = function(){
+    $('#ovsbridgeList').height($('#ovsbridgeList').innerHeight());
+    $('#ovsbridge-content-area .wok-mask').removeClass('hidden');
+    $('#ovsbridgeList').empty();
+    ginger.listOvsBridges();
+}
+
+ginger.listOvsBridges = function() {
+    ginger.getOvsBridges(function(result) {
+      if (result && result.length) {
+        result.sort(function(a, b) {
+            return a.name.localeCompare( b.name );
+        });
+        $.each(result, function(i,value){
+            var id = i + 1 + '-' + value.name.toLowerCase();
+            var collapse_target = 'bridge-'+id+'-interfaces';
+            var name = value.name;
+            var bonds = [];
+            var interfaces = [];
+            var interfaceCount = '';
+            var bondCount = '';
+            var interfacePlus = '';
+            var bondPlus = '';
+            var empty_bond_stat = $();
+            var empty_iface_stat = $();
+            var emptyPortHtml = '<span title="'+i18n['GINNET0056M']+'">'+i18n['GINNET0056M']+'</span>';
+            $('#bridge-'+id+' > .column-bonds, #bridge-'+id+' > .column-interfaces').empty().append(emptyPortHtml);
+            if(Object.keys(value.ports).length){
+              $.each(value.ports, function(j,interface){
+                if(interface.type === 'bond') {
+                  bonds.push(interface.name);
+                  $.each(interface.interfaces, function(k,bondiface){
+                    var state = (bondiface.admin_state === 'up' && bondiface.link_state === 'up' ) ? i18n['GINNET0040M'] : i18n['GINNET0041M'];
+                    var stateClass = (bondiface.admin_state === 'up' && bondiface.link_state === 'up' ) ? 'up' : 'down';
+                    var bondIfaceStatItem = $.parseHTML(wok.substitute($("#interfaceBodyTmpl").html(), {
+                        id: bondiface.name,
+                        name: bondiface.name + ' ('+interface.name+')',
+                        state: state,
+                        stateClass: stateClass,
+                        rxBytes: bondiface.statistics.rx_bytes,
+                        txBytes: bondiface.statistics.tx_bytes,
+                        rxPackets: bondiface.statistics.rx_packets,
+                        txPackets: bondiface.statistics.tx_packets,
+                        rxErr: bondiface.statistics.rx_errors,
+                        txErr: bondiface.statistics.tx_errors
+                    }));
+                    empty_bond_stat = empty_bond_stat.add(bondIfaceStatItem);
+                  });
+                }else if(interface.type === 'interface'){
+                  interfaces.push(interface.name);
+                  var state = (interface.admin_state === 'up' && interface.link_state === 'up' ) ? i18n['GINNET0040M'] : i18n['GINNET0041M'];
+                  var stateClass = (interface.admin_state === 'up' && interface.link_state === 'up' ) ? 'up' : 'down';
+                  var IfaceStatItem = $.parseHTML(wok.substitute($("#interfaceBodyTmpl").html(), {
+                      id: interface.name,
+                      name: interface.name,
+                      state: state,
+                      stateClass: stateClass,
+                      rxBytes: interface.statistics.rx_bytes,
+                      txBytes: interface.statistics.tx_bytes,
+                      rxPackets: interface.statistics.rx_packets,
+                      txPackets: interface.statistics.tx_packets,
+                      rxErr: interface.statistics.rx_errors,
+                      txErr: interface.statistics.tx_errors
+                  }));
+                  empty_iface_stat = empty_iface_stat.add(IfaceStatItem);
+                  }
+              });
+            }
+            if(interfaces.length){
+              if(interfaces.length > 3){
+                interfacePlus = i18n['GINNET0061M'].replace("%1", (interfaces.length - 3));
+                interfaces = interfaces.slice(0,3);
+                interfaces[2] = interfaces[2]+'...';
+              }
+              interfaceCount = interfaces.join(', ');
+            }else {
+              interfaceCount = i18n['GINNET0056M'];
+              interfacePlus = i18n['GINNET0056M'];
+            }
+            if(bonds.length){
+              if(bonds.length > 3){
+                bondPlus = i18n['GINNET0060M'].replace("%1", (bonds.length - 3));
+                bonds = bonds.slice(0,3);
+                bonds[2] = bonds[2]+'...';
+              }
+              bondCount = bonds.join(', ');
+            }else {
+              bondCount = i18n['GINNET0056M'];
+              bondPlus = i18n['GINNET0056M'];
+            }
+            var ovsbridgeItem = $.parseHTML(wok.substitute($("#ovsbridgeTmpl").html(), {
+                id: id,
+                name: name,
+                bonds: bondCount,
+                interfaces: interfaceCount,
+                bondPlus: bondPlus,
+                interfacePlus: interfacePlus
+            }));
+            if(empty_bond_stat.length){
+              $('.bridge-interfaces-body', ovsbridgeItem).append(empty_bond_stat);
+            }
+            if(empty_iface_stat.length){
+              $('.bridge-interfaces-body', ovsbridgeItem).append(empty_iface_stat);
+            }
+            if(empty_iface_stat.length || empty_bond_stat.length){
+              var stat_handle = $('<span role="button" class="handle" data-toggle="collapse" data-target="#'+collapse_target+'"><i class="fa fa-chevron-down"></i></span>');
+              $('.column-statistics', ovsbridgeItem).append(stat_handle);
+              $('.bridge-interface', ovsbridgeItem).dataGrid({enableSorting: false});
+            }else {
+              $('.column-statistics', ovsbridgeItem).append('--');
+            }
+            $('#ovsbridgeList').height('auto').append(ovsbridgeItem);
+        });
+        $('#add_ovsbridge_button').prop('disabled',false);
+        $('#ovs_search_input').prop('disabled',false);
+        if($('#ovsbridgeGrid').hasClass('wok-datagrid')) {
+            $('#ovsbridgeGrid').dataGrid('destroy');
+        }
+        $('#ovsbridgeGrid').dataGrid({enableSorting: false});
+        $('#ovsbridge-content-area .wok-mask').addClass('hidden');
+        $('#ovsbridgeGrid').removeClass('hidden');
+        $("#ovsbridgeList > .wok-datagrid-row> span > [data-toggle=collapse]").click(function(e){
+            e.preventDefault();
+            e.stopPropagation();
+            $("#ovsbridgeList > .wok-datagrid-row > div > .collapse.in").collapse("hide");
+            $($(this).attr("data-target")).collapse("show");
+        });
+        var ovsBridgeOptions = {
+            valueNames: ['name-filter', 'bond-filter', 'interface-filter']
+        };
+        var ovsBridgeFilterList = new List('ovsbridge-content-area', ovsBridgeOptions);
+
+        ovsBridgeFilterList.sort('name-filter', {
+            order: "asc"
+        });
+
+      }else {
+        var emptyIList = '<div id="no-results" class="bridge"<span class="no-results">'+i18n['GINNET0056M']+'</span>';
+        $('#ovsbridgeList').append(emptyIList);
+        if($('#ovsbridgeGrid').hasClass('wok-datagrid')) {
+            $('#ovsbridgeGrid').dataGrid('destroy');
+        }
+        $('#ovsbridgeGrid').dataGrid({enableSorting: false});
+        $('#ovsbridgeGrid').removeClass('hidden');
+        $('#ovsbridge-content-area .wok-mask').addClass('hidden');
+      }
+    }, function(err) {
+        $('#add_ovsbridge_button').prop('disabled',true);
+        $('#ovs_search_input').prop('disabled',true);
+        $('#ovsbridge-content-area .wok-mask').addClass('hidden');
+        wok.message.error(err.responseJSON.reason,'#ovs-alert-container');
+    });
+}
+
+ginger.initOvsClickHandler = function() {
+  $('#add_ovsbridge_button').on('click',function(e){
+      e.preventDefault();
+      e.stopPropagation();
+      wok.window.open('plugins/ginger/host-network-ovs-add.html');
+  });
+  $('#ovsbridgeGrid').on('click','.edit-bridge',function(e){
+      e.preventDefault();
+      e.stopPropagation();
+      ginger.selectedBridge = $(this).data('name');
+      wok.window.open('plugins/ginger/host-network-ovs-edit.html');
+  });
+  $('#ovsbridgeGrid').on('click','.remove-bridge',function(e){
+      e.preventDefault();
+      e.stopPropagation();
+      ginger.selectedBridge = $(this).data('name');
+      var settings = {
+          title: i18n['GINNET0048M'],
+          content: i18n['GINNET0049M'].replace("%1", '<strong>'+ginger.selectedBridge+'</strong>'),
+          confirm: i18n['GINNET0045M'],
+          cancel: i18n['GINNET0046M']
+      };
+      wok.confirm(settings, function() {
+          ginger.delOvsBridge(ginger.selectedBridge, function() {
+              var bridgeItem = $('div.wok-datagrid-row[data-name="'+ginger.selectedBridge+'"');
+              wok.message.success(i18n['GINNET0050M'].replace("%1", '<strong>'+ginger.selectedBridge+'</strong>'),'#ovs-alert-container');
+              bridgeItem.remove();
+              $('body').animate({ scrollTop: 0 }, 1000);
+          }, function(err) {
+              wok.message.error(err.responseJSON.reason,'#ovs-alert-container');
+              $('body').animate({ scrollTop: 0 }, 1000);
+          });
+      }, function() {});
+  });
+}
+
+ginger.addOvsBridgeModal = function(){
+  $('#addButton').prop('disabled',true);
+  $('input#bridge[name="name"]').on('keyup', function(){
+      if($(this).val().length !=0) {
+           $('#addButton').prop('disabled', false);
+      } else{
+           $('#addButton').prop('disabled',true);
+      }
+  });
+  $('#addButton').on('click',function(){
+      $('form[name="ovsbridgeadd"]').submit();
+  });
+  $('form[name="ovsbridgeadd"]').on('submit',function(e){
+      e.preventDefault();
+      var name = $("#bridge").val();
+      var data = {};
+      data = {
+        name: name
+      };
+      ginger.addOvsBridge(data, function() {
+          $('form[name="ovsbridgeadd"] input').prop('disabled', true);
+          $('#addButton').prop('disabled',true);
+          ginger.refreshOvsBridges();
+          wok.window.close();
+          $('body').animate({ scrollTop: 0 }, 1000);
+      }, function(err) {
+          wok.message.error(err.responseJSON.reason, '#alert-modal-container');
+          $('form[name="ovsbridgeadd"] input').prop('disabled', false);
+          $('#addButton').prop('disabled',false);
+          $("#bridge").focus();
+      });
+  });
+}
+
 ginger.initNetworkConfig = function() {
   ginger.opts_nw_if = {};
   ginger.opts_nw_if['id'] = 'nw-configuration';
@@ -556,6 +804,10 @@ ginger.initNetwork = function() {
             ginger.cfginterfaces = capability;
             ginger.changeButtonStatus(["nw-add-bond-button", "nw-add-vlan-button", "nw-configuration-add"], capability);
             break;
+          case "ovsbridges":
+            ginger.ovsbridges = capability;
+            ginger.initOvsBridges();
+            break;
         }
       });
     });
@@ -599,3 +851,4 @@ ginger.networkConfiguration.enableAdd = function (){
 ginger.networkConfiguration.disableAdd = function (){
 	$("#action-dropdown-button-nw-configuration-add").prop("disabled", true);
 };
+

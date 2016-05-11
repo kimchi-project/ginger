@@ -1,0 +1,163 @@
+#*
+ * Project Ginger
+ *
+ * Copyright IBM Corp, 2016
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *#
+#unicode UTF-8
+#import gettext
+#from wok.cachebust import href
+#silent t = gettext.translation($lang.domain, $lang.localedir, languages=$lang.lang, fallback=True)
+#silent _ = t.gettext
+#silent _t = t.gettext
+<!DOCTYPE html>
+<html>
+<body>
+<head>
+  <script type="text/javascript" src="plugins/ginger/js/host-network-ovs.js"></script>
+</head>
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">$_("Edit Bridge:") <span class="ovs-selected-bridge"></span></h4>
+      </div>
+      <div class="modal-body">
+        <span id="alert-modal-container"></span>
+        <form name="ovsaddbond">
+          <div class="row">
+            <span class="column-bonds pull-left">$_("Bonds")</span>
+            <button type="button" id="ovs-edit-bond-add-button" class="pull-right btn btn-primary"><i class="fa fa-plus-circle"></i> $_("Add Bond")</button>
+          </div>
+          <div class="bridge-bonds" role="grid">
+            <div class="ovs-bond-header">
+                <span role="columnheader" class="column-bond-name">$_("Name")</span>
+                <span role="columnheader" class="column-bond-interfaces">$_("Interfaces")</span>
+                <span role="columnheader" class="column-bond-actions"><span class="sr-only">$_("Actions")</span></span>
+            </div>
+            <div class="ovs-bond-body">
+            </div>
+          </div>
+        </form>
+        <form name="ovsaddinterface">
+          <div class="row">
+            <span class="column-interfaces pull-left">$_("Interfaces")</span>
+            <button type="button" id="ovs-edit-interface-add-button" class="pull-right btn btn-primary"><i class="fa fa-plus-circle"></i> $_("Add Interface")</button>
+          </div>
+          <div class="bridge-interfaces" role="grid">
+            <div class="ovs-interface-header">
+                <span role="columnheader" class="column-ifname">$_("Name")</span>
+                <span role="columnheader" class="column-address">$_("MAC Address")</span>
+                <span role="columnheader" class="column-ifaction pull-right"><span class="sr-only">$_("Actions")</span></span>
+            </div>
+            <div class="ovs-interface-body">
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">$_("Close")</button>
+      </div>
+    </div><!-- /.modal-content -->
+<script>
+ginger.editOvsBridgeModal();
+</script>
+<script id="bondsBodyTmpl" type="html/text">
+  <div id="bond-{id}" data-name="{name}" role="row">
+    <span role="gridcell" class='column-bond-name' title="{name}">{name}</span><!--
+    --><span role="gridcell" class='column-bond-interfaces'>
+            <span class="interfaces-readonly">{interfaces}</span>
+            <span class="modify-bond-on hidden">
+              <label for="interface_del"><span class="sr-only">$_("Interface to be removed")</span><select  data-container="body" title="$_("Select an Interface to be removed")" name="interface_del" id="interface_del" disabled="disabled" class="form-control">
+              </select>
+              </label>
+              <i role="presentation" class="fa fa-arrow-right"></i>
+              <label for="interface_add"><span class="sr-only">$_("Interface to be added")</span><select data-container="body" title="$_("Select an Interface to be added")" name="interface_add" id="interface_add" disabled="disabled" class="form-control">
+              </select>
+              </label>
+            </span>
+         </span>
+         <span role="gridcell" class="column-bond-actions pull-right">
+          <span class="readonly-bond-actions">
+            <button class="btn btn-link modify-bond btn-xs">
+              <i role="presentation" class="fa fa-pencil"></i> <span>$_("Modify")</span>
+            </button>
+            <button class="btn btn-link remove-bond btn-xs">
+              <i role="presentation" class="fa fa-trash-o"></i> <span>$_("Remove")</span>
+            </button>
+          </span>
+          <span class="editable-bond-actions hidden">
+            <button class="btn btn-primary save-bond">
+              $_("Save")
+            </button>
+            <button class="btn btn-primary cancel-bond">
+              $_("Cancel")
+            </button>
+          </span>
+         </span>
+  </div>
+</script>
+<script id="interfacesBodyTmpl" type="html/text">
+  <div id="interface-{id}" data-name="{name}" role="row">
+        <span role="gridcell" class='column-ifname' title="{name}">{name}</span><!--
+    --><span role="gridcell" class='column-address'>{address}</span>
+         <span role="gridcell" class="column-ifaction pull-right">
+            <button class="btn btn-link btn-xs remove-iface">
+              <i role="presentation" class="fa fa-trash-o"></i> $_("Remove")
+            </button>
+         </span>
+  </div>
+</script>
+<script id="interfaceAddBodyTmpl" type="html/text">
+  <div class="new-interface" data-name="{name}" role="row">
+        <span role="gridcell" class='column-new-iface'>
+          <label>
+            <span class="sr-only">$_("Select an Interface")</span>
+            <select data-container="body" title="$_("Select an Interface")" name="new-interface" class="selectpicker"></select>
+          </label>
+        </span>
+         <span role="gridcell" class="column-ifaction pull-right">
+            <button class="btn btn-primary save-interface">
+              $_("Save")
+            </button>
+            <button class="btn btn-primary cancel-interface">
+              $_("Cancel")
+            </button>
+         </span>
+  </div>
+</script>
+<script id="bondAddBodyTmpl" type="html/text">
+  <div class="new-bond" data-name="{name}" role="row">
+        <span role="gridcell" class='column-new-bond-name'>
+          <label>
+            <span class="sr-only">$_("Bond name")</span>
+            <input placeholder="$_("Bond name")" title="$_("Bond name")" name="new-bond-name" id="new-bond-name" type="text" class="form-control" autocomplete="off" />
+          </label>
+        </span>
+        <span role="gridcell" class='column-new-bond-iface'>
+          <label>
+            <span class="sr-only">$_("Select the bond Interfaces")</span>
+            <select data-container="body" id="new-bond-interfaces" multiple="multiple" title="$_("Select the bond Interfaces")" name="new-bond-interfaces" class="selectpicker" data-max-options="2"></select>
+          </label>
+        </span>
+         <span role="gridcell" class="column-new-bond-action pull-right">
+            <button class="btn btn-primary save-new-bond">
+              $_("Save")
+            </button>
+            <button class="btn btn-primary cancel-new-bond">
+              $_("Cancel")
+            </button>
+         </span>
+  </div>
+</script>
+</body>
+</html>

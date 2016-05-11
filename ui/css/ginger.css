@@ -1590,3 +1590,244 @@
 .sysmodules-modal div#parms-grid > .wok-datagrid-body > .wok-datagrid-row:first-child {
   border-top: 0;
 }
+
+#ovsbridgeGrid [aria-expanded=false] .expanded,
+#ovsbridgeGrid [aria-expanded=true] .contracted {
+  display: none;
+}
+
+#ovsbridgeGrid [aria-expanded=true] .expanded,
+#ovsbridgeGrid [aria-expanded=false] .contracted {
+  display: block;
+}
+
+#ovsbridgeGrid .handle .fa {
+  cursor: pointer;
+  transition: transform 0.3s ease-in-out;
+}
+
+#ovsbridgeGrid .handle[aria-expanded=true] .fa-chevron-down {
+  transform: rotate(-180deg);
+}
+
+#ovsbridgeGrid.wok-datagrid.wok-datagrid > div > div > div > div > .wok-datagrid > .wok-datagrid-header,
+#ovsbridgeGrid.wok-datagrid.wok-datagrid > div > div > div > div > div > div > .wok-datagrid > .wok-datagrid-header {
+  background: #fff;
+}
+
+#ovsbridgeGrid.wok-datagrid.wok-datagrid > div > div > div > div > .wok-datagrid > .wok-datagrid-header > span,
+#ovsbridgeGrid.wok-datagrid.wok-datagrid > div > div > div > div > div > div > .wok-datagrid > .wok-datagrid-header > span {
+  font-size: 11pt;
+  height: 30px;
+  line-height: 1.21428;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+#ovsbridgeGrid.wok-datagrid.wok-datagrid > div > div > div > div > .wok-datagrid > .wok-datagrid-body > .wok-datagrid-row > span,
+#ovsbridgeGrid.wok-datagrid.wok-datagrid > div > div > div > div > div > div > .wok-datagrid > .wok-datagrid-body > .wok-datagrid-row > span {
+  line-height: 27px;
+  font-size: 11pt;
+  height: 39px;
+}
+
+#ovsbridgeGrid.wok-datagrid.wok-datagrid-row > .wok-datagrid > .wok-datagrid-header > span[class^='column-'],
+#ovsbridgeGrid.wok-datagrid.wok-datagrid-row > .wok-datagrid > .wok-datagrid-body > .wok-datagrid-row > span[class^='column-'] {
+  font-size: 10pt;
+  border-right: 1px solid #eee;
+  padding: 6px 4px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+#ovsbridgeGrid.wok-datagrid.wok-datagrid-row > .wok-datagrid > .wok-datagrid-body > .wok-datagrid-row > span[class^='column-'] {
+  text-align: right;
+}
+
+#ovsbridgeGrid.wok-datagrid.wok-datagrid-row > .wok-datagrid {
+  border-top: 1px solid #eee;
+}
+
+#ovsbridgeGrid.wok-datagrid .bridge-statistics {
+  flex-basis: 100%;
+  width: 100%;
+  background: #ddd;
+}
+
+#ovsbridgeGrid.wok-datagrid .bridge-interface {
+  padding: 22px;
+  background: transparent;
+}
+
+#ovsbridgeGrid.wok-datagrid .bridge-bond > div {
+  background: #fff;
+}
+
+#ovsbridgeGrid.wok-datagrid > .wok-datagrid-body > .wok-datagrid-row {
+  display: flex;
+  flex-flow: row wrap;
+}
+
+#ovsbridgeGrid.wok-datagrid > .wok-datagrid-header > span.column-name,
+#ovsbridgeGrid.wok-datagrid > .wok-datagrid-body > .wok-datagrid-row > span.column-name {
+  width: 210px;
+}
+
+#ovsbridgeGrid.wok-datagrid > .wok-datagrid-header > span.column-bonds,
+#ovsbridgeGrid.wok-datagrid > .wok-datagrid-header > span.column-interfaces,
+#ovsbridgeGrid.wok-datagrid > .wok-datagrid-body > .wok-datagrid-row > span.column-bonds,
+#ovsbridgeGrid.wok-datagrid > .wok-datagrid-body > .wok-datagrid-row > span.column-interfaces {
+  width: 270px;
+}
+
+#ovsbridgeGrid.wok-datagrid > .wok-datagrid-header > span.column-statistics,
+#ovsbridgeGrid.wok-datagrid > .wok-datagrid-body > .wok-datagrid-row > span.column-statistics {
+  width: 80px;
+  text-align: center;
+}
+
+#ovsbridgeGrid.wok-datagrid > .wok-datagrid-header > span.column-action,
+#ovsbridgeGrid.wok-datagrid > .wok-datagrid-body > .wok-datagrid-row > span.column-action {
+  flex-grow: 1 !important;
+}
+
+#ovsbridgeGrid.wok-datagrid > .wok-datagrid-header > span.column-action .btn.dropdown-toggle,
+#ovsbridgeGrid.wok-datagrid > .wok-datagrid-body > .wok-datagrid-row > span.column-action .btn.dropdown-toggle {
+  width: 173px;
+}
+
+#ovsbridgeGrid .wok-datagrid.bridge-interface > div > div > span.column-ifaction {
+  flex-grow: 1 !important;
+}
+
+#ovsbridgeGrid.wok-datagrid span.column-state {
+  width: 50px;
+  text-align: center;
+}
+
+#ovsbridgeGrid.wok-datagrid span.column-state .fa.up {
+  color: #a8d46f;
+}
+
+#ovsbridgeGrid.wok-datagrid span.column-state .fa.down {
+  color: #999;
+}
+
+#ovsbridgeGrid.wok-datagrid span.no-results {
+  width: 100%;
+  flex-basis: 100%;
+  text-align: center;
+}
+
+#ovsbridgeGrid.wok-datagrid span.column-ifname {
+  width: 170px;
+}
+
+#ovsbridgeGrid.wok-datagrid span.column-stat {
+  width: 160px;
+}
+
+.bridge-bonds.wok-datagrid > .wok-datagrid-header > span,
+.bridge-interfaces.wok-datagrid > .wok-datagrid-header > span {
+  font-size: 11pt;
+  height: 30px;
+  line-height: 1.21428;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.bridge-bonds.wok-datagrid > .wok-datagrid-body > .wok-datagrid-row > span,
+.bridge-interfaces.wok-datagrid > .wok-datagrid-body > .wok-datagrid-row > span {
+  line-height: 32px;
+  font-size: 11pt;
+  height: 45px;
+}
+
+.bridge-bonds.wok-datagrid span.column-bond-name,
+.bridge-interfaces.wok-datagrid span.column-ifname {
+  width: 170px;
+}
+
+.bridge-bonds.wok-datagrid span.column-empty,
+.bridge-interfaces.wok-datagrid span.column-empty {
+  width: 100%;
+}
+
+.bridge-bonds.wok-datagrid span.column-bond-interfaces,
+.bridge-interfaces.wok-datagrid span.column-address {
+  width: 380px;
+}
+
+.ovs-bond-body.wok-datagrid-body,
+.ovs-interface-body.wok-datagrid-body {
+  max-height: 189px;
+  overflow-x: auto;
+}
+
+form[name="ovsaddinterface"] {
+  padding-top: 15px;
+  margin-top: 15px;
+  border-top: 1px solid #eee;
+}
+
+.modify-bond-on {
+  display: block;
+  height: 40px;
+  margin-top: -2px;
+  margin-left: 5px;
+}
+
+.modify-bond-on i {
+  display: inline-block;
+  width: 12px;
+  text-align: center;
+}
+
+.modify-bond-on label {
+  max-width: 174px;
+  width: 174px;
+  display: inline-block;
+  margin: 0;
+}
+
+.modify-bond-on select {
+  width: 170px;
+  display: inline-block;
+}
+
+.column-ifaction > .btn-primary,
+.readonly-bond-actions > .btn-xs,
+.editable-bond-actions > .btn-primary,
+.column-new-bond-action > .btn-primary {
+  width: 89.5px;
+  text-align: center;
+}
+
+.column-new-iface select[name="new-interface"],
+.bridge-interfaces.wok-datagrid span.column-new-iface,
+.column-new-iface .bootstrap-select:not([class*=col-]):not([class*=form-control]):not(.input-group-btn) {
+  width: 540px;
+}
+
+.bridge-interfaces.wok-datagrid > .new-interface .column-ifaction,
+.bridge-interfaces.wok-datagrid > .wok-datagrid-body > .wok-datagrid-row > span.column-new-iface,
+.bridge-bonds.wok-datagrid > .wok-datagrid-body > .wok-datagrid-row > span.column-new-bond-action,
+.bridge-bonds.wok-datagrid > .wok-datagrid-body > .wok-datagrid-row > span.column-new-bond-name,
+.bridge-bonds.wok-datagrid > .wok-datagrid-body > .wok-datagrid-row > span.column-new-bond-iface {
+  height: 50px;
+}
+
+.bridge-bonds.wok-datagrid > .wok-datagrid-body > .wok-datagrid-row > span.column-new-bond-name {
+  width: 170px;
+}
+
+.bridge-bonds.wok-datagrid > .wok-datagrid-body > .wok-datagrid-row > span.column-new-bond-name input {
+  height: 40px;
+}
+
+.bridge-bonds.wok-datagrid > .wok-datagrid-body > .wok-datagrid-row > span.column-new-bond-iface,
+.bridge-bonds.wok-datagrid > .wok-datagrid-body > .wok-datagrid-row > span.column-new-bond-iface .bootstrap-select:not([class*=col-]):not([class*=form-control]):not(.input-group-btn) {
+  width: 365px;
+}

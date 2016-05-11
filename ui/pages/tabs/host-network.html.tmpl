@@ -43,6 +43,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
     </nav>
     <div class="container">
       <div id="gingerHostNetwork" class="host-network">
+        <div id="ovsbridge-container" class="hidden"></div>
         <!-- Global Network Configuration Panel -->
         <div class="panel-group network-ppc-enabled accordion" id="network-global-accordion" role="tablist" aria-multiselectable="true">
           <h3>
@@ -139,11 +140,103 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
       </div>
     </div>
   </div>
-  <div id="modalWindow" class="modal fade host-modal sysmodules-modal ginger" tabindex="-1" role="dialog" aria-labelledby="networkIOModalLabel" aria-hidden="true">
+  <div id="modalWindow" class="modal fade host-modal ginger" tabindex="-1" role="dialog" aria-labelledby="networkIOModalLabel" aria-hidden="true">
   </div>
   <script>
     ginger.initNetwork();
   </script>
+  <script id="ovsBridgesPanel" type="text/html">
+    <div class='panel-group network-ppc-enabled accordion' id='ovsbridge-content-area-accordion' role='tablist' aria-multiselectable='true'>
+    <h3>
+      <a role='button' aria-expanded='true' data-toggle='collapse' data-parent='#ovsbridge-content-area-accordion' href='#ovsbridge-content-area' aria-expanded='false' aria-controls='ovsbridge-content-area' class=''>
+        <span class='accordion-icon'></span>
+        <span class='accordion-text' id='#ovsbridge-title'>$_('OVS Bridges')</span>
+      </a>
+    </h3>
+    <div id='ovsbridge-content-area' class='panel-collapse collapse in' role='tabpanel' aria-labelledby='ovsbridge-title'>
+      <div id="ovs-alert-container"></div>
+      <div class="row grid-control">
+         <div class="ovsbridge-actions btn-group" id="ovsbridge-actions-area">
+            <button class="btn btn-primary add-ovsbridge-btn" type="button" id="add_ovsbridge_button"><i class="fa fa-plus-circle"></i> $_('Add Bridge')</button>
+         </div>
+         <div class="pull-right">
+            <label for="ovs_search_input" class="sr-only">Filter:</label>
+            <input type="text" class="filter form-control search" id="ovs_search_input" placeholder="Filter"/>
+         </div>
+       </div>
+       <div class="row">
+        <div id='ovsbridgeGrid' class="hidden">
+            <div>
+                <span class="column-name">$_("Name")</span><!--
+                --><span class="column-bonds">$_("Bonds")</span><!--
+                --><span class="column-interfaces">$_("Interfaces")</span><!--<!--
+                --><span class="column-statistics">$_("Statistics")</span><!--
+                --><span class="column-action"><span class="sr-only">$_("Actions")</span></span>
+            </div>
+            <div id="ovsbridgeList" class="list"></div>
+        </div>
+       </div>
+       <div class="wok-mask" role="presentation" class="hidden">
+          <div class="wok-mask-loader-container">
+            <div class="wok-mask-loading">
+                <div class="wok-mask-loading-icon"></div>
+                <div class="wok-mask-loading-text">$_("Loading")...</div>
+            </div>
+          </div>
+        </div>
+    </div>
+  </div>
+  </script>
+<script id="ovsbridgeTmpl" type="html/text">
+<div id="bridge-{id}" class="bridge" data-name="{name}">
+      <span class='column-name name-filter' title="{name}">{name}</span><!--
+ --><span class='column-bonds' title="{bondPlus}">{bonds}</span><!--
+ --><span class='column-interfaces' title="{interfacePlus}">{interfaces}</span><!--
+ --><span class='column-statistics'>{statistics}</span><!--
+ --><span class="column-action">
+            <span class="pull-right">
+                  <div class="dropdown menu-flat">
+                        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false" aria-haspopup="true"><span class="edit-alt"></span>$_("Actions")<span class="caret"></span></button>
+                        <ul class="dropdown-menu">
+                               <li><a href="#" class="edit-bridge" data-name="{name}" href="#"><i class="fa fa-file"></i>$_("Edit Bridge")</a></li>
+                               <li class="critical"><a href="#" class="remove-bridge" data-name="{name}"><i class="fa fa-minus-circle"></i>$_("Remove Bridge")</a></li>
+                        </ul>
+                  </div>
+            </span>
+      </span>
+      <div class="bridge-statistics">
+            <div id="bridge-{id}-interfaces" class="collapse">
+                   <div class="bridge-interface" role="grid">
+                          <div class="bridge-interfaces-header" role="row">
+                               <span role="columnheader" class='column-state'>$_("State")</span><!--
+                          --><span role="columnheader" class='column-ifname'>$_("Interface")</span><!--
+                          --><span role="columnheader" class='column-stat'>$_("Bytes Received")</span><!--
+                          --><span role="columnheader" class='column-stat'>$_("Bytes Transmitted")</span><!--
+                          --><span role="columnheader" class='column-stat'>$_("Packages Received")</span><!--
+                          --><span role="columnheader" class='column-stat'>$_("Packages Transmitted")</span><!--
+                          --><span role="columnheader" class='column-stat'>$_("Errors Received")</span><!--
+                          --><span role="columnheader" class='column-stat'>$_("Errors Transmitted")</span>
+                          </div>
+                          <div class="bridge-interfaces-body" role="row"></div>
+                   </div>
+            </div>
+            <div class="clearfix"></div>
+      </div>
+</div>
+</script>
+<script id="interfaceBodyTmpl" type="html/text">
+<div id="interface-{id}" data-name="{name}"  role="row">
+        <span role="gridcell" class="column-state" title="$_("Interface is") {state}"><span class="sr-only">$_("Interface is") {state}</span><i class="fa fa-power-off {stateClass}"></i></span><!--
+  --><span role="gridcell" class='column-ifname'>{name}</span><!--
+  --><span role="gridcell" class='column-stat'>{rxBytes}<span class="sr-only"> $_("Bytes Received")</span></span><!--
+  --><span role="gridcell" class='column-stat'>{txBytes}<span class="sr-only"> $_("Bytes Transmitted")</span></span><!--
+  --><span role="gridcell" class='column-stat'>{rxPackets}<span class="sr-only"> $_("Packages Received")</span></span><!--
+  --><span role="gridcell" class='column-stat'>{txPackets}<span class="sr-only"> $_("Packages Transmitted")</span></span><!--
+  --><span role="gridcell" class='column-stat'>{rxErr}<span class="sr-only"> $_("Errors Received")</span></span><!--
+  --><span role="gridcell" class='column-stat'>{txErr}<span class="sr-only"> $_("Errors Transmitted")</span></span>
+       </div>
+</div>
+</script>
 </body>
 
 </html>

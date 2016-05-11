@@ -815,3 +815,132 @@ ginger.removeSysmodule = function(moduleId, suc, err) {
         }
      });
 }
+
+ginger.getOvsBridges = function(suc,err) {
+     wok.requestJSON({
+        url: 'plugins/ginger/ovsbridges',
+        type: 'GET',
+        contentType: 'application/json',
+        dataType: 'json',
+        success: suc,
+        error : err || function(data) {
+            wok.message.error(data.responseJSON.reason);
+        }
+     });
+ }
+
+ginger.getOvsBridge = function(br, suc, err) {
+     wok.requestJSON({
+        url: 'plugins/ginger/ovsbridges/' + encodeURIComponent(br),
+        type: 'GET',
+        contentType: 'application/json',
+        dataType: 'json',
+        success: suc,
+        error: err || function(data) {
+             wok.message.error(data.responseJSON.reason);
+         }
+     });
+ }
+
+ginger.addOvsBridge = function(data, suc, err) {
+    wok.requestJSON({
+        url: 'plugins/ginger/ovsbridges/',
+        type : 'POST',
+        contentType : 'application/json',
+        dataType : 'json',
+        data : JSON.stringify(data),
+        resend : true,
+        success : suc,
+        error : err || function(data) {
+            wok.message.error(data.responseJSON.reason);
+        }
+    });
+};
+
+ginger.delOvsBridge = function(br, suc, err) {
+    wok.requestJSON({
+        url: 'plugins/ginger/ovsbridges/' + encodeURIComponent(br),
+        type : 'DELETE',
+        contentType : 'application/json',
+        dataType : 'json',
+        success : suc,
+        error : err || function(data) {
+            wok.message.error(data.responseJSON.reason, '#ovs-alert-container');
+        }
+    });
+};
+
+ginger.addOvsBridgeInterface = function(br, data, suc, err) {
+    wok.requestJSON({
+        url: 'plugins/ginger/ovsbridges/'+encodeURIComponent(br)+'/add_interface',
+        type : 'POST',
+        contentType : 'application/json',
+        dataType : 'json',
+        data : JSON.stringify(data),
+        resend : true,
+        success : suc,
+        error : err || function(data) {
+            wok.message.error(data.responseJSON.reason);
+        }
+    });
+};
+
+ginger.delOvsBridgeInterface = function(br, data, suc, err) {
+    wok.requestJSON({
+        url: 'plugins/ginger/ovsbridges/'+encodeURIComponent(br)+'/del_interface',
+        type : 'POST',
+        contentType : 'application/json',
+        dataType : 'json',
+        data : JSON.stringify({ 'interface': data }),
+        resend : true,
+        success : suc,
+        error : err || function(data) {
+            wok.message.error(data.responseJSON.reason, '#ovs-alert-container');
+        }
+    });
+};
+
+ginger.addOvsBridgeBond = function(br, data, suc, err) {
+    wok.requestJSON({
+        url: 'plugins/ginger/ovsbridges/'+encodeURIComponent(br)+'/add_bond',
+        type : 'POST',
+        contentType : 'application/json',
+        dataType : 'json',
+        data : JSON.stringify(data),
+        resend : true,
+        success : suc,
+        error : err || function(data) {
+            wok.message.error(data.responseJSON.reason);
+        }
+    });
+};
+
+ginger.modifyOvsBridgeBond = function(br, data, suc, err) {
+    wok.requestJSON({
+        url: 'plugins/ginger/ovsbridges/'+encodeURIComponent(br)+'/modify_bond',
+        type : 'POST',
+        contentType : 'application/json',
+        dataType : 'json',
+        data : JSON.stringify(data),
+        resend : true,
+        success : suc,
+        error : err || function(data) {
+            wok.message.error(data.responseJSON.reason);
+        }
+    });
+};
+
+ginger.delOvsBridgeBond = function(br, bond, suc, err) {
+    wok.requestJSON({
+        url: 'plugins/ginger/ovsbridges/'+encodeURIComponent(br)+'/del_bond',
+        type : 'POST',
+        contentType : 'application/json',
+        dataType : 'json',
+        data : JSON.stringify({ 'bond': bond }),
+        resend : true,
+        success : suc,
+        error : err || function(data) {
+            wok.message.error(data.responseJSON.reason, '#ovs-alert-container');
+        }
+    });
+};
