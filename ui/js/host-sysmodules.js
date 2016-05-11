@@ -16,14 +16,6 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-ginger.initSysmodules = function() {
-    $(".content-area", "#gingerHostAdmin").css("height", "100%");
-    ginger.loadSysmodules();
-    $('#load_sysmodules_button').on('click', function(event) {
-        wok.window.open('plugins/ginger/host-sysmodules-load.html');
-    });
-};
-
 ginger.loadSysmodules = function() {
     ginger.getSysmodules(function(data) {
         $("#sysmodules-body").empty();
@@ -36,7 +28,7 @@ ginger.loadSysmodules = function() {
 
             $("#sysmodules-body").append(tempNode);
             $('#sysmodules-datagrid').removeClass('hidden');
-            $('.wok-mask').fadeOut(300, function() {});
+            $('#sysmodules-content-area .wok-mask').fadeOut(300, function() {});
 
             $(".btn-unload").on("click", function(event) {
                 event.preventDefault();
@@ -53,11 +45,11 @@ ginger.loadSysmodules = function() {
 
                 wok.confirm(settings, function() {
                     ginger.removeSysmodule(selectedModule, function() {
-                        wok.message.success(i18n['GINSYS0013M'].replace("%1", '<strong>'+selectedModule+'</strong>'));
+                        wok.message.success(i18n['GINSYS0013M'].replace("%1", '<strong>'+selectedModule+'</strong>'),'#sysmodules-alert-container',true);
                         sysmoduleItem.remove();
                         $('body').animate({ scrollTop: 0 }, 1000);
                     }, function(err) {
-                        wok.message.error(err.responseJSON.reason);
+                        wok.message.error(err.responseJSON.reason,'#sysmodules-alert-container',true);
                         $('body').animate({ scrollTop: 0 }, 1000);
                     });
                 }, function() {});
@@ -302,9 +294,9 @@ ginger.modalSysmodules = function() {
             $('.typeahead').typeahead('destroy');
             ginger.loadSysmodules();
             wok.window.close();
-            wok.message.success(i18n['GINSYS0012M'].replace("%1", '<strong>'+module.name+'</strong>'));
+            wok.message.success(i18n['GINSYS0012M'].replace("%1", '<strong>'+module.name+'</strong>'),'#sysmodules-alert-container',true);
         },function(err){
-            wok.message.error(err.responseJSON.reason,'#alert-modal-container');
+            wok.message.error(err.responseJSON.reason,'#alert-modal-container',true);
             ginger.toggleLoadButton();
         })
     });

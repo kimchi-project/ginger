@@ -42,8 +42,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
     <tab>
         <access role="admin" mode="admin" />
         <access role="user" mode="none" />
-        <title>System Modules</title>
+        <title>System Services</title>
         <order>25</order>
-        <path>plugins/ginger/tabs/host-sysmodules.html</path>
+        <path>plugins/ginger/tabs/host-system-services.html</path>
     </tab>
 </tabs-ext>

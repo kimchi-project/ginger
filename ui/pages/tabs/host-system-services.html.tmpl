@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<!--
+Copyright IBM Corp, 2016
+
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+-->
+#unicode UTF-8
+#import gettext
+#silent t = gettext.translation($lang.domain, $lang.localedir, languages=$lang.lang)
+#silent _ = t.gettext
+#silent _t = t.gettext
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="plugins/ginger/css/ginger.css">
+<script type="text/javascript" src="plugins/ginger/js/util.js"></script>
+<script type="text/javascript" src="plugins/ginger/js/host-sysmodules.js"></script>
+<script type="text/javascript" src="plugins/ginger/js/host-system-services.js"></script>
+</head>
+<body>
+    <div id="host-sysmodules-root-container" class="ginger">
+        <nav class="navbar navbar-default toolbar">
+            <div class="container">
+                <div id="toolbar"></div>
+            </div>
+        </nav>
+        <div class="container">
+            <div id="gingerHostAdmin" class="host-admin">
+                <div class="panel-group accordion" id="system-services-accordion" role="tablist" aria-multiselectable="false">
+                     <h3>
+                        <a role="button" data-toggle="collapse" data-parent="#system-services-accordion" href="#system-services-content-area" aria-expanded="false" aria-controls="system-services-content-area" class="">
+                            <span class="accordion-icon"></span><span class="accordion-text" id="system-services-header">$_("System Services Management")</span>
+                        </a>
+                    </h3>
+                    <div id="system-services-content-area" class="panel-collapse collapse" role="tabpanel" aria-labelledby="system-services-header">
+                        <div id="system-services-alert-container"></div>
+                        <div class="row grid-control">
+                             <div class="pull-right">
+                                <label for="search_input_system_services" class="sr-only">$_("Filter System Services"):</label>
+                                <input type="text" class="filter form-control search" id="search_input_system_services" placeholder="$_("Filter")">
+                            </div>
+                        </div>
+                        <div class="wok-datagrid" id="system-services-datagrid">
+                            <div class="wok-datagrid-header">
+                                <span class="column-service-name">$_("Name")</span><!--
+                                --><span class="column-service-loaded">$_("Loaded")</span><!--
+                                --><span class="column-service-status">$_("Status")</span><!--
+                                --><span class="column-service-autostart">$_("Autostart")</span><!--
+                                --><span class="column-service-details">$_("Details")</span><!--
+                                --><span class="column-service-description">$_("Description")</span><!--
+                                --><span class="column-service-actions"><span class="sr-only">$_("Actions")</span></span>
+                            </div>
+                            <ul class="wok-datagrid-body list" id="system-services-body"></ul>
+                        </div>
+                        <div class="wok-mask">
+                            <div class="wok-mask-loader-container">
+                                <div class="wok-mask-loading">
+                                    <div class="wok-mask-loading-icon"></div>
+                                    <div class="wok-mask-loading-text">$_("Loading...")</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-group accordion" id="sysmodules-accordion" role="tablist" aria-multiselectable="false">
+                     <h3>
+                        <a role="button" data-toggle="collapse" data-parent="#sysmodules-accordion" href="#sysmodules-content-area" aria-expanded="false" aria-controls="sysmodules-content-area" class="">
+                            <span class="accordion-icon"></span><span class="accordion-text" id="sysmodules-header">$_("System Modules Management")</span>
+                        </a>
+                    </h3>
+                    <div id="sysmodules-content-area" class="panel-collapse collapse" role="tabpanel" aria-labelledby="sysmodules-header">
+                        <div id="sysmodules-alert-container"></div>
+                        <div class="row grid-control">
+                             <div class="sysmodules-actions btn-group" id="sysmodules-actions-area">
+                                <button class="btn btn-primary load-modules-btn" type="button" id="load_sysmodules_button"><i class="fa fa-download"></i> $_("Load Modules")</button>
+                             </div>
+                             <div class="pull-right">
+                                <label for="search_input" class="sr-only">$_("Filter System Modules"):</label>
+                                <input type="text" class="filter form-control search" id="search_input" placeholder="$_("Filter")">
+                             </div>
+                         </div>
+                         <div class="wok-datagrid" id="sysmodules-datagrid" role="grid">
+                            <div class="wok-datagrid-header" role="row">
+                                <span role="columnheader" class="column-name">$_("Name")</span><!--
+                                --><span role="columnheader" class="column-depends">$_("Depends On")</span><!--
+                                --><span role="columnheader" class="column-version">$_("Version")</span><!--
+                                --><span role="columnheader" class="column-details">$_("Details")</span><!--
+                                --><span role="columnheader" class="column-actions">
+                                    <span role="columnheader" class="sr-only">$_("Actions")</span><!--
+                                --></span>
+                            </div>
+                            <ul class="wok-datagrid-body list" id="sysmodules-body"></ul>
+                         </div>
+                        <div class="wok-mask">
+                            <div class="wok-mask-loader-container">
+                                <div class="wok-mask-loading">
+                                    <div class="wok-mask-loading-icon"></div>
+                                    <div class="wok-mask-loading-text">$_("Loading...")</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<script id="sysmodulesItem" type="html/text">
+    <li class="wok-datagrid-row" id="{name}" data-id="{name}" role="row">
+        <span role="gridcell" class="column-name name-filter" title="{name}">{name}</span><!--
+        --><span role="gridcell" class="column-depends depends-filter">{depends}</span><!--
+        --><span role="gridcell" class="column-version version-filter">{version}</span><!--
+        --><span role="gridcell" class="column-details">
+            <div class="arrow arrow-down" role="button"></div>
+        </span><!--
+        --><span role="gridcell" class="column-actions btn btn-link btn-unload"><i class="fa fa-upload"></i> $_("Unload")</span>
+        <div role="gridcell" class="sysmodules-details" style="display: none;">
+            <div role="grid" class="details-list"></div>
+        </div>
+        <div role="presentation" class="clear"></div>
+    </li>
+</script>
+<script id="detail-head" type="text/html">
+    <span role="row" class="column-{key}">
+        <span role="columnheader" class='header-{key}'>{title}</span>
+        <span role="gridcell" class='body-{key}'></span>
+    </span>
+</script>
+<script id="detail-body" type="text/html">
+    <span class="row-{index}">{object}</span>
+</script>
+<script id="detail-body-obj" type="text/html">
+    <span  class="row-{index}">
+        <span class="col-key">{key}:</span>
+        <span class="col-value">{value}</span>
+    </span>
+</script>
+<script id="systemServicesItem" type="html/text">
+    <li class="wok-datagrid-row" id="{id}" data-id="{name}" role="row">
+        <span role="gridcell" class="column-service-name service-name-filter" title="{name}">{name}</span><!--
+        --><span role="gridcell" class="column-service-loaded service-loaded-filter">{loaded}</span><!--
+        --><span role="gridcell" class="column-service-status service-status-filter"><span class="label label-{label}"><i class="fa {icon}"></i> {status}</span></span><!--
+        --><span role="gridcell" class="column-service-autostart"><input type="checkbox" name="service-autostart[]" id="{servicename}" value="{servicename}" {checked} class="wok-toggleswitch-checkbox "><label for="{servicename}" class="wok-toggleswitch-label"><span class="sr-only">{autostartonoff}</span></label></span><!--
+        --><span role="gridcell" class="column-service-details"><span role="button" class="handle" data-toggle="collapse" data-target="#{collapse_target}"><i class="fa fa-chevron-down"></i></span></span><!--
+        --><span role="gridcell" title="{description}" class="column-service-description service-description-filter">{description}</span><!--
+        --><span role="gridcell" class="column-service-actions">
+                <span class="pull-right">
+                    <div class="dropdown menu-flat system-service-actions">
+                        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
+                                <span class="edit-alt"></span>$_("Actions")<span class="caret"></span>
+                         </button>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a class='service-start' data-service="{name}" href="#"><i class="fa fa-power-off"></i>$_("Start")</a></li>
+                            <li><a class='service-restart' data-service="{name}" href="#"><i class="fa fa-refresh"></i>$_("Restart")</a></li>
+                            <li class='critical'><a class="service-stop" data-service="{name}" href="#"><i class="fa fa-stop"></i>$_("Stop")</a></li>
+                        </ul>
+                    </div>
+                </span>
+            </span>
+            <div role="gridcell" class="system-services-details">
+                <div role="grid" id="{collapse_target}" class="details-list collapse">
+                    <div class="system-services-cgroup wok-datagrid" role="grid">
+                        <div class="system-service-cgroup-header wok-datagrid-header" role="row">
+                            <span role="columnheader" class="column-service-cgroup">$_("Cgroup")</span>
+                        </div>
+                        <div class="system-service-cgroup-body wok-datagrid-body" role="row">
+                            <div class="wok-datagrid-row">
+                                <span class="column-service-cgroup">{cgroup}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="system-services-process wok-datagrid">
+                        <div class="system-service-process-header wok-datagrid-body" role="row">
+                            <span role="columnheader" class="column-cgroup-pid">$_("PID")</span>
+                            <span role="columnheader" class="column-cgroup-process">$_("Process")</span>
+                        </div>
+                        <ul class="system-service-process-body wok-datagrid-body" role="row">
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div role="presentation" class="clear"></div>
+    </li>
+</script>
+<script id="systemServiceProcessItem" type="html/text">
+<li class="wok-datagrid-row" role="row">
+    <span class="column-cgroup-pid" role="gridcell">{pid}</span>
+    <span class="column-cgroup-process" role="gridcell">{process}</span>
+</li>
+</script>
+<script>
+    ginger.initSystemServices();
+</script>
+<div id="modalWindow" class="modal fade host-modal sysmodules-modal ginger" tabindex="-1" role="dialog" aria-labelledby="sysmodulesModalLabel" aria-hidden="true"></div>
+</body>
+</html>

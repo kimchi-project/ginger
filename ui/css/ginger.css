@@ -1831,3 +1831,157 @@ form[name="ovsaddinterface"] {
 .bridge-bonds.wok-datagrid > .wok-datagrid-body > .wok-datagrid-row > span.column-new-bond-iface .bootstrap-select:not([class*=col-]):not([class*=form-control]):not(.input-group-btn) {
   width: 365px;
 }
+
+#system-services-content-area #system-services-body > .wok-datagrid-row {
+  display: flex;
+  flex-flow: row wrap;
+}
+
+#system-services-content-area #system-services-body .handle .fa {
+  cursor: pointer;
+  transition: transform 0.3s ease-in-out;
+}
+
+#system-services-content-area #system-services-body .handle[aria-expanded=true] .fa-chevron-down {
+  transform: rotate(-180deg);
+}
+
+#system-services-content-area span.column-service-name {
+  width: 16.2%;
+  min-width: 16.2%;
+  flex-basis: 16.2%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+@media (min-width: 780px) {
+  #system-services-content-area span.column-service-name {
+    width: 20.2%;
+    min-width: 20.2%;
+    flex-basis: 20.2%;
+  }
+}
+
+#system-services-content-area span.column-service-status {
+  width: 160px;
+  min-width: 160px;
+  flex-basis: 160px;
+  text-align: center;
+  text-transform: capitalize;
+}
+
+#system-services-content-area span.column-service-loaded,
+#system-services-content-area span.column-service-autostart {
+  width: 80px;
+  min-width: 80px;
+  flex-basis: 80px;
+  text-align: center;
+  text-transform: capitalize;
+}
+
+#system-services-content-area span.column-service-details {
+  width: 60px;
+  min-width: 60px;
+  flex-basis: 60px;
+  text-align: center;
+}
+
+#system-services-content-area span.column-service-description {
+  display: none;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+@media (min-width: 1017px) {
+  #system-services-content-area span.column-service-description {
+    display: inline-block;
+    width: 20.2%;
+    min-width: 20.2%;
+    flex-basis: 20.2%;
+  }
+}
+
+@media (min-width: 1302px) {
+  #system-services-content-area span.column-service-description {
+    display: inline-block;
+    width: 28.4%;
+    min-width: 28.4%;
+    flex-basis: 28.4%;
+  }
+}
+
+@media (min-width: 1540px) {
+  #system-services-content-area span.column-service-description {
+    display: inline-block;
+    width: 33.4%;
+    min-width: 33.4%;
+    flex-basis: 33.4%;
+  }
+}
+
+@media (min-width: 1680px) {
+  #system-services-content-area span.column-service-description {
+    flex-basis: auto;
+    flex-grow: 1;
+    min-width: auto;
+    width: auto;
+  }
+}
+
+#system-services-content-area span.column-service-actions {
+  flex-grow: 1;
+}
+
+#system-services-content-area span.column-service-autostart {
+  position: relative;
+}
+
+#system-services-content-area span.column-service-autostart > input[type="checkbox"] {
+  top: 20px;
+  left: 20px;
+}
+
+#system-services-content-area span.column-service-autostart > label {
+  margin-bottom: 0 !important;
+  margin-right: 0 !important;
+  vertical-align: middle;
+}
+
+#system-services-content-area div.system-services-details {
+  flex-basis: 100%;
+  width: 100%;
+  background: #ddd;
+}
+
+#system-services-content-area .details-list {
+  margin: 22px;
+}
+
+#system-services-content-area .details-list .wok-datagrid > .wok-datagrid-header > span,
+#system-services-content-area .details-list .wok-datagrid > .wok-datagrid-body > .wok-datagrid-row > span {
+  font-size: 10.5pt;
+}
+
+#system-services-content-area .details-list .wok-datagrid > .wok-datagrid-header > span {
+  height: 27px;
+  padding: 4px 6px;
+}
+
+#system-services-content-area .details-list .wok-datagrid > .wok-datagrid-body > .wok-datagrid-row > span {
+  padding: 4px 6px;
+}
+
+#system-services-content-area .details-list > .system-services-process {
+  border-top: 1px solid #eee;
+}
+
+#system-services-content-area span.column-service-cgroup {
+  width: 100%;
+}
+
+#system-services-content-area span.column-cgroup-pid {
+  width: 50px;
+  text-align: center;
+}

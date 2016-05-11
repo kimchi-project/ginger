@@ -944,3 +944,94 @@ ginger.delOvsBridgeBond = function(br, bond, suc, err) {
         }
     });
 };
+
+ginger.getSystemServices = function (suc, err){
+     wok.requestJSON({
+        url: 'plugins/ginger/services',
+        type: 'GET',
+        contentType: 'application/json',
+        dataType: 'json',
+        success: suc,
+        error : err || function(data) {
+            wok.message.error(data.responseJSON.reason);
+        }
+     });
+};
+
+ginger.getSystemService = function (service, suc, err){
+     wok.requestJSON({
+        url: 'plugins/ginger/services/' + encodeURIComponent(service),
+        type: 'GET',
+        contentType: 'application/json',
+        dataType: 'json',
+        success: suc,
+        error : err || function(data) {
+            wok.message.error(data.responseJSON.reason);
+        }
+     });
+};
+
+ginger.startSystemService = function (service, suc, err){
+     wok.requestJSON({
+        url: 'plugins/ginger/services/' + encodeURIComponent(service) + '/start',
+        type: 'POST',
+        contentType: 'application/json',
+        dataType: 'json',
+        success: suc,
+        error : err || function(data) {
+            wok.message.error(data.responseJSON.reason);
+        }
+     });
+};
+
+ginger.stopSystemService = function (service, suc, err){
+     wok.requestJSON({
+        url: 'plugins/ginger/services/' + encodeURIComponent(service) + '/stop',
+        type: 'POST',
+        contentType: 'application/json',
+        dataType: 'json',
+        success: suc,
+        error : err || function(data) {
+            wok.message.error(data.responseJSON.reason);
+        }
+     });
+};
+
+ginger.restartSystemService = function (service, suc, err){
+     wok.requestJSON({
+        url: 'plugins/ginger/services/' + encodeURIComponent(service) + '/restart',
+        type: 'POST',
+        contentType: 'application/json',
+        dataType: 'json',
+        success: suc,
+        error : err || function(data) {
+            wok.message.error(data.responseJSON.reason);
+        }
+     });
+};
+
+ginger.enableSystemService = function (service, suc, err){
+     wok.requestJSON({
+        url: 'plugins/ginger/services/' + encodeURIComponent(service) + '/enable',
+        type: 'POST',
+        contentType: 'application/json',
+        dataType: 'json',
+        success: suc,
+        error : err || function(data) {
+            wok.message.error(data.responseJSON.reason);
+        }
+     });
+};
+
+ginger.disableSystemService = function (service, suc, err){
+     wok.requestJSON({
+        url: 'plugins/ginger/services/' + encodeURIComponent(service) + '/disable',
+        type: 'POST',
+        contentType: 'application/json',
+        dataType: 'json',
+        success: suc,
+        error : err || function(data) {
+            wok.message.error(data.responseJSON.reason);
+        }
+     });
+};
