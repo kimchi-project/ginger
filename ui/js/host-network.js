@@ -851,4 +851,3 @@ ginger.networkConfiguration.enableAdd = function (){
 ginger.networkConfiguration.disableAdd = function (){
 	$("#action-dropdown-button-nw-configuration-add").prop("disabled", true);
 };
-
