@@ -1,6 +1,6 @@
 [Unit]
-Requires=libvirtd.service wokd.service
-After=libvirtd.service wokd.service
+Requires=wokd.service
+After=wokd.service
 
 [Service]
 Nice=0

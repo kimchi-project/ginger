@@ -114,8 +114,7 @@ To install Ginger dependencies, follow:
 **For Fedora, RHEL and IBM PowerKVM :**
 
 ```
-$ sudo yum install  libvirt-python libvirt hddtemp \
-                    libuser-python python-augeas python-netaddr\
+$ sudo yum install  hddtemp libuser-python python-augeas python-netaddr\
                     python-ethtool python-ipaddr python-magic \
                     tuned lm_sensors
 
@@ -129,8 +128,7 @@ $ sudo yum install python-mock
 **For Debian/Ubuntu:**
 
 ```
-$ sudo apt-get install  libvirt-bin python-libvirt hddtemp \
-                        python-libuser python-ethtool python-augeas \
+$ sudo apt-get install  hddtemp python-libuser python-ethtool python-augeas \
                         python-ipaddr python-magic python-netaddr \
 
 # These dependencies are only required if you want to run the tests:
@@ -161,8 +159,7 @@ $ sudo zypper ar -f http://download.opensuse.org/repositories/systemsmanagement:
 # Add repository for python-magic:
 $ sudo zypper ar -f http://download.opensuse.org/repositories/home:/Simmphonie:/python/openSUSE_Leap_42.1/ home_Symmphonie_python
 
-$ sudo zypper install libvirt-python libvirt hddtemp \
-                      libuser-python python-augeas python-netaddr\
+$ sudo zypper install hddtemp libuser-python python-augeas python-netaddr\
                       python-ethtool python-ipaddr python-magic
 
 # These dependencies are only required if you want to run the tests:

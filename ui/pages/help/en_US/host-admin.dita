@@ -46,7 +46,7 @@ file by clicking the down arrow.</p><p>Select one the following to
 generate new files or delete them.</p><dl><dlentry>
 <dt>Generate Default Backup</dt>
 <dd>Generates a new default backup file. The default paths that are
-saved are <filepath>/etc</filepath> and <filepath>/var/lib/libvirt</filepath>.</dd>
+saved are <filepath>/etc</filepath>.</dd>
 </dlentry><dlentry>
 <dt>New Custom Backup</dt>
 <dd>Generates a custom backup file. To specify which paths that you

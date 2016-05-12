@@ -44,7 +44,7 @@ les chemins d'accès inclus et exclus s'affichent. Les fichiers
 sont sauvegardés sous forme de fichiers tar. Vous pouvez télécharger un fichier en cliquant sur la flèche vers le bas.</p><p>Sélectionnez l'un des éléments suivants pour générer de nouveaux fichiers ou les supprimer.</p><dl><dlentry>
 <dt>Générer la sauvegarde par défaut</dt>
 <dd>Génère un nouveau fichier de sauvegarde par défaut. Les chemins d'accès
-par défaut qui sont sauvegardés sont <filepath>/etc</filepath> et <filepath>/var/lib/libvirt</filepath>.</dd>
+par défaut qui sont sauvegardés sont <filepath>/etc</filepath>.</dd>
 </dlentry><dlentry>
 <dt>Nouvelle sauvegarde personnalisée</dt>
 <dd>Génère un fichier de sauvegarde personnalisé. Pour spécifier les chemins d'accès

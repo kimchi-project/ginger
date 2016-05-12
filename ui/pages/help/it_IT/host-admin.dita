@@ -46,7 +46,7 @@ salvato come file tar. È possibile scaricare un file facendo clic
 sulla freccia rivolta verso il basso.</p><p>Selezionare una delle opzioni riportate di seguito per generare nuovi file o per eliminarli.</p><dl><dlentry>
 <dt>Genera backup predefinito</dt>
 <dd>Genera un nuovo file di backup predefinito. I percorsi predefiniti che vengono
-salvati sono <filepath>/etc</filepath> e <filepath>/var/lib/libvirt</filepath>.</dd>
+salvati sono <filepath>/etc</filepath>.</dd>
 </dlentry><dlentry>
 <dt>Nuovo backup personalizzato</dt>
 <dd>Genera un file di backup personalizzato. Per specificare i percorsi da

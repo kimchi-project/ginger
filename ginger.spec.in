@@ -12,13 +12,11 @@ Requires:	gettext >= 0.17
 Requires:	wok >= 2.1.0
 Requires:	ginger-base
 Requires:	libuser-python
-Requires:   libvirt
 Requires:	python-ethtool
 Requires:	python-ipaddr
 Requires:	python-magic
 Requires:	python-netaddr
 Requires:	python-augeas
-Requires:   libvirt-python
 
 
 %description

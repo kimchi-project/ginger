@@ -43,7 +43,7 @@ muestran las vías de acceso incluidas y excluidas. Los archivos se guardan como
 archivos tar. Puede descargar un archivo pulsando en la flecha hacia abajo.</p><p>Seleccione una de las opciones siguientes para generar archivos nuevos o suprimirlos. </p><dl><dlentry>
 <dt>Generar copia de seguridad predeterminada</dt>
 <dd>Genera un nuevo archivo de copia de seguridad predeterminada. Las vías de acceso predeterminadas que se guardan son
-<filepath>/etc</filepath> y <filepath>/var/lib/libvirt</filepath>.</dd>
+<filepath>/etc</filepath>.</dd>
 </dlentry><dlentry>
 <dt>Nueva copia de seguridad personalizada</dt>
 <dd>Genera archivo de copia de seguridad personalizada. Para especificar las

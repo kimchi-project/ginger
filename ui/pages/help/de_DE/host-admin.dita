@@ -39,7 +39,7 @@ Sie können diese Version aktualisieren, indem Sie die RPM-Datei in Fix Central 
 <dt>Konfigurationssicherung</dt>
 <dd>Im Abschnitt "Konfigurationssicherung" werden Konfigurationssicherungsdateien angezeigt. <p>Beim Bewegen des Mauszeigers auf den Namen werden die Pfade angezeigt, die einbezogen und ausgeschlossen werden. Die Dateien werden als TAR-Dateien gespeichert. Sie können eine Datei herunterladen, indem Sie auf den Abwärtspfeil klicken. </p><p>Wählen Sie eine der folgenden Optionen aus, um neue Dateien zu generieren oder um Dateien zu löschen. </p><dl><dlentry>
 <dt>Standardsicherung generieren</dt>
-<dd>Eine neue Standardsicherungsdatei wird generiert. Die gespeicherten Standardpfade sind <filepath>/etc</filepath> und <filepath>/var/lib/libvirt</filepath>.</dd>
+<dd>Eine neue Standardsicherungsdatei wird generiert. Die gespeicherten Standardpfade sind <filepath>/etc</filepath>.</dd>
 </dlentry><dlentry>
 <dt>Neue angepasste Sicherung</dt>
 <dd>Eine benutzerdefinierte Sicherungsdatei wird generiert. Um anzugeben, welchen Pfad Sie speichern möchten, müssen Sie einen Pfad eingeben, den Sie unter "Einbezogener Pfad" einbeziehen möchten, oder einen Pfad, den Sie unter "Ausgeschlossener Pfad" ausschließen möchten. Um mehr als einen Pfad zu jedem Feld hinzuzufügen, müssen Sie auf <uicontrol>Plus (+)</uicontrol> klicken. Sie können optional eine Beschreibung für die Sicherungsdatei eingeben.Klicken Sie auf <uicontrol>OK</uicontrol>, um die Datei zu generieren. </dd>

@@ -43,7 +43,7 @@ e excluídos. Os arquivos são salvos como arquivos tar. É possível fazer o do
 arquivo clicando na seta para baixo.</p><p>Selecione um dos seguintes para gerar novos arquivos ou excluí-los.</p><dl><dlentry>
 <dt>Gerar backup padrão</dt>
 <dd>Gera um novo arquivo de backup padrão. Os caminhos padrão que são
-salvos são <filepath>/etc</filepath> e <filepath>/var/lib/libvirt</filepath>.</dd>
+salvos são <filepath>/etc</filepath>.</dd>
 </dlentry><dlentry>
 <dt>Novo backup customizado</dt>
 <dd>Gera um arquivo de backup customizado. Para especificar quais caminhos

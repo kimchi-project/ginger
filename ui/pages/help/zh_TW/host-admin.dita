@@ -38,7 +38,7 @@ https://w3.opensource.ibm.com/projects/dita-cshelp/-->
 <dt>配置備份</dt>
 <dd>「配置備份」區段會顯示配置備份檔。<p>將滑鼠指標移至名稱，會顯示已併入及已排除的路徑。檔案將儲存為 TAR 檔。可以透過按下移鍵來下載檔案。</p><p>選取下列其中一項來產生新檔案或刪除檔案。</p><dl><dlentry>
 <dt>產生預設備份</dt>
-<dd>產生新的預設備份檔。儲存的預設路徑為 <filepath>/etc</filepath> 及 <filepath>/var/lib/libvirt</filepath>。</dd>
+<dd>產生新的預設備份檔。儲存的預設路徑為 <filepath>/etc</filepath> 。</dd>
 </dlentry><dlentry>
 <dt>新建自訂備份</dt>
 <dd>產生自訂備份檔。如果要指定您想儲存的路徑，請輸入您想在「路徑併入」下已併入的路徑，或輸入您想在「路徑排除」下已排除的路徑。如果要給這兩個欄位中的每一個新增多個路徑，請按一下<uicontrol>加號 (+)</uicontrol>。

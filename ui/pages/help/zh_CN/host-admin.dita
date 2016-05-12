@@ -40,7 +40,7 @@ https://w3.opensource.ibm.com/projects/dita-cshelp/-->
 <dd>“配置备份”部分显示配置备份文件。<p>将鼠标悬浮在名称上将显示要包括和要排除的路径。将这些文件保存为 tar 文件。您可以通过单击向下箭头下载文件。</p><p>选择以下其中一项以生成新文件或删除已生成的文件。</p><dl><dlentry>
 <dt>生成缺省备份</dt>
 <dd>生成新的缺省备份文件。保存的缺省路径为
-<filepath>/etc</filepath> 和 <filepath>/var/lib/libvirt</filepath>。</dd>
+<filepath>/etc</filepath>。</dd>
 </dlentry><dlentry>
 <dt>新建定制备份</dt>
 <dd>生成定制备份文件。要指定您想要保存的路径，请在“包含路径”下输入您想要包含的路径或者在“排除路径”下输入您想要排除的路径。要在以上任意字段中添加多个路径，请单击<uicontrol>加号 (+)</uicontrol>。

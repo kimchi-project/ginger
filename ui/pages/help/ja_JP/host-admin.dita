@@ -45,7 +45,7 @@ https://w3.opensource.ibm.com/projects/dita-cshelp/-->
 </p><dl><dlentry>
 <dt>デフォルト・バックアップの生成</dt>
 <dd>新規デフォルト・バックアップ・ファイルを生成します。
-保存されるデフォルト・パスは <filepath>/etc</filepath> and <filepath>/var/lib/libvirt</filepath> です。
+保存されるデフォルト・パスは <filepath>/etc</filepath> です。
 </dd>
 </dlentry><dlentry>
 <dt>新規カスタム・バックアップ</dt>
