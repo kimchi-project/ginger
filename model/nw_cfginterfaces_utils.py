@@ -44,7 +44,6 @@ def augeas_cleanup():
     global parser
     del parser
 
-network_configpath = 'etc/sysconfig/network-scripts/'
 ifcfg_filename_format = 'ifcfg-%s'
 route_format = 'route-%s'
 route6_format = 'route6-%s'
@@ -149,6 +148,12 @@ VIA = "via"
 CONST_YES = 'yes'
 CONST_NO = 'no'
 CONST_SPACE = ' '
+
+# Assign variables based on distribution
+if "SUSE" in platform.linux_distribution()[0]:
+    network_configpath = 'etc/sysconfig/network/'
+else:
+    network_configpath = 'etc/sysconfig/network-scripts/'
 
 
 class CfgInterfacesHelper(object):
