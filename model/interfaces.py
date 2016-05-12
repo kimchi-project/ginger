@@ -19,13 +19,7 @@
 
 
 import ethtool
-import ipaddr
-import libvirt
-import lxml.etree as ET
 import os
-
-from lxml.builder import E
-from threading import Timer
 
 from nw_cfginterfaces_utils import IFACE_BOND
 from nw_cfginterfaces_utils import IFACE_VLAN
@@ -36,8 +30,6 @@ from wok.exception import InvalidOperation, InvalidParameter, NotFoundError
 from wok.exception import OperationFailed
 from wok.model.tasks import TaskModel
 from wok.utils import add_task, encode_value
-from wok.xmlutils.utils import xpath_get_text
-
 from wok.plugins.gingerbase import netinfo
 
 
@@ -53,7 +45,6 @@ class InterfacesModel(object):
 
 class InterfaceModel(object):
     _confirm_timout = 10.0  # Second
-    _conn = libvirt.open("qemu:///system")
 
     def __init__(self, **kargs):
         self._rollback_timer = None
@@ -94,123 +85,11 @@ class InterfaceModel(object):
         except ValueError:
             raise NotFoundError("GINNET0014E", {'name': name})
 
-    def _is_interface_editable(self, iface):
-        return iface in self._get_all_libvirt_interfaces()
-
-    def _get_all_libvirt_interfaces(self):
-        conn = self._conn
-        return [iface.name() for iface in conn.listAllInterfaces()]
-
-    def _get_interface_info(self, name):
-        try:
-            info = netinfo.get_interface_info(name)
-        except ValueError:
-            raise NotFoundError("GINNET0014E", {'name': name})
-        if not info['ipaddr']:
-            info['ipaddr'], info['netmask'] = \
-                self._get_static_config_interface_address(name)
-        return info
-
-    def _get_static_config_interface_address(self, name):
-        def _get_ipaddr_info(libvirt_interface_xml):
-            search_ip = \
-                xpath_get_text(libvirt_interface_xml,
-                               "/interface/protocol[@family='ipv4']"
-                               "/ip/@address")
-
-            if not len(search_ip):
-                return '', ''
-
-            search_prefix = \
-                xpath_get_text(libvirt_interface_xml,
-                               "/interfac/protocol[@family='ipv4']"
-                               "/ip/@prefix")
-
-            ip_obj = ipaddr.IPv4Network('%s/%s' % (search_ip[0],
-                                                   search_prefix[0]))
-            return encode_value(ip_obj.ip), encode_value(ip_obj.netmask)
-
-        conn = self._conn
-        iface_obj = conn.interfaceLookupByName(name)
-        iface_libvirt_xml = \
-            iface_obj.XMLDesc(libvirt.VIR_INTERFACE_XML_INACTIVE)
-        return _get_ipaddr_info(iface_libvirt_xml)
-
-    def update(self, name, params):
-        if not self._is_interface_editable(name):
-            raise InvalidParameter('GINNET0013E', {'name': name})
-
-        try:
-            iface_xml = self._create_iface_xml(name, params)
-        except (ipaddr.AddressValueError, ipaddr.NetmaskValueError) as e:
-            raise InvalidParameter('GINNET0003E', {'err': e.message})
-        self._create_libvirt_network_iface(iface_xml)
-
-    def _create_iface_xml(self, iface, net_params):
-        m = E.interface(
-            E.start(mode='onboot'),
-            type='ethernet',
-            name=iface)
-
-        if net_params['ipaddr'] and net_params['netmask']:
-            n = ipaddr.IPv4Network('%s/%s' % (net_params['ipaddr'],
-                                              net_params['netmask']))
-            protocol_elem = E.protocol(E.ip(address=encode_value(n.ip),
-                                            prefix=str(n.prefixlen)),
-                                       family='ipv4')
-
-            if 'gateway' in net_params:
-                protocol_elem.append((E.route(gateway=net_params['gateway'])))
-            m.append(protocol_elem)
-
-        elif net_params['ipaddr'] or net_params['netmask']:
-            raise InvalidParameter('GINNET0012E')
-
-        return ET.tostring(m)
-
-    def _create_libvirt_network_iface(self, iface_xml):
-        conn = self._conn
-        # Only one active transaction is allowed in the system level.
-        # It implies that we can use changeBegin() as a synchronized point.
-        conn.changeBegin()
-        try:
-            iface = conn.interfaceDefineXML(iface_xml)
-            self._rollback_timer = Timer(
-                self._confirm_timout, self._rollback_on_failure, args=[iface])
-            if iface.isActive():
-                iface.destroy()
-                iface.create()
-            self._rollback_timer.start()
-        except Exception as e:
-            self._rollback_on_failure(iface)
-            raise OperationFailed('GINNET0004E', {'err': e.message})
-
-    def _rollback_on_failure(self, iface):
-        ''' Called by the Timer in a new thread to cancel wrong network
-        configuration and rollback to previous configuration. '''
-        conn = self._conn
-        try:
-            conn.changeRollback()
-            if iface.isActive():
-                iface.destroy()
-                iface.create()
-        except libvirt.libvirtError as e:
-            # In case the timeout thread is preempted, and confirm_change() is
-            # called before our changeRollback(), we can just ignore the
-            # VIR_ERR_OPERATION_INVALID error.
-            if e.get_error_code() != libvirt.VIR_ERR_OPERATION_INVALID:
-                raise
-
     def activate(self, ifacename):
         InterfacesHelper().activate_iface(ifacename)
 
     def deactivate(self, ifacename):
         InterfacesHelper().deactivate_iface(ifacename)
-
-    def confirm_change(self, _name):
-        conn = self._conn
-        self._rollback_timer.cancel()
-        conn.changeCommit()
 
     def _mlx5_SRIOV_get_max_VF(self, iface):
         max_vf_file = '/sys/class/net/%s/device/sriov_totalvfs' % iface
