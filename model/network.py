@@ -19,26 +19,37 @@
 
 from collections import namedtuple
 
-import ethtool
-import libvirt
+import atexit
+import augeas
 import os
-from ipaddr import IPv4Network
+import platform
+import threading
 from threading import Timer
 
-from interfaces import InterfaceModel
 from wok.exception import OperationFailed
-from wok.utils import encode_value, run_command
+from wok.utils import decode_value, run_command
+from nw_interfaces_utils import cfgInterfacesHelper
+
+gingerNetworkLock = threading.RLock()
+parser = augeas.Augeas("/")
+
+
+@atexit.register
+def augeas_cleanup():
+    global parser
+    del parser
 
 
 RESOLV_CONF = '/etc/resolv.conf'
 NAMESERVER = 'nameserver'
+GATEWAY = 'GATEWAY'
+file_format = "/etc/network/interfaces"
 
 Route = namedtuple('Route', ['prefix', 'gateway', 'dev'])
 
 
 class NetworkModel(object):
     _confirm_timeout = 10.0
-    _conn = libvirt.open("qemu:///system")
 
     def lookup(self, name):
         return {'nameservers': self._get_nameservers(),
@@ -109,33 +120,43 @@ class NetworkModel(object):
         self._save_gateway_changes(old_iface, old_gateway)
 
     def _save_gateway_changes(self, old_iface, old_gateway):
-        def save_config(conn, iface, gateway=None):
-            nic_info = ethtool.get_interfaces_info(encode_value(iface))[0]
-            ipv4 = ''
-            if nic_info.ipv4_address:
-                ipv4 = "%s/%s" % (nic_info.ipv4_address, nic_info.ipv4_netmask)
-            n = IPv4Network(ipv4)
-            net_params = {'ipaddr': n.ip,
-                          'netmask': n.netmask}
+        def save_config(iface, gateway=None):
             if gateway:
-                net_params['gateway'] = gateway
-            iface_xml = InterfaceModel()._create_iface_xml(iface,
-                                                           net_params)
-            iface = conn.interfaceDefineXML(iface_xml)
+                gateway_info = {GATEWAY: gateway}
+                cfgInterfacesHelper.write_attributes_to_cfg(iface,
+                                                            gateway_info)
+
+        def save_config_for_ubuntu(iface, gateway=None):
+            if gateway:
+                try:
+                    gingerNetworkLock.acquire()
+                    pattern = "etc/network/interfaces/iface[*]"
+                    listout = parser.match(decode_value(pattern))
+                    for list_iface in listout:
+                        list_iface = decode_value(list_iface)
+                        iface_from_match = parser.get(list_iface)
+                        if iface_from_match == decode_value(iface):
+                            parser.set(list_iface + "/gateway", gateway)
+                            parser.save()
+                except Exception, e:
+                    raise OperationFailed("GINNET0074E", {'error': e})
+                finally:
+                    gingerNetworkLock.release()
 
         route = self._get_default_route_entry()
         gateway = route.gateway
         new_iface = route.dev
-        conn = self._conn
-        conn.changeBegin()
-        save_config(conn, new_iface, gateway)
-        if old_iface and encode_value(new_iface) != encode_value(old_iface):
-            save_config(conn, old_iface)
-
-        self._rollback_timer = Timer(
-            self._confirm_timeout, self._rollback_on_failure,
-            args=[old_gateway])
-        self._rollback_timer.start()
+        try:
+            if platform.linux_distribution()[0] == "Ubuntu":
+                if os.path.isfile(os.sep + file_format):
+                    save_config_for_ubuntu(new_iface, gateway)
+            else:
+                save_config(new_iface, gateway)
+        except Exception:
+            self._rollback_timer = Timer(
+                self._confirm_timeout, self._rollback_on_failure,
+                args=[old_gateway])
+            self._rollback_timer.start()
 
     def update(self, name, params):
         if 'nameservers' in params:
@@ -152,18 +173,4 @@ class NetworkModel(object):
                                       gateway])
             if rc:
                 raise OperationFailed('GINNET0011E', {'reason': err})
-
-        conn = self._conn
-        try:
-            conn.changeRollback()
-        except libvirt.libvirtError as e:
-            # In case the timeout thread is preempted, and confirm_change() is
-            # called before our changeRollback(), we can just ignore the
-            # VIR_ERR_OPERATION_INVALID error.
-            if e.get_error_code() != libvirt.VIR_ERR_OPERATION_INVALID:
-                raise
-
-    def confirm_change(self, _name):
-        self._rollback_timer.cancel()
-        conn = self._conn
-        conn.changeCommit()
+        raise OperationFailed('GINNET0089W')
