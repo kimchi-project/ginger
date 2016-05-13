@@ -65,7 +65,7 @@ class InterfaceModel(object):
                 info = netinfo.get_interface_info(name)
             elif cfgInterfacesHelper.is_cfgfileexist(name):
                 type = cfgInterfacesHelper.get_type(name).lower()
-                if type in [IFACE_BOND, IFACE_VLAN]:
+                if type not in [IFACE_BOND, IFACE_VLAN]:
                     raise ValueError
                 device = cfgInterfacesHelper.get_device(name)
                 info = {'device': device,
