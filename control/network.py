@@ -25,9 +25,9 @@ from interfaces import Interfaces
 
 
 NETWORK_REQUESTS = {
-    'PUT': {'default': "Update host network configuration"},
+    'PUT': {'default': "GINNET0008L"},
     'POST': {
-        'confirm_change': "Confirm changes on host network configuration",
+        'confirm_change': "GINNET0009L",
     },
 }
 

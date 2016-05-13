@@ -22,7 +22,7 @@ from wok.control.utils import UrlSubNode
 
 
 POWERPROFILE_REQUESTS = {
-    'PUT': {'default': "Activate power saving profile '%(ident)s'"},
+    'PUT': {'default': "GINPOWER0001L"},
 }
 
 

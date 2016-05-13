@@ -22,11 +22,11 @@ from wok.control.utils import UrlSubNode
 
 
 SWAPS_REQUESTS = {
-    'POST': {'default': "Create swap device '%(file_loc)s'"},
+    'POST': {'default': "GINSP0001L"},
 }
 
 SWAP_REQUESTS = {
-    'DELETE': {'default': "Delete swap device '%(ident)s'"},
+    'DELETE': {'default': "GINSP0002L"},
 }
 
 

@@ -23,18 +23,18 @@ from wok.control.utils import UrlSubNode
 
 SEP_REQUESTS = {
     'POST': {
-        'start': "Start IBM Serviceable Event Provider (SEP)",
-        'stop': "Stop IBM Serviceable Event Provider (SEP)",
+        'start': "GINSEP0001L",
+        'stop': "GINSEP0002L",
     },
 }
 
 SUBSCRIBERS_REQUESTS = {
-    'POST': {'default': "Subscribe '%(hostname)s' with IBM SEP"},
+    'POST': {'default': "GINSEP0003L"},
 }
 
 SUBSCRIPTION_REQUESTS = {
-    'DELETE': {'default': "Unsubscribe '%(ident)s' with IBM SEP"},
-    'PUT': {'default': "Update '%(ident)s' subscription with IBM SEP"},
+    'DELETE': {'default': "GINSEP0004L"},
+    'PUT': {'default': "GINSEP0005L"},
 }
 
 

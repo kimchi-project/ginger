@@ -23,11 +23,11 @@ from wok.control.utils import UrlSubNode
 
 SERVICE_REQUESTS = {
     'POST': {
-        'enable': "Enabled autostart of service '%(ident)s'",
-        'disable': "Disabled autostart of service '%(ident)s'",
-        'start': "Started service '%(ident)s'",
-        'stop': "Stopped service '%(ident)s'",
-        'restart': "Restarted service '%(ident)s'",
+        'enable': "GINSERV0001L",
+        'disable': "GINSERV0002L",
+        'start': "GINSERV0003L",
+        'stop': "GINSERV0004L",
+        'restart': "GINSERV0005L",
     },
 }
 

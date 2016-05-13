@@ -21,17 +21,15 @@ from wok.control.base import Collection, Resource
 
 
 CFGINTERFACES_REQUESTS = {
-    'POST': {'default': "Create configuration file for network interface"},
+    'POST': {'default': "GINNET0001L"},
 }
 
 CFGINTERFACE_REQUESTS = {
     'DELETE': {
-        'default': "Remove configuration file for network interface "
-                   "'%(ident)s'",
+        'default': "GINNET0002L",
     },
     'PUT': {
-        'default': "Update configuration file for network interface "
-                   "'%(ident)s'",
+        'default': "GINNET0003L",
     },
 }
 

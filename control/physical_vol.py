@@ -22,11 +22,11 @@ from wok.control.utils import UrlSubNode
 
 
 PHYSICALVOLUMES_REQUESTS = {
-    'POST': {'default': "Add physical volume '%(pv_name)s'"},
+    'POST': {'default': "GINPV0001L"},
 }
 
 PHYSICALVOLUME_REQUESTS = {
-    'DELETE': {'default': "Remove physical volume '%(ident)s'"},
+    'DELETE': {'default': "GINPV0002L"},
 }
 
 

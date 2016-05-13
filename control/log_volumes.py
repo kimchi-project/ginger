@@ -22,11 +22,11 @@ from wok.control.utils import UrlSubNode
 
 
 LOGICALVOLUMES_REQUESTS = {
-    'POST': {'default': "Create logical volume at volume group '%(vg_name)s'"},
+    'POST': {'default': "GINLV0001L"},
 }
 
 LOGICALVOLUME_REQUESTS = {
-    'DELETE': {'default': "Remove logical volume '%(ident)s'"},
+    'DELETE': {'default': "GINLV0002L"},
 }
 
 

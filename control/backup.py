@@ -26,16 +26,16 @@ from wok.control.utils import UrlSubNode
 
 BACKUP_REQUESTS = {
     'POST': {
-        'discard_archives': "Discard old archives",
+        'discard_archives': "GINHBK0001L",
     },
 }
 
 ARCHIVES_REQUESTS = {
-    'POST': {'default': "Create archive with description '%(description)s'"},
+    'POST': {'default': "GINHBK0002L"},
 }
 
 ARCHIVE_REQUESTS = {
-    'DELETE': {'default': "Remove archive '%(ident)s'"},
+    'DELETE': {'default': "GINHBK0003L"},
 }
 
 

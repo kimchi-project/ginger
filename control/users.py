@@ -23,11 +23,11 @@ from wok.control.utils import model_fn, UrlSubNode
 
 
 USERS_REQUESTS = {
-    'POST': {'default': "Add user '%(name)s'"},
+    'POST': {'default': "GINUSER0001L"},
 }
 
 USER_REQUESTS = {
-    'DELETE': {'default': "Delete user '%(ident)s'"},
+    'DELETE': {'default': "GINUSER0002L"},
 }
 
 

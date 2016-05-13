@@ -21,12 +21,11 @@ from wok.control.base import Collection, Resource
 
 
 INTERFACE_REQUESTS = {
-    'PUT': {'default': "Redefine host network interface '%(ident)s'"},
+    'PUT': {'default': "GINNET0004L"},
     'POST': {
-        'activate': "Activate host network interface '%(ident)s'",
-        'deactivate': "Deactivate host network interface '%(ident)s'",
-        'action': "Action '%(name)s' executed on network interface "
-                  "'%(ident)s'",
+        'activate': "GINNET0005L",
+        'deactivate': "GINNET0006L",
+        'action': "GINNET0007L",
     },
 }
 

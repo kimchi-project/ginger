@@ -22,11 +22,11 @@ from wok.control.utils import UrlSubNode
 
 
 SYSMODULES_REQUESTS = {
-    'POST': {'default': "Load kernel module '%(name)s'"},
+    'POST': {'default': "GINSYSMOD0001L"},
 }
 
 SYSMODULE_REQUESTS = {
-    'DELETE': {'default': "Unload kernel module '%(ident)s'"},
+    'DELETE': {'default': "GINSYSMOD0002L"},
 }
 
 

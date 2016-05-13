@@ -22,14 +22,14 @@ from wok.control.utils import UrlSubNode
 
 
 VOLUMEGROUPS_REQUESTS = {
-    'POST': {'default': "Add host volume group '%(vg_name)s'"},
+    'POST': {'default': "GINVG0001L"},
 }
 
 VOLUMEGROUP_REQUESTS = {
-    'DELETE': {'default': "Remove host volume group '%(ident)s'"},
+    'DELETE': {'default': "GINVG0002L"},
     'POST': {
-        'extend': "Extend host volume group '%(ident)s'",
-        'reduce': "Reduce host volume group '%(ident)s'",
+        'extend': "GINVG0003L",
+        'reduce': "GINVG0004L",
     },
 }
 

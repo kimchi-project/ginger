@@ -21,21 +21,16 @@ from wok.control.base import Resource, Collection
 from wok.control.utils import UrlSubNode
 
 
-OVSBRIDGES_REQUESTS = {'POST': {'default': "Create OVS bridge '%(name)s'"}}
+OVSBRIDGES_REQUESTS = {'POST': {'default': "GINOVS0001L"}}
 
 OVSBRIDGE_REQUESTS = {
-    'DELETE': {'default': "Remove OVS bridge '%(ident)s'"},
+    'DELETE': {'default': "GINOVS0002L"},
     'POST': {
-        'add_interface': "Add interface '%(interface)s' to OVS bridge "
-                         "'%(ident)s'",
-        'del_interface': "Remove interface '%(interface)s' from OVS bridge "
-                         "'%(ident)s'",
-        'add_bond': "Add bonded port '%(bond)s' in OVS bridge '%(ident)s'",
-        'del_bond': "Remove bonded port '%(bond)s' from OVS bridge "
-                    "'%(ident)s'",
-        'modify_bond': "Modify bonded port '%(bond)s' to replace interface "
-                       "'%(interface_del)s' with interface '%(interface_add)s'"
-                       " in OVS bridge '%(ident)s'",
+        'add_interface': "GINOVS0003L",
+        'del_interface': "GINOVS0004L",
+        'add_bond': "GINOVS0005L",
+        'del_bond': "GINOVS0006L",
+        'modify_bond': "GINOVS0007L",
     },
 }
 
