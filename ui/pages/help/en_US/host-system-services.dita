@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Copyright IBM Corp, 2016
+
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
+-->
+<!--Arbortext, Inc., 1988-2011, v.4002-->
+<!DOCTYPE cshelp PUBLIC "-//IBM//DTD DITA CSHelp//EN"
+ "..\dtd\cshelp.dtd">
+<?Pub Sty _display FontColor="red"?>
+<?Pub Inc?>
+<!--This DITA specialized document type is not supported by the Authoring Tools development team.
+Press the F1 key for online help on the tags and see the DITA XML Guide and Reference for how to use this document type.
+For support please see:
+https://w3.opensource.ibm.com/projects/dita-cshelp/-->
+<cshelp id="system-services" xml:lang="en-us">
+<title>System Services</title>
+<shortdesc>The <wintitle>System Services</wintitle> page shows information
+about host system services and host kernel modules.</shortdesc>
+<csbody>
+<dl><dlentry>
+<dt>System Services Management</dt>
+<dd>Displays detailed information of all the system services in any state.</dd>
+<dd>Supported operations on System Services:</dd>
+<dd>Start: Use this option to start service.</dd>
+<dd>Stop: Use this option to stop service.</dd>
+<dd>Restart: Use this option to restart service.</dd>
+<dd>Autostart: Use this option to enable the service to start at boot time.</dd>
+</dlentry>
+<dlentry>
+<dt>System Modules Management</dt>
+<dd>Displays information about kernel modules.</dd>
+<dd>Supported operations on System Modules:</dd>
+<dd>Load Modules: Use this option to load the kernel modules at run time.</dd>
+<dd>Unload: Use this option to unload kernel module.</dd>
+</dlentry>
+</dl><?Pub Caret 2101?>
+</csbody>
+</cshelp>
+<?Pub *0000003732?>
