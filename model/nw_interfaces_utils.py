@@ -32,7 +32,7 @@ from wok.plugins.gingerbase import netinfo
 
 
 cfgInterfacesHelper = CfgInterfacesHelper()
-
+carrier_path = '/sys/class/net/%s/carrier'
 
 MLX5_SRIOV_BOOT_FILE = '/etc/infiniband/ginger_sriov_start.sh'
 OPENIB_CONF_FILE = '/etc/infiniband/openib.conf'
@@ -155,6 +155,18 @@ class InterfacesHelper(object):
         wok_log.info('Activating an interface ' + ifacename)
         cmd_ifup = ['ifup', ifacename]
         out, error, returncode = run_command(cmd_ifup)
+        # Timeout is used for carrier file
+        # since the carrier file needs few seconds approx 5 sec
+        # to update the carrier value of an iface from 0 to 1.
+        self.wait_time_carrier(ifacename)
+        # Check for the carrier value after the device is activated
+        if os.path.isfile(carrier_path % ifacename):
+            with open(carrier_path % ifacename) as car_file:
+                carrier_val = car_file.readline().strip()
+            if (carrier_val == '0'):
+                raise OperationFailed('GINNET0090E', {'name': ifacename})
+        else:
+            raise OperationFailed('GINNET0091E', {'name': ifacename})
         if returncode != 0:
             raise OperationFailed('GINNET0016E',
                                   {'name': encode_value(ifacename),
@@ -217,3 +229,12 @@ class InterfacesHelper(object):
                 timeout += 0.5
                 time.sleep(0.5)
         return timeout
+
+    def wait_time_carrier(self, ifacename):
+        timeout = 0
+        while timeout < 5:
+            if os.path.exists(carrier_path % ifacename):
+                timeout += 0.5
+                time.sleep(0.5)
+            else:
+                break

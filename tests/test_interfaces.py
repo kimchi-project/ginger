@@ -40,15 +40,22 @@ class InterfacesTests(unittest.TestCase):
         self._objstore = ObjectStore(objstore_loc)
         self.task = TaskModel(objstore=self._objstore)
 
+    @mock.patch('wok.plugins.gingerbase.netinfo.os')
     @mock.patch('wok.plugins.gingerbase.netinfo.get_interface_type')
     @mock.patch('wok.plugins.ginger.model.nw_interfaces_utils.run_command')
-    def test_activate(self, mock_run_command, mock_get_interface_type):
+    def test_activate(self, mock_run_command, mock_get_interface_type,
+                      mock_os):
         mock_run_command.return_value = ["", "", 0]
+        mock_os.path.isfile.return_value = False
+        open_mock = mock.mock_open(read_data='1')
         mock_get_interface_type.return_value = "nic"
         interface = "test_eth0"
         calls = [(['ip', 'link', 'set', '%s' % interface, 'up'],),
                  (['ifup', '%s' % interface],)]
-        InterfaceModel(objstore=self._objstore).activate(interface)
+        with mock.patch('wok.plugins.ginger.model.nw_interfaces_utils.open',
+                        open_mock, create=True):
+            self.assertRaises(OperationFailed, InterfaceModel(
+                              objstore=self._objstore).activate, interface)
         for i in range(0, 1):
             x, y = mock_run_command.call_args_list[i]
             assert x == calls[i]
