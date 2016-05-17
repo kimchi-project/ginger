@@ -19,15 +19,17 @@
 
 import mock
 import unittest
+import wok.plugins.ginger.model.utils as utils
 import wok.plugins.ginger.model.vol_group as vol_group
 
 from wok import config
-from wok.exception import MissingParameter
+from wok.exception import MissingParameter, OperationFailed
 from wok.model.tasks import TaskModel
 from wok.objectstore import ObjectStore
 
 
 class VolumeGroupsTests(unittest.TestCase):
+
     def setUp(self):
         objstore_loc = config.get_object_store() + '_ginger'
         self._objstore = ObjectStore(objstore_loc)
@@ -83,3 +85,16 @@ class VolumeGroupsTests(unittest.TestCase):
         vgname = 'testvg'
         vg.delete(vgname)
         mock_delete_vg.assert_called_with(vgname)
+
+    def test_parse_lvm_version(self):
+        lvm_version_input = "     2.02.98(2) (2012-10-15)"
+        lvm_version = utils._parse_lvm_version(lvm_version_input)
+        if lvm_version != "2.02.98":
+            self.fail()
+
+    def test_parse_lvm_version_exception(self):
+        lvm_version_input = "     wrong version string"
+        self.assertRaises(
+            OperationFailed,
+            utils._parse_lvm_version,
+            lvm_version_input)
