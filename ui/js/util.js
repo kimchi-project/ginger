@@ -204,14 +204,42 @@ ginger.enableInterface = function(name, status, suc, err) {
     });
 };
 
-ginger.enableNetworkSRIOV = function(settings, suc, err) {
+ginger.enableNetworkSRIOV = function(settings, name, suc, err, progress) {
+    var taskID = -1;
+    var onResponse = function(data) {
+        taskID = data['id'];
+        trackTask();
+    };
+
+    var trackTask = function() {
+        ginger.getTask(taskID, onTaskResponse, err);
+    };
+
+    var onTaskResponse = function(result) {
+        var taskStatus = result['status'];
+        switch(taskStatus) {
+        case 'running':
+            progress && progress(result);
+            setTimeout(function() {
+                trackTask();
+            }, 3000);
+            break;
+        case 'finished':
+        case 'failed':
+            suc(result);
+            break;
+        default:
+            break;
+        }
+    };
+
     wok.requestJSON({
-        url: "plugins/ginger/network/interfaces/" + name + "/action",
-        type: 'POST',
-        contentType: "application/json",
-        dataType: 'json',
+        url : 'plugins/ginger/network/interfaces/' + name + '/enable_sriov',
+        type : 'POST',
+        contentType : 'application/json',
         data : JSON.stringify(settings),
-        success: suc,
+        dataType : 'json',
+        success: onResponse,
         error: err
     });
 }

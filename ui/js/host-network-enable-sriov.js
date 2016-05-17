@@ -20,18 +20,37 @@ ginger.initEnableSriov = function() {
     $("#modal-interface-name").text(ginger.selectedInterface['device']);
     ginger.enableJustNumbers();
 
+    var message = '';
+    var reloadProgressArea = function(result) {
+
+        if (result['status'] == 'finished') {
+            message = 'FINISHED: \n' + result['message'];
+            $("#action-dropdown-button-nw-configuration-actions").prop("disabled", false);
+        } else if (result['status'] == 'failed') {
+            message = 'FAILED: \n' + result['message'];
+            $("#action-dropdown-button-nw-configuration-actions").prop("disabled", false);
+        } else if(result['status'] == 'running') {
+            message += result['message'] + '\n';
+            $("#action-dropdown-button-nw-configuration-actions").prop("disabled", true);
+        }
+
+        $('#status-sriov').text(message);
+    };
+
     $(".save-button").on('click', function() {
         var data = {
-            "name": "SR-IOV",
-            "args": {
-                "num_vfs": $("#number-virtual-functions").val()
-            }
+            "num_vfs": $("#number-virtual-functions").val()
         };
-        ginger.enableNetworkSRIOV(data, function(result){
+        $('#enable-sriov-progress-container').show();
+        wok.window.close();
+        ginger.enableNetworkSRIOV(data, ginger.selectedInterface['device'], function(result){
+            setTimeout(function() {
+                reloadProgressArea(result);
+            }, 700);
             ginger.initNetworkConfigGridData();
         }, function(error){
             wok.message.error(error.responseJSON.reason, '#message-nw-container-area', true);
-        });
+        }, reloadProgressArea);
     });
 };
 
