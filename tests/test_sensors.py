@@ -75,47 +75,43 @@ Core 1:
         self.assertEqual(lookup.get('hdds'), {'/dev/sda': 38.0, 'unit': 'C'})
 
         self.assertIsNotNone(lookup.get('sensors'))
-        self.assertIsNotNone(lookup['sensors'].get('acpitz-virtual-0'))
+        self.assertIsNotNone(lookup['sensors'][0])
         self.assertIsNotNone(
-            lookup['sensors']['acpitz-virtual-0'].get('temp1')
+            lookup['sensors'][0]['inputs']['others'][0]
         )
         self.assertEqual(
-            lookup['sensors']['acpitz-virtual-0']['temp1'].get('temp1_input'),
+            lookup['sensors'][0]['inputs']['others'][0]['input'],
             46.0
         )
         self.assertEqual(
-            lookup['sensors']['acpitz-virtual-0']['temp1'].get('temp1_crit'),
+            lookup['sensors'][0]['inputs']['others'][0]['crit'],
             200.0
         )
-        self.assertIsNotNone(lookup['sensors'].get('thinkpad-isa-0000'))
+        self.assertIsNotNone(lookup['sensors'][1])
         self.assertIsNotNone(
-            lookup['sensors']['thinkpad-isa-0000'].get('fan1')
+            lookup['sensors'][1]['inputs']['fans'][0]
         )
         self.assertEqual(
-            lookup['sensors']['thinkpad-isa-0000']['fan1'].get('fan1_input'),
+            lookup['sensors'][1]['inputs']['fans'][0]['input'],
             3768.0
         )
-        self.assertIsNotNone(lookup['sensors'].get('coretemp-isa-0000'))
+        self.assertIsNotNone(lookup['sensors'][2])
         self.assertIsNotNone(
-            lookup['sensors']['coretemp-isa-0000'].get('Physical id 0')
+            lookup['sensors'][2]['inputs']['cores']
         )
         self.assertEqual(
-            lookup['sensors']['coretemp-isa-0000']['Physical id 0']
-            .get('temp1_input'),
+            lookup['sensors'][2]['inputs']['cores'][0]['input'],
             47.0
         )
         self.assertEqual(
-            lookup['sensors']['coretemp-isa-0000']['Physical id 0']
-            .get('temp1_max'),
+            lookup['sensors'][2]['inputs']['cores'][0]['max'],
             87.0
         )
         self.assertEqual(
-            lookup['sensors']['coretemp-isa-0000']['Physical id 0']
-            .get('temp1_crit'),
+            lookup['sensors'][2]['inputs']['cores'][0]['crit'],
             105.0
         )
         self.assertEqual(
-            lookup['sensors']['coretemp-isa-0000']['Physical id 0']
-            .get('temp1_crit_alarm'),
+            lookup['sensors'][2]['inputs']['cores'][0]['crit_alarm'],
             0.0
         )
