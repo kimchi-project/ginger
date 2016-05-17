@@ -256,6 +256,10 @@ messages = {
     "GINPART00013E": _("No partitions found"),
     "GINPART00014E": _("Partition %(name)s not found."),
 
+    "GINLVM0001E": _("Error parsing output of 'lvm version' command.. %(err)s"),
+    "GINLVM0002E": _("Error executing 'lvm version' command. %(err)s"),
+    "GINLVM0003E": _("Incompatible output from 'lvm version' command. %(err)s"),
+
     "GINPV00001E": _("Required pv_name parameter"),
     "GINPV00002E": _("Failed to create PV"),
     "GINPV00003E": _("Failed to fetch PV list"),

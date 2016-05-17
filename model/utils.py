@@ -25,6 +25,7 @@ import os
 import re
 import subprocess
 
+from distutils.version import LooseVersion
 from parted import Device as PDevice
 from parted import Disk as PDisk
 from wok.exception import InvalidParameter, NotFoundError, OperationFailed
@@ -32,6 +33,7 @@ from wok.utils import run_command, wok_log
 from wok.plugins.gingerbase.disks import _get_dev_major_min
 from wok.plugins.gingerbase.disks import _get_dev_node_path
 
+LVM_THR_VERSION = "2.02.130"
 
 FC_PATHS = "/dev/disk/by-path/*fc*"
 PATTERN_CCW = "ccw-(?P<hba_id>[\d.]+)-zfcp-(?P<wwpn>[\w]+):(?P<fcp_lun>[\w]+)$"
@@ -474,23 +476,39 @@ def _vgdisplay_out(name):
     :param name: Name of the volume group
     :return:
     """
-    cmd = ["vgs", "-o", "vg_name,vg_sysid,"
-                        "vg_fmt,vg_mda_count,vg_seqno,vg_permissions,"
-                        "vg_extendable,max_lv,lv_count,max_pv,pv_count,"
-                        "vg_size,vg_extent_size,pv_pe_count,"
-                        "pv_pe_alloc_count,pv_used,vg_free_count,pv_free,"
-                        "vg_uuid,pv_name", "--separator", ":", name,
-                        "--units", "K"]
+    vg_version = get_lvm_version()
+    # Disabled unsupported options to vgs command below
+    # a threshold version
+    if LooseVersion(vg_version) < LooseVersion(LVM_THR_VERSION):
+        below_threshold_version = True
+        cmd = ["vgs", "-o", "vg_name,vg_sysid,"
+               "vg_fmt,vg_mda_count,vg_seqno,"
+               "max_lv,lv_count,max_pv,pv_count,"
+               "vg_size,vg_extent_size,pv_pe_count,"
+               "pv_pe_alloc_count,pv_used,vg_free_count,pv_free,"
+               "vg_uuid,pv_name", "--separator", ":", name,
+               "--units", "K"]
+    else:
+        below_threshold_version = False
+        cmd = ["vgs", "-o", "vg_name,vg_sysid,"
+               "vg_fmt,vg_mda_count,vg_seqno,vg_permissions,"
+               "vg_extendable,max_lv,lv_count,max_pv,pv_count,"
+               "vg_size,vg_extent_size,pv_pe_count,"
+               "pv_pe_alloc_count,pv_used,vg_free_count,pv_free,"
+               "vg_uuid,pv_name", "--separator", ":", name,
+               "--units", "K"]
     out, err, rc = run_command(cmd)
     if rc != 0:
         raise OperationFailed("GINVG00008E")
-    return parse_vgdisplay_output(out)
+    return parse_vgdisplay_output(out, below_threshold_version)
 
 
-def parse_vgdisplay_output(vgout):
+def parse_vgdisplay_output(vgout, below_threshold_version):
     """
     This method parses the output of vgs command
     :param vgout: output of vgs command
+    :param below_threshold_version: boolean denoting if we are below
+    LVM_THR_VERSION
     :return:
     """
     output = {}
@@ -501,24 +519,47 @@ def parse_vgdisplay_output(vgout):
         output['Format'] = i.split(':')[2]
         output['Metadata Areas'] = i.split(':')[3]
         output['Metadata Sequence No'] = i.split(':')[4]
-        output['Permission'] = i.split(':')[5]
-        output['VG Status'] = i.split(':')[6]
-        output['Max LV'] = i.split(':')[7]
-        output['Cur LV'] = i.split(':')[8]
-        output['Max PV'] = i.split(':')[9]
-        output['Cur PV'] = i.split(':')[10]
-        output['VG Size'] = float(i.split(':')[11][:-1])
-        output['PE Size'] = float(i.split(':')[12][:-1])
-        output['Total PE'] = i.split(':')[13]
-        output['Alloc PE'] = i.split(':')[14]
-        output['Alloc PE Size'] = float(i.split(':')[15][:-1])
-        output['Free PE'] = i.split(':')[16]
-        output['Free PE Size'] = float(i.split(':')[17][:-1])
-        output['VG UUID'] = i.split(':')[18]
-        if 'PV Names' in output:
-            output['PV Names'].append(i.split(':')[19])
+        if below_threshold_version:
+            output['Permission'] = 'N/A'
+            output['VG Status'] = 'N/A'
+            output['Max LV'] = i.split(':')[5]
+            output['Cur LV'] = i.split(':')[6]
+            output['Max PV'] = i.split(':')[7]
+            output['Cur PV'] = i.split(':')[8]
+            output['VG Size'] = float(i.split(':')[9][:-1])
+            output['PE Size'] = float(i.split(':')[10][:-1])
+            output['Total PE'] = i.split(':')[11]
+            output['Alloc PE'] = i.split(':')[12]
+            output['Alloc PE Size'] = float(i.split(':')[13][:-1])
+            output['Free PE'] = i.split(':')[14]
+            output['Free PE Size'] = float(i.split(':')[15][:-1])
+            output['VG UUID'] = i.split(':')[16]
         else:
-            output['PV Names'] = [i.split(':')[19]]
+            output['Permission'] = i.split(':')[5]
+            output['VG Status'] = i.split(':')[6]
+            output['Max LV'] = i.split(':')[7]
+            output['Cur LV'] = i.split(':')[8]
+            output['Max PV'] = i.split(':')[9]
+            output['Cur PV'] = i.split(':')[10]
+            output['VG Size'] = float(i.split(':')[11][:-1])
+            output['PE Size'] = float(i.split(':')[12][:-1])
+            output['Total PE'] = i.split(':')[13]
+            output['Alloc PE'] = i.split(':')[14]
+            output['Alloc PE Size'] = float(i.split(':')[15][:-1])
+            output['Free PE'] = i.split(':')[16]
+            output['Free PE Size'] = float(i.split(':')[17][:-1])
+            output['VG UUID'] = i.split(':')[18]
+
+        if 'PV Names' in output:
+            if below_threshold_version:
+                output['PV Names'].append(i.split(':')[17])
+            else:
+                output['PV Names'].append(i.split(':')[19])
+        else:
+            if below_threshold_version:
+                output['PV Names'] = [i.split(':')[17]]
+            else:
+                output['PV Names'] = [i.split(':')[19]]
     return output
 
 
@@ -766,7 +807,7 @@ def parse_lsblk_out(lsblk_out):
                 disk_info['transport'] = "unknown"
 
             disk_info['size'] = int(disk_attrs[2].split("=")[1][1:-1])
-            disk_info['size'] = disk_info['size'] / (1024*1024)
+            disk_info['size'] = disk_info['size'] / (1024 * 1024)
             return_dict[disk_attrs[0].split("=")[1][1:-1]] = disk_info
 
     except Exception as e:
@@ -843,7 +884,6 @@ def get_final_list():
 
 
 def get_fc_path_elements():
-
     """
     Get the FC LUN ID, remote wwpn and local host adapter
     for all the 'fc' type block devices.
@@ -1156,3 +1196,43 @@ def get_directories(path_pattern):
     """
     paths = glob.glob(path_pattern)
     return paths
+
+
+def _parse_lvm_version(lvm_version_out):
+    """
+    Parse the output of to get LVM version
+    :param lvm_version_out: first line of the 'lvm version' command output
+    :return: version string
+    """
+    p = re.compile("\s+(\d+.\d+.\d+)")
+    m = p.match(lvm_version_out)
+    try:
+        lvm_version = m.group(1)
+    except Exception as e:
+        wok_log.error("Output of 'lvm version', %s" % lvm_version_out)
+        wok_log.error("Error parsing output of 'lvm version' command.")
+        raise OperationFailed("GINLVM0001E", {'err': e.message})
+
+    return lvm_version
+
+
+def get_lvm_version():
+    """
+    Get the version of the installed LVM
+    :return: version string
+    """
+    out, err, rc = run_command(
+        ["lvm", "version"])
+
+    if rc != 0:
+        wok_log.error("Error executing 'lvm version' command, %s" % err)
+        raise OperationFailed("GINLVM0002E", {'err': err})
+
+    try:
+        out = out.splitlines()[0].split(":")[1]
+    except Exception as e:
+        wok_log.error("Output of 'lvm version', %s" % out)
+        wok_log.error("Incompatible output from 'lvm version' command.")
+        raise OperationFailed("GINLVM0003E", {'err': e.message})
+
+    return _parse_lvm_version(out)
