@@ -65,7 +65,7 @@ class SensorsModel(object):
                 wok_log.error("Error retrieving sensors data: %s: %s." %
                               (error, rc))
 
-            devices = OrderedDict()
+            devices = []
             for section in sens_out.split('\n\n'):
                 """
                     A device consists of possibly multiple sensors, each
@@ -79,7 +79,8 @@ class SensorsModel(object):
                 # The first line of each device section is the device name,
                 #   e.g., amb-temp-sensor-isa-0000
                 dev_name, sep, section = section.partition('\n')
-                sub_devices = OrderedDict()
+                sub_devices = {"cores": [], "fans": [], "power": [], "pci": [],
+                               "ambient": [], "others": []}
                 """
                     Two sub-devices of a CPU device:
                     Physical id 0:
@@ -125,15 +126,56 @@ class SensorsModel(object):
                                 if len(data_line) == 3:
                                     data_line = [data_line[1].split()[5], 0]
 
-                                sensor.append(convert_units(
-                                    dev_name, data_line, temperature_unit))
+                                data_line = convert_units(
+                                    dev_name, data_line, temperature_unit)
 
-                                set_unit(sensor)
+                                # sensors come with :
+                                # <sensor_name>_<min,fault,input>
+                                data_splitted = data_line[0].split("_")
+                                data_splitted.pop(0)
+                                key = '_'.join(data_splitted)
+
+                                sensor.append((key, data_line[1]))
+
+                                # unit already present: skip
+                                if ["unit" in pair for pair in sensor]:
+                                    continue
+
+                                # add unit
+                                if "fan" in data_line[0]:
+                                    sensor.append(("unit", "RPM"))
+                                elif "power" in data_line[0]:
+                                    sensor.append(("unit", "W"))
+                                elif "temp" in data_line[0]:
+                                    sensor.append(
+                                        ("unit",
+                                         self._get_default_temperature_unit())
+                                    )
+
                             else:  # Sub-device name
                                 sensor_name = data_line[0]
+                                sensor.append(("name", sensor_name))
+                                sensor = OrderedDict(reversed(sensor))
 
-                                sub_devices[sensor_name] = \
-                                    OrderedDict(reversed(sensor))
+                                # add to category
+                                if "core" in sensor_name.lower():
+                                    sub_devices["cores"].append(sensor)
+
+                                elif "fan" in sensor_name.lower():
+                                    sub_devices["fans"].append(sensor)
+
+                                elif "ambient" in sensor_name.lower():
+                                    sub_devices["ambient"].append(sensor)
+
+                                elif "pci" in sensor_name.lower():
+                                    sub_devices["pci"].append(sensor)
+
+                                elif "power" in sensor_name.lower():
+                                    sub_devices["power"].append(sensor)
+
+                                else:
+                                    sub_devices["others"].append(sensor)
+
                                 sensor = []
                         except Exception:
                             pass
@@ -142,28 +184,11 @@ class SensorsModel(object):
                         max, min, crit, alarm) as one dict. Reverse it
                         so that fans, CPUs, etc. are in order.
                     """
-                    devices[dev_name] = \
-                        OrderedDict(reversed(sub_devices.items()))
+                    devices.append(
+                        {"adapter": dev_name,
+                         "inputs": OrderedDict(reversed(sub_devices.items()))}
+                    )
             return devices
-
-        def set_unit(sensor):
-            # iterate over sensor OrderedDict
-            # sensor is empty: exit
-            if len(sensor) == 0:
-                return
-
-            # verify if unit is present
-            for keys in sensor:
-                if sensor[0] == "unit":
-                    return
-
-            # append unit
-            if 'fan' in sensor[0][0]:
-                sensor.append(("unit", "RPM"))
-            elif 'power' in sensor[0][0]:
-                sensor.append(("unit", "W"))
-            elif 'temp' in sensor[0][0]:
-                sensor.append(("unit", self._get_default_temperature_unit()))
 
         def parse_hdds(temperature_unit):
             # hddtemp will strangely convert a non-number (see error case
