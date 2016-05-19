@@ -584,6 +584,8 @@ ginger.initUserManagement = function() {
           $("#user-submit").prop("disabled", true);
           $("#user-cancel").prop("disabled", false);
         };
+        clearUMSubmit();
+        $("#alert-user-modal").empty();
         $("#userLogin").prop("checked", true);
         // clear user-submit handlers before assigning
         $("#user-submit").off();
