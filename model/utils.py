@@ -599,7 +599,9 @@ def _extend_vg(name, paths):
     """
     cmd = ["vgextend", name] + [paths[i] for i in range(len(paths))]
     out, err, rc = run_command(cmd)
-    if rc != 0:
+    if rc == 5:
+        raise InvalidParameter("GINVG00015E", {'err': err})
+    elif rc != 0:
         raise OperationFailed("GINVG00011E")
     return
 

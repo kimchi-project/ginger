@@ -286,6 +286,7 @@ messages = {
     "GINVG00012E": _("vgreduce command failed"),
     "GINVG00013E": _("Required vg_name parameter"),
     "GINVG00014E": _("Required pv_paths parameter"),
+    "GINVG00015E": _("Invalid input to extend VG: error: %(err)s"),
 
     "GINLV00001E": _("Required vg_name parameter"),
     "GINLV00002E": _("Required size parameter"),
