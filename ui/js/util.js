@@ -791,6 +791,11 @@ ginger.isValidIPv6Prefix = function(prefix) {
   return prefix >= 1 && prefix <= 128;
 }
 
+ginger.isValidMacAddress = function(macaddress) {
+    var macaddrRE = new RegExp('^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$');
+    return macaddrRE.test(macaddress);
+}
+
 ginger.getSysmodules = function(suc, err) {
      wok.requestJSON({
         url: 'plugins/ginger/sysmodules',

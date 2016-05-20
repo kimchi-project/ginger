@@ -105,6 +105,9 @@ ginger.action_apply_nwsettings = function() {
       general_form_data['DEVICE'] = interfaceDevice;
       var adv_form_data = nwAdvanceForm.serializeObject();
 
+      mac_address = nwHwaddressTextbox.val();
+      general_form_data["MACADDR"] = mac_address;
+
       if (onBootCheckbox.is(":checked")) {
         general_form_data["ONBOOT"] = "yes";
       } else {
@@ -257,7 +260,15 @@ ginger.populateNwSettingsGeneralTab = function(interface) {
   nwTitle.append(interface.BASIC_INFO.DEVICE);
   nwDeviceTextbox.val(interface.BASIC_INFO.DEVICE);
   nwTypeTextbox.val(interface.BASIC_INFO.TYPE);
-  nwHwaddressTextbox.val(interface.BASIC_INFO.HWADDR);
+
+  nwHwaddressTextbox.val(interface.BASIC_INFO.MACADDR);
+  nwHwaddressTextbox.on('keyup', function() {
+      var macaddr = nwHwaddressTextbox.val();
+      $(this).toggleClass("invalid-field",
+                          !((ginger.isValidMacAddress(macaddr)))
+      );
+  });
+
   if ("SUBCHANNELS" in (interface.BASIC_INFO)) {
     nwSubchTextbox.val(interface.BASIC_INFO.SUBCHANNELS);
     subchannelForm.removeClass("hidden");
