@@ -25,30 +25,36 @@ from mock import call, mock_open, patch
 
 from wok.plugins.ginger.model.cfginterfaces import CfginterfaceModel
 from wok.plugins.ginger.model.nw_interfaces_utils import cfgInterfacesHelper
-from wok.exception import MissingParameter, OperationFailed
+from wok.exception import InvalidParameter, MissingParameter, OperationFailed
 
 
 class CfgInterfacesTests(unittest.TestCase):
     def test_get_basic_info(self):
         cfgmap = {'NAME': 'testiface', 'DEVICE': 'testdevice',
-                  'ONBOOT': 'Yes', 'TYPE': 'nic'}
+                  'ONBOOT': 'Yes', 'TYPE': 'nic',
+                  'MACADDR': '02:02:03:ff:ff:ff'}
         ethinfo = CfginterfaceModel().get_basic_info(cfgmap)
         self.assertEquals('testiface', ethinfo['BASIC_INFO']['NAME'])
         self.assertEquals('testdevice', ethinfo['BASIC_INFO']['DEVICE'])
         self.assertEquals('Yes', ethinfo['BASIC_INFO']['ONBOOT'])
+        self.assertEquals('02:02:03:ff:ff:ff',
+                          ethinfo['BASIC_INFO']['MACADDR'])
 
     @mock.patch('wok.plugins.ginger.model.nw_cfginterfaces_utils.platform')
     def test_get_basic_info_s390Architecture(self, mock_platform):
         cfgmap = {'NAME': 'testiface', 'DEVICE': 'testdevice',
                   'ONBOOT': 'Yes', 'TYPE': 'nic',
                   'SUBCHANNELS': '0.0.09a0,0.0.09a1,0.0.09a2',
-                  'NETTYPE': 'qeth', 'PORTNAME': 'OSAPORT'}
+                  'NETTYPE': 'qeth', 'PORTNAME': 'OSAPORT',
+                  'MACADDR': '02:02:03:ff:ff:ff'}
         mock_platform.machine.return_value = 's390x'
         ethinfo = CfginterfaceModel().get_basic_info(cfgmap)
         self.assertEquals('0.0.09a0,0.0.09a1,0.0.09a2',
                           ethinfo['BASIC_INFO']['SUBCHANNELS'])
         self.assertEquals('qeth', ethinfo['BASIC_INFO']['NETTYPE'])
         self.assertEquals('OSAPORT', ethinfo['BASIC_INFO']['PORTNAME'])
+        self.assertEquals('02:02:03:ff:ff:ff',
+                          ethinfo['BASIC_INFO']['MACADDR'])
 
     @mock.patch('wok.plugins.ginger.model.nw_cfginterfaces_utils.'
                 'CfgInterfacesHelper.get_slaves')
@@ -110,6 +116,31 @@ class CfgInterfacesTests(unittest.TestCase):
         mock_basic_info.assert_called_once_with(cfgmap_in_interfacefile,
                                                 cfgmap)
         mock_read.assert_called_once_with('test_iface')
+
+    @mock.patch('wok.plugins.ginger.model.nw_cfginterfaces_utils.'
+                'CfgInterfacesHelper.read_ifcfg_file')
+    @mock.patch('wok.plugins.ginger.model.nw_cfginterfaces_utils.'
+                'CfgInterfacesHelper.write_attributes_to_cfg')
+    @mock.patch('wok.plugins.ginger.model.nw_cfginterfaces_utils.'
+                'CfgInterfacesHelper.update_cfgfile')
+    def test_update_fails_invalid_macaddress(self, mock_update_cfgfile,
+                                             mock_write, mock_read):
+
+        cfgmap = {'BASIC_INFO': {'NAME': 'test_iface',
+                                 'DEVICE': 'testdevice',
+                                 'ONBOOT': 'Yes',
+                                 'MACADDR': 'invalid_mac'}}
+        interface_name = "test_iface"
+        cfgmap_in_interfacefile = \
+            {'BASIC_INFO': {'DEVICE': 'testdevice',
+                            'BOOTPROTO': 'dhcp'}}
+        mock_update_cfgfile.return_value = ""
+        mock_read.return_value = cfgmap_in_interfacefile
+
+        with self.assertRaisesRegexp(InvalidParameter, 'GINNET0092E'):
+            CfginterfaceModel().update(interface_name, cfgmap)
+            mock_read.assert_called_once_with('test_iface')
+            mock_write.assert_not_called()
 
     @mock.patch('wok.plugins.ginger.model.nw_cfginterfaces_utils.'
                 'CfgInterfacesHelper.read_ifcfg_file')
