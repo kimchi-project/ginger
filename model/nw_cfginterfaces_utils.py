@@ -470,6 +470,11 @@ class CfgInterfacesHelper(object):
             raise InvalidParameter('GINNET0018E', {'ip': ip,
                                                    'error': e.message})
 
+    def validate_macaddress(self, macaddress):
+        pattern = '^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$'
+        if not re.match(pattern, macaddress):
+            raise InvalidParameter('GINNET0092E', {'mac': macaddress})
+
     def delete_token_from_cfg(self, name, token):
         filename = self.get_iface_cfg_fullpath(name)
         try:

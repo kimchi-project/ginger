@@ -310,6 +310,7 @@ URI: /plugins/ginger/filesystems/*:mount_point*
         * NAME *(optional)*: Name of the interface.
         * ONBOOT *(optional)*: 'Yes' if interface is to be brought up during boot,
                                 'No' if interface should not be brought up during boot.
+        * MACADDR *(optional)*: The mac address of the interface.
         * MTU *(optional)*: Maximum Transmission Unit
         * ZONE *(optional)*: Firewall Zone for the interface
     * IPV4_INFO *(optional)*: Dictionary containing the ipv4 information of

@@ -317,6 +317,10 @@ class CfginterfaceModel(object):
             cfgmap[NAME] = params[BASIC_INFO][NAME]
         if ONBOOT in params[BASIC_INFO]:
             cfgmap[ONBOOT] = params[BASIC_INFO][ONBOOT]
+        if MACADDR in params[BASIC_INFO]:
+            macaddress = params[BASIC_INFO][MACADDR]
+            cfgInterfacesHelper.validate_macaddress(macaddress)
+            cfgmap[MACADDR] = macaddress
         if MTU in params[BASIC_INFO]:
             cfgmap[MTU] = params[BASIC_INFO][MTU]
         if ZONE in params[BASIC_INFO]:

@@ -120,8 +120,8 @@ messages = {
     "GINNET0088E": _("Error: openib.conf file does not exist or does not have the 'OPENIBD_POST_START' variable."),
     "GINNET0089W": _("Warning: Recent changes has been rolled back, due to operation fail"),
     "GINNET0090E": _("Physical cable is disconnected for the device '%(name)s'."),
-    "GINNET0091E": _("Run time information is not available for the interface on '%(name)s'. Activation of the interface on '%(name)s' "
-                     "went wrong."),
+    "GINNET0091E": _("Run time information is not available for the interface on '%(name)s'. Activation of the interface on '%(name)s' went wrong."),
+    "GINNET0092E": _("%(mac)s is not a valid mac address."),
 
     "GINUSER0001E": _("Specify name, password, group and profile for the new "
                       "user."),
