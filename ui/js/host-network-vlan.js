@@ -345,7 +345,7 @@ var populateGeneralTab = function(interface) {
   });
 
   if (interface == null) {
-    nwTitle.append("VLAN");
+    nwTitle.append(i18n['GINNWS0014M']);
   } else {
     nwTitle.append(interface.BASIC_INFO.DEVICE);
     nwVLANInterfaceTextbox.val(interface.BASIC_INFO.DEVICE);

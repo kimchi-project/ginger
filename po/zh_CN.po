@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ginger 1.2.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-02 15:09-0300\n"
+"POT-Creation-Date: 2016-05-20 23:02-0300\n"
 "PO-Revision-Date: 2014-06-22 14:00+0800\n"
 "Last-Translator: Zhou Zheng Sheng <zhshzhou@linux.vnet.ibm.com>\n"
 "Language-Team: Zhou Zheng Sheng <zhshzhou@linux.vnet.ibm.com>\n"
@@ -43,6 +43,14 @@ msgstr ""
 msgid "Activate"
 msgstr "激活"
 
+#, python-format
+msgid "Activated host network interface '%(ident)s'"
+msgstr ""
+
+#, python-format
+msgid "Activated power saving profile '%(ident)s'"
+msgstr ""
+
 msgid "Add"
 msgstr ""
 
@@ -52,10 +60,16 @@ msgstr ""
 msgid "Add Bond"
 msgstr ""
 
+msgid "Add Bridge"
+msgstr ""
+
 msgid "Add ECKD Device"
 msgstr ""
 
 msgid "Add FCP Device"
+msgstr ""
+
+msgid "Add Interface"
 msgstr ""
 
 msgid "Add Subscription"
@@ -68,6 +82,14 @@ msgid "Add VLAN"
 msgstr ""
 
 msgid "Add a Path"
+msgstr ""
+
+#, python-format
+msgid "Added bonded port '%(bond)s' to OVS bridge '%(ident)s'"
+msgstr ""
+
+#, python-format
+msgid "Added interface '%(interface)s' to OVS bridge '%(ident)s'"
 msgstr ""
 
 msgid "Address"
@@ -121,6 +143,12 @@ msgstr ""
 msgid "Automatic(DHCP)"
 msgstr ""
 
+msgid "Autostart"
+msgstr ""
+
+msgid "BOND"
+msgstr ""
+
 msgid "BOND interface name is missing or invalid"
 msgstr ""
 
@@ -130,13 +158,28 @@ msgstr ""
 msgid "Batch Delete"
 msgstr "批量删除"
 
+msgid "Bond %1 was successfully added"
+msgstr ""
+
+msgid "Bond %1 was successfully modified"
+msgstr ""
+
+msgid "Bond %1 was successfully removed"
+msgstr ""
+
 msgid "Bond Members"
 msgstr ""
 
 msgid "Bond info is missing"
 msgstr ""
 
+msgid "Bond name"
+msgstr ""
+
 msgid "Bonding master is missing"
+msgstr ""
+
+msgid "Bonds"
 msgstr ""
 
 msgid "Boot protocol is missing for ipv4 settings."
@@ -149,10 +192,22 @@ msgstr ""
 msgid "Bridge %(bridge)s does not have a bond named %(bond)s."
 msgstr ""
 
+msgid "Bridge %1 was successfully removed"
+msgstr ""
+
+msgid "Bridge Name"
+msgstr ""
+
 msgid "Bring down interface"
 msgstr ""
 
 msgid "Bring up interface"
+msgstr ""
+
+msgid "Bytes Received"
+msgstr ""
+
+msgid "Bytes Transmitted"
 msgstr ""
 
 msgid "Cancel"
@@ -164,10 +219,16 @@ msgstr "运行 VM 时无法更新系统固件。"
 msgid "Capacity (MB)"
 msgstr ""
 
+msgid "Cgroup"
+msgstr ""
+
 msgid "Change type for partition failed"
 msgstr ""
 
 msgid "Close"
+msgstr ""
+
+msgid "Commited host firmware image from temp side to perm side"
 msgstr ""
 
 msgid "Community"
@@ -178,6 +239,9 @@ msgstr "配置备份"
 
 msgid "Confirm Password"
 msgstr "确认密码"
+
+msgid "Confirmed changes on host network configuration"
+msgstr ""
 
 msgid "Connect Automatically"
 msgstr ""
@@ -199,6 +263,45 @@ msgstr "创建备份"
 msgid "Create partition failed"
 msgstr ""
 
+#, python-format
+msgid "Created DASD partition on '%(dev_name)s' with size %(size)s"
+msgstr ""
+
+#, python-format
+msgid "Created OVS bridge '%(name)s'"
+msgstr ""
+
+#, python-format
+msgid "Created archive with description '%(description)s'"
+msgstr ""
+
+msgid "Created configuration file for network interface"
+msgstr ""
+
+#, python-format
+msgid "Created disk partition at '%(devname)s' with size %(partsize)s"
+msgstr ""
+
+#, python-format
+msgid "Created host volume group '%(vg_name)s'"
+msgstr ""
+
+#, python-format
+msgid "Created logical volume at volume group '%(vg_name)s'"
+msgstr ""
+
+#, python-format
+msgid "Created physical volume '%(pv_name)s'"
+msgstr ""
+
+#, python-format
+msgid "Created swap device '%(file_loc)s'"
+msgstr ""
+
+#, python-format
+msgid "Created user '%(name)s'"
+msgstr ""
+
 msgid "Currently logged user of this session is not allowed to be deleted."
 msgstr ""
 
@@ -215,6 +318,10 @@ msgstr "DNS"
 msgid "DNS Server"
 msgstr ""
 
+#, python-format
+msgid "Deactivated host network interface '%(ident)s'"
+msgstr ""
+
 msgid "Default Gateway"
 msgstr ""
 
@@ -228,6 +335,14 @@ msgid "Delete interface"
 msgstr ""
 
 msgid "Delete partition failed"
+msgstr ""
+
+#, python-format
+msgid "Deleted swap device '%(ident)s'"
+msgstr ""
+
+#, python-format
+msgid "Deleted user '%(ident)s'"
 msgstr ""
 
 #, python-format
@@ -266,6 +381,13 @@ msgstr ""
 msgid "Device name of interface is missing or invalid."
 msgstr ""
 
+#, python-format
+msgid "Disabled autostart of service '%(ident)s'"
+msgstr ""
+
+msgid "Discarded old archives"
+msgstr ""
+
 msgid "Do you want to format the selected ECKD device(s)?"
 msgstr ""
 
@@ -281,6 +403,12 @@ msgid "Down"
 msgstr ""
 
 msgid "Download"
+msgstr ""
+
+msgid "Edit Bridge"
+msgstr ""
+
+msgid "Edit Bridge:"
 msgstr ""
 
 msgid ""
@@ -300,7 +428,14 @@ msgstr ""
 msgid "Enable SR-IOV"
 msgstr ""
 
+msgid "Enable SR-IOV Progress"
+msgstr ""
+
 msgid "Enable SR-IOV for"
+msgstr ""
+
+#, python-format
+msgid "Enabled autostart of service '%(ident)s'"
 msgstr ""
 
 msgid "Equivalent to enabling promiscuous mode on regular Ethernet adapters"
@@ -355,6 +490,10 @@ msgstr ""
 
 #, python-format
 msgid "Error executing 'lsblk -Po, %(err)s"
+msgstr ""
+
+#, python-format
+msgid "Error executing 'lvm version' command. %(err)s"
 msgstr ""
 
 msgid ""
@@ -435,6 +574,10 @@ msgid "Error parsing /proc/swaps file. %(err)s"
 msgstr ""
 
 #, python-format
+msgid "Error parsing output of 'lvm version' command.. %(err)s"
+msgstr ""
+
+#, python-format
 msgid ""
 "Error rejecting firmware. rc = %(rc)s.                      Ensure you are "
 "booted to the permanent side."
@@ -475,6 +618,12 @@ msgid ""
 "'OPENIBD_POST_START' variable."
 msgstr ""
 
+msgid "Errors Received"
+msgstr ""
+
+msgid "Errors Transmitted"
+msgstr ""
+
 msgid "Exception getting the route information"
 msgstr ""
 
@@ -482,6 +631,14 @@ msgid "Exception updating the interface settings"
 msgstr ""
 
 msgid "Exception updating/creating the ifcfg file."
+msgstr ""
+
+#, python-format
+msgid "Executed action '%(name)s' on network interface '%(ident)s'"
+msgstr ""
+
+#, python-format
+msgid "Extended host volume group '%(ident)s'"
 msgstr ""
 
 msgid "FCP Tape Devices"
@@ -687,6 +844,12 @@ msgstr ""
 msgid "Filter"
 msgstr ""
 
+msgid "Filter System Modules"
+msgstr ""
+
+msgid "Filter System Services"
+msgstr ""
+
 msgid "Firewall Zone"
 msgstr ""
 
@@ -709,6 +872,14 @@ msgid "Format ECKD"
 msgstr ""
 
 msgid "Format partition failed"
+msgstr ""
+
+#, python-format
+msgid "Formatted DASD device '%(ident)s' with block size %(blk_size)s"
+msgstr ""
+
+#, python-format
+msgid "Formatted disk partition '%(ident)s' with filesystem '%(fstype)s'"
 msgstr ""
 
 msgid "Formatting..."
@@ -790,8 +961,15 @@ msgstr ""
 msgid "In-Use/Max Ports"
 msgstr "使用中/最大端口数"
 
+#, python-format
+msgid "Incompatible output from 'lvm version' command. %(err)s"
+msgstr ""
+
 msgid "Incorrect swap type, only 'device' and 'file' are allowed."
 msgstr ""
+
+msgid "Interface"
+msgstr "接口"
 
 #, python-format
 msgid "Interface %(iface)s not found in openvswitch database."
@@ -799,12 +977,13 @@ msgstr ""
 
 #, python-format
 msgid ""
-"Interface %(name)s is not editable because it belongs to a vlan or bridge"
-msgstr "接口 %(name)s 不可编辑，因为它属于某个 VLAN 或网桥"
-
-#, python-format
-msgid ""
 "Interface %(name)s loaded with driver %(module)s does not support SR-IOV."
+msgstr ""
+
+msgid "Interface %1 was successfully added"
+msgstr ""
+
+msgid "Interface %1 was successfully removed"
 msgstr ""
 
 #, python-format
@@ -824,8 +1003,20 @@ msgstr ""
 msgid "Interface Name"
 msgstr ""
 
+msgid "Interface is"
+msgstr ""
+
+msgid "Interface to be added"
+msgstr ""
+
+msgid "Interface to be removed"
+msgstr ""
+
 #, python-format
 msgid "Interface with the name '%(iface)s' already exists ."
+msgstr ""
+
+msgid "Interfaces"
 msgstr ""
 
 msgid "Intree"
@@ -852,13 +1043,6 @@ msgstr "无效 counts_ago 数目。"
 msgid "Invalid days_ago number."
 msgstr "无效 days_ago 数目。"
 
-msgid ""
-"Invalid ip/netmask inputs. Both fields must be valid ip/netmask values or "
-"both must be blank (will erase the current IP/netmask)."
-msgstr ""
-"输入的 IP/网络掩码值无效。这两个字段都必须是有效的 IP/网络掩码值或两个字段都"
-"必须为空白（将擦除当前 IP/网络掩码）。"
-
 #, python-format
 msgid "Invalid ipv4 address '%(ip)s', '%(error)s'."
 msgstr ""
@@ -866,10 +1050,6 @@ msgstr ""
 #, python-format
 msgid "Invalid ipv6 address '%(ip)s', '%(error)s'."
 msgstr ""
-
-#, python-format
-msgid "Invalid network parameters. Details: %(err)s"
-msgstr "网络参数无效。详细信息：%(err)s"
 
 msgid "Invalid parameter for DNS servers"
 msgstr "DNS 服务器参数无效"
@@ -918,10 +1098,26 @@ msgstr ""
 msgid "Load Special Config"
 msgstr ""
 
+msgid "Loaded"
+msgstr ""
+
+#, python-format
+msgid "Loaded kernel module '%(name)s'"
+msgstr ""
+
+msgid "Loading"
+msgstr ""
+
 msgid "Loading..."
 msgstr ""
 
 msgid "Lun scan is enabled. Cannot add/remove LUNs manually"
+msgstr ""
+
+msgid "MAC Address"
+msgstr ""
+
+msgid "MI(Recommended)"
 msgstr ""
 
 msgid "MTU"
@@ -969,6 +1165,15 @@ msgstr ""
 msgid "Model"
 msgstr ""
 
+#, python-format
+msgid ""
+"Modified bonded port '%(bond)s' to replace interface '%(interface_del)s' "
+"with interface '%(interface_add)s' in OVS bridge '%(ident)s'"
+msgstr ""
+
+msgid "Modify"
+msgstr ""
+
 msgid "Module"
 msgstr ""
 
@@ -992,6 +1197,10 @@ msgid "Monitoring Interval"
 msgstr ""
 
 msgid "Mount Point"
+msgstr ""
+
+#, python-format
+msgid "Mounted %(type)s filesystem at '%(mount_point)s'"
 msgstr ""
 
 msgid "Multipath Links"
@@ -1031,6 +1240,9 @@ msgstr ""
 msgid "No partitions found for disk . %(disk)s"
 msgstr ""
 
+msgid "No results found!"
+msgstr ""
+
 msgid "No storage device selected. Please select one."
 msgstr ""
 
@@ -1040,10 +1252,22 @@ msgstr ""
 msgid "OK"
 msgstr ""
 
+msgid "OVS Bridges"
+msgstr ""
+
 msgid "Ok"
 msgstr ""
 
+msgid "PID"
+msgstr ""
+
 msgid "PREFIX missing."
+msgstr ""
+
+msgid "Packages Received"
+msgstr ""
+
+msgid "Packages Transmitted"
 msgstr ""
 
 msgid "Packaging Path "
@@ -1105,6 +1329,10 @@ msgstr ""
 msgid "Persistent file is not available for interface %1."
 msgstr ""
 
+#, python-format
+msgid "Physical cable is disconnected for the device '%(name)s'."
+msgstr ""
+
 msgid "Physical device name is missing"
 msgstr ""
 
@@ -1126,16 +1354,48 @@ msgstr ""
 msgid "Preserve the latest"
 msgstr "保留最新"
 
+msgid "Process"
+msgstr ""
+
 msgid "Profile"
 msgstr "概要文件"
 
 msgid "Provide required parameters: hostname, port, community."
 msgstr "提供必需参数：hostname、port 和 community。"
 
+msgid "RDMA enabled"
+msgstr ""
+
+#, python-format
+msgid "Redefined host network interface '%(ident)s'"
+msgstr ""
+
+#, python-format
+msgid "Reduced host volume group '%(ident)s'"
+msgstr ""
+
 msgid "Refresh"
 msgstr ""
 
+msgid "Regular"
+msgstr ""
+
+msgid "Regular (No Shell)"
+msgstr ""
+
+msgid "Rejected host firmware image on temp side"
+msgstr ""
+
 msgid "Remove"
+msgstr ""
+
+msgid "Remove Bond"
+msgstr ""
+
+msgid "Remove Bridge"
+msgstr ""
+
+msgid "Remove Interface"
 msgstr ""
 
 #, python-format
@@ -1144,6 +1404,46 @@ msgstr ""
 
 #, python-format
 msgid "Remove failed: error: %(err)s"
+msgstr ""
+
+#, python-format
+msgid "Removed DASD partition '%(ident)s'"
+msgstr ""
+
+#, python-format
+msgid "Removed OVS bridge '%(ident)s'"
+msgstr ""
+
+#, python-format
+msgid "Removed archive '%(ident)s'"
+msgstr ""
+
+#, python-format
+msgid "Removed bonded port '%(bond)s' from OVS bridge '%(ident)s'"
+msgstr ""
+
+#, python-format
+msgid "Removed configuration file for network interface '%(ident)s'"
+msgstr ""
+
+#, python-format
+msgid "Removed disk partition '%(ident)s'"
+msgstr ""
+
+#, python-format
+msgid "Removed host volume group '%(ident)s'"
+msgstr ""
+
+#, python-format
+msgid "Removed interface '%(interface)s' from OVS bridge '%(ident)s'"
+msgstr ""
+
+#, python-format
+msgid "Removed logical volume '%(ident)s'"
+msgstr ""
+
+#, python-format
+msgid "Removed physical volume '%(ident)s'"
 msgstr ""
 
 msgid "Removing..."
@@ -1191,7 +1491,17 @@ msgstr ""
 msgid "Restart interface"
 msgstr ""
 
+#, python-format
+msgid "Restarted service '%(ident)s'"
+msgstr ""
+
 msgid "Routes"
+msgstr ""
+
+#, python-format
+msgid ""
+"Run time information is not available for the interface on '%(name)s'. "
+"Activation of the interface on '%(name)s' went wrong."
 msgstr ""
 
 msgid "SAN Adapters"
@@ -1233,14 +1543,41 @@ msgstr ""
 msgid "SRC Version"
 msgstr ""
 
+msgid "Save"
+msgstr ""
+
+msgid "Select an Interface"
+msgstr ""
+
+msgid "Select an Interface to be added"
+msgstr ""
+
+msgid "Select an Interface to be removed"
+msgstr ""
+
+msgid "Select the bond Interfaces"
+msgstr ""
+
 msgid "Sensor Monitor"
 msgstr "传感器监视器"
+
+msgid "Sent command to restart service %1"
+msgstr ""
+
+msgid "Sent command to start service %1"
+msgstr ""
+
+msgid "Sent command to stop service %1"
+msgstr ""
 
 #, python-format
 msgid "Service name %(name)s not found."
 msgstr ""
 
 msgid "Settings"
+msgstr ""
+
+msgid "Showing {{ctx.start}} to {{ctx.end}} of {{ctx.total}} entries"
 msgstr ""
 
 msgid "Signature Key"
@@ -1274,23 +1611,34 @@ msgstr "指定新用户的名称、密码、组和概要文件。"
 msgid "Speed"
 msgstr "速度"
 
-msgid "Standard"
-msgstr ""
-
-msgid "Standard (No Shell)"
-msgstr ""
-
 msgid "Start"
 msgstr "启动"
 
+msgid "Started IBM Serviceable Event Provider (SEP)"
+msgstr ""
+
+#, python-format
+msgid "Started service '%(ident)s'"
+msgstr ""
+
 msgid "State"
 msgstr "状态"
+
+msgid "Statistics"
+msgstr ""
 
 msgid "Status"
 msgstr ""
 
 msgid "Stop"
 msgstr "停止"
+
+msgid "Stopped IBM Serviceable Event Provider (SEP)"
+msgstr ""
+
+#, python-format
+msgid "Stopped service '%(ident)s'"
+msgstr ""
 
 msgid "Storage"
 msgstr ""
@@ -1307,6 +1655,10 @@ msgstr "提交"
 msgid "Subscribe"
 msgstr ""
 
+#, python-format
+msgid "Subscribed '%(hostname)s' with IBM SEP"
+msgstr ""
+
 msgid "Successfully applied setting for interface: "
 msgstr ""
 
@@ -1320,7 +1672,13 @@ msgstr ""
 msgid "Symbolic Name"
 msgstr "符号名称"
 
+msgid "System Modules"
+msgstr ""
+
 msgid "System Modules Management"
+msgstr ""
+
+msgid "System Services Management"
 msgstr ""
 
 msgid "System hostname must be a valid string."
@@ -1368,6 +1726,15 @@ msgid "There was a problem while reading users details, see log for details"
 msgstr ""
 
 msgid "This module does not have any parameters."
+msgstr ""
+
+msgid "This will remove the bond %1. Do you want to continue?"
+msgstr ""
+
+msgid "This will remove the bridge %1. Do you want to continue?"
+msgstr ""
+
+msgid "This will remove the interface %1 from %2. Do you want to continue?"
 msgstr ""
 
 msgid "This will unload the module %1. Do you want to continue?"
@@ -1477,10 +1844,6 @@ msgstr ""
 msgid "Unable to set default gateway: %(err)s"
 msgstr "无法设置缺省网关：%(err)s"
 
-#, python-format
-msgid "Unable to update interface configuration. Details: %(err)s"
-msgstr "无法更新接口配置。详细信息：%(err)s"
-
 msgid "Unable to write fstab"
 msgstr ""
 
@@ -1490,7 +1853,19 @@ msgstr ""
 msgid "Unload Module"
 msgstr ""
 
+#, python-format
+msgid "Unloaded kernel module '%(ident)s'"
+msgstr ""
+
+#, python-format
+msgid "Unmounted filesystem '%(ident)s'"
+msgstr ""
+
 msgid "Unsubscribe"
+msgstr ""
+
+#, python-format
+msgid "Unsubscribed '%(ident)s' with IBM SEP"
 msgstr ""
 
 msgid "Up"
@@ -1500,6 +1875,25 @@ msgid "Update"
 msgstr "更新"
 
 msgid "Update Progress"
+msgstr ""
+
+#, python-format
+msgid "Updated '%(ident)s' subscription with IBM SEP"
+msgstr ""
+
+#, python-format
+msgid "Updated configuration file for network interface '%(ident)s'"
+msgstr ""
+
+#, python-format
+msgid "Updated disk partition '%(ident)s' to type '%(type)s'"
+msgstr ""
+
+msgid "Updated host network configuration"
+msgstr ""
+
+#, python-format
+msgid "Upgraded host firmware with '%(path)s'"
 msgstr ""
 
 msgid "Usage"
@@ -1538,6 +1932,9 @@ msgstr ""
 
 #, python-format
 msgid "User/Login '%(user)s' already in use."
+msgstr ""
+
+msgid "VLAN"
 msgstr ""
 
 msgid "VLAN Id"
@@ -1581,6 +1978,15 @@ msgstr "WWNN"
 
 msgid "WWPN"
 msgstr "WWPN"
+
+msgid "Warning: Recent changes has been rolled back, due to operation fail"
+msgstr ""
+
+msgid "and other %1 bonds"
+msgstr ""
+
+msgid "and other %1 interfaces"
+msgstr ""
 
 msgid "backups"
 msgstr "个备份"
@@ -1666,6 +2072,23 @@ msgstr ""
 msgid "vgs command for given VG failed"
 msgstr ""
 
+#~ msgid ""
+#~ "Interface %(name)s is not editable because it belongs to a vlan or bridge"
+#~ msgstr "接口 %(name)s 不可编辑，因为它属于某个 VLAN 或网桥"
+
+#~ msgid ""
+#~ "Invalid ip/netmask inputs. Both fields must be valid ip/netmask values or "
+#~ "both must be blank (will erase the current IP/netmask)."
+#~ msgstr ""
+#~ "输入的 IP/网络掩码值无效。这两个字段都必须是有效的 IP/网络掩码值或两个字段"
+#~ "都必须为空白（将擦除当前 IP/网络掩码）。"
+
+#~ msgid "Invalid network parameters. Details: %(err)s"
+#~ msgstr "网络参数无效。详细信息：%(err)s"
+
+#~ msgid "Unable to update interface configuration. Details: %(err)s"
+#~ msgstr "无法更新接口配置。详细信息：%(err)s"
+
 #~ msgid "Could not add user '%(user)s' to sudoers list."
 #~ msgstr "无法将用户“%(user)s”添加至 sudoer 列表。"
 
@@ -1701,9 +2124,6 @@ msgstr ""
 
 #~ msgid "IP"
 #~ msgstr "IP"
-
-#~ msgid "Interface"
-#~ msgstr "接口"
 
 #~ msgid "Kimchi User"
 #~ msgstr "Kimchi 用户"

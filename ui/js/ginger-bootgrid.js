@@ -24,7 +24,7 @@ ginger.createBootgrid = function(opts) {
   var selection = ('selection' in opts) ? opts['selection'] : true;
   var navigation = ('navigation' in opts) ? opts['navigation'] : 3;
 
-  var gridMessage = ('loadingMessage' in opts && opts['loadingMessage'].trim() && opts['loadingMessage'].length > 0) ? opts['loadingMessage'] : 'Loading...';
+  var gridMessage = ('loadingMessage' in opts && opts['loadingMessage'].trim() && opts['loadingMessage'].length > 0) ? opts['loadingMessage'] : i18n['GINBG00001M'];
   var gridloadingHtml = ['<div id="' + gridId + '-loading" class="wok-list-loader-container wok-list-loading">',
     '<div class="wok-list-loading-icon"></div>',
     '<div class="wok-list-loading-text">' + gridMessage + '</div>',
@@ -126,8 +126,9 @@ ginger.createBootgrid = function(opts) {
       center: "text-center"
     },
     labels: {
-      search: "Filter",
-      noResults: (opts['noResults']) ? opts['noResults'] : "No results found!"
+      search: i18n['GINBG00002M'],
+      noResults: (opts['noResults']) ? opts['noResults'] : i18n['GINNET0055M'],
+      infos: i18n['GINBG00005M']
     }
   }).on("loaded.rs.jquery.bootgrid", function(e) {
 	    $('.input-group .glyphicon-search').removeClass('.glyphicon-search').addClass('fa fa-search');
@@ -203,7 +204,7 @@ ginger.createActionList = function(settings) {
   toolbarNode = $('<div class="btn-group"></div>');
   toolbarNode.appendTo($("#" + container));
   dropHTML = ['<div class="dropdown menu-flat">',
-    '<button id="action-dropdown-button-', container, '" class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">', (buttonType === 'action') ? '<span class="edit-alt"></span>Actions' : '<i class="fa fa-plus-circle"></i>Add ', '<span class="caret"></span>',
+    '<button id="action-dropdown-button-', container, '" class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">', (buttonType === 'action') ? '<span class="edit-alt"></span>'+ i18n['GINBG00003M'] : '<i class="fa fa-plus-circle"></i>'+ i18n['GINBG00004M'], '<span class="caret"></span>',
     '</button>',
     '<ul class="dropdown-menu"></ul>',
     '</div>'
@@ -235,14 +236,14 @@ ginger.changeButtonStatus = function(buttonIds, state) {
 }
 
 ginger.showBootgridLoading = function(opts) {
-  var gridMessage = ('loadingMessage' in opts && opts['loadingMessage'].trim() && opts['loadingMessage'].length > 0) ? opts['loadingMessage'] : 'Loading...';
+  var gridMessage = ('loadingMessage' in opts && opts['loadingMessage'].trim() && opts['loadingMessage'].length > 0) ? opts['loadingMessage'] : i18n['GINBG00001M'];
   $("#" + opts['gridId'] + "-loading .wok-list-loading-text").text(gridMessage);
   $("#" + opts['gridId'] + "-loading").show();
   $("#" + opts['gridId'] + "-loading").css("zIndex", 1);
 };
 
 ginger.hideBootgridLoading = function(opts) {
-  var gridMessage = ('loadingMessage' in opts && opts['loadingMessage'].trim() && opts['loadingMessage'].length > 0) ? opts['loadingMessage'] : 'Loading...';
+  var gridMessage = ('loadingMessage' in opts && opts['loadingMessage'].trim() && opts['loadingMessage'].length > 0) ? opts['loadingMessage'] : i18n['GINBG00001M'];
   $("#" + opts['gridId'] + "-loading .wok-list-loading-text").text(gridMessage);
   $("#" + opts['gridId'] + "-loading").hide();
   $("#" + opts['gridId'] + "-loading").css("zIndex", 1);

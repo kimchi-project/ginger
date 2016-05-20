@@ -333,7 +333,7 @@ var populateGeneralTab = function(interface) {
 
   createBondMembersGrid(interface);
   if (interface == null) {
-    nwTitle.append("BOND");
+    nwTitle.append(i18n['GINNWS0013M']);
     nwBondDeviceTextbox.val('');
   } else {
     nwTitle.append(interface.BASIC_INFO.NAME);
@@ -494,7 +494,7 @@ var populateAdvanceTab = function(interface) {
 
   linkMonitoring.append($("<option></option>")
     .attr("value", "MI(Recommended)")
-    .text("MI(Recommended)"));
+    .text(i18n['GINNWS0015M']));
 
   if (interface == null) {
     // zoneSelect.append($("<option></option>")
