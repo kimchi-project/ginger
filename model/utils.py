@@ -615,8 +615,11 @@ def _reduce_vg(name, paths):
     """
     cmd = ["vgreduce", name] + [paths[i] for i in range(len(paths))]
     out, err, rc = run_command(cmd)
-    if rc != 0:
-        raise OperationFailed("GINVG00012E")
+    if rc == 5:
+        raise InvalidParameter("GINVG00016E", {'err': err})
+    elif rc != 0:
+        raise OperationFailed("GINVG00012E", {'err': err})
+
     return
 
 

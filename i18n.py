@@ -283,10 +283,11 @@ messages = {
     "GINVG00009E": _("vgcreate command failed"),
     "GINVG00010E": _("vgremove command failed"),
     "GINVG00011E": _("vgextend command failed"),
-    "GINVG00012E": _("vgreduce command failed"),
+    "GINVG00012E": _("vgreduce command failed : %(err)s"),
     "GINVG00013E": _("Required vg_name parameter"),
     "GINVG00014E": _("Required pv_paths parameter"),
     "GINVG00015E": _("Invalid input to extend VG: error: %(err)s"),
+    "GINVG00016E": _("Error reducing volume group : %(err)s"),
 
     "GINLV00001E": _("Required vg_name parameter"),
     "GINLV00002E": _("Required size parameter"),
