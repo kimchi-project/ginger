@@ -131,12 +131,11 @@ class InterfaceModel(object):
         if not max_vfs_str:
             raise OperationFailed("GINNET0082E", {'name': iface})
 
-        if not args or 'num_vfs' not in args.keys():
+        if not args:
             raise InvalidParameter("GINNET0077E")
 
-        num_vfs = args['num_vfs']
         try:
-            num_vfs = int(num_vfs)
+            num_vfs = int(args)
         except ValueError:
             raise InvalidParameter("GINNET0079E")
 
@@ -165,7 +164,7 @@ class InterfaceModel(object):
         params = {'name': name, 'num_vfs': num_vfs}
 
         task_id = add_task(
-            '/plugins/ginger/network/%s/enable_sriov',
+            '/plugins/ginger/network/%s/enable_sriov' % name,
             self._mlx5_SRIOV_enable_task,
             self.objstore, params
         )
@@ -188,14 +187,15 @@ class InterfaceModel(object):
             with open(sriov_file, 'w') as f:
                 f.write(str(num_vfs) + '\n')
 
+            add_config_to_mlx5_SRIOV_boot_script(iface, num_vfs)
+
             ifaces_after_sriov = cfgInterfacesHelper.get_interface_list()
             new_ifaces = ifaces_without_sriov ^ ifaces_after_sriov
+
             for new_iface in new_ifaces:
                 cfgInterfacesHelper.create_interface_cfg_file(new_iface)
 
-            add_config_to_mlx5_SRIOV_boot_script(iface, num_vfs)
         except Exception as e:
-            raise OperationFailed("GINNET0085E",
-                                  {'file': sriov_file, 'err': e.message})
+            raise OperationFailed("GINNET0085E", {'err': e.message})
 
         cb('SR-IOV setup for %s completed' % iface, True)
