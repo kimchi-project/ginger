@@ -20,6 +20,7 @@
 
 import ethtool
 import os
+import time
 
 from nw_cfginterfaces_utils import IFACE_BOND
 from nw_cfginterfaces_utils import IFACE_VLAN
@@ -29,7 +30,7 @@ from nw_interfaces_utils import InterfacesHelper
 from wok.exception import InvalidOperation, InvalidParameter, NotFoundError
 from wok.exception import OperationFailed
 from wok.model.tasks import TaskModel
-from wok.utils import add_task, encode_value
+from wok.utils import add_task, encode_value, wok_log
 from wok.plugins.gingerbase import netinfo
 
 
@@ -170,6 +171,45 @@ class InterfaceModel(object):
         )
         return self.task.lookup(task_id)
 
+    #     When setting the virtual functions, the mlx5_core driver
+    # creates each VF as 'eth0' and then rename it to the actual VF
+    # interface name.
+    #     However, the driver doesn't finish this procedure in the
+    # time interval we wait for the 'write' call in its system file
+    # to return. This causes at least one 'eth0' interface slipping
+    # to the rest of the backend and, when Ginger attempts to use it
+    # as a regular interface, the driver most likely renamed it to
+    # the right name and the 'eth0' interface is now invalid, causing
+    # random backend errors.
+    #     This function waits at most 5 seconds until the mlx5_core
+    # driver finishes its job. No error will be thrown if the 5 seconds
+    # time expires.
+    #
+    # TODO: erase this function and its call when the mlx5_driver
+    # is fixed.
+    def _wait_VFs_setup(self, ifaces_without_sriov):
+        timeout = 0
+        new_ifaces = None
+        while timeout < 5:
+            current_ifaces = cfgInterfacesHelper.get_interface_list()
+            new_ifaces = ifaces_without_sriov ^ current_ifaces
+
+            if 'eth0' in new_ifaces:
+                timeout += 0.5
+                time.sleep(0.5)
+            else:
+                break
+        if 0 < timeout < 5:
+            wok_log.info('Ginger backend waited ' + str(timeout) +
+                         ' seconds for the mlx5_core driver to '
+                         'complete the SR-IOV setup.')
+        elif timeout == 5:
+            wok_log.error('Ginger backend waited 5 seconds but the '
+                          'mlx5_core driver did not complete the SR-IOV '
+                          'setup. Is the mlx5_core driver working '
+                          'properly?')
+        return new_ifaces
+
     def _mlx5_SRIOV_enable_task(self, cb, params):
         iface = params.get('name')
         num_vfs = params.get('num_vfs')
@@ -189,8 +229,7 @@ class InterfaceModel(object):
 
             add_config_to_mlx5_SRIOV_boot_script(iface, num_vfs)
 
-            ifaces_after_sriov = cfgInterfacesHelper.get_interface_list()
-            new_ifaces = ifaces_without_sriov ^ ifaces_after_sriov
+            new_ifaces = self._wait_VFs_setup(ifaces_without_sriov)
 
             for new_iface in new_ifaces:
                 cfgInterfacesHelper.create_interface_cfg_file(new_iface)
