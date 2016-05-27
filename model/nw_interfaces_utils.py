@@ -57,10 +57,11 @@ def add_mlx5_SRIOV_boot_script_in_openib_conf():
                 break
 
         if not line_found:
-            raise OperationFailed("GINNET0088E")
-
-        with open(OPENIB_CONF_FILE, 'w') as f:
-            f.writelines(contents)
+            with open(OPENIB_CONF_FILE, 'a') as f:
+                f.write(script_line)
+        else:
+            with open(OPENIB_CONF_FILE, 'w') as f:
+                f.writelines(contents)
 
     except OperationFailed:
         raise
@@ -72,6 +73,7 @@ def create_initial_mlx5_SRIOV_boot_script(iface, num_vfs):
     template = """#!/bin/sh\n\
 # ginger_sriov_start.sh: Connectx-4 SR-IOV init script - created by Ginger\n\
 \n# %(iface)s setup\n\
+echo 0 > /sys/class/net/%(iface)s/device/sriov_numvfs\n\
 echo %(num_vf)s > /sys/class/net/%(iface)s/device/sriov_numvfs\n"""
     template = template % {'iface': iface, 'num_vf': num_vfs}
 
@@ -97,12 +99,16 @@ def update_mlx5_SRIOV_script_content(script_content, iface, num_vfs):
         line = script_content[i]
         if iface_marker in line:
             line_found = True
-            i = i + 1
+            # skip 2 lines due to the 'echo 0'
+            i = i + 2
             script_content[i] = updated_line
             break
 
     if not line_found:
         script_content.append(iface_marker + '\n')
+        script_content.append(
+            line_template % {'iface': iface, 'num_vf': 0}
+        )
         script_content.append(updated_line)
 
     return script_content
@@ -114,10 +120,13 @@ def add_config_to_mlx5_SRIOV_boot_script(iface, num_vfs):
         return
 
     try:
-        with open(MLX5_SRIOV_BOOT_FILE, 'w+') as f:
+        with open(MLX5_SRIOV_BOOT_FILE, 'r+') as f:
             content = update_mlx5_SRIOV_script_content(f.readlines(),
                                                        iface, num_vfs)
+            f.seek(0)
             f.writelines(content)
+
+        add_mlx5_SRIOV_boot_script_in_openib_conf()
     except Exception as e:
         raise OperationFailed("GINNET0086E", {'err': e.message})
 

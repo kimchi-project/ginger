@@ -117,7 +117,7 @@ messages = {
     "GINNET0085E": _("Error in the mlx5_SRIOV_enable task: %(err)s"),
     "GINNET0086E": _("Unable to read or update SR-IOV boot script file. Error: %(err)s"),
     "GINNET0087E": _("Unable to read or update openib.conf file. Error: %(err)s"),
-    "GINNET0088E": _("Error: openib.conf file does not exist or does not have the 'OPENIBD_POST_START' variable."),
+    "GINNET0088E": _("Error: openib.conf file does not exist in the host. Unable to set SR-IOV boot script."),
     "GINNET0089W": _("Warning: Recent changes has been rolled back, due to operation fail"),
     "GINNET0090E": _("Physical cable is disconnected for the device '%(name)s'."),
     "GINNET0091E": _("Run time information is not available for the interface on '%(name)s'. Activation of the interface on '%(name)s' went wrong."),
