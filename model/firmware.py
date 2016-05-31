@@ -65,7 +65,7 @@ class FirmwareModel(object):
             levels = output.split()[13]
         return {'level': levels}
 
-    def upgrade(self, fw_path=None, pow_ok=True):
+    def upgrade(self, fw_path=None, pow_ok=None):
         if detect_live_vm():
             wok_log.error('Cannot update system fw while running VMs.')
             raise OperationFailed('GINFW0001E')
@@ -99,7 +99,7 @@ class FirmwareModel(object):
         ms.close()
 
         command = ['update_flash', '-f', image_file]
-        if not pow_ok:
+        if pow_ok is not None:
             command.insert(1, '-n')
         wok_log.info('FW update: System will reboot to flash the firmware.')
 
