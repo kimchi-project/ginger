@@ -49,20 +49,27 @@ rm -rf $RPM_BUILD_ROOT
 
 %post
 %if 0%{?with_systemd}
-    install -dm 0755 /usr/lib/systemd/system/wokd.service.requires
-    ln -sf ../tuned.service /usr/lib/systemd/system/wokd.service.requires
-    /bin/systemctl daemon-reload >/dev/null 2>&1 || :
-    service wokd restart
+	install -dm 0755 %{_unitdir}/wokd.service.requires
+	ln -sf ../tuned.service %{_unitdir}/wokd.service.requires
 %endif
 
 
 %postun
 %if 0%{?with_systemd}
-    if [ $1 == 0 ]; then  # uninstall
-        rm -f /usr/lib/systemd/system/wokd.service.requires/tuned.service
-        /bin/systemctl daemon-reload >/dev/null 2>&1 || :
-        service wokd restart
-    fi
+	if [ $1 == 0 ]; then # uninstall
+		rm -f %{_unitdir}/wokd.service.requires/tuned.service
+	fi
+%endif
+
+%posttrans
+%if 0%{?with_systemd}
+	if [ $1 == 0 ]; then # upgrade
+		if ! [ -f %{_unitdir}/wokd.service.requires ]; then
+			ln -sf ../tuned.service %{_unitdir}/wokd.service.requires
+		fi
+		/bin/systemctl daemon-reload >/dev/null 2>&1 || :
+		service wokd restart
+	fi
 %endif
 
 
@@ -89,6 +96,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Mon May 31 2016 Ramon Medeiros <ramonn@linux.vnet.ibm.com>
+- Update spec with Fedora community Guidelines
+
 * Mon May 16 2016 Ramon Medeiros <ramonn@linux.vnet.ibm.com>
 - Does not disable tuned service as dependency when update package
 
