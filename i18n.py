@@ -159,6 +159,8 @@ messages = {
                      Ensure you are booted to the temporary side."),
     "GINFW0006E": _("Error rejecting firmware. rc = %(rc)s. \
                      Ensure you are booted to the permanent side."),
+    "GINFW0007I": _("Firmware update is initializing. \
+                     System will reboot in order to flash the firmware."),
 
     "GINHBK0001E": _('Failed to create tar archive "%(name)s", cmd: '
                      '"%(cmd)s". Inspect error log for more information.'),

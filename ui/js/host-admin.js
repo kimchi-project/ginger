@@ -692,7 +692,6 @@ ginger.initFirmware = function() {
             ginger.updateFirmware({
                 path: $("#gingerPackPath").prop("value")
             }, function() {
-                $("#gingerFWUpdateMess").css("display", "inline-block");
                 $("#gingerPackPathSub").prop('disabled', true);
                 $("#gingerPackPath").prop("disabled", true);
                 startFwProgress();

@@ -24,6 +24,7 @@ import platform
 import time
 
 from wok.exception import OperationFailed
+from wok.model.notifications import add_notification
 from wok.model.tasks import TaskModel, TasksModel
 from wok.utils import add_task, run_command, wok_log
 
@@ -89,11 +90,11 @@ class FirmwareModel(object):
             # The image file should now be in /tmp/fwupdate/
             # and match the rpm name.
             image_file, ext = os.path.splitext(os.path.basename(fw_path))
-            if image_file is None:
+            image_file = os.path.join('/tmp/fwupdate', '%s.img' % image_file)
+            if not os.path.exists(image_file):
                 wok_log.error('FW update failed: '
                               'No image file found in the package file.')
                 raise OperationFailed('GINFW0003E')
-            image_file = os.path.join('/tmp/fwupdate', '%s.img' % image_file)
         else:
             image_file = fw_path
         ms.close()
@@ -187,6 +188,10 @@ class FirmwareProgressModel(object):
                 time.sleep(1)
             msgs.append('\n')
             return cb(''.join(msgs), True)
+
+        cb('Firmware update is initializing. \
+           System will reboot in order to flash the firmware.')
+        add_notification('GINFW0007I', plugin_name='/plugins/ginger')
 
         # go to the end of logfile and starts reading, if nothing is read or
         # a pattern is not found in the message just wait and retry until
