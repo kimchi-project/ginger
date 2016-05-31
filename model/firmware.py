@@ -169,8 +169,14 @@ class FirmwareProgressModel(object):
         progress.
         """
         if not self.is_update_flash_running():
-            msg = "Error flashing firmware.\n"
-            msg = msg+"Please see /usr/sbin/update_flash for rc reasons."
+            msg = "Error flashing firmware. "
+            msg = msg+"Please see /usr/sbin/update_flash for rc reasons. \n"
+            if os.path.exists(tee_log_file):
+                msg = msg+"Details: \n"
+                with open(tee_log_file, 'r') as log_file:
+                    error = log_file.read()
+                log_file.closed
+                msg = msg+error
             return cb(msg, True)
 
         fd = None
