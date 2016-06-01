@@ -46,7 +46,8 @@ ginger.loadSysmodules = function() {
                 wok.confirm(settings, function() {
                     ginger.removeSysmodule(selectedModule, function() {
                         wok.message.success(i18n['GINSYS0013M'].replace("%1", '<strong>'+selectedModule+'</strong>'),'#sysmodules-alert-container',true);
-                        sysmoduleItem.remove();
+                        $('#sysmodules-content-area .wok-mask').fadeIn();
+                        ginger.loadSysmodules();
                         $('body').animate({ scrollTop: 0 }, 1000);
                     }, function(err) {
                         wok.message.error(err.responseJSON.reason,'#sysmodules-alert-container',true);
