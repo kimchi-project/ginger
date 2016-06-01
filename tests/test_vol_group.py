@@ -80,7 +80,11 @@ class VolumeGroupsTests(unittest.TestCase):
 
     @mock.patch('wok.plugins.ginger.model.utils._remove_vg',
                 autospec=True)
-    def test_delete_vg(self, mock_delete_vg):
+    @mock.patch('wok.plugins.ginger.model.utils.get_lvm_version')
+    @mock.patch('wok.plugins.ginger.model.vol_group.VolumeGroupModel.lookup')
+    def test_delete_vg(self, mock_vg_lookup, mock_lvm_version, mock_delete_vg):
+        mock_lvm_version.return_value = "2.02.98"
+        mock_vg_lookup.return_value = {'vgName': 'testvg', 'Cur LV': 0}
         vg = vol_group.VolumeGroupModel(objstore=self._objstore)
         vgname = 'testvg'
         vg.delete(vgname)

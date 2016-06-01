@@ -19,8 +19,9 @@
 
 import utils
 
-from wok.exception import OperationFailed,\
-    MissingParameter, NotFoundError
+from wok.exception import InvalidOperation, MissingParameter, NotFoundError
+from wok.exception import OperationFailed
+
 from wok.model.tasks import TaskModel
 from wok.utils import add_task, wok_log
 
@@ -98,6 +99,12 @@ class VolumeGroupModel(object):
 
     def delete(self, name):
         try:
+
+            vg_details = self.lookup(name)
+            if vg_details['Cur LV'] > 0:
+                wok_log.error('VG %s contains logical volumes.' % name)
+                raise InvalidOperation('GINVG00017E', {'name': name})
+
             utils._remove_vg(name)
         except OperationFailed:
             wok_log.error('failed to delete vg')

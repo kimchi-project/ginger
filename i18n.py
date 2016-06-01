@@ -290,6 +290,7 @@ messages = {
     "GINVG00014E": _("Required pv_paths parameter"),
     "GINVG00015E": _("Invalid input to extend VG: error: %(err)s"),
     "GINVG00016E": _("Error reducing volume group : %(err)s"),
+    "GINVG00017E": _("VG %(name)s contains logical volumes."),
 
     "GINLV00001E": _("Required vg_name parameter"),
     "GINLV00002E": _("Required size parameter"),
