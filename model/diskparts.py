@@ -21,8 +21,8 @@ import utils
 
 from wok.exception import MissingParameter, NotFoundError, OperationFailed
 from wok.model.tasks import TaskModel
-from wok.plugins.gingerbase.disks import get_partitions_names,\
-    get_partition_details
+from wok.plugins.gingerbase.disks import fetch_disks_partitions
+from wok.plugins.gingerbase.disks import get_partition_details
 from wok.utils import add_task, run_command, wok_log
 
 
@@ -31,12 +31,11 @@ class PartitionsModel(object):
     def get_list(self):
 
         try:
-            result = get_partitions_names()
+            result = fetch_disks_partitions()
         except OperationFailed as e:
             wok_log.error("Fetching list of partitions failed")
             raise OperationFailed("GINPART00001E",
                                   {'err': e})
-        result = set(result)  # removes duplicates in case of multipath
         return result
 
     def create(self, params):

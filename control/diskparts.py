@@ -18,7 +18,7 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 
 from wok.control.base import Collection, Resource
-from wok.control.utils import UrlSubNode
+from wok.control.utils import model_fn, UrlSubNode
 
 
 PARTITIONS_REQUESTS = {
@@ -48,13 +48,32 @@ class Partitions(Collection):
         self.resource = Partition
         self.log_map = PARTITIONS_REQUESTS
 
-    # Defining get_resources in order to return list of
-    # partitions/disks without mpath_member
     def _get_resources(self, flag_filter):
-        res_list = super(Partitions, self)._get_resources(flag_filter)
-        res_list = filter(lambda x: x.info['fstype'] != 'mpath_member',
-                          res_list)
-        return res_list
+        """
+        Overriden this method, here get_list should return list dict
+        which will be set to the resource, this way we avoid calling lookup
+        again for each device.
+        :param flag_filter:
+        :return: list of resources.
+        """
+        try:
+            get_list = getattr(self.model, model_fn(self, 'get_list'))
+            idents = get_list(*self.model_args, **flag_filter)
+            res_list = []
+            for ident in idents:
+                # internal text, get_list changes ident to unicode for sorted
+                args = self.resource_args + [ident]
+                res = self.resource(self.model, *args)
+                res.info = ident
+                # Excluding devices with mpath_member
+                if res.info['fstype'] == 'mpath_member':
+                    continue
+                else:
+                    res_list.append(res)
+                res_list.append(res)
+            return res_list
+        except AttributeError:
+            return []
 
 
 class Partition(Resource):
@@ -73,10 +92,4 @@ class Partition(Resource):
 
     @property
     def data(self):
-        return {'name': self.info['name'],
-                'fstype': self.info['fstype'],
-                'path': self.info['path'],
-                'mountpoint': self.info['mountpoint'],
-                'type': self.info['type'],
-                'size': self.info['size'],
-                'vgname': self.info['vgname']}
+        return self.info
