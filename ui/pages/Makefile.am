@@ -19,12 +19,4 @@ SUBDIRS = help tabs
 
 htmldir = $(datadir)/wok/plugins/ginger/ui/pages
 
-dist_html_DATA = \
-	i18n.json.tmpl \
-        host-network-vlan.html.tmpl \
-        host-network-settings.html.tmpl \
-        host-network-bond.html.tmpl \
-        host-network-ovs-add.html.tmpl \
-        host-network-ovs-edit.html.tmpl \
-        host-sysmodules-load.html.tmpl  \
-	$(NULL)
+dist_html_DATA = $(wildcard *.tmpl) $(NULL)
