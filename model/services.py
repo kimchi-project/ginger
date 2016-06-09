@@ -17,19 +17,42 @@
 # You should have received a copy of the GNU Lesser General Public
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
+"""A module to manipulate SystemD services
 
+This module contains functions that allow Ginger to fetch
+information from SystemD about the services running in
+the host.
+
+It also contains the ServicesModel and ServiceModel classes
+that uses these module functions.
+
+"""
 
 from wok.exception import NotFoundError, OperationFailed
-from wok.utils import run_command, wok_log
+from wok.utils import run_command
 
 
 def parse_systemd_cgls_output(output):
-    """
-    Sample output:
-<cgroup_name>:
-`-PID CMD1
-`-PID2 CMD2
-`-ID3 CMD3
+    """Function that parses the output of the systemd-cgls command.
+
+    Args:
+        output (str): output of the systemd-cgls command with
+            the following format:
+
+            <cgroup_name>:
+            `-PID CMD1
+            `-PID2 CMD2
+            `-ID3 CMD3
+
+    Returns:
+        dic: A dictionary that represents the cgroup name and processes.
+            Format:
+            {
+                'name': (str),
+                'processes': (dict)
+            }
+            processes format: { pid(str): command(str) }
+
     """
     items = output.strip().split('\n')
     cgroup_name = items[0][:-1]
@@ -48,14 +71,31 @@ def parse_systemd_cgls_output(output):
 
 
 def parse_systemctlshow_output(output):
-    """
-    Sample output:
-ControlGroup=/system.slice/wokd.service
-Description=Wok - Webserver Originated from Kimchi
-LoadState=loaded
-ActiveState=active
-SubState=running
-UnitFileState=disabled
+    """Function that parses systemctl show output.
+
+    Args:
+        output (str): output of the command
+            with the following format:
+
+            ControlGroup=<string>
+            Description=<string>
+            LoadState=<string>
+            ActiveState=<string>
+            SubState=<string>
+            UnitFileState=<string>
+
+    Returns:
+        dic: A dictionary that represents the state of the service.
+            Format:
+            {
+                'cgroup': (str),
+                'desc': (str),
+                'load': (str),
+                'active': (str),
+                'sub': (str),
+                'autostart': (bool)
+            }
+
     """
     items = output.strip().split('\n')
     attr_map = {'ControlGroup': 'cgroup', 'Description': 'desc',
@@ -77,24 +117,22 @@ UnitFileState=disabled
 
 
 def parse_systemctllist_output(output):
-    """
-    Sample output:
-  UNIT                                LOAD      ACTIVE   SUB     DESCRIPTION
-  user@1000.service      loaded    active  running  User Manager for UID 1000
-  user@42.service        loaded    active  running  User Manager for UID 42
-  vgauthd.service   loaded  inactive dead  VGAuth Service for open-vm-tools
-  vmtoolsd.service  loaded  inactive dead  Service for virtual machines hosted
-  wokd.service      loaded  active running Wok - Webserver Originated from Kim
-  wpa_supplicant.service  loaded    active   running WPA supplicant
-● xdm.service   not-found inactive dead    xdm.service
-● ypbind.service   not-found inactive dead    ypbind.service
+    """Parses the output of 'systemctl --type=service --no-pager'.
 
-LOAD   = Reflects whether the unit definition was properly loaded.
-ACTIVE = The high-level unit activation state, i.e. generalization of SUB.
-SUB    = The low-level unit activation state, values depend on unit type.
+    Args:
+        output (str): the output of the command. Example format:
 
-163 loaded units listed.
-To show all installed unit files use 'systemctl list-unit-files'
+           UNIT              LOAD    ACTIVE   SUB     DESCRIPTION
+           wokd.service      loaded  active   running   Wok - Web
+
+           ● xdm.service   not-found inactive dead    xdm.service
+           LOAD   = Reflects whether the unit definition was (...)
+           ACTIVE = The high-level unit activation state, i.e. (...)
+           SUB    = The low-level unit activation state, values(...)
+
+    Returns:
+        List[str]: list of services.
+
     """
     lines = output.strip().split('\n')
     lines = lines[1:]
@@ -111,11 +149,24 @@ To show all installed unit files use 'systemctl list-unit-files'
 
 
 def run_systemd_command(command):
-    output, err, rc = run_command(command)
-    if rc != 0:
+    """Function that runs systemd commands.
+
+    Runs a systemd command specified in the argument, throwing
+    a specific error if something goes wrong.
+
+    Args:
+        command (List[str]): the systemd command to be executed.
+
+    Returns:
+        str: Output of the command.
+
+    Raises:
+        OperationFailed if the return code of the command is not 0.
+
+    """
+    output, err, rcode = run_command(command)
+    if rcode != 0:
         cmd_str = command.join(' ')
-        wok_log.error('Error executing systemctl command %s, '
-                      'reason: %s' % (cmd_str, err))
         raise OperationFailed(
             'GINSERV00001E', {'cmd': cmd_str, 'err': err}
         )
@@ -123,18 +174,48 @@ def run_systemd_command(command):
 
 
 def get_services_list():
+    """Function that returns the services running in the host.
+
+    Returns:
+        List[str]: a list of services.
+
+    """
     cmd = ['systemctl', '--type=service', '--no-pager']
     output = run_systemd_command(cmd)
     return parse_systemctllist_output(output)
 
 
 def service_exists(service):
+    """Function that checks if a service exists in the host.
+
+    Returns:
+        bool: True if exists, False otherwise.
+
+    """
     cmd = ['systemctl', 'show', service, '--property=LoadError']
     output = run_systemd_command(cmd)
     return 'No such file or directory' not in output
 
 
 def get_service_info(service):
+    """Retrieves information about an existing service.
+
+    Args:
+        service (str): an existing service from the host.
+
+    Returns:
+        dic: A dictionary that represents the state of the service.
+            Format:
+            {
+                'cgroup': (str),
+                'desc': (str),
+                'load': (str),
+                'active': (str),
+                'sub': (str),
+                'autostart': (bool)
+            }
+
+    """
     cmd = ['systemctl', 'show', service,
            '--property=LoadState,ActiveState,'
            'SubState,Description,UnitFileState,ControlGroup']
@@ -143,6 +224,21 @@ def get_service_info(service):
 
 
 def get_cgroup_info(cgroup):
+    """Retrieves cgroup PID information.
+
+    Args:
+        cgroup (str): name of the cgroup
+
+    Returns:
+        dic: A dictionary that represents the cgroup name and processes.
+            Format:
+            {
+                'name': (str),
+                'processes': (dict)
+            }
+            processes format: { pid(str): command(str) }
+
+    """
     cgroup = cgroup.replace('\\x5c', '\\')
     cmd = ['systemd-cgls', '--no-pager', cgroup]
     output = run_systemd_command(cmd)
@@ -150,19 +246,43 @@ def get_cgroup_info(cgroup):
 
 
 class ServicesModel(object):
+    """Collection model class for services."""
 
-    def get_list(self):
+    @staticmethod
+    def get_list():
+        """Method that retrieves the service list.
+
+        Returns:
+            List[str]: a list of services.
+
+        """
         return get_services_list()
 
 
 class ServiceModel(object):
+    """Resource model class for a service."""
 
-    def lookup(self, name):
+    @staticmethod
+    def lookup(name):
+        """Method that retrieves information about a service.
+
+        Returns:
+            dic: A dictionary that represents the state of the service.
+                Format:
+                {
+                    'cgroup': (str),
+                    'desc': (str),
+                    'load': (str),
+                    'active': (str),
+                    'sub': (str),
+                    'autostart': (bool)
+                }
+
+        Raises:
+            NotFoundError if the service does not exist.
+
+        """
         if not service_exists(name):
-            wok_log.error(
-                'Error retrieving service %s. Service does not '
-                'exist.' % name
-            )
             raise NotFoundError('GINSERV00002E', {'name': name})
 
         lookup_dict = get_service_info(name)
@@ -172,17 +292,52 @@ class ServiceModel(object):
 
         return lookup_dict
 
-    def enable(self, name):
+    @staticmethod
+    def enable(name):
+        """Method that enables a service.
+
+        Args:
+            name (str): name of the service.
+
+        """
         run_systemd_command(['systemctl', 'enable', name])
 
-    def disable(self, name):
+    @staticmethod
+    def disable(name):
+        """Method that disables a service.
+
+        Args:
+            name (str): name of the service.
+
+        """
         run_systemd_command(['systemctl', 'disable', name])
 
-    def start(self, name):
+    @staticmethod
+    def start(name):
+        """Method that starts a service.
+
+        Args:
+            name (str): name of the service.
+
+        """
         run_systemd_command(['systemctl', 'start', name])
 
-    def stop(self, name):
+    @staticmethod
+    def stop(name):
+        """Method that stops a service.
+
+        Args:
+            name (str): name of the service.
+
+        """
         run_systemd_command(['systemctl', 'stop', name])
 
-    def restart(self, name):
+    @staticmethod
+    def restart(name):
+        """Method that restarts a service.
+
+        Args:
+            name (str): name of the service.
+
+        """
         run_systemd_command(['systemctl', 'restart', name])
