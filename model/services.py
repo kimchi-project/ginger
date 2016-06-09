@@ -28,6 +28,8 @@ that uses these module functions.
 
 """
 
+import re
+
 from wok.exception import NotFoundError, OperationFailed
 from wok.utils import run_command
 
@@ -54,12 +56,16 @@ def parse_systemd_cgls_output(output):
             processes format: { pid(str): command(str) }
 
     """
+    re_pattern = '^[^0-9]+(?P<pid>[0-9]+) (?P<command>.*)'
+    matcher = re.compile(re_pattern)
+
     items = output.strip().split('\n')
     cgroup_name = items[0][:-1]
     processes_dict = {}
     for proc in items[1:]:
-        proc = proc.split('-', 1)[1]
-        pid, command = proc.split(' ', 1)
+        match = matcher.search(proc)
+        pid = match.group('pid')
+        command = match.group('command')
         processes_dict[pid] = command
 
     cgroup_dict = {
