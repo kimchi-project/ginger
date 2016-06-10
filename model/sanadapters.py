@@ -16,7 +16,7 @@
 # You should have received a copy of the GNU Lesser General Public
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
-
+"""A module to fetch information of FC devices."""
 import os
 
 
@@ -41,6 +41,18 @@ FC_VIRTUAL_INFOS = {'wwpn': '/port_name',
 
 
 def get_port_type(name):
+    """Get the port type of a FC host.
+
+    Args:
+        name (str): the name of the FC host
+
+    Returns:
+        str: 'physical' or 'virtual'
+
+    Raises:
+        NotFoundError if the fc_host 'name' is invalid.
+
+    """
     fc_path = FC_HOST_SYS_PATH % name
 
     if not os.path.isdir(fc_path):
@@ -55,24 +67,67 @@ def get_port_type(name):
 
 
 class SanAdaptersModel(object):
+    """Collection model class for SAN adapters."""
 
-    def get_list(self):
+    @staticmethod
+    def get_list():
+        """Retrieves a list of the available FC hosts.
+
+        Returns:
+            List[str]: list of FC hosts.
+
+        """
         try:
             return os.listdir(FC_HOST_SYS_PATH % '')
-        except:
+        except OSError:
             return []
 
 
 class SanAdapterModel(object):
+    """Resource model class for SAN adapters."""
 
-    def _read_info(self, fpath):
-        try:
-            with open(fpath) as f:
-                return f.read().strip()
-        except:
-            return 'Unknown'
+    @staticmethod
+    def lookup(name):
+        """Method that retrieves details about a FC host.
 
-    def lookup(self, name):
+        Args:
+            name (str): the name of the FC host
+
+        Returns:
+            dict: a dictionary with information about the FC
+                host. Format:
+                {
+                    'wwpn': (str),
+                    'wwnn': (str),
+                    'max_vports': (str),
+                    'vports_inuse': (str),
+                    'state': (str),
+                    'speed': (str),
+                    'symbolic_name': (str),
+                    'port_type': (str)
+                }
+
+        Raises:
+            NotFoundError if the fc_host 'name' is invalid.
+
+        """
+
+        def read_info(fpath):
+            """Helper method to retrieve the content of a file.
+
+            Args:
+                fpath (str): the full file path
+
+            Returns:
+                str: the file contents
+
+            """
+            try:
+                with open(fpath) as fc_file:
+                    return fc_file.read().strip()
+            except IOError:
+                return 'Unknown'
+
         if not os.path.isdir(FC_HOST_SYS_PATH % name):
             raise NotFoundError('GINADAP0001E', {'adapter': name})
 
@@ -86,6 +141,6 @@ class SanAdapterModel(object):
             info['vports_inuse'] = 'Not applicable'
 
         for key in fc_host_keys:
-            info[key] = self._read_info(FC_HOST_SYS_PATH % name +
-                                        fc_host_keys[key])
+            info[key] = read_info(FC_HOST_SYS_PATH % name +
+                                  fc_host_keys[key])
         return info
