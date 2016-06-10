@@ -236,7 +236,7 @@ ginger.loadSanAdapters = function() {
     }, {
       "column-id": 'ports_info',
       "type": 'string',
-      "width": "14%",
+      "width": "10%",
       "title": i18n['GINTITLE0010M']
     }, {
       "column-id": 'speed',
@@ -246,8 +246,13 @@ ginger.loadSanAdapters = function() {
     }, {
       "column-id": 'symbolic_name',
       "type": 'string',
-      "width": "35%",
+      "width": "25%",
       "title": i18n['GINTITLE0012M']
+    }, {
+      "column-id": 'port_type',
+      "type": 'string',
+      "width": "10%",
+      "title": i18n['GINTITLE0026M']
     }];
   opts['gridFields'] = JSON.stringify(gridFields);
   ginger.createBootgrid(opts);
@@ -271,6 +276,9 @@ ginger.initSanAdaterGridData = function() {
     for (i = 0; i < result.length; i++) {
       //format ports information
       result[i]['ports_info'] = result[i]['vports_inuse'] + '/' + result[i]['max_vports'];
+      if (result[i]['port_type'] === 'virtual') {
+          result[i]['ports_info'] = i18n['GINTITLE0027M'];
+      }
     }
     ginger.loadBootgridData(opts['gridId'], result);
     ginger.showBootgridData(opts);
