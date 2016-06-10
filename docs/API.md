@@ -142,6 +142,7 @@ Contains information about Ginger configuration.
     * speed: Transfer speed being used by the adapter (eg. 1 Gbit, 2 Gbit, 4
              Gbit, 8 Gbit, or more).
     * symbolic_name: HBA overview information.
+    * port_type: Type of the port: 'physical' or 'virtual'.
 
 ### Resource: Sensors
 
