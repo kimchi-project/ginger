@@ -33,6 +33,26 @@ FC_HOST_INFOS = {'wwpn': '/port_name',
                  'speed': '/speed',
                  'symbolic_name': '/symbolic_name'}
 
+FC_VIRTUAL_INFOS = {'wwpn': '/port_name',
+                    'wwnn': '/node_name',
+                    'state': '/port_state',
+                    'speed': '/speed',
+                    'symbolic_name': '/symbolic_name'}
+
+
+def get_port_type(name):
+    fc_path = FC_HOST_SYS_PATH % name
+
+    if not os.path.isdir(fc_path):
+        raise NotFoundError('GINADAP0001E', {'adapter': name})
+
+    max_vports_file = os.path.join(fc_path, 'max_npiv_vports')
+    vports_inuse_file = os.path.join(fc_path, 'npiv_vports_inuse')
+    if os.path.isfile(max_vports_file) and os.path.isfile(vports_inuse_file):
+        return 'physical'
+
+    return 'virtual'
+
 
 class SanAdaptersModel(object):
 
@@ -55,8 +75,17 @@ class SanAdapterModel(object):
     def lookup(self, name):
         if not os.path.isdir(FC_HOST_SYS_PATH % name):
             raise NotFoundError('GINADAP0001E', {'adapter': name})
+
         info = {}
-        for key in FC_HOST_INFOS:
+        info['port_type'] = get_port_type(name)
+        fc_host_keys = FC_HOST_INFOS
+
+        if info['port_type'] == 'virtual':
+            fc_host_keys = FC_VIRTUAL_INFOS
+            info['max_vports'] = 'Not applicable'
+            info['vports_inuse'] = 'Not applicable'
+
+        for key in fc_host_keys:
             info[key] = self._read_info(FC_HOST_SYS_PATH % name +
-                                        FC_HOST_INFOS[key])
+                                        fc_host_keys[key])
         return info
