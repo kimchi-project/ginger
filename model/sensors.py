@@ -138,7 +138,7 @@ class SensorsModel(object):
                                 sensor.append((key, data_line[1]))
 
                                 # unit already present: skip
-                                if ["unit" in pair for pair in sensor]:
+                                if True in ["unit" in pair for pair in sensor]:
                                     continue
 
                                 # add unit
