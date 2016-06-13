@@ -23,6 +23,7 @@ ginger.createBootgrid = function(opts) {
   var fields = JSON.parse(opts['gridFields']);
   var selection = ('selection' in opts) ? opts['selection'] : true;
   var navigation = ('navigation' in opts) ? opts['navigation'] : 3;
+  var converters = ('converters' in opts) ? opts['converters'] : {};
 
   var gridMessage = ('loadingMessage' in opts && opts['loadingMessage'].trim() && opts['loadingMessage'].length > 0) ? opts['loadingMessage'] : i18n['GINBG00001M'];
   var gridloadingHtml = ['<div id="' + gridId + '-loading" class="wok-list-loader-container wok-list-loading">',
@@ -45,7 +46,7 @@ ginger.createBootgrid = function(opts) {
 
   for (var i = 0; i < fields.length; i++) {
     var columnHtml = [
-      '<th data-type="', fields[i]["type"], '" data-column-id="', fields[i]["column-id"], '"', (fields[i].identifier) ? 'data-identifier="true"' : '', ("header-class" in fields[i]) ? 'data-header-css-class="gridHeader ' + fields[i]["header-class"] + '"' : 'gridHeader', ("data-class" in fields[i]) ? ' data-align="' + fields[i]["data-class"] + '"' + ' headerAlign="center"' : ' data-align="left" headerAlign="center"', ("formatter" in fields[i]) ? 'data-formatter=' + fields[i]["formatter"] : '', (fields[i].width) ? (' data-width="' + fields[i].width + '"') : '',  ("converters" in fields[i]) ? 'data-converter=' + fields[i]["converters"] : '',
+      '<th data-type="', fields[i]["type"], '" data-column-id="', fields[i]["column-id"], '"', (fields[i].identifier) ? 'data-identifier="true"' : '', ("header-class" in fields[i]) ? 'data-header-css-class="gridHeader ' + fields[i]["header-class"] + '"' : 'gridHeader', ("data-class" in fields[i]) ? ' data-align="' + fields[i]["data-class"] + '"' + ' headerAlign="center"' : ' data-align="left" headerAlign="center"', ("formatter" in fields[i]) ? 'data-formatter=' + fields[i]["formatter"] : '', (fields[i].width) ? (' data-width="' + fields[i].width + '"') : '',  ("converter" in fields[i]) ? 'data-converter=' + fields[i]["converter"] : '',
       '>', ("title" in fields[i]) ? fields[i]["title"] : fields[i]["column-id"],
       '</th>'
     ].join('');
@@ -61,8 +62,7 @@ ginger.createBootgrid = function(opts) {
     columnSelection: false,
     navigation: navigation,
     rowSelect: true,
-    converters: {locale_num: {to: function(value) {return value.toLocaleString(wok.lang.get_locale())}}
-},
+    converters: converters,
     formatters: {
       "percentage-used": function(column, row) {
         return '<div class="progress"><div class="progress-bar-info" style="width:' + row[column['id']].toLocaleString('en-US', {style: 'percent', maximumFractionDigits: 2}) + ';background-color: #008abf">' + row[column['id']].toLocaleString(wok.lang.get_locale(), {style: 'percent', maximumFractionDigits: 2}) + '</div></div>';
@@ -82,13 +82,6 @@ ginger.createBootgrid = function(opts) {
           return "";
         }
         return ipaddr + "/" + netmask;
-      },
-      "sizeFormatter": function(column, row) {
-        var size = row['size'];
-        if (size==null) {
-          return "unknown";
-        }
-        return row['size'].toLocaleString(wok.lang.get_locale());
       },
       "editable-global-dns": function(column, row) {
         return '<span class="xedit" data-xedit=true data-column-name="' + column.id + '" data-row-id="' + row.GLOBAL + '">' + row[column.id] + '</span>	';

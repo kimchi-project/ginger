@@ -57,7 +57,7 @@ ginger.loadFileSystemDetails = function() {
     "column-id": 'size',
     "type": 'numeric',
     "width": "10%",
-    "converters": "locale_num",
+    "converter": "number-locale-converter",
     "title": i18n['GINTITLE0004M']
   }, {
     "column-id": "use%",
@@ -67,6 +67,7 @@ ginger.loadFileSystemDetails = function() {
     "formatter": "percentage-used"
   }];
   opts['gridFields'] = JSON.stringify(gridFields);
+  opts['converters'] = wok.localeConverters;
 
   ginger.createBootgrid(opts);
   ginger.initFileSystemsGridData();
@@ -119,7 +120,7 @@ ginger.loadSwapDeviceDetails = function() {
     "title": i18n['GINTITLE0006M'],
     "column-id": "size",
     "width": "10%",
-    "converters": "locale_num",
+    "converter": "number-locale-converter",
     "type": 'numeric'
   }, {
     "title": i18n['GINTITLE0005M'],
@@ -129,6 +130,7 @@ ginger.loadSwapDeviceDetails = function() {
     "formatter": "percentage-used"
   }];
   opts['gridFields'] = JSON.stringify(gridFields);
+  opts['converters'] = wok.localeConverters;
   ginger.createBootgrid(opts);
   ginger.initSwapDevicesGridData();
 
@@ -175,10 +177,11 @@ ginger.loadVolumeGroupDetails = function() {
     "column-id": 'vgSize',
     "type": 'numeric',
     "width": "70%",
-    "converters": "locale_num",
+    "converter": "number-locale-converter",
     "title": i18n['GINTITLE0006M']
   }];
   opts['gridFields'] = JSON.stringify(gridFields);
+  opts['converters'] = wok.localeConverters;
 
   ginger.createBootgrid(opts);
   ginger.initVolumeGroupGridData();
@@ -325,10 +328,11 @@ ginger.loadStorageDeviceDetails = function() {
     "type": 'numeric',
     "width": "10%",
     "title": i18n['GINTITLE0004M'],
-    "formatter":"sizeFormatter"
+    "converter": "number-locale-converter"
   }];
 
   opts['gridFields'] = JSON.stringify(gridFields);
+  opts['converters'] = wok.localeConverters;
   grid = ginger.createBootgrid(opts);
   ginger.hideBootgridData(opts);
   ginger.showBootgridLoading(opts);
