@@ -28,6 +28,7 @@ from wok.plugins.ginger.model import utils
 
 
 class PhysicalVolumeTests(unittest.TestCase):
+
     def setUp(self):
         objstore_loc = config.get_object_store() + '_ginger'
         self._objstore = ObjectStore(objstore_loc)
@@ -44,7 +45,9 @@ class PhysicalVolumeTests(unittest.TestCase):
 
     @mock.patch('wok.plugins.ginger.model.utils._remove_pv',
                 autospec=True)
-    def test_delete_pv(self, mock_delete_pv):
+    @mock.patch('wok.plugins.ginger.model.utils.get_lvm_version')
+    def test_delete_pv(self, mock_lvm_version, mock_delete_pv):
+        mock_lvm_version.return_value = "2.02.98"
         pv = physical_vol.PhysicalVolumeModel(objstore=self._objstore)
         pvname = '/dev/sdb1'
         pv.delete(pvname)
@@ -58,27 +61,23 @@ class PhysicalVolumeTests(unittest.TestCase):
         self.assertEqual(pv_list[1], '/dev/sdb1')
 
     def test_pv_disp_parser(self):
-        input_test = """--- NEW Physical volume ---
-  PV Name               /dev/sdb1
-  VG Name
-  PV Size               20.00 MiB
-  Allocatable           NO
-  PE Size               0
-  Total PE              0
-  Free PE               0
-  Allocated PE          0
-  PV UUID               NMLPlg-ozfg-pFuJ-Q0ld-rvqb-KAda-4MywSM"""
-        pv_out = utils.parse_pvdisplay_output(input_test)
-        self.assertEqual(pv_out['PV Name'], '/dev/sdb1')
-        self.assertEqual(pv_out['PV Size'], '20.00 MiB')
-        self.assertEqual(pv_out['Allocatable'], 'NO')
+        input_test = """PV:VG:PSize:PE:Alloc:PV UUID:Ext:Free
+          /dev/mapper/luks-92ee4956-3fd1-47fa-a603-9b8ad867f66d:fedora\
+:319543050.24K:76185:76169:Yce0X3-H5vz-65P3-u7Fk-s7Nv-G903-4QJDnb:4194.\
+30K:16"""
+        pv_out = utils.parse_pvdisplay_output(input_test, True)
+        self.assertEqual(pv_out['VG Name'], 'fedora')
+        self.assertEqual(pv_out['PV Size'], 319543050.24)
+        self.assertEqual(pv_out['Allocatable'], 'N/A')
         self.assertEqual(pv_out['PV UUID'],
-                         'NMLPlg-ozfg-pFuJ-Q0ld-rvqb-KAda-4MywSM')
+                         'Yce0X3-H5vz-65P3-u7Fk-s7Nv-G903-4QJDnb')
 
     @mock.patch('wok.plugins.ginger.model.utils.run_command', autospec=True)
+    @mock.patch('wok.plugins.ginger.model.utils.get_lvm_version')
     def test_utils_remove_pv_returns_404_if_vol_not_found(
-            self, mock_run_command):
+            self, mock_lvm_version, mock_run_command):
 
+        mock_lvm_version.return_value = "2.02.98"
         mock_run_command.return_value = ['', '  Device fake_dev not found', 5]
 
         expected_error = "GINPV00010E"
@@ -89,9 +88,11 @@ class PhysicalVolumeTests(unittest.TestCase):
             )
 
     @mock.patch('wok.plugins.ginger.model.utils.run_command', autospec=True)
+    @mock.patch('wok.plugins.ginger.model.utils.get_lvm_version')
     def test_utils_remove_pv_returns_500_if_unknown_error(
-            self, mock_run_command):
+            self, mock_lvm_version, mock_run_command):
 
+        mock_lvm_version.return_value = "2.02.98"
         mock_run_command.return_value = ['', '', 1]
 
         expected_error = "GINPV00009E"
@@ -102,9 +103,11 @@ class PhysicalVolumeTests(unittest.TestCase):
             )
 
     @mock.patch('wok.plugins.ginger.model.utils.run_command', autospec=True)
+    @mock.patch('wok.plugins.ginger.model.utils.get_lvm_version')
     def test_utils_pvdisplay_returns_404_if_vol_not_found(
-            self, mock_run_command):
+            self, mock_lvm_version, mock_run_command):
 
+        mock_lvm_version.return_value = "2.02.98"
         mock_run_command.return_value = [
             '',
             'Failed to find device for physical volume',
@@ -119,9 +122,11 @@ class PhysicalVolumeTests(unittest.TestCase):
             )
 
     @mock.patch('wok.plugins.ginger.model.utils.run_command', autospec=True)
+    @mock.patch('wok.plugins.ginger.model.utils.get_lvm_version')
     def test_utils_pvdisplay_returns_500_if_unknown_error(
-            self, mock_run_command):
+            self, mock_lvm_version, mock_run_command):
 
+        mock_lvm_version.return_value = "2.02.98"
         mock_run_command.return_value = ['', '', 1]
 
         expected_error = "GINPV00007E"

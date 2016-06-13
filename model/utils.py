@@ -33,7 +33,7 @@ from wok.utils import run_command, wok_log
 from wok.plugins.gingerbase.disks import _get_dev_major_min
 from wok.plugins.gingerbase.disks import _get_dev_node_path
 
-LVM_THR_VERSION = "2.02.130"
+LVM_THR_VERSION = "2.02.116"
 
 FC_PATHS = "/dev/disk/by-path/*fc*"
 PATTERN_CCW = "ccw-(?P<hba_id>[\d.]+)-zfcp-(?P<wwpn>[\w]+):(?P<fcp_lun>[\w]+)$"
@@ -394,7 +394,26 @@ def _pvdisplay_out(name):
     :param name: path of the PV
     :return:
     """
-    out, err, rc = run_command(["pvdisplay", name])
+    pv_version = get_lvm_version()
+    # Disabled unsupported options to vgs command below
+    # a threshold version
+    if LooseVersion(pv_version) < LooseVersion(LVM_THR_VERSION):
+        below_threshold_version = True
+        cmd = ['pvs', '-o', 'pv_name,vg_name,'
+               'pv_size,'
+               'pv_pe_count,pv_pe_alloc_count,'
+               'pv_uuid,vg_extent_size,'
+               'vg_free_count', "--separator", ":", name,
+               "--units", "K"]
+    else:
+        below_threshold_version = False
+        cmd = ['pvs', '-o', 'pv_name,vg_name,'
+               'pv_size,pv_allocatable,'
+               'pv_pe_count,pv_pe_alloc_count,'
+               'pv_uuid,vg_extent_size,'
+               'vg_free_count', "--separator", ":", name,
+               "--units", "K"]
+    out, err, rc = run_command(cmd)
 
     if rc == 5 and 'Failed to find device' in err:
         raise NotFoundError("GINPV00011E", {'dev': name})
@@ -403,25 +422,37 @@ def _pvdisplay_out(name):
         raise OperationFailed("GINPV00007E",
                               {'dev': name, 'err': err})
 
-    return parse_pvdisplay_output(out)
+    return parse_pvdisplay_output(out, below_threshold_version)
 
 
-def parse_pvdisplay_output(pvout):
+def parse_pvdisplay_output(pvout, below_threshold_version):
     """
-    This method parses the output of pvdisplay
-    :param pvout: output of pvdisplay
+    This method parses the output of pvs command
+    :param pvout: output of pvs command
+    :param below_threshold_version: boolean denoting if we are below
+    LVM_THR_VERSION
     :return:
     """
     output = {}
-    p = re.compile("^\s*(\w(\s?\w+)*)\s*(.+)?")
-    parsed_out = pvout.splitlines()
-    for i in parsed_out[1:]:
-
-        m = p.match(i)
-        if not m:
-            continue
-
-        output[m.group(1)] = m.group(3)
+    p = pvout.splitlines()
+    for i in p[1:]:
+        output['PV Name'] = i.split(':')[0].strip()
+        output['VG Name'] = i.split(':')[1].strip()
+        output['PV Size'] = float(i.split(':')[2].strip()[:-1])
+        if below_threshold_version:
+            output['Allocatable'] = 'N/A'
+            output['Total PE'] = int(i.split(':')[3].strip())
+            output['Allocated PE'] = float(i.split(':')[4].strip())
+            output['PV UUID'] = i.split(':')[5].strip()
+            output['PE Size'] = float(i.split(':')[6].strip()[:-1])
+            output['Free PE'] = int(i.split(':')[7].strip())
+        else:
+            output['Allocatable'] = i.split(':')[3].strip()
+            output['Total PE'] = int(i.split(':')[4].strip())
+            output['Allocated PE'] = float(i.split(':')[5].strip())
+            output['PV UUID'] = i.split(':')[6].strip()
+            output['PE Size'] = float(i.split(':')[7].strip()[:-1])
+            output['Free PE'] = int(i.split(':')[8].strip())
 
     return output
 

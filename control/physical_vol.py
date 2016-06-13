@@ -56,12 +56,13 @@ class PhysicalVolume(Resource):
 
     @property
     def data(self):
-        return {'PVName': self.info['PV Name'],
-                'Allocatable': self.info['Allocatable'],
-                'PVUUID': self.info['PV UUID'],
-                'TotalPE': self.info['Total PE'],
-                'AllocatedPE': self.info['Allocated PE'],
-                'PVSize': self.info['PV Size'],
-                'PESize': self.info['PE Size'],
-                'FreePE': self.info['Free PE'],
-                'VGName': self.info['VG Name']}
+        return {
+            'PVName': self.info['PV Name'],
+            'Allocatable': self.info['Allocatable'],
+            'PVUUID': self.info['PV UUID'],
+            'TotalPE': self.info['Total PE'],
+            'AllocatedPE': self.info['Allocated PE'],
+            'PVSize': self.info['PV Size'],
+            'PESize': self.info['PE Size'],
+            'FreePE': self.info['Free PE'],
+            'VGName': self.info['VG Name'] if self.info['VG Name'] else 'None'}
