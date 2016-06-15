@@ -573,6 +573,7 @@ URI: /plugins/ginger/partitions/*:part_name*
      * mountpoint: Mount point of the partition or disk
      * type : Type of the device. `part` for partition, `disk` for disk and `mpath` for multipath devices
      * size : Size of the partition or disk
+     * vgname : Name of the VG to which the partition belongs to, if any, otherwise N/A
 
 * **DELETE**: Delete the partition
 

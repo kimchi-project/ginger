@@ -23,7 +23,7 @@ from wok.exception import MissingParameter, NotFoundError, OperationFailed
 from wok.model.tasks import TaskModel
 from wok.plugins.gingerbase.disks import get_partitions_names,\
     get_partition_details
-from wok.utils import wok_log, add_task
+from wok.utils import add_task, run_command, wok_log
 
 
 class PartitionsModel(object):
@@ -66,7 +66,11 @@ class PartitionModel(object):
     def lookup(self, name, dev=None):
 
         try:
-            return get_partition_details(name)
+            part_details = get_partition_details(name)
+            part_path = part_details['path']
+            vg_name = self._get_vg_name(part_path)
+            part_details['vgname'] = vg_name
+            return part_details
 
         except NotFoundError:
             wok_log.error("partition %s not found" % name)
@@ -75,6 +79,13 @@ class PartitionModel(object):
         except OperationFailed as e:
             wok_log.error("lookup method of partition failed")
             raise OperationFailed("GINPART00003E", {'name': name, 'err': e})
+
+    def _get_vg_name(self, devpath):
+        out, err, rc = run_command(["pvs", "-o", "vg_name", devpath])
+        if rc != 0:
+            return 'N/A'
+        else:
+            return out.split()[1]
 
     def format(self, name, fstype):
 

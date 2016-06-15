@@ -78,4 +78,5 @@ class Partition(Resource):
                 'path': self.info['path'],
                 'mountpoint': self.info['mountpoint'],
                 'type': self.info['type'],
-                'size': self.info['size']}
+                'size': self.info['size'],
+                'vgname': self.info['vgname']}
