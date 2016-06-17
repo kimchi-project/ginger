@@ -561,8 +561,13 @@ ginger.listNetworkConfig = function() {
     }, {
       "column-id": 'type',
       "type": 'string',
-      "width": "10%",
+      "width": "5%",
       "title": i18n['GINNET0003M']
+    }, {
+      "column-id": 'nic_type',
+      "type": 'string',
+      "width": "10%",
+      "title": i18n['GINNET0062M']
     }, {
       "column-id": 'ipaddr',
       "formatter": "nw-address-space",
@@ -573,7 +578,7 @@ ginger.listNetworkConfig = function() {
     {
       "column-id": 'rdma_enabled',
       "type": 'string',
-      "width": "15%",
+      "width": "10%",
       "title": i18n['GINNET0039E']
     },
     {
