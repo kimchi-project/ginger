@@ -314,7 +314,7 @@ ginger.populateNwSettingsIpv4SettingsTab = function(interface) {
     if (interface.IPV4_INFO.BOOTPROTO && ((interface.IPV4_INFO.BOOTPROTO).toLowerCase() == "none" || (interface.IPV4_INFO.BOOTPROTO).toLowerCase() == "static")) {
       ipv4MethodSelect.val(i18n['GINNWS0003M']);
       ginger.enableclass('form-nw-settings-ipv4-manual');
-    } else if (interface.IPV4_INFO.BOOTPROTO && ((interface.IPV4_INFO.BOOTPROTO).toLowerCase() == "dhcp" || (interface.IPV4_INFO.BOOTPROTO).toLowerCase() == "bootp")) {
+    } else if (interface.IPV4_INFO.BOOTPROTO && ((interface.IPV4_INFO.BOOTPROTO).toLowerCase() == "dhcp" || (interface.IPV4_INFO.BOOTPROTO).toLowerCase() == "bootp" || (interface.IPV4_INFO.BOOTPROTO).toLowerCase() == "autoip")) {
       ipv4MethodSelect.val(i18n['GINNWS0010M']);
       ginger.disableclass('form-nw-settings-ipv4-manual');
     }

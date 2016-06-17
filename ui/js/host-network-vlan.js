@@ -500,7 +500,7 @@ var populateIpv4SettingsTab = function(interface) {
 
     if (interface.IPV4_INFO.BOOTPROTO && ((interface.IPV4_INFO.BOOTPROTO).toLowerCase() == "none" || (interface.IPV4_INFO.BOOTPROTO).toLowerCase() == "static")) {
       ipv4MethodSelect.val(i18n['Manual']);
-    } else if (interface.IPV4_INFO.BOOTPROTO && ((interface.IPV4_INFO.BOOTPROTO).toLowerCase() == "dhcp" || (interface.IPV4_INFO.BOOTPROTO).toLowerCase() == "bootp")) {
+    } else if (interface.IPV4_INFO.BOOTPROTO && ((interface.IPV4_INFO.BOOTPROTO).toLowerCase() == "dhcp" || (interface.IPV4_INFO.BOOTPROTO).toLowerCase() == "bootp" || (interface.IPV4_INFO.BOOTPROTO).toLowerCase() == "autoip")) {
       ipv4MethodSelect.val(i18n['Automatic(DHCP)']);
       ginger.disableclass('form-nw-vlan-ipv4-manual');
     }
