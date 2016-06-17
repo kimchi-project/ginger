@@ -124,11 +124,11 @@ class SwapsModel(object):
         """
 
         try:
+            utils._swapoff_device(file_loc)
+
             # Remove only file type swap devices from filesystem
             if not file_loc.startswith('/dev'):
                 os.remove(file_loc)
-
-            utils._swapoff_device(file_loc)
 
         except Exception as e:
             wok_log.error("Error deleting a swap file, %s", e.message)
@@ -160,7 +160,11 @@ class SwapModel(object):
     def delete(self, name):
         try:
             fs_utils.unpersist_swap_dev(name)
-            utils._swapoff_device(name)
+            swap_details = self.lookup(name)
+            if swap_details['type'] == 'file':
+                SwapsModel.delete_swap_file(swap_details['filename'])
+            else:
+                utils._swapoff_device(name)
         except Exception as e:
             wok_log.error("Error deleting a swap device, %s", e.message)
             raise OperationFailed("GINSP00009E", {'err': e.message})
