@@ -622,7 +622,7 @@ ginger.listNetworkConfig = function() {
       } else {
         ginger.changeButtonStatus(["nw-down-button"], false);
       }
-      if(selectedIf[0]["module"] != 'mlx5_core' && selectedIf[0]["module"] != 'mlx5-core') {
+      if ((selectedIf[0]["module"] != 'mlx5_core' && selectedIf[0]["module"] != 'mlx5-core') || (selectedIf[0]["nic_type"] === 'virtual' )) {
         ginger.changeButtonStatus(["nw-enable-sriov"], false);
       }
       if ((selectedIf[0]["type"]).toLowerCase() == 'nic') {
