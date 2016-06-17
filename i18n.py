@@ -122,6 +122,7 @@ messages = {
     "GINNET0090E": _("Physical cable is disconnected for the device '%(name)s'."),
     "GINNET0091E": _("Run time information is not available for the interface on '%(name)s'. Activation of the interface on '%(name)s' went wrong."),
     "GINNET0092E": _("%(mac)s is not a valid mac address."),
+    "GINNET0093E": _("SR-IOV is already disabled (no virtual functions enabled) in interface %(name)s."),
 
     "GINUSER0001E": _("Specify name, password, group and profile for the new "
                       "user."),

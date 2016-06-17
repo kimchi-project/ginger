@@ -138,7 +138,7 @@ class InterfaceModel(object):
         if not max_vfs_str:
             raise OperationFailed("GINNET0082E", {'name': iface})
 
-        if not args:
+        if args is None:
             raise InvalidParameter("GINNET0077E")
 
         try:
@@ -155,8 +155,11 @@ class InterfaceModel(object):
 
         current_vfs_str = self._mlx5_SRIOV_get_current_VFs(iface)
         if num_vfs == int(current_vfs_str):
-            raise InvalidParameter("GINNET0084E",
-                                   {'name': iface, 'num_vf': num_vfs})
+            if num_vfs == 0:
+                raise InvalidParameter("GINNET0093E", {'name': iface})
+            else:
+                raise InvalidParameter("GINNET0084E",
+                                       {'name': iface, 'num_vf': num_vfs})
 
         return num_vfs
 
@@ -228,17 +231,21 @@ class InterfaceModel(object):
             with open(sriov_file, 'w') as f:
                 f.write('0\n')
 
-            ifaces_without_sriov = cfgInterfacesHelper.get_interface_list()
+            if num_vfs == 0:
+                add_config_to_mlx5_SRIOV_boot_script(iface, num_vfs)
+            else:
+                ifaces_without_sriov = \
+                    cfgInterfacesHelper.get_interface_list()
 
-            with open(sriov_file, 'w') as f:
-                f.write(str(num_vfs) + '\n')
+                with open(sriov_file, 'w') as f:
+                    f.write(str(num_vfs) + '\n')
 
-            add_config_to_mlx5_SRIOV_boot_script(iface, num_vfs)
+                add_config_to_mlx5_SRIOV_boot_script(iface, num_vfs)
 
-            new_ifaces = self._wait_VFs_setup(ifaces_without_sriov)
+                new_ifaces = self._wait_VFs_setup(ifaces_without_sriov)
 
-            for new_iface in new_ifaces:
-                cfgInterfacesHelper.create_interface_cfg_file(new_iface)
+                for new_iface in new_ifaces:
+                    cfgInterfacesHelper.create_interface_cfg_file(new_iface)
 
         except Exception as e:
             raise OperationFailed("GINNET0085E", {'err': e.message})
