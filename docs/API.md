@@ -736,6 +736,7 @@ URI: /plugins/ginger/partitions/*:part_name*
      Example: bonding, vlan, nic, etc
     * module: the kernel module that loaded this interface. This info is taken from sysfs and matched against the loaded kernel modules (lsmod output). If for some reason the value taken from sysfs is not present in the lsmod output, 'unknown' is returned.
     * rdma_enabled: 'true' if the interface has RDMA capabilities. Note that this info depends on the interface kernel module and also the current status of the RDMA service in the host.
+    * nic_type: if 'type' is not 'nic', this defaults to 'N/A'. Otherwise, if 'module' is 'mlx5_core' then nic_type can be either 'physical' or 'virtual'. For any other nics that are not loaded by the mlx5_core driver, nic_type defaults to 'physical'.
 
 * **POST**:
    * activate : Activates an interface
