@@ -284,10 +284,16 @@ ginger.populateNwSettingsAdvanceTab = function(interface) {
     mtuTextbox.val(interface.BASIC_INFO.MTU);
   }
 
-  mtuTextbox.on('keyup', function() {
-    // Validate MTU value, It should be i> 1500
+  mtuTextbox.on('keyup click', function() {
+    // Validate MTU value, It should be i> 9198
     var mtu = mtuTextbox.val();
-    $(this).toggleClass("invalid-field", !((ginger.isInteger(mtu) && mtu >= 1500)));
+    if(!((ginger.isInteger(mtu) && mtu <= 9198 && mtu > 0))){
+      mtuTextbox.val('');
+      $(this).addClass("invalid-field");
+    }
+    else{
+      $(this).removeClass("invalid-field");
+    }
   });
 
   if ("ZONE" in (interface.BASIC_INFO)) {
