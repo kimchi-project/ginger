@@ -57,4 +57,5 @@ class Interface(Resource):
                 'status': self.info['status'],
                 'macaddr': self.info['macaddr'],
                 'module': self.info['module'],
-                'rdma_enabled': self.info['rdma_enabled']}
+                'rdma_enabled': self.info['rdma_enabled'],
+                'nic_type': self.info['nic_type']}

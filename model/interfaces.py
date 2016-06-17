@@ -61,7 +61,7 @@ class InterfaceModel(object):
         :return:
         """
         try:
-            # encode name to ensure comparision are in same type.
+            # encode name to ensure comparison are in same type.
             if encode_value(name) in ethtool.get_devices():
                 info = netinfo.get_interface_info(name)
             elif cfgInterfacesHelper.is_cfgfileexist(name):
@@ -76,6 +76,12 @@ class InterfaceModel(object):
                         'netmask': "",
                         'macaddr': "",
                         'module': netinfo.get_interface_kernel_module(name)}
+
+                if info.get('type') is not 'nic':
+                    info['nic_type'] = 'N/A'
+                else:
+                    info['nic_type'] = netinfo.get_nic_type(device)
+
             else:
                 raise ValueError('unknown interface: %s' % name)
 
