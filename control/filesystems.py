@@ -42,6 +42,12 @@ class FileSystems(Collection):
         self.resource = FileSystem
         self.log_map = FILESYSTEMS_REQUESTS
 
+    def _get_resources(self, flag_filter):
+        res_list = super(FileSystems, self)._get_resources(flag_filter)
+        res_list = filter(lambda x: 'tmpfs' not in x.info['type'],
+                          res_list)
+        return res_list
+
 
 class FileSystem(Resource):
     """
