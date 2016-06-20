@@ -19,7 +19,7 @@
 ginger.initStorage = function() {
   $(".content-area", "#storage-section").css("height", "100%");
   ginger.getHostDetails(function(result) {
-    ginger.hostarch = result["architecture"]
+    ginger.hostarch = result["architecture"];
     ginger.loadSanAdapters();
   });
   ginger.loadFileSystemDetails();
@@ -72,7 +72,7 @@ ginger.loadFileSystemDetails = function() {
   ginger.createBootgrid(opts);
   ginger.initFileSystemsGridData();
 
-  $('#file-systems-refresh-btn').on('click', function(event) {
+  $('#file-systems-refresh-btn').on('click', function() {
     ginger.hideBootgridData(opts);
     ginger.showBootgridLoading(opts);
     ginger.initFileSystemsGridData();
@@ -94,6 +94,8 @@ ginger.initFileSystemsGridData = function() {
     ginger.loadBootgridData(opts['gridId'], result);
     ginger.showBootgridData(opts);
     ginger.hideBootgridLoading(opts);
+  },function(err){
+    wok.message.error(err.responseJSON.reason, '#file-systems-alert-container');
   });
 };
 
@@ -134,7 +136,7 @@ ginger.loadSwapDeviceDetails = function() {
   ginger.createBootgrid(opts);
   ginger.initSwapDevicesGridData();
 
-  $('#swap-devices-refresh-btn').on('click', function(event) {
+  $('#swap-devices-refresh-btn').on('click', function() {
     ginger.hideBootgridData(opts);
     ginger.showBootgridLoading(opts);
     ginger.initSwapDevicesGridData();
@@ -156,6 +158,8 @@ ginger.initSwapDevicesGridData = function() {
     ginger.loadBootgridData(opts['gridId'], result);
     ginger.showBootgridData(opts);
     ginger.hideBootgridLoading(opts);
+  },function(err){
+    wok.message.error(err.responseJSON.reason, '#swap-devices-alert-container');
   });
 };
 
@@ -186,7 +190,7 @@ ginger.loadVolumeGroupDetails = function() {
   ginger.createBootgrid(opts);
   ginger.initVolumeGroupGridData();
 
-  $('#volume-groups-refresh-btn').on('click', function(event) {
+  $('#volume-groups-refresh-btn').on('click', function() {
     ginger.hideBootgridData(opts);
     ginger.showBootgridLoading(opts);
     ginger.initVolumeGroupGridData();
@@ -205,6 +209,8 @@ ginger.initVolumeGroupGridData = function() {
     ginger.loadBootgridData(opts['gridId'], result);
     ginger.showBootgridData(opts);
     ginger.hideBootgridLoading(opts);
+  },function(err){
+    wok.message.error(err.responseJSON.reason, '#volume-group-alert-container');
   });
 };
 
@@ -286,6 +292,8 @@ ginger.initSanAdaterGridData = function() {
     ginger.loadBootgridData(opts['gridId'], result);
     ginger.showBootgridData(opts);
     ginger.hideBootgridLoading(opts);
+  },function(err){
+    wok.message.error(err.responseJSON.reason, '#san-adapter-alert-container');
   });
 };
 
@@ -299,7 +307,7 @@ ginger.cleanModalDialog = function() {
       $("#" + $(this).attr("id") + " .modal-content").append("Loading...");
     });
   });
-}
+};
 
 ginger.loadStorageDeviceDetails = function() {
   var gridFields = [];
@@ -338,7 +346,7 @@ ginger.loadStorageDeviceDetails = function() {
   ginger.showBootgridLoading(opts);
   ginger.initStorageDevicesGridData();
   ginger.initStorageDevicesGridEvents(grid,opts);
-  $('#storage-device-refresh-btn').on('click', function(event) {
+  $('#storage-device-refresh-btn').on('click', function() {
     ginger.hideBootgridData(opts);
     ginger.showBootgridLoading(opts);
     ginger.initStorageDevicesGridData();
@@ -351,6 +359,8 @@ ginger.initStorageDevicesGridData = function() {
   ginger.getStgdevs(function(result) {
     ginger.loadBootgridData(opts['gridId'], result);
     ginger.hideBootgridLoading(opts);
+  },function(err){
+    wok.message.error(err.responseJSON.reason, '#storage-devices-alert-container');
   });
 };
 
@@ -362,7 +372,7 @@ ginger.initStorageDevicesGridEvents = function(grid,opts) {
   }).on("loaded.rs.jquery.bootgrid", function(e, rows) {
     ginger.changeActionButtonsState();
   }).on("appended.rs.jquery.bootgrid", function(e, rows) {
-     if(rows.length==0){
+     if(rows.length===0){
       ginger.showBootgridData(opts);
     }
   });
@@ -374,7 +384,7 @@ ginger.changeActionButtonsState = function() {
   opts['identifier'] = "id";
   var selectedRows = ginger.getSelectedRowsData(opts);
 
-  if (selectedRows && selectedRows.length == 0) {
+  if (selectedRows && selectedRows.length === 0) {
     ginger.disableActionsMenu('action-dropdown-button-file-systems-actions');
     $('#action-dropdown-button-file-systems-actions').prop('title', i18n["GINSD00003M"]);
   } else {
@@ -383,7 +393,7 @@ ginger.changeActionButtonsState = function() {
 
     var dasd = false;
     $.each(ginger.getSelectedRowsData(opts), function(i, row) {
-      if (row['type'] == "dasd") {
+      if (row['type'] === "dasd") {
         dasd = true;
       }
     });
@@ -400,7 +410,7 @@ ginger.selectionContainNonDasdDevices = function() {
   var result = false;
 
   $.each(selectedRows, function(i, row) {
-    if (row['type'] != "dasd") {
+    if (row['type'] !== "dasd") {
       result = true;
     }
   });
