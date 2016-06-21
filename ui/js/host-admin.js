@@ -346,63 +346,120 @@ ginger.initPowerMgmt = function() {
     });
 };
 
+var sensorsData;
+ginger.lastActiveSensors = [];
+
+ginger.getSensorAdapters = function(data) {
+    ginger.lastActiveSensors.length = 0;
+    for (i = 0; i < data.sensors.length; i++) {
+     $('#sensors-ppc-content-area #adapters').append('<option value="' + data.sensors[i].adapter + '">' + data.sensors[i].adapter + '</option>');
+    };
+    $('#sensors-ppc-content-area #adapters').selectpicker();
+    ginger.getSensorInputs($('#sensors-ppc-content-area #adapters').val());
+};
+
 ginger.listSensors = function() {
-    $(".progress-icon-sensor").show();
-    ginger.getSensors(function(result) {
-        if ($(".ginger .host-admin .sensor-inline").length > 0) {
-            $(".ginger .host-admin .sensor-inline").remove();
+    ginger.getSensors(function(data) {
+        sensorsData = data;
+        ginger.getSensorAdapters(sensorsData);
+    });
+};
+
+ginger.getSensorsByAdapter = function(adapter) {
+  var sensorsByAdapter = function(x) {
+    return x.adapter == adapter;
+  };
+  return sensorsByAdapter;
+}
+
+ginger.getSensorInputs = function(adapter) {
+  var adapterSensors = _.filter(sensorsData.sensors, ginger.getSensorsByAdapter(adapter));
+  var adapterDrives = sensorsData.hdds;
+  $('#sensors-ppc-content-area #sensors').empty().append('<ul id="' + adapter + '-sensors" class="nav nav-list" />');
+  $.each(adapterSensors[0].inputs, function(key, value) {
+    if (value.length) {
+      switch (key) {
+        case 'cores':
+          $('ul#' + adapter + '-sensors').append('<li class="cores"><span class="tree-toggle nav-header">'+i18n['GINSEN0005M']+'</span></li>');
+          break;
+        case 'pci':
+          $('ul#' + adapter + '-sensors').append('<li class="pci"><span class="tree-toggle nav-header">'+i18n['GINSEN0006M']+'</span></li>');
+          break;
+        case 'fans':
+          $('ul#' + adapter + '-sensors').append('<li class="fans"><span class="tree-toggle nav-header">'+i18n['GINSEN0007M']+'</span></li>');
+          break;
+        case 'ambient':
+          $('ul#' + adapter + '-sensors').append('<li class="ambient"><span class="tree-toggle nav-header">'+i18n['GINSEN0008M']+'</span></li>');
+          break;
+        case 'power':
+          $('ul#' + adapter + '-sensors').append('<li class="power"><span class="tree-toggle nav-header">'+i18n['GINSEN0009M']+'</span></li>');
+          break;
+        default:
+          $('ul#' + adapter + '-sensors').append('<li class="others"><span class="tree-toggle nav-header">'+i18n['GINSEN00010M']+'</span></li>');
+      }
+      $('ul#' + adapter + '-sensors > li.' + key).append('<ul style="display:none" class="nav nav-list tree"/>');
+      $.each(value, function(k, l) {
+        if (typeof(this.name) !== 'undefined') {
+          var objId = this.name;
+          objId = objId.replace(/\s+/g, '-').toLowerCase();
+          $('ul#' + adapter + '-sensors > li.' + key + ' > ul').append('<li class="' + key + '-' + objId + '-' + k + '"><span class="tree-toggle nav-header">' + this.name + '</span><ul style="display:none" class="nav nav-list tree"></ul></li>');
+          if (typeof(this.input) !== 'undefined') {
+            $('ul#' + adapter + '-sensors > li.' + key + ' > ul > li.' + key + '-' + objId + '-' + k + ' > ul').append('<li><span>'+i18n['GINSEN0001M']+': ' + this.input + ' ' + this.unit + '</span></li>');
+          }
+          if (typeof(this.min) !== 'undefined') {
+            $('ul#' + adapter + '-sensors > li.' + key + ' > ul > li.' + key + '-' + objId + '-' + k + ' > ul').append('<li><span>'+i18n['GINSEN0002M']+': ' + this.min + ' ' + this.unit + '</span></li>');
+          }
+          if (typeof(this.max) !== 'undefined') {
+            $('ul#' + adapter + '-sensors > li.' + key + ' > ul > li.' + key + '-' + objId + '-' + k + ' > ul').append('<li><span>'+i18n['GINSEN0003M']+': ' + this.max + ' ' + this.unit + '</span></li>');
+          }
+          if (typeof(this.fault) !== 'undefined') {
+            $('ul#' + adapter + '-sensors > li.' + key + '  > ul > li.' + key + '-' + objId + '-' + k + ' > ul').append('<li><span>'+i18n['GINSEN0004M']+': ' + this.fault + ' ' + this.unit + '</span></li>');
+          }
         }
-        $(".progress-icon-sensor").hide();
-        $.each(result, function(i1, d1) {
-            if (d1 && d1 != null && i1 != "hdds") {
-                $.each(d1, function(i2, d2) {
-                    var pathNode = $.parseHTML(wok.substitute($("#sensorItem").html(), {
-                        labelHead: i2
-                    }));
-                    $(".sensor-panel").append(pathNode);
-                    if (d2 && d2 != null) {
-                        $.each(d2, function(i3, d3) {
-                            if (i3 && d3 != null && i3 != "unit") {
-                                $.each(d3, function(i4, d4) {
-                                    if (i4.match("input")) {
-                                        var pathNodeU = $.parseHTML(wok.substitute($("#sensorItem").html(), {
-                                            labelBody: i3,
-                                            labelNumber: d4,
-                                            labelUnit: d2["unit"]
-                                        }));
-                                        $("#" + i2).append(pathNodeU);
-                                    }
-                                });
-                            }
-                        });
-                    }
-                });
-            } else {
-                if (d1 != null) {
-                    var pathNode = $.parseHTML(wok.substitute($("#sensorItem").html(), {
-                        labelHead: i1
-                    }));
-                    $(".sensor-panel").append(pathNode);
-                    $.each(d1, function(i5, d5) {
-                        if (i5 != "unit") {
-                            var pathNodeU = $.parseHTML(wok.substitute($("#sensorItem").html(), {
-                                labelBody: i5,
-                                labelNumber: d5,
-                                labelUnit: d1["unit"]
-                            }));
-                            $("#" + i1).append(pathNodeU);
-                        }
-                    });
-                }
-            }
-            $(".progress-icon-sensor").hide();
-        });
-        setTimeout(ginger.listSensors, 5000);
+      });
+    };
+  });
+  if(Object.keys(adapterDrives).length > 1){
+    $('ul#' + adapter + '-sensors').append('<li class="hdd"><span class="tree-toggle nav-header">'+i18n['GINSEN00011M']+'</span></li>');
+    $('ul#' + adapter + '-sensors > li.hdd').append('<ul style="display:none" class="nav nav-list tree"/>');
+    $.each(adapterDrives, function(key, value) {
+        if(key !== 'unit'){
+                $('ul#' + adapter + '-sensors > li.hdd > ul').append('<li><span>'+key+': '+value +' '+ adapterDrives.unit+ '</span></li>');
+      }
+    });
+  };
+};
+
+ginger.refreshSensors = function() {
+    ginger.getSensors(function(data) {
+        sensorsData = data;
+    });
+    var currentAdapter = $('#sensors-ppc-content-area #adapters').val();
+    ginger.getSensorInputs(currentAdapter);
+    $.each(ginger.lastActiveSensors, function(i, cssClass) {
+        $('#sensors-ppc-content-area #sensors li.' + cssClass).children('ul.tree').show();
+        $('#sensors-ppc-content-area #sensors li.' + cssClass).toggleClass('active');
     });
 };
 
 ginger.initSensorsMonitor = function() {
     ginger.listSensors();
+    setInterval(ginger.refreshSensors, 5000);
+
+    $('.update-sensors').on('click', function() {
+      ginger.lastActiveSensors.length = 0;
+      var currentAdapter = $('#sensors-ppc-content-area #adapters').val();
+      ginger.getSensorInputs(currentAdapter);
+    });
+
+    $('#sensors-ppc-content-area #sensors').on('click', '.tree-toggle', function() {
+      ginger.lastActiveSensors.length = 0;
+      $(this).parent().children('ul.tree').toggle(200);
+      $(this).parent().toggleClass('active');
+      $('#sensors-ppc-content-area #sensors > ul .active').each(function(index, value) {
+        ginger.lastActiveSensors.push($(value).attr('class').replace(' active', ''));
+      });
+    });
 };
 
 ginger.initSEPConfig = function() {

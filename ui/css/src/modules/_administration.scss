@@ -105,10 +105,13 @@
 }
 
 #sensors-ppc-content-area.sensor-panel {
-    min-height: 100px;
-    max-height: 170px;
+    max-height: 400px;
     overflow-x: hidden;
-    overflow-y: scroll;
+    overflow-y: auto;
+
+    .sensor-adapters {
+        padding-bottom: 20px;
+    }
 }
 
 #firmware-update-content-area {

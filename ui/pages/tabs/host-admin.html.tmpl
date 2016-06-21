@@ -133,7 +133,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
                 </a>
             </h3>
             <div id="sensors-ppc-content-area" class="panel-collapse collapse sensor-panel" role="tabpanel" aria-labelledby="headingOne">
-                <div class="progress-icon-sensor"></div>
+                  <div class="row">
+                    <div class="sensor-adapters">
+                      <select id="adapters" class="selecpicker"></select>
+                      <button class="btn btn-primary update-sensors">$_("Get Sensors")</button>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="sensors-list">
+                      <div id="sensors">
+                      </div>
+                    </div>
+                  </div>
             </div>
 
         </div>

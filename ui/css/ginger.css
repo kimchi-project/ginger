@@ -350,10 +350,13 @@
 }
 
 #sensors-ppc-content-area.sensor-panel {
-  min-height: 100px;
-  max-height: 170px;
+  max-height: 400px;
   overflow-x: hidden;
-  overflow-y: scroll;
+  overflow-y: auto;
+}
+
+#sensors-ppc-content-area.sensor-panel .sensor-adapters {
+  padding-bottom: 20px;
 }
 
 #firmware-update-content-area .fmw-label {
@@ -1985,4 +1988,41 @@ form[name="ovsaddinterface"] {
 #system-services-content-area span.column-cgroup-pid {
   width: 50px;
   text-align: center;
+}
+
+ul.nav > li > span.tree-toggle {
+  font-size: 12.5pt;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+ul.nav > li > ul {
+  display: none;
+  padding: 5px 5px 5px 22px;
+}
+
+ul.nav > li.active > ul {
+  display: block;
+}
+
+ul.nav > li > ul > li > span {
+  display: inline-block;
+}
+
+ul.nav > li > ul > li > ul > li > span {
+  cursor: default;
+}
+
+ul.nav > li > span.tree-toggle:before {
+  content: "\f196";
+  font: normal normal normal 14px/1 FontAwesome;
+  font-size: 14px;
+  margin-right: 5px;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+ul.nav > li.active > span.tree-toggle:before {
+  content: "\f147";
 }
