@@ -38,8 +38,12 @@ ginger.initEnableSriov = function() {
     };
 
     $(".save-button").on('click', function() {
+        var numVFs = 0;
+        if (!$("#disableSrIov").is(":checked")) {
+            numVFs = $("#number-virtual-functions").val();
+        }
         var data = {
-            "num_vfs": $("#number-virtual-functions").val()
+            "num_vfs": numVFs
         };
         $('#enable-sriov-progress-container').show();
         wok.window.close();
@@ -51,6 +55,10 @@ ginger.initEnableSriov = function() {
         }, function(error){
             wok.message.error(error.responseJSON.reason, '#message-nw-container-area', true);
         }, reloadProgressArea);
+    });
+
+    $("#disableSrIov").on("click", function() {
+        $("#number-virtual-functions").prop("disabled", this.checked);
     });
 };
 
@@ -65,8 +73,8 @@ ginger.enableJustNumbers = function() {
             // let it happen, don't do anything
             return;
         }
-        // Ensure that it is a number and stop the keypress
-        if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
+        // Ensure that it is a number and stop the keypress; do not allow the number 0 either
+        if ((e.shiftKey || (e.keyCode < 49 || e.keyCode > 57)) && (e.keyCode < 97 || e.keyCode > 105)) {
             e.preventDefault();
         }
     });

@@ -33,13 +33,19 @@
     <div class="modal-body">
         <span id="alert-modal-container">$_("SR-IOV: Single Root I/O Virtualization")</span>
         <br />
-        <div class="form-group" style="margin-top: 30px;">
-            <label for="number-virtual-functions" style="margin-right: 15px;">$_("num_vfs (Number of virtual functions to enable):")</label>
-            <input type="number" min="1" id="number-virtual-functions" name="number-virtual-functions" class="form-control" style="width: 20%; display: inline-block;"/>
-         </div>
+        <div class="form-group" id="srIov" style="margin-top: 30px;">
+            <div>
+                <input id="disableSrIov" class="wok-checkbox" type="checkbox" value="" />
+                <label for="disableSrIov" id="labelDisableSrIov">$_("Disable SR-IOV")</label>
+            </div>
+            <div id="sriov-disabled">
+                <label for="number-virtual-functions" style="margin-right: 15px;">$_("num_vfs (Number of virtual functions to enable):")</label>
+                <input type="number" min="1" id="number-virtual-functions" name="number-virtual-functions" class="form-control" style="width: 20%; display: inline-block;"/>
+            </div>
+        </div>
     </div>
     <div class="modal-footer">
-        <button type="submit" id="enable-sriov-form-ok" class="btn btn-default save-button">$_("Ok")</button>
+        <button type="submit" id="enable-sriov-form-ok" class="btn btn-default save-button">$_("OK")</button>
         <button type="button" id="enable-sriov-form-cancel" data-dismiss="modal" class="btn btn-default">$_("Cancel")</button>
     </div>
 </div>
