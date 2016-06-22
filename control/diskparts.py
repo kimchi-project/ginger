@@ -70,7 +70,6 @@ class Partitions(Collection):
                     continue
                 else:
                     res_list.append(res)
-                res_list.append(res)
             return res_list
         except AttributeError:
             return []

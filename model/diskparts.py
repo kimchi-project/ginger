@@ -17,6 +17,7 @@
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 
+import re
 import utils
 
 from wok.exception import MissingParameter, NotFoundError, OperationFailed
@@ -28,7 +29,7 @@ from wok.utils import add_task, run_command, wok_log
 
 class PartitionsModel(object):
 
-    def get_list(self):
+    def get_list(self, _name=None):
 
         try:
             result = fetch_disks_partitions()
@@ -36,6 +37,13 @@ class PartitionsModel(object):
             wok_log.error("Fetching list of partitions failed")
             raise OperationFailed("GINPART00001E",
                                   {'err': e})
+        result_names = []
+        for i in result:
+            result_names.append(i['name'])
+        if _name:
+            name = list(set([_name]).intersection(set(result_names)))
+            return filter(lambda x: re.match(name[0]+'[0-9]', x['name']),
+                          result)
         return result
 
     def create(self, params):
