@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ginger 1.2.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-20 23:02-0300\n"
+"POT-Creation-Date: 2016-06-24 10:07-0300\n"
 "PO-Revision-Date: 2014-06-22 14:00+0800\n"
 "Last-Translator: Zhou Zheng Sheng <zhshzhou@linux.vnet.ibm.com>\n"
 "Language-Team: Zhou Zheng Sheng <zhshzhou@linux.vnet.ibm.com>\n"
@@ -14,6 +14,10 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+
+#, python-format
+msgid "%(mac)s is not a valid mac address."
+msgstr ""
 
 #, python-format
 msgid "%(name)s is not valid network interface"
@@ -111,6 +115,9 @@ msgid "Advanced"
 msgstr ""
 
 msgid "Aliases"
+msgstr ""
+
+msgid "Ambient"
 msgstr ""
 
 msgid "Apply"
@@ -246,6 +253,9 @@ msgid "Confirmed changes on host network configuration"
 msgstr ""
 
 msgid "Connect Automatically"
+msgstr ""
+
+msgid "Cores"
 msgstr ""
 
 #, python-format
@@ -453,12 +463,9 @@ msgstr ""
 
 #, python-format
 msgid ""
-"Error commiting firmware. rc = %(rc)s.                      Ensure you are "
-"booted to the temporary side."
+"Error commiting firmware. rc = %(rc)s. Ensure you are booted to the "
+"temporary side."
 msgstr ""
-"Erreur de validation du microprogramme. Code retour = "
-"%(rc)s.                      Vérifiez que vous avez amorcé sur le côté "
-"temporaire."
 
 #, python-format
 msgid "Error creating OVS bridge %(name)s. OVS bridge already exists."
@@ -518,12 +525,9 @@ msgstr ""
 
 #, python-format
 msgid ""
-"Error flashing firmware. rc = %(rc)s.                      Please see /usr/"
-"sbin/update_flash for rc reasons."
+"Error flashing firmware. rc = %(rc)s. Please see /usr/sbin/update_flash for "
+"rc reasons."
 msgstr ""
-"Erreur lors de la copie instantanée du microprogramme. Code retour = "
-"%(rc)s.                      Voir /usr/sbin/update_flash pour les motifs du "
-"code retour."
 
 #, python-format
 msgid "Error getting bus id of DASD device, %(err)s"
@@ -558,6 +562,10 @@ msgstr ""
 msgid "Error in parsing 'lscss -d' command : %(err)s"
 msgstr ""
 
+#, python-format
+msgid "Error in the mlx5_SRIOV_enable task: %(err)s"
+msgstr ""
+
 msgid "Error loading SEP subscriptions data from server."
 msgstr ""
 "Erreur de chargement des données d'abonnements SEP à partir du serveur."
@@ -583,13 +591,14 @@ msgid "Error parsing output of 'lvm version' command.. %(err)s"
 msgstr ""
 
 #, python-format
-msgid ""
-"Error rejecting firmware. rc = %(rc)s.                      Ensure you are "
-"booted to the permanent side."
+msgid "Error reducing volume group : %(err)s"
 msgstr ""
-"Erreur de rejet du microprogramme. Code retour = "
-"%(rc)s.                      Vérifiez que vous avez amorcé sur le côté "
-"permanent."
+
+#, python-format
+msgid ""
+"Error rejecting firmware. rc = %(rc)s. Ensure you are booted to the "
+"permanent side."
+msgstr ""
 
 #, python-format
 msgid "Error retrieving OVS bridge %(name)s. OVS bridge does not exist."
@@ -620,8 +629,8 @@ msgid "Error unloading module %(module)s, reason: %(err)s"
 msgstr ""
 
 msgid ""
-"Error: openib.conf file does not exist or does not have the "
-"'OPENIBD_POST_START' variable."
+"Error: openib.conf file does not exist in the host. Unable to set SR-IOV "
+"boot script."
 msgstr ""
 
 msgid "Errors Received"
@@ -808,25 +817,19 @@ msgid "Failed to retrieve list of interfaces!"
 msgstr ""
 
 msgid ""
-"Failed to retrieve power management profiles:                        Daemon "
-"'tuned-adm' is not active."
+"Failed to retrieve power management profiles: Daemon 'tuned-adm' is not "
+"active."
 msgstr ""
-"Echec d'extraction des profils de gestion d'alimentation :          Le démon "
-"'tuned-adm' n'est pas actif."
 
 msgid ""
-"Failed to retrieve power management profiles:                        Host OS "
-"does not support the tuned-adm package."
+"Failed to retrieve power management profiles: Host OS does not support the "
+"tuned-adm package."
 msgstr ""
-"Echec d'extraction des profils de gestion d'alimentation :          Le "
-"système d'exploitation de l'hôte ne prend pas en charge le module tuned-adm."
 
 msgid ""
-"Failed to retrieve power management profiles:                        Package "
-"'tuned-adm' is not installed."
+"Failed to retrieve power management profiles: Package 'tuned-adm' is not "
+"installed."
 msgstr ""
-"Echec d'extraction des profils de gestion d'alimentation :          Le "
-"module 'tuned-adm' n'est pas installé."
 
 msgid "Failed to unmount the filesystems"
 msgstr ""
@@ -834,6 +837,12 @@ msgstr ""
 #, python-format
 msgid "Failed to write /etc/resolv.conf because %(reason)s"
 msgstr "Echec d'écriture de /etc/resolv.conf. Motif : %(reason)s"
+
+msgid "Fans"
+msgstr ""
+
+msgid "Fault"
+msgstr ""
 
 msgid "Features"
 msgstr ""
@@ -922,6 +931,9 @@ msgstr "Générer la sauvegarde par défaut"
 msgid "Generic"
 msgstr ""
 
+msgid "Get Sensors"
+msgstr ""
+
 #, python-format
 msgid "Given vlan id is not an integer type, Error: '%(error)s'"
 msgstr ""
@@ -940,6 +952,9 @@ msgstr "Groupe"
 
 #, python-format
 msgid "Group name '%(group)s' is already in use'."
+msgstr ""
+
+msgid "HDD"
 msgstr ""
 
 msgid "Hardware Address"
@@ -985,6 +1000,9 @@ msgid "Incompatible output from 'lvm version' command. %(err)s"
 msgstr ""
 
 msgid "Incorrect swap type, only 'device' and 'file' are allowed."
+msgstr ""
+
+msgid "Input"
 msgstr ""
 
 msgid "Interface"
@@ -1061,6 +1079,10 @@ msgstr "Nombre d'occurrences_écoulées non valide."
 
 msgid "Invalid days_ago number."
 msgstr "Nombre de jours_écoulés non valide."
+
+#, python-format
+msgid "Invalid input to extend VG: error: %(err)s"
+msgstr ""
 
 #, python-format
 msgid "Invalid ipv4 address '%(ip)s', '%(error)s'."
@@ -1151,6 +1173,9 @@ msgstr ""
 msgid "Mask"
 msgstr "Masque"
 
+msgid "Max"
+msgstr ""
+
 msgid "Maximum length of device name is 15 characters only."
 msgstr ""
 
@@ -1158,6 +1183,9 @@ msgid "Method"
 msgstr ""
 
 msgid "Metric"
+msgstr ""
+
+msgid "Min"
 msgstr ""
 
 msgid "Minimum one slave has to be given for the bond interface"
@@ -1231,6 +1259,9 @@ msgstr ""
 msgid "NFS mount failed"
 msgstr ""
 
+msgid "NIC type"
+msgstr ""
+
 msgid "Name"
 msgstr "Nom"
 
@@ -1275,6 +1306,12 @@ msgid "OVS Bridges"
 msgstr ""
 
 msgid "Ok"
+msgstr ""
+
+msgid "Others"
+msgstr ""
+
+msgid "PCI"
 msgstr ""
 
 msgid "PID"
@@ -1363,6 +1400,12 @@ msgstr ""
 
 msgid "Port"
 msgstr "Port"
+
+msgid "Port type"
+msgstr ""
+
+msgid "Power"
+msgstr ""
 
 msgid "Power Options"
 msgstr "Options d'alimentation"
@@ -1553,6 +1596,12 @@ msgid ""
 msgstr ""
 
 #, python-format
+msgid ""
+"SR-IOV is already disabled (no virtual functions enabled) in interface "
+"%(name)s."
+msgstr ""
+
+#, python-format
 msgid "SR-IOV is not enabled in the firmware of the interface %(name)s."
 msgstr ""
 
@@ -1705,12 +1754,8 @@ msgstr ""
 msgid "System hostname must be a valid string."
 msgstr "Le nom d'hôte système doit être une chaîne valide."
 
-msgid ""
-"System port number must be an integer between 1 and                      "
-"65535."
+msgid "System port number must be an integer between 1 and 65535."
 msgstr ""
-"Le numéro de port système doit être un entier compris entre 1 "
-"et                      65535."
 
 msgid "System users are not supported"
 msgstr ""
@@ -1849,10 +1894,6 @@ msgid "Unable to parse 'swapon -s' output. %(err)s"
 msgstr ""
 
 #, python-format
-msgid "Unable to read SR-IOV system file %(file)s. Error: %(err)s"
-msgstr ""
-
-#, python-format
 msgid "Unable to read or update SR-IOV boot script file. Error: %(err)s"
 msgstr ""
 
@@ -1958,6 +1999,10 @@ msgstr ""
 
 #, python-format
 msgid "User/Login '%(user)s' already in use."
+msgstr ""
+
+#, python-format
+msgid "VG %(name)s contains logical volumes."
 msgstr ""
 
 msgid "VLAN"
@@ -2086,7 +2131,8 @@ msgstr ""
 msgid "vgextend command failed"
 msgstr ""
 
-msgid "vgreduce command failed"
+#, python-format
+msgid "vgreduce command failed : %(err)s"
 msgstr ""
 
 msgid "vgremove command failed"
@@ -2097,6 +2143,59 @@ msgstr ""
 
 msgid "vgs command for given VG failed"
 msgstr ""
+
+#~ msgid ""
+#~ "Error commiting firmware. rc = %(rc)s.                      Ensure you "
+#~ "are booted to the temporary side."
+#~ msgstr ""
+#~ "Erreur de validation du microprogramme. Code retour = "
+#~ "%(rc)s.                      Vérifiez que vous avez amorcé sur le côté "
+#~ "temporaire."
+
+#~ msgid ""
+#~ "Error flashing firmware. rc = %(rc)s.                      Please see /"
+#~ "usr/sbin/update_flash for rc reasons."
+#~ msgstr ""
+#~ "Erreur lors de la copie instantanée du microprogramme. Code retour = "
+#~ "%(rc)s.                      Voir /usr/sbin/update_flash pour les motifs "
+#~ "du code retour."
+
+#~ msgid ""
+#~ "Error rejecting firmware. rc = %(rc)s.                      Ensure you "
+#~ "are booted to the permanent side."
+#~ msgstr ""
+#~ "Erreur de rejet du microprogramme. Code retour = "
+#~ "%(rc)s.                      Vérifiez que vous avez amorcé sur le côté "
+#~ "permanent."
+
+#~ msgid ""
+#~ "Failed to retrieve power management profiles:                        "
+#~ "Daemon 'tuned-adm' is not active."
+#~ msgstr ""
+#~ "Echec d'extraction des profils de gestion d'alimentation :          Le "
+#~ "démon 'tuned-adm' n'est pas actif."
+
+#~ msgid ""
+#~ "Failed to retrieve power management profiles:                        Host "
+#~ "OS does not support the tuned-adm package."
+#~ msgstr ""
+#~ "Echec d'extraction des profils de gestion d'alimentation :          Le "
+#~ "système d'exploitation de l'hôte ne prend pas en charge le module tuned-"
+#~ "adm."
+
+#~ msgid ""
+#~ "Failed to retrieve power management profiles:                        "
+#~ "Package 'tuned-adm' is not installed."
+#~ msgstr ""
+#~ "Echec d'extraction des profils de gestion d'alimentation :          Le "
+#~ "module 'tuned-adm' n'est pas installé."
+
+#~ msgid ""
+#~ "System port number must be an integer between 1 and                      "
+#~ "65535."
+#~ msgstr ""
+#~ "Le numéro de port système doit être un entier compris entre 1 "
+#~ "et                      65535."
 
 #~ msgid ""
 #~ "Interface %(name)s is not editable because it belongs to a vlan or bridge"
