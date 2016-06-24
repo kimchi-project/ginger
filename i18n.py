@@ -154,14 +154,10 @@ messages = {
                     "Details: %(err)s"),
     "GINFW0003E": _("FW update failed: "
                     "No image file found in the package file."),
-    "GINFW0004E": _("Error flashing firmware. rc = %(rc)s. \
-                     Please see /usr/sbin/update_flash for rc reasons."),
-    "GINFW0005E": _("Error commiting firmware. rc = %(rc)s. \
-                     Ensure you are booted to the temporary side."),
-    "GINFW0006E": _("Error rejecting firmware. rc = %(rc)s. \
-                     Ensure you are booted to the permanent side."),
-    "GINFW0007I": _("Firmware update is initializing. \
-                     System will reboot in order to flash the firmware."),
+    "GINFW0004E": _("Error flashing firmware. rc = %(rc)s. Please see /usr/sbin/update_flash for rc reasons."),
+    "GINFW0005E": _("Error commiting firmware. rc = %(rc)s. Ensure you are booted to the temporary side."),
+    "GINFW0006E": _("Error rejecting firmware. rc = %(rc)s. Ensure you are booted to the permanent side."),
+    "GINFW0007I": _("Firmware update is initializing. System will reboot in order to flash the firmware."),
 
     "GINHBK0001E": _('Failed to create tar archive "%(name)s", cmd: '
                      '"%(cmd)s". Inspect error log for more information.'),
@@ -186,8 +182,7 @@ messages = {
     "GINSEP0001E": _("Provide required parameters: hostname, port, community."
                      ),
     "GINSEP0002E": _("System hostname must be a valid string."),
-    "GINSEP0003E": _("System port number must be an integer between 1 and \
-                     65535."),
+    "GINSEP0003E": _("System port number must be an integer between 1 and 65535."),
     "GINSEP0004E": _("SNMP community name must be a single word."),
     "GINSEP0005E": _("Error retrieving SEP subscribers data: '%(error)s'."),
     "GINSEP0006E": _("Hostname %(hostname)s not found."),
@@ -197,12 +192,9 @@ messages = {
     "GINSEP0010E": _("Error subscribing SEP data to server: '%(error)s'."),
     "GINSEP0011E": _("Error deleting subscription: '%(error)s'."),
 
-    "GINPOWER001E": _("Failed to retrieve power management profiles: \
-                       Host OS does not support the tuned-adm package."),
-    "GINPOWER002E": _("Failed to retrieve power management profiles: \
-                       Daemon 'tuned-adm' is not active."),
-    "GINPOWER003E": _("Failed to retrieve power management profiles: \
-                       Package 'tuned-adm' is not installed."),
+    "GINPOWER001E": _("Failed to retrieve power management profiles: Host OS does not support the tuned-adm package."),
+    "GINPOWER002E": _("Failed to retrieve power management profiles: Daemon 'tuned-adm' is not active."),
+    "GINPOWER003E": _("Failed to retrieve power management profiles: Package 'tuned-adm' is not installed."),
     "GINPOWER004E": _("Error activating power saving profile %(profile)s."),
     "GINFS00001E": _("Failed to retrieve details of the specified filesystem"),
     "GINFS00002E": _("Failed to unmount the filesystems"),
