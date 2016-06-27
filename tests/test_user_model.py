@@ -954,3 +954,111 @@ class GetUserProfileUnitTests(unittest.TestCase):
         mock_os.path.isfile.assert_called_once_with(f)
         self.assertFalse(mock_get_sudoers.called,
                          msg='Unexpected call to mock_get_sudoers')
+
+
+class ChpasswdUnitTests(unittest.TestCase):
+    """
+    Unit tests for UserModel().chpasswd() method
+    """
+    @mock.patch('plugins.ginger.model.users.libuser', autospec=True)
+    @mock.patch('plugins.ginger.model.users.wok_log', autospec=True)
+    def test_chpasswd_invalid_user(self, mock_log, mock_libuser):
+
+        """
+        unittest to validate chpasswd() method with invalid i/p
+        i.e, by passing username as integer instead of string
+        mock_log: mock of wok_log imported in model.users
+        mock_libuser: mock of libuser imported in model.users
+        """
+        mock_adm = mock_libuser.admin()
+        user_model = UserModel()
+        self.assertRaises(InvalidParameter, user_model.chpasswd, 0,
+                          'password')
+        self.assertFalse(mock_log.error.called,
+                         msg='Unexpected call to mock_log.error')
+        self.assertFalse(mock_adm.lookupUserByName.called,
+                         msg='Unexpected call to mock_adm.lookupUserByName()')
+        self.assertFalse(mock_adm.setpassUser.called,
+                         msg='Unexpected call to mock_adm.setpassUser()')
+
+    @mock.patch('plugins.ginger.model.users.libuser', autospec=True)
+    @mock.patch('plugins.ginger.model.users.wok_log', autospec=True)
+    def test_chpasswd_invalid_password(self, mock_log, mock_libuser):
+
+        """
+        unittest to validate chpasswd() method with invalid i/p
+        i.e, by passing password as integer instead of string
+        mock_log: mock of wok_log imported in model.users
+        mock_libuser: mock of libuser imported in model.users
+        """
+        mock_adm = mock_libuser.admin()
+        user_model = UserModel()
+        self.assertRaises(InvalidParameter, user_model.chpasswd, 'user', 0)
+        self.assertFalse(mock_log.error.called,
+                         msg='Unexpected call to mock_log.error')
+        self.assertFalse(mock_adm.lookupUserByName.called,
+                         msg='Unexpected call to mock_adm.lookupUserByName()')
+        self.assertFalse(mock_adm.setpassUser.called,
+                         msg='Unexpected call to mock_adm.setpassUser()')
+
+    @mock.patch('plugins.ginger.model.users.libuser', autospec=True)
+    @mock.patch('plugins.ginger.model.users.wok_log', autospec=True)
+    def test_chpasswd_user_notfound(self, mock_log, mock_libuser):
+
+        """
+        unittest to validate chpasswd() method for non-existing user
+        mock_log: mock of wok_log imported in model.users
+        mock_libuser: mock of libuser imported in model.users
+        """
+        mock_adm = mock_libuser.admin()
+        mock_adm.lookupUserByName.return_value = False
+        user_model = UserModel()
+        self.assertRaises(NotFoundError, user_model.chpasswd, 'user1',
+                          'password')
+        mock_adm.lookupUserByName.assert_called_once_with('user1')
+        mock_log.error.assert_called_once_with(
+            "User '%s' not found" % 'user1')
+        self.assertFalse(mock_adm.setpassUser.called,
+                         msg='Unexpected call to mock_adm.setpassUser()')
+
+    @mock.patch('plugins.ginger.model.users.libuser', autospec=True)
+    @mock.patch('plugins.ginger.model.users.wok_log', autospec=True)
+    def test_chpasswd_setpass_exception(self, mock_log, mock_libuser):
+
+        """
+        unittest to validate chpasswd() method when setpassUser of
+        libuser raises Exception
+        mock_log: mock of wok_log imported in model.users
+        mock_libuser: mock of libuser imported in model.users
+        """
+        mock_adm = mock_libuser.admin()
+        mock_adm.lookupUserByName.return_value = 'dummy_user'
+        mock_adm.setpassUser.side_effect = Exception('fail')
+        user_model = UserModel()
+        self.assertRaises(OperationFailed, user_model.chpasswd, 'user1',
+                          'password')
+        mock_adm.lookupUserByName.assert_called_once_with('user1')
+        mock_adm.setpassUser.assert_called_once_with(
+            'dummy_user', 'password', False)
+        mock_log.error.assert_called_once_with(
+            "Failed to change password for user '%s'. Error: '%s'"
+            % ('user1', 'fail'))
+
+    @mock.patch('plugins.ginger.model.users.libuser', autospec=True)
+    @mock.patch('plugins.ginger.model.users.wok_log', autospec=True)
+    def test_chpasswd_success(self, mock_log, mock_libuser):
+
+        """
+        unittest to validate chpasswd() method with success scenario
+        mock_log: mock of wok_log imported in model.users
+        mock_libuser: mock of libuser imported in model.users
+        """
+        mock_adm = mock_libuser.admin()
+        mock_adm.lookupUserByName.return_value = 'dummy_user'
+        user_model = UserModel()
+        user_model.chpasswd('user1', 'password')
+        mock_adm.lookupUserByName.assert_called_once_with('user1')
+        mock_adm.setpassUser.assert_called_once_with(
+            'dummy_user', 'password', False)
+        self.assertFalse(mock_log.error.called,
+                         msg='Unexpected call to mock_log.error')

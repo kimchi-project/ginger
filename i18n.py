@@ -148,6 +148,7 @@ messages = {
     "GINUSER0021E": _("Failed to remove user '%(user)s' from group '%(group)s'. Error: '%(err)s'"),
     "GINUSER0022E": _("There was a problem while reading users details, see log for details"),
     "GINUSER0023E": _("There was a problem while fetching user profile, see log for details"),
+    "GINUSER0024E": _("Failed to change password for user '%(user)s', error: '%(err)s'."),
 
     "GINFW0001E": _("Cannot update system firmware while running VMs."),
     "GINFW0002E": _("Firmware image unpack failed: rc = %(rc)s. "
@@ -399,6 +400,7 @@ messages = {
     "GINSYSMOD0002L": _("Unloaded kernel module '%(ident)s'"),
     "GINUSER0001L": _("Created user '%(name)s'"),
     "GINUSER0002L": _("Deleted user '%(ident)s'"),
+    "GINUSER0003L": _("Changed password for user '%(ident)s'"),
     "GINVG0001L": _("Created host volume group '%(vg_name)s'"),
     "GINVG0002L": _("Removed host volume group '%(ident)s'"),
     "GINVG0003L": _("Extended host volume group '%(ident)s'"),

@@ -818,6 +818,11 @@ of all available modules, not just the loaded ones. At this moment there is no a
 
 * **DELETE**: delete the given user
 
+**Actions (POST):**
+
+* chpasswd: Change password of user
+    * password: New password
+
 ### Collection: OVSBridges
 
 **URI:** /plugins/ginger/ovsbridges
