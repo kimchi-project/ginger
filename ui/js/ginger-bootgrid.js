@@ -23,6 +23,7 @@ ginger.createBootgrid = function(opts) {
   var fields = JSON.parse(opts['gridFields']);
   var selection = ('selection' in opts) ? opts['selection'] : true;
   var navigation = ('navigation' in opts) ? opts['navigation'] : 3;
+  var multiselection = ('multiSelection' in opts) ? opts['multiSelection'] : true;
   var converters = ('converters' in opts) ? opts['converters'] : {};
 
   var gridMessage = ('loadingMessage' in opts && opts['loadingMessage'].trim() && opts['loadingMessage'].length > 0) ? opts['loadingMessage'] : i18n['GINBG00001M'];
@@ -55,7 +56,7 @@ ginger.createBootgrid = function(opts) {
 
   var grid = $('#' + gridId).bootgrid({
     selection: selection,
-    multiSelect: true,
+    multiSelect: multiselection,
     keepSelection: true,
     rowCount: -1,
     sorting: true,
@@ -65,7 +66,16 @@ ginger.createBootgrid = function(opts) {
     converters: converters,
     formatters: {
       "percentage-used": function(column, row) {
-        return '<div class="progress"><div class="progress-bar-info" style="width:' + row[column['id']].toLocaleString('en-US', {style: 'percent', maximumFractionDigits: 2}) + ';background-color: #008abf">' + row[column['id']].toLocaleString(wok.lang.get_locale(), {style: 'percent', maximumFractionDigits: 2}) + '</div></div>';
+        var usage = ((row[column['id']])*100).toFixed(2);
+        var iconClass='';
+          if (usage <= 100 && usage >= 85) {
+              iconClass = 'icon-high';
+          }else if (usage <= 85 && usage >= 75 ) {
+              iconClass = 'icon-med';
+          } else {
+              iconClass = 'icon-low';
+          }
+        return '<span class="column-usage"><span class="usage-icon '+iconClass+'">'+row[column['id']].toLocaleString(wok.lang.get_locale(),{style: 'percent', maximumFractionDigits:2})+'</span></span>';
       },
       "nw-interface-status": function(column, row) {
         var value = row[column.id];

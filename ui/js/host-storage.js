@@ -119,7 +119,7 @@ ginger.loadSwapDeviceDetails = function() {
     "width": "15%",
     "type": 'string'
   }, {
-    "title": i18n['GINTITLE0006M'],
+    "title": i18n['GINTITLE0004M'],
     "column-id": "size",
     "width": "10%",
     "converter": "number-locale-converter",
@@ -142,6 +142,37 @@ ginger.loadSwapDeviceDetails = function() {
     ginger.initSwapDevicesGridData();
   });
 
+  $("#delete-swap-device-btn").on('click', function(event) {
+      opts['gridId'] = "swapDevicesGrid";
+      opts['identifier'] = "filename";
+      var deleteRecord = [];
+      var selectedrowdata = ginger.getSelectedRowsData(opts);
+      if (selectedrowdata && selectedrowdata.length >= 1) {
+          for (var i = 0; i < selectedrowdata.length; i++) {
+              deleteRecord[i] = JSON.stringify(selectedrowdata[i].filename);
+          }
+      }
+      wok.confirm({
+          title: i18n['GINSWP0001M'],
+          content: i18n['GINSWP0002M'] + " - " + deleteRecord,
+          confirm: i18n['GINSWP0003M'],
+          cancel: i18n['GINSWP0004M']
+      }, function() {
+          if (selectedrowdata && selectedrowdata.length >= 1) {
+              for (var i = 0; i < selectedrowdata.length; i++) {
+                  var deleteSwapInputData = {};
+                  deleteSwapInputData = selectedrowdata[i].filename;
+                  ginger.deleteswap(deleteSwapInputData, function() {
+                      ginger.initSwapDevicesGridData();
+                      wok.message.success(i18n['GINSWP0005M'], "#swap-message")
+                  }, function(result) {
+                      ginger.initSwapDevicesGridData();
+                      wok.message.error(result.message, "#swap-message", true);
+                  });
+              }
+          }
+      }, null);
+  });
 };
 
 ginger.initSwapDevicesGridData = function() {
@@ -163,6 +194,9 @@ ginger.initSwapDevicesGridData = function() {
   });
 };
 
+  $('#add-swap-device-btn').click(function(){
+    wok.window.open('plugins/ginger/host-storage-add-swap.html');
+  });
 // ******************** Volume Group ********************
 
 ginger.loadVolumeGroupDetails = function() {

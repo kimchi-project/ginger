@@ -103,6 +103,51 @@ ginger.listBackupArchives = function(suc, err){
     });
 };
 
+ginger.SwapDeviceList = function(suc, err) {
+    wok.requestJSON({
+        url: 'plugins/ginger/partitions/',
+        type: 'GET',
+        contentType: 'application/json',
+        dataType: 'json',
+        resend: true,
+        success: suc,
+        error: err || function(data) {
+            wok.message.error(data.responseJSON.reason);
+        }
+    });
+};
+
+ginger.addDeviceswap = function(selectedRowIds, suc, err) {
+    var onResponse = function(data) {
+        taskID = data['id'];
+        ginger.trackTask(taskID, suc, err);
+    };
+    wok.requestJSON({
+        url: 'plugins/ginger/swaps/',
+        type: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify(selectedRowIds),
+        dataType: 'json',
+        success: onResponse,
+        error: err || function(data) {
+            wok.message.error(data.responseJSON.reason);
+        }
+    });
+};
+
+ginger.deleteswap = function(file_loc, suc, err) {
+    wok.requestJSON({
+        url: 'plugins/ginger/swaps/' + encodeURIComponent(file_loc),
+        type: 'DELETE',
+        contentType: 'application/json',
+        dataType: 'json',
+        success: suc,
+        error: err || function(data) {
+            wok.message.error(data.responseJSON.reason);
+        }
+    });
+};
+
 ginger.createBackupArchive = function(bak, suc, err, progress) {
 
   var onResponse = function(data) {
