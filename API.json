@@ -73,6 +73,18 @@
                 }
             }
         },
+        "user_chpasswd": {
+            "type": "object",
+            "error": "GINUSER0003E",
+            "properties": {
+                "password": {
+                    "description": "The new user password",
+                    "type": "string",
+                    "required": true,
+                    "error": "GINUSER0003E"
+                }
+            }
+        },
         "network_update": {
             "type": "object",
             "properties": {

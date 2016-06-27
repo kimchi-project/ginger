@@ -575,3 +575,30 @@ class UserModel(object):
         if not user_info:
             raise NotFoundError('GINUSER0011E', {'user': user})
         return user_info[0]
+
+    def chpasswd(self, user, password):
+        wok_log.info("In UserModel.chpasswd method")
+        if isinstance(user, unicode):
+            user = user.encode('utf-8')
+        if not isinstance(user, str) or not user.strip():
+            raise InvalidParameter('GINUSER0002E')
+        if isinstance(password, unicode):
+            password = password.encode('utf-8')
+        if not isinstance(password, str) or not password.strip():
+            raise InvalidParameter('GINUSER0003E')
+        adm = libuser.admin()
+        user_obj = adm.lookupUserByName(user)
+        if not user_obj:
+            wok_log.error("User '%s' not found" % user)
+            raise NotFoundError('GINUSER0011E', {'user': user})
+        try:
+            adm.setpassUser(user_obj, password, False)
+            # False flag indicates that password is not encrypted
+            wok_log.info("Successfully changed password for user '%s'" % user)
+        except Exception as e:
+            err_msg = e.message if e.message else e
+            wok_log.error("Failed to change password for user '%s'. "
+                          "Error: '%s'" % (user, err_msg))
+            raise OperationFailed(
+                'GINUSER0024E', {'user': user, 'err': err_msg})
+        wok_log.info("End of UserModel.chpasswd method")

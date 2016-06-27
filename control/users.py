@@ -28,6 +28,9 @@ USERS_REQUESTS = {
 
 USER_REQUESTS = {
     'DELETE': {'default': "GINUSER0002L"},
+    'POST': {
+        'chpasswd': "GINUSER0003L"
+    }
 }
 
 
@@ -67,6 +70,9 @@ class User(Resource):
     def __init__(self, model, ident):
         super(User, self).__init__(model, ident)
         self.log_map = USER_REQUESTS
+        self.admin_methods = ['GET', 'POST', 'DELETE']
+        self.uri_fmt = "/users/%s"
+        self.chpasswd = self.generate_action_handler('chpasswd', ['password'])
 
     @property
     def data(self):
