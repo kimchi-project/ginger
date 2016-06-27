@@ -193,7 +193,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
                     <button class="btn btn-primary actBtn add-user" type="submit" data-toggle="modal" data-target="#hostUserAdd"><i class="fa fa-plus-circle"></i> $_("Add User")</button>
                 </div>
                 <span id='alert-modal-user-container' style='display: none;'></span>
-                <div class="wok-datagrid">
+                <div class="wok-datagrid" id="usermangementgrid">
                     <div class="wok-datagrid-header">
                         <span class="column-username">$_("Name")</span><!--
                         --><span class="column-usergroup">$_("Group")</span><!--
@@ -373,6 +373,34 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
     </div>
 </div>
 
+<!-- User Management Modal - Change Password -->
+<div class="modal fade host-modal" id="hostUserPasswordChange" tabindex="-1" role="dialog" labelledby="UserPasswordChangeModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" >
+          <div class="modal-header">
+            <h4 class="modal-title">$_("Password Change")</h4>
+          </div>
+          <div class="modal-body">
+          <div id="alert-user-password-change-modal"></div>
+            <form id="form-user-passwdchange">
+                <div class="form-group">
+                    <label for="password-textbox">$_("New Password")</label>
+                    <input type="password" class="form-control inputbox" id="password-textbox" name="newUserPasswd" />
+                </div>
+                <div class="form-group">
+                    <label for="confirm-password-textbox">$_("Confirm Password")</label>
+                    <input type="password" class="form-control inputbox" id="confirm-password-textbox" name="confirmNewPasswd" />
+                </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" id="user-password-change-submit" class="btn btn-default" disabled>$_("Submit")</button>
+            <button type="button" id="user-password-change-cancel" class="btn btn-default" data-dismiss="modal">$_("Cancel")</button>
+          </div>
+        </div>
+    </div>
+</div>
+
 </div>
 <script id="backupItem" type="text/html">
     <li class="wok-datagrid-row in" name="backupBodyItem" id="{identity}">
@@ -423,7 +451,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
         <span class="column-username" data-type="name">{userName}</span><!--
         --><span class="column-usergroup" data-type="group">{userGroup}</span><!--
         --><span class="column-userprofile" data-type="profile">{userProfile}</span><!--
-        --><span class="column-detach"><button class="btn btn-link detach pull-right"><i class="fa fa-minus-circle"></i> $_("Remove")</button></span>
+        --><span class="column-detach">
+                <div class="user-actions btn-group pull-right" id="users-pcc-action-area" style="padding-right:40px;"">
+                    <div class="dropdown menu-flat ">
+                        <button class="btn btn-primary dropdown-toggle users-pcc-button" type="button" data-toggle="dropdown" aria-expanded="false" aria-haspopup="true"><span class="edit-alt"></span>$_("Actions")<span class="caret"></span></button>
+                        <ul class="dropdown-menu actionsheet">
+                            <li role="presentation">
+                                <a href="#" id="user-passwdchange" data-toggle="modal"><i class="fa fa-file"></i> $_("Change Password")</a>
+                            </li>
+                            <li role="presentation">
+                                <a href="#" id="user-remove"><i class="fa fa-minus-circle"></i> $_("Remove")</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+           </span>
     </li>
 </script>
 <script id="subscItem" type="text/html">

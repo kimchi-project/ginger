@@ -532,6 +532,20 @@ ginger.deleteUser = function (username, suc, err) {
     });
 }
 
+ginger.changeUserPassword = function (username, content, suc, err) {
+  $.ajax({
+        url : "plugins/ginger/users/" + username + "/chpasswd",
+        type : 'POST',
+        contentType : 'application/json',
+        dataType : 'json',
+        data : JSON.stringify(content),
+        success: suc,
+        error: err || function(data) {
+            wok.message.error(data.responseJSON.reason);
+        }
+      });
+}
+
 ginger.getCapabilities = function(suc, err) {
     wok.requestJSON({
         url : 'plugins/ginger/capabilities',

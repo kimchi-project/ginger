@@ -584,29 +584,36 @@ ginger.initUserManagement = function() {
                 }));
                 $(".ginger .host-admin .user-manage").append(nodeNameItem);
             }
-            $(".detach", ".ginger .host-admin .user-manage").on('click', function(event) {
-                var wokUserName = wok.user.getUserName();
-                var that = $(this).parent().parent();
-                var currentUser = $("span[data-type='name']", that).text()
-                if (wokUserName === currentUser ) {
-                  errorMsg = i18n['GINUSR0003M'];
-                  wok.message.error(errorMsg, '#alert-modal-user-container', true);
-                } else {
-                var settings = [];
-                settings = {
-                  title: i18n['GINUSR0001M'] + " - " + currentUser,
-                  content: i18n['GINUSR0002M'],
-                  cancel: i18n['GGBAPI6003M']
-                };
-                wok.confirm(settings,function (){
-                ginger.deleteUser(currentUser, function() {
-                    that.remove();
-                }, function() {})},
-                 function() {});
-                }
-            });
-        }, function() {});
+        }, function(err) {
+          wok.message.error(err.responseJSON.reason, '#alert-modal-user-container', true);
+        });
     };
+
+    $("#usermangementgrid").on('click','#user-remove', function(event) {
+        event.preventDefault();
+        var wokUserName = wok.user.getUserName();
+        var that = $(this).closest(".wok-datagrid-row");
+        var currentUser = $("span[data-type='name']", that).text();
+        if (wokUserName === currentUser ) {
+          errorMsg = i18n['GINUSR0003M'];
+          wok.message.error(errorMsg, '#alert-modal-user-container', true);
+        } else {
+        var settings = [];
+        settings = {
+          title: i18n['GINUSR0001M'] + " - " + currentUser,
+          content: i18n['GINUSR0002M'],
+          cancel: i18n['GGBAPI6003M']
+        };
+        wok.confirm(settings,function (){
+        ginger.deleteUser(currentUser, function() {
+            that.remove();
+            wok.message.success(i18n['GINUM0007M'].replace("%1", '<strong>'+currentUser+'</strong>'), '#alert-modal-user-container');
+        }, function(err) {
+          wok.message.error(err.responseJSON.reason, '#alert-modal-user-container', true);
+        })},
+         function() {});
+        }
+    });
 
     $('#hostUserAdd').on('show.bs.modal', function(event) {
         var enableFields = function() {
@@ -625,6 +632,7 @@ ginger.initUserManagement = function() {
           $("#hostUserAdd, .inputbox[name='userGroup']", ".modal-body").attr("disabled", false);
           $("#user-submit").prop("disabled", true);
           $("#user-cancel").prop("disabled", false);
+          $("#hostUserAdd, .inputbox[name='userPasswd']", ".modal-body").val('');
           $("#hostUserAdd, .inputbox[name='userConfirmPasswd']", ".modal-body").val('');
           $("#hostUserAdd, .inputbox[name='userPasswd']", ".modal-body").focus();
         };
@@ -657,9 +665,9 @@ ginger.initUserManagement = function() {
                 $("#hostUserAdd, .inputbox[name='userGroup']", ".modal-body").attr("disabled", true);
             }
         });
-        $(".modal-body .inputbox").keyup(function() {
+        $(".modal-body .inputbox", "#hostUserAdd").keyup(function() {
             var sum = 0;
-            $(".modal-body .inputbox").not("[name='userGroup']").each(function(index, data) {
+            $(".modal-body .inputbox", "#hostUserAdd").not("[name='userGroup']").each(function(index, data) {
                 if ($(data).val() === "") {
                     sum += 1;
                 }
@@ -696,7 +704,6 @@ ginger.initUserManagement = function() {
             if ($("#enableEditGroup").prop('checked')) {
                 dataSubmit['group'] = userGroup;
             } else {
-                //dataSubmit['group'] = userName;
                 dataSubmit['group'] = "";
             }
             if (userPasswd === userConfirmPasswd) {
@@ -710,10 +717,9 @@ ginger.initUserManagement = function() {
                 });
             } else {
                 wok.confirm({
-                    title: i18n['KCHAPI6006M'],
                     content: i18n['GINUM0002E'],
-                    confirm: i18n['KCHAPI6002M'],
-                    cancel: i18n['KCHAPI6003M']
+                    confirm: i18n['GINUM0004M'],
+                    cancel: i18n['GINUM0005M']
                 }, function() {
                     clearPasswords();
                 }, function() {
@@ -725,6 +731,98 @@ ginger.initUserManagement = function() {
             $('#hostUserAdd').modal('hide')
         });
     });
+
+    $('#usermangementgrid').on('click','#user-passwdchange', function(event) {
+        event.preventDefault();
+        var that = $(this).closest(".wok-datagrid-row");
+        var username = $("span[data-type='name']", that).text();
+        var wokUserName = wok.user.getUserName();
+        $('#hostUserPasswordChange').modal('show');
+        var enableFields = function() {
+          $("#hostUserPasswordChange, .inputbox[name='newUserPasswd']", ".modal-body").parent().removeClass('has-error');
+          $("#hostUserPasswordChange, .inputbox[name='confirmNewPasswd']", ".modal-body").parent().removeClass('has-error');
+          $("#user-password-change-cancel").prop("disabled", false);
+          $(".modal-body .inputbox").val("");
+          $(".modal-body .inputbox").attr("disabled", false);
+          $("#hostUserPasswordChange, .inputbox[name='newUserPasswd']", ".modal-body").focus();
+          $("#user-password-change-submit").prop("disabled", true);
+        };
+        var clearPasswords = function() {
+          $("#hostUserPasswordChange, .inputbox[name='newUserPasswd']", ".modal-body").parent().addClass('has-error');
+          $("#hostUserPasswordChange, .inputbox[name='confirmNewPasswd']", ".modal-body").parent().addClass('has-error');
+          $(".modal-body .inputbox").attr("disabled", false);
+          $("#user-password-change-submit").prop("disabled", true);
+          $("#user-password-change-cancel").prop("disabled", false);
+          $(".modal-body .inputbox").val("");
+          $("#hostUserPasswordChange, .inputbox[name='newUserPasswd']", ".modal-body").focus();
+        };
+        enableFields();
+        $("#alert-user-password-change-modal").empty();
+        // clear user-password-change-submit handlers before assigning
+        $("#user-password-change-submit").off();
+        $(".modal-body .inputbox", "#hostUserPasswordChange").keyup(function() {
+            var sum = 0;
+            $(".modal-body .inputbox", "#hostUserPasswordChange").each(function(index, data) {
+                if ($(data).val() === "") {
+                    sum += 1;
+                }
+            })
+            if (sum != 0) {
+                $("#user-password-change-submit").prop("disabled", true);
+            } else {
+                $("#user-password-change-submit").prop("disabled", false);
+            }
+        });
+        $("#user-password-change-submit").on('click', function(event) {
+            event.preventDefault();
+            $(".modal-body .inputbox").attr("disabled", true);
+            $("#user-password-change-submit").prop("disabled", true);
+            $("#user-password-change-cancel").prop("disabled", true);
+
+            var newUserPasswd = $("#hostUserPasswordChange, .inputbox[name='newUserPasswd']", ".modal-body").val();
+            var confirmNewPasswd = $("#hostUserPasswordChange, .inputbox[name='confirmNewPasswd']", ".modal-body").val();
+            var dataSubmit = {
+                password: newUserPasswd
+            };
+            if (newUserPasswd === confirmNewPasswd) {
+                ginger.changeUserPassword(username, dataSubmit, function() {
+                    if (wokUserName === username){
+                      wok.confirm({
+                          content: i18n['GINUM0003M'],
+                          confirm: i18n['GINUM0004M'],
+                          cancel: i18n['GINUM0005M']
+                      }, function() {
+                          document.location.href = 'login.html';
+                      }, function() {
+                          document.location.href = 'login.html';
+                      });
+                    }
+                    else {
+                      wok.message.success(i18n['GINUM0006M'].replace("%1", '<strong>'+username+'</strong>'), '#alert-modal-user-container');
+                      $('#hostUserPasswordChange').modal('hide');
+                      enableFields();
+                    }
+                }, function(data) {
+                    wok.message.error(data.responseJSON.reason,'#alert-user-password-change-modal');
+                    enableFields();
+                });
+            } else {
+                wok.confirm({
+                    content: i18n['GINUM0002E'],
+                    confirm: i18n['GINUM0004M'],
+                    cancel: i18n['GINUM0005M']
+                }, function() {
+                    clearPasswords();
+                }, function() {
+                    clearPasswords();
+                });
+            }
+        });
+        $("#user-password-change-cancel", $(this)).button().click(function(event) {
+            $('#hostUserPasswordChange').modal('hide');
+        });
+    });
+
     listUsers();
 };
 
