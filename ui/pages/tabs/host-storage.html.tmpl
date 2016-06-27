@@ -86,11 +86,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
               </h3>
               <div id="swap-devices-content-area" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
                   <div class='clearfix'>
+                   <span id="swap-message" style="display:none;"></span>
                     <div class="row">
                       <div id="swap-devices-alert-container"></div>
+                      <div class="btn-group">
+                          <button class="btn btn-primary actBtn add-user" id="delete-swap-device-btn" type="submit" ><i class="fa fa-minus-circle"></i> $_("Delete")</button>
+                      </div>
                       <div id="swap-devices-refresh" class="pull-right">
-                      <div class="btn-group"><button class="btn btn-primary" id="swap-devices-refresh-btn" aria-expanded="false"><i class="fa fa-refresh"></i>$_("Refresh")</button></div></div>
-                  </div>
+                      <button class="btn btn-primary " id="add-swap-device-btn" type="submit" ><i class="fa fa-plus-circle"></i> $_("Add")</button>
+                      <button class="btn btn-primary" id="swap-devices-refresh-btn" aria-expanded="false"><i class="fa fa-refresh"></i>$_("Refresh")</button></div>
+                    </div>
                     <div class="row col-md-12" id="swap-devices" style="padding-left:20px;"></div>
                   </div>
               </div>
