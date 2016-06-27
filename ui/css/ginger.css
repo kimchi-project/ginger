@@ -1232,6 +1232,56 @@
   width: 160px;
 }
 
+#volume-groups-content-area .usage-icon,
+#file-systems-content-area .usage-icon,
+#swap-devices-content-area .usage-icon,
+#storage-device-content-area .usage-icon,
+#fcp-tape-devices-content-area .usage-icon,
+#san-adapter-content-area .usage-icon {
+  padding-left: 35px;
+  display: inline-block;
+  background-repeat: no-repeat;
+  background-position: 0 50%;
+  background-color: transparent;
+  width: 9.41558%;
+  height: 28px;
+}
+
+#volume-groups-content-area .usage-icon.icon-high,
+#file-systems-content-area .usage-icon.icon-high,
+#swap-devices-content-area .usage-icon.icon-high,
+#storage-device-content-area .usage-icon.icon-high,
+#fcp-tape-devices-content-area .usage-icon.icon-high,
+#san-adapter-content-area .usage-icon.icon-high {
+  background-image: url("/images/theme-default/high.png");
+}
+
+#volume-groups-content-area .usage-icon.icon-med,
+#file-systems-content-area .usage-icon.icon-med,
+#swap-devices-content-area .usage-icon.icon-med,
+#storage-device-content-area .usage-icon.icon-med,
+#fcp-tape-devices-content-area .usage-icon.icon-med,
+#san-adapter-content-area .usage-icon.icon-med {
+  background-image: url("/images/theme-default/med.png");
+}
+
+#volume-groups-content-area .usage-icon.icon-low,
+#file-systems-content-area .usage-icon.icon-low,
+#swap-devices-content-area .usage-icon.icon-low,
+#storage-device-content-area .usage-icon.icon-low,
+#fcp-tape-devices-content-area .usage-icon.icon-low,
+#san-adapter-content-area .usage-icon.icon-low {
+  background-image: url("/images/theme-default/low.png");
+}
+
+hr {
+  display: block;
+  margin-left: 30px;
+  margin-right: 30px;
+  border-color: #008abf;
+  border-width: 3px;
+}
+
 #host-sysmodules-root-container .accordion {
   margin: 12px 20px 12px 60px;
   padding-bottom: 18px;

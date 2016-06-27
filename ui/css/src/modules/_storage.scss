@@ -158,5 +158,30 @@
        width:160px;
       }
     }
+    .usage-icon {
+       padding-left: 35px;
+       display: inline-block;
+       background-repeat: no-repeat;
+       background-position: 0 50%;
+       background-color: transparent;
+       width: 9.41558%;
+       height:28px;
 
+       &.icon-high {
+           background-image: url('#{$wok-icon-path}/high.png');
+       }
+       &.icon-med {
+           background-image: url('#{$wok-icon-path}/med.png');
+       }
+       &.icon-low {
+           background-image: url('#{$wok-icon-path}/low.png');
+      }
+  }
+}
+hr {
+  display:block;
+  margin-left:30px;
+  margin-right:30px ;
+  border-color:#008abf ;
+  border-width:3px;
 }
