@@ -41,7 +41,10 @@ class Users(Collection):
         self.role_key = "administration"
         self.admin_methods = ['GET', 'POST', 'DELETE']
         self.resource = User
+
+        # set user log messages and make sure all parameters are present
         self.log_map = USERS_REQUESTS
+        self.log_args.update({'name': ''})
 
     def _get_resources(self, flag_filter):
         """

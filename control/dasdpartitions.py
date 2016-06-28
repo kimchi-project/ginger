@@ -42,7 +42,10 @@ class DASDPartitions(Collection):
         self.role_key = 'storage'
         self.admin_methods = ['GET', 'POST', 'DELETE']
         self.resource = DASDPartition
+
+        # set user log messages and make sure all parameters are present
         self.log_map = DASDPARTITIONS_REQUESTS
+        self.log_args.update({'dev_name': '', 'size': ''})
 
 
 class DASDPartition(Resource):

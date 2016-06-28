@@ -73,7 +73,10 @@ class DASDdev(Resource):
         self.uri_fmt = "/dasddevs/%s"
         self.format = self.generate_action_handler_task('format', ['blk_size'])
         self.info = {}
+
+        # set user log messages and make sure all parameters are present
         self.log_map = DASDDEV_REQUESTS
+        self.log_args.update({'blk_size': ''})
 
     @property
     def data(self):

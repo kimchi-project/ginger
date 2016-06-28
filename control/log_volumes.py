@@ -40,7 +40,10 @@ class LogicalVolumes(AsyncCollection):
         self.role_key = 'host'
         self.admin_methods = ['GET', 'POST', 'DELETE']
         self.resource = LogicalVolume
+
+        # set user log messages and make sure all parameters are present
         self.log_map = LOGICALVOLUMES_REQUESTS
+        self.log_args.update({'vg_name': ''})
 
 
 class LogicalVolume(Resource):

@@ -58,6 +58,8 @@ class Archives(AsyncCollection):
     def __init__(self, model):
         super(Archives, self).__init__(model)
         self.resource = Archive
+
+        # set user log messages and make sure all parameters are present
         self.log_map = ARCHIVES_REQUESTS
         self.log_args.update({'description': ''})
 

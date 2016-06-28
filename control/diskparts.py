@@ -46,7 +46,10 @@ class Partitions(Collection):
         self.role_key = 'storage'
         self.admin_methods = ['GET', 'POST', 'DELETE']
         self.resource = Partition
+
+        # set user log messages and make sure all parameters are present
         self.log_map = PARTITIONS_REQUESTS
+        self.log_args.update({'devname': '', 'partsize': ''})
 
     def _get_resources(self, flag_filter):
         """
@@ -87,7 +90,10 @@ class Partition(Resource):
         self.change_type = self.generate_action_handler('change_type',
                                                         ['type'])
         super(Partition, self).__init__(model, id)
+
+        # set user log messages and make sure all parameters are present
         self.log_map = PARTITION_REQUESTS
+        self.log_args.update({'type': '', 'fstype': ''})
 
     @property
     def data(self):

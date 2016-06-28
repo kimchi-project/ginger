@@ -37,7 +37,10 @@ class Swaps(AsyncCollection):
         self.role_key = 'storage'
         self.admin_methods = ['GET', 'POST', 'DELETE']
         self.resource = Swap
+
+        # set user log messages and make sure all parameters are present
         self.log_map = SWAPS_REQUESTS
+        self.log_args.update({'file_loc': ''})
 
 
 class Swap(Resource):

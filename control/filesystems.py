@@ -40,7 +40,10 @@ class FileSystems(Collection):
         self.role_key = 'host'
         self.admin_methods = ['GET', 'POST', 'DELETE']
         self.resource = FileSystem
+
+        # set user log messages and make sure all parameters are present
         self.log_map = FILESYSTEMS_REQUESTS
+        self.log_args.update({'type': '', 'mountpoint': ''})
 
     def _get_resources(self, flag_filter):
         res_list = super(FileSystems, self)._get_resources(flag_filter)

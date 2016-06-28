@@ -46,7 +46,10 @@ class Interface(Resource):
         self.deactivate = self.generate_action_handler('deactivate')
         self.enable_sriov = \
             self.generate_action_handler_task('enable_sriov', ['num_vfs'])
+
+        # set user log messages and make sure all parameters are present
         self.log_map = INTERFACE_REQUESTS
+        self.log_args.update({'name': ''})
 
     @property
     def data(self):

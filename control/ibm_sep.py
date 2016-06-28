@@ -62,7 +62,10 @@ class Subscribers(Collection):
         self.admin_methods = ['GET', 'POST', 'PUT']
         self.update_params = ['hostname', 'port', 'community']
         self.uri_fmt = "/ibm_sep/subscribers/%s"
+
+        # set user log messages and make sure all parameters are present
         self.log_map = SUBSCRIBERS_REQUESTS
+        self.log_args.update({'hostname': ''})
 
     @property
     def data(self):

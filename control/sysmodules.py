@@ -37,7 +37,10 @@ class SysModules(Collection):
         self.role_key = 'adminstration'
         self.admin_methods = ['GET', 'POST']
         self.resource = SysModule
+
+        # set user log messages and make sure all parameters are present
         self.log_map = SYSMODULES_REQUESTS
+        self.log_args.update({'name': ''})
 
 
 class SysModule(Resource):

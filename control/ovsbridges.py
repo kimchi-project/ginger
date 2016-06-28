@@ -42,7 +42,10 @@ class OVSBridges(Collection):
         self.role_key = "administration"
         self.admin_methods = ['GET', 'POST']
         self.resource = OVSBridge
+
+        # set user log messages and make sure all parameters are present
         self.log_map = OVSBRIDGES_REQUESTS
+        self.log_args.update({'name': ''})
 
 
 class OVSBridge(Resource):
@@ -51,7 +54,15 @@ class OVSBridge(Resource):
         self.ident = ident
         self.admin_methods = ['GET', 'DELETE']
         self.uri_fmt = "/ovsbridges/%s"
+
+        # set user log messages and make sure all parameters are present
         self.log_map = OVSBRIDGE_REQUESTS
+        self.log_args.update({
+            'interface': '',
+            'interface_add': '',
+            'interface_del': '',
+            'bond': '',
+        })
 
         interface_args = ['interface']
         self.add_interface = \

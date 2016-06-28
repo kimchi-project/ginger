@@ -43,7 +43,10 @@ class Firmware(Resource):
         upgrade_args = ['path', 'overwrite-perm']
         self.upgrade = self.generate_action_handler_task('upgrade',
                                                          upgrade_args)
+
+        # set user log messages and make sure all parameters are present
         self.log_map = FIRMWARE_REQUESTS
+        self.log_args.update({'path': ''})
 
     @property
     def data(self):
