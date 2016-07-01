@@ -899,3 +899,12 @@ URI: /plugins/ginger/services/*:service_name*
     * restart: restarts the service.
 
 * Returns: a dictionary with the updated service state.
+
+
+### Collection: NFS Shares
+
+**URI:** /plugins/ginger/stgserver/*:ipaddress*/nfsshares
+
+**Methods:**
+
+* **GET**: Retrieve a summarized list of NFS shares/exports of the specified server

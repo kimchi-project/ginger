@@ -348,6 +348,10 @@ messages = {
 
     "GINSERV00001E": _("Error executing SystemD command %(cmd)s, reason: %(err)s"),
     "GINSERV00002E": _("Service name %(name)s not found."),
+    "GINSTG00001E": _("Invalid URI, please use /stgserver/%(ipaddr)s/nfsshares"),
+    "GINSTG00002E": _("Invalid URI, no list of storage servers available"),
+    "GINNFS00001E": _("Error fetching NFS shares"),
+    "GINNFS00002E": _("Invalid server or no NFS exports found on server"),
 
     # These messages (ending with L) are for user log purposes
     "GINDASD0001L": _("Formatted DASD device '%(ident)s' with block size %(blk_size)s"),
