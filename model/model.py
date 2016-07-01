@@ -32,12 +32,14 @@ from ibm_sep import SepModel, SubscribersModel, SubscriptionModel
 from interfaces import InterfacesModel, InterfaceModel
 from log_volume import LogicalVolumesModel, LogicalVolumeModel
 from network import NetworkModel
+from nfsshares import NFSSharesModel
 from ovsbridges import OVSBridgesModel, OVSBridgeModel
 from powermanagement import PowerProfilesModel, PowerProfileModel
 from physical_vol import PhysicalVolumesModel, PhysicalVolumeModel
 from sanadapters import SanAdapterModel, SanAdaptersModel
 from sensors import SensorsModel
 from services import ServicesModel, ServiceModel
+from stgserver import StgServersModel, StgServerModel
 from storage_devs import StorageDevsModel
 from swaps import SwapsModel, SwapModel
 from sysmodules import SysModulesModel, SysModuleModel
@@ -115,12 +117,16 @@ class GingerModel(BaseModel):
         vol_group = VolumeGroupModel(objstore=self._objstore)
         services = ServicesModel()
         service = ServiceModel()
+        stgservers = StgServersModel()
+        stgserver = StgServerModel()
+        nfsshares = NFSSharesModel()
 
         features = [firmware, swaps, backup, network, powerprofiles,
                     san_adapters, sensors, ibm_sep, users, filesystems,
                     dasddevs, dasdpartitions, partitions, physical_vols,
                     vol_groups, log_volumes, stgdevs, firmwareprogress,
-                    sysmodules, cfginterfaces, ovsbridges, services]
+                    sysmodules, cfginterfaces, ovsbridges, services,
+                    stgservers, nfsshares]
         capabilities = CapabilitiesModel(features)
         config = ConfigModel()
 
@@ -131,7 +137,7 @@ class GingerModel(BaseModel):
             cfginterface, cfginterfaces,
             dasddevs, dasddev,
             dasdpartitions, dasdpartition,
-            network,
+            network, nfsshares,
             filesystems, filesystem,
             log_volumes, log_volume,
             partitions, partition,
@@ -145,7 +151,7 @@ class GingerModel(BaseModel):
             vol_groups, vol_group,
             ibm_sep, subscription, subscriber,
             capabilities, config, ovsbridge, ovsbridges,
-            services, service]
+            services, service, stgservers, stgserver]
 
         # Import task model from Wok
         kargs = {'objstore': self._objstore}

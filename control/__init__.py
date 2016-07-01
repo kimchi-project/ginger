@@ -33,6 +33,7 @@ from firmware import FirmwareProgress
 from ibm_sep import Sep
 from log_volumes import LogicalVolumes
 from network import Network
+from nfsshares import NFSShares
 from ovsbridges import OVSBridges
 from physical_vol import PhysicalVolumes
 from powermanagement import PowerProfiles
@@ -44,6 +45,7 @@ from users import Users
 from swaps import Swaps
 from sysmodules import SysModules
 from vol_group import VolumeGroups
+from stgservers import StgServers
 
 
 sub_nodes = load_url_sub_node(os.path.dirname(__file__), __name__)
@@ -59,6 +61,7 @@ __all__ = [
     FirmwareProgress,
     LogicalVolumes,
     Network,
+    NFSShares,
     OVSBridges,
     Partitions,
     PowerProfiles,
@@ -67,6 +70,7 @@ __all__ = [
     Sensors,
     Sep,
     Services,
+    StgServers,
     StorageDevs,
     Swaps,
     SysModules,
