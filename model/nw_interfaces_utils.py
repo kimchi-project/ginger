@@ -173,7 +173,10 @@ class InterfacesHelper(object):
             with open(carrier_path % ifacename) as car_file:
                 carrier_val = car_file.readline().strip()
             if (carrier_val == '0'):
-                raise OperationFailed('GINNET0090E', {'name': ifacename})
+                if iface_type != "nic":
+                    raise OperationFailed('GINNET0094E', {'name': ifacename})
+                else:
+                    raise OperationFailed('GINNET0090E', {'name': ifacename})
         else:
             raise OperationFailed('GINNET0091E', {'name': ifacename})
         if returncode != 0:

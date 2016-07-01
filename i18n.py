@@ -119,10 +119,12 @@ messages = {
     "GINNET0087E": _("Unable to read or update openib.conf file. Error: %(err)s"),
     "GINNET0088E": _("Error: openib.conf file does not exist in the host. Unable to set SR-IOV boot script."),
     "GINNET0089W": _("Warning: Recent changes has been rolled back, due to operation fail"),
-    "GINNET0090E": _("Physical cable is disconnected for the device '%(name)s'."),
+    "GINNET0090E": _("Activation of interface %(name)s failed. Physical cable is disconnected for the device '%(name)s'."),
     "GINNET0091E": _("Run time information is not available for the interface on '%(name)s'. Activation of the interface on '%(name)s' went wrong."),
     "GINNET0092E": _("%(mac)s is not a valid mac address."),
     "GINNET0093E": _("SR-IOV is already disabled (no virtual functions enabled) in interface %(name)s."),
+    "GINNET0094E": _("Activation of vlan/bond interface '%(name)s' failed. Please "
+                     "refresh and try again. "),
 
     "GINUSER0001E": _("Specify name, password, group and profile for the new "
                       "user."),

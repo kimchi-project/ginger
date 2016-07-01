@@ -321,8 +321,7 @@ ginger.loadBootgridNWActions = function() {
           });
         }, function(error) {
           ginger.hideBootgridLoading(ginger.opts_nw_if);
-          var message = i18n['GINNET0016M'] + " " + selectedIf[0]["device"] + " " + i18n['GINNET0021M'];
-          wok.message.error(message + " " + error.responseJSON.reason, '#message-nw-container-area', true);
+          wok.message.error(error.responseJSON.reason, '#message-nw-container-area', true);
         });
       } else {
         var settings = {
