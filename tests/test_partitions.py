@@ -93,7 +93,7 @@ class PartitionTests(unittest.TestCase):
     @mock.patch('wok.plugins.ginger.model.diskparts.get_partition_details',
                 autospec=True)
     def test_lookup_invalid_part_returns_404(self, mock_get_part_details):
-        mock_get_part_details.side_effect = [NotFoundError]
+        mock_get_part_details.side_effect = iter([NotFoundError])
 
         part = diskparts.PartitionModel(objstore=self._objstore)
 

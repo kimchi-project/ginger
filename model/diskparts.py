@@ -23,8 +23,8 @@ import utils
 from wok.exception import MissingParameter, NotFoundError, OperationFailed
 from wok.model.tasks import TaskModel
 from wok.plugins.gingerbase.disks import fetch_disks_partitions
-from wok.plugins.gingerbase.disks import get_partition_details
-from wok.utils import add_task, run_command, wok_log
+from wok.plugins.gingerbase.disks import _get_vgname, get_partition_details
+from wok.utils import add_task, wok_log
 
 
 class PartitionsModel(object):
@@ -39,6 +39,12 @@ class PartitionsModel(object):
                                   {'err': e})
         result_names = []
         for i in result:
+            part_path = i['path']
+            vg_name = _get_vgname(part_path)
+            if vg_name:
+                i['vgname'] = vg_name
+            else:
+                i['vgname'] = "N/A"
             result_names.append(i['name'])
         if _name:
             name = list(set([_name]).intersection(set(result_names)))
@@ -75,8 +81,11 @@ class PartitionModel(object):
         try:
             part_details = get_partition_details(name)
             part_path = part_details['path']
-            vg_name = self._get_vg_name(part_path)
-            part_details['vgname'] = vg_name
+            vg_name = _get_vgname(part_path)
+            if vg_name:
+                part_details['vgname'] = vg_name
+            else:
+                part_details['vgname'] = "N/A"
             return part_details
 
         except NotFoundError:
@@ -86,13 +95,6 @@ class PartitionModel(object):
         except OperationFailed as e:
             wok_log.error("lookup method of partition failed")
             raise OperationFailed("GINPART00003E", {'name': name, 'err': e})
-
-    def _get_vg_name(self, devpath):
-        out, err, rc = run_command(["pvs", "-o", "vg_name", devpath])
-        if rc != 0:
-            return 'N/A'
-        else:
-            return out.split()[1]
 
     def format(self, name, fstype):
 
