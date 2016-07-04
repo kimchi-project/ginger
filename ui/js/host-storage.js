@@ -251,82 +251,45 @@ ginger.initVolumeGroupGridData = function() {
 // ******************** SAN Adapters ********************
 
 ginger.loadSanAdapters = function() {
-  var gridFields = [];
-  var opts = [];
-  opts['id'] = 'san-adapter-list';
-  opts['gridId'] = "SanAdaptersGrid";
-    gridFields = [{
-      "column-id": 'name',
-      "type": 'string',
-      "identifier": true,
-      "width": "6%",
-      "title": i18n['GINTITLE0001M']
-    }, {
-      "column-id": 'wwpn',
-      "type": 'string',
-      "width": "14%",
-      "title": i18n['GINTITLE0007M']
-    }, {
-      "column-id": 'wwnn',
-      "type": 'string',
-      "width": "14%",
-      "title": i18n['GINTITLE0008M']
-    }, {
-      "column-id": 'state',
-      "type": 'string',
-      "width": "6%",
-      "title": i18n['GINTITLE0009M']
-    }, {
-      "column-id": 'ports_info',
-      "type": 'string',
-      "width": "10%",
-      "title": i18n['GINTITLE0010M']
-    }, {
-      "column-id": 'speed',
-      "type": 'string',
-      "width": "6%",
-      "title": i18n['GINTITLE0011M']
-    }, {
-      "column-id": 'symbolic_name',
-      "type": 'string',
-      "width": "25%",
-      "title": i18n['GINTITLE0012M']
-    }, {
-      "column-id": 'port_type',
-      "type": 'string',
-      "width": "10%",
-      "title": i18n['GINTITLE0026M']
-    }];
-  opts['gridFields'] = JSON.stringify(gridFields);
-  ginger.createBootgrid(opts);
   ginger.initSanAdaterGridData();
-    var refreshButtonHtml = '<div class="btn-group">' +
-      '<button class="btn btn-primary" id="refresh-san-button" aria-expanded="false"><i class="fa fa-refresh"></i> ' + i18n['GINTITLE0021M'] + '</button>' +
-      '</div>';
-    $(refreshButtonHtml).appendTo('#san-adapter-refresh');
-
-    $('#refresh-san-button').on('click', function() {
-      ginger.hideBootgridData(opts);
-      ginger.showBootgridLoading(opts);
-      ginger.initSanAdaterGridData();
-    });
 };
 
 ginger.initSanAdaterGridData = function() {
-  var opts = [];
-  opts['gridId'] = "SanAdaptersGrid";
+  $(".wok-mask").show();
   ginger.getSANAdapters(function(result) {
-    for (i = 0; i < result.length; i++) {
-      //format ports information
-      result[i]['ports_info'] = result[i]['vports_inuse'] + '/' + result[i]['max_vports'];
-      if (result[i]['port_type'] === 'virtual') {
-          result[i]['ports_info'] = i18n['GINTITLE0027M'];
-      }
+    if (result.length > 0) {
+      var rows = "";
+      $.each(result, function(index, adapter){
+        rows += "<tr><td>" + adapter.name + "</td>";
+        rows += "<td>" + adapter.wwpn + "</td>";
+        rows += "<td>" + adapter.wwnn + "</td>";
+        rows += "<td>" + adapter.state + "</td>";
+        rows += "<td>" + adapter.vports_inuse + "/" + adapter.max_vports + "</td>";
+        rows += "<td>" + adapter.speed + "</td>";
+        rows += "<td>" + adapter.symbolic_name + "</td>";
+        rows += "<td>" + adapter.port_type + "</td></tr>";
+      });
+      $("#adapters-table tbody").html(rows);
     }
-    ginger.loadBootgridData(opts['gridId'], result);
-    ginger.showBootgridData(opts);
-    ginger.hideBootgridLoading(opts);
+    var adaptersTable = $("#adapters-table").DataTable({
+        "dom": '<"row"<"col-sm-3 buttons"><"col-sm-9 filter"<"pull-right"l><"pull-right"f>>><"row"<"col-sm-12"t>><"row"<"col-sm-6 pages"p><"col-sm-6 info"i>>',
+        "initComplete": function(settings, json) {
+          wok.initCompleteDataTableCallback(settings);
+          var refreshButton = '<button class="btn btn-primary pull-left" id="refresh-san-button" aria-expanded="false"><i class="fa fa-refresh"></i> ' + i18n['GINTITLE0021M'] + '</button>';
+          $(".buttons").html(refreshButton);
+        },
+        "oLanguage": {
+          "sEmptyTable": i18n['GINNET0063M']
+        }
+      });
+    $('#refresh-san-button').on('click', function() {
+      $("#adapters-table tbody").html("");
+      adaptersTable.destroy();
+      ginger.initSanAdaterGridData();
+    });
+    $(".wok-mask").hide();
   },function(err){
+    $(".wok-mask").hide();
     wok.message.error(err.responseJSON.reason, '#san-adapter-alert-container');
   });
 };

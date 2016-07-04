@@ -154,15 +154,33 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
               <div id="san-adapter-content-area" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
                 <div class='clearfix'>
                   <div class="row">
-                    <span class="pull-right">
-                      <div id="san-adapter-alert-container"></div>
-                      <span id="san-adapter-refresh">
-                      </span>
-                      <span id="san-adapter-add">
-                      </span>
-                    </span>
+                    <div class="col-sd-12"><span>&nbsp;</span></div>
                   </div>
-                  <div class="row col-md-12" id="san-adapter-list" style="padding-left:20px;"></div>
+                  <div class="row" id="san-adapter-list">
+                    <table id="adapters-table" class="table table-striped" cellspacing="0" width="100%">
+                      <thead>
+                        <tr>
+                            <th>$_("Name")</th>
+                            <th>$_("WWPN")</th>
+                            <th>$_("WWNN")</th>
+                            <th>$_("State")</th>
+                            <th>$_("In-Use/Max Ports")</th>
+                            <th>$_("Speed")</th>
+                            <th>$_("Symbolic Name")</th>
+                            <th>$_("Port Type")</th>
+                        </tr>
+                      </thead>
+                      <tbody></tbody>
+                    </table>
+                  </div>
+                </div>
+                <div class="wok-mask">
+                  <div class="wok-mask-loader-container">
+                    <div class="wok-mask-loading">
+                      <div class="wok-mask-loading-icon"></div>
+                      <div class="wok-mask-loading-text">$_("Loading...")</div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
