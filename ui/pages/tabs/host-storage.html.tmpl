@@ -50,11 +50,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
               <div id="volume-groups-content-area" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
                 <div class='clearfix'>
                     <div class="row">
-                      <div id="volume-group-alert-container"></div>
-                      <div id="volume-groups-refresh" class="pull-right">
-                      <div class="btn-group"><button class="btn btn-primary" id="volume-groups-refresh-btn" aria-expanded="false"><i class="fa fa-refresh"></i>$_("Refresh")</button></div></div>
+                     <div class="col-sd-12"><span>&nbsp;</span></div>
                     </div>
-                    <div class="row col-md-12" id="volume-groups" style="padding-left:20px;"></div>
+                    <div class="row" id="volume-groups">
+                      <table id="volume-group-table" class="table table-stripped" cellspacing="0" width="100%">
+                        <thead>
+                          <tr>
+                            <th>$_("Name")</th>
+                            <th>$_("Capacity (MB)")</th>
+                          </tr>
+                        </thead>
+                        <tbody></tbody>
+                      </table>
+                    </div>
+                </div>
+                <div class="wok-mask vg-loader">
+                  <div class="wok-mask-loader-container">
+                    <div class="wok-mask-loading">
+                      <div class="wok-mask-loading-icon"></div>
+                      <div class="wok-mask-loading-text">$_("Loading...")</div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -174,7 +190,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
                     </table>
                   </div>
                 </div>
-                <div class="wok-mask">
+                <div class="wok-mask sa-loading">
                   <div class="wok-mask-loader-container">
                     <div class="wok-mask-loading">
                       <div class="wok-mask-loading-icon"></div>
