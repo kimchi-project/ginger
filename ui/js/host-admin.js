@@ -851,9 +851,11 @@ ginger.initFirmware = function() {
             ginger.updateFirmware({
                 path: $("#gingerPackPath").prop("value")
             }, function(result) {
+                $("#gingerPackPath").prop("disabled", false);
                 reloadProgressArea(result);
                 wok.topic('ginger/').publish({result: result})
             }, function(error) {
+                $("#gingerPackPath").prop("disabled", false);
                 wok.message.error(error.responseJSON.reason);
             }, reloadProgressArea);
         }, null);
