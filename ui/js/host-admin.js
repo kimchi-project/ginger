@@ -836,6 +836,7 @@ ginger.initFirmware = function() {
         $("#gingerPackPath").toggleClass("invalid-field", !isValid && packPath !== "");
         $("#gingerPackPathSub").prop('disabled', !isValid);
     });
+
     $("#gingerPackPathSub").on("click", function(event) {
         event.preventDefault();
         wok.confirm({
@@ -844,37 +845,35 @@ ginger.initFirmware = function() {
             confirm: i18n['KCHAPI6002M'],
             cancel: i18n['KCHAPI6003M']
         }, function() {
+            $("#gingerPackPathSub").prop('disabled', true);
+            $("#gingerPackPath").prop("disabled", true);
+            startFwProgress();
             ginger.updateFirmware({
                 path: $("#gingerPackPath").prop("value")
-            }, function() {
-                $("#gingerPackPathSub").prop('disabled', true);
-                $("#gingerPackPath").prop("disabled", true);
-                startFwProgress();
-            });
+            }, function(result) {
+                reloadProgressArea(result);
+                wok.topic('ginger/').publish({result: result})
+            }, function(error) {
+                wok.message.error(error.responseJSON.reason);
+            }, reloadProgressArea);
         }, null);
     });
+
     var progressAreaID = 'fwprogress-textarea';
+
     var reloadProgressArea = function(result) {
         var progressArea = $('#' + progressAreaID)[0];
         $(progressArea).text(result['message']);
         var scrollTop = $(progressArea).prop('scrollHeight');
         $(progressArea).prop('scrollTop', scrollTop);
     };
+
     var startFwProgress = function() {
         var progressArea = $('#' + progressAreaID)[0];
         $('#fwprogress-container').removeClass('hidden');
         $(progressArea).text('');
         !wok.isElementInViewport(progressArea) &&
             progressArea.scrollIntoView();
-
-        ginger.fwProgress(function(result) {
-            reloadProgressArea(result);
-            wok.topic('ginger/').publish({
-                result: result
-            });
-        }, function(error) {
-            wok.message.error(error.responseJSON.reason);
-        }, reloadProgressArea);
     };
 };
 
