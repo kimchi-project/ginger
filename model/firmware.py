@@ -64,7 +64,7 @@ class FirmwareModel(object):
             levels = output.split()[13]
         return {'level': levels}
 
-    def upgrade(self, fw_path=None, pow_ok=None):
+    def upgrade(self, ident, fw_path=None, pow_ok=None):
         if detect_live_vm():
             wok_log.error('Cannot update system fw while running VMs.')
             raise OperationFailed('GINFW0001E')
@@ -110,19 +110,21 @@ class FirmwareModel(object):
 
         return self.task.lookup(taskid)
 
-    def commit(self, name):
+    def commit(self, ident):
         command = ['update_flash', '-c']
         output, error, rc = run_command(command)
         if rc:
             raise OperationFailed('GINFW0005E', {'rc': rc})
+
         # update_flash returns a message on success, so log it.
         wok_log.info(output)
 
-    def reject(self, name):
+    def reject(self, ident):
         command = ['update_flash', '-r']
         output, error, rc = run_command(command)
         if rc:
             raise OperationFailed('GINFW0006E', {'rc': rc})
+
         # update_flash returns a message on success, so log it.
         wok_log.info(output)
 

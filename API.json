@@ -19,16 +19,6 @@
                 }
             }
         },
-        "firmware_commit": {
-            "type": "null",
-            "properties": {
-            }
-        },
-        "firmware_reject": {
-            "type": "null",
-            "properties": {
-            }
-        },
         "powerprofile_update": {
             "type": "object",
             "properties": {

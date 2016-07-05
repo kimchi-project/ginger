@@ -39,7 +39,6 @@ class Firmware(Resource):
         self.uri_fmt = "/firmware/%s"
         self.commit = self.generate_action_handler('commit')
         self.reject = self.generate_action_handler('reject')
-        self.model_args = []
         upgrade_args = ['path', 'overwrite-perm']
         self.upgrade = self.generate_action_handler_task('upgrade',
                                                          upgrade_args)
