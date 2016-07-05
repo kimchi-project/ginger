@@ -56,7 +56,7 @@ class AuthorizationTests(unittest.TestCase):
         self.assertEquals(200, resp.status)
 
         # Test APIs that require authentication
-        apis = ['/firmware', '/fwprogress', '/backup', '/ibm_sep', '/network'
+        apis = ['/firmware', '/backup', '/ibm_sep', '/network',
                 '/network/interfaces', '/network/cfginterfaces',
                 '/powerprofiles', '/san_adapters', '/sensors', '/users',
                 '/archives', '/dasddevs', '/dasdpartitions', '/partitions',

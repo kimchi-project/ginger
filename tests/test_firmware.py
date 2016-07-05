@@ -63,41 +63,42 @@ class FirmwareTests(unittest.TestCase):
 
     @mock.patch('wok.plugins.ginger.model.firmware.detect_live_vm')
     @mock.patch('wok.plugins.ginger.model.firmware.run_command')
-    def test_model_update(self, mock_run_command, mock_detect_vm):
+    def test_model_upgrade(self, mock_run_command, mock_detect_vm):
         mock_detect_vm.return_value = False
         mock_run_command.return_value = ["", "", 0]
 
         temp = tempfile.NamedTemporaryFile()
-        command = ['update_flash', '-f', temp.name]
-
-        task = FirmwareModel(objstore=self._objstore).upgrade(temp.name)
+        task = FirmwareModel(objstore=self._objstore).upgrade(None, temp.name)
         self.task.wait(task['id'])
-        mock_run_command.assert_called_once_with(
-            command,
-            tee='/tmp/fw_tee_log.txt'
-        )
+        self.assertTrue(mock_run_command.called,
+                        msg='Expected call to run_command. Not called')
+
+        task_info = self.task.lookup(task['id'])
+        self.assertEquals('finished', task_info['status'])
+        self.assertEquals('/plugins/ginger/firmware/upgrade',
+                          task_info['target_uri'])
 
     @mock.patch('wok.plugins.ginger.model.firmware.detect_live_vm')
     @mock.patch('wok.plugins.ginger.model.firmware.run_command')
-    def test_model_update_overwrite_perm_false(
+    def test_model_upgrade_overwrite_perm_false(
         self,
         mock_run_command,
         mock_detect_vm
     ):
-
         mock_detect_vm.return_value = False
         mock_run_command.return_value = ["", "", 0]
 
         temp = tempfile.NamedTemporaryFile()
-        command = ['update_flash', '-n', '-f', temp.name]
-
-        task = FirmwareModel(objstore=self._objstore).upgrade(temp.name,
+        task = FirmwareModel(objstore=self._objstore).upgrade(None, temp.name,
                                                               False)
         self.task.wait(task['id'])
-        mock_run_command.assert_called_once_with(
-            command,
-            tee='/tmp/fw_tee_log.txt'
-        )
+        self.assertTrue(mock_run_command.called,
+                        msg='Expected call to run_command. Not called')
+
+        task_info = self.task.lookup(task['id'])
+        self.assertEquals('finished', task_info['status'])
+        self.assertEquals('/plugins/ginger/firmware/upgrade',
+                          task_info['target_uri'])
 
     @mock.patch('wok.plugins.ginger.model.firmware.run_command')
     def test_model_commit(self, mock_run_command):
