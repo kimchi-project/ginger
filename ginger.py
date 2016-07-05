@@ -21,7 +21,7 @@ import json
 import os
 
 from control import Backup, Capabilities, Config, DASDdevs, DASDPartitions
-from control import Firmware, FirmwareProgress, FileSystems, LogicalVolumes
+from control import Firmware, FileSystems, LogicalVolumes
 from control import Network, OVSBridges, Partitions, PhysicalVolumes
 from control import PowerProfiles, SanAdapters, Sensors, Sep, Services
 from control import StgServers, StorageDevs, Swaps, SysModules, Users
@@ -58,7 +58,6 @@ class Ginger(WokRoot):
         self.dasdpartitions = DASDPartitions(self.model)
         self.filesystems = FileSystems(self.model)
         self.firmware = Firmware(self.model)
-        self.fwprogress = FirmwareProgress(self.model)
         self.ibm_sep = Sep(self.model)
         self.lvs = LogicalVolumes(self.model)
         self.network = Network(self.model)

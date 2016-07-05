@@ -25,10 +25,8 @@ import time
 
 from wok.exception import OperationFailed
 from wok.model.notifications import add_notification
-from wok.model.tasks import TaskModel, TasksModel
+from wok.model.tasks import TaskModel
 from wok.utils import add_task, run_command, wok_log
-
-fw_tee_log = '/tmp/fw_tee_log.txt'
 
 
 # FIXME: When model is restructured, use
@@ -102,11 +100,14 @@ class FirmwareModel(object):
         command = ['update_flash', '-f', image_file]
         if pow_ok is not None:
             command.insert(1, '-n')
+
+        # update_flash may take some time to restart the system. Inform user.
         wok_log.info('FW update: System will reboot to flash the firmware.')
 
         cmd_params = {'command': command, 'operation': 'update'}
         taskid = add_task('/plugins/ginger/firmware/upgrade',
                           self._execute_task, self.objstore, cmd_params)
+
         return self.task.lookup(taskid)
 
     def commit(self, name):
@@ -130,103 +131,25 @@ class FirmwareModel(object):
 
     def _execute_task(self, cb, params):
         cmd = params['command']
-        cb("%s running." % cmd[0])
+        add_notification('GINFW0007I', plugin_name='/plugins/ginger')
+        cb('Firmware update is initializing. '
+           'System will reboot in order to flash the firmware.')
 
-        output, error, rc = run_command(cmd, tee=fw_tee_log)
+        # update_flash may take some time to restart host. Sleep to make sure
+        # user notification will show up
+        #FIXME this timer is based on a UI constraint. This is not a good
+        # design.
+        time.sleep(3)
+        output, error, rc = run_command(cmd, out_cb=cb)
 
         if rc:
             if params['operation'] == 'update':
                 wok_log.error('Error flashing firmware. Details:\n %s' % error)
-                cb("Error flashing firmware: %(error)s. \
-                    Please see /usr/sbin/update_flash for rc reasons.", True)
+                cb("Error flashing firmware: %(error)s. "
+                   "Please see /usr/sbin/update_flash for rc reasons.", True)
                 raise OperationFailed('GINFW0004E', {'rc': rc})
             else:
                 wok_log.error('Async run_command error: ', error)
                 cb('Async run_command error: %s' % error, True)
-        cb("OK", True)
 
-
-class FirmwareProgressModel(object):
-    def __init__(self, **kargs):
-        self.tasks = TasksModel(**kargs)
-        self.task = TaskModel(**kargs)
-        self.current_taskid = 0
-        self.objstore = kargs['objstore']
-
-    def is_update_flash_running(self):
-        for task in self.tasks.get_list():
-            info = self.task.lookup(task)
-            if info['target_uri'] == '/plugins/ginger/firmware/upgrade':
-                if info['status'] == 'running':
-                    return True
-        self.current_taskid = 0
-        return False
-
-    def tailUpdateLogs(self, cb, tee_log_file=None):
-        """
-        Read the log_file to return it's content (the output of update_flash
-        command). If the file is not found, a simple '*' is displayed to track
-        progress.
-        """
-        if not self.is_update_flash_running():
-            msg = "Error flashing firmware. "
-            msg = msg+"Please see /usr/sbin/update_flash for rc reasons. \n"
-            if os.path.exists(tee_log_file):
-                msg = msg+"Details: \n"
-                with open(tee_log_file, 'r') as log_file:
-                    error = log_file.read()
-                log_file.closed
-                msg = msg+error
-            return cb(msg, True)
-
-        fd = None
-        try:
-            fd = os.open(tee_log_file, os.O_RDONLY)
-
-        # cannot open file, print something to let users know that the
-        # system is being upgrading until the package manager finishes its
-        # job
-        except (TypeError, OSError):
-            msgs = []
-            while self.is_update_flash_running():
-                msgs.append('*')
-                cb(''.join(msgs))
-                time.sleep(1)
-            msgs.append('\n')
-            return cb(''.join(msgs), True)
-
-        cb('Firmware update is initializing. \
-           System will reboot in order to flash the firmware.')
-        add_notification('GINFW0007I', plugin_name='/plugins/ginger')
-
-        # go to the end of logfile and starts reading, if nothing is read or
-        # a pattern is not found in the message just wait and retry until
-        # the package manager finishes
-        os.lseek(fd, 0, os.SEEK_END)
-        msgs = []
-        progress = []
-        while True:
-            read = os.read(fd, 1024)
-            if not read:
-                if not self.is_update_flash_running():
-                    break
-
-                if not msgs:
-                    progress.append('*')
-                    cb(''.join(progress))
-
-                time.sleep(1)
-                continue
-
-            msgs.append(read)
-            cb(''.join(msgs))
-
-        os.close(fd)
-        return cb(''.join(msgs), True)
-
-    def lookup(self, *name):
-        if self.current_taskid == 0:
-            self.current_taskid = add_task('/plugins/ginger/fwprogress',
-                                           self.tailUpdateLogs, self.objstore,
-                                           fw_tee_log)
-        return self.task.lookup(self.current_taskid)
+        cb('OK', True)

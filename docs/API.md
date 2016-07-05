@@ -90,6 +90,7 @@ Contains information about Ginger configuration.
 * **GET**: Retrieve the current firmware levels.
     * level: The firmware levels (MI and ML, or Maint. Level)
              The final group is the currently booted firmware.
+
 **Actions (POST):**
 
 * commit: Commit the image running on the temp side to the perm side.
@@ -97,22 +98,14 @@ Contains information about Ginger configuration.
 * reject: Reject the image on the temp side, overwriting it with
           the image from the perm side. In order to do this, the machine must
           be running the permanent image.
-* upgrade: Update the firmware level of the booted side.
+* upgrade: Update the firmware level of the booted side. Returns an async task
+           for tracking progress of update_flash execution.
     * path: The remote file path pointing to the firmware image file.
     * overwrite-perm: Indicate whether possibly overwriting the permanent boot
                       side while updating the firmware is acceptable. A value
                       of 'False' guarantees the current perm side image remains
                       untouched. Note: If running permanent image, this will
                       result in an error. It is optional.
-
-
-### Resource: FirmwareProgess (Power System firmware)
-
-**URI:** /plugins/ginger/fwprogress
-
-**Methods:**
-
-* **GET**: Retrieve the output of the update_flash execution.
 
 
 ### Collection: SAN Adapters (Fibre Channel SCSI Hosts - HBAs)

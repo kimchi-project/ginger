@@ -17,7 +17,7 @@
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 
-from wok.control.base import AsyncResource, Resource
+from wok.control.base import Resource
 from wok.control.utils import UrlSubNode
 
 
@@ -47,19 +47,6 @@ class Firmware(Resource):
         # set user log messages and make sure all parameters are present
         self.log_map = FIRMWARE_REQUESTS
         self.log_args.update({'path': ''})
-
-    @property
-    def data(self):
-        return self.info
-
-
-@UrlSubNode('fwprogress', True)
-class FirmwareProgress(AsyncResource):
-    def __init__(self, model, id=None):
-        super(FirmwareProgress, self).__init__(model, id)
-        self.role_key = 'administration'
-        self.uri_fmt = "/fwprogress/%s"
-        self.admin_methods = ['GET']
 
     @property
     def data(self):
