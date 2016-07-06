@@ -139,7 +139,7 @@ class FirmwareModel(object):
 
         # update_flash may take some time to restart host. Sleep to make sure
         # user notification will show up
-        #FIXME this timer is based on a UI constraint. This is not a good
+        # FIXME this timer is based on a UI constraint. This is not a good
         # design.
         time.sleep(3)
         output, error, rc = run_command(cmd, out_cb=cb)
