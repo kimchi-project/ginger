@@ -157,10 +157,11 @@ messages = {
                     "Details: %(err)s"),
     "GINFW0003E": _("FW update failed: "
                     "No image file found in the package file."),
-    "GINFW0004E": _("Error flashing firmware. rc = %(rc)s. Please see /usr/sbin/update_flash for rc reasons."),
+    "GINFW0004E": _("Error flashing firmware: %(error)s"),
     "GINFW0005E": _("Error commiting firmware. rc = %(rc)s. Ensure you are booted to the temporary side."),
     "GINFW0006E": _("Error rejecting firmware. rc = %(rc)s. Ensure you are booted to the permanent side."),
     "GINFW0007I": _("Firmware update is initializing. System will reboot in order to flash the firmware."),
+    "GINFW0008E": _("Internal error: %(error)s"),
 
     "GINHBK0001E": _('Failed to create tar archive "%(name)s", cmd: '
                      '"%(cmd)s". Inspect error log for more information.'),

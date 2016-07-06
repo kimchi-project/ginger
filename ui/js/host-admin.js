@@ -852,6 +852,10 @@ ginger.initFirmware = function() {
                 path: $("#gingerPackPath").prop("value")
             }, function(result) {
                 $("#gingerPackPath").prop("disabled", false);
+                var status = result['status'];
+                if (status == "failed") {
+                    wok.message.error(result['message'])
+                };
                 reloadProgressArea(result);
                 wok.topic('ginger/').publish({result: result})
             }, function(error) {

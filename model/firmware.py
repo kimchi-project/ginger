@@ -147,11 +147,9 @@ class FirmwareModel(object):
         if rc:
             if params['operation'] == 'update':
                 wok_log.error('Error flashing firmware. Details:\n %s' % error)
-                cb("Error flashing firmware: %(error)s. "
-                   "Please see /usr/sbin/update_flash for rc reasons.", False)
-                raise OperationFailed('GINFW0004E', {'rc': rc})
+                raise OperationFailed('GINFW0004E', {'error': error})
             else:
                 wok_log.error('Async run_command error: ', error)
-                cb('Async run_command error: %s' % error, False)
+                raise OperationFailed('GINFW0008E', {'error': error})
 
         cb('OK', True)
