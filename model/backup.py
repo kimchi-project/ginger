@@ -224,6 +224,10 @@ class ArchivesModel(object):
 
     def get_list(self):
         with self._objstore as session:
+            files = [x.split('.')[0] for x in os.listdir(self._archive_dir)]
+            for db_file in self._session_get_list(session):
+                if db_file not in files:
+                    session.delete(ArchivesModel._objstore_type, db_file)
             return self._session_get_list(session)
 
 
