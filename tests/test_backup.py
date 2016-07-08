@@ -22,6 +22,8 @@ import os
 import tempfile
 import unittest
 
+from mock import call
+
 from wok.model.tasks import TaskModel
 from wok.objectstore import ObjectStore
 from wok.plugins.ginger.model.backup import ArchivesModel, ArchiveModel
@@ -77,3 +79,24 @@ class BackupArchiveTests(unittest.TestCase):
         self.assertEqual(lookup.get('exclude'), [])
         self.assertEqual(lookup.get('description'), descr)
         self.assertEqual(lookup.get('file'), archive_file)
+
+    @mock.patch('wok.objectstore.ObjectStoreSession.delete')
+    @mock.patch('wok.plugins.ginger.model.backup.ArchivesModel.'
+                '_session_get_list')
+    @mock.patch('os.listdir')
+    def test_archive_list_removes_deleted_tar_entries(self, mock_listdir,
+                                                      mock_get_list,
+                                                      mock_session_delete):
+
+        mock_listdir.return_value = ['file1.tar.gz', 'file3.tar.gz']
+        mock_get_list.return_value = ['file1', 'file2', 'file3', 'file4']
+
+        ArchivesModel(objstore=self._objstore).get_list()
+
+        mock_listdir.assert_called_once_with(ArchivesModel._archive_dir)
+        mock_session_delete.assert_has_calls(
+            [
+                call(ArchivesModel._objstore_type, 'file2'),
+                call(ArchivesModel._objstore_type, 'file4')
+            ]
+        )
