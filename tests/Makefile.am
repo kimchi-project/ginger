@@ -1,7 +1,7 @@
 #
 # Project Ginger
 #
-# Copyright IBM Corp, 2015
+# Copyright IBM Corp, 2015-2016
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -29,6 +29,9 @@ do_substitution = \
 run_tests.sh: run_tests.sh.in Makefile
 	$(do_substitution) < $(srcdir)/run_tests.sh.in > run_tests.sh
 	chmod +x run_tests.sh
+
+check-local:
+	./run_tests.sh
 
 BUILT_SOURCES = run_tests.sh
 
