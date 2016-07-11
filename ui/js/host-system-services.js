@@ -18,8 +18,12 @@
 
 ginger.initSystemServices = function() {
 
-    // Set height to 100%
-    $(".content-area", "#gingerHostAdmin").css("height", "100%");
+    // Set height and panel scrollbars
+    var panelHeight = function() {
+        var viewportHeight = $(window).height();
+        $('.well', '#sysmodules-accordion, #system-services-accordion').css({'height': viewportHeight - 400 +'px', 'overflow-y': 'scroll'});
+    };
+    panelHeight();
 
     // Hide other collapses once one is clicked
 
@@ -38,6 +42,14 @@ ginger.initSystemServices = function() {
     // System modules modal window
     $('#load_sysmodules_button').on('click', function(event) {
         wok.window.open('plugins/ginger/host-sysmodules-load.html');
+    });
+
+    $(window).on('resize', function(){
+        panelHeight();
+    });
+
+    $('.panel-group.accordion > h3 > a', '#sysmodules-accordion, #system-services-accordion').on('click', function(){
+        panelHeight();
     });
 
 };

@@ -19,6 +19,15 @@
 //
 
 #host-sysmodules-root-container {
+
+    .well {
+        overflow-y: scroll;
+        border: 0;
+        padding: 0;
+        margin: 0;
+        background: transparent;
+    }
+
     .accordion {
         @include wok-accordion();
     }

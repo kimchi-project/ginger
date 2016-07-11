@@ -1282,6 +1282,14 @@ hr {
   border-width: 3px;
 }
 
+#host-sysmodules-root-container .well {
+  overflow-y: scroll;
+  border: 0;
+  padding: 0;
+  margin: 0;
+  background: transparent;
+}
+
 #host-sysmodules-root-container .accordion {
   margin: 12px 20px 12px 60px;
   padding-bottom: 18px;
@@ -1884,6 +1892,14 @@ form[name="ovsaddinterface"] {
 .bridge-bonds.wok-datagrid > .wok-datagrid-body > .wok-datagrid-row > span.column-new-bond-iface,
 .bridge-bonds.wok-datagrid > .wok-datagrid-body > .wok-datagrid-row > span.column-new-bond-iface .bootstrap-select:not([class*=col-]):not([class*=form-control]):not(.input-group-btn) {
   width: 365px;
+}
+
+#system-services-content-area .well {
+  overflow-y: scroll;
+  border: 0;
+  padding: 0;
+  margin: 0;
+  background: transparent;
 }
 
 #system-services-content-area #system-services-body > .wok-datagrid-row {

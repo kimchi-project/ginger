@@ -20,6 +20,14 @@
 
 #system-services-content-area {
 
+    .well {
+        overflow-y: scroll;
+        border: 0;
+        padding: 0;
+        margin: 0;
+        background: transparent;
+    }
+
     #system-services-body > .wok-datagrid-row {
         display: flex;
         flex-flow: row wrap;
