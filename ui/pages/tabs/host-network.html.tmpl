@@ -43,71 +43,50 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
     </nav>
     <div class="container">
       <div id="gingerHostNetwork" class="host-network">
+        <!-- OVS Bridges Panel -->
         <div id="ovsbridge-container" class="hidden"></div>
         <!-- Global Network Configuration Panel -->
-        <div class="panel-group network-ppc-enabled accordion" id="network-global-accordion" role="tablist" aria-multiselectable="true">
+        <div class="panel-group network-ppc-enabled accordion" id="network-global-configuration-accordion" role="tablist" aria-multiselectable="true">
           <h3>
-            <a role="button" aria-expanded="true" data-toggle="collapse" data-parent="#network-global-accordion" href="#network-global-content-area" aria-expanded="false" aria-controls="network-global-content-area" class="">
+            <a role="button" aria-expanded="true" data-toggle="collapse" data-parent="#network-global-accordion" href="#network-global-configuration-content-area" aria-expanded="true" aria-controls="network-global-configuration-content-area" class="">
               <span class="accordion-icon"></span>
-              <span class="accordion-text">$_("Global Network Configuration")</span>
+              <span class="accordion-text" id="global-network-configuration-title">$_("Global Network Configuration")</span>
             </a>
           </h3>
-          <div id="network-global-content-area" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
-            <div class="row" id="nw-global-dns-action" style="padding:20px;">
-              <div class="nw-global-dns-actions btn-group pull-left" id="nw-global-dns-action-area">
-                <div class="dropdown menu-flat ">
-                  <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false" aria-haspopup="true">
-                    <span class="edit-alt"></span>$_("Actions")
-                    <span class="caret"></span>
-                  </button>
-                  <ul class="dropdown-menu actionsheet">
-                    <li role="presentation">
-                      <a id="nw-global-apply-btn"><i class="fa fa-file"></i> $_("Apply")</a>
-                    </li>
-                  </ul>
+          <div id="network-global-configuration-content-area" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="global-network-configuration-title">
+            <span id='message-nw-global-container-area' style='display: none;'></span>
+            <div class="row grid-control">
+                <button id="nw-global-config-apply-btn" class="btn btn-primary"><i class="fa fa-file"></i> $_("Apply")</a></button>
+                <button id="nw-global-config-refresh-btn" class="btn btn-primary"><i class="fa fa-refresh"></i> $_("Refresh")</a></button>
+            </div>
+            <div class="row">
+              <div class="form-inline gateway-control">
+                <div class="form-group col-xs-12">
+                    <label for="global-network-config-gateway">Gateway</label>
+                    <input type="text" class="form-control" name="gateway" id="global-network-config-gateway" />
                 </div>
               </div>
-              <div class="pull-right" id="nw-global-dns-refresh">
-                  <button id="nw-global-dns-refresh-btn" aria-expanded="false" type="button" class="row btn btn-primary"><i class="fa fa-refresh"></i> $_("Refresh")</button>
-                  </div>
+              <div class="col-sm-12">
+                <table id="global-network"  class="table table-striped" cellspacing="0"  width="100%">
+                    <thead>
+                        <tr>
+                            <th>$_("DNS")</th>
+                            <th>$_("Actions")</th>
+                        </tr>
+                    </thead>
+                </table>
+              </div>
             </div>
-            <div class="row" style="padding-left:20px;">
-              <div class="clearfix">
-                <span id='message-nw-global-container-area' style='display: none;'></span>
-                <div class="row">
-                  <div class="col-xs-6">
-                    <div class="row">
-                      <div class="col-xs-8" style="margin-bottom:5px margin-top:5px">
-                        <label class="control-label" for="nw-global-dns">$_("Global DNS Addresses")</label>
-                      </div>
-                      <div class="pull-right">
-                        <button id="nw-global-dns-add" aria-expanded="false" type="button" class="row btn btn-primary"><i class="fa fa-plus-circle"></i>$_("Add")</button>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="wok-datagrid-body no-border" id="nw-global-dns">
-                        <!--Filled by JS-->
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-xs-6">
-                    <div class="row" style="padding-left:20px;">
-                      <div class="col-xs-8">
-                        <label class="control-label" for="nw-global-dns">$_("Gateway")</label>
-                      </div>
-                    </div>
-                    <div class="row" style="padding-left:20px;">
-                      <div class="col-sm-4">
-                        <input id="nw-global-gateway-textbox" class="form-control" name="gateway" type="text" />
-                      </div>
-                    </div>
-                  </div>
+            <div class="wok-mask" role="presentation" class="hidden">
+              <div class="wok-mask-loader-container">
+                <div class="wok-mask-loading">
+                    <div class="wok-mask-loading-icon"></div>
+                    <div class="wok-mask-loading-text">$_("Loading")...</div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-
         <!-- Network Configuration Panel -->
         <div class="panel-group network-ppc-enabled accordion" id="network-content-area-accordion" role="tablist" aria-multiselectable="true">
           <h3>

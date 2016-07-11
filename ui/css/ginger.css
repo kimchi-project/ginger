@@ -978,6 +978,53 @@
   background-color: #eee;
 }
 
+#network-global-configuration-content-area .row.grid-control {
+  padding: 0 0 10px 0;
+}
+
+#network-global-configuration-content-area label[for="global-network-config-gateway"] {
+  margin-right: 5px;
+}
+
+#network-global-configuration-content-area .dns-readonly,
+#network-global-configuration-content-area .dns-add-readonly {
+  display: inline-block;
+  padding: 6px 12px;
+  margin: 2px 1px 1px 1px;
+  font-size: 14px;
+  vertical-align: middle;
+}
+
+#network-global-configuration-content-area .dns-edit label,
+#network-global-configuration-content-area .dns-add-edit label {
+  margin: 0;
+}
+
+#network-global-configuration-content-area .dns-edit,
+#network-global-configuration-content-area .dns-edit .form-control {
+  width: 100% !important;
+}
+
+#network-global-configuration-content-area .column-dns-actions > span {
+  vertical-align: middle;
+}
+
+#network-global-configuration-content-area .column-dns-actions .btn + .btn {
+  margin-left: 5px;
+}
+
+#network-global-configuration-content-area .edit-dns, #network-global-configuration-content-area .save-dns, #network-global-configuration-content-area .save-add-dns {
+  min-width: 63px;
+}
+
+#network-global-configuration-content-area .remove-dns, #network-global-configuration-content-area .cancel-dns, #network-global-configuration-content-area .cancel-add-dns {
+  min-width: 79px;
+}
+
+#network-global-configuration-content-area .add-dns {
+  min-width: 147px;
+}
+
 #host-storage-root-container .accordion {
   margin: 12px 20px 12px 60px;
   padding-bottom: 18px;

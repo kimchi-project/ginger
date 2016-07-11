@@ -664,133 +664,326 @@ ginger.initNetworkConfigGridData = function() {
     });
 };
 
-ginger.initGlobalNetworkConfig = function() {
-  globalDnsAddButton = $('#nw-global-dns-add');
-  globalDnsGateway = $('#nw-global-gateway-textbox');
-  nwGlobalApplyBtn = $('#nw-global-apply-btn');
-  nwGlobalRefreshBtn = $('#nw-global-dns-refresh-btn');
+ginger.loadGlobalNetworkConfig = function() {
+    var globalNetworkConfigTable;
+    var dataSet = new Array();
 
-  ginger.opts_global_dns = {};
-  ginger.opts_global_dns['id'] = 'nw-global-dns';
-  ginger.opts_global_dns['gridId'] = "nw-global-dns-grid";
-  ginger.opts_global_dns['noResults'] = " ";
-  ginger.opts_global_dns['selection'] = false;
-  ginger.opts_global_dns['navigation'] = 0;
-  ginger.opts_global_dns['loadingMessage'] = i18n['GINNET0025M'];
+    var loadGlobalNetworkConfigDatatable = function(dataSet) {
+        globalNetworkConfigTable = $('#global-network').DataTable({
+            "processing": true,
+            "data": dataSet,
+            "bSort": false,
+            "dom": 't',
+            "scrollY": "234px",
+            "columns": [{
+                title: "DNS",
+                className: 'col-sm-2',
+                render: function(r, t, data, meta) {
+                    if (data[0] !== 'add-new-dns') {
+                        return '<span class="dns-readonly">' + data + '</span>' +
+                            '<span class="dns-edit hidden">' +
+                            '<label for="dns-input-' + meta.row + '"><span class="sr-only">DNS:</span>' +
+                            '<input type="text" value="' + data + '" name="dns-edit[]" id="dns-input-' + meta.row + '" class="form-control" readonly="readonly">' +
+                            '</label>' +
+                            '</span>'
+                    } else {
+                        return '<span class="dns-add-readonly">&nbsp;</span>' +
+                            '<span class="dns-add-edit hidden">' +
+                            '<label for="dns-input-' + meta.row + '"><span class="sr-only">DNS:</span>' +
+                            '<input type="text" value="" name="dns-add" id="dns-input-' + meta.row + '" class="form-control" readonly="readonly">' +
+                            '</label>' +
+                            '</span>'
+                    }
+                }
+            }, {
+                title: "Actions",
+                render: function(r, t, data, meta) {
+                    if (data[0] !== 'add-new-dns') {
+                        return '<span class="column-dns-actions">' +
+                            '<span class="readonly-dns-actions">' +
+                            '<button class="btn btn-link edit-dns btn-xs">' +
+                            '<i role="presentation" class="fa fa-pencil"></i> <span>' + i18n['GINNET0074M'] + '</span>' +
+                            '</button>' +
+                            '<button class="btn btn-link remove-dns btn-xs">' +
+                            '<i role="presentation" class="fa fa-trash-o"></i> <span>' + i18n['GINNET0064M'] + '</span>' +
+                            '</button>' +
+                            '</span>' +
+                            '<span class="editable-dns-actions hidden">' +
+                            '<button class="btn btn-primary save-dns btn-xs">' + i18n['GINNET0065M'] + '</button>' +
+                            '<button class="btn btn-primary cancel-dns btn-xs">' + i18n['GINNET0066M'] + '</button>' +
+                            '</span>' +
+                            '</span>'
+                    } else {
+                        return '<span class="column-dns-actions">' +
+                            '<span class="readonly-dns-add-actions">' +
+                            '<button class="btn btn-primary add-dns btn-xs">' +
+                            '<i role="presentation" class="fa fa-plus-circle"></i> <span>' + i18n['GINNET0067M'] + '</span>' +
+                            '</button>' +
+                            '</span>' +
+                            '<span class="editable-dns-add-actions hidden">' +
+                            '<button class="btn btn-primary save-add-dns btn-xs" disabled="disabled">' + i18n['GINNET0065M'] + '</button>' +
+                            '<button class="btn btn-primary cancel-add-dns btn-xs">' + i18n['GINNET0066M'] + '</button>' +
+                            '</span>' +
+                            '</span>'
+                    }
+                }
+            }],
+            createdRow: function(row, data, dataIndex) {
+                $(row).find('td:eq(0)').parent().attr('data-dns', data[0]); // This ensures that the data attribute will always get the first position in the datatables' data array
+            }
+        });
+        $(globalNetworkConfigTable.column('1').header()).wrapInner('<span class="sr-only"></span>');
+        $('#network-global-configuration-content-area > .wok-mask').addClass('hidden');
+        tableAdd();
+    };
 
-  var gridFields = [];
-  gridFields = [{
-    "column-id": 'GLOBAL',
-    "type": 'string',
-    "header-class": "text-center",
-    "data-class": "center",
-    "width": "80%",
-    "title": i18n['GINNET0038M'],
-    "identifier": true,
-    "formatter": "editable-global-dns"
-  }, {
-    "column-id": "GLOBAL",
-    "type": 'string',
-    "title": "",
-    "width": "20%",
-    "header-class": "text-center",
-    "data-class": "center",
-    "formatter": "row-edit-delete"
-  }];
+    var tableAdd = function() {
+        globalNetworkConfigTable.row.add(['add-new-dns']).draw(false);
+    };
+    var tableClickHandler = function() {
+        $('#network-global-configuration-content-area').on('click', '.edit-dns', function(e) {
+            var row = $(this).parents('tr');
+            var complete = function() {
+                row.find('.readonly-dns-actions').addClass('hidden');
+                row.find('.editable-dns-actions').removeClass('hidden');
+                row.find('.dns-readonly').addClass('hidden');
+                row.find('.dns-edit').removeClass('hidden');
+                row.find('input').prop('readonly', false);
+            }
+            var toggleEdit = function() {
+                if ($(row.parent()).find('.editable-dns-actions').not('.hidden').length) {
+                    $(row.parent()).find('.editable-dns-actions').not('.hidden').each(function() {
+                        if (!$(this).parents('tr').find('label.has-error').length) {
+                            wok.confirm({
+                                title: i18n['GINNET0068M'],
+                                content: i18n['GINNET0069M'],
+                                confirm: i18n['GINNET0072M'],
+                                cancel: i18n['GINNET0073M']
+                            }, function() {
+                                $(row.parent()).find('tr').not(row).each(function() {
+                                    $('.save-dns', this).trigger('click');
+                                });
+                                complete();
+                            }, function() {
+                                $(row.parent()).find('tr').not(row).each(function() {
+                                    $('.cancel-dns', this).trigger('click');
+                                });
+                                complete();
+                            });
+                        } else {
+                            complete();
+                        }
+                    });
+                } else {
+                    complete();
+                }
+            };
+            var toggleSave = function() {
+                $(row.parent()).find('.editable-dns-add-actions').not('.hidden').each(function() {
+                    if (!$(this).parents('tr').find('label.has-error').length) {
+                        wok.confirm({
+                            title: i18n['GINNET0068M'],
+                            content: i18n['GINNET0069M'],
+                            confirm: i18n['GINNET0072M'],
+                            cancel: i18n['GINNET0073M']
+                        }, function() {
+                            $(row.parent()).find('tr').not(row).each(function() {
+                                $('.save-add-dns', this).trigger('click');
+                            });
+                            complete();
+                        }, function() {
+                            $(row.parent()).find('tr').not(row).each(function() {
+                                $('.cancel-add-dns', this).trigger('click');
+                            });
+                            complete();
+                        });
+                    } else {
+                        wok.confirm({
+                            title: i18n['GINNET0070M'],
+                            content: i18n['GINNET0071M'],
+                            confirm: i18n['GINNET0074M'],
+                            cancel: i18n['GINNET0073M']
+                        }, function() {
+                            $('label.has-error input', row.parent()).focus();
+                        }, function() {
+                            $('.cancel-add-dns', row.parent()).trigger('click');
+                            complete();
+                        });
+                    }
+                });
+            };
 
-  ginger.opts_global_dns['gridFields'] = JSON.stringify(gridFields);
-  var globalDnsGrid = ginger.createBootgrid(ginger.opts_global_dns);
+            if ($(row.parent()).find('.dns-add-edit').not('.hidden').length) {
+                if ($(row.parent()).find('.dns-add-edit input').val().length) {
+                    toggleSave();
+                } else {
+                    $('.cancel-add-dns', row.parent()).trigger('click');
+                    toggleEdit();
+                }
+            } else {
+                toggleEdit();
+            }
+        });
 
-  ginger.loadGlobalNetworks();
-  ginger.createEditableBootgrid(globalDnsGrid, ginger.opts_global_dns, 'GLOBAL');
-  globalDnsAddButton.on('click', function() {
-    var columnSettings = [{
-      'id': 'GLOBAL',
-      'width': '80%',
-      'validation': function() {
-        var isValid = (ginger.isValidIPv6($(this).val()) || ginger.validateIp($(this).val()) || ginger.validateHostName($(this).val()));
-        ginger.markInputInvalid($(this), isValid);
-      }
-    }]
-    commandSettings = {
-      "width": "20%",
-      "td-class": "text-center"
+        $('#network-global-configuration-content-area').on('click', '.save-dns', function(e) {
+            var row = $(this).parents('tr');
+            var cell = $(this).parents('tr').find('td:eq(0)');
+            var newDns = cell.find('span > label > input').val();
+            globalNetworkConfigTable.cell(cell).data(newDns);
+            globalNetworkConfigTable.row(row).invalidate().draw();
+        });
+        $('#network-global-configuration-content-area').on('click', '.cancel-dns', function(e) {
+            var row = $(this).parents('tr');
+            globalNetworkConfigTable.row(row).invalidate().draw();
+        });
+        $('#network-global-configuration-content-area').on('click', '.remove-dns', function(e) {
+            globalNetworkConfigTable.row($(this).parents('tr')).remove().draw();
+        });
+        $('#network-global-configuration-content-area').on('click', '.add-dns', function(e) {
+            var row = $(this).parents('tr');
+            $(row.parent()).find('tr').not(row).each(function() {
+                $('.cancel-dns', this).trigger('click');
+            });
+            $(this).parents('.column-dns-actions').find('.readonly-dns-add-actions').addClass('hidden');
+            $(this).parents('.column-dns-actions').find('.editable-dns-add-actions').removeClass('hidden');
+            $(this).parents('tr').find('.dns-add-readonly').addClass('hidden');
+            $(this).parents('tr').find('.dns-add-edit').removeClass('hidden');
+            $(this).parents('tr').find('input').prop('readonly', false);
+        });
+        $('#network-global-configuration-content-area').on('click', '.save-add-dns', function(e) {
+            var row = $(this).parents('tr');
+            var cell = $(this).parents('tr').find('td:eq(0)');
+            var newDns = cell.find('span > label > input').val();
+            globalNetworkConfigTable.row($(this).parents('tr')).remove().draw();
+            globalNetworkConfigTable.row.add([newDns]).draw();
+            tableAdd();
+        });
+        $('#network-global-configuration-content-area').on('click', '.cancel-add-dns', function(e) {
+            var row = $(this).parents('tr');
+            var staticRowsLength = globalNetworkConfigTable.columns(0).data().eq(0).sort().length;
+            var uniqueRowsLength = globalNetworkConfigTable.columns(0).data().eq(0).sort().unique().length;
+            if (staticRowsLength > uniqueRowsLength) {
+                globalNetworkConfigTable.row($(this).parents('tr')).remove().draw();
+            } else {
+                globalNetworkConfigTable.row(row).invalidate().draw();
+            }
+        });
+
+        $('#network-global-configuration-content-area').on('click', '#nw-global-config-refresh-btn', function(e) {
+            $('#network-global-configuration-content-area > .wok-mask').removeClass('hidden');
+            globalNetworkConfigTable.destroy();
+            getNetworkGlobalConfiguration('refresh');
+            loadGlobalNetworkConfigDatatable(dataSet);
+        });
+
+        $('#network-global-configuration-content-area').on('click', '#nw-global-config-apply-btn', function(e) {
+            var global_info = {};
+            var globalDnsAddresses;
+            var globalDnsGateway = $('#global-network-config-gateway');
+            var applyData = function() {
+                globalDnsAddresses = globalNetworkConfigTable.columns(0).data().eq(0).unique();
+                globalDnsAddresses.pop(); // it removes the last empy row from the 1d array
+                if (globalDnsAddresses.length > 0) {
+                    dns = []
+                    for (var i = 0; i < globalDnsAddresses.length; i++) {
+                        dnsValue = globalDnsAddresses[i];
+                        dns.push(dnsValue);
+                    }
+                    global_info['nameservers'] = dns;
+                } else {
+                    global_info['nameservers'] = '[]'
+                }
+                if (globalDnsGateway.val() != "") {
+                    global_info['gateway'] = globalDnsGateway.val();
+                }
+                $('#network-global-configuration-content-area > .wok-mask').removeClass('hidden');
+                ginger.updateNetworkGlobals(global_info, function(result) {
+                    var message = i18n['GINNET0024M'] + " " + i18n['GINNET0020M'];
+                    globalNetworkConfigTable.destroy();
+                    getNetworkGlobalConfiguration();
+                    wok.message.success(message, '#message-nw-global-container-area');
+                    $('#network-global-configuration-content-area > .wok-mask').addClass('hidden');
+                }, function(error) {
+                    $('#network-global-configuration-content-area > .wok-mask').addClass('hidden');
+                    var message = i18n['GINNET0024M'] + " " + i18n['GINNET0021M'] + " " + error.responseJSON.reason;
+                    wok.message.error(error.responseJSON.reason, '#message-nw-global-container-area', true);
+                });
+            }
+
+            if ($('.dns-edit, .dns-add-edit').not('.hidden').length) {
+                wok.confirm({
+                    title: i18n['GINNET0068M'],
+                    content: i18n['GINNET0076M'],
+                    confirm: i18n['GINNET0075M'],
+                    cancel: i18n['GINNET0073M']
+                }, function() {
+                    applyData();
+                }, null);
+            } else {
+                applyData();
+            }
+        });
     }
-    ginger.addNewRecord(columnSettings, ginger.opts_global_dns['gridId'], commandSettings);
-  });
+    tableClickHandler();
 
-  globalDnsGateway.on('keyup', function() {
-    var gatewayIP = globalDnsGateway.val();
-
-    if(gatewayIP.trim() == "") {
-      $(this).toggleClass("invalid-field", true);
-    } else {
-      $(this).toggleClass("invalid-field", !((ginger.isValidIPv6(gatewayIP)) || ginger.validateIp(gatewayIP)));
+    var tableInputValidation = function() {
+        $('#global-network').on('keyup', 'input[type="text"]', function(e) {
+            var row = $(this).parents('tr');
+            var currInput = $(this).val();
+            var inputs = new Array();
+            // This will make sure that if the user has typed an IP address but not saved it, it will prevent typing the same value in another input:
+            $('#global-network input[type="text"]').not(this).each(function() {
+                inputs.push($(this).val());
+            });
+            if (_.includes(inputs, currInput)) {
+                $(this).parent().addClass('has-error');
+                $(row).find('.save-add-dns,.save-dns').prop('disabled', true);
+            } else {
+                $(this).parent().removeClass('has-error');
+                $(row).find('.save-add-dns,.save-dns').prop('disabled', false);
+            }
+        });
     }
-  });
+    tableInputValidation();
 
-  nwGlobalApplyBtn.on('click', function() {
-    var global_info = {};
-    globalDnsAddresses = ginger.getCurrentRows(ginger.opts_global_dns);
+    var gatewayInputValidation = function() {
+        $('#global-network-config-gateway').on('keyup', function(e) {
+          var gatewayIP = $('#global-network-config-gateway').val();
 
-    if (globalDnsAddresses.length > 0) {
-      dns = []
-      for (var i = 0; i < globalDnsAddresses.length; i++) {
-        dnsValue = globalDnsAddresses[i].GLOBAL;
-        dns.push(dnsValue);
-      }
-      global_info['nameservers'] = dns;
-    } else {
-      global_info['nameservers'] = '[]'
+          if(gatewayIP.trim() == "") {
+            $(this).parent().toggleClass('has-error',true);
+            $('#nw-global-config-apply-btn').prop('disabled', true);
+          } else {
+            $(this).parent().toggleClass("has-error", !((ginger.isValidIPv6(gatewayIP)) || ginger.validateIp(gatewayIP)));
+            $('#nw-global-config-apply-btn').prop('disabled', !((ginger.isValidIPv6(gatewayIP)) || ginger.validateIp(gatewayIP)));
+          }
+        });
     }
+    gatewayInputValidation();
 
-    if (globalDnsGateway.val() != "")
-      global_info['gateway'] = globalDnsGateway.val();
-
-    ginger.showBootgridLoading(ginger.opts_global_dns);
-    ginger.updateNetworkGlobals(global_info, function(result) {
-      var message = i18n['GINNET0024M'] + " " + i18n['GINNET0020M'];
-      wok.message.success(message, '#message-nw-global-container-area');
-      ginger.hideBootgridLoading(ginger.opts_global_dns);
-      ginger.loadGlobalNetworks();
-    }, function(error) {
-      ginger.hideBootgridLoading(ginger.opts_global_dns);
-      var message = i18n['GINNET0024M'] + " " + i18n['GINNET0021M'] + " " + error.responseJSON.reason ;
-      wok.message.error(error.responseJSON.reason, '#message-nw-global-container-area', true);
-    });
-  });
-
-  nwGlobalRefreshBtn.on('click',function(){
-	  ginger.loadGlobalNetworks();
-  });
+    var getNetworkGlobalConfiguration = function(callback) {
+        ginger.getNetworkGlobals(function(dnsAddresses) {
+            if ("nameservers" in (dnsAddresses)) {
+                dataSet.length = 0;
+                var DNSNameServers = dnsAddresses.nameservers
+                for (var i = 0; i < DNSNameServers.length; i++) {
+                    dataSet.push([DNSNameServers[i]]);
+                }
+            }
+            if ("gateway" in (dnsAddresses)) {
+                $('#global-network-config-gateway').val(dnsAddresses.gateway);
+            }
+            if (callback !== 'refresh') {
+                loadGlobalNetworkConfigDatatable(dataSet);
+            }
+        }, function(error) {
+            errmsg = i18n['GINNET0035E'] + ' ' + error.responseJSON.reason;
+            wok.message.error(errmsg, '#message-nw-global-container-area', true);
+        });
+    }
+    getNetworkGlobalConfiguration();
 };
 
-ginger.loadGlobalNetworks = function() {
-	ginger.clearBootgridData(ginger.opts_global_dns['gridId']);
-	ginger.hideBootgridData(ginger.opts_global_dns);
-	ginger.showBootgridLoading(ginger.opts_global_dns);
-
-  ginger.getNetworkGlobals(function(dnsAddresses) {
-    if ("nameservers" in (dnsAddresses)) {
-      var DNSNameServers = dnsAddresses.nameservers
-      for (var i = 0; i < DNSNameServers.length; i++) {
-        DNSNameServers[i] = {
-          "GLOBAL": DNSNameServers[i]
-        }
-      }
-      ginger.loadBootgridData(ginger.opts_global_dns['gridId'], DNSNameServers);
-      ginger.showBootgridData(ginger.opts_global_dns);
-      ginger.hideBootgridLoading(ginger.opts_global_dns);
-    }
-    if ("gateway" in (dnsAddresses)) {
-      globalDnsGateway.val(dnsAddresses.gateway);
-    }
-  }, function(error){
-    ginger.hideBootgridLoading(ginger.opts_global_dns);
-    errmsg = i18n['GINNET0035E'] + ' ' + error.responseJSON.reason;
-    wok.message.error(errmsg, '#message-nw-global-container-area', true);
-  });
-}
 
 ginger.initNetwork = function() {
   $(".content-area", "#gingerHostNetwork").css("height", "100%");
@@ -801,8 +994,8 @@ ginger.initNetwork = function() {
         var itemLowCase = enableItem.toLowerCase();
         switch (itemLowCase) {
           case "network":
-            ginger.initGlobalNetworkConfig();
             ginger.initNetworkConfig();
+            ginger.loadGlobalNetworkConfig();
             break;
           case "cfginterfaces":
             ginger.cfginterfaces = capability;

@@ -259,3 +259,54 @@
     }
   }
 }
+
+#network-global-configuration-content-area {
+
+  .row.grid-control {
+    padding: 0 0 10px 0;
+  }
+
+  label[for="global-network-config-gateway"] {
+    margin-right: 5px;
+  }
+
+  .dns-readonly,
+  .dns-add-readonly {
+    display: inline-block;
+    padding: 6px 12px;
+    margin: 2px 1px 1px 1px;
+    font-size: 14px;
+    vertical-align: middle;
+  }
+
+  .dns-edit label,
+  .dns-add-edit label {
+      margin: 0;
+  }
+
+  .dns-edit,
+  .dns-edit .form-control {
+      width: 100% !important;
+  }
+
+  .column-dns-actions > span {
+    vertical-align: middle;
+  }
+
+  .column-dns-actions .btn + .btn {
+      margin-left: 5px;
+  }
+
+  .edit-dns, .save-dns, .save-add-dns {
+      min-width: 63px;
+  }
+
+  .remove-dns, .cancel-dns, .cancel-add-dns {
+      min-width: 79px;
+  }
+
+  .add-dns {
+      min-width: 147px;
+  }
+
+}
