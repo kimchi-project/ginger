@@ -75,27 +75,48 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %attr(-,root,root)
+%dir %{python_sitelib}/wok/plugins/ginger
 %{python_sitelib}/wok/plugins/ginger/*.py*
 %{python_sitelib}/wok/plugins/ginger/API.json
+%dir %{python_sitelib}/wok/plugins/ginger/control
 %{python_sitelib}/wok/plugins/ginger/control/*.py*
+%dir %{python_sitelib}/wok/plugins/ginger/model
 %{python_sitelib}/wok/plugins/ginger/model/*.py*
 %{_prefix}/share/locale/*/LC_MESSAGES/ginger.mo
+%dir %{_datadir}/wok/plugins/ginger/ui
+%dir %{_datadir}/wok/plugins/ginger/ui/config
 %{_datadir}/wok/plugins/ginger/ui/config/tab-ext.xml
+%dir %{_datadir}/wok/plugins/ginger/ui/css
+%{_datadir}/wok/plugins/ginger/ui/css/ginger.css
+%dir %{_datadir}/wok/plugins/ginger/ui/css/base
+%dir %{_datadir}/wok/plugins/ginger/ui/css/base/images
 %{_datadir}/wok/plugins/ginger/ui/css/base/images/*.gif
 %{_datadir}/wok/plugins/ginger/ui/css/base/images/*.png
-%{_datadir}/wok/plugins/ginger/ui/css/ginger.css
+%dir %{_datadir}/wok/plugins/ginger/ui/images
 %{_datadir}/wok/plugins/ginger/ui/images/*.svg
+%dir %{_datadir}/wok/plugins/ginger/ui/js
 %{_datadir}/wok/plugins/ginger/ui/js/*.js
-%{_datadir}/wok/plugins/ginger/ui/pages/*.html.tmpl
-%{_datadir}/wok/plugins/ginger/ui/pages/help/ginger-help.css
-%{_datadir}/wok/plugins/ginger/ui/pages/help/*/*.html
-%{_datadir}/wok/plugins/ginger/ui/pages/tabs/*.html.tmpl
+%dir %{_datadir}/wok/plugins/ginger/ui/pages
 %{_datadir}/wok/plugins/ginger/ui/pages/i18n.json.tmpl
+%{_datadir}/wok/plugins/ginger/ui/pages/*.html.tmpl
+%dir %{_datadir}/wok/plugins/ginger/ui/pages/help
+%{_datadir}/wok/plugins/ginger/ui/pages/help/ginger-help.css
+%dir %{_datadir}/wok/plugins/ginger/ui/pages/help/en_US
+%dir %{_datadir}/wok/plugins/ginger/ui/pages/help/pt_BR
+%dir %{_datadir}/wok/plugins/ginger/ui/pages/help/zh_CN
+%{_datadir}/wok/plugins/ginger/ui/pages/help/en_US/*.html
+%{_datadir}/wok/plugins/ginger/ui/pages/help/pt_BR/*.html
+%{_datadir}/wok/plugins/ginger/ui/pages/help/zh_CN/*.html
+%dir %{_datadir}/wok/plugins/ginger/ui/pages/tabs
+%{_datadir}/wok/plugins/ginger/ui/pages/tabs/*.html.tmpl
 %{_sysconfdir}/wok/plugins.d/ginger.conf
 %{_sysconfdir}/systemd/system/wokd.service.d/ginger.conf
 
 
 %changelog
+* Tue Jul 12 2016 Daniel Henrique Barboza <danielhb@linux.vnet.ibm.com>
+- Added 'dir' directives for each dir and subdir in the 'files' section.
+
 * Mon May 31 2016 Ramon Medeiros <ramonn@linux.vnet.ibm.com>
 - Update spec with Fedora community Guidelines
 
