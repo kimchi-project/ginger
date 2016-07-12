@@ -67,24 +67,39 @@ service wokd restart
 
 %files
 %attr(-,root,root)
+%dir %{python_sitelib}/wok/plugins/ginger
 %{python_sitelib}/wok/plugins/ginger/*.py*
 %{python_sitelib}/wok/plugins/ginger/API.json
+%dir %{python_sitelib}/wok/plugins/ginger/controls
 %{python_sitelib}/wok/plugins/ginger/controls/*.py*
+%dir %{python_sitelib}/wok/plugins/ginger/models/
 %{python_sitelib}/wok/plugins/ginger/models/*.py*
 %{_prefix}/share/locale/*/LC_MESSAGES/ginger.mo
+%dir %{_datadir}/wok/plugins/ginger/ui
+%dir %{_datadir}/wok/plugins/ginger/ui/config
 %{_datadir}/wok/plugins/ginger/ui/config/tab-ext.xml
+%dir %{_datadir}/wok/plugins/ginger/ui/css
+%{_datadir}/wok/plugins/ginger/ui/css/ginger.css
+%dir %{_datadir}/wok/plugins/ginger/ui/css/base
+%dir %{_datadir}/wok/plugins/ginger/ui/css/base/images
 %{_datadir}/wok/plugins/ginger/ui/css/base/images/*.gif
 %{_datadir}/wok/plugins/ginger/ui/css/base/images/*.png
-%{_datadir}/wok/plugins/ginger/ui/css/ginger.css
+%dir %{_datadir}/wok/plugins/ginger/ui/js
 %{_datadir}/wok/plugins/ginger/ui/js/host-admin.js
 %{_datadir}/wok/plugins/ginger/ui/js/util.js
 %{_datadir}/wok/plugins/ginger/ui/js/ginger-bootgrid.js
-%{_datadir}/wok/plugins/ginger/ui/pages/help/ginger-help.css
-%{_datadir}/wok/plugins/ginger/ui/pages/help/en_US/host-admin.html
-%{_datadir}/wok/plugins/ginger/ui/pages/help/pt_BR/host-admin.html
-%{_datadir}/wok/plugins/ginger/ui/pages/help/zh_CN/host-admin.html
-%{_datadir}/wok/plugins/ginger/ui/pages/tabs/host-admin.html.tmpl
+%dir %{_datadir}/wok/plugins/ginger/ui/pages
 %{_datadir}/wok/plugins/ginger/ui/pages/i18n.json.tmpl
+%dir %{_datadir}/wok/plugins/ginger/ui/pages/help
+%{_datadir}/wok/plugins/ginger/ui/pages/help/ginger-help.css
+%dir %{_datadir}/wok/plugins/ginger/ui/pages/help/en_US
+%{_datadir}/wok/plugins/ginger/ui/pages/help/en_US/host-admin.html
+%dir %{_datadir}/wok/plugins/ginger/ui/pages/help/pt_BR
+%{_datadir}/wok/plugins/ginger/ui/pages/help/pt_BR/host-admin.html
+%dir %{_datadir}/wok/plugins/ginger/ui/pages/help/zh_CN
+%{_datadir}/wok/plugins/ginger/ui/pages/help/zh_CN/host-admin.html
+%dir %{_datadir}/wok/plugins/ginger/ui/pages/tabs
+%{_datadir}/wok/plugins/ginger/ui/pages/tabs/host-admin.html.tmpl
 %{_sysconfdir}/wok/plugins.d/ginger.conf
 
 
