@@ -30,7 +30,7 @@ machines.
 %endif
 
 %prep
-%setup
+%setup -q
 
 
 %build
@@ -115,9 +115,10 @@ rm -rf $RPM_BUILD_ROOT
 
 %changelog
 * Tue Jul 12 2016 Daniel Henrique Barboza <danielhb@linux.vnet.ibm.com>
-- Added 'dir' directives for each dir and subdir in the 'files' section.
+- Added 'dir' directives for each dir and subdir in the 'files' section
+- rpmlint fixes
 
-* Mon May 31 2016 Ramon Medeiros <ramonn@linux.vnet.ibm.com>
+* Tue May 31 2016 Ramon Medeiros <ramonn@linux.vnet.ibm.com>
 - Update spec with Fedora community Guidelines
 
 * Mon May 16 2016 Ramon Medeiros <ramonn@linux.vnet.ibm.com>
@@ -129,27 +130,27 @@ rm -rf $RPM_BUILD_ROOT
 - Added wok version restriction >= 2.1.0
 
 * Tue Mar 1 2016 Daniel Henrique Barboza <dhbarboza82@gmail.com>
-- added ui/images/*.svg in %files
+- added ui/images/*.svg in 'files' section
 
 * Sat Feb 6 2016 Chandra Shekhar Reddy Potula <chandra@linux.vnet.ibm.com>
 - Add libvirt service dependencies to Ginger
 
 * Mon Jan 25 2016 Daniel Henrique Barboza <dhbarboza82@gmail.com>
-- Changed 'controls' dir to 'control' in %files
-- Added %{_datadir}/wok/plugins/ginger/ui/pages/*.html.tmpl to %files
-- Changed 'models' dir to 'model' in %files
+- Changed 'controls' dir to 'control' in 'files' section
+- Added 'datadir'/wok/plugins/ginger/ui/pages/*.html.tmpl to 'files'
+- Changed 'models' dir to 'model' in 'files' section
 
 * Fri Dec 25 2015 Daniel Henrique Barboza <dhbarboza82@gmail.com>
-- Changed %files to include all ui/js/*.js js files
-- Changed %files to include all ui/pages/help/*/*.html help files
-- Changed %files to include all ui/pages/tabs/*.html.tmpl tabs
+- Changed 'files' to include all ui/js/*.js js files
+- Changed 'files' to include all ui/pages/help/*/*.html help files
+- Changed 'files' to include all ui/pages/tabs/*.html.tmpl tabs
 
 * Wed Dec 16 2015 Daniel Henrique Barboza  <dhbarboza82@gmail.com>
-- Removed 'host-admin.css' from %files
-- added 'ui/js/ginger-bootgrid.js' in %files
+- Removed 'host-admin.css' from 'files'
+- added 'ui/js/ginger-bootgrid.js' in 'files'
 
 * Fri Dec 11 2015 Daniel Henrique Barboza  <dhbarboza82@gmail.com>
-- Added ui/pages/tabs/host-admin.html.tmpl to %files
+- Added ui/pages/tabs/host-admin.html.tmpl to 'files'
 
 * Fri Nov 27 2015 Chandra Shekhar Reddy Potula <chandra@linux.vnet.ibm.com>
 - Add missing dependencies for Ginger
@@ -159,7 +160,7 @@ rm -rf $RPM_BUILD_ROOT
 - Change build system to enable and release Help pages
 
 * Wed Jul  2 2014 Paulo Vital <pvital@linux.vnet.ibm.com> 1.2.1
-- Changed the package name from kimchi-ginger to ginger.
+- Changed the package name from kimchi-ginger to ginger
 
 * Wed Apr 16 2014 Zhou Zheng Sheng <zhshzhou@linux.vnet.ibm.com> 1.2.0
-- Initial release of Kimchi-ginger dedicated RPM package.
+- Initial release of Kimchi-ginger dedicated RPM package
