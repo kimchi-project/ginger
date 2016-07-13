@@ -20,7 +20,11 @@
 import mock
 import unittest
 
+from mock import call
+
 import wok.plugins.ginger.model.sysmodules as sysmodules
+
+from wok.exception import InvalidOperation
 from wok.plugins.ginger.model.sysmodules import SysModuleModel
 from wok.plugins.ginger.model.sysmodules import SysModulesModel
 
@@ -214,7 +218,20 @@ sig_hashalgo=sha256\0"""
         params = {'name': module_name}
         cmd = ['modprobe', module_name]
         SysModulesModel().create(params)
-        mock_run_command.assert_called_once_with(cmd)
+        mock_run_command.assert_has_calls([call(['lsmod']), call(cmd)])
+
+    @mock.patch('wok.plugins.ginger.model.sysmodules.load_kernel_module')
+    @mock.patch('wok.plugins.ginger.model.sysmodules.get_loaded_modules_list')
+    def test_load_module_fails_if_already_loaded(self, mock_get_list,
+                                                 mock_load_mod):
+        mock_get_list.return_value = ['mod1', 'fake_test_kernel_module']
+        module_name = "fake_test_kernel_module"
+        params = {'name': module_name}
+        expected_error_msg = "GINSYSMOD00006E"
+        with self.assertRaisesRegexp(InvalidOperation, expected_error_msg):
+            SysModulesModel().create(params)
+            mock_get_list.assert_called_once_with()
+            mock_load_mod.assert_not_called()
 
     @mock.patch('wok.plugins.ginger.model.sysmodules.run_command')
     def test_model_load_module_with_parms(self, mock_run_command):
@@ -230,7 +247,7 @@ sig_hashalgo=sha256\0"""
             'parameter3=true'
         ]
         SysModulesModel().create(params)
-        mock_run_command.assert_called_once_with(cmd)
+        mock_run_command.assert_has_calls([call(['lsmod']), call(cmd)])
 
     @mock.patch('wok.plugins.ginger.model.sysmodules.parse_modinfo_0_output')
     @mock.patch('wok.plugins.ginger.model.sysmodules.run_command')

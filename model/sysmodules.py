@@ -18,7 +18,7 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 
 
-from wok.exception import NotFoundError, OperationFailed
+from wok.exception import InvalidOperation, NotFoundError, OperationFailed
 from wok.utils import run_command, wok_log
 
 
@@ -182,6 +182,10 @@ def unload_kernel_module(module_name):
 class SysModulesModel(object):
 
     def create(self, params):
+        module_name = params['name']
+        if module_name in get_loaded_modules_list():
+            raise InvalidOperation('GINSYSMOD00006E', {'module': module_name})
+
         parms = None
         if 'parms' in params:
             parms = params['parms'].split()

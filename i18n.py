@@ -330,6 +330,7 @@ messages = {
     "GINSYSMOD00003E": _("Error fetching info of module %(module)s, reason: %(err)s"),
     "GINSYSMOD00004E": _("Error loading module %(module)s, reason: %(err)s"),
     "GINSYSMOD00005E": _("Error unloading module %(module)s, reason: %(err)s"),
+    "GINSYSMOD00006E": _("Module %(module)s is already loaded in the kernel."),
 
     "GINOVS00001E": _("Error executing OVS command. Please check if 'openvswitch' service is running."),
     "GINOVS00002E": _("Error executing OVS command: %(err)s"),
