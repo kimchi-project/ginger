@@ -162,10 +162,6 @@ def run_ovsvsctl_command(cmd):
     out, err, returncode = run_command(cmd)
     if returncode != 0:
         if 'database connection failed' in err:
-            wok_log.info(
-                'Database connection error when executing an ovs-vsctl '
-                'command. Is openvswitch service running?'
-            )
             raise OperationFailed('GINOVS00001E')
 
     return out, err, returncode
@@ -175,7 +171,6 @@ def ovsbridge_exists(ovsbridge):
     cmd = ['ovs-vsctl', 'br-exists', ovsbridge]
     out, err, returncode = run_ovsvsctl_command(cmd)
     if returncode not in [0, 2]:
-        wok_log.error('Error executing ovs-vsctl br-exists: %s ' % err)
         raise OperationFailed('GINOVS00002E', {'err': err})
     else:
         return returncode == 0
@@ -185,7 +180,6 @@ def get_ovsbridges_list():
     cmd = ['ovs-vsctl', 'list-br']
     out, err, returncode = run_ovsvsctl_command(cmd)
     if returncode != 0:
-        wok_log.error('Error executing ovs-vsctl list-br: %s ' % err)
         raise OperationFailed('GINOVS00002E', {'err': err})
     else:
         return parse_listbr_output(out)
@@ -193,16 +187,11 @@ def get_ovsbridges_list():
 
 def create_ovsbridge(ovsbridge):
     if ovsbridge_exists(ovsbridge):
-        wok_log.error(
-            'Error creating ovsbridge %s. OVSbridge already '
-            'exists.' % ovsbridge
-        )
         raise InvalidParameter('GINOVS00003E', {'name': ovsbridge})
 
     cmd = ['ovs-vsctl', 'add-br', ovsbridge]
     out, err, returncode = run_ovsvsctl_command(cmd)
     if returncode != 0:
-        wok_log.error('Error executing ovs-vsctl add-br: %s ' % err)
         raise OperationFailed('GINOVS00002E', {'err': err})
 
 
@@ -210,7 +199,6 @@ def delete_ovsbridge(ovsbridge):
     cmd = ['ovs-vsctl', 'del-br', ovsbridge]
     out, err, returncode = run_ovsvsctl_command(cmd)
     if returncode != 0:
-        wok_log.error('Error executing ovs-vsctl del-br: %s ' % err)
         raise OperationFailed('GINOVS00002E', {'err': err})
 
 
@@ -218,7 +206,6 @@ def get_bridge_ports(ovsbridge):
     cmd = ['ovs-vsctl', 'list-ports', ovsbridge]
     out, err, returncode = run_ovsvsctl_command(cmd)
     if returncode != 0:
-        wok_log.error('Error executing ovs-vsctl list-ports: %s ' % err)
         raise OperationFailed('GINOVS00002E', {'err': err})
     else:
         return parse_listports_output(out)
@@ -228,7 +215,6 @@ def get_interface_info(uuid):
     cmd = ['ovs-vsctl', 'list', 'Interface', uuid]
     out, err, returncode = run_ovsvsctl_command(cmd)
     if returncode != 0:
-        wok_log.error('Error executing ovs-vsctl list Interface : %s ' % err)
         raise OperationFailed('GINOVS00002E', {'err': err})
     else:
         info = parse_listinterface_output(out)
@@ -240,7 +226,6 @@ def get_port_info(port):
     cmd = ['ovs-vsctl', 'list', 'Port', port]
     out, err, returncode = run_ovsvsctl_command(cmd)
     if returncode != 0:
-        wok_log.error('Error executing ovs-vsctl list Port : %s ' % err)
         raise OperationFailed('GINOVS00002E', {'err': err})
 
     else:
@@ -261,10 +246,6 @@ def get_port_info(port):
 
 def add_interface_to_ovsbridge(ovsbridge, interface):
     if not ovsbridge_exists(ovsbridge):
-        wok_log.error(
-            'Error adding interface %s for ovsbridge %s. OVSbridge '
-            'does not exist.' % (interface, ovsbridge)
-        )
         raise NotFoundError('GINOVS00004E', {'name': ovsbridge})
 
     cmd = ['ovs-vsctl', 'add-port', ovsbridge, interface]
@@ -286,17 +267,12 @@ def del_port_from_ovsbridge(ovsbridge, port):
     cmd = ['ovs-vsctl', 'del-port', ovsbridge, port]
     out, err, returncode = run_ovsvsctl_command(cmd)
     if returncode != 0:
-        wok_log.error('Error executing ovs-vsctl del-port: %s ' % err)
         raise OperationFailed('GINOVS00002E', {'err': err})
 
 
 def add_bond_to_ovsbridge(ovsbridge, bond, bond_ifaces):
     if not ovsbridge_exists(ovsbridge):
-        wok_log.error(
-            'Error creating bond %s for ovsbridge %s. OVSbridge does not '
-            'exist.' % (bond, ovsbridge)
-        )
-        raise NotFoundError('GINOVS00003E', {'name': ovsbridge})
+        raise NotFoundError('GINOVS00004E', {'name': ovsbridge})
 
     if len(bond_ifaces) < 2:
         raise InvalidParameter('GINOVS00006E')
@@ -304,7 +280,6 @@ def add_bond_to_ovsbridge(ovsbridge, bond, bond_ifaces):
     cmd = ['ovs-vsctl', 'add-bond', ovsbridge, bond] + bond_ifaces
     out, err, returncode = run_ovsvsctl_command(cmd)
     if returncode != 0:
-        wok_log.error('Error executing ovs-vsctl add-bond: %s ' % err)
         raise OperationFailed('GINOVS00002E', {'err': err})
 
 
@@ -377,10 +352,6 @@ class OVSBridgeModel(object):
 
     def lookup(self, name):
         if not ovsbridge_exists(name):
-            wok_log.error(
-                'Error retrieving ovsbridge %s. OVSbridge does not '
-                'exist.' % name
-            )
             raise NotFoundError('GINOVS00004E', {'name': name})
 
         br_ports = get_bridge_ports(name)

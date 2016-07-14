@@ -19,7 +19,7 @@
 
 import fs_utils
 from wok.exception import NotFoundError, OperationFailed
-from wok.utils import patch_find_nfs_target, wok_log
+from wok.utils import patch_find_nfs_target
 
 
 class NFSSharesModel(object):
@@ -44,6 +44,4 @@ class NFSSharesModel(object):
             return {'NFSShares': sharepoints}
 
         except ValueError:
-            wok_log.error("Error fetching NFS shares "
-                          "for server %s" % name)
-            raise OperationFailed("GINNFS00001E")
+            raise OperationFailed("GINNFS00001E", {'name': name})
