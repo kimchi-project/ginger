@@ -123,8 +123,6 @@ def delete_group(groupname):
             raise OperationFailed('GINUSER0012E',
                                   {'group': groupname, 'err': e.__str__()})
 
-    wok_log.info('end of delete_group(). group name: %s' % groupname)
-
 
 def get_users_from_group(groupname):
     adm = libuser.admin()
@@ -224,7 +222,6 @@ def create_user(name, plain_passwd, gid, no_login=False):
     except Exception as e:
         err_msg = e.message if e.message else e
         raise OperationFailed('GINUSER0009E', {'user': name, 'err': err_msg})
-    wok_log.info('end of create_user() method')
 
 
 def delete_user(username):
@@ -263,7 +260,6 @@ def delete_user(username):
     except Exception as e:
         raise OperationFailed('GINUSER0010E',
                               {'user': username, 'err': e.__str__()})
-    wok_log.info('end of delete_user() method')
 
 
 def remove_user_from_group(user, group):
@@ -294,7 +290,6 @@ def remove_user_from_group(user, group):
     except Exception as e:
         raise OperationFailed('GINUSER0021E', {'user': user, 'group': group,
                                                'err': e.__str__()})
-    wok_log.info('end of remove_user_from_group() method')
 
 
 def get_sudoers(admin_check=True):
@@ -336,7 +331,6 @@ def get_sudoers(admin_check=True):
                 sudoers.append(name)
     except Exception as e:
         raise OperationFailed('GINUSER0019E', {'error': e.__str__()})
-    wok_log.info('end of get_sudoers() method, sudoers: %s' % sudoers)
     return sudoers
 
 
@@ -376,7 +370,6 @@ def get_users_info(users):
              "gid": user_info.pw_gid,
              "group": group_name,
              "profile": get_user_profile(user, sudoers)})
-    wok_log.info('end of get_users_info(). Users details: %s' % users_info)
     return users_info
 
 

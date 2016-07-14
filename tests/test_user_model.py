@@ -209,8 +209,7 @@ class DeleteGroupUnitTests(unittest.TestCase):
     @mock.patch('plugins.ginger.model.users.get_sudoers', autospec=True)
     @mock.patch('plugins.ginger.model.users.get_group_gid', autospec=True)
     @mock.patch('plugins.ginger.model.users.libuser', autospec=True)
-    @mock.patch('plugins.ginger.model.users.wok_log', autospec=True)
-    def test_delete_group_success(self, mock_log, mock_libuser, mock_get_gid,
+    def test_delete_group_success(self, mock_libuser, mock_get_gid,
                                   mock_get_sudoers):
         """
         unittest to validate delete_group method success case
@@ -228,8 +227,6 @@ class DeleteGroupUnitTests(unittest.TestCase):
         mock_adm.lookupGroupById.assert_called_once_with(1020)
         mock_adm.enumerateUsersByGroup.assert_called_once_with('dummy_group')
         mock_get_sudoers.assert_called_once_with(admin_check=False)
-        mock_log.info.assert_called_with(
-            'end of delete_group(). group name: %s' % 'dummy_group')
         mock_adm.deleteGroup.assert_called_once_with('dummy_info')
 
 
