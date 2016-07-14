@@ -21,7 +21,6 @@ import fs_utils
 
 from wok.exception import NotFoundError, OperationFailed
 from wok.exception import InvalidParameter, MissingParameter
-from wok.utils import wok_log
 
 
 class FileSystemsModel(object):
@@ -83,9 +82,8 @@ class FileSystemsModel(object):
             fs_names = fs_utils._get_fs_names()
 
         except OperationFailed as e:
-            wok_log.error("Fetching list of filesystems failed")
             raise OperationFailed("GINFS00013E",
-                                  {'err': e})
+                                  {'err': e.message})
 
         return fs_names
 
@@ -107,8 +105,6 @@ class FileSystemModel(object):
             raise ValueError
 
         except ValueError:
-            wok_log.error("Filesystem %s"
-                          " not found." % name)
             raise NotFoundError("GINFS00001E", {'name': name})
 
     def delete(self, name):
@@ -116,7 +112,5 @@ class FileSystemModel(object):
             fs_utils._umount_partition(name)
             fs_utils.remove_persist(name)
         except OperationFailed as e:
-            wok_log.error("Unmounting filesystem %s"
-                          " failed." % name)
             raise OperationFailed("GINFS00002E",
-                                  {'err': e})
+                                  {'name': name, 'err': e.message})

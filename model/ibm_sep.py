@@ -21,7 +21,7 @@ import os
 import re
 
 from wok.exception import OperationFailed, NotFoundError
-from wok.utils import wok_log, run_command
+from wok.utils import run_command
 
 SUBSCRIBER = re.compile("(Subscriber_[0-9]*: hostname=)(?P<hostname>.*)\
 (,port=)(?P<port>.*)(,community=)(?P<community>.*)")
@@ -38,8 +38,6 @@ def addSEP(params):
            '-c', params['community']]
     output, error, rc = run_command(cmd)
     if rc != 0:
-        wok_log.error('SEP execution error: %s - %s - %s' % (cmd, rc,
-                      error))
         raise OperationFailed('GINSEP0010E', {'error': error})
 
     return params['hostname']
@@ -64,16 +62,12 @@ class SepModel(object):
         cmd = ['systemctl', 'start', 'sepctl']
         output, error, rc = run_command(cmd)
         if rc != 0:
-            wok_log.error('SEP service initialization error: %s - %s - %s'
-                          % (cmd, rc, error))
             raise OperationFailed('GINSEP0008E', {'error': error})
 
     def stop(self, params=None):
         cmd = ['systemctl', 'stop', 'sepctl']
         output, error, rc = run_command(cmd)
         if rc != 0:
-            wok_log.error('Error stopping SEP service: %s - %s - %s' % (cmd,
-                          rc, error))
             raise OperationFailed('GINSEP0009E', {'error': error})
 
     def is_feature_available(self):
@@ -100,8 +94,6 @@ class SubscribersModel(object):
 
         # error: report
         if rc != 0:
-            wok_log.error('SEP execution error: %s - %s - %s' % (cmd, rc,
-                          error))
             raise OperationFailed('GINSEP0007E')
 
         if len(output) > 1:
@@ -138,8 +130,6 @@ class SubscriptionModel(object):
 
         # error: report
         if rc != 0:
-            wok_log.error('SEP execution error: %s - %s - %s' % (cmd, rc,
-                          error))
             raise OperationFailed('GINSEP0005E', {'error': error})
 
         if len(output) > 1:
@@ -184,6 +174,4 @@ class SubscriptionModel(object):
         output, error, rc = run_command(cmd)
 
         if rc != 0:
-            wok_log.error('SEP execution error: %s - %s - %s' % (cmd, rc,
-                                                                 error))
             raise OperationFailed('GINSEP0011E', {'error': error})

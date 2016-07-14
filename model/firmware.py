@@ -52,7 +52,7 @@ class FirmwareModel(object):
     def lookup(self, *args):
         output, error, rc = run_command('lsmcode')
         if rc:
-            wok_log.error('Unable to retreive firmware level.')
+            wok_log.error('Unable to retrieve firmware level.')
             return {'level': 'Unknown'}
         # Cut out the chatter from the command output
         # First, need check what type of output was returned due to diffs
@@ -66,13 +66,10 @@ class FirmwareModel(object):
 
     def upgrade(self, ident, fw_path=None, pow_ok=None):
         if detect_live_vm():
-            wok_log.error('Cannot update system fw while running VMs.')
             raise OperationFailed('GINFW0001E')
 
         # Process argumets provided by user: firmware path and overwrite-perm
         if fw_path is None:
-            wok_log.error('FW update failed: '
-                          'No image file found in the package file.')
             raise OperationFailed('GINFW0003E')
 
         ms = magic.open(magic.NONE)
@@ -90,8 +87,6 @@ class FirmwareModel(object):
             image_file, ext = os.path.splitext(os.path.basename(fw_path))
             image_file = os.path.join('/tmp/fwupdate', '%s.img' % image_file)
             if not os.path.exists(image_file):
-                wok_log.error('FW update failed: '
-                              'No image file found in the package file.')
                 raise OperationFailed('GINFW0003E')
         else:
             image_file = fw_path
@@ -146,10 +141,8 @@ class FirmwareModel(object):
 
         if rc:
             if params['operation'] == 'update':
-                wok_log.error('Error flashing firmware. Details:\n %s' % error)
                 raise OperationFailed('GINFW0004E', {'error': error})
             else:
-                wok_log.error('Async run_command error: ', error)
                 raise OperationFailed('GINFW0008E', {'error': error})
 
         cb('OK', True)

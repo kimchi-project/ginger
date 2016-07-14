@@ -188,7 +188,6 @@ def unpersist_swap_dev(dev):
         output = []
         fo.close()
     except:
-        wok_log.error("Unable to open fstab")
         raise OperationFailed("GINFS00011E")
 
     try:
@@ -201,8 +200,7 @@ def unpersist_swap_dev(dev):
         fo.writelines(output)
         fo.close()
     except:
-        wok_log.error("Unable to write fstab")
-        raise OperationFailed("GINFS00013E")
+        raise OperationFailed("GINFS00012E")
 
 
 def _mnt_exists(mount):
@@ -238,8 +236,7 @@ def make_persist(dev, mntpt):
     """
     try:
         if _mnt_exists(mntpt):
-            wok_log.error("entry in fstab already exists")
-            raise OperationFailed("%s already mounted", mntpt)
+            raise OperationFailed("GINFS00019E", {'name': mntpt})
         else:
             fs_info = _get_fs_info(mntpt)
             fo = open("/etc/fstab", "a+")
@@ -247,7 +244,6 @@ def make_persist(dev, mntpt):
                      "defaults 1 2")
             fo.close()
     except:
-        wok_log.error("Unable to open fstab")
         raise OperationFailed("GINFS00011E")
 
 
@@ -263,8 +259,7 @@ def remove_persist(mntpt):
         output = []
         fo.close()
     except:
-        wok_log.error("Unable to open fstab")
-        raise OperationFailed("GINFS00012E")
+        raise OperationFailed("GINFS00011E")
 
     try:
         fo = open("/etc/fstab", "w")
@@ -276,7 +271,6 @@ def remove_persist(mntpt):
         fo.writelines(output)
         fo.close()
     except:
-        wok_log.error("Unable to write fstab")
         raise OperationFailed("GINFS00012E")
 
 
@@ -297,6 +291,4 @@ def nfsmount(server, share, mount_point):
     nfs_cmd = ['mount', server + ':' + share, mount_point]
     nfs_out, err, rc = run_command(nfs_cmd)
     if rc:
-        wok_log.error("nfs mount failed")
         raise OperationFailed("GINFS00018E", err)
-    return

@@ -24,7 +24,7 @@ from wok.exception import MissingParameter, NotFoundError, OperationFailed
 from wok.model.tasks import TaskModel
 from wok.plugins.gingerbase.disks import fetch_disks_partitions
 from wok.plugins.gingerbase.disks import _get_vgname, get_partition_details
-from wok.utils import add_task, wok_log
+from wok.utils import add_task
 
 
 class PartitionsModel(object):
@@ -34,9 +34,8 @@ class PartitionsModel(object):
         try:
             result = fetch_disks_partitions()
         except OperationFailed as e:
-            wok_log.error("Fetching list of partitions failed")
             raise OperationFailed("GINPART00001E",
-                                  {'err': e})
+                                  {'err': e.message})
         result_names = []
         for i in result:
             part_path = i['path']
@@ -66,9 +65,8 @@ class PartitionsModel(object):
         try:
             return utils.create_disk_part(dev_name, part_size)
         except OperationFailed as e:
-            wok_log.error("Create partition failed")
             raise OperationFailed("GINPART00002E",
-                                  {'err': e})
+                                  {'err': e.message})
 
 
 class PartitionModel(object):
@@ -89,12 +87,11 @@ class PartitionModel(object):
             return part_details
 
         except NotFoundError:
-            wok_log.error("partition %s not found" % name)
             raise NotFoundError("GINPART00014E", {'name': name})
 
         except OperationFailed as e:
-            wok_log.error("lookup method of partition failed")
-            raise OperationFailed("GINPART00003E", {'name': name, 'err': e})
+            raise OperationFailed("GINPART00003E",
+                                  {'name': name, 'err': e.message})
 
     def format(self, name, fstype):
 
@@ -120,15 +117,13 @@ class PartitionModel(object):
         try:
             utils.change_part_type(name, type)
         except OperationFailed as e:
-            wok_log.error("change type for partition failed")
             raise OperationFailed("GINPART00006E",
-                                  {'err': e})
+                                  {'err': e.message})
         return name
 
     def delete(self, name):
         try:
             utils.delete_part(name)
         except OperationFailed as e:
-            wok_log.error("delete partition failed")
             raise OperationFailed("GINPART00007E",
-                                  {'err': e})
+                                  {'err': e.message})
