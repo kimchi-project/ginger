@@ -18,7 +18,6 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 
 from wok.exception import OperationFailed
-from wok.utils import wok_log
 from wok.utils import run_command
 from psutil import pid_exists
 
@@ -50,7 +49,6 @@ class PowerProfilesModel(object):
 
     def get_list(self):
         if self.error is not None:
-            wok_log.error(self.error)
             raise OperationFailed(self.error)
         profiles = []
         tuned_cmd = ["tuned-adm", "list"]
@@ -107,8 +105,6 @@ class PowerProfileModel(object):
             tuned_cmd = ["tuned-adm", "profile", powerprofile]
             output, error, returncode = run_command(tuned_cmd)
             if returncode != 0:
-                wok_log.error('Could not activate power profile %s, '
-                              'error: %s', powerprofile, error)
                 raise OperationFailed("GINPOWER004E",
-                                      {'profile': powerprofile})
+                                      {'profile': powerprofile, 'err': error})
         return powerprofile

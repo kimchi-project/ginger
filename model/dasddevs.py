@@ -25,7 +25,7 @@ import threading
 from wok.exception import InvalidOperation, MissingParameter
 from wok.exception import NotFoundError, OperationFailed
 from wok.model.tasks import TaskModel
-from wok.utils import add_task, run_command, wok_log
+from wok.utils import add_task, run_command
 
 # Max no of permitted concurrent DASD format operations
 MAX_DASD_FMT = 24
@@ -48,9 +48,7 @@ class DASDdevsModel(object):
         try:
             dasd_devs = dasd_utils._get_lsdasd_devs()
         except OperationFailed as e:
-            wok_log.error("Fetching list of dasd devices failed")
-            raise OperationFailed("GINDASD0005E",
-                                  {'err': e})
+            raise OperationFailed("GINDASD0005E", {'err': e.message})
 
         return dasd_devs
 
@@ -71,8 +69,8 @@ class DASDdevModel(object):
             dasddevices = dasd_utils._get_dasd_dev_details(bus_id)
             self.dev_details = dasddevices[0]
         except IndexError as e:
-            wok_log.error("DASD device %s not found." % bus_id)
-            raise NotFoundError("GINDASD0006E", {'err': e})
+            raise NotFoundError("GINDASD0006E",
+                                {'name': bus_id, 'err': e.message})
 
         return self.dev_details
 
@@ -109,7 +107,6 @@ class DASDdevModel(object):
                               self._format_task, self.objstore, task_params)
         except OperationFailed:
             woklock.release()
-            wok_log.error("Formatting of DASD device %s failed" % bus_id)
             raise OperationFailed("GINDASD0008E", {'name': name})
         finally:
             woklock.release()
@@ -128,7 +125,6 @@ class DASDdevModel(object):
         try:
             dasd_utils._format_dasd(blk_size, name)
         except OperationFailed:
-            wok_log.error("Formatting of DASD device %s failed" % name)
             raise OperationFailed('GINDASD0008E', {'name': name})
 
         cb('OK', True)

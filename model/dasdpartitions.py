@@ -26,7 +26,6 @@ from wok.exception import InvalidParameter, MissingParameter
 from wok.exception import NotFoundError, OperationFailed
 from wok.plugins.gingerbase.disks import get_partitions_names
 from wok.plugins.gingerbase.disks import get_partition_details
-from wok.utils import wok_log
 
 
 class DASDPartitionsModel(object):
@@ -57,9 +56,8 @@ class DASDPartitionsModel(object):
         try:
             dasd_utils._create_dasd_part(dev_name, size)
         except OperationFailed as e:
-            wok_log.error("Creation of partition failed")
             raise OperationFailed("GINDASDPAR0007E",
-                                  {'dev_name': dev_name, 'err': e})
+                                  {'name': dev_name, 'err': e.message})
         return dev_name
 
     def get_list(self):
@@ -70,9 +68,8 @@ class DASDPartitionsModel(object):
                 if re.search("dasd.*", part):
                     dasd_part_list.append(part)
         except OperationFailed as e:
-            wok_log.error("Fetching list of dasd partitions failed")
             raise OperationFailed("GINDASDPAR0008E",
-                                  {'err': e})
+                                  {'err': e.message})
 
         return dasd_part_list
 
@@ -86,8 +83,7 @@ class DASDPartitionModel(object):
         try:
             return get_partition_details(name)
         except ValueError:
-            wok_log.error("DASD Partition %s not found" % name)
-            raise NotFoundError("GINDASDPAR0009E", {'name': 'name'})
+            raise NotFoundError("GINDASDPAR0009E", {'name': name})
 
     def delete(self, name):
         try:
@@ -99,8 +95,7 @@ class DASDPartitionModel(object):
             else:
                 raise InvalidParameter("GINDASDPAR0011E", {'name': name})
         except InvalidParameter:
-            wok_log.error("Invalid DASD partition: %s" % name)
             raise InvalidParameter("GINDASDPAR0011E", {'name': name})
         except OperationFailed as e:
-            wok_log.error("Deletion of partition %s failed" % name)
-            raise OperationFailed("GINDASDPAR0010E", {'err': e})
+            raise OperationFailed("GINDASDPAR0010E",
+                                  {'name': name, 'err': e.message})

@@ -149,7 +149,6 @@ class CfginterfacesModel(object):
             active whether we can still create vlan interface or not. If
             'yes', then can include code to validate the fail_over_mac in
             ifcfg persistant file"""
-            wok_log.error("Parent interface of type 'Bond' is not active")
             raise OperationFailed("GINNET0051E")
         cfgdata = CfginterfaceModel().get_cfginterface_info(parent_iface)
         cfgInterfacesHelper.validate_dict_bond_for_vlan(cfgdata)
@@ -167,7 +166,6 @@ class CfginterfacesModel(object):
             if (not active_slave_found):
                 raise OperationFailed("GINNET0047E")
         else:
-            wok_log.error("Minimum one slave has to be given for the bond")
             raise OperationFailed("GINNET0037E")
         return
 
@@ -194,8 +192,6 @@ class CfginterfaceModel(object):
         elif iface_type == "n/a":
             raise OperationFailed("GINNET0057E", {'name': name})
         else:
-            wok_log.error("Interface is neither Vlan nor Bond to perform "
-                          "delete operation")
             raise OperationFailed("GINNET0055E", {'name': name})
 
     def deactivate_if_itis_active(self, name):
@@ -343,7 +339,6 @@ class CfginterfaceModel(object):
         if BASIC_INFO in params:
             cfg_map = self.update_basic_info(cfg_map, params)
         else:
-            wok_log.error("BASIC_INFO is mandatory")
             raise MissingParameter('GINNET0024E')
         if IPV4_ID in params:
             cfg_map = cfgInterfacesHelper.update_ipv4(cfg_map, params)
@@ -357,22 +352,17 @@ class CfginterfaceModel(object):
         bond_info = {}
         wok_log.info('Validating bond info given for interface')
         if DEVICE not in cfgmap:
-            wok_log.error("Missing parameter: DEVICE")
             raise MissingParameter("GINNET0025E")
         cfgInterfacesHelper.validate_device_name(cfgmap[DEVICE])
         if BONDINFO not in params[BASIC_INFO]:
-            wok_log.error("Missing parameter: BONDINFO")
             raise MissingParameter("GINNET0032E")
         bondinfo = params[BASIC_INFO][BONDINFO]
         if BONDING_MASTER in bondinfo:
             if not bondinfo[BONDING_MASTER] == "yes":
-                wok_log.error("'yes' or 'no' is allowed value for the "
-                              "BONDING_MASTER")
                 raise MissingParameter("GINNET0033E")
             else:
                 bond_info[BONDING_MASTER] = bondinfo[BONDING_MASTER]
         else:
-            wok_log.error("Missing parameter: BONDING_MASTER")
             raise MissingParameter("GINNET0034E")
 
         if BONDING_OPTS in params[BASIC_INFO][BONDINFO]:
@@ -396,11 +386,8 @@ class CfginterfaceModel(object):
                 bond_opt_value = '"' + bond_opt_value + '"'
                 bond_info[BONDING_OPTS] = bond_opt_value
         if SLAVES not in bondinfo:
-            wok_log.error("Missing parameter(s): SLAVE")
             raise MissingParameter("GINNET0036E")
         if len(bondinfo[SLAVES]) == 0:
-            wok_log.error("Minimum one slave has to be given for the bond "
-                          "interface")
             raise MissingParameter("GINNET0037E")
         name = cfgmap[DEVICE]
         self.create_slaves(name, params)
@@ -416,7 +403,6 @@ class CfginterfaceModel(object):
             if fileexist:
                 cfgInterfacesHelper.write_attributes_to_cfg(slave, slave_info)
             else:
-                wok_log.error("Slave file is not exist for " + slave)
                 raise OperationFailed("GINNET0053E", {'slave': slave})
 
     # TODO this code can be later made to have strict regex to get the right
@@ -452,10 +438,7 @@ class CfginterfaceModel(object):
                         wok_log.warn("Skipping the invalid route information" +
                                      encode_value(options))
             except Exception, e:
-                wok_log.error(
-                    'Exception occured while reading the route information' +
-                    encode_value(e.message))
-                raise OperationFailed("GINNET0030E", {'Error': e.message})
+                raise OperationFailed("GINNET0030E", {'err': e.message})
             return cfg_map
 
     def get_routes_directiveformat(self, routecfg_path):
@@ -478,11 +461,7 @@ class CfginterfaceModel(object):
                 try:
                     cfgroutes_info[elem.split('=')[0]] = elem.split('=')[1]
                 except Exception, e:
-                    wok_log.error(
-                        'Exception occured while reading the route '
-                        'information' +
-                        encode_value(e.message))
-                    raise OperationFailed("GINNET0030E", {'Error': e.message})
+                    raise OperationFailed("GINNET0030E", {'err': e.message})
         route_list = []
         i = 0
         # construct list of dictionaries from the given key=value list.

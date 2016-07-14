@@ -25,7 +25,7 @@ import subprocess
 import utils
 
 from wok.exception import InvalidParameter, NotFoundError, OperationFailed
-from wok.utils import run_command, wok_log
+from wok.utils import run_command
 
 from wok.plugins.ginger.model.utils import get_directories
 from wok.plugins.ginger.model.utils import syspath_eckd, get_dirname
@@ -39,7 +39,6 @@ def _get_lsdasd_devs():
     command = ['lsdasd', '-l']
     dasdout, err, rc = run_command(command)
     if rc:
-        wok_log.error("lsdasd -l failed")
         raise OperationFailed("GINDASD0001E", {'err': err})
     return _parse_lsdasd_output(dasdout)
 
@@ -52,7 +51,6 @@ def _get_dasd_dev_details(bus_id):
     command = ['lsdasd', '-l', bus_id]
     dasdout, err, rc = run_command(command)
     if rc:
-        wok_log.error("Fetching details of DASD device %s failed" % bus_id)
         raise OperationFailed("GINDASD0002E", {'err': err})
     return _parse_lsdasd_output(dasdout)
 
@@ -89,7 +87,6 @@ def _parse_lsdasd_output(output):
                     fs_dict['size'] = 'Unknown'
                 out_list.append(fs_dict)
     except:
-        wok_log.error("Parsing lsdasd output failed")
         raise OperationFailed("GINDASD0003E")
 
     return out_list
@@ -106,8 +103,7 @@ def _format_dasd(blk_size, dev):
     command = ['dasdfmt', '-b', blk_size, '-y', dev_name, '-p']
     fmtout, err, rc = run_command(command)
     if rc:
-        wok_log.error("Formatting of DASD device %s failed", dev_name)
-        raise OperationFailed("GINDASD0004E", {'name': dev})
+        raise OperationFailed("GINDASD0004E", {'name': dev_name})
     return
 
 
@@ -143,10 +139,8 @@ def _create_dasd_part(dev, size):
     p1_out.stdout.close()
     out, err = p2_out.communicate()
     if p2_out.returncode != 0:
-        wok_log.error("Creation of partition on DASD device %s failed",
-                      devname)
-        raise OperationFailed("GINDASD0003E", {'err': err})
-    return
+        raise OperationFailed("GINDASDPAR0007E",
+                              {'name': devname, 'err': err})
 
 
 def _form_part_str(size):
@@ -172,9 +166,8 @@ def _delete_dasd_part(dev, part_id):
     p1_out.stdout.close()
     out, err = p2_out.communicate()
     if p2_out.returncode != 0:
-        wok_log.error("Deletion of partition on DASD device %s failed",
-                      devname)
-        raise OperationFailed("GINDASD0004E", {'err': err})
+        raise OperationFailed("GINDASDPAR0010E",
+                              {'name': devname, 'err': err})
     return
 
 
@@ -192,7 +185,6 @@ def validate_bus_id(bus_id):
     valid = pattern.match(bus_id)
 
     if not valid:
-        wok_log.error("Unable to validate bus ID, %s", bus_id)
         raise InvalidParameter("GINDASD0011E", {'bus_id': bus_id})
 
     # No need to worry about IndexError exception below becuase
@@ -200,7 +192,6 @@ def validate_bus_id(bus_id):
     # split operation on the string smoothly
     ch_len = bus_id.split(".")[-1]
     if len(ch_len) > 4:
-        wok_log.error("Unable to validate bus ID, %s", bus_id)
         raise InvalidParameter("GINDASD0011E", {'bus_id': bus_id})
 
 
@@ -240,7 +231,6 @@ def _get_dasd_pim():
     command = ['lscss', '-d']
     out, err, rc = run_command(command)
     if rc:
-        wok_log.error("lscss -d failed")
         raise OperationFailed("GINDASD0012E", {'err': err})
     if out:
         try:
@@ -254,8 +244,7 @@ def _get_dasd_pim():
                 enabled_chipids = utils._get_paths(binaryval_pam, chipid)
                 pim_dict[bus_id] = len(enabled_chipids)
         except Exception as err:
-            wok_log.error("Error in parsing lscss -d output")
-            raise OperationFailed("GINDASD0013E", {'err': err})
+            raise OperationFailed("GINDASD0013E", {'err': err.message})
     return pim_dict
 
 
@@ -269,7 +258,6 @@ def get_dasd_bus_id(blk):
         bus_id = os.readlink(
             '/sys/block/' + blk + "/device").split("/")[-1]
     except Exception as e:
-        wok_log.error("Error getting bus id of DASD device, " + blk)
         raise OperationFailed("GINSD00006E", {'err': e.message})
 
     return bus_id
