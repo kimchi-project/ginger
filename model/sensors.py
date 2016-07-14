@@ -202,6 +202,13 @@ class SensorsModel(object):
             hdds = OrderedDict()
 
             for hdd in out.splitlines():
+                # This error message occurs when the HDD does not
+                # have S.M.A.R.T (Self-Monitoring, Analysis, and
+                # Reporting Technology) available. Skip the hdd line
+                # in this case.
+                if 'S.M.A.R.T. not available' in hdd:
+                    continue
+
                 hdd_name = ''
                 hdd_temp = 0.0
                 try:
@@ -219,8 +226,7 @@ class SensorsModel(object):
                         hdd_temp = 9.0/5.0 * hdd_temp + 32
                     hdds[hdd_name] = hdd_temp
                 except ValueError:
-                    # If no sensor data, parse float will fail. For example:
-                    # "/dev/sda: IBM IPR-10 5D831200: S.M.A.R.T. not available"
+                    # If no sensor data, parse float will fail.
                     wok_log.warning("Sensors hdd: %s" % hdd)
             hdds['unit'] = temperature_unit
             return hdds
