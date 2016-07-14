@@ -33,26 +33,18 @@ class CreateGroupUnitTests(unittest.TestCase):
     """
     Unit tests for create_group() method
     """
-    @mock.patch('plugins.ginger.model.users.wok_log', autospec=True)
-    def test_create_group_empty_name(self, mock_log):
+    def test_create_group_empty_name(self):
         """
         unittest to validate create_group method with empty group name
-        mock_log: mock of wok_log imported in model.users
         """
         self.assertRaises(InvalidParameter, create_group, '')
-        mock_log.error.assert_called_once_with(
-            'group name is not non-empty string. group name %s' % '')
 
-    @mock.patch('plugins.ginger.model.users.wok_log', autospec=True)
-    def test_create_group_invalid_input(self, mock_log):
+    def test_create_group_invalid_input(self):
         """
         unittest to validate create_group method with invalid input
         for example integer value for group name instead of string
-        mock_log: mock of wok_log imported in model.users
         """
         self.assertRaises(InvalidParameter, create_group, 12)
-        mock_log.error.assert_called_once_with(
-            'group name is not non-empty string. group name %s' % 12)
 
     @mock.patch('plugins.ginger.model.users.wok_log', autospec=True)
     @mock.patch('plugins.ginger.model.users.libuser', autospec=True)
@@ -82,13 +74,11 @@ class CreateGroupUnitTests(unittest.TestCase):
         self.assertRaises(OperationFailed, create_group, 'dummy_group')
         mock_adm.initGroup.assert_called_once_with('dummy_group')
 
-    @mock.patch('plugins.ginger.model.users.wok_log', autospec=True)
     @mock.patch('plugins.ginger.model.users.libuser', autospec=True)
-    def test_create_grp_success(self, mock_libuser, mock_log):
+    def test_create_grp_success(self, mock_libuser):
         """
         unittest to validate create_group success case
         mock_libuser: mock of libuser imported in model.users
-        mock_log: mock of wok_log imported in model.users
         """
         mock_adm = mock_libuser.admin()
         mock_libuser.GIDNUMBER.return_value = 1200
@@ -98,34 +88,24 @@ class CreateGroupUnitTests(unittest.TestCase):
         self.assertTrue(mock_adm.addGroup.called,
                         msg='Expected call to mock_adm.addGroup(). '
                             'Not called')
-        mock_log.info.assert_called_with(
-            'successfully created group. group name: %s.' % 'dummy_group')
 
 
 class DeleteGroupUnitTests(unittest.TestCase):
     """
     Unit tests for delete_group() method
     """
-    @mock.patch('plugins.ginger.model.users.wok_log', autospec=True)
-    def test_delete_group_empty_name(self, mock_log):
+    def test_delete_group_empty_name(self):
         """
         unittest to validate delete_group method with empty group name
-        mock_log: mock of wok_log imported in model.users
         """
         self.assertRaises(InvalidParameter, delete_group, '')
-        mock_log.error.assert_called_once_with(
-            'group name is not non-empty string. group name %s' % '')
 
-    @mock.patch('plugins.ginger.model.users.wok_log', autospec=True)
-    def test_delete_group_invalid_input(self, mock_log):
+    def test_delete_group_invalid_input(self):
         """
         unittest to validate delete_group method with invalid input
         for example integer value for group name instead of string
-        mock_log: mock of wok_log imported in model.users
         """
         self.assertRaises(InvalidParameter, delete_group, 12)
-        mock_log.error.assert_called_once_with(
-            'group name is not non-empty string. group name %s' % 12)
 
     @mock.patch('plugins.ginger.model.users.get_sudoers', autospec=True)
     @mock.patch('plugins.ginger.model.users.get_group_gid', autospec=True)
@@ -213,7 +193,6 @@ class DeleteGroupUnitTests(unittest.TestCase):
                                   mock_get_sudoers):
         """
         unittest to validate delete_group method success case
-        mock_log: mock of wok_log imported in model.users
         mock_libuser: mock of libuser imported in model.users
         mock_get_gid: mock of get_group_gid() method in model.users
         mock_get_sudoers: mock of get_sudoers() method in model.users
@@ -330,26 +309,18 @@ class DeleteUserUnitTests(unittest.TestCase):
     """
     Unit tests for delete_user() method
     """
-    @mock.patch('plugins.ginger.model.users.wok_log', autospec=True)
-    def test_delete_user_empty_name(self, mock_log):
+    def test_delete_user_empty_name(self):
         """
         unittest to validate delete_user method with empty user name
-        mock_log: mock of wok_log imported in model.users
         """
         self.assertRaises(InvalidParameter, delete_user, '')
-        mock_log.error.assert_called_once_with(
-            'username is not non-empty string. name: %s' % '')
 
-    @mock.patch('plugins.ginger.model.users.wok_log', autospec=True)
-    def test_delete_user_invalid_input(self, mock_log):
+    def test_delete_user_invalid_input(self):
         """
         unittest to validate delete_user method with invalid input
         for example integer value for user name instead of string
-        mock_log: mock of wok_log imported in model.users
         """
         self.assertRaises(InvalidParameter, delete_user, 12)
-        mock_log.error.assert_called_once_with(
-            'username is not non-empty string. name: %s' % 12)
 
     @mock.patch('plugins.ginger.model.users.remove_user_from_group',
                 autospec=True)
@@ -421,13 +392,11 @@ class DeleteUserUnitTests(unittest.TestCase):
     @mock.patch('plugins.ginger.model.users.get_sudoers', autospec=True)
     @mock.patch('plugins.ginger.model.users.os', autospec=True)
     @mock.patch('plugins.ginger.model.users.libuser', autospec=True)
-    @mock.patch('plugins.ginger.model.users.wok_log', autospec=True)
-    def test_delete_user_unlink_exception(self, mock_log, mock_libuser,
+    def test_delete_user_unlink_exception(self, mock_libuser,
                                           mock_os, mock_get_sudoers,
                                           mock_remove_from_group):
         """
         unittest to validate delete_user for exception in os.unlink
-        mock_log: mock of wok_log imported in model.users
         mock_libuser: mock of libuser imported in model.users
         mock_get_sudoers: mock of get_sudoers() method in model.users
         mock_remove_from_group: mock of remove_user_from_group() method
@@ -441,8 +410,6 @@ class DeleteUserUnitTests(unittest.TestCase):
         mock_get_sudoers.return_value = []
         self.assertRaises(OperationFailed, delete_user, 'dummy_user')
         f = '/etc/sudoers.d/dummy_user_conf'
-        mock_log.error.assert_called_once_with(
-            'Error removing file "%s": %s' % (f, 'fail'))
         mock_get_sudoers.assert_called_once_with(admin_check=False)
         mock_adm.lookupUserByName.assert_called_once_with('dummy_user')
         self.assertFalse(mock_adm.deleteUser.called,
@@ -767,22 +734,18 @@ class GetUserProfileUnitTests(unittest.TestCase):
     @mock.patch('plugins.ginger.model.users.get_sudoers', autospec=True)
     @mock.patch('plugins.ginger.model.users.os', autospec=True)
     @mock.patch('plugins.ginger.model.users.libuser', autospec=True)
-    @mock.patch('plugins.ginger.model.users.wok_log', autospec=True)
-    def test_user_profile_inv_user(self, mock_log, mock_libuser, mock_os,
+    def test_user_profile_inv_user(self, mock_libuser, mock_os,
                                    mock_get_sudoers):
 
         """
         unittest to validate get_user_profile() method with
         invalid i/p for user i.e., passing empty string or integer
-        mock_log: mock of wok_log imported in model.users
         mock_libuser: mock of libuser imported in model.users
         mock_os: mock of os imported in model.users
         mock_get_sudoers: mock of get_sudoers() in model.users
         """
         mock_adm = mock_libuser.admin()
         self.assertRaises(InvalidParameter, get_user_profile, 235)
-        mock_log.error.assert_called_once_with(
-            'username is not non-empty string. name: %s' % 235)
         self.assertFalse(mock_adm.enumerateGroupsByUser.called,
                          msg='Unexpected call to '
                              'mock_adm.enumerateGroupsByUser')
@@ -999,12 +962,10 @@ class ChpasswdUnitTests(unittest.TestCase):
                          msg='Unexpected call to mock_adm.setpassUser()')
 
     @mock.patch('plugins.ginger.model.users.libuser', autospec=True)
-    @mock.patch('plugins.ginger.model.users.wok_log', autospec=True)
-    def test_chpasswd_user_notfound(self, mock_log, mock_libuser):
+    def test_chpasswd_user_notfound(self, mock_libuser):
 
         """
         unittest to validate chpasswd() method for non-existing user
-        mock_log: mock of wok_log imported in model.users
         mock_libuser: mock of libuser imported in model.users
         """
         mock_adm = mock_libuser.admin()
@@ -1013,19 +974,15 @@ class ChpasswdUnitTests(unittest.TestCase):
         self.assertRaises(NotFoundError, user_model.chpasswd, 'user1',
                           'password')
         mock_adm.lookupUserByName.assert_called_once_with('user1')
-        mock_log.error.assert_called_once_with(
-            "User '%s' not found" % 'user1')
         self.assertFalse(mock_adm.setpassUser.called,
                          msg='Unexpected call to mock_adm.setpassUser()')
 
     @mock.patch('plugins.ginger.model.users.libuser', autospec=True)
-    @mock.patch('plugins.ginger.model.users.wok_log', autospec=True)
-    def test_chpasswd_setpass_exception(self, mock_log, mock_libuser):
+    def test_chpasswd_setpass_exception(self, mock_libuser):
 
         """
         unittest to validate chpasswd() method when setpassUser of
         libuser raises Exception
-        mock_log: mock of wok_log imported in model.users
         mock_libuser: mock of libuser imported in model.users
         """
         mock_adm = mock_libuser.admin()
@@ -1037,9 +994,6 @@ class ChpasswdUnitTests(unittest.TestCase):
         mock_adm.lookupUserByName.assert_called_once_with('user1')
         mock_adm.setpassUser.assert_called_once_with(
             'dummy_user', 'password', False)
-        mock_log.error.assert_called_once_with(
-            "Failed to change password for user '%s'. Error: '%s'"
-            % ('user1', 'fail'))
 
     @mock.patch('plugins.ginger.model.users.libuser', autospec=True)
     @mock.patch('plugins.ginger.model.users.wok_log', autospec=True)

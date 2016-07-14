@@ -23,7 +23,7 @@ from wok.exception import InvalidOperation, MissingParameter, NotFoundError
 from wok.exception import OperationFailed
 
 from wok.model.tasks import TaskModel
-from wok.utils import add_task, wok_log
+from wok.utils import add_task
 
 
 class VolumeGroupsModel(object):
@@ -62,9 +62,8 @@ class VolumeGroupsModel(object):
             utils._create_vg(vgname, pv_paths)
 
         except (OperationFailed), e:
-            wok_log.error('failed to create vg')
             raise OperationFailed('GINVG00001E',
-                                  {'vgname': vgname,
+                                  {'name': vgname,
                                    'err': e.message})
 
         cb('OK', True)
@@ -74,7 +73,6 @@ class VolumeGroupsModel(object):
         try:
             vg_names = utils._get_vg_list()
         except OperationFailed as e:
-            wok_log.error('failed to list VGs')
             raise NotFoundError("GINVG00002E",
                                 {'err': e.message})
 
@@ -94,7 +92,6 @@ class VolumeGroupModel(object):
             return utils._vgdisplay_out(name)
 
         except OperationFailed:
-            wok_log.error('failed to fetch vg info')
             raise NotFoundError("GINVG00003E", {'name': name})
 
     def delete(self, name):
@@ -102,24 +99,20 @@ class VolumeGroupModel(object):
 
             vg_details = self.lookup(name)
             if vg_details['Cur LV'] > 0:
-                wok_log.error('VG %s contains logical volumes.' % name)
                 raise InvalidOperation('GINVG00017E', {'name': name})
 
             utils._remove_vg(name)
         except OperationFailed:
-            wok_log.error('failed to delete vg')
-            raise OperationFailed("GINVG00004E")
+            raise OperationFailed("GINVG00004E", {'name': name})
 
     def extend(self, name, paths):
         try:
             utils._extend_vg(name, paths)
         except OperationFailed:
-            wok_log.error('failed to extend vg')
-            raise OperationFailed("GINVG00005E")
+            raise OperationFailed("GINVG00005E", {'name': name})
 
     def reduce(self, name, paths):
         try:
             utils._reduce_vg(name, paths)
         except OperationFailed:
-            wok_log.error('failed to reduce vg')
-            raise OperationFailed("GINVG00006E")
+            raise OperationFailed("GINVG00006E", {'name': name})

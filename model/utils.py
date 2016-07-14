@@ -81,7 +81,6 @@ def _get_swapdev_list_parser(output):
             dev_name = swapdev.split()[0]
             output_list.append(dev_name)
     except Exception as e:
-        wok_log.error("Error parsing /proc/swaps file.")
         raise OperationFailed("GINSP00010E", {'err', e.message})
 
     return output_list
@@ -99,9 +98,7 @@ def _create_file(size, file_loc):
 
     if rc != 0:
         if "Text file busy" in err:
-            wok_log.error("file already in use. %s", file_loc)
-            raise InvalidParameter("GINSP00020E")
-        wok_log.error("Error creating a flat file. %s", file_loc)
+            raise InvalidParameter("GINSP00020E", {'file': file_loc})
         raise OperationFailed("GINSP00011E", {'err': err})
 
     # So that only root can see the content of the swap
@@ -121,7 +118,6 @@ def _make_swap(file_loc):
     out, err, rc = run_command(["mkswap", file_loc])
 
     if rc != 0:
-        wok_log.error("Unable to format swap device. %s", file_loc)
         raise OperationFailed("GINSP00012E", {'err': err})
     return
 
@@ -134,7 +130,6 @@ def _activate_swap(file_loc):
     """
     out, err, rc = run_command(["swapon", file_loc])
     if rc != 0:
-        wok_log.error("Unable to activate swap device. %s", file_loc)
         raise OperationFailed("GINSP00013E", {'err': err})
     return
 
@@ -153,7 +148,6 @@ def _parse_swapon_output(output):
         output_dict['used'] = int(output_list[3])
         output_dict['priority'] = output_list[4]
     except Exception as e:
-        wok_log.error("Unable to parse 'swapon -s' output")
         raise OperationFailed("GINSP00014E", {'err': e.message})
 
     return output_dict
@@ -167,16 +161,12 @@ def _get_swap_output(device_name):
     out, err, rc = run_command(["grep", "-w", device_name, "/proc/swaps"])
 
     if rc == 1:
-        wok_log.error("Single swap device %s not found.", device_name)
         raise NotFoundError("GINSP00018E", {'swap': device_name})
 
     elif rc == 2:
-        wok_log.error("Unable to get single swap device info: /proc/swaps "
-                      "dir not found.")
         raise OperationFailed("GINSP00019E")
 
     elif rc != 0:
-        wok_log.error("Unable to get single swap device info. %s", device_name)
         raise OperationFailed("GINSP00015E", {'err': err})
 
     return _parse_swapon_output(out)
@@ -191,10 +181,7 @@ def _swapoff_device(device_name):
     out, err, rc = run_command(["swapoff", device_name])
 
     if rc != 0:
-        wok_log.error("Unable to deactivate swap device. %s", device_name)
         raise OperationFailed("GINSP00016E", {'err': err})
-
-    return
 
 
 def get_dm_name(devname):
@@ -236,9 +223,7 @@ def change_part_type(part, type_hex):
     elif len(parts) > 1:
         typ_str = '\nt\n' + partnum + '\n' + type_hex + '\n' + 'w\n'
     else:
-        wok_log.error("No partitions found for disk,  %s", disk)
-        raise OperationFailed("GINSP00017E",
-                              {'disk': "No partitions found for disk " + disk})
+        raise OperationFailed("GINSP00017E", {'disk': disk})
 
     t1_out = subprocess.Popen(["echo", "-e", "\'", typ_str, "\'"],
                               stdout=subprocess.PIPE)
@@ -249,8 +234,7 @@ def change_part_type(part, type_hex):
     out, err = t2_out.communicate()
 
     if t2_out.returncode != 0:
-        wok_log.error("Unable to change the partition type.")
-        raise OperationFailed("change type failed", err)
+        raise OperationFailed("GINSP00021E", {'err': err})
 
     return part
 
@@ -740,7 +724,6 @@ def get_disks_by_id_out():
     cmd = ['ls', '-l', '/dev/disk/by-id']
     out, err, rc = run_command(cmd)
     if rc != 0:
-        wok_log.error("Error executing 'ls -l /dev/disk/by-id.")
         raise OperationFailed("GINSD00001E", {'err': err})
     return out
 
@@ -761,7 +744,6 @@ def get_lsblk_keypair_out(transport=True):
 
     out, err, rc = run_command(cmd)
     if rc != 0:
-        wok_log.error("Error executing 'lsblk -Po")
         raise OperationFailed("GINSD00002E", {'err': err})
     return out
 
@@ -811,7 +793,6 @@ def parse_ll_out(ll_out):
             else:
                 return_id_dict[disk_id] = [name]
     except Exception as e:
-        wok_log.error("Error parsing 'ls -l /dev/disk/by-id'")
         raise OperationFailed("GINSD00003E", {'err': e.message})
 
     return return_dict, return_id_dict
@@ -847,7 +828,6 @@ def parse_lsblk_out(lsblk_out):
             return_dict[disk_attrs[0].split("=")[1][1:-1]] = disk_info
 
     except Exception as e:
-        wok_log.error("Error parsing 'lsblk -Po")
         raise OperationFailed("GINSD00004E", {'err': e.message})
 
     return return_dict
@@ -913,7 +893,6 @@ def get_final_list():
                 else:
                     final_list.append(final_dict)
     except Exception as e:
-        wok_log.error("Error getting list of storage devices")
         raise OperationFailed("GINSD00005E", {'err': e.message})
 
     return final_list
@@ -953,89 +932,6 @@ def get_fc_path_elements():
         fc_blk_dict[blkdev] = blk_info_dict
 
     return fc_blk_dict
-
-
-def get_storagedevice(device):
-    """
-    get the device info dict for the device passed as parameter.
-    Raises exception on failure of lscss execution or device is None/blank
-    :param device: device id for which we need info to be returned
-    :return: device info dict
-    """
-    device = _validate_device(device)
-    if device and isinstance(device, unicode):
-        device = device.encode('utf-8')
-    device = str(device)
-    if dasd_utils._is_dasdeckd_device(device) or _is_zfcp_device(device):
-        command = [lscss, '-d', device]
-        msg = 'The command is "%s" ' % ' '.join(command)
-        wok_log.debug(msg)
-        out, err, rc = run_command(command)
-        messge = 'The output of command "%s" is %s' % (' '.
-                                                       join(command), out)
-        wok_log.debug(messge)
-        if rc:
-            err = err.strip().replace("lscss:", '').strip()
-            wok_log.error(err)
-            raise OperationFailed("GS390XCMD0001E",
-                                  {'command': ' '.join(command),
-                                   'rc': rc, 'reason': err})
-        if out.strip():
-            device_info = _get_deviceinfo(out, device)
-            return device_info
-        wok_log.error("lscss output is either blank or None")
-        raise OperationFailed("GS390XCMD0001E",
-                              {'command': ' '.join(command),
-                               'rc': rc, 'reason': out})
-    else:
-        wok_log.error("Given device id is of type dasd-eckd or zfcp. "
-                      "Device: %s" % device)
-        raise InvalidParameter("GS390XINVINPUT",
-                               {'reason': 'given device is not of type '
-                                          'dasd-eckd or zfcp. '
-                                          'Device : %s' % device})
-
-
-def _validate_device(device):
-    """
-    validate the device id. Valid device Ids should have
-    <single digitnumber>.<single digitnumber>.<4 digit hexadecimalnumber>
-    or <4 digit hexadecimal number>
-    :param device: device id
-    """
-    pattern_with_dot = r'^\d\.\d\.[0-9a-fA-F]{4}$'
-    if device and isinstance(device, unicode):
-        device = device.encode('utf-8')
-    device = str(device)
-    if device and not device.isspace():
-        device = device.strip()
-        if "." in device:
-            out = re.search(pattern_with_dot, device)
-        else:
-            device = '0.0.' + device
-            out = re.search(pattern_with_dot, device)
-        if out is None:
-            wok_log.error("Invalid device id. Device: %s" % device)
-            raise InvalidParameter("GS390XINVINPUT",
-                                   {'reason': 'invalid device id: %s'
-                                              % device})
-    else:
-        wok_log.error("Device id is empty. Device: %s" % device)
-        raise InvalidParameter("GS390XINVINPUT",
-                               {'reason': 'device id is required. Device: %s'
-                                          % device})
-    return device
-
-
-def _is_zfcp_device(device):
-    """
-    Return True if the device is of type zfcp otherwise False
-    :param device: device id
-    """
-    zfcp_devices = _get_zfcp_devices()
-    if device in zfcp_devices:
-        return True
-    return False
 
 
 def _get_deviceinfo(lscss_out, device):
@@ -1189,9 +1085,7 @@ def get_row_data(command_output, header_pattern, value_pattern):
     value = re.search(value_pattern, command_output, re.M | re.I)
     row_data = {}
     if header is None or not header.group():
-        wok_log.error("header is empty for given pattern")
-        raise OperationFailed("GS390XREG0001E",
-                              {'reason': "header is empty for given pattern"})
+        raise OperationFailed("GINDASD0015E")
     elif value:
         if (header.group() != value.group()) and \
                 (len(header.groups()) == len(value.groups())):
@@ -1245,8 +1139,6 @@ def _parse_lvm_version(lvm_version_out):
     try:
         lvm_version = m.group(1)
     except Exception as e:
-        wok_log.error("Output of 'lvm version', %s" % lvm_version_out)
-        wok_log.error("Error parsing output of 'lvm version' command.")
         raise OperationFailed("GINLVM0001E", {'err': e.message})
 
     return lvm_version
@@ -1261,14 +1153,11 @@ def get_lvm_version():
         ["lvm", "version"])
 
     if rc != 0:
-        wok_log.error("Error executing 'lvm version' command, %s" % err)
         raise OperationFailed("GINLVM0002E", {'err': err})
 
     try:
         out = out.splitlines()[0].split(":")[1]
     except Exception as e:
-        wok_log.error("Output of 'lvm version', %s" % out)
-        wok_log.error("Incompatible output from 'lvm version' command.")
         raise OperationFailed("GINLVM0003E", {'err': e.message})
 
     return _parse_lvm_version(out)

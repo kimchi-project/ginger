@@ -27,7 +27,7 @@ from diskparts import PartitionModel
 from wok.exception import InvalidParameter, NotFoundError, OperationFailed
 from wok.model.tasks import TaskModel
 from wok.rollbackcontext import RollbackContext
-from wok.utils import add_task, run_command, wok_log
+from wok.utils import add_task, run_command
 
 
 class SwapsModel(object):
@@ -44,15 +44,12 @@ class SwapsModel(object):
         file_loc = ''
 
         if 'file_loc' not in params or not params['file_loc']:
-            wok_log.error("File location required for creating a swap device.")
             raise InvalidParameter('GINSP00001E')
 
         if 'type' not in params:
-            wok_log.error("Type required for creating a swap device.")
             raise InvalidParameter('GINSP00002E')
         else:
             if params['type'] == 'file' and 'size' not in params:
-                wok_log.error("Size is required file type swap device.")
                 raise InvalidParameter('GINSP00003E')
 
             if params['type'] == 'device' or params['type'] == 'file':
@@ -60,7 +57,6 @@ class SwapsModel(object):
                                   self._create_task, self.objstore, params)
                 return self.task.lookup(taskid)
             else:
-                wok_log.error("Incorrect swap type.")
                 raise InvalidParameter('GINSP00004E')
 
     def _create_task(self, cb, params):
@@ -131,8 +127,7 @@ class SwapsModel(object):
                 os.remove(file_loc)
 
         except Exception as e:
-            wok_log.error("Error deleting a swap file, %s", e.message)
-            raise OperationFailed('GINSP00006E')
+            raise OperationFailed('GINSP00006E', {'err': e.message})
 
     def get_list(self):
         out, err, rc = run_command(["cat", "/proc/swaps"])
@@ -166,5 +161,4 @@ class SwapModel(object):
             else:
                 utils._swapoff_device(name)
         except Exception as e:
-            wok_log.error("Error deleting a swap device, %s", e.message)
             raise OperationFailed("GINSP00009E", {'err': e.message})

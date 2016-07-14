@@ -33,11 +33,10 @@ class SwapTests(unittest.TestCase):
         objstore_loc = config.get_object_store() + '_ginger'
         self._objstore = ObjectStore(objstore_loc)
 
-    @mock.patch('wok.plugins.ginger.model.swaps.wok_log')
     @mock.patch('wok.plugins.ginger.model.swaps.add_task')
     @mock.patch('wok.plugins.ginger.model.swaps.TaskModel')
     def test_create_swap_missing_file_loc(self, mock_task_model,
-                                          mock_add_task, mock_wok_log):
+                                          mock_add_task):
         """
         Test case to raise exception in case of
         missing file location in parameters
@@ -55,14 +54,11 @@ class SwapTests(unittest.TestCase):
         self.assertRaises(InvalidParameter, swap_model.create, params)
         self.assertFalse(mock_add_task.called,
                          msg='Unexpected call to mock_add_task()')
-        msg = "File location required for creating a swap device."
-        mock_wok_log.error.assert_called_once_with(msg)
 
-    @mock.patch('wok.plugins.ginger.model.swaps.wok_log')
     @mock.patch('wok.plugins.ginger.model.swaps.add_task')
     @mock.patch('wok.plugins.ginger.model.swaps.TaskModel')
     def test_create_swap_missing_type(self, mock_task_model,
-                                      mock_add_task, mock_wok_log):
+                                      mock_add_task):
         """
         Test case to raise exception in case of missing type in parameters
         """
@@ -79,14 +75,11 @@ class SwapTests(unittest.TestCase):
         self.assertRaises(InvalidParameter, swap_model.create, params)
         self.assertFalse(mock_add_task.called,
                          msg='Unexpected call to mock_add_task()')
-        msg = "Type required for creating a swap device."
-        mock_wok_log.error.assert_called_once_with(msg)
 
-    @mock.patch('wok.plugins.ginger.model.swaps.wok_log')
     @mock.patch('wok.plugins.ginger.model.swaps.add_task')
     @mock.patch('wok.plugins.ginger.model.swaps.TaskModel')
     def test_create_swap_missing_size(self, mock_task_model,
-                                      mock_add_task, mock_wok_log):
+                                      mock_add_task):
         """
         Test case to raise exception in case of
         missing size in parameters for type 'file'
@@ -104,14 +97,11 @@ class SwapTests(unittest.TestCase):
         self.assertRaises(InvalidParameter, swap_model.create, params)
         self.assertFalse(mock_add_task.called,
                          msg='Unexpected call to mock_add_task()')
-        msg = "Size is required file type swap device."
-        mock_wok_log.error.assert_called_once_with(msg)
 
-    @mock.patch('wok.plugins.ginger.model.swaps.wok_log')
     @mock.patch('wok.plugins.ginger.model.swaps.add_task')
     @mock.patch('wok.plugins.ginger.model.swaps.TaskModel')
     def test_create_swap_wrong_type(self, mock_task_model,
-                                    mock_add_task, mock_wok_log):
+                                    mock_add_task):
         """
         Test case to raise exception in case of wrong type
         """
@@ -129,8 +119,6 @@ class SwapTests(unittest.TestCase):
         self.assertRaises(InvalidParameter, swap_model.create, params)
         self.assertFalse(mock_add_task.called,
                          msg='Unexpected call to mock_add_task()')
-        msg = "Incorrect swap type."
-        mock_wok_log.error.assert_called_once_with(msg)
 
     def test_swap_parser(self):
         """

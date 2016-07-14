@@ -68,13 +68,8 @@ def create_group(groupname):
     :param groupname: non-empty string
     :return: group id(gid)
     """
-    wok_log.info('in create_group() method. group name: %s' % groupname)
     if not isinstance(groupname, str) or not groupname.strip():
-        wok_log.error('group name is not non-empty string. '
-                      'group name %s' % groupname)
-        raise InvalidParameter('GINUSER0014E',
-                               {'group': groupname,
-                                'err': 'see log for details'})
+        raise InvalidParameter('GINUSER0014E', {'group': groupname})
     adm = libuser.admin()
     if adm.lookupGroupByName(groupname):
         raise OperationFailed('GINUSER0018E', {'group': groupname})
@@ -83,7 +78,6 @@ def create_group(groupname):
         if new_group[libuser.GIDNUMBER][0] < 1000:
             new_group.set(libuser.GIDNUMBER, adm.getFirstUnusedGid(1000))
         adm.addGroup(new_group)
-        wok_log.info('successfully created group. group name: %s.' % groupname)
         return new_group[libuser.GIDNUMBER][0]
 
     except Exception as e:
@@ -91,13 +85,9 @@ def create_group(groupname):
 
 
 def delete_group(groupname):
-    wok_log.info('in delete_group(). group name: %s' % groupname)
     if not isinstance(groupname, str) or not groupname.strip():
-        wok_log.error('group name is not non-empty string. '
-                      'group name %s' % groupname)
         raise InvalidParameter('GINUSER0012E',
-                               {'group': groupname,
-                                'err': 'see log for details'})
+                               {'group': groupname})
     adm = libuser.admin()
     group_id = int(get_group_gid(groupname))
 
@@ -167,21 +157,13 @@ def create_user(name, plain_passwd, gid, no_login=False):
     :param gid: primary group id for user
     :param no_login: True/False for log in shell
     """
-    wok_log.info('in create_user() method')
     if not isinstance(name, str) or not name.strip():
-        wok_log.error('user name is not non-empty string. name: %s' % name)
-        raise InvalidParameter(
-            'GINUSER0009E', {'user': name, 'err': 'see log for details'})
+        raise InvalidParameter('GINUSER0009E', {'user': name})
     if not type(gid) in [int, long]:
-        wok_log.error('group id is not of integer type. gid: %s' % gid)
-        raise InvalidParameter('GINUSER0009E', {'user': name,
-                                                'err': 'see log for details'})
+        raise InvalidParameter('GINUSER0025E', {'user': name, 'gid': gid})
     if not isinstance(no_login, bool):
-        wok_log.error('no_login id is not of boolean type.'
-                      ' no_login: %s' % no_login)
-        raise InvalidParameter('GINUSER0009E',
-                               {'user': name,
-                                'err': 'see log for details'})
+        raise InvalidParameter('GINUSER0026E', {'user': name,
+                                                'no_login': no_login})
     adm = libuser.admin()
     if adm.lookupUserByName(name):
         raise OperationFailed('GINUSER0008E', {'user': name})
@@ -229,11 +211,8 @@ def delete_user(username):
     method to delete user
     :param username: user name
     """
-    wok_log.info('in delete_user() method')
     if not isinstance(username, str) or not username.strip():
-        wok_log.error('username is not non-empty string. name: %s' % username)
-        raise InvalidParameter('GINUSER0010E', {'user': username,
-                                                'err': 'see log for details'})
+        raise InvalidParameter('GINUSER0010E', {'user': username})
     if username in get_sudoers(admin_check=False):
         raise OperationFailed('GINUSER0016E', {'user': username})
 
@@ -253,7 +232,6 @@ def delete_user(username):
         try:
             os.unlink(f)
         except Exception as e:
-            wok_log.error('Error removing file "%s": %s' % (f, e))
             raise OperationFailed('GINUSER0013E', {'user': username})
     try:
         adm.deleteUser(user_obj, True, True)
@@ -268,16 +246,11 @@ def remove_user_from_group(user, group):
     :param user: user name
     :param group: group name
     """
-    wok_log.info('in remove_user_from_group() method')
     if not isinstance(user, str) or not user.strip():
-        wok_log.error('user name is not non-empty string. name: %s' % user)
-        raise InvalidParameter('GINUSER0010E',
-                               {'user': user, 'err': 'see log for details'})
+        raise InvalidParameter('GINUSER0010E', {'user': user})
     if not isinstance(group, str) or not group.strip():
-        wok_log.error('group name is not non-empty string. '
-                      'group name %s' % group)
-        raise InvalidParameter('GINUSER0010E',
-                               {'user': user, 'err': 'see log for details'})
+        raise InvalidParameter('GINUSER0027E',
+                               {'user': user, 'group': group})
     try:
         adm = libuser.admin()
         grpobj = adm.lookupGroupByName(group)
@@ -300,7 +273,6 @@ def get_sudoers(admin_check=True):
     :param admin_check: True/False (to check admin/just part of sudoers file)
     :return: list of users and groups
     """
-    wok_log.info('in get_sudoers() method')
     sudoers = []
     try:
         parser = augeas.Augeas()
@@ -340,7 +312,6 @@ def get_users_info(users):
     :param users: list of users
     :return: list of dictionary with user details
     """
-    wok_log.info('in get_users_info(). Users: %s' % users)
     if not isinstance(users, list):
         wok_log.error('Users is not of type list. Users: %s' % users)
         raise InvalidParameter('GINUSER0022E')
@@ -381,7 +352,6 @@ def get_user_profile(user, sudoers=None):
     :return: admin, virtuser or regularuser
     """
     if not isinstance(user, str) or not user.strip():
-        wok_log.error('username is not non-empty string. name: %s' % user)
         raise InvalidParameter('GINUSER0002E')
     if sudoers and not isinstance(sudoers, list):
         wok_log.error('Sudoers is not of type list. Sudoers: %s' % sudoers)
@@ -452,10 +422,7 @@ class UsersModel(object):
         :return: params dictionary with keys: name, password,
                  profile, group and no_login
         """
-        wok_log.info('in _validate_create_params(). params: %s' % params)
         if not isinstance(params, dict):
-            wok_log.error(
-                'Params is not of type dictionary. Params: %s' % params)
             raise InvalidParameter('GINUSER0001E')
         keys = params.keys()
         if isinstance(params['name'], unicode):
@@ -496,17 +463,12 @@ class UsersModel(object):
             params['profile'] = 'regularuser'
             params['no_login'] = False
 
-        wok_log.info(
-            'End of _validate_create_params(). Return params: %s' % params)
         return params
 
     def _add_user_to_kvm_group(self, user):
         # Add new user to KVM group
         if not isinstance(user, str) or not user.strip():
-            wok_log.error('username is not non-empty string. name: %s' % user)
-            raise InvalidParameter('GINUSER0009E',
-                                   {'user': user,
-                                    'err': 'see log for details'})
+            raise InvalidParameter('GINUSER0009E', {'user': user})
         adm = libuser.admin()
         kvmgrp = get_group_obj('kvm')
         if isinstance(user, unicode):
@@ -518,10 +480,7 @@ class UsersModel(object):
 
     def _add_user_to_sudoers(self, user):
         if not isinstance(user, str) or not user.strip():
-            wok_log.error('username is not non-empty string. name: %s' % user)
-            raise InvalidParameter('GINUSER0009E',
-                                   {'user': user,
-                                    'err': 'see log for details'})
+            raise InvalidParameter('GINUSER0009E', {'user': user})
         try:
             # Creates the file in /etc/sudoers.d with proper user permission
             with open(SUDOERS_FILE % user, 'w') as f:
@@ -570,7 +529,6 @@ class UserModel(object):
         return user_info[0]
 
     def chpasswd(self, user, password):
-        wok_log.info("In UserModel.chpasswd method")
         if isinstance(user, unicode):
             user = user.encode('utf-8')
         if not isinstance(user, str) or not user.strip():
@@ -582,7 +540,6 @@ class UserModel(object):
         adm = libuser.admin()
         user_obj = adm.lookupUserByName(user)
         if not user_obj:
-            wok_log.error("User '%s' not found" % user)
             raise NotFoundError('GINUSER0011E', {'user': user})
         try:
             adm.setpassUser(user_obj, password, False)
@@ -590,8 +547,5 @@ class UserModel(object):
             wok_log.info("Successfully changed password for user '%s'" % user)
         except Exception as e:
             err_msg = e.message if e.message else e
-            wok_log.error("Failed to change password for user '%s'. "
-                          "Error: '%s'" % (user, err_msg))
             raise OperationFailed(
                 'GINUSER0024E', {'user': user, 'err': err_msg})
-        wok_log.info("End of UserModel.chpasswd method")
