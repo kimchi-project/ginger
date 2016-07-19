@@ -121,7 +121,10 @@ ginger.createBootgrid = function(opts) {
         return "<span class=\"fa fa-pencil command-edit\" data-row-id=\"" + row[column.id] + "\"></span> " +
           "<span class=\"fa fa-floppy-o command-save hidden\" data-row-id=\"" + row[column.id] + "\"></span>" +
           "<span class=\"fa fa-trash-o command-delete\" data-row-id=\"" + row[column.id] + "\"></span>";
-      }
+      },
+      "row-details": function(column, row) {
+          return "<span class=\"fa fa-chevron-down common-down fa-lg\" data-row-id=\"" + row[column.id] + "\"></span> ";
+        }
     },
     css: {
       iconDown: "fa fa-sort-desc",

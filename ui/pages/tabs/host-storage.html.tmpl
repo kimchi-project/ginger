@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 <link rel="stylesheet" type="text/css" href="plugins/ginger/css/ginger.css">
 <script type="text/javascript" src="plugins/ginger/js/util.js"></script>
 <script type="text/javascript" src="plugins/ginger/js/host-storage.js"></script>
+<script type="text/javascript" src="plugins/ginger/js/host-storage-partition.js"></script>
 <script type="text/javascript" src="plugins/ginger/js/ginger-bootgrid.js"></script>
 #for $script in $data.scripts
 <script type="text/javascript" src="$script"></script>
@@ -130,6 +131,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
                         </div>
                         <div id="storage-devices-alert-container"></div>
                         <span class="pull-right">
+                        <span id="storage-devices-add-partition">
+                          <div class="btn-group"><button class="btn btn-primary" id="storage-device-add-partition-btn" aria-expanded="false"><i class="fa fa-plus-circle"></i>$_("Add Partition")</button></div>
+                        </span>
                         <span id="file-system-refresh">
                         <div class="btn-group"><button class="btn btn-primary" id="storage-device-refresh-btn" aria-expanded="false"><i class="fa fa-refresh"></i>$_("Refresh")</button></div></span>
                         <span id="file-systems-add">
@@ -210,6 +214,115 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
       </div>
     </div>
   </div>
+<script id="storage-DASDdevice-details-tmpl" type="html/text">
+    <div style="" class="well row col-md-12">
+        <div class="partition-detail-info">
+            <div class="row bkp-paths-header">
+                <div class="column-id">ID</div>
+                <div class="column-bus-id">Bus ID</div>
+            </div>
+            <div class="row bkp-paths-body">
+                <div class="column-id">{id}</div>
+                <div class="column-bus-id">{bus_id}</div>
+            </div>
+            <div class="row bkp-paths-header">
+                <div class="column-partition-details" style="visibility: hidden;">Partition Details</div>
+            </div>
+        </div>
+        <div aria-expanded="true" id="partition-detail-container" class="panel-collapse collapse in" style="visibility: hidden;" role="tabpanel" aria-labelledby="headingOne">
+            <span id="alert-partition-details"></span>
+            <div class="wok-datagrid">
+                <div class="wok-datagrid-header">
+                    <span class="column-path">Path</span>
+                    <span class="column-type">Type</span>
+                    <span class="column-vgname">VG Name</span>
+                    <span class="column-mount-point">Mount Point</span>
+                    <span class="column-size">Size</span>
+                    <span class="column-action">Actions</span>
+                </div>
+                <ul id="partition-detail-list" class="wok-datagrid-body"> </ul>
+            </div>
+        </div>
+        <div class="wok-list-loader-container wok-list-loading" id="partition-loading" style="display: nonew; z-index: 1;">
+            <div class="wok-list-loading-icon"></div>
+            <div class="wok-list-loading-text">Loading...</div>
+        </div>
+    </div>
+</script>
+<script id="storage-device-details-tmpl" type="html/text">
+    <div style="" class="well row col-md-12">
+        <div class="partition-detail-info">
+            <div class="row bkp-paths-header">
+                <div class="column-id">ID</div>
+                <div class="column-fcplun">FCP Lun</div>
+                <div class="column-wwpn">WWPN</div>
+                <div class="column-hbaid">HBA ID</div>
+            </div>
+            <div class="row bkp-paths-body">
+                <div class="column-id">{id}</div>
+                <div class="column-fcplun">{fcp_lun}</div>
+                <div class="column-wwpn">{wwpn}</div>
+                <div class="column-hbaid">{hba_id}</div>
+            </div>
+            <div class="row bkp-paths-header">
+                <div class="column-partition-details" style="visibility: hidden;">Partition Details</div>
+            </div>
+        </div>
+        <div aria-expanded="true" id="partition-detail-container" class="panel-collapse collapse in" style="visibility: hidden;" role="tabpanel" aria-labelledby="headingOne">
+            <span id="alert-partition-details"></span>
+            <div class="wok-datagrid">
+                <div class="wok-datagrid-header">
+                    <span class="column-path">Path</span>
+                    <span class="column-type">Type</span>
+                    <span class="column-vgname">VG Name</span>
+                    <span class="column-mount-point">Mount Point</span>
+                    <span class="column-size">Size</span>
+                    <span class="column-action">Actions</span>
+                </div>
+                <ul id="partition-detail-list" class="wok-datagrid-body"> </ul>
+            </div>
+        </div>
+        <div class="wok-list-loader-container wok-list-loading" id="partition-loading" style="display: none; z-index: 1;">
+            <div class="wok-list-loading-icon"></div>
+            <div class="wok-list-loading-text">Loading...</div>
+        </div>
+    </div>
+</script>
+<script id="storage-partition-data-tmpl" type="html/text">
+    <li class="wok-datagrid-row" id="{name}">
+        <span class="column-path" data-type="name">{path}</span>
+        <span class="column-type" data-type="group">{fstype}</span>
+        <span class="column-vgname" data-type="profile">{vgname}</span>
+        <span class="column-mount-point">{mountpoint}</span>
+        <span class="column-size">{size}</span>
+        <span class="column-action">
+        <span class="pull-left">
+                        <div class="dropdown menu-flat storage-action">
+                            <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false" aria-haspopup="true"><span class="edit-alt"></span>Actions<span class="caret"></span></button>
+        <ul class="dropdown-menu actionsheet">
+            <li role="presentation">
+                <a class="pool-activate partition-delete"><i class="fa fa-minus-circle"></i>Delete Partition</a>
+            </li>
+            <li role="presentation">
+                <a class="pool-add-volume partition-format"><i class="fa fa fa-pencil-square-o"></i>Format FS</a>
+            </li>
+            <li role="presentation">
+                <a class="pool-deactivate partition-add-vg"><i class="fa fa-plus-circle"></i>Add to VG</a>
+            </li>
+            <li role="presentation">
+                <a class="pool-activate partition-delete-vg"><i class="fa fa-times"></i>Remove from VG</a>
+            </li>
+        </ul>
+        </div>
+        </span>
+        </span>
+    </li>
+</script>
+<script id="storage-partition-nodata-tmpl" type="html/text">
+    <li class="wok-datagrid-row" id="{DeviceName}">
+        <span class="column-nodata">No partition available</span>
+    </li>
+</script>
 <script>
     ginger.initStorage();
 </script>

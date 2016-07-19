@@ -1,0 +1,70 @@
+#*
+ * Project Ginger
+ *
+ * Copyright IBM Corp, 2016
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *#
+#unicode UTF-8
+#import gettext
+#from wok.cachebust import href
+#silent t = gettext.translation($lang.domain, $lang.localedir, languages=$lang.lang, fallback=True)
+#silent _ = t.gettext
+#silent _t = t.gettext
+<!DOCTYPE html>
+<html>
+<body>
+    <head>
+        <link rel="stylesheet" type="text/css" href="plugins/ginger/css/ginger.css">
+    </head>
+    <div class="modal-content">
+        <div class="modal-header">
+          <button aria-label="Close" data-dismiss="modal" class="close" id="format-partition-button-close" type="button">
+        <span aria-hidden="true">×</span>
+      </button>
+            <h4 class="modal-title">$_("Format Partition")</h4>
+        </div>
+        <div class="modal-body">
+            <form name="partitionformatForm">
+                <span id="partition-format-alert"></span>
+                <div class="form-group  has-feedback">
+                    <label for="formatDeviceName">$_("Device Name")</label>
+                    <div><span id="formatDeviceName" class="accordion-text"></span>
+                        <div></div>
+                    </div>
+
+                </div>
+                <div id="partition-format-select" class="form-group  has-feedback">
+                    <label for="formatpartition_fstype">File System Type</label>
+                    <select id="formatpartition_fstype" class="form-control">
+                        <option>$_("ext3")</option>
+                        <option>$_("ext4")</option>
+                        <option>$_("xfs")</option>
+                    </select>
+                </div>
+                <div class="wok-list-loader-container wok-list-loading" id="partition-format-loading" style="display:none; z-index: 1;">
+                    <div class="wok-list-loading-icon"></div>
+                    <div class="wok-list-loading-text">Formatting...</div>
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" id="formatpartition">$_("Format")</button>
+            <button type="button" class="btn btn-default" id="formatpartition_cancel" data-dismiss="modal">$_("Cancel")</button>
+        </div>
+    </div>
+    <script>
+        ginger.partition.initPartitionFormatButton();
+    </script>
+</body>
+</html>

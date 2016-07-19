@@ -1,0 +1,74 @@
+#*
+ * Project Ginger
+ *
+ * Copyright IBM Corp, 2016
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *#
+#unicode UTF-8
+#import gettext
+#from wok.cachebust import href
+#silent t = gettext.translation($lang.domain, $lang.localedir, languages=$lang.lang, fallback=True)
+#silent _ = t.gettext
+#silent _t = t.gettext
+<!DOCTYPE html>
+<html>
+<body>
+<head>
+<link rel="stylesheet" type="text/css" href="plugins/ginger/css/ginger.css">
+</head>
+    <div class="modal-content">
+      <div class="modal-header">
+        <button aria-label="Close" data-dismiss="modal" class="close" id="add-partition-button-close" type="button">
+      <span aria-hidden="true">×</span>
+    </button>
+        <h4 class="modal-title">$_("Add Partition")</h4>
+      </div>
+      <div class="modal-body">
+        <form name="addPartitionForm">
+    <span id="alert-add-partition"></span>
+    <div class="form-group  has-feedback">
+        <label for="addpartition_size">$_("Device Name")</label>
+        <div><span id="addDeviceName" class="accordion-text"></span>
+            <div></div>
+        </div>
+
+    </div>
+    <div class="form-group  has-feedback">
+        <label for="slider-id">$_("Size in MB")</label>
+        <input id="addpartition_size" name="addpartition_size" class="form-control typeahead" type="hidden" />
+        <span class="wok-loading-icon form-control-feedback"></span>
+    </div>
+
+    <!-- Slider -->
+    <div class="row">
+        <div class="form-group col-md-3 col-lg-3">
+            <input type="text" disabled="" class="form-control inputbox" id="slider-value">
+            <span hidden="" id="spanvalue" class="value">1M</span></div>
+
+        <div style="margin-left:60px; margin-top:9px;" id="slider-id" class="slider col-md-8 col-lg-8 ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all">
+            <span tabindex="0" class="ui-slider-handle ui-state-default ui-corner-all" style="left: 0%;"></span></div><span style="margin-left:50px" id="min-slider-value">1 MB</span><span style="margin-left:405px" id="max-slider-value">10.240 MB</span></div>
+    <!-- slider -->
+</form>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" id="addpartition">$_("Apply")</button>
+        <button type="button" class="btn btn-default"  id="addpartition_cancel" data-dismiss="modal">$_("Cancel")</button>
+      </div>
+    </div>
+<script>
+   ginger.partition.initPartitionAddButton();
+</script>
+</body>
+</html>

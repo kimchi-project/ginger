@@ -185,3 +185,151 @@ hr {
   border-color:#008abf ;
   border-width:3px;
 }
+#stgDevGrid {
+    .btn-group {
+        margin-bottom: 20px;
+    }
+    .column-id,
+    .column-bus-id,
+    .column-status,
+    .column-blocks,
+    .column-blocks-size,
+    .column-readonly,
+    .column-fcplun,
+    .column-wwpn,
+    .column-hbaid,
+    .column-partition-details {
+        display: inline-block;
+        vertical-align: top;
+        color: $gray-med;
+        word-wrap: break-word;
+    }
+    .column-id {
+        width: 35%;
+    }
+    .column-bus-id {
+        width: 15%;
+    }
+    .column-status {
+        width: 10%;
+    }.column-blocks {
+        width: 10%;
+    }
+    .column-blocks-size {
+        width: 15%;
+    }
+    .column-readonly {
+        width: 15%;
+    }
+    .column-partition-details{
+      width: 100%;
+      text-align: center;
+    }
+    .column-path {
+        width: 15%;
+        vertical-align: middle;
+        text-align: center;
+        word-wrap: break-word;
+    }
+    .column-type {
+        width: 15%;
+    }
+    .column-vgname {
+      width: 15%;
+    }
+    .column-mount-point{
+      width: 15%;
+    }
+    .column-size{
+      width: 15%;
+    }
+    .column-detach{
+      width: 23%;
+      visibility: hidden;
+    }
+    .column-action{
+      width: 23%;
+    }
+    .column-nodata{
+      width:75%;
+      text-align: center;
+      vertical-align: middle;
+    }
+    .column-fcplun{
+    width:  24%;
+    }
+    .column-wwpn{
+      width: 24%
+    }
+    .column-hbaid{
+      width: 15%;
+    }
+
+    .menu-flat .btn {
+      min-width: 189px;
+    }
+    .menu-flat .btn-sm {
+      min-width: 160px;
+    }
+    .btn .fa-download,
+    .btn .fa-minus-circle {
+        margin-right: 10px;
+        font-size: 20px;
+    }
+    .backup-pcc-actions {
+        margin-bottom: 20px;
+    }
+    .backup-pcc-button {
+        height: 40px;
+    }
+    .backup-history {
+        width: 100%;
+        padding: 22px;
+        background: $table-bg-active;
+    }
+    .partition-detail-info {
+        max-height: 285px;
+        min-height: 140px;
+        background: $table-bg;
+        padding: 0;
+        overflow-x: hidden;
+        overflow-y: auto;
+    }
+    .bkp-paths-header,
+    .bkp-paths-body {
+        display: block;
+        font-size: 18px;
+    }
+    .bkp-paths-header {
+        font-weight: 300;
+        > div {
+            height: 50px;
+            vertical-align: middle;
+            line-height: 38px;
+            padding: 6px 22px;
+        }
+    }
+    .bkp-paths-body {
+        font-weight: 600;
+        > div {
+            padding: 0 22px;
+        }
+    }
+
+    .arrow-down,
+    .arrow-up {
+        display: inline-block;
+        font: normal normal normal 14px/1 FontAwesome;
+        font-size: inherit;
+        text-rendering: auto;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        cursor: pointer;
+    }
+    .arrow-down:before {
+        content: "\f078";
+    }
+    .arrow-up:before {
+        content: "\f077";
+    }
+}

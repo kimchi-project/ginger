@@ -1329,6 +1329,186 @@ hr {
   border-width: 3px;
 }
 
+#stgDevGrid .btn-group {
+  margin-bottom: 20px;
+}
+
+#stgDevGrid .column-id,
+#stgDevGrid .column-bus-id,
+#stgDevGrid .column-status,
+#stgDevGrid .column-blocks,
+#stgDevGrid .column-blocks-size,
+#stgDevGrid .column-readonly,
+#stgDevGrid .column-fcplun,
+#stgDevGrid .column-wwpn,
+#stgDevGrid .column-hbaid,
+#stgDevGrid .column-partition-details {
+  display: inline-block;
+  vertical-align: top;
+  color: #777;
+  word-wrap: break-word;
+}
+
+#stgDevGrid .column-id {
+  width: 35%;
+}
+
+#stgDevGrid .column-bus-id {
+  width: 15%;
+}
+
+#stgDevGrid .column-status {
+  width: 10%;
+}
+
+#stgDevGrid .column-blocks {
+  width: 10%;
+}
+
+#stgDevGrid .column-blocks-size {
+  width: 15%;
+}
+
+#stgDevGrid .column-readonly {
+  width: 15%;
+}
+
+#stgDevGrid .column-partition-details {
+  width: 100%;
+  text-align: center;
+}
+
+#stgDevGrid .column-path {
+  width: 15%;
+  vertical-align: middle;
+  text-align: center;
+  word-wrap: break-word;
+}
+
+#stgDevGrid .column-type {
+  width: 15%;
+}
+
+#stgDevGrid .column-vgname {
+  width: 15%;
+}
+
+#stgDevGrid .column-mount-point {
+  width: 15%;
+}
+
+#stgDevGrid .column-size {
+  width: 15%;
+}
+
+#stgDevGrid .column-detach {
+  width: 23%;
+  visibility: hidden;
+}
+
+#stgDevGrid .column-action {
+  width: 23%;
+}
+
+#stgDevGrid .column-nodata {
+  width: 75%;
+  text-align: center;
+  vertical-align: middle;
+}
+
+#stgDevGrid .column-fcplun {
+  width: 24%;
+}
+
+#stgDevGrid .column-wwpn {
+  width: 24%;
+}
+
+#stgDevGrid .column-hbaid {
+  width: 15%;
+}
+
+#stgDevGrid .menu-flat .btn {
+  min-width: 189px;
+}
+
+#stgDevGrid .menu-flat .btn-sm {
+  min-width: 160px;
+}
+
+#stgDevGrid .btn .fa-download,
+#stgDevGrid .btn .fa-minus-circle {
+  margin-right: 10px;
+  font-size: 20px;
+}
+
+#stgDevGrid .backup-pcc-actions {
+  margin-bottom: 20px;
+}
+
+#stgDevGrid .backup-pcc-button {
+  height: 40px;
+}
+
+#stgDevGrid .backup-history {
+  width: 100%;
+  padding: 22px;
+  background: #ddd;
+}
+
+#stgDevGrid .partition-detail-info {
+  max-height: 285px;
+  min-height: 140px;
+  background: #fff;
+  padding: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+#stgDevGrid .bkp-paths-header,
+#stgDevGrid .bkp-paths-body {
+  display: block;
+  font-size: 18px;
+}
+
+#stgDevGrid .bkp-paths-header {
+  font-weight: 300;
+}
+
+#stgDevGrid .bkp-paths-header > div {
+  height: 50px;
+  vertical-align: middle;
+  line-height: 38px;
+  padding: 6px 22px;
+}
+
+#stgDevGrid .bkp-paths-body {
+  font-weight: 600;
+}
+
+#stgDevGrid .bkp-paths-body > div {
+  padding: 0 22px;
+}
+
+#stgDevGrid .arrow-down,
+#stgDevGrid .arrow-up {
+  display: inline-block;
+  font: normal normal normal 14px/1 FontAwesome;
+  font-size: inherit;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  cursor: pointer;
+}
+
+#stgDevGrid .arrow-down:before {
+  content: "\f078";
+}
+
+#stgDevGrid .arrow-up:before {
+  content: "\f077";
+}
+
 #host-sysmodules-root-container .well {
   overflow-y: scroll;
   border: 0;

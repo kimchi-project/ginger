@@ -305,15 +305,15 @@ ginger.loadStorageDeviceDetails = function() {
   opts['gridId'] = "stgDevGrid";
 
   gridFields = [{
-    "column-id": 'id',
+    "column-id": 'name',
     "type": 'string',
     "identifier": true,
     "width": "50%",
-    "title": i18n['GINTITLE0018M']
+    "title": i18n['GINTITLE0001M']
   }, {
     "column-id": 'mpath_count',
     "type": 'numeric',
-    "width": "20%",
+    "width": "10%",
     "title": i18n['GINTITLE0019M']
   }, {
     "column-id": 'type',
@@ -326,6 +326,14 @@ ginger.loadStorageDeviceDetails = function() {
     "width": "10%",
     "title": i18n['GINTITLE0004M'],
     "converter": "number-locale-converter"
+ },{
+	    "column-id": "id",
+	    "type": 'string',
+	    "title": i18n['GINTITLE0028M'],
+	    "width": "10%",
+	    "header-class": "text-center",
+	    "data-class": "center",
+	    "formatter": "row-details"
   }];
 
   opts['gridFields'] = JSON.stringify(gridFields);
@@ -340,6 +348,7 @@ ginger.loadStorageDeviceDetails = function() {
     ginger.showBootgridLoading(opts);
     ginger.initStorageDevicesGridData();
   });
+  ginger.partition.initAddPartition(opts);
 };
 
 ginger.initStorageDevicesGridData = function() {
@@ -360,6 +369,7 @@ ginger.initStorageDevicesGridEvents = function(grid,opts) {
     ginger.changeActionButtonsState();
   }).on("loaded.rs.jquery.bootgrid", function(e, rows) {
     ginger.changeActionButtonsState();
+    ginger.partition.storageInitPartition(opts);
   }).on("appended.rs.jquery.bootgrid", function(e, rows) {
      if(rows.length===0){
       ginger.showBootgridData(opts);
