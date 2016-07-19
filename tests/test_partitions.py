@@ -40,7 +40,7 @@ class PartitionTests(unittest.TestCase):
 
     def test_create_part_missing_device(self):
         parts = diskparts.PartitionsModel()
-        size = '10M'
+        size = 10
         params = {'partsize': size}
         self.assertRaises(MissingParameter, parts.create, params)
 
@@ -55,7 +55,7 @@ class PartitionTests(unittest.TestCase):
     def test_create_part(self, mock_create_part):
         parts = diskparts.PartitionsModel()
         dev = '/dev/sdb'
-        size = '10M'
+        size = 10
         params = {'devname': dev, 'partsize': size}
         parts.create(params)
         mock_create_part.return_value = 'sdb1'

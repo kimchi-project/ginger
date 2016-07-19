@@ -550,7 +550,7 @@ URI: /plugins/ginger/partitions
 
 * **POST**: Create a partition
      * devname : Path of the device to be partitioned.
-     * partsize : Size of the partition
+     * partsize : Size of the partition to be created in Megabytes. Must be integer type.
 
 ### Resource: Partition
 

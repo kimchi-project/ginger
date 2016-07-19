@@ -262,10 +262,10 @@ def create_disk_part(dev, size):
 def _form_part_str(size):
     """
     Forms the string containing the size to be used in fdisk command
-    :param size:size of the partition
+    :param size:size of the partition in Megabytes
     :return:
     """
-    part_str = '\nn\np\n\n\n' + '+' + size + '\n' + 'w\n'
+    part_str = '\nn\np\n\n\n' + '+' + str(size) + 'M' + '\n' + 'w\n'
     return part_str
 
 
