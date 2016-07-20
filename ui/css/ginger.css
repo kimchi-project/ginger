@@ -696,6 +696,12 @@
   border-color: #eee;
 }
 
+.no-results-found {
+  border-top: 1px solid #eee;
+  text-align: center;
+  padding-top: 4px;
+}
+
 /* End of Firmware Progress Accordion */
 #network-root-container .accordion {
   margin: 12px 20px 12px 60px;

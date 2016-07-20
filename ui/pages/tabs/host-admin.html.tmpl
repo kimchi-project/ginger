@@ -77,19 +77,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
             </h3>
             <div id="backup-ppc-content-area" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
                  <div class="backup-pcc-actions btn-group" id="backup-pcc-action-area">
-                    <div class="dropdown menu-flat ">
-                        <button class="btn btn-primary dropdown-toggle backup-pcc-button" type="button" data-toggle="dropdown" aria-expanded="false" aria-haspopup="true"><span class="edit-alt"></span>$_("Actions")<span class="caret"></span></button>
-                        <ul class="dropdown-menu actionsheet">
-                            <li role="presentation">
-                                <a href="#" id="newDefaultBakBtn"><i class="fa fa-file"></i> $_("Generate Default Backup")</a>
-                            </li>
-                            <li role="presentation">
-                                <a href="#" id="newCustomBakBtn" data-toggle="modal" data-target="#newBakDialog"><i class="fa fa-file"></i> $_("New Custom Backup")</a>
-                            </li>
-                            <li role="presentation">
-                                <a href="#" id="batDelBtn" data-toggle="modal" data-target="#batDelDialog"><i class="fa fa-minus-circle"></i> $_("Batch Delete")</a>
-                            </li>
-                        </ul>
+
+                    <ul class="dropdown-menu" role="menu">
+                        <li class=""><btn data-dismiss="modal" id="available-reports-grid-generate-button" class="btn btn-primary"><i class="fa fa-plus-circle"></i> Generate</btn></li>
+                    </ul>
+
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-primary" id="newDefaultBakBtn"><i class="fa fa-file"></i> $_("Generate Default Backup")</button>
+                        <button type="button" class="btn btn-primary" id="newCustomBakBtn" data-toggle="modal" data-target="#newBakDialog"><i class="fa fa-file"></i> $_("New Custom Backup")</button>
+                        <button type="button" class="btn btn-primary" id="batchDeleteButton" data-toggle="modal" data-target="#batDelDialog"><i class="fa fa-minus-circle"></i> $_("Batch Delete")</button>
                     </div>
                  </div>
                  <div class="wok-datagrid">

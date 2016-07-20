@@ -414,5 +414,11 @@
     border-color: $table-border-color;
 }
 
+.no-results-found {
+    border-top: 1px solid #eee;
+    text-align: center;
+    padding-top: 4px;
+}
+
 
 /* End of Firmware Progress Accordion */

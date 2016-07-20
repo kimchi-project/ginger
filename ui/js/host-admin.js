@@ -106,15 +106,18 @@ ginger.initBakDialog = function() {
             wok.message.success(i18n['GINCFGB00001M'], '#alert-modal-container');
             $("#newDefaultBakBtn").hide();
             $("#newCustomBakBtn").hide();
+            $("#batchDeleteButton").hide();
             ginger.createBackupArchive(content, function() {
                 wok.message.success(i18n['GINCFGB00002M'], '#alert-modal-container');
                 $("#newDefaultBakBtn").show();
                 $("#newCustomBakBtn").show();
+                $("#batchDeleteButton").show();
                 ginger.setupBakGrid();
             }, function(result) {
                 wok.message.error(result.message,'#alert-modal-container',true);
                 $("#newDefaultBakBtn").show();
                 $("#newCustomBakBtn").show();
+                $("#batchDeleteButton").show();
                 $("body").css('cursor', 'default');
                 $("body input").prop("readonly", false);
                 $("body button").prop("disabled", false);
@@ -212,6 +215,13 @@ ginger.initBatDelDialog = function() {
 ginger.setupBakGrid = function() {
     ginger.listBackupArchives(function(data) {
         $("#bakGridBody").empty();
+        if (data.length == 0) {
+            $("#batchDeleteButton").prop("disabled", true);
+            var rowNoResults = "<li class='no-results-found'><span style='font-size: 12.5pt;'>" + i18n['GINNET0063M'] + "</span></li>";
+            $("#bakGridBody").html(rowNoResults);
+        } else {
+            $("#batchDeleteButton").prop("disabled", false);
+        }
         for (var i = 0; i < data.length; i++) {
             data[i].timestamp = new Date(data[i].timestamp * 1000).toLocaleString(wok.lang.get_locale());
             data[i].filename = data[i].file.split('/');
@@ -242,7 +252,7 @@ ginger.setupBakGrid = function() {
                 event.stopImmediatePropagation();
                 var bakItem = $(this).parent();
                 ginger.deleteBackupArchive(bakItem.prop("id"), function() {
-                    bakItem.remove();
+                    ginger.setupBakGrid();
                 });
             });
         }
@@ -287,10 +297,12 @@ ginger.initConfigBak = function() {
         wok.message.success(i18n['GINCFGB00001M'], '#alert-modal-container');
         $("#newDefaultBakBtn").hide();
         $("#newCustomBakBtn").hide();
+        $("#batchDeleteButton").hide();
         ginger.createBackupArchive({}, function() {
             wok.message.success(i18n['GINCFGB00002M'], '#alert-modal-container');
             $("#newDefaultBakBtn").show();
             $("#newCustomBakBtn").show();
+            $("#batchDeleteButton").show();
             ginger.setupBakGrid();
         }, function() {}, onTaskAccepted )
     });
