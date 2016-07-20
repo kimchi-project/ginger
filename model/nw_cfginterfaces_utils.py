@@ -152,6 +152,9 @@ CONST_SPACE = ' '
 # Assign variables based on distribution
 if "SUSE" in platform.linux_distribution()[0]:
     network_configpath = 'etc/sysconfig/network/'
+    DEVICE = 'NAME'
+    ONBOOT = 'STARTMODE'
+    PREFIX = 'PREFIXLEN'
 else:
     network_configpath = 'etc/sysconfig/network-scripts/'
 
