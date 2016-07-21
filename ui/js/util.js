@@ -227,6 +227,7 @@ ginger.enableNetworkSRIOV = function(settings, name, suc, err, progress) {
         switch(taskStatus) {
         case 'running':
             progress && progress(result);
+            $('html').addClass('in-progress');
             setTimeout(function() {
                 trackTask();
             }, 3000);
@@ -234,6 +235,7 @@ ginger.enableNetworkSRIOV = function(settings, name, suc, err, progress) {
         case 'finished':
         case 'failed':
             suc(result);
+            $('html').removeClass('in-progress');
             break;
         default:
             break;
@@ -829,15 +831,18 @@ ginger.trackTask = function(taskID, suc, err, progress) {
         switch(taskStatus) {
         case 'running':
             progress && progress(result);
+            $('html').addClass('in-progress');
             setTimeout(function() {
                 ginger.trackTask(taskID, suc, err, progress);
             }, 2000);
             break;
         case 'finished':
             suc && suc(result);
+            $('html').removeClass('in-progress');
             break;
         case 'failed':
             err && err(result);
+            $('html').removeClass('in-progress');
             break;
         default:
             break;
