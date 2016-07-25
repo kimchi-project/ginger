@@ -220,11 +220,15 @@ URI: /plugins/ginger/filesystems
     For a local file system mount:
        * blk_dev : Path of the device to be mounted.
        * mount_point : Mount point for the filesystem.
+       * mount_options : Comma separated string of mount options
+                         (for ex : _netdev,nouser)
 
     For NFS mount:
        * server : ip address of the remote NFS server
        * share : location of the remote share
        * mount_point : Mount point for the filesystem
+       * mount_options : Comma separated string of mount options
+                         (for ex : nfsvers=3,hard/soft,timeo=16)
 
 ### Resource: File System
 

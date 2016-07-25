@@ -139,12 +139,15 @@ tmpfs                   tmpfs      3886100    25748   3860352   1% /tmp
         server = 'localhost'
         share = '/var/ftp/nfs1'
         mntpt = '/test'
+        mntopts = ''
 
         fs.create({'type': fstype, 'server': server,
-                   'share': share, 'mount_point': mntpt})
+                   'share': share, 'mount_point': mntpt,
+                   'mount_options': mntopts})
 
-        mock_nfsmount.assert_called_once_with(server, share, mntpt)
-        mock_make_persist.assert_called_once_with(server + ':' + share, mntpt)
+        mock_nfsmount.assert_called_once_with(server, share, mntpt, mntopts)
+        mock_make_persist.assert_called_once_with(server + ':' + share,
+                                                  mntpt, mntopts)
 
     def test_nfs_mount_missing_type(self):
         fs = filesystem.FileSystemsModel()

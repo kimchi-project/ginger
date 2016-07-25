@@ -45,9 +45,12 @@ class FileSystemsModel(object):
 
             mount_point = params['mount_point']
 
+            mount_options = params.get('mount_options', '')
+
             try:
-                fs_utils._mount_a_blk_device(blk_dev, mount_point)
-                fs_utils.make_persist(blk_dev, mount_point)
+                fs_utils._mount_a_blk_device(blk_dev, mount_point,
+                                             mount_options)
+                fs_utils.make_persist(blk_dev, mount_point, mount_options)
             except Exception:
                 raise InvalidParameter("GINFS00007E")
 
@@ -70,9 +73,11 @@ class FileSystemsModel(object):
 
             mount_point = params['mount_point']
 
-            fs_utils.nfsmount(server, share, mount_point)
+            mount_options = params.get('mount_options', '')
+
+            fs_utils.nfsmount(server, share, mount_point, mount_options)
             dev_info = server + ':' + share
-            fs_utils.make_persist(dev_info, mount_point)
+            fs_utils.make_persist(dev_info, mount_point, mount_options)
             return mount_point
         else:
             raise InvalidParameter("GINFS00017E")

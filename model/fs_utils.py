@@ -104,14 +104,18 @@ def _get_df_output():
     return _parse_df_output(dfout)
 
 
-def _mount_a_blk_device(blk_dev, mount_point):
+def _mount_a_blk_device(blk_dev, mount_point, mnt_opts):
     """
     Mounts the given block device on the given mount point
     :param blk_dev: path of the block device
     :param mount_point: mount point
+    :param mnt_opts: mount options
     :return:
     """
-    mnt_cmd = ['/bin/mount', blk_dev, mount_point]
+    if mnt_opts:
+        mnt_cmd = ['/bin/mount', blk_dev, mount_point, "-o", mnt_opts]
+    else:
+        mnt_cmd = ['/bin/mount', blk_dev, mount_point]
     mount_out, err, rc = run_command(mnt_cmd)
     if rc:
         wok_log.error("Mounting block device failed")
@@ -227,11 +231,12 @@ def _mnt_exists(mount):
     return is_mnt_exist
 
 
-def make_persist(dev, mntpt):
+def make_persist(dev, mntpt, mnt_opts):
     """
     This method persists the mounted filesystem by making an entry in fstab
     :param dev: path of the device to be mounted
     :param mntpt: mount point
+    :param mnt_opts: mount options
     :return:
     """
     try:
@@ -240,8 +245,12 @@ def make_persist(dev, mntpt):
         else:
             fs_info = _get_fs_info(mntpt)
             fo = open("/etc/fstab", "a+")
-            fo.write(dev + " " + mntpt + " " + fs_info['type'] + " " +
-                     "defaults 1 2")
+            if mnt_opts:
+                fo.write(dev + " " + mntpt + " " + fs_info['type'] + " " +
+                         mnt_opts + " " + "0 0")
+            else:
+                fo.write(dev + " " + mntpt + " " + fs_info['type'] + " " +
+                         "defaults 1 2")
             fo.close()
     except:
         raise OperationFailed("GINFS00011E")
@@ -274,7 +283,7 @@ def remove_persist(mntpt):
         raise OperationFailed("GINFS00012E")
 
 
-def nfsmount(server, share, mount_point):
+def nfsmount(server, share, mount_point, mnt_opts):
     """
     This method mounts the remote nfs share on local system
     :param server: ip address of the nfs server
@@ -287,8 +296,10 @@ def nfsmount(server, share, mount_point):
         d_out, err, rc = run_command(d_cmd)
         if rc:
             wok_log.error("mkdir failed")
-
-    nfs_cmd = ['mount', server + ':' + share, mount_point]
+    if mnt_opts:
+        nfs_cmd = ['mount', server + ':' + share, mount_point, "-o", mnt_opts]
+    else:
+        nfs_cmd = ['mount', server + ':' + share, mount_point]
     nfs_out, err, rc = run_command(nfs_cmd)
     if rc:
         raise OperationFailed("GINFS00018E", err)
