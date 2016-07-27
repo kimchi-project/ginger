@@ -1515,6 +1515,12 @@ hr {
   content: "\f077";
 }
 
+#fs-mount-tabs .form-horizontal .control-label,
+#nfs_mount_option .form-horizontal .control-label {
+  text-align: left;
+  padding-top: 0px;
+}
+
 #host-sysmodules-root-container .well {
   overflow-y: scroll;
   border: 0;

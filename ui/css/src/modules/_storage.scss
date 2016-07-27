@@ -333,3 +333,10 @@ hr {
         content: "\f077";
     }
 }
+#fs-mount-tabs,
+#nfs_mount_option {
+  .form-horizontal .control-label {
+  text-align: left;
+  padding-top:0px;
+  }
+}
