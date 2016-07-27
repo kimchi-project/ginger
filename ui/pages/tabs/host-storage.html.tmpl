@@ -86,14 +86,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
                   <div class='clearfix'>
                     <div class="row">
                       <div id="file-systems-alert-container"></div>
+                      <div id="file-systems-unmount" class="pull-left">
+                        <div class="btn-group"><button class="btn btn-primary" id="file-systems-unmount-btn" aria-expanded="false"><i class="fa fa-eject">&nbsp;</i>$_("Unmount")</button></div>
+                      </div>
                       <div id="file-systems-refresh" class="pull-right">
-                      <div class="btn-group"><button class="btn btn-primary" id="file-systems-refresh-btn" aria-expanded="false"><i class="fa fa-refresh"></i>$_("Refresh")</button></div></div>
-                  </div>
+                       <div class="btn-group"><button class="btn btn-primary" id="file-systems-refresh-btn" aria-expanded="false"><i class="fa fa-refresh"></i>$_("Refresh")</button></div>
+                       <span class="btn-group"><button class="btn btn-primary" id="file-systems-mount-btn" aria-expanded="false"><i class="fa fa-hdd-o">&nbsp;</i>$_("Mount")</button></span>
+                      </div>
                     <div class="row col-md-12" id="file-systems" style="padding-left:20px;">
                     </div>
                   </div>
               </div>
             </div>
+          </div>
           <!-- Swap Devices Panel -->
           <div class="panel-group accordion" id="swap-devices-accordion" role="tablist" aria-multiselectable="true">
               <h3>

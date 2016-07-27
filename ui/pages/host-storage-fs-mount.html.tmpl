@@ -1,0 +1,154 @@
+#*
+ * Project Ginger
+ *
+ * Copyright IBM Corp, 2016
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *#
+#unicode UTF-8
+#import gettext
+#silent t = gettext.translation($lang.domain, $lang.localedir, languages=$lang.lang, fallback=True)
+#silent _ = t.gettext
+#silent _t = t.gettext
+<html>
+<head>
+  <link rel="stylesheet" type="text/css" href="plugins/ginger/css/ginger.css">
+  <script type="text/javascript" src="plugins/ginger/js/host-storage-filesystem.js"></script>
+  <script type="text/javascript" src="plugins/ginger/js/ginger-bootgrid.js"></script>
+</head
+<body>
+    <div id="host-storage-fs-mount-window" class="window modal-content">
+        <div class="modal-header">
+          <button type="button" id="storage-fs-mount-button-close" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <h4 class="modal-title" id="fs-mount-title">$_("File Systems")</h4>
+          <hr style="width:99%;margin-left:5px;"/>
+        </div>
+        <div class="modal-body">
+          <span id="alert-fs-mount-modal-container"></span>
+         <div id="fs-mount-tabs">
+            <form class="form-horizontal" id="fs-mount-window">
+                <div class="form-group" id="fsTypeField">
+                  <label class="control-label col-sm-4" for="fstype">$_("File System Type")</label>
+                  <div class="col-sm-6">
+                    <select id="fstype" class="selectpicker col-md-12 col-lg-12" name="fstype">
+                      <option value="local">$_("Local File System")</option>
+                      <option value="nfs">$_("Network File System")</option>
+                    </select>
+                  </div>
+                </div>
+            </form>
+            <form class="form-horizontal" id="form-fs-mount-local">
+              <div class="form-group">
+                <label class="control-label col-sm-4" for="fs-mount-point-local">$_("Mount Point")</label>
+                <div class="col-sm-6">
+                 <input id="fs-mount-point-local" name="mountPoint" type="text" class="form-control"/>
+               </div>
+              </div>
+              <div class="form-group">
+                <label class="control-label col-sm-4" for="fs-mount-partition-local">$_("Partition")</label>
+                <div class="col-sm-6">
+                  <select class="selectpicker col-md-12 col-lg-12" id="fs-mount-partition">
+                  </select>
+                </div>
+              </div>
+              <div class="checkbox">
+                  <label class="check-all">
+                      <input type="checkbox" name="local-mount-netdev" id="local-mount-netdev" style="margin-top:9px;">$_("NetDev")
+                  </label>
+                  <p class="help-block">
+                      <i class="fa fa-question-circle"></i> $_("Mount with _netdev option")
+                  </p>
+              </div>
+            </form>
+            <form class="form-horizontal hidden" id="form-fs-mount-remote">
+              <div class="form-group">
+                <label class="control-label col-sm-4" for="fs-mount-point-remote">$_("Mount Point")</label>
+                <div class="col-sm-6">
+                  <input id="fs-mount-point-remote" class="form-control" name="nfsmountPoint" type="text" />
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="control-label col-sm-4" for="fs-mount-point-server-ip">$_("NFS Server IP")</label>
+                <div class="col-sm-6">
+                  <input id="fs-mount-point-server-ip" class="form-control" name="serverIP" type="text"/>
+                  <p class="help-block">
+                      <i class="fa fa-info-circle"></i> $_("NFS path will be fetched based on NFS server IP entered.Please click arrow button to fetch the details")
+                  </p>
+                </div>
+                <button id="nfs-path-search" class="btn btn-default btn-sm" style="border-color:#fff;padding-bottom:2px;" disabled><i class="fa fa-arrow-circle-o-right fa-2x"></i></button>
+             </div>
+              <div class="form-group hidden" id="nfsPathField">
+                <label class="control-label col-sm-4" for="nfs-path">$_("NFS Path")</label>
+                <div class="col-sm-6">
+                  <select id="nfs-path" class="selectpicker col-md-12 col-lg-12" name="nfsPath">
+                  </select>
+                </div>
+              </div>
+              <div class="form-group">
+               <button id="nfs_mount_option_button" class="btn btn-primary pull-right">$_("NFS Mount Options")</button>
+              </div>
+            </form>
+          </div>
+          <div id="nfs_mount_option" class="hidden">
+          <form class="form-horizontal">
+          <label class="control-label col-sm-4" for="nfs-mount-timeout">$_("Type")</label>
+           <div class="form-group" style="padding-left:250px;" data-toggle="buttons">
+            <label class="radio-inline">
+                <input type="radio" name="nfs_mount_option_type" value="hard"/>$_("Hard")
+            </label>
+            <label class="radio-inline">
+                <input type="radio" name="nfs_mount_option_type" value="soft"/>$_("Soft")
+            </label>
+          </div>
+          <div class="form-group" id="mount_option_timeout">
+            <label class="control-label col-sm-4" for="nfs-mount-timeout">$_("Timeout")</label>
+            <div class="col-sm-6">
+              <input id="nfs-mount-timeout" class="form-control" name="timeout" type="number" min="0" step="1"/>
+              <span id="timeoutvalue" style="margin-top:15px;"></span><span style="margin-top:15px;margin-left:10px;">$_("Decisecond")</span>
+            </div>
+          </div>
+          <div class="checkbox" style="margin-bottom:15px;">
+              <label class="check-all">
+                  <input type="checkbox" id="nfs-mount-netdev" style="margin-top:10px;">$_("NetDev")
+              </label>
+              <p class="help-block">
+                  <i class="fa fa-question-circle"></i> $_("Mount with _netdev option")
+              </p>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-4" for="nfs-mount-version">$_("Version")</label>
+            <div class="col-sm-6">
+              <select id="nfs-mount-version" class="selectpicker col-md-12 col-lg-12" name="nfs-mount-version">
+                <option value=''>&nbsp;</option>
+                <option value='3'>$_("v3")</option>
+                <option value='4.0'>$_("v4.0")</option>
+                <option value='4.1'>$_("v4.1")</option>
+              </select>
+            </div>
+          </div>
+         </div>
+       </form>
+     </div>
+        <div class="modal-footer">
+          <button id="fs-mount-button-apply" class="btn btn-default">$_("Apply")</button>
+          <button id="nw-mount-button-cancel" class="btn btn-default" data-dismiss="modal">$_("Cancel")</button>
+          <button id="nfs-mount-button-back" class="btn btn-default hidden">$_("Back")</button>
+        </div>
+      </div>
+    <script type="text/javascript">
+      ginger.initFileSystemMount();
+    </script>
+</body>
+</html>
