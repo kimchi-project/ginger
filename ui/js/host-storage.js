@@ -77,6 +77,37 @@ ginger.loadFileSystemDetails = function() {
     ginger.showBootgridLoading(opts);
     ginger.initFileSystemsGridData();
   });
+
+  $('#file-systems-unmount-btn').on('click', function(){
+   var opts = [];
+   opts['id'] = 'file-systems';
+   opts['gridId'] = "fileSystemsGrid";
+   opts['identifier'] = 'mounted_on';
+
+    var selectedRows= ginger.getSelectedRowsData(opts);
+
+    var settings = {
+      content: i18n['GINFS0004M'],
+      confirm: i18n["GINNET0015M"]
+    };
+    wok.confirm(settings, function(){
+     $.each(selectedRows,function(index,row){
+       ginger.unmountFileSystem(row['mounted_on'],function(result){
+        wok.message.success(i18n['GINFS0001M'], '#file-systems-alert-container',true);
+        ginger.initFileSystemsGridData();
+      },function(error){
+        wok.message.error(error.responseJSON.reason, '#file-systems-alert-container', true);
+        ginger.initFileSystemsGridData();
+      })
+    });
+  });
+
+  });
+
+  $('#file-systems-mount-btn').on('click', function(){
+     wok.window.open("plugins/ginger/host-storage-fs-mount.html");
+  });
+
 };
 
 ginger.initFileSystemsGridData = function() {

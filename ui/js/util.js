@@ -1245,3 +1245,84 @@ ginger.disableSystemService = function (service, suc, err){
         }
      });
 };
+
+/**
+ * Get the partition list.
+ */
+ginger.getPartition = function(suc, err) {
+     wok.requestJSON({
+        url: 'plugins/ginger/partitions',
+        type: 'GET',
+        contentType: 'application/json',
+        dataType: 'json',
+        success: suc,
+        error: err || function(data) {
+             wok.message.error(data.responseJSON.reason);
+         }
+     });
+ };
+
+/**
+* Mount file system.
+*/
+ginger.mountFileSystem = function(content, suc, err) {
+     wok.requestJSON({
+         url: "/plugins/ginger/filesystems",
+         type: 'POST',
+         contentType: "application/json",
+         dataType: 'json',
+         data : JSON.stringify(content),
+         success: suc,
+         error: err || function(data) {
+             wok.message.error(data.responseJSON.reason);
+         }
+     });
+ };
+
+ /**
+  * Unmount file system.
+  */
+ ginger.unmountFileSystem = function(mountPoint, suc, err) {
+   wok.requestJSON({
+       url : '/plugins/ginger/filesystems/' + encodeURIComponent(mountPoint),
+       type : 'DELETE',
+       contentType : 'application/json',
+       dataType : 'json',
+       success : suc,
+       error : err || function(data) {
+           wok.message.error(data.responseJSON.reason);
+       }
+   });
+ };
+
+ /**
+  * Get the file system details.
+  */
+ ginger.getFileSystemDetails = function(mountPoint, suc, err) {
+   wok.requestJSON({
+       url : '/plugins/ginger/filesystems/' + encodeURIComponent(mountPoint),
+       type : 'GET',
+       contentType : 'application/json',
+       dataType : 'json',
+       success : suc,
+       error : err || function(data) {
+           wok.message.error(data.responseJSON.reason);
+       }
+   });
+ };
+
+ /**
+  * Getting nfs paths on a specific nfs server.
+  */
+  ginger.getNfsShare = function(ipaddress,suc, err) {
+       wok.requestJSON({
+          url: 'plugins/ginger/stgserver/'+ipaddress+'/nfsshares',
+          type: 'GET',
+          contentType: 'application/json',
+          dataType: 'json',
+          success: suc,
+          error: err || function(data) {
+               wok.message.error(data.responseJSON.reason);
+           }
+       });
+   };
