@@ -905,3 +905,43 @@ URI: /plugins/ginger/services/*:service_name*
 **Methods:**
 
 * **GET**: Retrieve a summarized list of NFS shares/exports of the specified server
+
+### Collection: Rules
+
+**URI:**  /plugins/ginger/audit/rules
+
+**METHODS:**
+
+* **GET**: Retrieve the list of persisted and loaded rules.
+
+* **POST**: Create a new rule(filesystem, system, control rule)
+    * type: Type of the rule.
+    * rule_info: The information about the rule.
+        * action:(system rule) Specifies when a certain event is logged. action can be either always or never
+        * filter:(system rule) Specifies which kernel rule-matching filter is applied to the event.
+                 The rule-matching filter can be one of the following: task, exit, user, and exclude.
+        * systemcall:(system rule) Specifies the system call by its name.
+        * field:(system rule) Specifies additional options that furthermore modify the rule to match events based
+                 on a specified architecture, group ID, process ID, and others.
+        * key: Helps to identify which rule or a set of rules generated a particular log entry.
+        * permissions:(filesystem rule) They are the permissions that are logged.
+        * file_to_watch:(filesystem rule) This is the file or directory that is audited.
+    *rule:(control rule) The fule rule string.
+### Resource: Rule
+
+**URI:** /plugins/ginger/rule/*fullrulestring*
+
+**Methods**
+
+* **DELETE**: delete the given rule(filesystem, system, control rule).
+
+
+**Actions (POST):**
+
+**URI:**  /plugins/ginger/audit/rules/*fullrulestring*/load
+
+* load: Load the rules if not loaded.
+
+**URI:**  /plugins/ginger/audit/rules/*fullstring*/persist
+
+* persist: Persist the rule if  not persisted.

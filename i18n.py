@@ -405,4 +405,13 @@ messages = {
     "GINVG0002L": _("Removed host volume group '%(ident)s'"),
     "GINVG0003L": _("Extended host volume group '%(ident)s'"),
     "GINVG0004L": _("Reduced host volume group '%(ident)s'"),
+    "GINAUD0001E": _("Failed to get the list of persisted rules '%(error)s'."),
+    "GINAUD0002E": _("Error in executing auditctl command '%(name)s'."),
+    "GINAUD0003E": _("Creation of a rule failed. '%(error)s'."),
+    "GINAUD0004E": _("Missing rule info."),
+    "GINAUD0005E": _("Error occured while writing rule into audit.rules: %(err)s"),
+    "GINAUD0006E": _("Error occured  while deleting the rule. %(err)s"),
+    "GINAUD0007E": _("Error occured in fetching audit rule info. %(error)s"),
+    "GINAUD0008E": _("Error occured in fetching system rule info. %(error)s"),
+    "GINAUD0009E": _("Error occured in fetching filesystem rule info. %(error)s")
 }
