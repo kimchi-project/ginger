@@ -21,6 +21,7 @@ import os
 
 from wok.control.utils import load_url_sub_node
 
+from audit import Audit
 from backup import Backup
 from capabilities import Capabilities
 from config import Config
@@ -50,6 +51,7 @@ from stgservers import StgServers
 sub_nodes = load_url_sub_node(os.path.dirname(__file__), __name__)
 
 __all__ = [
+    Audit,
     Backup,
     Capabilities,
     Config,

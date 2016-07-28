@@ -36,6 +36,7 @@ from nfsshares import NFSSharesModel
 from ovsbridges import OVSBridgesModel, OVSBridgeModel
 from powermanagement import PowerProfilesModel, PowerProfileModel
 from physical_vol import PhysicalVolumesModel, PhysicalVolumeModel
+from rules import RulesModel, RuleModel
 from sanadapters import SanAdapterModel, SanAdaptersModel
 from sensors import SensorsModel
 from services import ServicesModel, ServiceModel
@@ -119,13 +120,15 @@ class GingerModel(BaseModel):
         stgservers = StgServersModel()
         stgserver = StgServerModel()
         nfsshares = NFSSharesModel()
+        rules = RulesModel()
+        rule = RuleModel()
 
         features = [firmware, swaps, backup, network, powerprofiles,
                     san_adapters, sensors, ibm_sep, users, filesystems,
                     dasddevs, dasdpartitions, partitions, physical_vols,
                     vol_groups, log_volumes, stgdevs,
                     sysmodules, cfginterfaces, ovsbridges, services,
-                    stgservers, nfsshares]
+                    stgservers, nfsshares, rules, rule]
         capabilities = CapabilitiesModel(features)
         config = ConfigModel()
 
@@ -150,7 +153,8 @@ class GingerModel(BaseModel):
             vol_groups, vol_group,
             ibm_sep, subscription, subscriber,
             capabilities, config, ovsbridge, ovsbridges,
-            services, service, stgservers, stgserver]
+            services, service, stgservers, stgserver,
+            rules, rule]
 
         # Import task model from Wok
         kargs = {'objstore': self._objstore}

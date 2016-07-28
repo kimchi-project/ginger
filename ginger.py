@@ -20,6 +20,7 @@
 import json
 import os
 
+from control import Audit
 from control import Backup, Capabilities, Config, DASDdevs, DASDPartitions
 from control import Firmware, FileSystems, LogicalVolumes
 from control import Network, OVSBridges, Partitions, PhysicalVolumes
@@ -51,6 +52,7 @@ class Ginger(WokRoot):
         self.messages = messages
         self.paths = PluginPaths('ginger')
 
+        self.audit = Audit(self.model)
         self.backup = Backup(self.model)
         self.capabilities = Capabilities(self.model)
         self.config = Config(self.model)
