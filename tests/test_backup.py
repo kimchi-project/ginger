@@ -47,15 +47,13 @@ class BackupArchiveTests(unittest.TestCase):
         os.remove(self.temp_file.name)
 
     @mock.patch('wok.plugins.ginger.model.backup.run_command')
-    @mock.patch('wok.plugins.ginger.model.backup.get_tar_create_timeout')
     @mock.patch('wok.plugins.ginger.model.backup._sha256sum')
     def test_create_and_lookup_backup_file(self, mock_sha256sum,
-                                           mock_timeout, mock_run_command):
+                                           mock_run_command):
         include = []
         exclude = []
         descr = 'test_create_lookup_bkp_file'
         mock_run_command.return_value = ["", "", 0]
-        mock_timeout.return_value = 10
         mock_sha256sum.return_value = 'sha256sum'
 
         params = {'include': [], 'exclude': [], 'description': descr}
@@ -65,9 +63,9 @@ class BackupArchiveTests(unittest.TestCase):
         archive_id = task_obj['target_uri'].split("/")[-1]
         archive_file = os.path.join('/tmp', archive_id + '.tar.gz')
 
-        cmd = ['tar', '--create', '--gzip', '--absolute-names',
-               '--file', archive_file, '--selinux', '--acl',
-               '--xattrs'] + exclude + include
+        cmd = ['tar', '--create', '--ignore-failed-read', '--gzip',
+               '--absolute-names', '--file', archive_file, '--selinux',
+               '--acl', '--xattrs'] + exclude + include
 
         mock_run_command.asert_called_once_with(cmd)
         mock_sha256sum.asert_called_once_with(archive_file)

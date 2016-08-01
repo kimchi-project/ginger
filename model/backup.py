@@ -22,13 +22,14 @@ import errno
 import hashlib
 import itertools
 import os
+import re
 import time
 import uuid
 
 import cherrypy
 
 from wok.config import PluginPaths
-from wok.exception import NotFoundError, OperationFailed, TimeoutExpired
+from wok.exception import InvalidOperation, NotFoundError, OperationFailed
 from wok.model.tasks import TaskModel
 from wok.utils import add_task, run_command, wok_log
 
@@ -80,16 +81,28 @@ def get_tar_create_timeout():
     return int(cherrypy.request.app.config['backup']['timeout'])
 
 
-def _tar_create_archive(directory_path, archive_id, include, exclude):
+def _tar_create_archive(directory_path, archive_id, include, exclude_flag):
     archive_file = os.path.join(directory_path, archive_id + '.tar.gz')
-    exclude = ['--exclude=' + toExclude for toExclude in exclude]
-    cmd = ['tar', '--create', '--gzip',
-           '--absolute-names', '--file', archive_file,
-           '--selinux', '--acl', '--xattrs'] + exclude + include
-    out, err, rc = run_command(cmd, get_tar_create_timeout())
+    backup_dir = os.path.join(PluginPaths('ginger').state_dir,
+                              'ginger_backups')
+
+    bkp = re.compile(backup_dir)
+    if filter(bkp.match, include) and (len(include) == 1):
+        raise InvalidOperation('GINHBK0012E', {'dir': backup_dir})
+
+    exclude = ['--exclude=' + backup_dir]
+    if exclude_flag:
+        exclude.extend(['--exclude=' + toExclude for toExclude in
+                        exclude_flag])
+    cmd = ['tar', '--create', '--ignore-failed-read', '--gzip',
+           '--absolute-names', '--file', archive_file, '--selinux', '--acl',
+           '--xattrs'] + exclude + include
+    out, err, rc = run_command(cmd)
     if rc != 0:
-        raise OperationFailed(
-            'GINHBK0001E', {'name': archive_file, 'cmd': ' '.join(cmd)})
+        if 'file changed as we read it' in err:
+            raise OperationFailed('GINHBK0010E', {'file': err.split(': ')[1]})
+        raise OperationFailed('GINHBK0001E', {'name': archive_file,
+                                              'cmd': ' '.join(cmd)})
 
     return archive_file
 
@@ -139,17 +152,19 @@ class ArchivesModel(object):
     def _create_archive(self, params):
         error = None
         try:
-            params['file'] = _tar_create_archive(
-                self._archive_dir, params['identity'], params['include'],
-                params['exclude'])
+            params['file'] = _tar_create_archive(self._archive_dir,
+                                                 params['identity'],
+                                                 params['include'],
+                                                 params['exclude'])
             params['checksum'] = {'algorithm': 'sha256',
                                   'value': _sha256sum(params['file'])}
 
             with self._objstore as session:
                 session.store(self._objstore_type, params['identity'], params)
-        except TimeoutExpired as e:
-            error = e
-            reason = 'GINHBK0010E'
+        except InvalidOperation:
+            raise
+        except OperationFailed:
+            raise
         except Exception as e:
             error = e
             reason = 'GINHBK0009E'
@@ -211,9 +226,10 @@ class ArchivesModel(object):
         try:
             self._create_archive(params)
             cb('OK', True)
-
+        except (InvalidOperation) as e:
+            cb(e.message, False)
         except (OperationFailed) as e:
-            cb('OK', False)
+            cb(e.message, False)
             raise OperationFailed('GINHBK0011E',
                                   {'params': 'params',
                                    'err': e.message})
