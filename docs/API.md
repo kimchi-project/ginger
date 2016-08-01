@@ -945,3 +945,49 @@ URI: /plugins/ginger/services/*:service_name*
 **URI:**  /plugins/ginger/audit/rules/*fullstring*/persist
 
 * persist: Persist the rule if  not persisted.
+
+### Collection: iSCSI Targets
+
+**URI:** /plugins/ginger/stgserver/*:ipaddress*/iscsitargets
+
+**Methods:**
+
+* **GET**: Retrieve a summarized list of iSCSI targets from the specified server
+
+### Collection: iSCSI Targets
+
+**URI:** /plugins/ginger/stgserver/*:ipaddress*/iscsitargets
+
+**Methods:**
+
+* **GET**: Retrieve a summarized list of iSCSI targets from the specified server
+
+### Resource: iSCSI Qualified Name (IQN)
+
+**URI:**  /plugins/ginger/iscsi_qns/*:iqn*
+
+**METHODS:**
+
+* **GET**: Get the logged in status of the IQN
+    * iqn: iSCSI Qualified Name
+    * status: Logged in status
+
+**Actions (POST):**
+
+**URI:**  /plugins/ginger/iscsi_qns/*:iqn*/login
+
+* login: Login onto given IQN to access the respective block device(s)
+
+**URI:**  /plugins/ginger/audit/rules/*fullstring*/persist
+
+* logout: Lougout from the given IQN
+
+* **DELETE**: Delete the IQN entry from the iscsiadm db
+
+### Collection: iSCSI Qualified Names
+
+**URI:** /plugins/ginger/iscsi_qns
+
+**Methods:**
+
+* **GET**: Retrieve a summarized list of discovered IQNs on the system

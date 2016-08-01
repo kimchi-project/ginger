@@ -31,6 +31,7 @@ from diskparts import Partitions
 from filesystems import FileSystems
 from firmware import Firmware
 from ibm_sep import Sep
+from iscsitargets import DiscoveredISCSIQNs, ISCSITargets
 from log_volumes import LogicalVolumes
 from network import Network
 from nfsshares import NFSShares
@@ -57,8 +58,10 @@ __all__ = [
     Config,
     DASDdevs,
     DASDPartitions,
+    DiscoveredISCSIQNs,
     FileSystems,
     Firmware,
+    ISCSITargets,
     LogicalVolumes,
     Network,
     NFSShares,

@@ -19,6 +19,7 @@
 
 from wok.control.base import Collection, Resource
 from wok.control.utils import UrlSubNode
+from wok.plugins.ginger.control.iscsitargets import ISCSITargets
 from wok.plugins.ginger.control.nfsshares import NFSShares
 
 
@@ -38,6 +39,7 @@ class StgServer(Resource):
         self.admin_methods = ['GET', 'POST', 'DELETE']
         self.uri_fmt = "/stgserver/%s"
         self.nfsshares = NFSShares(self.model, ident)
+        self.iscsitargets = ISCSITargets(self.model, ident)
 
     @property
     def data(self):

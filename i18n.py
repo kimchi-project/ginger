@@ -347,6 +347,17 @@ messages = {
     "GINNFS00001E": _("Error fetching NFS shares for server %(name)s."),
     "GINNFS00002E": _("Invalid server or no NFS exports found on server."),
 
+    "GINISCSI001E": _("No valid iSCSI Targets found for IP Address - %(ip_address)s"),
+    "GINISCSI002E": _("Error executing iSCSI target discovery command - %(err)s"),
+    "GINISCSI003E": _("Error parsing iSCSI target discovery command - %(err)s"),
+    "GINISCSI004E": _("Unable to get iSCSI targets of host %(host)s: Connection timed out"),
+    "GINISCSI005E": _("Error in listing pre-discovered iSCSI targets - %(err)s"),
+    "GINISCSI006E": _("Error in determining iSCSI QN %(iqn)s logged in status - %(err)s"),
+    "GINISCSI007E": _("Error in logging onto iSCSI QN %(iqn)s - %(err)s"),
+    "GINISCSI008E": _("Error in logging out of iSCSI QN %(iqn)s - %(err)s"),
+    "GINISCSI009E": _("Error in deleting iSCSI QN %(iqn)s from iscsiadm db - %(err)s"),
+    "GINISCSI010E": _("Error parsing the output of iscsiadm discovery cmd - %(err)s. iscsiadm discovery Output - %(output)s"),
+
     # These messages (ending with L) are for user log purposes
     "GINDASD0001L": _("Formatted DASD device '%(ident)s' with block size %(blk_size)s"),
     "GINDASDPAR0001L": _("Created DASD partition on '%(dev_name)s' with size %(size)s"),

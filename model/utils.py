@@ -1161,3 +1161,183 @@ def get_lvm_version():
         raise OperationFailed("GINLVM0003E", {'err': e.message})
 
     return _parse_lvm_version(out)
+
+
+def iscsi_discovery(target_ipaddress):
+    """
+    This function returns the list of discovered iSCSI targets
+    Args:
+        target_ipaddress: IP Address of the target host
+
+    Returns: Parsed output of the iSCSI target discovery
+
+    """
+    out, err, rc = run_command(
+        ["iscsiadm", "-m", "discovery",
+            "-t", "sendtargets", "-p", target_ipaddress])
+
+    if rc == 4:
+        raise OperationFailed("GINISCSI004E", {'host': target_ipaddress})
+    if rc != 0:
+        raise OperationFailed("GINISCSI002E", {'err': err})
+
+    try:
+        out = parse_iscsi_discovery(out)
+        return out
+    except Exception as e:
+        raise OperationFailed("GINISCSI003E", {'err': e.message})
+
+
+def parse_iscsi_discovery(iscsiadm_output):
+    """
+    Parse the output of iSCSI discovery command
+    Args:
+        iscsiadm output: Output of iSCSI discovery command
+
+    Returns: List of Dictionaries of parsed output
+
+    """
+
+    p = re.compile("(\d{1,3}.\d{1,3}.\d{1,3}.\d{1,3}):(\d+),\d+\s+(\S+)")
+    parsed_out = iscsiadm_output.splitlines()
+    iqn_list = []
+
+    try:
+        for line in parsed_out:
+            m = p.match(line)
+            if m:
+                target_ipaddress = m.group(1)
+                target_port = m.group(2)
+                iqn = m.group(3)
+                iqn_list.append({"target_ipaddress": target_ipaddress,
+                                 "target_port": target_port, "iqn": iqn})
+    except Exception as e:
+        raise OperationFailed(
+            "GINISCSI010E", {
+                'err': e.message, 'output': iscsiadm_output})
+
+    return iqn_list
+
+
+def get_discovered_iscsi_qns():
+    """
+    List the already discovered iSCSI targets on the system
+    Returns: Dictionary of discovered IQNs
+
+    """
+    discovered_iqns = {}
+    iqn_list = []
+
+    try:
+        iscsiadm_db_path = '/etc/iscsi/nodes'
+        if not os.path.exists(iscsiadm_db_path):
+            iscsiadm_db_path = '/var/lib/iscsi/nodes'
+
+        discovered_iqns_list = os.listdir(iscsiadm_db_path)
+
+        for discovered_iqn in discovered_iqns_list:
+            discovered_iqns[discovered_iqn] = False
+
+        current_sessions = os.listdir('/sys/class/iscsi_session')
+
+        # Iterate over all sessions once for efficiency instead of
+        # calling is_target_logged_in function below for every iqn
+        for session in current_sessions:
+            target_name = open(
+                '/sys/class/iscsi_session/' +
+                session +
+                '/targetname').readline().rstrip()
+            discovered_iqns[target_name] = True
+
+        for iqn, status in discovered_iqns.iteritems():
+            iqn_list.append({'iqn': iqn, 'status': status})
+
+    except Exception as e:
+        raise OperationFailed("GINISCSI005E", {'err': e.message})
+
+    return iqn_list
+
+
+def get_iqn_info(iqn):
+    """
+    Basic information about iqn
+    Args:
+        iqn: IQN
+
+    Returns: Dictionary containing basic info about given IQN
+
+    """
+
+    return {'iqn': iqn, 'status': is_target_logged_in(iqn)}
+
+
+def is_target_logged_in(iqn):
+    """
+    Returns True if iqn is logged in, otherwise returns False
+    Args:
+        iqn: IQN
+
+    Returns: True or False for logged in status of iqn
+
+    """
+    logged_in_status = False
+
+    try:
+        current_sessions = os.listdir('/sys/class/iscsi_session')
+
+        for session in current_sessions:
+            target_name = open(
+                '/sys/class/iscsi_session/' +
+                session +
+                "/targetname").readline().rstrip()
+            if iqn == target_name:
+                logged_in_status = True
+                break
+
+    except Exception as e:
+        raise OperationFailed("GINISCSI006E", {'err': e.message, 'iqn': iqn})
+
+    return logged_in_status
+
+
+def iscsi_target_login(iqn):
+    """
+
+    Log into an iSCSI target using the given IQN
+    :param iqn: IQN
+    :return:
+    """
+    out, err, rc = run_command(
+        ["iscsiadm", "-m", "node",
+            "-T", iqn, "--login"])
+
+    if rc != 0:
+        raise OperationFailed("GINISCSI007E", {'err': err, 'iqn': iqn})
+
+
+def iscsi_target_logout(iqn):
+    """
+    Log out of an iSCSI target using the given IQN
+    :param iqn: IQN
+    :return:
+    """
+    out, err, rc = run_command(
+        ["iscsiadm", "-m", "node",
+            "-T", iqn, "--logout"])
+
+    if rc != 0:
+        raise OperationFailed("GINISCSI008E", {'err': err, 'iqn': iqn})
+
+
+def iscsi_delete_iqn(iqn):
+    """
+    Delete the IQN from iscsiadm database
+    :param iqn:
+    :return:
+    """
+    out, err, rc = run_command(
+        ["iscsiadm", "-m", "node",
+            "-o", "delete", "-T", iqn])
+
+    if rc != 0:
+        raise OperationFailed("GINISCSI009E", {'err': err, 'iqn': iqn})

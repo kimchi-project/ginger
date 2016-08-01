@@ -30,6 +30,8 @@ from filesystem import FileSystemsModel, FileSystemModel
 from firmware import FirmwareModel
 from ibm_sep import SepModel, SubscribersModel, SubscriptionModel
 from interfaces import InterfacesModel, InterfaceModel
+from iscsitargets import DiscoveredISCSIQNsModel, DiscoveredISCSIQNModel
+from iscsitargets import ISCSITargetsModel
 from log_volume import LogicalVolumesModel, LogicalVolumeModel
 from network import NetworkModel
 from nfsshares import NFSSharesModel
@@ -87,9 +89,12 @@ class GingerModel(BaseModel):
         dasddev = DASDdevModel(objstore=self._objstore)
         dasdpartitions = DASDPartitionsModel()
         dasdpartition = DASDPartitionModel()
+        discoveredISCSIQNs = DiscoveredISCSIQNsModel()
+        discoveredISCSIQN = DiscoveredISCSIQNModel()
         network = NetworkModel()
         filesystems = FileSystemsModel()
         filesystem = FileSystemModel()
+        iscsitargets = ISCSITargetsModel()
         log_volumes = LogicalVolumesModel(objstore=self._objstore)
         log_volume = LogicalVolumeModel(objstore=self._objstore)
         ovsbridges = OVSBridgesModel()
@@ -123,12 +128,35 @@ class GingerModel(BaseModel):
         rules = RulesModel()
         rule = RuleModel()
 
-        features = [firmware, swaps, backup, network, powerprofiles,
-                    san_adapters, sensors, ibm_sep, users, filesystems,
-                    dasddevs, dasdpartitions, partitions, physical_vols,
-                    vol_groups, log_volumes, stgdevs,
-                    sysmodules, cfginterfaces, ovsbridges, services,
-                    stgservers, nfsshares, rules, rule]
+        features = [
+            firmware,
+            swaps,
+            backup,
+            network,
+            powerprofiles,
+            san_adapters,
+            sensors,
+            ibm_sep,
+            users,
+            filesystems,
+            dasddevs,
+            dasdpartitions,
+            discoveredISCSIQNs,
+            partitions,
+            physical_vols,
+            vol_groups,
+            log_volumes,
+            stgdevs,
+            sysmodules,
+            cfginterfaces,
+            ovsbridges,
+            services,
+            stgservers,
+            nfsshares,
+            iscsitargets,
+            rules,
+            rule]
+
         capabilities = CapabilitiesModel(features)
         config = ConfigModel()
 
@@ -139,7 +167,8 @@ class GingerModel(BaseModel):
             cfginterface, cfginterfaces,
             dasddevs, dasddev,
             dasdpartitions, dasdpartition,
-            network, nfsshares,
+            discoveredISCSIQN, discoveredISCSIQNs,
+            network, nfsshares, iscsitargets,
             filesystems, filesystem,
             log_volumes, log_volume,
             partitions, partition,

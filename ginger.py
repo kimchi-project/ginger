@@ -22,6 +22,7 @@ import os
 
 from control import Audit
 from control import Backup, Capabilities, Config, DASDdevs, DASDPartitions
+from control import DiscoveredISCSIQNs
 from control import Firmware, FileSystems, LogicalVolumes
 from control import Network, OVSBridges, Partitions, PhysicalVolumes
 from control import PowerProfiles, SanAdapters, Sensors, Sep, Services
@@ -58,6 +59,7 @@ class Ginger(WokRoot):
         self.config = Config(self.model)
         self.dasddevs = DASDdevs(self.model)
         self.dasdpartitions = DASDPartitions(self.model)
+        self.iscsi_qns = DiscoveredISCSIQNs(self.model)
         self.filesystems = FileSystems(self.model)
         self.firmware = Firmware(self.model)
         self.ibm_sep = Sep(self.model)
