@@ -30,6 +30,7 @@ import cherrypy
 
 from wok.config import PluginPaths
 from wok.exception import InvalidOperation, NotFoundError, OperationFailed
+from wok.exception import InvalidParameter
 from wok.model.tasks import TaskModel
 from wok.utils import add_task, run_command, wok_log
 
@@ -42,6 +43,14 @@ class BackupModel(object):
         self._archive_model = kargs['archive_model']
 
     def _get_archives_to_discard(self, archives, days_ago, counts_ago):
+        try:
+            days_ago = int(days_ago)
+        except ValueError:
+            raise InvalidParameter('GINHBK0007E')
+        try:
+            counts_ago = int(counts_ago)
+        except ValueError:
+            raise InvalidParameter('GINHBK0008E')
         if days_ago == 0 or counts_ago == 0:
             return archives[:]
 
@@ -64,6 +73,15 @@ class BackupModel(object):
 
     def discard_archives(self, _ident, days_ago=-1, counts_ago=-1):
         ''' Discard archives older than some days ago, or some counts ago. '''
+        try:
+            days_ago = int(days_ago)
+        except ValueError:
+            raise InvalidParameter('GINHBK0007E')
+        try:
+            counts_ago = int(counts_ago)
+        except ValueError:
+            raise InvalidParameter('GINHBK0008E')
+
         with self._objstore as session:
             archives = [
                 session.get(ArchivesModel._objstore_type, ar_id)

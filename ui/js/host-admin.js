@@ -156,12 +156,12 @@ ginger.initBatDelDialog = function() {
     $('#batDelDialog').on('show.bs.modal', function(event) {
         $("#batdel-submit", $(this)).on("click", function(event) {
             var content = {
-                counts_ago: -1,
-                days_ago: -1
+                counts_ago: "-1",
+                days_ago: "-1"
             };
             var delOption = $("input:radio[name=batDelType]:checked");
             var delValue = $("input:text", delOption.parent()).prop("value");
-            content[delOption.val()] = parseInt(delValue);
+            content[delOption.val()] = delValue;
             ginger.deleteBackupArchives(content, function() {
                 $('#batDelDialog').modal('hide');
                 $("#bakGridBody").empty();
@@ -180,7 +180,7 @@ ginger.initBatDelDialog = function() {
             $("#batdel-submit").prop("disabled", true);
         };
         var validateInput = function(input) {
-            var isValid = new RegExp('^[0-9]*$').test(input.val());
+            var isValid = input.val() ? true : false;
             input.toggleClass("invalid-field", !isValid);
 
             if (isValid && input.val().trim() !== "") {

@@ -160,17 +160,13 @@
             "properties": {
                 "days_ago": {
                     "description": "Discard all archives older than some days ago. -1 means don't count the days.",
-                    "type": "integer",
-                    "minimum": -1,
-                    "maximum": 65535,
+                    "type": "string",
                     "required": true,
                     "error": "GINHBK0007E"
                 },
                 "counts_ago": {
                     "description": "Discard all archives older than some counts ago. -1 means don't count the counts.",
-                    "type": "integer",
-                    "minimum": -1,
-                    "maximum": 65535,
+                    "type": "string",
                     "required": true,
                     "error": "GINHBK0008E"
                 }
