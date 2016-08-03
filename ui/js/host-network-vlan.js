@@ -371,7 +371,40 @@ var populateGeneralTab = function(interface) {
     // Validate VLAN Id value, It should be integer and range 0-4094
     var vlanID = nwVLANIDTextbox.val();
     if (vlanID.length > 0) {
-      $(this).toggleClass("invalid-field", !(isValidVLAN(vlanID)));
+      var deviceName = nwVLANInterfaceTextbox.val();
+      var isVlanIdValid = isValidVLAN(vlanID);
+      if(deviceName!=""){
+        if(deviceName.length==15 && deviceName.indexOf('.')!=-1){
+          var interfaceName =deviceName.substring(0,deviceName.lastIndexOf("."));
+          var interfaceNameLength=interfaceName.length+vlanID.length;
+
+          if(interfaceNameLength>14){
+              if(!isVlanIdValid){
+                $("#nw-vlan-interface-textbox").toggleClass("invalid-field", isVlanIdValid);
+              }else{
+                $("#nw-vlan-interface-textbox").toggleClass("invalid-field", true);
+              }
+              $(this).toggleClass("invalid-field", !isVlanIdValid);
+          }else{
+              $(this).toggleClass("invalid-field", !isVlanIdValid);
+              $("#nw-vlan-interface-textbox").toggleClass("invalid-field", false);
+          }
+        }else{
+          if((deviceName.length+vlanID.length)>14){
+            if(!isVlanIdValid){
+              $("#nw-vlan-interface-textbox").toggleClass("invalid-field", isVlanIdValid);
+            }else{
+              $("#nw-vlan-interface-textbox").toggleClass("invalid-field", true);
+            }
+            $(this).toggleClass("invalid-field", !isVlanIdValid);
+          }else{
+            $(this).toggleClass("invalid-field", !isVlanIdValid);
+            $("#nw-vlan-interface-textbox").toggleClass("invalid-field", false);
+          }
+        }
+      }else{
+         $(this).toggleClass("invalid-field", !(isValidVLAN(vlanID)));
+       }
     } else {
       $(this).toggleClass("invalid-field", false);
     }
@@ -396,9 +429,7 @@ var isValidDeviceName = function(deviceName) {
   var vlanID = ""
   // Check if vlan name contains string of formatters
   if ((deviceName.length >= 1) && (deviceName.length <= 15)) {
-    if ((deviceName.split(".").length > 2)) {
-      return false;
-    } else if ((deviceName.indexOf("vlan") == 0)) {
+    if ((deviceName.indexOf("vlan") == 0)) {
       // vlan name convention vlan<VLANID> or vlan.<VLANID>
       if ((deviceName.length <= 9) && (deviceName.indexOf(".") != -1)) {
         vlanID = deviceName.split(".", 2).length == 2 ? deviceName.split(".", 2)[1] : null;
@@ -422,11 +453,11 @@ var isValidDeviceName = function(deviceName) {
 };
 
 var isValidIFName = function (ifName) {
-  if (ifName.indexOf(".") != -1) {
-    vlanID = ifName.split(".", 2).length == 2 ? ifName.split(".", 2)[1] : null;
+  if (ifName.length==15 && ifName.indexOf(".") != -1) {
+    vlanID = ifName.substring(ifName.lastIndexOf(".")+1);
     return isValidVLAN(vlanID);
   } else {
-    return (/^[0-9a-zA-Z]+$/.test(ifName))
+    return (/^[0-9a-zA-Z.]+$/.test(ifName))
   }
   return false;
 };
@@ -451,9 +482,9 @@ var getVLANIDFromDeviceName  = function(deviceName) {
     if (ginger.isInteger(vlanID) && isValidVLAN(vlanID))
        return vlanID;
 
-  } else if ((deviceName.length <= 15) && (deviceName.indexOf(".") != -1)) {
+  } else if ((deviceName.length == 15) && (deviceName.indexOf(".") != -1)) {
       // In this case String can be 15 characters  or ifname.<VLANID>
-      return deviceName.split(".", 2).length == 2 ? deviceName.split(".", 2)[1] : null;
+      return deviceName.substring(deviceName.lastIndexOf(".")+1);
   }
 
   return "";

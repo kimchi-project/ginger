@@ -1271,8 +1271,6 @@ class CfgInterfacesHelper(object):
             raise MissingParameter("GINNET0025E")
         self.validate_device_name(cfgmap[DEVICE])
         device = cfgmap[DEVICE]
-        if device.count(DOT) > 1:
-            raise MissingParameter("GINNET0068E")
         if VLANINFO not in params[BASIC_INFO]:
             raise MissingParameter("GINNET0042E")
         if VLAN in params[BASIC_INFO][VLANINFO]:
