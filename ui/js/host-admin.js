@@ -736,6 +736,8 @@ ginger.initUserManagement = function() {
                     clearPasswords();
                 }, function() {
                     clearUMSubmit();
+                }, function(){
+                  clearPasswords();
                 });
             }
         });
