@@ -41,6 +41,7 @@ class Partitions(Collection):
     """
     Collection representing the partitions/disks of the system
     """
+
     def __init__(self, model):
         super(Partitions, self).__init__(model)
         self.role_key = 'storage'
@@ -82,6 +83,7 @@ class Partition(Resource):
     """
     Resource representing a single partition/disk
     """
+
     def __init__(self, model, id):
         self.role_key = 'storage'
         self.admin_methods = ['GET', 'POST', 'DELETE']
@@ -97,4 +99,16 @@ class Partition(Resource):
 
     @property
     def data(self):
-        return self.info
+        return {
+            'available': str(
+                self.info['available']),
+            'maj:min': self.info['maj:min'],
+            'vgname': self.info['vgname'],
+            'name': self.info['name'],
+            'pkname': self.info['pkname'],
+            'fstype': self.info['fstype'],
+            'path': self.info['path'],
+            'mountpoint': self.info['mountpoint'] if
+            self.info['mountpoint'] else "None",
+            'type': self.info['type'],
+            'size': self.info['size']}

@@ -538,7 +538,7 @@ def parse_vgdisplay_output(vgout, below_threshold_version):
             output['Permission'] = 'N/A'
             output['VG Status'] = 'N/A'
             output['Max LV'] = i.split(':')[5]
-            output['Cur LV'] = i.split(':')[6]
+            output['Cur LV'] = int(i.split(':')[6])
             output['Max PV'] = i.split(':')[7]
             output['Cur PV'] = i.split(':')[8]
             output['VG Size'] = float(i.split(':')[9][:-1])
@@ -553,7 +553,7 @@ def parse_vgdisplay_output(vgout, below_threshold_version):
             output['Permission'] = i.split(':')[5]
             output['VG Status'] = i.split(':')[6]
             output['Max LV'] = i.split(':')[7]
-            output['Cur LV'] = i.split(':')[8]
+            output['Cur LV'] = int(i.split(':')[8])
             output['Max PV'] = i.split(':')[9]
             output['Cur PV'] = i.split(':')[10]
             output['VG Size'] = float(i.split(':')[11][:-1])
