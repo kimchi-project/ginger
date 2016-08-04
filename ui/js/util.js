@@ -1246,12 +1246,42 @@ ginger.disableSystemService = function (service, suc, err){
      });
 };
 
+ginger.createActionButtons = function(settings) {
+  var toolbarNode = null;
+  var btnHTML, dropHTML = [];
+  var container = settings.panelID;
+  var toolbarButtons = settings.buttons;
+  var buttonType = settings.type;
+  toolbarNode = $('<div class="btn-group"></div>');
+  toolbarNode.appendTo($("#" + container));
+  dropHTML = ['<div class="dropdown menu-flat">',
+    '<button id="action-dropdown-button-', container, '" class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">', (buttonType === 'action') ? '<span class="edit-alt"></span>'+ i18n['GINBG00003M'] : '<i class="fa fa-plus-circle"></i>'+ i18n['GINBG00004M'], '<span class="caret"></span>',
+    '</button>',
+    '<ul class="dropdown-menu"></ul>',
+    '</div>'
+  ].join('');
+  $(dropHTML).appendTo(toolbarNode);
+
+  $.each(toolbarButtons, function(i, button) {
+    var btnHTML = [
+      '<li role="presentation"', button.critical === true ? ' class="critical"' : '', '>',
+      '<a role="menuitem" tabindex="-1" data-backdrop="static"  data-keyboard="false" data-dismiss="modal"', (button.id ? (' id="' + button.id + '"') : ''), (button.disabled === true ? ' class="disabled"' : ''),
+      '>',
+      button.class ? ('<i class="' + button.class) + '"></i>' : '',
+      button.label,
+      '</a></li>'
+    ].join('');
+    var btnNode = $(btnHTML).appendTo($('.dropdown-menu', toolbarNode));
+    button.onClick && btnNode.on('click', button.onClick);
+  });
+}
+
 /**
  * Get the partition list.
  */
 ginger.getPartition = function(suc, err) {
      wok.requestJSON({
-        url: 'plugins/ginger/partitions',
+        url: 'plugins/ginger/partitions?fstype=ext4|ext3|xfs&mountpoint=None',
         type: 'GET',
         contentType: 'application/json',
         dataType: 'json',
@@ -1326,3 +1356,128 @@ ginger.mountFileSystem = function(content, suc, err) {
            }
        });
    };
+
+/**
+ * Get the volume group details.
+ */
+ginger.getVolumeGroupDetails = function(vgName, suc, err) {
+  wok.requestJSON({
+      url : '/plugins/ginger/vgs/'+encodeURIComponent(vgName.trim()),
+      type : 'GET',
+      contentType : 'application/json',
+      dataType : 'json',
+      success : suc,
+      error : err || function(data) {
+          wok.message.error(data.responseJSON.reason);
+      }
+  });
+};
+
+/**
+ * Create volume group with pvs.
+ */
+ginger.createVolumeGroup= function(content, suc, err, progress){
+
+    var onResponse = function(data) {
+      taskID = data['id'];
+      ginger.trackTask(taskID, suc, err, progress);
+    };
+
+    $.ajax({
+        url : "plugins/ginger/vgs",
+        type : 'POST',
+        contentType : 'application/json',
+        dataType : 'json',
+        data : JSON.stringify(content),
+        success: onResponse,
+        error: err || function(data) {
+            wok.message.error(data.responseJSON.reason);
+        }
+    });
+};
+
+/**
+ * Delete Volume group.
+ */
+ginger.deleteVolumeGroup = function(vgName, suc, err) {
+  wok.requestJSON({
+      url : '/plugins/ginger/vgs/'+encodeURIComponent(vgName.trim()),
+      type : 'DELETE',
+      contentType : 'application/json',
+      dataType : 'json',
+      success : suc,
+      error : err || function(data) {
+          wok.message.error(data.responseJSON.reason);
+      }
+  });
+};
+
+/**
+ * Get the physical volumes list.
+ */
+ginger.getPhysicalVolumes = function(suc, err) {
+  wok.requestJSON({
+      url : '/plugins/ginger/pvs?VGName=None',
+      type : 'GET',
+      contentType : 'application/json',
+      dataType : 'json',
+      success : suc,
+      error : err || function(data) {
+          wok.message.error(data.responseJSON.reason);
+      }
+  });
+};
+
+/**
+ * Create  physical volume.
+ */
+ginger.createPhysicalVolume = function(pv_path,suc, err, progress) {
+  var onResponse = function(data) {
+    taskID = data['id'];
+    ginger.trackTask(taskID, suc, err, progress);
+  };
+
+  wok.requestJSON({
+      url : '/plugins/ginger/pvs/',
+      type : 'POST',
+      contentType : 'application/json',
+      data: JSON.stringify(pv_path),
+      dataType : 'json',
+      success : onResponse,
+      error : err || function(data) {
+          wok.message.error(data.responseJSON.reason);
+      }
+  });
+};
+/**
+ * Get the partition list.
+ */
+ginger.getPartitionsDevices = function(type,suc, err) {
+     wok.requestJSON({
+        url: 'plugins/ginger/partitions?type='+type+'&vgname=N/A&available=True',
+        type: 'GET',
+        contentType: 'application/json',
+        dataType: 'json',
+        success: suc,
+        error: err || function(data) {
+             wok.message.error(data.responseJSON.reason);
+         }
+     });
+ };
+
+ /**
+  * Get the  expand/reduce volume group .
+  */
+ ginger.editgetVolumeGroup = function(vgName,pvPaths,type, suc, err) {
+   wok.requestJSON({
+       url : '/plugins/ginger/vgs/'+encodeURIComponent(vgName.trim())+"/"+type,
+       type : 'POST',
+       contentType : 'application/json',
+       dataType : 'json',
+       data : JSON.stringify(pvPaths),
+       success : suc,
+       error : err || function(data) {
+           wok.message.error(data.responseJSON.reason);
+       }
+   });
+ };

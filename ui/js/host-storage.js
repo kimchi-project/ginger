@@ -242,33 +242,268 @@ ginger.initVolumeGroupGridData = function() {
       var rows = "";
       $.each(result, function(index, volume){
         rows += "<tr><td>" + volume.vgName + "</td>";
-        rows += "<td>" + wok.localeConverters["number-locale-converter"].to(Number((parseInt(volume.vgSize) / 1024).toFixed(2))) + "</td></tr>";
+        rows += "<td>" + wok.localeConverters["number-locale-converter"].to(Number((parseInt(volume.vgSize) / 1024).toFixed(2))) + "</td>";
+        rows += "<td class=\"details-control\"><span class=\"fa fa-chevron-down common-down fa-lg\" data-row-id=\""+volume.vgName+"\"></span> </td></tr>";
       });
       $("#volume-group-table tbody").html(rows);
     }
 
     var volumeGroupTable = $("#volume-group-table").DataTable({
-        "dom": '<"row"<"col-sm-3 vg-buttons"><"col-sm-9 filter"<"pull-right"l><"pull-right"f>>><"row"<"col-sm-12"t>><"row"<"col-sm-6 pages"p><"col-sm-6 info"i>>',
+        columnDefs: [
+          {
+            orderable: false,
+            targets: 2
+          }],
+        "dom": '<"#vg-buttons.row"<"#vg-actions.col-sm-2"><"vg-buttons pull-right"><"add pull-right">><"row"<"col-sm-12 filter"<"pull-right"l><"pull-right"f>>><"row"<"col-sm-12"t>><"row"<"col-sm-6 pages"p><"col-sm-6 info"i>>',
         "initComplete": function(settings, json) {
           wok.initCompleteDataTableCallback(settings);
           var refreshButton = '<button class="btn btn-primary pull-left" id="volume-groups-refresh-btn" aria-expanded="false"><i class="fa fa-refresh"></i> ' + i18n['GINTITLE0021M'] + '</button>';
+          var addButton = '<button class="btn btn-primary" id="volume-groups-add-btn" aria-expanded="false"><i class="fa fa-plus-circle">&nbsp;</i>' + i18n['GINBG00004M']  + '</button>';
           $(".vg-buttons").html(refreshButton);
+          $(".add").append(addButton).css('padding-right','3px');
+          ginger.createVgActionButtons();
         },
         "oLanguage": {
           "sEmptyTable": i18n['GINNET0063M']
         }
     });
 
+    $('#vg-buttons').css('padding-bottom','15px');
+
     $('#volume-groups-refresh-btn').on('click', function() {
       $("#volume-group-table tbody").html("");
       volumeGroupTable.destroy();
       ginger.initVolumeGroupGridData();
     });
+
+    //New volume group creation handler
+    $('#volume-groups-add-btn').on('click',function(event){
+      ginger.vgactionmode = "add";
+      wok.window.open('plugins/ginger/host-storage-vg-add.html');
+    });
+
+    //Volume group deletion handler
+    $('#volume-group-delete-btn').on('click',function(event){
+       if(volumeGroupTable.rows('.selected').data().length==0){
+         var settings = {
+           content: i18n['GINVG00037M'],
+           confirm: i18n["GINNET0015M"]
+          };
+           wok.confirm(settings,function(){},function(){});
+      }else{
+       var selectedRowsData = volumeGroupTable.rows('.selected').data();
+       var selectedRows = [];
+          $.each(selectedRowsData,function(index,row){
+            selectedRows.push(row[0]);
+          });
+       var settings = {
+         content: i18n['GINVG0003M'].replace('%1',selectedRows),
+         confirm: i18n["GINNET0015M"]
+       };
+       wok.confirm(settings, function(){
+        $.each(selectedRows,function(index,row){
+          ginger.deleteVolumeGroup(row,function(result){
+           wok.message.success(i18n['GINVG0002M'], '#alert-vg-container');
+           $("#volume-group-table tbody").html("");
+           volumeGroupTable.destroy();
+           ginger.initVolumeGroupGridData();
+         },function(error){
+           wok.message.error(error.responseJSON.reason, '#alert-vg-container', true);
+           $('#volume-groups-refresh-btn').trigger('click');
+         })
+       });
+     });
+     }
+    });
+
+    // Add event listener for opening and closing details
+    $('#volume-group-table tbody').off();
+    $('#volume-group-table tbody').on('click', 'td.details-control', function () {
+        //,td span.fa
+        var tr = $(this).closest('tr');
+        var row = volumeGroupTable.row( tr );
+        var vgName = $("td:nth-child(1)",tr).text();
+
+        if (row.child.isShown()) {
+            // This row is already open - close it
+            row.child.hide();
+              $("span",$(this)).addClass('fa-chevron-down').removeClass('fa-chevron-up');
+            tr.removeClass('shown');
+        }else{
+            // Open this row
+            ginger.volumeGroupDetailsPopulation(vgName,row);
+            $("span",$(this)).addClass('fa-chevron-up').removeClass('fa-chevron-down');
+            tr.addClass('shown');
+        }
+    });
+
+    //Row selection
+    $('#volume-group-table tbody').on('click', 'tr', function () {
+        $(this).toggleClass("selected");
+
+        if(volumeGroupTable.rows('.selected').data().length>1){
+          $('#volume-group-edit-btn').off();
+          $('#volume-group-edit-btn').addClass("disablelink");
+         }else{
+            $('#volume-group-edit-btn').off();
+            $('#volume-group-edit-btn').removeClass("disablelink");
+            $('#volume-group-edit-btn').on('click',function(){
+              ginger.vgResizeHandler(volumeGroupTable.rows('.selected').data());
+            });
+         }
+    });
+
     $(".vg-loader").hide();
   },function(err){
     $(".vg-loader").hide();
     wok.message.error(err.responseJSON.reason, '#volume-group-alert-container');
   });
+};
+
+//Volume group buttons list
+ginger.createVgActionButtons = function(){
+  var actionButton = [{
+    id: 'volume-group-edit-btn',
+    class: 'fa fa-arrows-h',
+    label: i18n['GINVG00031M']
+  },
+  {
+    id: 'volume-group-delete-btn',
+    class: 'fa fa-minus-circle',
+    label: i18n['GINNET0013M'],
+    critical:true,
+  }];
+
+    var actionListSettings = {
+      panelID: 'vg-actions',
+      buttons: actionButton,
+      type: 'action'
+    };
+    ginger.createActionButtons(actionListSettings);
+};
+
+ginger.volumeGroupDetailsPopulation = function(volumeGroupName,row){
+  var vgDetails = '';
+  ginger.getVolumeGroupDetails(volumeGroupName,function(data){
+    vgDetails =  ginger.populateVolumeGroupDetails(data);
+    row.child('<div class="volumeGroup-details" style="display: block;"><div class="details-list">'+vgDetails+'</div></div>').show();
+  },function(e){
+    vgDetails = '';
+  });
+
+   return vgDetails;
+};
+
+ginger.populateVolumeGroupDetails = function(data){
+    var text='';
+    var value;
+    var vgDetails = '';
+    $.each(data, function(key, obj) {
+      value = obj;
+      switch (key){
+       case "vgName":
+          text = i18n['GINVG00010M'];
+          break;
+       case "vgStatus":
+          text = i18n['GINVG00011M'];
+          break;
+       case "vgSize":
+          text = i18n['GINVG00012M'];
+          value = ginger.convertSizeToLocaleString(obj,i18n['GINVG00030M']);
+          break;
+       case "maxLV":
+          text = i18n['GINVG00013M'];
+          value = wok.numberLocaleConverter(parseInt(obj), wok.lang.get_locale()).toString().replace(/\s/g,' ');
+          break;
+       case "freePESize":
+          text = i18n['GINVG00014M'];
+          value = ginger.convertSizeToLocaleString(obj,i18n['GINVG00030M']);
+          break;
+       case "format":
+          text = i18n['GINVG00015M'];
+          break;
+       case "curLV":
+          text = i18n['GINVG00016M'];
+          value = wok.numberLocaleConverter(parseInt(obj), wok.lang.get_locale()).toString().replace(/\s/g,' ');
+          break;
+        case "metadataAreas":
+           text = i18n['GINVG00017M'];
+           value = wok.numberLocaleConverter(parseInt(obj), wok.lang.get_locale()).toString().replace(/\s/g,' ');
+           break;
+        case "permission":
+           text = i18n['GINVG00018M'];
+           break;
+        case "allocPE":
+           text = i18n['GINVG00019M'];
+           value = wok.numberLocaleConverter(parseInt(obj), wok.lang.get_locale()).toString().replace(/\s/g,' ');
+           break;
+        case "pvNames":
+           text = i18n['GINVG00020M'];
+           break;
+        case "peSize":
+           text = i18n['GINVG00021M'];
+           value = ginger.convertSizeToLocaleString(obj,i18n['GINVG00030M']);
+           break;
+        case "systemID":
+           text = i18n['GINVG00022M'];
+           break;
+         case "curPV":
+            text = i18n['GINVG00023M'];
+            value = wok.numberLocaleConverter(parseInt(obj), wok.lang.get_locale()).toString().replace(/\s/g,' ');
+            break;
+         case "freePE":
+            text = i18n['GINVG00024M'];
+            value = wok.numberLocaleConverter(parseInt(obj), wok.lang.get_locale()).toString().replace(/\s/g,' ');
+            break;
+         case "maxPV":
+            text = i18n['GINVG00025M'];
+            value = wok.numberLocaleConverter(parseInt(obj), wok.lang.get_locale()).toString().replace(/\s/g,' ');
+            break;
+         case "totalPE":
+            text = i18n['GINVG00026M'];
+            value = wok.numberLocaleConverter(parseInt(obj), wok.lang.get_locale()).toString().replace(/\s/g,' ');
+            break;
+         case "vgUUID":
+            text = i18n['GINVG00027M'];
+            break;
+         case "allocPESize":
+            text = i18n['GINVG00028M'];
+            value = ginger.convertSizeToLocaleString(parseInt(obj),i18n['GINVG00030M']);
+            break;
+          case "metadataSequenceNo":
+             text = i18n['GINVG00029M'];
+             value = wok.numberLocaleConverter(parseInt(obj), wok.lang.get_locale()).toString().replace(/\s/g,' ');
+             break;
+          default:
+             text = key;
+      }
+
+  var detailsHtml = [
+        '<div>',
+          '<span class="column-'+key+'">',
+             '<span class="header-'+key+'">'+text+'</span>',
+             '<span class="row-'+key+'">'+value+'</span>',
+          '</span>',
+        '</div>'
+
+   ].join('');
+   vgDetails+=detailsHtml;
+  });
+ return vgDetails;
+};
+
+ginger.vgResizeHandler =  function(data){
+  if(data.length==0){
+    var settings = {
+      content: i18n['GINVG00039M'],
+      confirm: i18n["GINNET0015M"]
+     };
+      wok.confirm(settings,function(){},function(){});
+ }else{
+  ginger.vgactionmode = "edit";
+  ginger.resizeVg = data[0];
+  wok.window.open('plugins/ginger/host-storage-vg-add.html');
+ }
 };
 
 // ******************** SAN Adapters ********************
@@ -455,4 +690,12 @@ ginger.disableActionsMenu = function (actionButtonId){
 ginger.enableActionsMenu = function (actionButtonId){
        $("#"+actionButtonId).parent().removeClass('open');
        $("#"+actionButtonId).prop("disabled", false);
+};
+ginger.convertSizeToLocaleString = function(value,unit){
+     var convertedString = '';
+     if(value != null){
+       var _toMb = Number((parseInt(value) / 1024).toFixed(2));
+       convertedString = wok.numberLocaleConverter(_toMb, wok.lang.get_locale()).toString().replace(/\s/g,' ') +' '+unit;
+     }
+      return convertedString;
 };
