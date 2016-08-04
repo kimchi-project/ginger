@@ -177,6 +177,12 @@
            background-image: url('#{$wok-icon-path}/low.png');
       }
   }
+
+  .dataTable {
+    tbody > tr.selected {
+      background-color: #e3e3e3;
+    }
+  }
 }
 hr {
   display:block;
@@ -339,4 +345,91 @@ hr {
   text-align: left;
   padding-top:0px;
   }
+}
+#volume-groups-content-area {
+
+  div.volumeGroup-details {
+      width: 100%;
+      padding: 22px;
+      background: $table-bg-active;
+  }
+
+  .details-list {
+      display: table;
+      flex-wrap: wrap;
+      width: 100%;
+      //max-height: 285px;
+      min-height: 100px;
+      background: $table-bg;
+      padding: 0;
+      overflow-x: hidden;
+      overflow-y: auto;
+      align-items: stretch;
+      align-content: stretch;
+
+      div {
+        display: table;
+        width:50%;
+      }
+
+      > span[class^=column-] {
+          display: table-row;
+          font-size: 15px;
+          float: left;
+          align-self: flex-start;
+          flex-grow: 1;
+          width: 100%;
+      }
+
+      span[class^=header-] {
+          width: 45%;
+          display: table-cell;
+          font-family: $font-family-base;
+          font-weight: 300;
+          font-size: 12.5pt;
+          border-bottom: none;
+          border-top: 0;
+          line-height: 1.42857;
+          height: 36px;
+          padding: 6px 7%;
+          text-transform: capitalize;
+          flex:1;
+          float:left;
+          margin-top:10px;
+      }
+
+      span[class^=body-] {
+          width: 100%;
+          display: block;
+      }
+
+      span[class^=row-] {
+          display: table-cell;
+          width: 55%;
+          padding: 6px 12px;
+          font-weight: 600;
+          float:right;
+          margin-top:10px;
+          .col-value {
+            font-weight: 400;
+          }
+      }
+  }
+  a.disablelink{
+    background: #6b6b6b;
+    cursor:not-allowed;
+  }
+}
+#host-storage-vg-add-window {
+  width:1000px;
+
+ #add-expand-vg {
+   min-height: 200px;
+ }
+
+ .dataTable {
+   tbody > tr.selected {
+     background-color: #e3e3e3;
+   }
+ }
 }

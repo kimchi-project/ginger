@@ -1327,6 +1327,15 @@
   background-image: url("/images/theme-default/low.png");
 }
 
+#volume-groups-content-area .dataTable tbody > tr.selected,
+#file-systems-content-area .dataTable tbody > tr.selected,
+#swap-devices-content-area .dataTable tbody > tr.selected,
+#storage-device-content-area .dataTable tbody > tr.selected,
+#fcp-tape-devices-content-area .dataTable tbody > tr.selected,
+#san-adapter-content-area .dataTable tbody > tr.selected {
+  background-color: #e3e3e3;
+}
+
 hr {
   display: block;
   margin-left: 30px;
@@ -1519,6 +1528,91 @@ hr {
 #nfs_mount_option .form-horizontal .control-label {
   text-align: left;
   padding-top: 0px;
+}
+
+#volume-groups-content-area div.volumeGroup-details {
+  width: 100%;
+  padding: 22px;
+  background: #ddd;
+}
+
+#volume-groups-content-area .details-list {
+  display: table;
+  flex-wrap: wrap;
+  width: 100%;
+  min-height: 100px;
+  background: #fff;
+  padding: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  align-items: stretch;
+  align-content: stretch;
+}
+
+#volume-groups-content-area .details-list div {
+  display: table;
+  width: 50%;
+}
+
+#volume-groups-content-area .details-list > span[class^=column-] {
+  display: table-row;
+  font-size: 15px;
+  float: left;
+  align-self: flex-start;
+  flex-grow: 1;
+  width: 100%;
+}
+
+#volume-groups-content-area .details-list span[class^=header-] {
+  width: 45%;
+  display: table-cell;
+  font-family: "Open Sans", Helvetica, Arial, "Lucida Grande", sans-serif;
+  font-weight: 300;
+  font-size: 12.5pt;
+  border-bottom: none;
+  border-top: 0;
+  line-height: 1.42857;
+  height: 36px;
+  padding: 6px 7%;
+  text-transform: capitalize;
+  flex: 1;
+  float: left;
+  margin-top: 10px;
+}
+
+#volume-groups-content-area .details-list span[class^=body-] {
+  width: 100%;
+  display: block;
+}
+
+#volume-groups-content-area .details-list span[class^=row-] {
+  display: table-cell;
+  width: 55%;
+  padding: 6px 12px;
+  font-weight: 600;
+  float: right;
+  margin-top: 10px;
+}
+
+#volume-groups-content-area .details-list span[class^=row-] .col-value {
+  font-weight: 400;
+}
+
+#volume-groups-content-area a.disablelink {
+  background: #6b6b6b;
+  cursor: not-allowed;
+}
+
+#host-storage-vg-add-window {
+  width: 1000px;
+}
+
+#host-storage-vg-add-window #add-expand-vg {
+  min-height: 200px;
+}
+
+#host-storage-vg-add-window .dataTable tbody > tr.selected {
+  background-color: #e3e3e3;
 }
 
 #host-sysmodules-root-container .well {
