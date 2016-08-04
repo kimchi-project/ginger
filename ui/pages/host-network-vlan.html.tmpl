@@ -53,7 +53,7 @@
         <div class="form-group">
           <label class="control-label col-sm-4" for="nw-vlan-hwaddress">$_("VLAN Interface name")</label>
           <div class="col-sm-8">
-            <input id="nw-vlan-interface-textbox" class="form-control" name="NAME" type="text" required="true" />
+            <input id="nw-vlan-interface-textbox" class="form-control" name="NAME" type="text" required="true" title=" "/>
           </div>
         </div>
         <div class="form-group">
@@ -62,7 +62,7 @@
         <div class="form-group">
           <label class="control-label col-sm-4" for="nw-vlan-vlanid-textbox">$_("VLAN Id")</label>
           <div class="col-sm-8 col-xs-3">
-            <input id="nw-vlan-vlanid-textbox" class="form-control" name="VLANID" type="text" required="true" />
+            <input id="nw-vlan-vlanid-textbox" class="form-control" name="VLANID" type="text" required="true" title=" "/>
           </div>
         </div>
 
@@ -78,7 +78,8 @@
           <label class="control-label col-sm-8" for="nw-vlan-ipv4-init">$_("IPv4")</label>
           <div class="col-sm-4">
             <div class="make-switch">
-              <input type="checkbox" checked="true" class="ipv4-on-off" id="nw-vlan-ipv4-init" />
+              <input type="checkbox" checked="true" class="ipv4-on-off" id="nw-vlan-ipv4-init" data-on-text=$_("ON")
+data-off-text=$_("OFF") data-handle-width="90"/>
             </div>
           </div>
         </div>
@@ -137,7 +138,8 @@
           <label class="control-label col-sm-8" for="nw-vlan-ipv6-init">$_("IPv6")</label>
           <div class="col-sm-4">
             <div class="make-switch">
-              <input type="checkbox" checked="true" class="ipv6-on-off" id="nw-vlan-ipv6-init" />
+              <input type="checkbox" checked="true" class="ipv6-on-off" id="nw-vlan-ipv6-init" data-on-text=$_("ON")
+data-off-text=$_("OFF") data-handle-width="90"/>
             </div>
           </div>
         </div>
