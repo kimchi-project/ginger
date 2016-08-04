@@ -356,6 +356,8 @@ messages = {
     "GINISCSI008E": _("Error in logging out of iSCSI QN %(iqn)s - %(err)s"),
     "GINISCSI009E": _("Error in deleting iSCSI QN %(iqn)s from iscsiadm db - %(err)s"),
     "GINISCSI010E": _("Error parsing the output of iscsiadm discovery cmd - %(err)s. iscsiadm discovery Output - %(output)s"),
+    "GINISCSI011E": _("Error updating iscsiadm db key %(db_key)s for IQN %(iqn)s with error - %(err)s"),
+    "GINISCSI012E": _("Invalid authentication type - %(auth_type)s"),
 
     # These messages (ending with L) are for user log purposes
     "GINDASD0001L": _("Formatted DASD device '%(ident)s' with block size %(blk_size)s"),

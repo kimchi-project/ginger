@@ -978,9 +978,25 @@ URI: /plugins/ginger/services/*:service_name*
 
 * login: Login onto given IQN to access the respective block device(s)
 
-**URI:**  /plugins/ginger/audit/rules/*fullstring*/persist
+**URI:**  /plugins/ginger/iscsi_qns/*:iqn*/logout
 
-* logout: Lougout from the given IQN
+* logout: Logout from the given IQN
+
+**URI:**  /plugins/ginger/iscsi_qns/*:iqn*/initiator_auth
+
+* initiator_auth: Set a CHAP username and password for initiator
+
+**URI:**  /plugins/ginger/iscsi_qns/*:iqn*/target_auth
+
+* target_auth: Set a CHAP username and password for target(s)
+
+**URI:**  /plugins/ginger/iscsi_qns/*:iqn*/discovery_initiator_auth
+
+* discovery_initiator_auth: Set a discovery session CHAP username and password for the initiator
+
+**URI:**  /plugins/ginger/iscsi_qns/*:iqn*/discovery_target_auth
+
+* discovery_target_auth: Set a discovery session CHAP username and password for target(s)
 
 * **DELETE**: Delete the IQN entry from the iscsiadm db
 

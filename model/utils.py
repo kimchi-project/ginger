@@ -1341,3 +1341,25 @@ def iscsi_delete_iqn(iqn):
 
     if rc != 0:
         raise OperationFailed("GINISCSI009E", {'err': err, 'iqn': iqn})
+
+
+def iscsiadm_update_db(iqn, db_key, db_key_value):
+    """
+    Method to update the iscsiadm db
+    Args:
+        iqn: iSCSI Qualified Name
+        db_key: DB Key
+        db_key_value: New Value for the DB Key
+
+    Returns: None
+
+    """
+    out, err, rc = run_command(
+        ["iscsiadm", "--m", "node", "--targetname",
+         iqn, "--op=update", "--name",
+         db_key, "--value=" + db_key_value])
+
+    if rc != 0:
+        raise OperationFailed(
+            "GINISCSI011E", {
+                'err': err, 'iqn': iqn, 'db_key': db_key})

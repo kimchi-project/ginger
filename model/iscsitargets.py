@@ -17,7 +17,7 @@
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 
-from wok.exception import NotFoundError
+from wok.exception import InvalidParameter, NotFoundError
 import utils
 
 
@@ -53,3 +53,91 @@ class DiscoveredISCSIQNModel(object):
 
     def delete(self, name):
         utils.iscsi_delete_iqn(name)
+
+    def initiator_auth(self, name, auth_type, username, password):
+        if auth_type == 'CHAP':
+            utils.iscsiadm_update_db(
+                iqn=name,
+                db_key='node.session.auth.authmethod',
+                db_key_value=auth_type)
+            utils.iscsiadm_update_db(
+                iqn=name,
+                db_key='node.session.auth.username',
+                db_key_value=username)
+            utils.iscsiadm_update_db(
+                iqn=name,
+                db_key='node.session.auth.password',
+                db_key_value=password)
+        elif auth_type == 'None':
+            utils.iscsiadm_update_db(
+                iqn=name,
+                db_key='node.session.auth.authmethod',
+                db_key_value=auth_type)
+        else:
+            raise InvalidParameter('GINISCSI012E', {'auth_type': auth_type})
+
+    def target_auth(self, name, auth_type, username, password):
+        if auth_type == 'CHAP':
+            utils.iscsiadm_update_db(
+                iqn=name,
+                db_key='node.session.auth.authmethod',
+                db_key_value=auth_type)
+            utils.iscsiadm_update_db(
+                iqn=name,
+                db_key='node.session.auth.username_in',
+                db_key_value=username)
+            utils.iscsiadm_update_db(
+                iqn=name,
+                db_key='node.session.auth.password_in',
+                db_key_value=password)
+        elif auth_type == 'None':
+            utils.iscsiadm_update_db(
+                iqn=name,
+                db_key='node.session.auth.authmethod',
+                db_key_value=auth_type)
+        else:
+            raise InvalidParameter('GINISCSI012E', {'auth_type': auth_type})
+
+    def discovery_initiator_auth(self, name, auth_type, username, password):
+        if auth_type == 'CHAP':
+            utils.iscsiadm_update_db(
+                iqn=name,
+                db_key='discovery.sendtargets.auth.authmethod',
+                db_key_value=auth_type)
+            utils.iscsiadm_update_db(
+                iqn=name,
+                db_key='discovery.sendtargets.auth.username',
+                db_key_value=username)
+            utils.iscsiadm_update_db(
+                iqn=name,
+                db_key='discovery.sendtargets.auth.password',
+                db_key_value=password)
+        elif auth_type == 'None':
+            utils.iscsiadm_update_db(
+                iqn=name,
+                db_key='discovery.sendtargets.auth.authmethod',
+                db_key_value=auth_type)
+        else:
+            raise InvalidParameter('GINISCSI012E', {'auth_type': auth_type})
+
+    def discovery_target_auth(self, name, auth_type, username, password):
+        if auth_type == 'CHAP':
+            utils.iscsiadm_update_db(
+                iqn=name,
+                db_key='discovery.sendtargets.auth.authmethod',
+                db_key_value=auth_type)
+            utils.iscsiadm_update_db(
+                iqn=name,
+                db_key='discovery.sendtargets.auth.username_in',
+                db_key_value=username)
+            utils.iscsiadm_update_db(
+                iqn=name,
+                db_key='discovery.sendtargets.auth.password_in',
+                db_key_value=password)
+        elif auth_type == 'None':
+            utils.iscsiadm_update_db(
+                iqn=name,
+                db_key='discovery.sendtargets.auth.authmethod',
+                db_key_value=auth_type)
+        else:
+            raise InvalidParameter('GINISCSI012E', {'auth_type': auth_type})
