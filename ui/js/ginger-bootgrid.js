@@ -327,7 +327,7 @@ ginger.createEditableBootgrid = function(gridInstance, opts, rowKey) {
 
           if (!isValid) {
             saveButton.css('pointer-events', 'none');
-            return i18n['GINBG00006M'];
+            return 'invalid field';
           }
         }
       }).on('shown', function(e, editable) {
