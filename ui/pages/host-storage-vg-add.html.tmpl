@@ -1,0 +1,149 @@
+#*
+ * Project Ginger
+ *
+ * Copyright IBM Corp, 2016
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *#
+#unicode UTF-8
+#import gettext
+#silent t = gettext.translation($lang.domain, $lang.localedir, languages=$lang.lang, fallback=True)
+#silent _ = t.gettext
+#silent _t = t.gettext
+<script type="text/javascript" src="plugins/ginger/js/host-storage-vg.js"></script>
+  <div id="host-storage-vg-add-window" class="ginger modal-content">
+     <div style="width:100%" class="row">
+       <div class="modal-header">
+          <button type="button" id="storage-vg-add-button-close" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <h4 class="modal-title" id="vg-add-title">$_("Volume Group")</h4>
+          <hr style="width:99%;margin-left:5px;"/>
+        </div>
+        <span id="alert-vg-create-modal-container"></span>
+        <div id="add-expand-vg" class="modal-body">
+          <div class="form-group" id="vg-add-name">
+            <label class="control-label col-sm-4" for="vg-name-input">$_("Name")</label>
+            <div class="col-sm-6">
+             <input id="vg-name-input" name="vgName" type="text" class="form-control" placeholder="VG name"/>
+            </div>
+          </div>
+          <div class="panel-group" id="pvDetails">
+                <h2>$_("Existing physical volumes : ")</h2>
+                <div id="physical-volumes" style="padding-left:10px;">
+                  <table id="physical-volumes-table" class="table table-stripped" cellspacing="0" width="100%">
+                    <thead>
+                      <tr>
+                        <th>$_("Name")</th>
+                        <th>$_("Size (MB)")</th>
+                      </tr>
+                    </thead>
+                    <tbody></tbody>
+                  </table>
+                </div>
+                <div class="wok-mask pv-loader">
+                  <div class="wok-mask-loader-container">
+                    <div class="wok-mask-loading">
+                      <div class="wok-mask-loading-icon"></div>
+                      <div class="wok-mask-loading-text">$_("Loading...")</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="panel-group" id="partDetails">
+                <h2>$_("Create physical volumes : Partitions")</h2>
+                <div id="partition-list" style="padding-left:10px;">
+                  <table id="partition-table" class="table table-stripped" cellspacing="0" width="100%">
+                    <thead>
+                      <tr>
+                        <th>$_("Name")</th>
+                        <th>$_("Size (MB)")</th>
+                      </tr>
+                    </thead>
+                    <tbody></tbody>
+                  </table>
+                </div>
+                <div class="wok-mask partition-loader">
+                  <div class="wok-mask-loader-container">
+                    <div class="wok-mask-loading">
+                      <div class="wok-mask-loading-icon"></div>
+                      <div class="wok-mask-loading-text">$_("Loading...")</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="panel-group" id="diskDeatils">
+                <h2>$_("Create physical volumes : Block Device")</h2>
+                <div id="disk-list" style="padding-left:10px;">
+                  <table id="block-device-table" class="table table-stripped" cellspacing="0" width="100%">
+                    <thead>
+                      <tr>
+                        <th>$_("Name")</th>
+                        <th>$_("Size (MB)")</th>
+                        <th>$_("Type")</th>
+                      </tr>
+                    </thead>
+                    <tbody></tbody>
+                  </table>
+                </div>
+                <div class="wok-mask block-device-loader">
+                  <div class="wok-mask-loader-container">
+                    <div class="wok-mask-loading">
+                      <div class="wok-mask-loading-icon"></div>
+                      <div class="wok-mask-loading-text">$_("Loading...")</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            <div class="panel-group" id="pvSelection">
+              <div id="selectedPvlist" style="padding-left:10px;">
+                <table id="selected-pv-table" class="table table-stripped" cellspacing="0" width="100%">
+                  <thead>
+                    <tr>
+                      <th>$_("Path")</th>
+                    </tr>
+                  </thead>
+                  <tbody></tbody>
+                </table>
+              </div>
+          </div>
+        </div>
+        <div id="vg-reduce" class="modal-body">
+          <div class="panel-group" id="addedPvSection">
+              <div style="padding-left:10px;" class="row">
+                <table id="addedPvList" class="table table-stripped" cellspacing="0" width="100%">
+                  <thead>
+                    <tr>
+                      <th>$_("Name")</th>
+                    </tr>
+                  </thead>
+                  <tbody></tbody>
+                </table>
+              </div>
+          </div>
+        </div>
+        </div>
+        <div class="pager">
+        </div>
+        <div class="modal-footer">
+          <button id="vg-create-button-done" class="btn btn-default hidden">$_("Done")</button>
+          <button id="vg-create-button-apply" class="btn btn-default hidden">$_("Apply")</button>
+          <button id="vg-create-button-prev" class="btn btn-default">$_("&larr; Previous")</button>
+          <button id="vg-create-button-next" class="btn btn-default">$_("Next &rarr;")</button>
+          <button id="vg-create-button-cancel" class="btn btn-default" data-dismiss="modal">$_("Cancel")</button>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+      (ginger.vgactionmode=='add')?ginger.initVolumeGroupAdd():ginger.initVolumeGroupEdit() ;
+    </script>
