@@ -30,7 +30,8 @@ import threading
 from netaddr import IPAddress
 
 from wok.exception import InvalidParameter, MissingParameter, OperationFailed
-from wok.utils import decode_value, encode_value, run_command, wok_log
+from wok.stringutils import decode_value, encode_value
+from wok.utils import run_command, wok_log
 
 from wok.plugins.gingerbase import netinfo
 

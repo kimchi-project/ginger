@@ -23,7 +23,8 @@ import ethtool
 import os
 
 from wok.exception import InvalidParameter, MissingParameter, OperationFailed
-from wok.utils import decode_value, encode_value, wok_log
+from wok.stringutils import decode_value, encode_value
+from wok.utils import wok_log
 
 from wok.plugins.gingerbase import netinfo
 

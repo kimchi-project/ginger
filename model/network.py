@@ -27,7 +27,8 @@ import threading
 from threading import Timer
 
 from wok.exception import OperationFailed
-from wok.utils import decode_value, run_command
+from wok.stringutils import decode_value
+from wok.utils import run_command
 from nw_interfaces_utils import cfgInterfacesHelper
 
 gingerNetworkLock = threading.RLock()

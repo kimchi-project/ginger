@@ -30,7 +30,9 @@ from nw_interfaces_utils import InterfacesHelper
 from wok.exception import InvalidOperation, InvalidParameter, NotFoundError
 from wok.exception import OperationFailed
 from wok.model.tasks import TaskModel
-from wok.utils import add_task, encode_value, wok_log
+from wok.stringutils import encode_value
+from wok.utils import add_task, wok_log
+
 from wok.plugins.gingerbase import netinfo
 
 
