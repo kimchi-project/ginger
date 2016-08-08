@@ -187,25 +187,6 @@ Contains information about Ginger configuration.
 * start: Start the SEP daemon on host server.
 * stop: Stop the SEP daemon on host server.
 
-### Resource: IBM Serviceable Event Provider (SEP)
-
-**URI:** /plugins/ginger/ibm_sep
-
-**Methods:**
-
-* **GET**: Retrieve a dictionary with the SEP status and subscription information:
-    * status: Status of the SEP agent. Can be 'running' or 'not running'.
-    * subscription: Dictionaries with the SEP subscription information:
-        * hostname: Hostname of the host server.
-        * port: Number of the network port used by the SEP agent.
-        * community: SNMP community name which host server is member.
-* **PUT**: Create and/or update a subscription
-
-*Actions (POST):**
-
-* start: Start the SEP daemon on host server.
-* stop: Stop the SEP daemon on host server.
-
 ### Collection: File Systems
 
 URI: /plugins/ginger/filesystems
