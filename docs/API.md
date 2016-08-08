@@ -64,6 +64,63 @@ server.
 *No actions defined*
 
 
+### Resource: Backup
+
+**URI:** /plugins/ginger/backup
+
+**Methods:**
+
+* **GET**: not defined, will return a blank dict.
+
+**Actions (POST):**
+
+* discard_archives: batch delete configuration backup files.
+    * counts_ago: remove the latest 'counts_ago' backups.
+    * days_ago: remove backups older than 'days_ago' days.
+
+### Collection: Archives (configuration backup)
+
+**URI:** /plugins/ginger/backup/archives
+
+**Methods:**
+
+* **GET**: Retrieve backup archives made by Ginger.
+    * identity: the name of the backup.
+    * description: the description of the backup.
+    * include: directories included in the backup.
+    * exclude: directories and subdirectories that were excluded from the backup.
+    * file: the full path of the backup archive.
+    * timestamp: creation time of the backup archive.
+    * checksum: checksum of the archive.
+        * algorithm: algorithm used to created the checksum.
+        * value: the value of the checksum.
+
+* **POST**: Create a new configuration backup.
+    * identity: the name of the backup.
+    * description: the description of the backup.
+    * include: directories to be included in the backup.
+    * exclude: directories and subdirectories to be excluded from the backup.
+
+### Resource: Archive (configuration backup)
+
+**URI:** /plugins/ginger/backup/archive/*:identity*
+
+**Methods:**
+
+* **GET**: Retrieve an specific backup archive made by Ginger.
+    * identity: the name of the backup.
+    * description: the description of the backup.
+    * include: directories included in the backup.
+    * exclude: directories and subdirectories that were excluded from the backup.
+    * file: the full path of the backup archive.
+    * timestamp: creation time of the backup archive.
+    * checksum: checksum of the archive.
+        * algorithm: algorithm used to created the checksum.
+        * value: the value of the checksum.
+
+* **DELETE**: Delete the configuration backup.
+
+
 ### Resource: Configuration
 
 **URI:** /plugins/ginger/config
