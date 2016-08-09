@@ -19,64 +19,8 @@
 
 import os
 
-from wok.control.utils import load_url_sub_node
 
-from audit import Audit
-from backup import Backup
-from capabilities import Capabilities
-from config import Config
-from dasddevs import DASDdevs
-from dasdpartitions import DASDPartitions
-from diskparts import Partitions
-from filesystems import FileSystems
-from firmware import Firmware
-from ibm_sep import Sep
-from iscsitargets import DiscoveredISCSIQNs, ISCSITargets
-from log_volumes import LogicalVolumes
-from network import Network
-from nfsshares import NFSShares
-from ovsbridges import OVSBridges
-from physical_vol import PhysicalVolumes
-from powermanagement import PowerProfiles
-from sanadapters import SanAdapters
-from sensors import Sensors
-from services import Services
-from storage_devs import StorageDevs
-from users import Users
-from swaps import Swaps
-from sysmodules import SysModules
-from vol_group import VolumeGroups
-from stgservers import StgServers
+from wok.control.utils import load_url_sub_node
 
 
 sub_nodes = load_url_sub_node(os.path.dirname(__file__), __name__)
-
-__all__ = [
-    Audit,
-    Backup,
-    Capabilities,
-    Config,
-    DASDdevs,
-    DASDPartitions,
-    DiscoveredISCSIQNs,
-    FileSystems,
-    Firmware,
-    ISCSITargets,
-    LogicalVolumes,
-    Network,
-    NFSShares,
-    OVSBridges,
-    Partitions,
-    PowerProfiles,
-    PhysicalVolumes,
-    SanAdapters,
-    Sensors,
-    Sep,
-    Services,
-    StgServers,
-    StorageDevs,
-    Swaps,
-    SysModules,
-    Users,
-    VolumeGroups
-    ]

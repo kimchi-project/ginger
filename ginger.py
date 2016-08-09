@@ -20,19 +20,13 @@
 import json
 import os
 
-from control import Audit
-from control import Backup, Capabilities, Config, DASDdevs, DASDPartitions
-from control import DiscoveredISCSIQNs
-from control import Firmware, FileSystems, LogicalVolumes
-from control import Network, OVSBridges, Partitions, PhysicalVolumes
-from control import PowerProfiles, SanAdapters, Sensors, Sep, Services
-from control import StgServers, StorageDevs, Swaps, SysModules, Users
-from control import VolumeGroups
+
+from wok.plugins.ginger.control import sub_nodes
+
 from i18n import messages
 
 from wok import config
 from wok.config import PluginPaths
-from wok.control.tasks import Tasks
 from wok.root import WokRoot
 from model import GingerModel
 
@@ -47,38 +41,14 @@ class Ginger(WokRoot):
         self.model = GingerModel()
         super(Ginger, self).__init__(self.model)
 
+        for ident, node in sub_nodes.items():
+            setattr(self, ident, node(self.model))
+
         self.api_schema = json.load(open(os.path.join(os.path.dirname(
                                     os.path.abspath(__file__)), 'API.json')))
         self.domain = "ginger"
         self.messages = messages
         self.paths = PluginPaths('ginger')
-
-        self.audit = Audit(self.model)
-        self.backup = Backup(self.model)
-        self.capabilities = Capabilities(self.model)
-        self.config = Config(self.model)
-        self.dasddevs = DASDdevs(self.model)
-        self.dasdpartitions = DASDPartitions(self.model)
-        self.iscsi_qns = DiscoveredISCSIQNs(self.model)
-        self.filesystems = FileSystems(self.model)
-        self.firmware = Firmware(self.model)
-        self.ibm_sep = Sep(self.model)
-        self.lvs = LogicalVolumes(self.model)
-        self.network = Network(self.model)
-        self.ovsbridges = OVSBridges(self.model)
-        self.partitions = Partitions(self.model)
-        self.powerprofiles = PowerProfiles(self.model)
-        self.pvs = PhysicalVolumes(self.model)
-        self.san_adapters = SanAdapters(self.model)
-        self.sensors = Sensors(self.model)
-        self.services = Services(self.model)
-        self.stgdevs = StorageDevs(self.model)
-        self.stgserver = StgServers(self.model)
-        self.swaps = Swaps(self.model)
-        self.sysmodules = SysModules(self.model)
-        self.tasks = Tasks(self.model)
-        self.users = Users(self.model)
-        self.vgs = VolumeGroups(self.model)
 
     def get_custom_conf(self):
         custom_config = {
