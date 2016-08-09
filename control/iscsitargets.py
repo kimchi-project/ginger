@@ -17,20 +17,8 @@
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 
-from wok.control.base import Collection, Resource, SimpleCollection
+from wok.control.base import Collection, Resource
 from wok.control.utils import model_fn, UrlSubNode
-
-
-@UrlSubNode('iscsitargets', True)
-class ISCSITargets(SimpleCollection):
-
-    def __init__(self, model, server):
-        super(ISCSITargets, self).__init__(model)
-        self.admin_methods = ['GET']
-        self.role_key = 'host'
-        self.server = server
-        self.resource_args = [self.server, ]
-        self.model_args = [self.server, ]
 
 
 @UrlSubNode('iscsi_qns', True)

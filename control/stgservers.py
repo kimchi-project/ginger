@@ -17,10 +17,8 @@
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 
-from wok.control.base import Collection, Resource
+from wok.control.base import Collection, Resource, SimpleCollection
 from wok.control.utils import UrlSubNode
-from wok.plugins.ginger.control.iscsitargets import ISCSITargets
-from wok.plugins.ginger.control.nfsshares import NFSShares
 
 
 @UrlSubNode('stgserver', True)
@@ -44,3 +42,24 @@ class StgServer(Resource):
     @property
     def data(self):
         return self.info
+
+
+class ISCSITargets(SimpleCollection):
+
+    def __init__(self, model, server):
+        super(ISCSITargets, self).__init__(model)
+        self.admin_methods = ['GET']
+        self.role_key = 'host'
+        self.server = server
+        self.resource_args = [self.server, ]
+        self.model_args = [self.server, ]
+
+
+class NFSShares(SimpleCollection):
+    def __init__(self, model, server):
+        super(NFSShares, self).__init__(model)
+        self.admin_methods = ['GET']
+        self.role_key = 'host'
+        self.server = server
+        self.resource_args = [self.server, ]
+        self.model_args = [self.server, ]
