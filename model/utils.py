@@ -1174,7 +1174,8 @@ def iscsi_discovery(target_ipaddress):
     """
     out, err, rc = run_command(
         ["iscsiadm", "-m", "discovery",
-            "-t", "sendtargets", "-p", target_ipaddress])
+            "-t", "sendtargets", "-p", target_ipaddress,
+            "-o", "delete", "-o", "new"])
 
     if rc == 4:
         raise OperationFailed("GINISCSI004E", {'host': target_ipaddress})
@@ -1283,16 +1284,8 @@ def is_target_logged_in(iqn):
     logged_in_status = False
 
     try:
-        current_sessions = os.listdir('/sys/class/iscsi_session')
-
-        for session in current_sessions:
-            target_name = open(
-                '/sys/class/iscsi_session/' +
-                session +
-                "/targetname").readline().rstrip()
-            if iqn == target_name:
-                logged_in_status = True
-                break
+        if get_iscsi_session_id(iqn):
+            logged_in_status = True
 
     except Exception as e:
         raise OperationFailed("GINISCSI006E", {'err': e.message, 'iqn': iqn})
@@ -1363,3 +1356,64 @@ def iscsiadm_update_db(iqn, db_key, db_key_value):
         raise OperationFailed(
             "GINISCSI011E", {
                 'err': err, 'iqn': iqn, 'db_key': db_key})
+
+
+def _parse_session_dir_name(session):
+    """
+    Parse the directory name of the iSCSI session
+    to extract the session ID
+    :param session: Directory name of the session
+    :return: session ID
+    """
+    session_id = None
+    try:
+        session_id = session.split("session")[-1]
+    except Exception as e:
+        raise OperationFailed(
+            "GINISCSI013E", {
+                'err': e.message, 'session': session})
+    return session_id
+
+
+def get_iscsi_session_id(iqn):
+    """
+    Get the session ID of the given logged in target
+    :param iqn: iSCSI Qualified Name
+    :return: Session ID of the target
+    """
+    iscsi_session_id = None
+    try:
+        current_sessions = os.listdir('/sys/class/iscsi_session')
+
+        for session in current_sessions:
+            target_name = open(
+                '/sys/class/iscsi_session/' +
+                session +
+                "/targetname").readline().rstrip()
+            if iqn == target_name:
+                iscsi_session_id = _parse_session_dir_name(session)
+                break
+    except Exception as e:
+        raise OperationFailed("GINISCSI014E", {'err': e.message, 'iqn': iqn})
+
+    return iscsi_session_id
+
+
+def iscsi_rescan_target(iqn):
+    """
+    Rescan the given target IQN
+    :param iqn: iSCSI Qualified Name
+    :return:
+    """
+    session_id = get_iscsi_session_id(iqn)
+
+    if not session_id:
+        raise InvalidParameter("GINISCSI016E", {'iqn': iqn})
+
+    wok_log.info("Initiating rescan for iqn - " + iqn)
+    out, err, rc = run_command(
+        ["iscsiadm", "-m", "session",
+            "-r", session_id, "--rescan"])
+
+    if rc != 0:
+        raise OperationFailed("GINISCSI015E", {'err': err, 'iqn': iqn})

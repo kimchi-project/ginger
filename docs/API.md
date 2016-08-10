@@ -1020,21 +1020,37 @@ URI: /plugins/ginger/services/*:service_name*
 
 * logout: Logout from the given IQN
 
+**URI:**  /plugins/ginger/iscsi_qns/*:iqn*/rescan
+
+* rescan: Rescan the given target IQN to update the local iscsiadm db
+
 **URI:**  /plugins/ginger/iscsi_qns/*:iqn*/initiator_auth
 
 * initiator_auth: Set a CHAP username and password for initiator
+   * auth_type - CHAP or None
+   * username
+   * password
 
 **URI:**  /plugins/ginger/iscsi_qns/*:iqn*/target_auth
 
 * target_auth: Set a CHAP username and password for target(s)
+   * auth_type - CHAP or None
+   * username
+   * password
 
 **URI:**  /plugins/ginger/iscsi_qns/*:iqn*/discovery_initiator_auth
 
 * discovery_initiator_auth: Set a discovery session CHAP username and password for the initiator
+   * auth_type - CHAP or None
+   * username
+   * password
 
 **URI:**  /plugins/ginger/iscsi_qns/*:iqn*/discovery_target_auth
 
 * discovery_target_auth: Set a discovery session CHAP username and password for target(s)
+   * auth_type - CHAP or None
+   * username
+   * password
 
 * **DELETE**: Delete the IQN entry from the iscsiadm db
 

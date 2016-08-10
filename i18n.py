@@ -358,6 +358,10 @@ messages = {
     "GINISCSI010E": _("Error parsing the output of iscsiadm discovery cmd - %(err)s. iscsiadm discovery Output - %(output)s"),
     "GINISCSI011E": _("Error updating iscsiadm db key %(db_key)s for IQN %(iqn)s with error - %(err)s"),
     "GINISCSI012E": _("Invalid authentication type - %(auth_type)s"),
+    "GINISCSI013E": _("Error parsing session directory name %(session)s - %(err)s"),
+    "GINISCSI014E": _("Error while searching the active session for IQN %(iqn)s - %(err)s"),
+    "GINISCSI015E": _("Error executing command to rescan the IQN %(iqn)s - %(err)s"),
+    "GINISCSI016E": _("IQN %(iqn)s is not logged onto the target"),
 
     # These messages (ending with L) are for user log purposes
     "GINDASD0001L": _("Formatted DASD device '%(ident)s' with block size %(blk_size)s"),

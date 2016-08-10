@@ -74,6 +74,7 @@ class DiscoveredISCSIQN(Resource):
         self.uri_fmt = "/iscsi_qns/%s"
         self.login = self.generate_action_handler('login')
         self.logout = self.generate_action_handler('logout')
+        self.rescan = self.generate_action_handler('rescan')
         self.initiator_auth = self.generate_action_handler(
             'initiator_auth', ['auth_type', 'username', 'password'])
         self.target_auth = self.generate_action_handler(

@@ -51,6 +51,9 @@ class DiscoveredISCSIQNModel(object):
     def logout(self, name):
         utils.iscsi_target_logout(name)
 
+    def rescan(self, name):
+        utils.iscsi_rescan_target(name)
+
     def delete(self, name):
         utils.iscsi_delete_iqn(name)
 
