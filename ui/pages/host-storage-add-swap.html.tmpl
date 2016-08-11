@@ -52,14 +52,14 @@
                 </div>
                 <div class="row" id="AddSwap-file-container" style="display:none" hidden>
                     <div class="form-group">
-                        <label for="swapname-textbox">$_("Name")</label>
+                        <label for="swapname-textbox">$_("Absolute File Path")</label>
                         <input type="text" class="form-control inputbox" id="swapname-textbox" name="Name" />
                         <p class="help-block">
                             <i class="fa fa-info-circle"></i>$_("Enter file name with path (Ex: path/filename"))</p>
                         <label>$_("Size")</label>
                         <div class="row">
                             <div class="form-group col-md-3 col-lg-3">
-                                <input type="text" id="slider-value" class="form-control inputbox" disabled>
+                                <input type="text" id="slider-value" value="1" class="form-control inputbox" disabled>
                                 <span class="value" id="spanvalue" hidden></span></div>
                             <div class="slider col-md-8 col-lg-8" id="slider-id" style="margin-left:60px; margin-top:9px;">
                             </div><span id="min-slider-value" style="margin-left:50px"></span><span id="max-slider-value" style="margin-left:405px"></span></div>
@@ -68,7 +68,7 @@
             </form>
         </div>
         <div class="modal-footer">
-            <button type="button" id="Swap-submit" class="btn btn-default">$_("Apply")</button>
+            <button type="button" id="Swap-submit" class="btn btn-default" disabled >$_("Apply")</button>
             <button type="button" id="Swap-cancel" class="btn btn-default" data-dismiss="modal">$_("Cancel")</button>
         </div>
     </div>
