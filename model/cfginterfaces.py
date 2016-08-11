@@ -170,7 +170,8 @@ class CfginterfacesModel(object):
             raise OperationFailed("GINNET0037E")
         return
 
-    def is_feature_available(self):
+    @staticmethod
+    def is_feature_available():
         return os.path.isdir(os.sep + network_configpath)
 
 

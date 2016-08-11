@@ -33,7 +33,9 @@ class DASDPartitionsModel(object):
     Model class for listing DASD Partitions, creating and
     deleting a DASD Partition
     """
-    def is_feature_available(self):
+
+    @staticmethod
+    def is_feature_available():
         ptfm = platform.machine()
         if ptfm != 's390x':
             return False

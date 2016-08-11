@@ -245,7 +245,8 @@ class SensorsModel(object):
         hdds = parse_hdds(cur_unit)
         return {'sensors': sensors, 'hdds': hdds}
 
-    def is_feature_available(self):
+    @staticmethod
+    def is_feature_available():
         _, _, rc1 = run_command(['sensors', '-u'])
         _, _, rc2 = run_command(['hddtemp'])
 

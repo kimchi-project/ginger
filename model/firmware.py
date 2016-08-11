@@ -123,7 +123,8 @@ class FirmwareModel(object):
         # update_flash returns a message on success, so log it.
         wok_log.info(output)
 
-    def is_feature_available(self):
+    @staticmethod
+    def is_feature_available():
         return platform.machine().startswith('ppc')
 
     def _execute_task(self, cb, params):

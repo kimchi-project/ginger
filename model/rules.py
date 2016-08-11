@@ -182,7 +182,8 @@ class RulesModel(object):
         except Exception as e:
             raise OperationFailed('GINAUD0005E', {'err': e.message})
 
-    def is_feature_available(self):
+    @staticmethod
+    def is_feature_available():
         return os.path.isdir(os.sep + audit_configpath)
 
 

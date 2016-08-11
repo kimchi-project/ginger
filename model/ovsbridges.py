@@ -333,7 +333,8 @@ def change_bond_configuration(ovsbridge, bond, iface_del, iface_add):
 
 class OVSBridgesModel(object):
 
-    def is_feature_available(self):
+    @staticmethod
+    def is_feature_available():
         cmd = ['systemctl', 'is-active', 'openvswitch.service', '--quiet']
         _, _, rc = run_command(cmd, silent=True)
         return rc == 0

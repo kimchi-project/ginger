@@ -60,7 +60,8 @@ class PowerProfilesModel(object):
                 profiles.append(line)
         return profiles
 
-    def is_feature_available(self):
+    @staticmethod
+    def is_feature_available():
         # To make this feature available we need tuned service
         # running.
         try:

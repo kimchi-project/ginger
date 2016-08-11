@@ -36,7 +36,8 @@ class DASDdevsModel(object):
     Model class for listing DASD devices (lsdasd -l)
     """
 
-    def is_feature_available(self):
+    @staticmethod
+    def is_feature_available():
         _, _, returncode = run_command(['lsdasd', '-l'])
         ptfm = platform.machine()
         if ptfm != 's390x' or returncode != 0:

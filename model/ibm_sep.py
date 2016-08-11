@@ -70,7 +70,8 @@ class SepModel(object):
         if rc != 0:
             raise OperationFailed('GINSEP0009E', {'error': error})
 
-    def is_feature_available(self):
+    @staticmethod
+    def is_feature_available():
         return (os.path.isfile('/opt/ibm/seprovider/bin/getSubscriber') and
                 os.path.isfile('/opt/ibm/seprovider/bin/subscribe') and
                 os.path.isfile('/opt/ibm/seprovider/bin/unsubscribe'))
