@@ -25,7 +25,7 @@ INTERFACE_REQUESTS = {
     'POST': {
         'activate': "GINNET0005L",
         'deactivate': "GINNET0006L",
-        'action': "GINNET0007L",
+        'enable_sriov': "GINNET0007L",
     },
 }
 
@@ -49,7 +49,6 @@ class Interface(Resource):
 
         # set user log messages and make sure all parameters are present
         self.log_map = INTERFACE_REQUESTS
-        self.log_args.update({'name': ''})
 
     @property
     def data(self):

@@ -21,6 +21,20 @@ from wok.control.base import Collection, Resource
 from wok.control.utils import model_fn, UrlSubNode
 
 
+ISCSIIQN_REQUESTS = {
+    'DELETE': {'default': "GINISCSI0001L"},
+    'POST': {
+        'login': "GINISCSI0002L",
+        'logout': "GINISCSI0003L",
+        'rescan': "GINISCSI0004L",
+        'initiator_auth': "GINISCSI0005L",
+        'target_auth': "GINISCSI0006L",
+        'discovery_initiator_auth': "GINISCSI0007L",
+        'discovery_target_auth': "GINISCSI0008L",
+    },
+}
+
+
 @UrlSubNode('iscsi_qns', True)
 class DiscoveredISCSIQNs(Collection):
 
@@ -71,6 +85,9 @@ class DiscoveredISCSIQN(Resource):
             'discovery_initiator_auth', ['auth_type', 'username', 'password'])
         self.discovery_target_auth = self.generate_action_handler(
             'discovery_target_auth', ['auth_type', 'username', 'password'])
+
+        # set user log messages and make sure all parameters are present
+        self.log_map = ISCSIIQN_REQUESTS
 
     @property
     def data(self):
