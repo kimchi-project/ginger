@@ -363,6 +363,16 @@ messages = {
     "GINISCSI015E": _("Error executing command to rescan the IQN %(iqn)s - %(err)s"),
     "GINISCSI016E": _("IQN %(iqn)s is not logged onto the target"),
 
+    "GINAUD0001E": _("Failed to get the list of persisted rules '%(error)s'."),
+    "GINAUD0002E": _("Error in executing auditctl command '%(name)s'."),
+    "GINAUD0003E": _("Creation of a rule failed. '%(error)s'."),
+    "GINAUD0004E": _("Missing rule info."),
+    "GINAUD0005E": _("Error occured while writing rule into audit.rules: %(err)s"),
+    "GINAUD0006E": _("Error occured  while deleting the rule. %(err)s"),
+    "GINAUD0007E": _("Error occured in fetching audit rule info. %(error)s"),
+    "GINAUD0008E": _("Error occured in fetching system rule info. %(error)s"),
+    "GINAUD0009E": _("Error occured in fetching filesystem rule info. %(error)s"),
+
     # These messages (ending with L) are for user log purposes
     "GINDASD0001L": _("Formatted DASD device '%(ident)s' with block size %(blk_size)s"),
     "GINDASDPAR0001L": _("Created DASD partition on '%(dev_name)s' with size %(size)s"),
@@ -421,13 +431,4 @@ messages = {
     "GINVG0002L": _("Removed host volume group '%(ident)s'"),
     "GINVG0003L": _("Extended host volume group '%(ident)s'"),
     "GINVG0004L": _("Reduced host volume group '%(ident)s'"),
-    "GINAUD0001E": _("Failed to get the list of persisted rules '%(error)s'."),
-    "GINAUD0002E": _("Error in executing auditctl command '%(name)s'."),
-    "GINAUD0003E": _("Creation of a rule failed. '%(error)s'."),
-    "GINAUD0004E": _("Missing rule info."),
-    "GINAUD0005E": _("Error occured while writing rule into audit.rules: %(err)s"),
-    "GINAUD0006E": _("Error occured  while deleting the rule. %(err)s"),
-    "GINAUD0007E": _("Error occured in fetching audit rule info. %(error)s"),
-    "GINAUD0008E": _("Error occured in fetching system rule info. %(error)s"),
-    "GINAUD0009E": _("Error occured in fetching filesystem rule info. %(error)s")
 }
