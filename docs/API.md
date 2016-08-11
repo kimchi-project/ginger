@@ -992,14 +992,6 @@ URI: /plugins/ginger/services/*:service_name*
 
 * **GET**: Retrieve a summarized list of iSCSI targets from the specified server
 
-### Collection: iSCSI Targets
-
-**URI:** /plugins/ginger/stgserver/*:ipaddress*/iscsitargets
-
-**Methods:**
-
-* **GET**: Retrieve a summarized list of iSCSI targets from the specified server
-
 ### Resource: iSCSI Qualified Name (IQN)
 
 **URI:**  /plugins/ginger/iscsi_qns/*:iqn*
