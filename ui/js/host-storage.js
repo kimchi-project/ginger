@@ -137,7 +137,7 @@ ginger.loadSwapDeviceDetails = function() {
   var opts = [];
   opts['id'] = 'swap-devices';
   opts['gridId'] = "swapDevicesGrid";
-
+  opts['identifier'] = "filename";
   gridFields = [{
     "column-id": 'filename',
     "type": 'string',
@@ -164,8 +164,9 @@ ginger.loadSwapDeviceDetails = function() {
   }];
   opts['gridFields'] = JSON.stringify(gridFields);
   opts['converters'] = wok.localeConverters;
-  ginger.createBootgrid(opts);
+  grid = ginger.createBootgrid(opts);
   ginger.initSwapDevicesGridData();
+  ginger.changeDeleteButtonstate(grid,opts);
 
   $('#swap-devices-refresh-btn').on('click', function() {
     ginger.hideBootgridData(opts);
@@ -190,22 +191,41 @@ ginger.loadSwapDeviceDetails = function() {
           cancel: i18n['GINSWP0004M']
       }, function() {
           if (selectedrowdata && selectedrowdata.length >= 1) {
-              for (var i = 0; i < selectedrowdata.length; i++) {
+              $.each(selectedrowdata, function(key, value) {
                   var deleteSwapInputData = {};
-                  deleteSwapInputData = selectedrowdata[i].filename;
+
+                  deleteSwapInputData = value.filename;
                   ginger.deleteswap(deleteSwapInputData, function() {
-                      ginger.initSwapDevicesGridData();
-                      wok.message.success(i18n['GINSWP0005M'], "#swap-message")
+                     ginger.initSwapDevicesGridData();
+                     wok.message.success(i18n['GINSWP0005M']+' '+deleteSwapInputData, "#swap-message")
                   }, function(result) {
                       ginger.initSwapDevicesGridData();
                       wok.message.error(result.message, "#swap-message", true);
                   });
-              }
+              });
           }
       }, null);
   });
 };
-
+ginger.changeDeleteButtonstate = function(grid,opts){
+  grid.bootgrid().on("selected.rs.jquery.bootgrid", function(e, rows) {
+    changeDeleteButtonStatus();
+  }).on("deselected.rs.jquery.bootgrid", function(e, rows) {
+    changeDeleteButtonStatus();
+  });
+}
+var changeDeleteButtonStatus = function(){
+  var opts = [];
+  opts['gridId'] = "swapDevicesGrid";
+  opts['identifier'] = "filename";
+  var selectedrowdata = ginger.getSelectedRowsData(opts);
+  if (selectedrowdata && selectedrowdata.length === 0) {
+    $("#delete-swap-device-btn").prop("disabled", true);
+  }
+  else{
+    $("#delete-swap-device-btn").prop("disabled", false);
+  }
+}
 ginger.initSwapDevicesGridData = function() {
   var opts = [];
   opts['gridId'] = "swapDevicesGrid";

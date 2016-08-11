@@ -37,8 +37,7 @@ ginger.initAddSwap = function() {
             fileType.hide();
             deviceType.show();
             ginger.initSwapDeviceGridData();
-        };
-        if (type == "file") {
+       } else if (type == "file") {
             deviceType.hide();
             fileType.show();
             $('#slider-id').slider({
@@ -52,10 +51,20 @@ ginger.initAddSwap = function() {
             });
             $('#max-slider-value').text((10240).toLocaleString(wok.lang.get_locale()) + ' MB');
             $('#min-slider-value').text('1 MB');
+          ginger.initfileswap();
         };
     });
 };
 
+ginger.initfileswap = function(){
+  $("#swapname-textbox").keyup(function() {
+      if (($("#swapname-textbox").val()).length == 0) {
+          $("#Swap-submit").attr("disabled", true);
+      } else {
+          $("#Swap-submit").attr("disabled", false);
+      }
+  });
+}
 ginger.loadSwapDeviceList = function() {
 
     var gridFields = [];
@@ -64,6 +73,7 @@ ginger.loadSwapDeviceList = function() {
     opts['gridId'] = "AddSwapGrid";
     opts['multiSelection'] = false;
     opts['selection'] = true;
+    opts['identifier'] = "path";
     gridFields = [{
         "column-id": 'path',
         "type": 'string',
@@ -82,6 +92,13 @@ ginger.loadSwapDeviceList = function() {
     var grid = ginger.createBootgrid(opts);
     grid.on("loaded.rs.jquery.bootgrid", function(e) {
         $('#AddSwapGrid .select-box').hide();
+    }).on("selected.rs.jquery.bootgrid", function(e) {
+      var selectedRowIds = ginger.getSelectedRowsData(opts);
+            if (selectedRowIds.length === 0) {
+                $("#Swap-submit").attr("disabled", true);
+                } else {
+                  $("#Swap-submit").attr("disabled", false);
+                }
     });
 };
 
@@ -134,7 +151,7 @@ $("#Swap-submit").on('click', function(event) {
         fileSwapInputData['file_loc'] = filename;
         fileSwapInputData['type'] = "file";
         fileSwapInputData['size'] = filesize;
-        if ((($("#swapname-textbox").val()).length) == 0 || (filesize.length) == 0) {
+        if ((($("#swapname-textbox").val()).length) == 0 ) {
             wok.message.error(i18n['GINSWP0009M'], "#swapadd-message");
         } else {
             ginger.addDeviceswap(fileSwapInputData, function() {
