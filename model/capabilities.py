@@ -17,20 +17,36 @@
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 
+import os
+
+from wok.utils import get_model_instances, listPathModules
+
 
 class CapabilitiesModel(object):
-    def __init__(self, features):
-        self.features_enabled = {}
-        self._set_capabilities(features)
+    def __init__(self):
+        self.features = {}
+
+        pckg_namespace = __name__.rsplit('.', 1)[0]
+
+        for mod_name in listPathModules(os.path.dirname(__file__)):
+            if mod_name.startswith("_") or mod_name == 'capabilities':
+                continue
+
+            instances = get_model_instances(pckg_namespace + '.' + mod_name)
+            for instance in instances:
+                feat_name = instance.__name__.replace('Model', '')
+                try:
+                    self.features[feat_name] = instance.is_feature_available
+                except AttributeError:
+                    self.features[feat_name] = None
 
     def lookup(self, *ident):
-        return self.features_enabled
+        current_feature_state = {}
 
-    def _set_capabilities(self, features):
-        for feat in features:
-            feat_name = type(feat).__name__.replace('Model', '')
-            try:
-                self.features_enabled[feat_name] = \
-                    feat.is_feature_available()
-            except AttributeError:
-                self.features_enabled[feat_name] = True
+        for feat_name, is_avail_method in self.features.items():
+            if not is_avail_method:
+                current_feature_state[feat_name] = True
+            else:
+                current_feature_state[feat_name] = is_avail_method()
+
+        return current_feature_state

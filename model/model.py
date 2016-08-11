@@ -128,36 +128,7 @@ class GingerModel(BaseModel):
         rules = RulesModel()
         rule = RuleModel()
 
-        features = [
-            firmware,
-            swaps,
-            backup,
-            network,
-            powerprofiles,
-            san_adapters,
-            sensors,
-            ibm_sep,
-            users,
-            filesystems,
-            dasddevs,
-            dasdpartitions,
-            discoveredISCSIQNs,
-            partitions,
-            physical_vols,
-            vol_groups,
-            log_volumes,
-            stgdevs,
-            sysmodules,
-            cfginterfaces,
-            ovsbridges,
-            services,
-            stgservers,
-            nfsshares,
-            iscsitargets,
-            rules,
-            rule]
-
-        capabilities = CapabilitiesModel(features)
+        capabilities = CapabilitiesModel()
         config = ConfigModel()
 
         sub_models = [
