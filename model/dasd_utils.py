@@ -22,13 +22,12 @@ import os
 import platform
 import re
 import subprocess
-import utils
 
 from wok.exception import InvalidParameter, NotFoundError, OperationFailed
+from wok.plugins.ginger.model.utils import _get_paths, _hex_to_binary
+from wok.plugins.ginger.model.utils import get_directories, get_dirname
+from wok.plugins.ginger.model.utils import syspath_eckd
 from wok.utils import run_command
-
-from wok.plugins.ginger.model.utils import get_directories
-from wok.plugins.ginger.model.utils import syspath_eckd, get_dirname
 
 
 def _get_lsdasd_devs():
@@ -240,8 +239,8 @@ def _get_dasd_pim():
                 pim = clms[-5]
                 bus_id = clms[0]
                 chipid = clms[-2]+" "+clms[-1]
-                binaryval_pam = utils._hex_to_binary(pim)
-                enabled_chipids = utils._get_paths(binaryval_pam, chipid)
+                binaryval_pam = _hex_to_binary(pim)
+                enabled_chipids = _get_paths(binaryval_pam, chipid)
                 pim_dict[bus_id] = len(enabled_chipids)
         except Exception as err:
             raise OperationFailed("GINDASD0013E", {'err': err.message})
