@@ -20,6 +20,7 @@ import mock
 import unittest
 
 from wok.plugins.ginger.model import utils
+from wok.plugins.ginger.model.storage_devs import get_final_list
 
 
 class StorageDevsTests(unittest.TestCase):
@@ -114,11 +115,11 @@ NAME="dasda1" TYPE="part" SIZE="24153292800" TRAN=""
         self.assertEqual(ret_dict['sde']['transport'], 'fc')
         self.assertEqual(ret_dict['sde']['size'], 20480)
 
-    @mock.patch('wok.plugins.ginger.model.dasd_utils.get_dasd_devs')
-    @mock.patch('wok.plugins.ginger.model.utils.get_fc_path_elements')
-    @mock.patch('wok.plugins.ginger.model.utils.get_lsblk_keypair_out')
-    @mock.patch('wok.plugins.ginger.model.utils.get_disks_by_id_out')
-    @mock.patch('wok.plugins.ginger.model.utils.os.listdir')
+    @mock.patch('wok.plugins.ginger.model.storage_devs.get_dasd_devs')
+    @mock.patch('wok.plugins.ginger.model.storage_devs.get_fc_path_elements')
+    @mock.patch('wok.plugins.ginger.model.storage_devs.get_lsblk_keypair_out')
+    @mock.patch('wok.plugins.ginger.model.storage_devs.get_disks_by_id_out')
+    @mock.patch('wok.plugins.ginger.model.storage_devs.os.listdir')
     def test_get_dev_list(
             self,
             mock_list_dir,
@@ -210,7 +211,7 @@ lrwxrwxrwx. 1 root root 10 Nov 24 10:58 wwn-0x6005076802810d50480000000000\
 2ee0-part1 -> ../../sdc1
 """
         mock_list_dir.return_value = ['sde']
-        out_list = utils.get_final_list()
+        out_list = get_final_list()
         self.assertEqual(len(out_list), 4)
 
 
