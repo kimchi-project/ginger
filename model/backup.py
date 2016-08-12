@@ -39,8 +39,8 @@ class BackupModel(object):
 
     def __init__(self, **kargs):
         self._objstore = kargs['objstore']
-        self._archives_model = kargs['archives_model']
-        self._archive_model = kargs['archive_model']
+        self._archives_model = ArchivesModel(**kargs)
+        self._archive_model = ArchiveModel(**kargs)
 
     def _get_archives_to_discard(self, archives, days_ago, counts_ago):
         try:

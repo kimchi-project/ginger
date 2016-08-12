@@ -20,15 +20,12 @@
 import json
 import os
 
-
-from wok.plugins.ginger.control import sub_nodes
-
 from i18n import messages
-
+from model import GingerModel
 from wok import config
 from wok.config import PluginPaths
+from wok.plugins.ginger.control import sub_nodes
 from wok.root import WokRoot
-from model import GingerModel
 
 
 class Ginger(WokRoot):
