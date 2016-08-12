@@ -19,7 +19,6 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 
 import binascii
-import dasd_utils
 import glob
 import os
 import re
@@ -831,71 +830,6 @@ def parse_lsblk_out(lsblk_out):
         raise OperationFailed("GINSD00004E", {'err': e.message})
 
     return return_dict
-
-
-def get_final_list():
-    """
-    Comprehensive list of storage devices found on the system
-    :return:List of dictionaries containing the information about
-            individual disk
-    """
-    try:
-        out = get_lsblk_keypair_out(True)
-    except OperationFailed:
-        out = get_lsblk_keypair_out(False)
-
-    final_list = []
-
-    try:
-        dasds = dasd_utils.get_dasd_devs()
-        if dasds:
-            final_list = dasds
-
-        blk_dict = parse_lsblk_out(out)
-
-        out = get_disks_by_id_out()
-        ll_dict, ll_id_dict = parse_ll_out(out)
-
-        fc_blk_dict = get_fc_path_elements()
-
-        for blk in blk_dict:
-            final_dict = {}
-            if blk in ll_dict:
-                final_dict['id'] = ll_dict[blk]
-                if final_dict['id'].startswith('ccw-'):
-                    continue
-
-                block_dev_list = ll_id_dict[final_dict['id']]
-                max_slaves = 1
-                for block_dev in block_dev_list:
-                    slaves = os.listdir('/sys/block/' + block_dev + '/slaves/')
-                    if max_slaves < len(slaves):
-                        max_slaves = len(slaves)
-
-                final_dict['mpath_count'] = max_slaves
-
-            final_dict['name'] = blk
-            final_dict['size'] = blk_dict[blk]['size']
-            final_dict['type'] = blk_dict[blk]['transport']
-
-            if final_dict['type'] == 'fc':
-                final_dict['hba_id'] = fc_blk_dict[blk].get('hba_id', '')
-                final_dict['wwpn'] = fc_blk_dict[blk].get('wwpn', '')
-                final_dict['fcp_lun'] = fc_blk_dict[blk].get('fcp_lun', '')
-                final_dict['vport'] = fc_blk_dict[blk].get('vport', '')
-
-            if 'id' in final_dict:
-                if final_dict['id'] in ll_id_dict:
-                    final_dict['name'] = ll_id_dict[final_dict['id']][0]
-                if 'hba_id' in final_dict.keys():
-                    if final_dict['hba_id']:
-                        final_list.append(final_dict)
-                else:
-                    final_list.append(final_dict)
-    except Exception as e:
-        raise OperationFailed("GINSD00005E", {'err': e.message})
-
-    return final_list
 
 
 def get_fc_path_elements():
