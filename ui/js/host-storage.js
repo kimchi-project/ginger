@@ -26,6 +26,7 @@ ginger.initStorage = function() {
   ginger.loadSwapDeviceDetails();
   ginger.loadVolumeGroupDetails();
   ginger.loadStorageDeviceDetails();
+  ginger.loadiSCSIDetails();
 };
 
 // ******************** File Systems ********************

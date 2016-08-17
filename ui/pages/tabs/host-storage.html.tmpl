@@ -27,6 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 <script type="text/javascript" src="plugins/ginger/js/util.js"></script>
 <script type="text/javascript" src="plugins/ginger/js/host-storage.js"></script>
 <script type="text/javascript" src="plugins/ginger/js/host-storage-partition.js"></script>
+<script type="text/javascript" src="plugins/ginger/js/host-storage-iscsi.js"></script>
 <script type="text/javascript" src="plugins/ginger/js/ginger-bootgrid.js"></script>
 #for $script in $data.scripts
 <script type="text/javascript" src="$script"></script>
@@ -211,6 +212,41 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
                 </div>
               </div>
             </div>
+            <!-- iSCSI Panel -->
+            <div class="panel-group accordion" id="iSCSI-accordion" role="tablist" aria-multiselectable="true">
+                <h3>
+                    <a role="button" data-toggle="collapse" data-parent="#iSCSI-accordion" href="#iSCSI-content-area" aria-expanded="false" aria-controls="iSCSI-content-area" class="">
+                        <span class="accordion-icon"></span><span class="accordion-text">$_("iSCSI")</span>
+                    </a>
+                </h3>
+                <div id="iSCSI-content-area" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+                  <div class='clearfix'>
+                      <div class="row">
+                       <div class="col-sd-12"><span id="iSCSI-alert-container">&nbsp;</span></div>
+                      </div>
+                      <div class="row" id="iSCSI">
+                        <table id="iSCSI-table" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                          <thead>
+                            <tr>
+                              <th>$_("iSCSI Qualifier Name (IQN)")</th>
+                              <th>$_("Status")</th>
+                            </tr>
+                          </thead>
+                          <tbody></tbody>
+                        </table>
+                      </div>
+                  </div>
+                  <div class="wok-mask iSCSI-loader">
+                    <div class="wok-mask-loader-container">
+                      <div class="wok-mask-loading">
+                        <div class="wok-mask-loading-icon"></div>
+                        <div class="wok-mask-loading-text">$_("Loading...")</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            <!-- end of iSCSI -->
         </div>
     </div>
     <div id="modalWindow" class="modal fade host-modal guests-modal" tabindex="-1" role="dialog" aria-labelledby="guestsModalLabel" aria-hidden="true">

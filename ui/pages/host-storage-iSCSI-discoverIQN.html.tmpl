@@ -1,0 +1,88 @@
+#*
+ * Project Ginger
+ *
+ * Copyright IBM Corp, 2016
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *#
+#unicode UTF-8
+#import gettext
+#from wok.cachebust import href
+#silent t = gettext.translation($lang.domain, $lang.localedir, languages=$lang.lang, fallback=True)
+#silent _ = t.gettext
+#silent _t = t.gettext
+<!DOCTYPE html>
+<html>
+<body>
+    <head>
+        <!-- <script type="text/javascript" src="plugins/ginger/js/host-storage-addswap.js"> </script> --rajat-->
+    </head>
+    <div class="modal-content" id="iSCSI-add-iqn-content">
+        <div class="modal-header">
+            <button type="button" id="iSCSI-add-iqn-button-close" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <h4 class="modal-title">$_("iSCSI: Target")</h4>
+        </div>
+        <hr>
+        <div class="modal-body" id="iSCSI-add-iqn">
+            <div id="alert-iSCSI-add-iqn"></div>
+            <form id="form-iSCSI-add-iqn">
+                <span id="iSCSI-add-iqn-message" style="display:none;"></span>
+                <div class="form-group">
+                    <div class="row"><label for="" class="col-md-5 col-lg-5"> iSCSI Server IP </label></div>
+                    <div class="row">
+                      <input type="text" id="iSCSI-add-discovery-ip" placeholder="Server IP" class="">
+                      <input type="text" id="iSCSI-add-discovery-port" placeholder="Port" class="" value="3260">
+                      <a class="btn btn-link iSCSI-discovery"><i class="fa fa-2x fa-arrow-circle-o-right"></i></a>
+                    </div>
+                </div>
+                <div class="row" id="iSCSI-discovery-container">
+                        <div class="form-group">
+                          <div class='clearfix'>
+                              <div class="row form-group">
+                               <div class="col-sd-12"><span>&nbsp;</span></div>
+                              </div>
+                              <div class="row">
+                                <table id="iSCSI-discovery-table" class="table table-stripped" cellspacing="0" width="100%">
+                                  <thead>
+                                    <tr>
+                                      <th>$_("iSCSI Qualifier Name (IQN)")</th>
+                                    </tr>
+                                  </thead>
+                                  <tbody></tbody>
+                                </table>
+                              </div>
+                          </div>
+                          <div class="wok-mask iSCSI-discovery-loader" style="display:none">
+                            <div class="wok-mask-loader-container">
+                              <div class="wok-mask-loading">
+                                <div class="wok-mask-loading-icon"></div>
+                                <div class="wok-mask-loading-text">$_("Loading...")</div>
+                              </div>
+                            </div>
+                          </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button type="button" id="iSCSI-ok" class="btn btn-default" data-dismiss="modal">$_("Ok")</button>
+            <button type="button" id="iSCSI-cancel" class="btn btn-default" data-dismiss="modal">$_("Cancel")</button>
+        </div>
+    </div>
+    <script>
+        ginger.initiSCSIDiscovery();
+    </script>
+</body>
+</html>

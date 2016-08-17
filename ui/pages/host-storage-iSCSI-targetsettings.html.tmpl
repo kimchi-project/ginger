@@ -1,0 +1,109 @@
+#*
+ * Project Ginger
+ *
+ * Copyright IBM Corp, 2016
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *#
+#unicode UTF-8
+#import gettext
+#from wok.cachebust import href
+#silent t = gettext.translation($lang.domain, $lang.localedir, languages=$lang.lang, fallback=True)
+#silent _ = t.gettext
+#silent _t = t.gettext
+<!DOCTYPE html>
+<html>
+<body>
+    <head>
+    </head>
+    <div class="modal-content" id="iSCSI-target-settings-iqn-content">
+        <div class="modal-header">
+            <button type="button" id="iSCSI-target-settings-iqn-button-close" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <h4 class="modal-title">$_("iSCSI: Target Authentication Configuration")</h4>
+        </div>
+        <hr>
+        <div class="modal-body" id="iSCSI-target-settings-iqn">
+            <div id="alert-iSCSI-target-settings-iqn"></div>
+            <form id="form-iSCSI-target-settings-iqn">
+              <span id="iSCSI-target-settings-iqn-message" style="display:none;"></span>
+              <div class="form-group">
+                <div class="row"><label for="" class="col-md-5 col-lg-5"> $_("Target Device") </label></div>
+                <div class="row"><span id="iSCSI-target-settings-target" class="accordion-text"></span></div>
+              </div>
+              <div class="form-group">
+                  <div class="row"><label for="" class="col-md-5 col-lg-5"> $_("Authentication") </label></div>
+                <div class="row">
+                  <div class="col-sm-4">
+                  <select id="iSCSI-target-settings-authentication" class="form-control">
+                    <option value="initiator_auth">Initiator</option>
+                    <option value="target_auth">Target</option>
+                    <option value="discovery_initiator_auth">Discovery Initiator</option>
+                    <option value="discovery_target_auth">Discovery Target</option>
+                  </select>
+                </div>
+              </div>
+              </div>
+              <div class="row" id="iSCSI-target-settings-container" style="visibility:hidden">
+                      <div class="form-group">
+                        <div class='clearfix well'>
+                            <!-- <div class="row form-group">
+                             <div class="col-sd-12"><span>&nbsp;</span></div>
+                           </div> this will give space to fit loading -->
+                            <div class="row">
+                              <label for="" class="col-md-4 col-lg-4">$_(" Type ")</label>
+                              <div class="iSCSI-credential">
+                              <label for="" class="col-md-4 col-lg-4 col-md-push-1">$_(" Username ")</label>
+                              <label for="" class="col-md-4 col-lg-4">$_(" Password ")</label>
+                            </div>
+                            </div>
+                            <div class="row form-group  targets-settings-container"  style="">
+                              <div class="col-md-4 col-lg-4">
+                                <select id="iSCSI-target-settings-type" class="form-control">
+                                  <option value="CHAP">CHAP</option>
+                                  <option value="none">None</option>
+                                </select>
+                                </div>
+                                <div class="iSCSI-credential">
+                                <div class="col-md-4 col-lg-4 col-md-push-1">
+                                <input type="text" id="iSCSI-target-settings-username" placeholder="Username">
+                              </div>
+                              <div class="col-md-4 col-lg-4">
+                                <input type="text" id="iSCSI-target-settings-password" placeholder="Password">
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                  </div>
+              </div>
+              <div class="wok-mask iSCSI-target-settings-loader">
+                <div class="wok-mask-loader-container">
+                  <div class="wok-mask-loading">
+                    <div class="wok-mask-loading-icon"></div>
+                    <div class="wok-mask-loading-text">$_("Loading...")</div>
+                  </div>
+                </div>
+              </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button type="button" id="iSCSI-target-settings-update" class="btn btn-default">$_("Update")</button>
+            <button type="button" id="iSCSI-target-settings-close" class="btn btn-default" data-dismiss="modal">$_("Close")</button>
+        </div>
+    </div>
+    <script>
+        ginger.initiSCSItargetSettings();
+    </script>
+</body>
+</html>

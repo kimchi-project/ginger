@@ -433,3 +433,33 @@ hr {
    }
  }
 }
+
+#iSCSI {
+    table.dataTable tbody > tr > .selected,
+    table.dataTable tbody > tr.selected {
+        background-color: #ddd;
+        color: #222;
+    }
+    div.dataTables_wrapper div.dataTables_filter .form-control {
+        width: 270px;
+    }
+    .no-sort::after {
+        display: none!important;
+    }
+    .no-sort {
+        pointer-events: none!important;
+        cursor: default!important;
+    }
+    #iSCSI-table .iSCSI-status-disabled .fa {
+        color: #9e9e9e;
+        font-size: 23px;
+    }
+    #iSCSI-table .iSCSI-status-enable .fa {
+        color: #a8d46f;
+        font-size: 23px;
+    }
+    a.disablelink {
+        background: none repeat scroll 0 0 #6b6b6b;
+        cursor: not-allowed;
+    }
+}

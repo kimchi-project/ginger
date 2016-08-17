@@ -1481,3 +1481,138 @@ ginger.getPartitionsDevices = function(type,suc, err) {
        }
    });
  };
+
+/*
+* ISCSI
+*/
+
+ginger.getiSCSIqns =  function(suc , err){
+	wok.requestJSON({
+        url : 'plugins/ginger/iscsi_qns',
+        type : 'GET',
+        contentType : 'application/json',
+        dataType : 'json',
+        success : suc,
+        error : err || function(data) {
+            wok.message.error(data.responseJSON.reason);
+        }
+    });
+}
+
+ginger.getiSCSItargets = function(content, suc, err){
+  wok.requestJSON({
+     url: 'plugins/ginger/stgserver/'+ content.ip + ':' + content.port +'/iscsitargets',
+     type: 'GET',
+     contentType: 'application/json',
+     dataType: 'json',
+     success: suc,
+     error : err || function(data) {
+         wok.message.error(data.responseJSON.reason);
+     }
+  });
+};
+
+ginger.iSCSItargetslogin = function(target, suc, err){
+  wok.requestJSON({
+     url: 'plugins/ginger/iscsi_qns/'+ target +'/login',
+     type: 'POST',
+     contentType: 'application/json',
+     dataType: 'json',
+     success: suc,
+     error : err || function(data) {
+         wok.message.error(data.responseJSON.reason);
+     }
+  });
+};
+
+ginger.iSCSItargetslogout = function(target, suc, err){
+  wok.requestJSON({
+     url: 'plugins/ginger/iscsi_qns/'+ target +'/logout',
+     type: 'POST',
+     contentType: 'application/json',
+     dataType: 'json',
+     success: suc,
+     error : err || function(data) {
+         wok.message.error(data.responseJSON.reason);
+     }
+  });
+};
+
+ginger.iSCSItargetsremove = function(target, suc, err){
+  wok.requestJSON({
+     url: 'plugins/ginger/iscsi_qns/'+ target,
+     type: 'DELETE',
+     contentType: 'application/json',
+     dataType: 'json',
+     success: suc,
+     error : err || function(data) {
+         wok.message.error(data.responseJSON.reason);
+     }
+  });
+};
+ginger.iSCSItargetsrescan = function(target, suc, err){
+  wok.requestJSON({
+     url: 'plugins/ginger/iscsi_qns/'+ target +'/rescan',
+     type: 'POST',
+     contentType: 'application/json',
+     dataType: 'json',
+     success: suc,
+     error : err || function(data) {
+         wok.message.error(data.responseJSON.reason);
+     }
+  });
+};
+
+ginger.getiSCSIglobalAuthdetails = function(suc, err){
+  wok.requestJSON({
+     url: 'plugins/ginger/iscsi_auth',
+     type: 'GET',
+     contentType: 'application/json',
+     dataType: 'json',
+     success: suc,
+     error : err || function(data) {
+         wok.message.error(data.responseJSON.reason);
+     }
+  });
+};
+
+ginger.getiSCSItargetSettings = function(target,suc,err){
+  wok.requestJSON({
+     url: 'plugins/ginger/iscsi_qns/'+target,
+     type: 'GET',
+     contentType: 'application/json',
+     dataType: 'json',
+     success: suc,
+     error : err || function(data) {
+         wok.message.error(data.responseJSON.reason);
+     }
+  });
+};
+
+ginger.iSCSIupdateTargetsettingsDetail = function(content,suc,err){
+  wok.requestJSON({
+     url: 'plugins/ginger/iscsi_qns/'+ content.target +'/'+content.api,
+     type: 'POST',
+     contentType: 'application/json',
+     data : JSON.stringify(content.data),
+     dataType: 'json',
+     success: suc,
+     error : err || function(data) {
+         wok.message.error(data.responseJSON.reason);
+     }
+  });
+};
+
+ginger.iSCSIupdateSettingsDetail = function(content,suc,err){
+  wok.requestJSON({
+     url: 'plugins/ginger/iscsi_auth/'+content.api,
+     type: 'POST',
+     contentType: 'application/json',
+     data : JSON.stringify(content.data),
+     dataType: 'json',
+     success: suc,
+     error : err || function(data) {
+         wok.message.error(data.responseJSON.reason);
+     }
+  });
+};
