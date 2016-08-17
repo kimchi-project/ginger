@@ -1115,3 +1115,36 @@ URI: /plugins/ginger/services/*:service_name*
    * auth_type - CHAP or None
    * username
    * password
+
+
+### Collection: Servers
+
+**URI:** /plugins/ginger/servers
+
+**METHODS:**
+
+* **GET**: Retrieve information about all the managed servers
+  * ipaddr - IP address or Host Name of the Server
+  * name - User Defined name of the Server
+  * status - Power Status (on/off)
+
+* **POST**: Adds a new server to be managed
+  * ipaddr - IP address or Host Name of the Server
+  * name - User Defined name of the Server
+  * username - Username to communicate via IPMI (Optional)
+  * password - IPMI password corresponding to the username
+
+### Resource: Server
+
+**URI:** /plugins/ginger/servers/*:server_name*
+
+**METHODS:**
+
+* **POST**:
+
+ * /plugins/ginger/servers/*:server_name*/poweron - Power On the specified server
+ * /plugins/ginger/servers/*:server_name*/poweroff - Power Off the specified server
+
+* **DELETE**:
+
+ * /plugins/ginger/servers/*:server_name* - Removes the server from the list of managed servers

@@ -376,6 +376,14 @@ messages = {
     "GINAUD0008E": _("Error occured in fetching system rule info. %(error)s"),
     "GINAUD0009E": _("Error occured in fetching filesystem rule info. %(error)s"),
 
+    "GINSE00001E": _("Missing Input Parameters"),
+    "GINSE00002E": _("Server with name %(name)s is already added"),
+    "GINSE00003E": _("Error while getting the status of server with name %(name)s and IP address or Host Name %(ipaddr)s. Please check the server details and retry the operation."),
+    "GINSE00004E": _("Server with IP address or Host Name %(ipaddr)s is already added"),
+    "GINSE00005E": _("Server with name %(name)s is not found"),
+    "GINSE00006E": _("Power on server %(name)s failed"),
+    "GINSE00007E": _("Power off server %(name)s failed"),
+
     # These messages (ending with L) are for user log purposes
     "GINAUD0001L": _("Create audit rule '%(rule)s' type '%(type)s'"),
     "GINAUD0002L": _("Delete audit rule '%(ident)s'"),
@@ -429,6 +437,10 @@ messages = {
     "GINPOWER0001L": _("Activate power saving profile '%(ident)s'"),
     "GINPV0001L": _("Add physical volume '%(pv_name)s'"),
     "GINPV0002L": _("Remove physical volume '%(ident)s'"),
+    "GINSE0001L": _("Add managed server '%(name)s'"),
+    "GINSE0002L": _("Remove managed server '%(ident)s'"),
+    "GINSE0003L": _("Power on managed server '%(ident)s'"),
+    "GINSE0004L": _("Power off managed server '%(ident)s'"),
     "GINSEP0001L": _("Start IBM Serviceable Event Provider (SEP)"),
     "GINSEP0002L": _("Stop IBM Serviceable Event Provider (SEP)"),
     "GINSEP0003L": _("Subscribe '%(hostname)s' with IBM SEP"),

@@ -41,6 +41,7 @@ from physical_vol import PhysicalVolumesModel, PhysicalVolumeModel
 from rules import RulesModel, RuleModel
 from sanadapters import SanAdapterModel, SanAdaptersModel
 from sensors import SensorsModel
+from servers import ServersModel, ServerModel
 from services import ServicesModel, ServiceModel
 from stgserver import StgServersModel, StgServerModel
 from storage_devs import StorageDevsModel
@@ -121,6 +122,8 @@ class GingerModel(BaseModel):
         physical_vol = PhysicalVolumeModel(objstore=self._objstore)
         vol_groups = VolumeGroupsModel(objstore=self._objstore)
         vol_group = VolumeGroupModel(objstore=self._objstore)
+        servers = ServersModel()
+        server = ServerModel()
         services = ServicesModel()
         service = ServiceModel()
         stgservers = StgServersModel()
@@ -155,7 +158,7 @@ class GingerModel(BaseModel):
             ibm_sep, subscription, subscriber,
             capabilities, config, ovsbridge, ovsbridges,
             services, service, stgservers, stgserver,
-            rules, rule]
+            rules, rule, servers, server]
 
         # Import task model from Wok
         kargs = {'objstore': self._objstore}
