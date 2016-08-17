@@ -34,6 +34,15 @@ ISCSIIQN_REQUESTS = {
     },
 }
 
+ISCSIAUTH_REQUESTS = {
+    'POST': {
+        'initiator_auth': "GINISCSIATH001L",
+        'target_auth': "GINISCSIATH002L",
+        'discovery_initiator_auth': "GINISCSIATH003L",
+        'discovery_target_auth': "GINISCSIATH004L",
+    },
+}
+
 
 @UrlSubNode('iscsi_qns', True)
 class DiscoveredISCSIQNs(Collection):
@@ -114,7 +123,7 @@ class ISCSIAuth(Resource):
             'discovery_target_auth', ['auth_type', 'username', 'password'])
 
         # set user log messages and make sure all parameters are present
-        self.log_map = ISCSIIQN_REQUESTS
+        self.log_map = ISCSIAUTH_REQUESTS
 
     @property
     def data(self):
