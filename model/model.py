@@ -31,7 +31,7 @@ from firmware import FirmwareModel
 from ibm_sep import SepModel, SubscribersModel, SubscriptionModel
 from interfaces import InterfacesModel, InterfaceModel
 from iscsitargets import DiscoveredISCSIQNsModel, DiscoveredISCSIQNModel
-from iscsitargets import ISCSITargetsModel
+from iscsitargets import ISCSITargetsModel, ISCSIAuth
 from log_volume import LogicalVolumesModel, LogicalVolumeModel
 from network import NetworkModel
 from nfsshares import NFSSharesModel
@@ -95,6 +95,7 @@ class GingerModel(BaseModel):
         filesystems = FileSystemsModel()
         filesystem = FileSystemModel()
         iscsitargets = ISCSITargetsModel()
+        iscsiAuth = ISCSIAuth()
         log_volumes = LogicalVolumesModel(objstore=self._objstore)
         log_volume = LogicalVolumeModel(objstore=self._objstore)
         ovsbridges = OVSBridgesModel()
@@ -139,7 +140,7 @@ class GingerModel(BaseModel):
             dasddevs, dasddev,
             dasdpartitions, dasdpartition,
             discoveredISCSIQN, discoveredISCSIQNs,
-            network, nfsshares, iscsitargets,
+            network, nfsshares, iscsitargets, iscsiAuth,
             filesystems, filesystem,
             log_volumes, log_volume,
             partitions, partition,

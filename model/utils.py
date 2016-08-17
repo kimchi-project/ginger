@@ -1251,7 +1251,8 @@ def get_discovered_iscsi_qns():
             discovered_iqns[target_name] = True
 
         for iqn, status in discovered_iqns.iteritems():
-            iqn_list.append({'iqn': iqn, 'status': status})
+            iqn_list.append({'iqn': iqn, 'status': status,
+                             'targets': get_iscsi_iqn_auth_info(iqn)})
 
     except Exception as e:
         raise OperationFailed("GINISCSI005E", {'err': e.message})
@@ -1268,8 +1269,8 @@ def get_iqn_info(iqn):
     Returns: Dictionary containing basic info about given IQN
 
     """
-
-    return {'iqn': iqn, 'status': is_target_logged_in(iqn)}
+    return {'iqn': iqn, 'status': is_target_logged_in(
+        iqn), 'targets': get_iscsi_iqn_auth_info(iqn)}
 
 
 def is_target_logged_in(iqn):
@@ -1410,10 +1411,187 @@ def iscsi_rescan_target(iqn):
     if not session_id:
         raise InvalidParameter("GINISCSI016E", {'iqn': iqn})
 
-    wok_log.info("Initiating rescan for iqn - " + iqn)
     out, err, rc = run_command(
         ["iscsiadm", "-m", "session",
             "-r", session_id, "--rescan"])
 
     if rc != 0:
         raise OperationFailed("GINISCSI015E", {'err': err, 'iqn': iqn})
+
+
+def modify_iscsid_initiator_auth(auth_type, username, password):
+    """
+    Modify iSCSI initiator auth globally
+    :param enable:
+    :return:
+    """
+    if auth_type == 'CHAP':
+        modify_iscsid_conf('node.session.auth.authmethod', auth_type)
+        modify_iscsid_conf('node.session.auth.username', username)
+        modify_iscsid_conf('node.session.auth.password', password)
+    elif auth_type == 'None':
+        modify_iscsid_conf('node.session.auth.authmethod', auth_type)
+    else:
+        raise InvalidParameter('GINISCSI012E')
+
+
+def modify_iscsid_target_auth(auth_type, username, password):
+    """
+    Modify iSCSI target auth globally
+    :param enable:
+    :return:
+    """
+    if auth_type == 'CHAP':
+        modify_iscsid_conf('node.session.auth.authmethod', auth_type)
+        modify_iscsid_conf('node.session.auth.username_in', username)
+        modify_iscsid_conf('node.session.auth.password_in', password)
+    elif auth_type == 'None':
+        modify_iscsid_conf('node.session.auth.authmethod', auth_type)
+    else:
+        raise InvalidParameter('GINISCSI012E')
+
+
+def modify_iscsid_discovery_initiator_auth(auth_type, username, password):
+    """
+    Modify iSCSI discovery initiator auth globally
+    :param enable:
+    :return:
+    """
+    if auth_type == 'CHAP':
+        modify_iscsid_conf('discovery.sendtargets.auth.authmethod', auth_type)
+        modify_iscsid_conf('discovery.sendtargets.auth.username', username)
+        modify_iscsid_conf('discovery.sendtargets.auth.password', password)
+    elif auth_type == 'None':
+        modify_iscsid_conf('discovery.sendtargets.auth.authmethod', auth_type)
+    else:
+        raise InvalidParameter('GINISCSI012E')
+
+
+def modify_iscsid_discovery_target_auth(auth_type, username, password):
+    """
+    Modify iSCSI discovery target auth globally
+    :param enable:
+    :return:
+    """
+    if auth_type == 'CHAP':
+        modify_iscsid_conf('discovery.sendtargets.auth.authmethod', auth_type)
+        modify_iscsid_conf('discovery.sendtargets.auth.username_in', username)
+        modify_iscsid_conf('discovery.sendtargets.auth.password_in', password)
+    elif auth_type == 'None':
+        modify_iscsid_conf('discovery.sendtargets.auth.authmethod', auth_type)
+    else:
+        raise InvalidParameter('GINISCSI012E')
+
+
+def modify_iscsid_conf(parameter, value):
+    """
+    Modify iSCSI global configuration file /etc/iscsi/iscsid.conf
+    :param parameter: parameter to be modified
+    :param value: modified value of the parameter
+    :return:
+    """
+
+    try:
+        with open('/etc/iscsi/iscsid.conf', 'r+') as f:
+            lines = f.readlines()
+            f.seek(0)
+            f.truncate()
+            for line in lines:
+                if re.match('^#?' +
+                            (parameter[1:] if
+                             parameter.startswith("#") else parameter) +
+                            '\s', line) is not None:
+                    line = parameter + ' = ' + value + '\n'
+                f.write(line)
+    except Exception as e:
+        raise OperationFailed(
+            "GINISCSI017E", {
+                'err': e.message, 'parameter': parameter, 'value': value})
+
+
+def get_iscsi_auth_info():
+    """
+    Get Global iSCSI auth info from /etc/iscsi/iscsid.conf
+    :return: Dictionary containing global iSCSI auth info
+    """
+    info_map = {}
+    try:
+        f = open('/etc/iscsi/iscsid.conf', 'r')
+        lines = f.readlines()
+        for line in lines:
+            if re.match(
+                    '^#?' + "node.session.auth",
+                    line) is not None or re.match(
+                    '^#?' + "discovery.sendtargets.auth",
+                    line) is not None:
+                info_key, info_value = line.split("=")
+                if line.startswith("#"):
+                    info_key = info_key[1:].strip()
+                    info_value = 'None'
+                    info_map[info_key] = info_value
+                    continue
+                info_map[info_key.strip()] = info_value.strip()
+    except Exception as e:
+        raise OperationFailed("GINISCSI018E", {'err': e.message})
+
+    return info_map
+
+
+def get_iscsi_iqn_auth_info(iqn):
+    """
+    Get IQN specific auth info
+    :param iqn: iSCSI Qualified Name
+    :return: List containing target auth info
+    """
+    info_list = []
+    iscsiadm_db_path = '/etc/iscsi/nodes/'
+    if not os.path.exists(iscsiadm_db_path):
+        iscsiadm_db_path = '/var/lib/iscsi/nodes/'
+
+    iqn_db_path = iscsiadm_db_path + iqn + '/'
+    try:
+        iqn_dir = os.listdir(iqn_db_path)
+        for iqn_target in iqn_dir:
+            info_map = {}
+            f = open(iqn_db_path + iqn_target + '/default')
+            lines = f.readlines()
+            auth_info = {}
+            for line in lines:
+                if re.match(
+                        'node.session.auth',
+                        line) is not None or re.match(
+                        'discovery.sendtargets.auth',
+                        line) is not None:
+                    info_key, info_value = line.split("=")
+                    auth_info[info_key.strip()] = info_value.strip()
+
+                if re.match('node.discovery_address', line) is not None:
+                    ip_address = line.split("=")[1].strip()
+                    info_map['target_address'] = ip_address
+
+                if re.match('node.discovery_port', line) is not None:
+                    port = line.split("=")[1].strip()
+                    info_map['target_port'] = port
+
+            security_params = [
+                'discovery.sendtargets.auth.authmethod',
+                'discovery.sendtargets.auth.username',
+                'discovery.sendtargets.auth.username_in',
+                'discovery.sendtargets.auth.password',
+                'discovery.sendtargets.auth.password_in',
+                'node.session.auth.authmethod',
+                'node.session.auth.username',
+                'node.session.auth.username_in',
+                'node.session.auth.password',
+                'node.session.auth.password_in']
+
+            for sec_param in security_params:
+                if sec_param not in auth_info:
+                    auth_info[sec_param] = 'None'
+
+            info_map['auth'] = auth_info
+            info_list.append(info_map)
+    except Exception as e:
+        raise OperationFailed("GINISCSI019E", {'err': e.message, 'iqn': iqn})
+
+    return info_list

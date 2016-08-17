@@ -18,6 +18,7 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 
 
+import mock
 import unittest
 import wok.plugins.ginger.model.utils as utils
 
@@ -37,3 +38,43 @@ class ISCSITargetsUnitTests(unittest.TestCase):
             "iqn.2015-06.com.example.test:target1")
         self.assertEqual(sample_output['target_ipaddress'], "9.193.84.125")
         self.assertEqual(sample_output['target_port'], "3260")
+
+
+class ISCSIAuthUnitTests(unittest.TestCase):
+
+    def test_get_iscsi_auth_info(self):
+        data = 'node.session.auth.password = pass3\n' \
+               'node.session.auth.username = user2\n' \
+               'node.session.auth.authmethod = CHAP\n' \
+               'discovery.sendtargets.auth.authmethod = CHAP\n' \
+               'discovery.sendtargets.auth.username_in = user1\n' \
+               'discovery.sendtargets.auth.password_in = pass\n'
+        open_mock = mock.mock_open(read_data=data)
+        with mock.patch('wok.plugins.ginger.model.utils.open',
+                        open_mock, create=True):
+            auth_info = utils.get_iscsi_auth_info()
+            self.assertEquals(
+                'CHAP', auth_info['node.session.auth.authmethod'])
+            self.assertEquals(
+                'CHAP', auth_info['discovery.sendtargets.auth.authmethod'])
+            self.assertEquals('pass3', auth_info['node.session.auth.password'])
+
+    @mock.patch('wok.plugins.ginger.model.utils.os', autospec=True)
+    def test_get_iscsi_iqn_auth_info(self, mock_os):
+        mock_os.path.exists.return_value = True
+        mock_os.listdir.return_value = ['a']
+        data = 'node.session.auth.password = pass3\n' \
+               'node.session.auth.username = user2\n' \
+               'node.session.auth.authmethod = CHAP\n' \
+               'discovery.sendtargets.auth.authmethod = CHAP\n' \
+               'discovery.sendtargets.auth.username_in = user1\n' \
+               'discovery.sendtargets.auth.password_in = pass\n'
+        open_mock = mock.mock_open(read_data=data)
+        with mock.patch('wok.plugins.ginger.model.utils.open',
+                        open_mock, create=True):
+            auth_info = utils.get_iscsi_iqn_auth_info('test_iqn')[0]['auth']
+            self.assertEquals(
+                'CHAP', auth_info['node.session.auth.authmethod'])
+            self.assertEquals(
+                'CHAP', auth_info['discovery.sendtargets.auth.authmethod'])
+            self.assertEquals('pass3', auth_info['node.session.auth.password'])

@@ -362,6 +362,9 @@ messages = {
     "GINISCSI014E": _("Error while searching the active session for IQN %(iqn)s - %(err)s"),
     "GINISCSI015E": _("Error executing command to rescan the IQN %(iqn)s - %(err)s"),
     "GINISCSI016E": _("IQN %(iqn)s is not logged onto the target"),
+    "GINISCSI017E": _("Error in modifying iSCSI parameter %(parameter)s with value %(value)s - %(err)s"),
+    "GINISCSI018E": _("Error getting the global iSCSI auth info - %(err)s"),
+    "GINISCSI019E": _("Error getting the auth info for IQN %(iqn)s - %(err)s"),
 
     "GINAUD0001E": _("Failed to get the list of persisted rules '%(error)s'."),
     "GINAUD0002E": _("Error in executing auditctl command '%(name)s'."),

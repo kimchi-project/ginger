@@ -1001,6 +1001,20 @@ URI: /plugins/ginger/services/*:service_name*
 * **GET**: Get the logged in status of the IQN
     * iqn: iSCSI Qualified Name
     * status: Logged in status
+    * targets: List of target specific info
+        *target_address: Target IP address
+        *target_port: Remote port of the target
+        *auth: Target specific authentication information
+            *discovery.sendtargets.auth.username: Discovery initiator username
+            *discovery.sendtargets.auth.password: Discovery initiator password
+            *discovery.sendtargets.auth.username_in: Discovery target username
+            *discovery.sendtargets.auth.password_in: Discovery target password
+            *discovery.sendtargets.auth.authmethod: CHAP or None
+            *node.session.auth.authmethod: CHAP or None
+            *node.session.auth.username: Initiator username
+            *node.session.auth.password: Initiator password
+            *node.session.auth.username_in: Target username
+            *node.session.auth.password_in: Target password
 
 **Actions (POST):**
 
@@ -1053,3 +1067,51 @@ URI: /plugins/ginger/services/*:service_name*
 **Methods:**
 
 * **GET**: Retrieve a summarized list of discovered IQNs on the system
+
+### Resource: iSCSI Global Authentication Configuration
+
+**URI:** /plugins/ginger/iscsi_auth
+
+**METHODS:**
+
+* **GET**: Get the global iSCSI auth info from /etc/iscsi/iscsid.conf
+    *discovery.sendtargets.auth.username: Discovery initiator username
+    *discovery.sendtargets.auth.password: Discovery initiator password
+    *discovery.sendtargets.auth.username_in: Discovery target username
+    *discovery.sendtargets.auth.password_in: Discovery target password
+    *discovery.sendtargets.auth.authmethod: CHAP or None
+    *node.session.auth.authmethod: CHAP or None
+    *node.session.auth.username: Initiator username
+    *node.session.auth.password: Initiator password
+    *node.session.auth.username_in: Target username
+    *node.session.auth.password_in: Target password
+
+**Actions (POST):**
+
+**URI:**  /plugins/ginger/iscsi_auth/initiator_auth
+
+* initiator_auth: Set a CHAP username and password for initiator globally
+   * auth_type - CHAP or None
+   * username
+   * password
+
+**URI:**  /plugins/ginger/iscsi_auth/target_auth
+
+* target_auth: Set a CHAP username and password for target(s) globally
+   * auth_type - CHAP or None
+   * username
+   * password
+
+**URI:**  /plugins/ginger/iscsi_auth/discovery_initiator_auth
+
+* discovery_initiator_auth: Set a discovery session CHAP username and password for the initiator globally
+   * auth_type - CHAP or None
+   * username
+   * password
+
+**URI:**  /plugins/ginger/iscsi_auth/discovery_target_auth
+
+* discovery_target_auth: Set a discovery session CHAP username and password for target(s) globally
+   * auth_type - CHAP or None
+   * username
+   * password

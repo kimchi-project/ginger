@@ -77,6 +77,33 @@ class DiscoveredISCSIQN(Resource):
         self.login = self.generate_action_handler('login')
         self.logout = self.generate_action_handler('logout')
         self.rescan = self.generate_action_handler('rescan')
+        # modify auth settings per IQN
+        self.initiator_auth = self.generate_action_handler(
+            'initiator_auth', ['auth_type', 'username', 'password'])
+        self.target_auth = self.generate_action_handler(
+            'target_auth', ['auth_type', 'username', 'password'])
+        self.discovery_initiator_auth = self.generate_action_handler(
+            'discovery_initiator_auth', ['auth_type', 'username', 'password'])
+        self.discovery_target_auth = self.generate_action_handler(
+            'discovery_target_auth', ['auth_type', 'username', 'password'])
+
+    @property
+    def data(self):
+        return self.info
+
+
+@UrlSubNode('iscsi_auth', True)
+class ISCSIAuth(Resource):
+    """
+    Resource for the global iSCSI Auth info from /etc/iscsi/iscsid.conf
+    """
+
+    def __init__(self, model):
+        super(ISCSIAuth, self).__init__(model, None)
+        self.role_key = 'host'
+        self.admin_methods = ['GET', 'POST', 'DELETE']
+        self.uri_fmt = "/iscsi_auth/%s"
+        # modify auth settings globally for all IQNs
         self.initiator_auth = self.generate_action_handler(
             'initiator_auth', ['auth_type', 'username', 'password'])
         self.target_auth = self.generate_action_handler(

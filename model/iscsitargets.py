@@ -144,3 +144,23 @@ class DiscoveredISCSIQNModel(object):
                 db_key_value=auth_type)
         else:
             raise InvalidParameter('GINISCSI012E', {'auth_type': auth_type})
+
+
+class ISCSIAuth(object):
+
+    def lookup(self, name):
+        return utils.get_iscsi_auth_info()
+
+    def initiator_auth(self, name, auth_type, username, password):
+        utils.modify_iscsid_initiator_auth(auth_type, username, password)
+
+    def target_auth(self, name, auth_type, username, password):
+        utils.modify_iscsid_target_auth(auth_type, username, password)
+
+    def discovery_initiator_auth(self, name, auth_type, username, password):
+        utils.modify_iscsid_discovery_initiator_auth(
+            auth_type, username, password)
+
+    def discovery_target_auth(self, name, auth_type, username, password):
+        utils.modify_iscsid_discovery_target_auth(
+            auth_type, username, password)
