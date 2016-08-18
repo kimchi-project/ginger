@@ -1454,7 +1454,7 @@ ginger.createPhysicalVolume = function(pv_path,suc, err, progress) {
  */
 ginger.getPartitionsDevices = function(type,suc, err) {
      wok.requestJSON({
-        url: 'plugins/ginger/partitions?type='+type+'&vgname=N/A&available=True',
+        url: 'plugins/ginger/partitions?vgname=N/A&available=True',
         type: 'GET',
         contentType: 'application/json',
         dataType: 'json',

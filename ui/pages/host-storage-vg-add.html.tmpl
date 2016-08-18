@@ -27,9 +27,13 @@
           <button type="button" id="storage-vg-add-button-close" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
-          <h4 class="modal-title" id="vg-add-title">$_("Volume Group")</h4>
+          <h4 class="modal-title" id="vg-add-title"></h4>
           <hr style="width:99%;margin-left:5px;"/>
         </div>
+        <div class="stepwizard col-md-offset-1">
+         <div class="stepwizard-row setup-panel">
+         </div>
+       </div>
         <span id="alert-vg-create-modal-container"></span>
         <div id="add-expand-vg" class="modal-body">
           <div class="form-group" id="vg-add-name">
@@ -39,7 +43,7 @@
             </div>
           </div>
           <div class="panel-group" id="pvDetails">
-                <h2>$_("Existing physical volumes : ")</h2>
+                <h2  style="margin-bottom:35px;">$_("Existing physical volumes : ")</h2>
                 <div id="physical-volumes" style="padding-left:10px;">
                   <table id="physical-volumes-table" class="table table-stripped" cellspacing="0" width="100%">
                     <thead>
@@ -51,6 +55,9 @@
                     <tbody></tbody>
                   </table>
                 </div>
+                <p style="margin-top:35px;" class="help-block">
+                    <i class="fa fa-info-circle"></i> $_("Skip this step to create a new volume group using new block devices.")
+                </p>
                 <div class="wok-mask pv-loader">
                   <div class="wok-mask-loader-container">
                     <div class="wok-mask-loading">
@@ -61,31 +68,9 @@
                 </div>
               </div>
               <div class="panel-group" id="partDetails">
-                <h2>$_("Create physical volumes : Partitions")</h2>
+                <h2 style="margin-bottom:35px;">$_("Create physical volumes : Block Devices")</h2>
                 <div id="partition-list" style="padding-left:10px;">
                   <table id="partition-table" class="table table-stripped" cellspacing="0" width="100%">
-                    <thead>
-                      <tr>
-                        <th>$_("Name")</th>
-                        <th>$_("Size (MB)")</th>
-                      </tr>
-                    </thead>
-                    <tbody></tbody>
-                  </table>
-                </div>
-                <div class="wok-mask partition-loader">
-                  <div class="wok-mask-loader-container">
-                    <div class="wok-mask-loading">
-                      <div class="wok-mask-loading-icon"></div>
-                      <div class="wok-mask-loading-text">$_("Loading...")</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="panel-group" id="diskDeatils">
-                <h2>$_("Create physical volumes : Block Device")</h2>
-                <div id="disk-list" style="padding-left:10px;">
-                  <table id="block-device-table" class="table table-stripped" cellspacing="0" width="100%">
                     <thead>
                       <tr>
                         <th>$_("Name")</th>
@@ -96,7 +81,10 @@
                     <tbody></tbody>
                   </table>
                 </div>
-                <div class="wok-mask block-device-loader">
+                <p style="margin-top:35px;" class="help-block">
+                    <i class="fa fa-info-circle"></i> $_("Go back to previous step to create a volume group from existing physical volumes.")
+                </p>
+                <div class="wok-mask partition-loader">
                   <div class="wok-mask-loader-container">
                     <div class="wok-mask-loading">
                       <div class="wok-mask-loading-icon"></div>
@@ -106,6 +94,7 @@
                 </div>
               </div>
             <div class="panel-group" id="pvSelection">
+             <h2>$_("Summary : Selected Physical Volumes")</h2>
               <div id="selectedPvlist" style="padding-left:10px;">
                 <table id="selected-pv-table" class="table table-stripped" cellspacing="0" width="100%">
                   <thead>
@@ -143,7 +132,6 @@
           <button id="vg-create-button-cancel" class="btn btn-default" data-dismiss="modal">$_("Cancel")</button>
         </div>
     </div>
-
     <script type="text/javascript">
       (ginger.vgactionmode=='add')?ginger.initVolumeGroupAdd():ginger.initVolumeGroupEdit() ;
     </script>

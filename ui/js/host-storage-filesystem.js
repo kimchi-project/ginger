@@ -39,6 +39,9 @@ ginger.initFileSystemMount = function(){
           .attr("value", (result[i].path).replace(/"/g, ""))
           .text((result[i].path).replace(/"/g, "")));
       }
+      applyButton.attr("disabled",false);
+    }else{
+      applyButton.attr("disabled",true);
     }
     fsMountPartition.selectpicker();
   });
@@ -57,6 +60,7 @@ ginger.initFileSystemMount = function(){
     applyButton.attr('disabled',true);
     nfsPathField.addClass('hidden');
     }
+    $('#alert-fs-mount-modal-container').empty();
  });
 
  localMountPoint.keyup(function(){
@@ -85,17 +89,14 @@ ginger.initFileSystemMount = function(){
    fsMountInputData['type']=fsTypeSelected;
 
     if(fsTypeSelected=='local'){
-      fsMountInputData['blk_dev']= fsMountPartition.val();
+       fsMountInputData['blk_dev']= fsMountPartition.val();
        if(localMountPoint.val().length==0){
          localMountPoint.toggleClass("invalid-field", true);
          return false;
        }else{
           fsMountInputData['mount_point']= localMountPoint.val();
        }
-      if($('input[name=local-mount-netdev]:checked').length!==0){
-        fsMountInputData['mount_options']= '_netdev';
-      }
-   }else{
+    }else{
      fsMountInputData['server']= remoteMountPointServerIp.val();
      fsMountInputData['share']= remoteMountPointPath.val();
 
@@ -136,11 +137,11 @@ ginger.initFileSystemMount = function(){
        }
    }
     ginger.mountFileSystem(fsMountInputData,function(){
-      wok.message.success(i18n['GINFS0002M'], '#file-systems-alert-container',true);
+      wok.message.success(i18n['GINFS0002M'].replace('%1',fsMountInputData['mount_point']), '#file-systems-alert-container');
       ginger.initFileSystemsGridData();
       wok.window.close();
     },function(error){
-      wok.message.error(error.responseJSON.reason, '#alert-fs-mount-modal-container', true);
+      wok.message.error(error.responseJSON.reason, '#alert-fs-mount-modal-container');
       ginger.initFileSystemsGridData();
     });
   });
@@ -157,6 +158,7 @@ ginger.initFileSystemMount = function(){
      e.preventDefault();
      var nfsServerIp = remoteMountPointServerIp.val();
      $(this).attr("disabled",true);
+     $('#alert-fs-mount-modal-container').empty();
 
      /*
      *rest api call for retrieving nfs path based on nfs server
@@ -174,12 +176,12 @@ ginger.initFileSystemMount = function(){
           nfsPathField.removeClass('hidden');
           applyButton.attr("disabled",false);
        }else{
-           wok.message.error(i18n['GINFS0009M'],'#alert-fs-mount-modal-container',true);
+           wok.message.error(i18n['GINFS0009M'].replace("%1",nfsServerIp),'#alert-fs-mount-modal-container',true);
            nfsPathField.addClass('hidden');
            applyButton.attr("disabled",true);
        }
      },function(error){
-        wok.message.error(error.responseJSON.reason,'#alert-fs-mount-modal-container',true);
+        wok.message.error(i18n['GINFS0009M'].replace("%1",nfsServerIp),'#alert-fs-mount-modal-container',true);
         nfsPathField.addClass('hidden');
         applyButton.attr("disabled",true);
      });
@@ -188,14 +190,24 @@ ginger.initFileSystemMount = function(){
   nfsMountOptionsButton.on('click',function(e){
    e.preventDefault();
    $('#fs-mount-tabs').addClass('hidden');
+   $('#fs-mount-button-apply').addClass('hidden');
+   $('#nw-mount-button-cancel').addClass('hidden');
    $(this).addClass('hidden');
    $('#nfs_mount_option').removeClass('hidden');
    nfsMountVersion.selectpicker();
    $('#nfs-mount-button-back').removeClass('hidden');
+   $('#nfs-mount-button-save').removeClass('hidden');
+
+  });
+
+  $('#nfs-mount-button-save').on('click',function(e){
+   ginger.loadbasicnfsinfo();
   });
 
   $('#nfs-mount-button-back').on('click',function(e){
    ginger.loadbasicnfsinfo();
+   $('#nfs_mount_option form').trigger('reset');
+   $('#timeoutvalue').empty();
   });
 
   nfsTimeout.on('change',function(e){
@@ -210,4 +222,7 @@ ginger.loadbasicnfsinfo = function(){
   $('#form-fs-mount-local').addClass('hidden');
   $('#nfs_mount_option').addClass('hidden');
   $('#nfs_mount_option_button').removeClass('hidden');
+  $('#nfs-mount-button-save').addClass('hidden');
+  $('#fs-mount-button-apply').removeClass('hidden');
+  $('#nw-mount-button-cancel').removeClass('hidden');
 };

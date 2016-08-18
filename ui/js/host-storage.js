@@ -70,7 +70,7 @@ ginger.loadFileSystemDetails = function() {
   opts['gridFields'] = JSON.stringify(gridFields);
   opts['converters'] = wok.localeConverters;
 
-  ginger.createBootgrid(opts);
+  grid = ginger.createBootgrid(opts);
   ginger.initFileSystemsGridData();
 
   $('#file-systems-refresh-btn').on('click', function() {
@@ -78,6 +78,23 @@ ginger.loadFileSystemDetails = function() {
     ginger.showBootgridLoading(opts);
     ginger.initFileSystemsGridData();
   });
+
+  grid.bootgrid().on("selected.rs.jquery.bootgrid", function(e, rows) {
+    disabledUnmount();
+  }).on("deselected.rs.jquery.bootgrid", function(e, rows) {
+    disabledUnmount();
+  }).on("loaded.rs.jquery.bootgrid", function(e, rows) {
+    disabledUnmount();
+  });
+
+   var disabledUnmount = function(){
+     var selectedRows = ginger.getSelectedRows(opts);
+     if(selectedRows.length==0){
+         $('#file-systems-unmount-btn').attr('disabled',true);
+     }else{
+         $('#file-systems-unmount-btn').attr('disabled',false);
+     }
+   }
 
   $('#file-systems-unmount-btn').on('click', function(){
    var opts = [];
@@ -94,12 +111,12 @@ ginger.loadFileSystemDetails = function() {
     wok.confirm(settings, function(){
      $.each(selectedRows,function(index,row){
        ginger.unmountFileSystem(row['mounted_on'],function(result){
-        wok.message.success(i18n['GINFS0001M'], '#file-systems-alert-container',true);
+        wok.message.success(i18n['GINFS0001M'].replace('%1',row['mounted_on']),'#file-systems-alert-container',false);
         ginger.initFileSystemsGridData();
       },function(error){
         wok.message.error(error.responseJSON.reason, '#file-systems-alert-container', true);
         ginger.initFileSystemsGridData();
-      })
+      });
     });
   });
 
@@ -324,7 +341,7 @@ ginger.initVolumeGroupGridData = function() {
        wok.confirm(settings, function(){
         $.each(selectedRows,function(index,row){
           ginger.deleteVolumeGroup(row,function(result){
-           wok.message.success(i18n['GINVG0002M'], '#alert-vg-container');
+           wok.message.success(i18n['GINVG0002M'].replace("%1",row), '#alert-vg-container');
            $("#volume-group-table tbody").html("");
            volumeGroupTable.destroy();
            ginger.initVolumeGroupGridData();

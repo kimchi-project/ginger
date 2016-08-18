@@ -63,14 +63,6 @@
                   </select>
                 </div>
               </div>
-              <div class="checkbox">
-                  <label class="check-all">
-                      <input type="checkbox" name="local-mount-netdev" id="local-mount-netdev" style="margin-top:9px;">$_("NetDev")
-                  </label>
-                  <p class="help-block">
-                      <i class="fa fa-question-circle"></i> $_("Mount with _netdev option")
-                  </p>
-              </div>
             </form>
             <form class="form-horizontal hidden" id="form-fs-mount-remote">
               <div class="form-group">
@@ -97,7 +89,7 @@
                 </div>
               </div>
               <div class="form-group">
-               <button id="nfs_mount_option_button" class="btn btn-primary pull-right">$_("NFS Mount Options")</button>
+               <button id="nfs_mount_option_button" class="btn btn-primary pull-right">$_("Advanced")</button>
               </div>
             </form>
           </div>
@@ -110,6 +102,9 @@
             </label>
             <label class="radio-inline">
                 <input type="radio" name="nfs_mount_option_type" value="soft"/>$_("Soft")
+            </label>
+            <label class="radio-inline">
+                <input type="radio" name="nfs_mount_option_type" value=""/>$_("None")
             </label>
           </div>
           <div class="form-group" id="mount_option_timeout">
@@ -144,7 +139,8 @@
         <div class="modal-footer">
           <button id="fs-mount-button-apply" class="btn btn-default">$_("Apply")</button>
           <button id="nw-mount-button-cancel" class="btn btn-default" data-dismiss="modal">$_("Cancel")</button>
-          <button id="nfs-mount-button-back" class="btn btn-default hidden">$_("Back")</button>
+          <button id="nfs-mount-button-save" class="btn btn-default hidden">$_("Save")</button>
+          <button id="nfs-mount-button-back" class="btn btn-default hidden">$_("Cancel")</button>
         </div>
       </div>
     <script type="text/javascript">
