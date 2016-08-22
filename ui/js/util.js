@@ -1616,3 +1616,20 @@ ginger.iSCSIupdateSettingsDetail = function(content,suc,err){
      }
   });
 };
+
+/**
+ * Get the Audit Rules list.
+ */
+
+ginger.getAuditRules = function(suc, err) {
+   wok.requestJSON({
+       url : '/plugins/ginger/audit/rules',
+       type : 'GET',
+       contentType : 'application/json',
+       dataType : 'json',
+       success : suc,
+       error : err || function(data) {
+           wok.message.error(data.responseJSON.reason);
+       }
+   });
+ };

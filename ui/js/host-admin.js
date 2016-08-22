@@ -897,6 +897,163 @@ ginger.initFirmware = function() {
     };
 };
 
+ginger.initAuditRules = function(){
+   ginger.loadAuditRulesData();
+};
+
+ginger.loadAuditRulesData =  function(){
+  $(".rules-loader").show();
+  ginger.getAuditRules(function(result) {
+
+    if (result.length > 0) {
+      var rows = "";
+      $.each(result, function(index, rule){
+        rows += "<tr><td>" + (index+1) + "</td>";
+        rows += "<td>" + rule.type + "</td>";
+        rows += "<td class=\"content\" title=\""+rule.rule+"\">" + rule.rule + "</td>";
+        rows += "<td style=\"text-align:center;\" class=\"details-control\"><span class=\"fa fa-chevron-down common-down fa-lg\"></span> </td>";
+
+        if(rule.loaded=='yes'){
+          rows +="<td style=\"text-align:center;\" class=\"loaded\"><span class=\"audit-rules-loaded-enable enabled\"> <i class=\"fa fa-power-off\"></i></span></td>"
+        }else if(rule.loaded=='no'){
+          rows +="<td style=\"text-align:center;\" class=\"loaded\"><span class=\"audit-rules-loaded-disable disabled\"> <i class=\"fa fa-power-off\"></i></span></td>";
+        }else{
+          rows +="<td style=\"text-align:center;\" class=\"loaded\">--</td>";
+        }
+
+        if(rule.persisted=='yes'){
+          rows += "<td style=\"text-align:center;\" class=\"loaded\"><span class=\"audit-rules-persisted-enable enabled\"> <i class=\"fa fa-floppy-o\"></i></span></td>"
+        }else if(rule.persisted=='no'){
+          rows +="<td style=\"text-align:center;\" class=\"loaded\"><span class=\"audit-rules-persisted-disable disabled\"> <i class=\"fa fa-floppy-o\"></i></span></td>";
+        }else{
+          rows +="<td style=\"text-align:center;\" class=\"loaded\">--</td>";
+        }
+
+        if(rule.rule_info){
+            rows += "<td>" + JSON.stringify(rule.rule_info) + "</td></tr>";
+        }else{
+            rows += "<td></td></tr>";
+        }
+
+      });
+      $("#audit-rules-table tbody").html(rows);
+    }
+
+    var auditRulesTable = $("#audit-rules-table").DataTable({
+        columnDefs: [
+          {
+            "width":"10%", "targets" : 0
+          },
+          {
+            "width":"15%", "targets" : 1
+          },
+          {
+            "width":"45%", "targets" : 2
+          },
+          {
+            "width":"10%", "targets" : 3
+          },
+          {
+            "width":"10%", "targets" : 4
+          },
+          {
+            "width":"10%", "targets" : 5
+          },
+          {
+            orderable: false, targets: [3,4,5]
+          },
+          {
+            visible : false,  targets: [6]
+          }
+        ],
+        autoWidth:false,
+        "initComplete": function(settings, json) {
+          wok.initCompleteDataTableCallback(settings);
+        },
+        "oLanguage": {
+          "sEmptyTable": i18n['GINNET0063M']
+        }
+    });
+
+      // Add event listener for opening and closing details
+      $('#audit-rules-table tbody').off();
+      $('#audit-rules-table tbody').on('click', 'td.details-control', function () {
+        //,td span.fa
+        var tr = $(this).closest('tr');
+        var row = auditRulesTable.row( tr );
+        var ruleInfo = (row.data()[6]!="")?JSON.parse(row.data()[6]):i18n['GINAUDIT0001M'];
+
+        if (row.child.isShown()) {
+            // This row is already open - close it
+            row.child.hide();
+            $("span",$(this)).addClass('fa-chevron-down').removeClass('fa-chevron-up');
+            tr.removeClass('shown');
+        }else{
+            // Open this row
+            ginger.ruleDetailsPopulation(ruleInfo,row);
+            $("span",$(this)).addClass('fa-chevron-up').removeClass('fa-chevron-down');
+            tr.addClass('shown');
+        }
+    });
+
+    //Row selection
+    $('#audit-rules-table tbody').on('click', 'tr', function () {
+        $(this).toggleClass("selected");
+    });
+
+    $(".rules-loader").hide();
+  },function(err){
+    $(".rules-loader").hide();
+    wok.message.error(err.responseJSON.reason, '#alert-modal-audit-rules-container');
+  });
+};
+
+ginger.ruleDetailsPopulation = function(data , row){
+    var text='';
+    var value;
+    var ruleDetails = '';
+    if(typeof data === 'object'){
+    $.each(data, function(key, obj) {
+      value = obj;
+      switch (key){
+       case "action":
+          text = i18n['GINAUDIT0002M'];
+          break;
+       case "filter":
+          text = i18n['GINAUDIT0003M'];
+          break;
+       case "systemcall":
+          text = i18n['GINAUDIT0004M'];
+          break;
+       case "field":
+          text = i18n['GINAUDIT0005M'];
+          break;
+       case "key":
+         text = i18n['GINAUDIT0006M'];
+         break;
+       default:
+             text = key;
+      }
+
+  var detailsHtml = [
+        '<div>',
+          '<span class="column-'+key+'">',
+             '<span class="header-'+key+'">'+text+'</span>',
+             '<span class="row-'+key+'">'+value+'</span>',
+          '</span>',
+        '</div>'
+
+   ].join('');
+   ruleDetails+=detailsHtml;
+  });
+  row.child('<div class="audit-rules-details" style="display: block;"><div class="details-list">'+ruleDetails+'</div></div>').show();
+}else{
+  ruleDetails = data;
+  row.child('<div class="audit-rules-details" style="display: block;"><div class="noRuleInfo">'+ruleDetails+'</div></div>').show();
+}
+
+};
+
 ginger.initAdmin = function() {
     $(".content-area", "#gingerHostAdmin").css("height", "100%");
     ginger.getCapabilities(function(result) {
@@ -923,6 +1080,8 @@ ginger.initAdmin = function() {
                     case "users":
                         ginger.initUserManagement();
                         break;
+                    case "rules":
+                        ginger.initAuditRules();
                 }
             } else {
                 $("." + itemLowCase + "-ppc-enabled").hide();

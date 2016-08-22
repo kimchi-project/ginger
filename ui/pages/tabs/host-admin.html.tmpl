@@ -37,6 +37,46 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
     <div class="container">
         <div id="alert-container"></div>
         <div id="gingerHostAdmin" class="host-admin">
+          <!-- Audit Rules section -->
+          <div class="panel-group users-ppc-enabled accordion" id="rules-ppc-enabled-accordion" role="tablist" aria-multiselectable="true" style="display: none;">
+              <h3>
+                  <a role="button" data-toggle="collapse" data-parent="#rules-ppc-enabled-accordion" href="#audit-rules-content-area" aria-expanded="false" aria-controls="audit-rules-content-area" class="">
+                      <span class="accordion-icon"></span><span class="accordion-text">$_("Audit Rules")</span>
+                  </a>
+              </h3>
+              <div id="audit-rules-content-area" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+                  <span id='alert-modal-audit-rules-container' style='display: none;'></span>
+                  <div class='clearfix'>
+                      <div class="row">
+                         <div class="col-sd-12"><span>&nbsp;</span></div>
+                      </div>
+                      <div class="row" id="audit-rules">
+                        <table id="audit-rules-table" class="table table-stripped" cellspacing="0" width="100%">
+                          <thead>
+                            <tr>
+                              <th>$_("ID")</th>
+                              <th>$_("Type")</th>
+                              <th>$_("Rule")</th>
+                              <th style="text-align:center;">$_("Details")</th>
+                              <th style="text-align:center;">$_("Loaded")</th>
+                              <th style="text-align:center;">$_("Persisted")</th>
+                              <th>$_("Info")</th>
+                            </tr>
+                          </thead>
+                          <tbody></tbody>
+                        </table>
+                      </div>
+                  </div>
+                  <div class="wok-mask rules-loader">
+                    <div class="wok-mask-loader-container">
+                      <div class="wok-mask-loading">
+                        <div class="wok-mask-loading-icon"></div>
+                        <div class="wok-mask-loading-text">$_("Loading...")</div>
+                      </div>
+                    </div>
+                  </div>
+              </div>
+          </div>
             <!-- Firmware Update Panel -->
             <div class="panel-group firmware-ppc-enabled accordion" id="firmware-ppc-enabled-accordion" role="tablist" aria-multiselectable="true" style="display: none;">
                 <h3>
@@ -202,8 +242,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
                     </ul>
                 </div>
             </div>
-
-        </div>
     </div>
 </div>
 

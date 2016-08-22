@@ -702,6 +702,111 @@
   padding-top: 4px;
 }
 
+#audit-rules-content-area .fa {
+  cursor: pointer;
+}
+
+#audit-rules-content-area .audit-rules-loaded-enable .fa {
+  font-size: 20px;
+  color: #78d470;
+}
+
+#audit-rules-content-area .audit-rules-loaded-disable .fa {
+  font-size: 20px;
+  color: #9Ea3a1;
+}
+
+#audit-rules-content-area .audit-rules-persisted-enable .fa {
+  font-size: 20px;
+  color: #78d470;
+}
+
+#audit-rules-content-area .audit-rules-persisted-disable .fa {
+  font-size: 20px;
+  color: #9Ea3a1;
+}
+
+#audit-rules-content-area div.audit-rules-details {
+  width: 100%;
+  padding: 22px;
+  background: #ddd;
+}
+
+#audit-rules-content-area .noRuleInfo {
+  background: #fff;
+  text-align: center;
+  min-height: 100px;
+}
+
+#audit-rules-content-area .details-list {
+  display: table;
+  flex-wrap: wrap;
+  width: 100%;
+  min-height: 100px;
+  background: #fff;
+  padding: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  align-items: stretch;
+  align-content: stretch;
+}
+
+#audit-rules-content-area .details-list div {
+  display: table;
+  width: 50%;
+}
+
+#audit-rules-content-area .details-list > span[class^=column-] {
+  display: table-row;
+  font-size: 15px;
+  float: left;
+  align-self: flex-start;
+  flex-grow: 1;
+  width: 100%;
+}
+
+#audit-rules-content-area .details-list span[class^=header-] {
+  width: 45%;
+  display: table-cell;
+  font-family: "Open Sans", Helvetica, Arial, "Lucida Grande", sans-serif;
+  font-weight: 300;
+  font-size: 12.5pt;
+  border-bottom: none;
+  border-top: 0;
+  line-height: 1.42857;
+  height: 36px;
+  padding: 6px 7%;
+  text-transform: capitalize;
+  flex: 1;
+  float: left;
+  margin-top: 10px;
+}
+
+#audit-rules-content-area .details-list span[class^=body-] {
+  width: 100%;
+  display: block;
+}
+
+#audit-rules-content-area .details-list span[class^=row-] {
+  display: table-cell;
+  width: 55%;
+  padding: 6px 12px;
+  font-weight: 600;
+  float: right;
+  margin-top: 10px;
+}
+
+#audit-rules-content-area .details-list span[class^=row-] .col-value {
+  font-weight: 400;
+}
+
+#audit-rules-content-area td.content {
+  max-width: 250px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 /* End of Firmware Progress Accordion */
 #network-root-container .accordion {
   margin: 12px 20px 12px 60px;
