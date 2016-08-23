@@ -207,7 +207,6 @@ hr {
     .column-partition-details {
         display: inline-block;
         vertical-align: top;
-        color: $gray-med;
         word-wrap: break-word;
     }
     .column-id {
@@ -338,7 +337,23 @@ hr {
     .arrow-up:before {
         content: "\f077";
     }
+
+    .common-down,
+    .common-up{
+      cursor: pointer;
+    }
+    .h2{
+      color : #3a393b;
+      font-size: 20px;
+      font-weight: 300;
+      text-decoration: none;
+      border-bottom: 3px solid #3a393b;
+    }
 }
+#action-dropdown-button-file-systems-actions{
+  min-width: 180px;
+}
+
 #fs-mount-tabs,
 #nfs_mount_option {
   .form-horizontal .control-label {

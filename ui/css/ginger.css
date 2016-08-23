@@ -1465,7 +1465,6 @@ hr {
 #stgDevGrid .column-partition-details {
   display: inline-block;
   vertical-align: top;
-  color: #777;
   word-wrap: break-word;
 }
 
@@ -1627,6 +1626,23 @@ hr {
 
 #stgDevGrid .arrow-up:before {
   content: "\f077";
+}
+
+#stgDevGrid .common-down,
+#stgDevGrid .common-up {
+  cursor: pointer;
+}
+
+#stgDevGrid .h2 {
+  color: #3a393b;
+  font-size: 20px;
+  font-weight: 300;
+  text-decoration: none;
+  border-bottom: 3px solid #3a393b;
+}
+
+#action-dropdown-button-file-systems-actions {
+  min-width: 180px;
 }
 
 #fs-mount-tabs .form-horizontal .control-label,

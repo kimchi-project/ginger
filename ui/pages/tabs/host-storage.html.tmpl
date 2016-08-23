@@ -139,9 +139,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
                         </div>
                         <div id="storage-devices-alert-container"></div>
                         <span class="pull-right">
-                        <span id="storage-devices-add-partition">
-                          <div class="btn-group"><button class="btn btn-primary" id="storage-device-add-partition-btn" aria-expanded="false"><i class="fa fa-plus-circle"></i>$_("Add Partition")</button></div>
-                        </span>
                         <span id="file-system-refresh">
                         <div class="btn-group"><button class="btn btn-primary" id="storage-device-refresh-btn" aria-expanded="false"><i class="fa fa-refresh"></i>$_("Refresh")</button></div></span>
                         <span id="file-systems-add">
@@ -269,7 +266,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
                 <div class="column-bus-id">{bus_id}</div>
             </div>
             <div class="row bkp-paths-header">
-                <div class="column-partition-details" style="visibility: hidden;">Partition Details</div>
+                <div class="column-partition-details" style="visibility: hidden;"><span class="h2">Partition Details</h2></div>
             </div>
         </div>
         <div aria-expanded="true" id="partition-detail-container" class="panel-collapse collapse in" style="visibility: hidden;" role="tabpanel" aria-labelledby="headingOne">
@@ -280,7 +277,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
                     <span class="column-type">Type</span>
                     <span class="column-vgname">VG Name</span>
                     <span class="column-mount-point">Mount Point</span>
-                    <span class="column-size">Size</span>
+                    <span class="column-size">Size (MB)</span>
                     <span class="column-action">Actions</span>
                 </div>
                 <ul id="partition-detail-list" class="wok-datagrid-body"> </ul>
@@ -308,7 +305,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
                 <div class="column-hbaid">{hba_id}</div>
             </div>
             <div class="row bkp-paths-header">
-                <div class="column-partition-details" style="visibility: hidden;">Partition Details</div>
+                <div class="column-partition-details" style="visibility: hidden;"><span class="h2">Partition Details</h2></div>
             </div>
         </div>
         <div aria-expanded="true" id="partition-detail-container" class="panel-collapse collapse in" style="visibility: hidden;" role="tabpanel" aria-labelledby="headingOne">

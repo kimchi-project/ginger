@@ -640,6 +640,12 @@ ginger.loadStorageDeviceDetails = function() {
 	    "formatter": "row-details"
   }];
 
+  ginger.getPlugins(function(result) {
+      if (ginger.hostarch != 's390x') {
+        ginger.createStorageActionButtons(opts);
+      }
+    });
+
   opts['gridFields'] = JSON.stringify(gridFields);
   opts['converters'] = wok.localeConverters;
   grid = ginger.createBootgrid(opts);
@@ -652,7 +658,32 @@ ginger.loadStorageDeviceDetails = function() {
     ginger.showBootgridLoading(opts);
     ginger.initStorageDevicesGridData();
   });
-  ginger.partition.initAddPartition(opts);
+  ginger.partition.initCreatePartition(opts);
+};
+
+ginger.createStorageActionButtons = function(opts){
+  var actionButton = [{
+    id: 'storage-device-create-partition-btn',
+    class: 'fa fa-plus-circle',
+    label: i18n['GINPT00015M'],
+    onClick: function(event) {
+      opts['identifier'] = "name";
+      var selectedRows = ginger.getSelectedRowsData(opts);
+      ginger.partition.PartitionDeviceInfo = selectedRows[0];
+      if (selectedRows && selectedRows.length === 1) {
+          wok.window.open('plugins/ginger/host-storage-addpartitions.html');
+      } else {
+          wok.message.error(i18n['GINPT00014M'], '#alert-modal-nw-container', true);
+      }
+    }
+  }];
+
+    var actionListSettings = {
+      panelID: 'file-systems-actions',
+      buttons: actionButton,
+      type: 'action'
+    };
+    ginger.createActionButtons(actionListSettings);
 };
 
 ginger.initStorageDevicesGridData = function() {
@@ -684,7 +715,7 @@ ginger.initStorageDevicesGridEvents = function(grid,opts) {
 ginger.changeActionButtonsState = function() {
   var opts = [];
   opts['gridId'] = "stgDevGrid";
-  opts['identifier'] = "id";
+  opts['identifier'] = "name";
   var selectedRows = ginger.getSelectedRowsData(opts);
 
   if (selectedRows && selectedRows.length === 0) {

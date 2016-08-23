@@ -43,9 +43,11 @@ ginger.partition.storageInitPartition = function(opts) {
     });
 };
 
-ginger.partition.initAddPartition = function(opts) {
-
-    $('#storage-device-add-partition-btn').on('click', function() {
+ginger.partition.initCreatePartition = function(opts) {
+  console.log('gettting initialize');
+  $('#storage-device-create-partition-btn').off();
+  $('#storage-device-create-partition-btn').on('click', function() {
+    console.log('getting called');
         opts['identifier'] = "name";
         var selectedRows = ginger.getSelectedRowsData(opts);
         ginger.partition.PartitionDeviceInfo = selectedRows[0];
@@ -155,7 +157,7 @@ ginger.partition.loadPartitionData = function(DeviceName, result) {
         $.each(result, function(index, value) {
             var sizetoMB = Number((parseInt(value.size) / (1024 * 1024)).toFixed(2));
             var Localesize = wok.numberLocaleConverter(parseFloat(sizetoMB), wok.lang.get_locale());
-            value.size = Localesize + ' MB';
+            value.size = Localesize;
 
             listHtml += wok.substitute(partitionlistHtml, value);
 
@@ -258,16 +260,18 @@ ginger.partition.initPartitionAddButton = function() {
     });
     $('#max-slider-value').text((ginger.partition.PartitionDeviceInfo.size).toLocaleString(wok.lang.get_locale()) + ' MB');
     $('#min-slider-value').text('1 MB');
+    $('#slider-value').val(1);
 };
 
 ginger.partition.addDASDDevicePartition = function(content) {
 
     ginger.addDASDDevicePartition(content, function(response) {
-        wok.message.success(i18n['GINPT00005M'], '#alert-add-partition');
+        wok.message.success(i18n['GINPT00005M'], '#alert-modal-nw-container');
         ginger.partition.RefreshPartitionDetails(content.dev_name);
         $('#partition-loading').show();
+        $('#addpartition_cancel').trigger('click');
     }, function(error) {
-        wok.message.error(error.responseJSON.reason, '#alert-add-partition', true);
+        wok.message.error(error.responseJSON.reason, '#alert-add-partitions', true);
     });
 };
 
@@ -279,15 +283,16 @@ ginger.partition.addDevicePartition = function(content) {
         data.partsize = content.size;
 
         ginger.addDevicePartition(data, function(response) {
-            wok.message.success(i18n['GINPT00005M'], '#alert-add-partition');
+            wok.message.success(i18n['GINPT00005M'], '#alert-modal-nw-container');
             ginger.partition.RefreshPartitionDetails(content.dev_name);
             $('#partition-loading').show();
+            $('#addpartition_cancel').trigger('click');
         }, function(error) {
-            wok.message.error(error.responseJSON.reason, '#alert-add-partition', true);
+            wok.message.error(error.responseJSON.reason, '#alert-add-partitions', true);
         });
 
     }, function(error) {
-        wok.message.error(error.responseJSON.reason, '#alert-add-partition', true);
+        wok.message.error(error.responseJSON.reason, '#alert-modal-nw-container', true);
     });
 };
 
