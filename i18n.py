@@ -384,6 +384,12 @@ messages = {
     "GINSE00006E": _("Power on server %(name)s failed"),
     "GINSE00007E": _("Power off server %(name)s failed"),
 
+    "GINSEL00001E": _("Unable to get System Event Log information for server %(name)s. IPMI Command error %(err)s. rc = %(rc)s"),
+    "GINSEL00002E": _("Unable to get details of server %(name)s"),
+    "GINSEL00003E": _("System Event Log %(sel_id)s is not present in System Event Log information for server %(name)s"),
+    "GINSEL00004E": _("Unable to delete System Event Log %(sel_id)s for server %(name)s. IPMI Command error %(err)s. rc =%(rc)s"),
+    "GINSEL00005E": _("Cannot process System Event Log entry %(selString)s"),
+
     # These messages (ending with L) are for user log purposes
     "GINAUD0001L": _("Create audit rule '%(rule)s' type '%(type)s'"),
     "GINAUD0002L": _("Delete audit rule '%(ident)s'"),
@@ -441,6 +447,7 @@ messages = {
     "GINSE0002L": _("Remove managed server '%(ident)s'"),
     "GINSE0003L": _("Power on managed server '%(ident)s'"),
     "GINSE0004L": _("Power off managed server '%(ident)s'"),
+    "GINSEL0001L": _("Delete System Event Log entry '%(ident)s'"),
     "GINSEP0001L": _("Start IBM Serviceable Event Provider (SEP)"),
     "GINSEP0002L": _("Stop IBM Serviceable Event Provider (SEP)"),
     "GINSEP0003L": _("Subscribe '%(hostname)s' with IBM SEP"),

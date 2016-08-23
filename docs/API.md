@@ -1148,3 +1148,35 @@ URI: /plugins/ginger/services/*:service_name*
 * **DELETE**:
 
  * /plugins/ginger/servers/*:server_name* - Removes the server from the list of managed servers
+
+### Collection: SELS - System Event Logs
+
+**URI:** /plugins/ginger/servers/*:server_name*/sels
+
+**METHODS:**
+
+* **GET**: Retrieve information about all the system event logs of server with name server_name
+  * id - SEL ID
+  * date - SEL Date
+  * time - SEL timestamp
+  * eventType - SEL event type
+  * eventData - SEL event data
+  * eventAction - Action taken on a SEL
+
+### Resource: SEL - System Event Log
+
+**URI:** /plugins/ginger/servers/*:server_name*/sels/*:sel_id*
+
+**METHODS:**
+
+* **GET**: Retrive informaton about a specific System Event Log with id sel_id
+  * id - SEL ID
+  * date - SEL Date
+  * time - SEL timestamp
+  * eventType - SEL event type
+  * eventData - SEL event data
+  * eventAction - Action taken on a SEL
+
+* **DELETE**:
+
+  * /plugins/ginger/servers/*:server_name*/sels/*:sel_id* - Delete SEL with id sel_id
