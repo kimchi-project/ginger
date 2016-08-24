@@ -44,10 +44,8 @@ ginger.partition.storageInitPartition = function(opts) {
 };
 
 ginger.partition.initCreatePartition = function(opts) {
-  console.log('gettting initialize');
   $('#storage-device-create-partition-btn').off();
   $('#storage-device-create-partition-btn').on('click', function() {
-    console.log('getting called');
         opts['identifier'] = "name";
         var selectedRows = ginger.getSelectedRowsData(opts);
         ginger.partition.PartitionDeviceInfo = selectedRows[0];
