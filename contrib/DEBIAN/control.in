@@ -10,6 +10,7 @@ Depends: wok (>= 2.1.0),
          python-ipaddr,
          python-magic,
          python-netaddr,
-         python-augeas
+         python-augeas,
+         python-crypto
 Maintainer: Daniel Henrique Barboza <dhbarboza82@gmail.com>
 Description: Ginger plug-in for Wok - Webserver Originated from Kimchi

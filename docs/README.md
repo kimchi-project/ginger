@@ -116,7 +116,7 @@ To install Ginger dependencies, follow:
 ```
 $ sudo yum install  hddtemp libuser-python python-augeas python-netaddr\
                     python-ethtool python-ipaddr python-magic \
-                    tuned lm_sensors
+                    tuned lm_sensors python2-crypto
 
 # For IBM PowerKVM
 $ sudo yum install powerpc-utils serviceable-event-provider
@@ -129,7 +129,7 @@ $ sudo yum install python-mock
 
 ```
 $ sudo apt-get install  hddtemp python-libuser python-ethtool python-augeas \
-                        python-ipaddr python-magic python-netaddr \
+                        python-ipaddr python-magic python-netaddr python-crypto
 
 # These dependencies are only required if you want to run the tests:
 $ sudo apt-get install python-mock
@@ -160,7 +160,7 @@ $ sudo zypper ar -f http://download.opensuse.org/repositories/systemsmanagement:
 $ sudo zypper ar -f http://download.opensuse.org/repositories/home:/Simmphonie:/python/openSUSE_Leap_42.1/ home_Symmphonie_python
 
 $ sudo zypper install hddtemp libuser-python python-augeas python-netaddr\
-                      python-ethtool python-ipaddr python-magic
+                      python-ethtool python-ipaddr python-magic python-pycrypto
 
 # These dependencies are only required if you want to run the tests:
 $ sudo zypper install python-mock
