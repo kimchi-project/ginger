@@ -17,7 +17,7 @@
  */
 
 ginger.initEnableSriov = function() {
-    $("#modal-interface-name").text(ginger.selectedInterface['device']);
+    $("#modal-interface-name").text(ginger.selectedInterface);
     ginger.enableJustNumbers();
 
     var message = '';
@@ -25,13 +25,13 @@ ginger.initEnableSriov = function() {
 
         if (result['status'] == 'finished') {
             message = 'FINISHED: \n' + result['message'];
-            $("#action-dropdown-button-nw-configuration-actions").prop("disabled", false);
+            $("#nw-configuration-action > .btn").prop("disabled", false);
         } else if (result['status'] == 'failed') {
             message = 'FAILED: \n' + result['message'];
-            $("#action-dropdown-button-nw-configuration-actions").prop("disabled", false);
+            $("#nw-configuration-action > .btn").prop("disabled", false);
         } else if(result['status'] == 'running') {
             message += result['message'] + '\n';
-            $("#action-dropdown-button-nw-configuration-actions").prop("disabled", true);
+            $("#nw-configuration-action > .btn").prop("disabled", true);
         }
 
         $('#status-sriov').text(message);
@@ -47,13 +47,13 @@ ginger.initEnableSriov = function() {
         };
         $('#enable-sriov-progress-container').show();
         wok.window.close();
-        ginger.enableNetworkSRIOV(data, ginger.selectedInterface['device'], function(result){
+        ginger.enableNetworkSRIOV(data, ginger.selectedInterface, function(result){
             setTimeout(function() {
                 reloadProgressArea(result);
             }, 700);
-            ginger.initNetworkConfigGridData();
+            ginger.listNetworkConfig.refreshNetworkConfigurationDatatable();
         }, function(error){
-            wok.message.error(error.responseJSON.reason, '#message-nw-container-area', true);
+            wok.message.error(error.responseJSON.reason, '#message-network-configuration-container-area', true);
         }, reloadProgressArea);
     });
 

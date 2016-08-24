@@ -73,26 +73,18 @@
 
   $('#nw-bond-button-cancel').on('click', function() {
     wok.window.close();
-    ginger.refreshInterfaces();
+    ginger.listNetworkConfig.refreshNetworkConfigurationDatatable();
   });
 
   $('#nw-bond-button-close').on('click', function() {
     wok.window.close();
-    ginger.refreshInterfaces();
+    ginger.listNetworkConfig.refreshNetworkConfigurationDatatable();
   });
 
   nwGeneralForm.on('submit',function(e){
     e.preventDefault()
   });
 
-};
-
-ginger.refreshInterfaces = function() {
-  ginger.getInterfaces(function(result) {
-    ginger.loadBootgridData("nwConfigGrid", result);
-  }, function(error) {
-    ginger.hideBootgridLoading(opts);
-  });
 };
 
 var applyOnClick = function() {
@@ -272,10 +264,14 @@ var applyOnClick = function() {
     getIpv6InfoData(); //Commented for now as getting some issue from backend
     if (ginger.selectedInterface == null) {
       ginger.createCfgInterface(data, function(result) {
-        var message = i18n['GINNET0026M'] + " " + result.BASIC_INFO.DEVICE + " " + i18n['GINNET0020M']
-        wok.message.success(message, '#alert-nw-bond-modal-container');
+        if(result.BASIC_INFO.DEVICE) {
+          var message = i18n['GINNET0087M'].replace("%1", '<strong>' + result.BASIC_INFO.DEVICE + '</strong>');
+        }else {
+          var message = i18n['GINNET0087M'].replace("%1", '<strong>' + result.BASIC_INFO.NAME + '</strong>');
+        }
+        wok.message.success(message, '#alert-nw-bond-modal-container', true);
         $(nwApplyButton).prop('disabled', false);
-        ginger.refreshInterfaces();
+        ginger.listNetworkConfig.refreshNetworkConfigurationDatatable();
         wok.window.close();
       }, function(err) {
         wok.message.error(err.responseJSON.reason, '#alert-nw-bond-modal-container', true);
@@ -283,10 +279,14 @@ var applyOnClick = function() {
       });
     } else {
       ginger.updateCfgInterface(interfaceDevice, data, function(result) {
-        var message = i18n['GINNET0027M'] + " " + result.BASIC_INFO.DEVICE + " " + i18n['GINNET0020M']
-        wok.message.success(message, '#alert-nw-bond-modal-container');
+        if(result.BASIC_INFO.DEVICE) {
+          var message = i18n['GINNET0089M'].replace("%1", '<strong>' + result.BASIC_INFO.DEVICE + '</strong>');
+        }else {
+          var message = i18n['GINNET0089M'].replace("%1", '<strong>' + result.BASIC_INFO.NAME + '</strong>');
+        }
+        wok.message.success(message, '#alert-nw-bond-modal-container', true);
         $(nwApplyButton).prop('disabled', false);
-        ginger.refreshInterfaces();
+        ginger.listNetworkConfig.refreshNetworkConfigurationDatatable();
         wok.window.close();
       }, function(err) {
         wok.message.error(err.responseJSON.reason, '#alert-nw-bond-modal-container', true);
@@ -310,6 +310,10 @@ var populateGeneralTab = function(interface) {
       if ("BASIC_INFO" in interfaceInfo && "DEVICE" in (interfaceInfo.BASIC_INFO)) {
         interfaceDetails["value"] = interfaceList[i].BASIC_INFO.DEVICE;
         interfaceDetails["text"] = interfaceList[i].BASIC_INFO.DEVICE;
+        memberOptions.push(interfaceDetails);
+      }else if("BASIC_INFO" in interfaceInfo && "NAME" in (interfaceInfo.BASIC_INFO)) {
+        interfaceDetails["value"] = interfaceList[i].BASIC_INFO.NAME;
+        interfaceDetails["text"] = interfaceList[i].BASIC_INFO.NAME;
         memberOptions.push(interfaceDetails);
       }
     }
@@ -341,6 +345,9 @@ var populateGeneralTab = function(interface) {
 
     if (interface.BASIC_INFO.DEVICE) {
       nwBondDeviceTextbox.val(interface.BASIC_INFO.DEVICE);
+      nwBondDeviceTextbox.prop("disabled", true);
+    }else if (interface.BASIC_INFO.NAME) {
+      nwBondDeviceTextbox.val(interface.BASIC_INFO.NAME);
       nwBondDeviceTextbox.prop("disabled", true);
     }
     bondMode.val(interface.BASIC_INFO.BONDINFO.BONDING_OPTS.mode);
@@ -470,6 +477,14 @@ var createBondMembersGrid = function(interface) {
           $('select', selectField).append($("<option></option>")
             .attr("value", (interfaceList[i].BASIC_INFO.DEVICE).replace(/"/g, ""))
             .text((interfaceList[i].BASIC_INFO.DEVICE).replace(/"/g, "")));
+        }else if ("BASIC_INFO" in interfacedetails && "NAME" in (interfacedetails.BASIC_INFO)) {          if ((interface != null) &&
+             (interfaceList[i].BASIC_INFO.NAME == interface.BASIC_INFO.NAME)) {
+              continue;
+          }
+          $('select', selectField).append($("<option></option>")
+            .attr("value", (interfaceList[i].BASIC_INFO.NAME).replace(/"/g, ""))
+            .text((interfaceList[i].BASIC_INFO.NAME).replace(/"/g, "")));
+
         }
       }
       $('<td><span class=\"fa fa-floppy-o new-row-save\"></span><span class=\"fa fa-trash-o new-row-delete\"></span></td>').appendTo($('tr:last', '#nw-bond-member-grid'));

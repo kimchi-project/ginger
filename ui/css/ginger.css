@@ -1136,6 +1136,74 @@
   min-width: 147px;
 }
 
+#network-configuration-content-area > .row {
+  min-height: 391px;
+}
+
+#network-configuration-content-area .wok-mask {
+  z-index: 3;
+}
+
+#network-configuration-content-area .enable-sriov-status {
+  background: #ddd;
+  padding: 15px;
+  margin: 10px 0;
+}
+
+#network-configuration-content-area .enable-sriov-status > div {
+  background: #fff;
+}
+
+#network-configuration-content-area .enable-sriov-status h3 {
+  margin: 0;
+  padding: 10px;
+}
+
+#network-configuration-content-area .enable-sriov-status h3 a {
+  text-decoration: none;
+}
+
+#network-configuration-content-area .enable-sriov-status h3 .fa {
+  transition: transform 0.3s ease-in-out;
+}
+
+#network-configuration-content-area .enable-sriov-status h3 a[aria-expanded=true] .fa-chevron-down {
+  transform: rotate(-90deg);
+}
+
+#network-configuration-content-area .enable-sriov-status .collapse {
+  margin-top: 5px;
+  width: 100%;
+}
+
+#network-configuration-content-area .enable-sriov-status textarea {
+  width: 100%;
+  border: 0;
+  padding-left: 10px;
+  resize: vertical;
+}
+
+#network-configuration-content-area .dataTables_wrapper table td {
+  vertical-align: middle;
+}
+
+#network-configuration-content-area .dataTables_wrapper .nw-config-align-center {
+  text-align: center;
+}
+
+#network-configuration-content-area .dataTables_wrapper .nw-interface-status-enabled,
+#network-configuration-content-area .dataTables_wrapper .nw-interface-status-disabled {
+  font-size: 23px;
+}
+
+#network-configuration-content-area .dataTables_wrapper .nw-interface-status-enabled {
+  color: #a8d46f;
+}
+
+#network-configuration-content-area .dataTables_wrapper .nw-interface-status-disabled {
+  color: #999;
+}
+
 #host-storage-root-container .accordion {
   margin: 12px 20px 12px 60px;
   padding-bottom: 18px;

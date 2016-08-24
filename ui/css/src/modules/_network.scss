@@ -310,3 +310,81 @@
   }
 
 }
+
+#network-configuration-content-area {
+
+  > .row {
+    min-height: 391px;
+  }
+
+  .wok-mask {
+    z-index: 3;
+  }
+
+  .enable-sriov-status {
+    background: $nav-tabs-border-color;
+    padding: 15px;
+    margin: 10px 0;
+
+    > div {
+      background: $table-bg;
+    }
+
+    h3 {
+      margin: 0;
+      padding: 10px;
+
+      a {
+        text-decoration: none;
+      }
+
+      .fa {
+        transition: transform 0.3s ease-in-out;
+      }
+
+      a[aria-expanded=true] .fa-chevron-down  {
+        transform: rotate(-90deg);
+      }
+
+    }
+
+    .collapse {
+      margin-top: 5px;
+      width: 100%;
+    }
+
+    textarea {
+      width: 100%;
+      border: 0;
+      padding-left: 10px;
+      resize: vertical;
+    }
+  }
+
+  // Everything related to Datatables must go here
+  .dataTables_wrapper {
+
+    table td {
+      vertical-align: middle;
+    }
+
+    .nw-config-align-center {
+      text-align: center;
+    }
+
+    .nw-interface-status-enabled,
+    .nw-interface-status-disabled {
+      font-size: 23px;
+    }
+
+    .nw-interface-status-enabled {
+      color: $fa-green;
+    }
+
+    .nw-interface-status-disabled {
+      color: $gray-light;
+    }
+
+  }
+
+}

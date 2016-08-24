@@ -79,22 +79,14 @@ ginger.initVLANInterfaceSettings = function() {
 
   $('#nw-vlan-button-cancel').on('click', function() {
     wok.window.close();
-    ginger.refreshInterfaces();
+    ginger.listNetworkConfig.refreshNetworkConfigurationDatatable();
   });
 
   $('#nw-vlan-button-close').on('click', function() {
     wok.window.close();
-    ginger.refreshInterfaces();
+    ginger.listNetworkConfig.refreshNetworkConfigurationDatatable();
   });
 }
-
-ginger.refreshInterfaces = function() {
-  ginger.getInterfaces(function(result) {
-    ginger.loadBootgridData("nwConfigGrid", result);
-  }, function(error) {
-    ginger.hideBootgridLoading(opts);
-  });
-};
 
 var applyOnClick = function() {
 
@@ -284,10 +276,10 @@ var applyOnClick = function() {
 
     if (ginger.selectedInterface == null) {
       ginger.createCfgInterface(data, function(result) {
-        var message = i18n['GINNET0026M'] + " " + nwVLANInterfaceTextbox.val() + " " + i18n['GINNET0020M']
-        wok.message.success(message, '#alert-nw-vlan-modal-container');
+        var message = i18n['GINNET0087M'].replace("%1", '<strong>' + nwVLANInterfaceTextbox.val() + '</strong>');
+        wok.message.success(message, '#alert-nw-vlan-modal-container',true);
         $(nwApplyButton).prop('disabled', false);
-        ginger.refreshInterfaces();
+        ginger.listNetworkConfig.refreshNetworkConfigurationDatatable();
         wok.window.close();
       }, function(err) {
         wok.message.error(err.responseJSON.reason, '#alert-nw-vlan-modal-container', true);
@@ -295,10 +287,10 @@ var applyOnClick = function() {
       });
     } else {
       ginger.updateCfgInterface(interfaceDevice, data, function(result) {
-        var message = i18n['GINNET0027M'] + " " + nwVLANInterfaceTextbox.val() + " " + i18n['GINNET0020M']
-        wok.message.success(message, '#alert-nw-vlan-modal-container');
+        var message = i18n['GINNET0089M'].replace("%1", '<strong>' + nwVLANInterfaceTextbox.val() + '</strong>');
+        wok.message.success(message, '#alert-nw-vlan-modal-container',true);
         $(nwApplyButton).prop('disabled', false);
-        ginger.refreshInterfaces();
+        ginger.listNetworkConfig.refreshNetworkConfigurationDatatable();
         wok.window.close();
       }, function(err) {
         wok.message.error(err.responseJSON.reason, '#alert-nw-vlan-modal-container', true);
@@ -322,6 +314,14 @@ var populateGeneralTab = function(interface) {
         parentInterfaceSelect.append($("<option></option>")
           .attr("value", (result[i].BASIC_INFO.DEVICE).replace(/"/g, ""))
           .text((result[i].BASIC_INFO.DEVICE).replace(/"/g, "")));
+      }else if (result[i].BASIC_INFO.NAME) {
+        if ((interface != null) &&
+           (result[i].BASIC_INFO.NAME == interface.BASIC_INFO.NAME)) {
+            continue;
+        }
+        parentInterfaceSelect.append($("<option></option>")
+          .attr("value", (result[i].BASIC_INFO.NAME).replace(/"/g, ""))
+          .text((result[i].BASIC_INFO.NAME).replace(/"/g, "")));
       }
 
     }
@@ -347,8 +347,13 @@ var populateGeneralTab = function(interface) {
   if (interface == null) {
     nwTitle.append(i18n['GINNWS0014M']);
   } else {
-    nwTitle.append(interface.BASIC_INFO.DEVICE);
-    nwVLANInterfaceTextbox.val(interface.BASIC_INFO.DEVICE);
+    if(interface.BASIC_INFO.DEVICE){
+      nwTitle.append(interface.BASIC_INFO.DEVICE);
+      nwVLANInterfaceTextbox.val(interface.BASIC_INFO.DEVICE);
+    }else {
+      nwTitle.append(interface.BASIC_INFO.NAME);
+      nwVLANInterfaceTextbox.val(interface.BASIC_INFO.NAME);
+    }
 
     if (interface.BASIC_INFO.HWADDR)
       nwHwaddressTextbox.val(interface.BASIC_INFO.HWADDR);
@@ -359,8 +364,11 @@ var populateGeneralTab = function(interface) {
     if (interface.BASIC_INFO.VLANINFO.VLAN_ID)
       nwVLANIDTextbox.val(interface.BASIC_INFO.VLANINFO.VLAN_ID);
 
-    if (interface.BASIC_INFO.DEVICE)
-      nwVLANInterfaceTextbox.val(interface.BASIC_INFO.DEVICE)
+    if (interface.BASIC_INFO.DEVICE){
+      nwVLANInterfaceTextbox.val(interface.BASIC_INFO.DEVICE);
+    }else if (interface.BASIC_INFO.NAME){
+      nwVLANInterfaceTextbox.val(interface.BASIC_INFO.NAME);
+    }
 
     if (interface.BASIC_INFO.ONBOOT == "\"yes\"" || interface.BASIC_INFO.ONBOOT == "yes") {
       onBootCheckbox.prop('checked', true);

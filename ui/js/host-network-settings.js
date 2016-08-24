@@ -72,22 +72,14 @@ ginger.initNwInterfaceSettings = function() {
 
   $('#nw-interface-settings-button-cancel').on('click', function() {
     wok.window.close();
-    ginger.refreshInterfaces();
+    ginger.listNetworkConfig.refreshNetworkConfigurationDatatable();
   });
 
   $('#nw-interface-settings-button-close').on('click', function() {
     wok.window.close();
-    ginger.refreshInterfaces();
+    ginger.listNetworkConfig.refreshNetworkConfigurationDatatable();
   });
 
-};
-
-ginger.refreshInterfaces = function() {
-  ginger.getInterfaces(function(result) {
-    ginger.loadBootgridData("nwConfigGrid", result);
-  }, function(error) {
-    ginger.hideBootgridLoading(opts);
-  });
 };
 
 ginger.action_apply_nwsettings = function() {
