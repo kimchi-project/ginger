@@ -38,9 +38,9 @@ ginger.initiSCSIGridData = function() {
             columnDefs: [{
                 "render": function(data, type, row) {
                     if (data) {
-                        return '<span class="iSCSI-status-enable"><i class="fa fa-sign-in"></i></span>';
+                        return '<span class="iSCSI-status-enable" data-toggle="tooltip" data-placement="right" title="Logged In"><i class="fa fa-sign-in"></i></span>';
                     } else {
-                        return '<span class="iSCSI-status-disabled disabled"><i class="fa fa-sign-out"></i></span>';
+                        return '<span class="iSCSI-status-disabled disabled"  data-toggle="tooltip" data-placement="right" title="Logged Out"><i class="fa fa-sign-out"></i></span>';
                     }
                 },
                 "targets": 1
@@ -58,8 +58,8 @@ ginger.initiSCSIGridData = function() {
                     '<li role="presentation"><a id="iSCSI-login-btn" class="iSCSI-login"><i class="fa fa-sign-in"></i>' + i18n['GINIS00005M'] + '</a></li>',
                     '<li role="presentation"><a id="iSCSI-logout-btn" class="iSCSI-logout"><i class="fa fa-sign-out"></i>' + i18n['GINIS00006M'] + '</a></li>',
                     '<li role="presentation"><a id="iSCSI-rescan-btn" class="iSCSI-rescan"><i class="fa fa fa-play-circle-o"></i>' + i18n['GINIS00007M'] + '</a></li>',
-                    '<li role="presentation"><a id="iSCSI-remove-btn" class="iSCSI-remove"><i class="fa fa fa-times"></i>' + i18n['GINIS00008M'] + '</a></li>',
                     '<li role="presentation"><a id="iSCSI-auth-btn" class="iSCSI-auth"><i class="fa fa fa-cog"></i>' + i18n['GINIS00009M'] + '</a></li>',
+                    '<li role="presentation" class="critical"><a id="iSCSI-remove-btn" class="iSCSI-remove"><i class="fa fa fa-times"></i>' + i18n['GINIS00008M'] + '</a></li>',
                     '</ul>',
                     '</div></div>'
                 ].join('');
@@ -245,6 +245,7 @@ ginger.rescaniSCSIdevice = function(iSCSITable) {
     if (RowSelectedLength) {
         RowSelected.every(function() {
             var tData = this.data();
+            if(tData.status){
             ginger.iSCSItargetsrescan(tData.iqn, function(result) {
                 wok.message.success(tData.iqn + ' ' + i18n['GINIS00027M'], '#iSCSI-alert-container');
                 RowSelectedLength--;
@@ -258,6 +259,13 @@ ginger.rescaniSCSIdevice = function(iSCSITable) {
                     $('#iSCSI-refresh-btn').trigger('click');
                 }
             });
+          }else{
+            wok.message.warn(tData.iqn + ' ' + i18n['GINIS00033M'], '#iSCSI-alert-container');
+            RowSelectedLength--;
+            if (RowSelectedLength <= 0) {
+                $('#iSCSI-refresh-btn').trigger('click');
+            }
+          }
         });
     }
 }
@@ -307,7 +315,6 @@ ginger.initiSCSIsettings = function(api) {
 
     ginger.getiSCSIglobalAuthdetails(function(result) {
         $(".iSCSI-settings-loader").hide();
-        wok.message.success(i18n['GINIS00029M'], '#iSCSI-settings-iqn-message');
 
         ginger.displayiSCSIglobalsettings(result, api);
         $('#iSCSI-settings-authentication').off();
@@ -345,9 +352,9 @@ ginger.updateiSCSIglobalsettings = function() {
 
     ginger.iSCSIupdateSettingsDetail(content, function(result) {
         $(".iSCSI-settings-loader").hide();
-        wok.message.success(i18n['GINIS00030M'], '#iSCSI-settings-iqn-message');
+        wok.message.success(i18n['GINIS00030M'], '#iSCSI-alert-container');
         $('#iSCSI-refresh-btn').trigger('click');
-        ginger.initiSCSIsettings(content.api);
+        $('#iSCSI-settings-close').trigger('click');
     }, function(err) {
         $(".iSCSI-settings-loader").hide();
         wok.message.error(err.responseJSON.reason, '#iSCSI-settings-iqn-message');
@@ -423,7 +430,6 @@ ginger.initiSCSItargetSettings = function(api, row) {
     ginger.getiSCSItargetSettings(target, function(result) {
 
         $(".iSCSI-target-settings-loader").hide();
-        wok.message.success(i18n['GINIS00031M'], '#iSCSI-target-settings-iqn-message');
 
         ginger.displayiSCSITargetsettings(result.targets[0].auth, api);
         $('#iSCSI-target-settings-authentication').off();
@@ -462,9 +468,9 @@ ginger.updateiSCSItargetsettings = function(target, RowSelected) {
 
     ginger.iSCSIupdateTargetsettingsDetail(content, function(result) {
         $(".iSCSI-target-settings-loader").hide();
-        wok.message.success(i18n['GINIS00032M'], '#iSCSI-target-settings-iqn-message');
+        wok.message.success(i18n['GINIS00032M'], '#iSCSI-alert-container');
         $('#iSCSI-refresh-btn').trigger('click');
-        ginger.initiSCSItargetSettings(content.api, RowSelected);
+        $('#iSCSI-target-settings-close').trigger('click');
     }, function(err) {
         $(".iSCSI-target-settings-loader").hide();
         wok.message.error(err.responseJSON.reason, '#iSCSI-target-settings-iqn-message');
@@ -491,3 +497,6 @@ ginger.iSCSItoggleButtonState = function(iSCSITable) {
         }
     }
 }
+$(function () {
+  $('[data-toggle="tooltip"]').tooltip()
+})
