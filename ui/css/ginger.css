@@ -2624,3 +2624,198 @@ ul.nav > li > span.tree-toggle:before {
 ul.nav > li.active > span.tree-toggle:before {
   content: "\f147";
 }
+
+#server-root-container .accordion {
+  margin: 12px 20px 12px 60px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid #eee;
+  overflow: visible;
+  clear: both;
+}
+
+#server-root-container .accordion:first-chld {
+  margin-top: 24px;
+}
+
+#server-root-container .accordion > h3 {
+  margin: 0;
+  padding: 0;
+  font-size: 26px;
+  font-weight: 300;
+  height: 44px;
+  display: block;
+}
+
+#server-root-container .accordion > h3 a {
+  color: #3a393b;
+  text-decoration: none;
+  display: block;
+  padding: 6px 30px;
+  margin-left: -30px;
+  margin-right: -30px;
+}
+
+#server-root-container .accordion > h3 a span.accordion-icon {
+  margin-left: -52px;
+  vertical-align: middle;
+  display: inline-block;
+  font: normal normal normal 32px/1 FontAwesome;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  color: #3a393b;
+}
+
+#server-root-container .accordion > h3 a[aria-expanded="false"] span.accordion-icon:before {
+  content: "\f01a";
+}
+
+#server-root-container .accordion > h3 a[aria-expanded="true"] span.accordion-icon:before {
+  content: "\f01b";
+}
+
+#server-root-container .accordion > h3 a span.accordion-text {
+  margin-left: 23px;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+#server-root-container .navbar-default.toolbar {
+  background-color: #008abf !important;
+}
+
+#server-content-area {
+  padding: 0;
+  list-style-type: none;
+}
+
+#server-content-area .li:nth-child(even) {
+  background-color: #fcfcfc;
+}
+
+#server-content-area .li:nth-child(odd) {
+  background-color: #fff;
+}
+
+#server-content-area .header > span,
+#server-content-area .header > div,
+#server-content-area .body > span,
+#server-content-area .body > div {
+  padding: 6px 2px;
+  display: inline-block;
+  font-family: "Open Sans", Helvetica, Arial, "Lucida Grande", sans-serif;
+}
+
+#server-content-area .header {
+  border-top: 0 none;
+}
+
+#server-content-area .header > span,
+#server-content-area .header > div {
+  vertical-align: bottom;
+  height: 36px;
+  font-weight: 300;
+  font-size: 12.5pt;
+  line-height: 1.42857;
+  border-bottom: 0;
+  border-top: 0;
+}
+
+#server-content-area .body {
+  border-top: 1px solid #eee;
+}
+
+#server-content-area .body > span,
+#server-content-area .body > div {
+  vertical-align: middle;
+  font-size: 11pt;
+  line-height: 2.42857;
+  font-weight: 400;
+}
+
+#server-content-area .server-status-enabled .fa {
+  font-size: 23px;
+  color: #a8d46f;
+}
+
+#server-content-area .server-status-disabled .fa {
+  font-size: 23px;
+  color: #9E9E9E;
+}
+
+#server-content-area .gridHeader {
+  text-align: left;
+}
+
+#server-content-area .bootgrid-table {
+  height: 300px;
+  width: 100%;
+}
+
+#server-content-area .bootgrid-table th > .column-header-anchor > .icon {
+  right: 40%;
+}
+
+#server-content-area .bootgrid-table thead {
+  display: block;
+  width: 100%;
+  padding: 0;
+}
+
+#server-content-area .bootgrid-table tbody {
+  height: 250px;
+  overflow: scroll;
+  position: absolute;
+  width: 100%;
+}
+
+#server-content-area .bootgrid-table tr {
+  width: 100%;
+  display: inline-table;
+}
+
+#server-content-area .bootgrid-header .actionBar {
+  padding: 0.5% 0 0;
+  text-align: right;
+}
+
+#server-content-area .bootgrid-header div.search {
+  margin: 0;
+  width: 160px;
+}
+
+#server-global-content-area {
+  height: 325px;
+}
+
+#server-global-content-area .bootgrid-table {
+  height: 200px;
+  width: 100%;
+  margin-left: 1%;
+}
+
+#server-global-content-area .bootgrid-table th > .column-header-anchor > .icon {
+  right: 40%;
+}
+
+#server-global-content-area .bootgrid-table thead {
+  display: block;
+  width: 100%;
+  padding: 0;
+}
+
+#server-global-content-area .bootgrid-table tbody {
+  height: 180px;
+  overflow: auto;
+  width: 100%;
+  position: absolute;
+  border: 1px solid #eee;
+}
+
+#server-global-content-area .bootgrid-table tr {
+  width: 100%;
+  display: inline-table;
+}
+
+#server-global-content-area .bootgrid-table th {
+  background-color: #eee;
+}

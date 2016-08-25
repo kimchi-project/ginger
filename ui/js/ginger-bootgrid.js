@@ -77,6 +77,15 @@ ginger.createBootgrid = function(opts) {
           }
         return '<span class="column-usage"><span class="usage-icon '+iconClass+'">'+row[column['id']].toLocaleString(wok.lang.get_locale(),{style: 'percent', maximumFractionDigits:2})+'</span></span>';
       },
+      "srv-status": function(column, row) {
+        var value = row[column.id];
+        if (column.id == "status") {
+          if (value == "on" || value == "unknown"){
+            return "<span class=\"server-status-enabled enabled\"> <i class=\"fa fa-power-off\"></i></span>";
+          }
+          return "<span class=\"server-status-disabled disabled\"> <i class=\"fa fa-power-off\"></i></span>";
+        }
+      },
       "nw-interface-status": function(column, row) {
         var value = row[column.id];
         if (column.id == "status") {

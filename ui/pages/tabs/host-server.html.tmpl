@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<!--
+Copyright IBM Corp, 2016
+
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+-->
+#unicode UTF-8
+#import gettext
+#silent t = gettext.translation($lang.domain, $lang.localedir, languages=$lang.lang)
+#silent _ = t.gettext
+#silent _t = t.gettext
+<html>
+<head>
+  <link rel="stylesheet" type="text/css" href="plugins/ginger/css/ginger.css">
+  <script type="text/javascript" src="plugins/ginger/js/util.js"></script>
+  <script type="text/javascript" src="plugins/ginger/js/ginger-bootgrid.js"></script>
+  <script type="text/javascript" src="plugins/ginger/js/host-server.js"></script>
+</head>
+<body>
+  <div id="server-root-container" class="ginger">
+    <nav class="navbar navbar-default toolbar">
+      <div class="container">
+        <div id="toolbar"></div>
+      </div>
+    </nav>
+    <div class="container">
+      <div id="gingerHostServer" class="host-server">
+        <!-- server Configuration Panel -->
+        <div class="panel-group server-ppc-enabled accordion" id="server-content-area-accordion" role="tablist" aria-multiselectable="true">
+          <h3>
+            <a role="button" aria-expanded="true" data-toggle="collapse" data-parent="#server-content-area-accordion" href="#server-content-area" aria-expanded="false" aria-controls="server-content-area" class="">
+              <span class="accordion-icon"></span>
+              <span class="accordion-text">$_("Systems Platform Management")</span>
+            </a>
+          </h3>
+          <div id="server-content-area" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+            <div class="row" id="servers" style="padding-left:20px;">
+              <div class="clearfix">
+                <span id='message-srv-container-area' style='display: none;'></span>
+                <div class="row">
+                  <div id="srv-configuration-actions" class="pull-left">
+                  </div>
+                  <div class="pull-right">
+                  <span id="srv-configuration-refresh">
+                  <button class="row btn btn-primary" type="button" aria-expanded="false" id="srv-configuration-refresh-btn"><i class="fa fa-refresh"></i> Refresh</button>
+                  </span>
+                  <span id="srv-configuration-add" class="">
+                     <button class="btn btn-primary" type="button" id="srv-configuration-add-btn"><i class="fa fa-plus-circle"></i> $_("Add Server")</button>
+                  </span>
+                  </div>
+                </div>
+                <div id="srv-configuration" class="row col-md-12">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="modalWindow" class="modal fade host-modal sysmodules-modal ginger" tabindex="-1" role="dialog" aria-labelledby="serverModalLabel" aria-hidden="true">
+  </div>
+  <script>
+    ginger.initServer();
+  </script>
+</body>
+</html>

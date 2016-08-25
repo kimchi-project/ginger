@@ -1633,3 +1633,68 @@ ginger.getAuditRules = function(suc, err) {
        }
    });
  };
+
+/**
+ * Systems Platform Management
+ */
+ginger.getServer = function(suc, err) {
+     wok.requestJSON({
+        url: 'plugins/ginger/servers',
+        type: 'GET',
+        contentType: 'application/json',
+        dataType: 'json',
+        success: suc,
+        error : err || function(data) {
+            wok.message.error(data.responseJSON.reason);
+        }
+     });
+}
+ginger.addServer = function(parms, suc, err){
+    $.ajax({
+        url : "plugins/ginger/servers",
+        type : 'POST',
+        contentType : 'application/json',
+        dataType : 'json',
+        data : JSON.stringify(parms),
+        success: suc,
+        error: err || function(data) {
+            wok.message.error(data.responseJSON.reason);
+        }
+    });
+};
+ginger.removeServer = function(moduleId, suc, err) {
+    wok.requestJSON({
+        url: 'plugins/ginger/servers/' + moduleId,
+        type: 'DELETE',
+        contentType: 'application/json',
+        dataType: 'json',
+        success: suc,
+        error : err || function(data) {
+            wok.message.error(data.responseJSON.reason);
+        }
+     });
+}
+ginger.serverPowerOn = function(moduleId, suc, err) {
+    wok.requestJSON({
+        url: 'plugins/ginger/servers/' + moduleId + '/poweron',
+        type: 'POST',
+        contentType: 'application/json',
+        dataType: 'json',
+        success: suc,
+        error : err || function(data) {
+            wok.message.error(data.responseJSON.reason);
+        }
+     });
+}
+ginger.serverPowerOff = function(moduleId, suc, err) {
+    wok.requestJSON({
+        url: 'plugins/ginger/servers/' + moduleId + '/poweroff',
+        type: 'POST',
+        contentType: 'application/json',
+        dataType: 'json',
+        success: suc,
+        error : err || function(data) {
+            wok.message.error(data.responseJSON.reason);
+        }
+     });
+}

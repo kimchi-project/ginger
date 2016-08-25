@@ -1,0 +1,192 @@
+//
+// Project Ginger
+//
+// Copyright IBM Corp, 2016
+//
+// Code derived from Project Kimchi
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+//
+#server-root-container {
+  .accordion {
+    margin: 12px 20px 12px 60px;
+    padding-bottom: 18px;
+    border-bottom: 1px solid $table-border-color;
+    overflow: visible;
+    clear: both;
+    &:first-chld {
+      margin-top: 24px;
+    }
+    > h3 {
+      margin: 0;
+      padding: 0;
+      font-size: 26px;
+      font-weight: 300;
+      height: 44px;
+      display: block;
+      a {
+        color: $brand-primary;
+        text-decoration: none;
+        display: block;
+        padding: 6px 30px;
+        margin-left: -30px;
+        margin-right: -30px;
+        span.accordion-icon {
+          margin-left: -52px;
+          vertical-align: middle;
+          display: inline-block;
+          font: normal normal normal 32px/1 FontAwesome;
+          text-rendering: auto;
+          -webkit-font-smoothing: antialiased;
+          color: $brand-primary;
+        }
+        &[aria-expanded="false"] {
+          span.accordion-icon:before {
+            content: "\f01a";
+          }
+        }
+        &[aria-expanded="true"] {
+          span.accordion-icon:before {
+            content: "\f01b";
+          }
+        }
+        span.accordion-text {
+          margin-left: 23px;
+          display: inline-block;
+          vertical-align: middle;
+        }
+      }
+    }
+  }
+  .navbar-default.toolbar {
+    background-color: $hosts-color !important;
+  }
+}
+
+#server-content-area {
+  padding: 0;
+  list-style-type: none;
+  .li:nth-child(even) {
+    background-color: #fcfcfc;
+  }
+  .li:nth-child(odd) {
+    background-color: #fff;
+  }
+  .header,
+  .body {
+    > span,
+    > div {
+      padding: 6px 2px;
+      display: inline-block;
+      font-family: $font-family-sans-serif;
+    }
+  }
+  .header {
+    border-top: 0 none;
+    > span,
+    > div {
+      vertical-align: bottom;
+      height: 36px;
+      font-weight: 300;
+      font-size: 12.5pt;
+      line-height: 1.42857;
+      border-bottom: 0;
+      border-top: 0;
+    }
+  }
+  .body {
+    border-top: 1px solid #eee;
+    > span,
+    > div {
+      vertical-align: middle;
+      font-size: 11pt;
+      line-height: 2.42857;
+      font-weight: 400;
+    }
+  }
+  .server-status-enabled .fa {
+    font-size: 23px;
+    color: $fa-green;
+  }
+  .server-status-disabled .fa {
+    font-size: 23px;
+    color: #9E9E9E;
+  }
+  .gridHeader {
+    text-align: left;
+  }
+  .bootgrid-table {
+    height: 300px;
+    width: 100%;
+    th > .column-header-anchor > .icon {
+      right: 40%;
+    }
+    thead {
+      display: block;
+      width: 100%;
+      padding: 0;
+    }
+    tbody {
+      height: 250px;
+      overflow: scroll;
+      position: absolute;
+      width: 100%;
+    }
+    tr {
+      width: 100%;
+      display: inline-table;
+    }
+  }
+  .bootgrid-header .actionBar {
+    padding: 0.5% 0 0;
+    text-align: right;
+  }
+  .bootgrid-header {
+    div.search {
+      margin: 0;
+      width: 160px;
+    }
+  }
+}
+
+#server-global-content-area {
+  height: 325px;
+
+  .bootgrid-table {
+    height: 200px;
+    width: 100%;
+    margin-left: 1%;
+    th > .column-header-anchor > .icon {
+      right: 40%;
+    }
+    thead {
+      display: block;
+      width: 100%;
+      padding: 0;
+    }
+    tbody {
+      height: 180px;
+      overflow: auto;
+      width: 100%;
+      position: absolute;
+      border: 1px solid #eee;
+    }
+    tr {
+      width: 100%;
+      display: inline-table;
+    }
+    th {
+      background-color: #eee;
+    }
+  }
+}
