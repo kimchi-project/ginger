@@ -20,11 +20,11 @@
 import re
 import utils
 
+from wok.asynctask import AsyncTask
 from wok.exception import MissingParameter, NotFoundError, OperationFailed
 from wok.model.tasks import TaskModel
 from wok.plugins.gingerbase.disks import fetch_disks_partitions
 from wok.plugins.gingerbase.disks import _get_vgname, get_partition_details
-from wok.utils import add_task
 
 
 class PartitionsModel(object):
@@ -99,8 +99,8 @@ class PartitionModel(object):
             raise OperationFailed('GINPART00004E')
 
         task_params = {'name': name, 'fstype': fstype}
-        taskid = add_task(u'/partitions/%s/fstype%s' % (name, fstype),
-                          self._format_task, self.objstore, task_params)
+        taskid = AsyncTask(u'/partitions/%s/fstype%s' % (name, fstype),
+                           self._format_task, task_params).id
 
         return self.task.lookup(taskid)
 

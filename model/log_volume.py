@@ -19,10 +19,10 @@
 
 import utils
 
+from wok.asynctask import AsyncTask
 from wok.exception import MissingParameter, \
     NotFoundError, OperationFailed
 from wok.model.tasks import TaskModel
-from wok.utils import add_task
 
 
 class LogicalVolumesModel(object):
@@ -43,8 +43,8 @@ class LogicalVolumesModel(object):
         if 'size' not in params:
             raise MissingParameter('GINLV00002E')
 
-        taskid = add_task(u'/lvs/vg_name/%s' % (vgname),
-                          self._create_linear_task, self.objstore, params)
+        taskid = AsyncTask(u'/lvs/vg_name/%s' % (vgname),
+                           self._create_linear_task, params).id
         return self.task.lookup(taskid)
 
     def _create_linear_task(self, cb, params):

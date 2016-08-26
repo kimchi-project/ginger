@@ -27,11 +27,12 @@ from nw_cfginterfaces_utils import IFACE_VLAN
 from nw_interfaces_utils import add_config_to_mlx5_SRIOV_boot_script
 from nw_interfaces_utils import cfgInterfacesHelper
 from nw_interfaces_utils import InterfacesHelper
+from wok.asynctask import AsyncTask
 from wok.exception import InvalidOperation, InvalidParameter, NotFoundError
 from wok.exception import OperationFailed
 from wok.model.tasks import TaskModel
 from wok.stringutils import encode_value
-from wok.utils import add_task, wok_log
+from wok.utils import wok_log
 
 from wok.plugins.gingerbase import netinfo
 
@@ -175,11 +176,10 @@ class InterfaceModel(object):
 
         params = {'name': name, 'num_vfs': num_vfs}
 
-        task_id = add_task(
+        task_id = AsyncTask(
             '/plugins/ginger/network/%s/enable_sriov' % name,
-            self._mlx5_SRIOV_enable_task,
-            self.objstore, params
-        )
+            self._mlx5_SRIOV_enable_task, params
+        ).id
         return self.task.lookup(task_id)
 
     #     When setting the virtual functions, the mlx5_core driver

@@ -24,10 +24,11 @@ import fs_utils
 import utils
 
 from diskparts import PartitionModel
+from wok.asynctask import AsyncTask
 from wok.exception import InvalidParameter, NotFoundError, OperationFailed
 from wok.model.tasks import TaskModel
 from wok.rollbackcontext import RollbackContext
-from wok.utils import add_task, run_command
+from wok.utils import run_command
 
 
 class SwapsModel(object):
@@ -53,8 +54,8 @@ class SwapsModel(object):
                 raise InvalidParameter('GINSP00003E')
 
             if params['type'] == 'device' or params['type'] == 'file':
-                taskid = add_task(u'/swaps/file_loc/%s' % (file_loc),
-                                  self._create_task, self.objstore, params)
+                taskid = AsyncTask(u'/swaps/file_loc/%s' % (file_loc),
+                                   self._create_task, params).id
                 return self.task.lookup(taskid)
             else:
                 raise InvalidParameter('GINSP00004E')

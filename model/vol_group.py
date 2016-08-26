@@ -19,11 +19,10 @@
 
 import utils
 
+from wok.asynctask import AsyncTask
 from wok.exception import InvalidOperation, MissingParameter, NotFoundError
 from wok.exception import OperationFailed
-
 from wok.model.tasks import TaskModel
-from wok.utils import add_task
 
 
 class VolumeGroupsModel(object):
@@ -44,8 +43,8 @@ class VolumeGroupsModel(object):
         if "pv_paths" not in params:
             raise MissingParameter("GINVG00014E")
 
-        taskid = add_task(u'/vgs/vg_name/%s' % (vgname),
-                          self._create_task, self.objstore, params)
+        taskid = AsyncTask(u'/vgs/vg_name/%s' % (vgname),
+                           self._create_task, params).id
 
         return self.task.lookup(taskid)
 

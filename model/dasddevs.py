@@ -22,10 +22,11 @@ import dasd_utils
 import platform
 import threading
 
+from wok.asynctask import AsyncTask
 from wok.exception import InvalidOperation, MissingParameter
 from wok.exception import NotFoundError, OperationFailed
 from wok.model.tasks import TaskModel
-from wok.utils import add_task, run_command
+from wok.utils import run_command
 
 # Max no of permitted concurrent DASD format operations
 MAX_DASD_FMT = 24
@@ -104,8 +105,8 @@ class DASDdevModel(object):
                     "GINDASD0014E", {
                         'max_dasd_fmt': str(MAX_DASD_FMT)})
 
-            taskid = add_task(u'/dasddevs/%s/blksize/%s' % (name, blk_size),
-                              self._format_task, self.objstore, task_params)
+            taskid = AsyncTask(u'/dasddevs/%s/blksize/%s' % (name, blk_size),
+                               self._format_task, task_params).id
         except OperationFailed:
             woklock.release()
             raise OperationFailed("GINDASD0008E", {'name': name})

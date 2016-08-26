@@ -26,12 +26,11 @@ import unittest
 import urllib2
 from functools import partial
 
+from wok.asynctask import AsyncTask
 from wok.plugins.ginger.model import GingerModel
 
 from tests.utils import get_free_port, patch_auth, request
 from tests.utils import run_server, wait_task
-
-from wok.utils import add_task
 
 
 test_server = None
@@ -84,12 +83,9 @@ class TaskTests(unittest.TestCase):
         )
 
     def test_tasks(self):
-        id1 = add_task('/plugins/ginger/tasks/1', self._async_op,
-                       model._objstore)
-        id2 = add_task('/plugins/ginger/tasks/2', self._except_op,
-                       model._objstore)
-        id3 = add_task('/plugins/ginger/tasks/3', self._intermid_op,
-                       model._objstore)
+        id1 = AsyncTask('/plugins/ginger/tasks/1', self._async_op).id
+        id2 = AsyncTask('/plugins/ginger/tasks/2', self._except_op).id
+        id3 = AsyncTask('/plugins/ginger/tasks/3', self._intermid_op).id
 
         target_uri = urllib2.quote('^/plugins/ginger/tasks/*', safe="")
         filter_data = 'status=running&target_uri=%s' % target_uri
@@ -99,7 +95,7 @@ class TaskTests(unittest.TestCase):
         self.assertEquals(3, len(tasks))
 
         tasks = json.loads(self.request('/plugins/ginger/tasks').read())
-        tasks_ids = [int(t['id']) for t in tasks]
+        tasks_ids = [t['id'] for t in tasks]
         self.assertEquals(set([id1, id2, id3]) - set(tasks_ids), set([]))
         wait_task(self._task_lookup, id2)
         foo2 = json.loads(

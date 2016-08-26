@@ -28,11 +28,12 @@ import uuid
 
 import cherrypy
 
+from wok.asynctask import AsyncTask
 from wok.config import PluginPaths
 from wok.exception import InvalidOperation, NotFoundError, OperationFailed
 from wok.exception import InvalidParameter
 from wok.model.tasks import TaskModel
-from wok.utils import add_task, run_command, wok_log
+from wok.utils import run_command, wok_log
 
 
 class BackupModel(object):
@@ -234,8 +235,8 @@ class ArchivesModel(object):
                      'timestamp': stamp,
                      'file': ''}
 
-        taskid = add_task(u'/backup/create/%s' % (archive_id),
-                          self._create_task, self._objstore, ar_params)
+        taskid = AsyncTask(u'/backup/create/%s' % (archive_id),
+                           self._create_task, ar_params).id
         return self.task.lookup(taskid)
 
     def _create_task(self, cb, params):

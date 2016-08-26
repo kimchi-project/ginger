@@ -21,10 +21,10 @@ import utils
 
 from dasd_utils import change_dasdpart_type
 from diskparts import PartitionModel
+from wok.asynctask import AsyncTask
 from wok.exception import MissingParameter, NotFoundError
 from wok.exception import InvalidParameter, OperationFailed
 from wok.model.tasks import TaskModel
-from wok.utils import add_task
 
 
 class PhysicalVolumesModel(object):
@@ -42,8 +42,8 @@ class PhysicalVolumesModel(object):
 
         pvname = params['pv_name']
 
-        taskid = add_task(u'/pvs/pv_name/%s' % (pvname),
-                          self._create_task, self.objstore, params)
+        taskid = AsyncTask(u'/pvs/pv_name/%s' % (pvname),
+                           self._create_task, params).id
 
         return self.task.lookup(taskid)
 

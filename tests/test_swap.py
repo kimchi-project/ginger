@@ -33,16 +33,16 @@ class SwapTests(unittest.TestCase):
         objstore_loc = config.get_object_store() + '_ginger'
         self._objstore = ObjectStore(objstore_loc)
 
-    @mock.patch('wok.plugins.ginger.model.swaps.add_task')
+    @mock.patch('wok.plugins.ginger.model.swaps.AsyncTask')
     @mock.patch('wok.plugins.ginger.model.swaps.TaskModel')
     def test_create_swap_missing_file_loc(self, mock_task_model,
-                                          mock_add_task):
+                                          mock_AsyncTask):
         """
         Test case to raise exception in case of
         missing file location in parameters
         """
         taskid = 1
-        mock_add_task.return_value = taskid
+        mock_AsyncTask.return_value = taskid
         mock_task_model.lookup.return_value = "test_task"
 
         params = {}
@@ -52,18 +52,18 @@ class SwapTests(unittest.TestCase):
 
         swap_model = swaps.SwapsModel(objstore=self._objstore)
         self.assertRaises(InvalidParameter, swap_model.create, params)
-        self.assertFalse(mock_add_task.called,
-                         msg='Unexpected call to mock_add_task()')
+        self.assertFalse(mock_AsyncTask.called,
+                         msg='Unexpected call to mock_AsyncTask()')
 
-    @mock.patch('wok.plugins.ginger.model.swaps.add_task')
+    @mock.patch('wok.plugins.ginger.model.swaps.AsyncTask')
     @mock.patch('wok.plugins.ginger.model.swaps.TaskModel')
     def test_create_swap_missing_type(self, mock_task_model,
-                                      mock_add_task):
+                                      mock_AsyncTask):
         """
         Test case to raise exception in case of missing type in parameters
         """
         taskid = 1
-        mock_add_task.return_value = taskid
+        mock_AsyncTask.return_value = taskid
         mock_task_model.lookup.return_value = "test_task"
 
         params = {}
@@ -73,19 +73,19 @@ class SwapTests(unittest.TestCase):
 
         swap_model = swaps.SwapsModel(objstore=self._objstore)
         self.assertRaises(InvalidParameter, swap_model.create, params)
-        self.assertFalse(mock_add_task.called,
-                         msg='Unexpected call to mock_add_task()')
+        self.assertFalse(mock_AsyncTask.called,
+                         msg='Unexpected call to mock_AsyncTask()')
 
-    @mock.patch('wok.plugins.ginger.model.swaps.add_task')
+    @mock.patch('wok.plugins.ginger.model.swaps.AsyncTask')
     @mock.patch('wok.plugins.ginger.model.swaps.TaskModel')
     def test_create_swap_missing_size(self, mock_task_model,
-                                      mock_add_task):
+                                      mock_AsyncTask):
         """
         Test case to raise exception in case of
         missing size in parameters for type 'file'
         """
         taskid = 1
-        mock_add_task.return_value = taskid
+        mock_AsyncTask.return_value = taskid
         mock_task_model.lookup.return_value = "test_task"
 
         params = {}
@@ -95,18 +95,18 @@ class SwapTests(unittest.TestCase):
 
         swap_model = swaps.SwapsModel(objstore=self._objstore)
         self.assertRaises(InvalidParameter, swap_model.create, params)
-        self.assertFalse(mock_add_task.called,
-                         msg='Unexpected call to mock_add_task()')
+        self.assertFalse(mock_AsyncTask.called,
+                         msg='Unexpected call to mock_AsyncTask()')
 
-    @mock.patch('wok.plugins.ginger.model.swaps.add_task')
+    @mock.patch('wok.plugins.ginger.model.swaps.AsyncTask')
     @mock.patch('wok.plugins.ginger.model.swaps.TaskModel')
     def test_create_swap_wrong_type(self, mock_task_model,
-                                    mock_add_task):
+                                    mock_AsyncTask):
         """
         Test case to raise exception in case of wrong type
         """
         taskid = 1
-        mock_add_task.return_value = taskid
+        mock_AsyncTask.return_value = taskid
         mock_task_model.lookup.return_value = "test_task"
 
         params = {}
@@ -117,8 +117,8 @@ class SwapTests(unittest.TestCase):
 
         swap_model = swaps.SwapsModel(objstore=self._objstore)
         self.assertRaises(InvalidParameter, swap_model.create, params)
-        self.assertFalse(mock_add_task.called,
-                         msg='Unexpected call to mock_add_task()')
+        self.assertFalse(mock_AsyncTask.called,
+                         msg='Unexpected call to mock_AsyncTask()')
 
     def test_swap_parser(self):
         """

@@ -23,10 +23,11 @@ import os
 import platform
 import time
 
+from wok.asynctask import AsyncTask
 from wok.exception import OperationFailed
 from wok.model.notifications import add_notification
 from wok.model.tasks import TaskModel
-from wok.utils import add_task, run_command, wok_log
+from wok.utils import run_command, wok_log
 
 
 # FIXME: When model is restructured, use
@@ -100,8 +101,8 @@ class FirmwareModel(object):
         wok_log.info('FW update: System will reboot to flash the firmware.')
 
         cmd_params = {'command': command, 'operation': 'update'}
-        taskid = add_task('/plugins/ginger/firmware/upgrade',
-                          self._execute_task, self.objstore, cmd_params)
+        taskid = AsyncTask('/plugins/ginger/firmware/upgrade',
+                           self._execute_task, cmd_params).id
 
         return self.task.lookup(taskid)
 
