@@ -315,6 +315,7 @@ messages = {
     "GINDASDPAR0011E": _("Invalid DASD partition, %(name)s"),
     "GINDASDPAR0012E": _("DASD device %(name)s not found"),
     "GINDASDPAR0013E": _("Size must be of type integer"),
+    "GINDASDPAR0014E": _("Unable to change dasd type, error: %(err)s"),
 
     "GINSYSMOD00001E": _("Error getting loaded module list: %(err)s"),
     "GINSYSMOD00002E": _("Module %(module)s not found."),

@@ -284,3 +284,26 @@ def _get_dasdeckd_devices():
         if device:
             dasdeckd_devices.append(device)
     return dasdeckd_devices
+
+
+def change_dasdpart_type(part, type):
+    """
+    Change the type of the dasd partition
+    :param part: name of the dasd partition e.g. dasd1
+    :param type: partition type to be changed to e.g 4 (Linux LVM type)
+    :return:
+    """
+    partnum = ''.join(filter(lambda x: x.isdigit(), part))
+    typ_str = '\nt\n' + partnum + '\n' + type + '\n' + 'w\n'
+    devname = ''.join(i for i in part if not i.isdigit())
+    devname = '/dev/' + devname
+    p1_out = subprocess.Popen(["echo", "-e", "\'", typ_str, "\'"],
+                              stdout=subprocess.PIPE)
+    p2_out = subprocess.Popen(["fdasd", devname], stdin=p1_out.stdout,
+                              stderr=subprocess.PIPE, stdout=subprocess.PIPE)
+    p1_out.stdout.close()
+    out, err = p2_out.communicate()
+    if p2_out.returncode != 0:
+        raise OperationFailed("GINDASDPAR0014E",
+                              {'err': err})
+    return
