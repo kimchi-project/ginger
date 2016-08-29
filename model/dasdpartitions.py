@@ -55,6 +55,11 @@ class DASDPartitionsModel(object):
                 raise InvalidParameter("GINDASDPAR0013E")
         size = params['size']
 
+        devs = dasd_utils.get_dasd_devs()
+        for dev in devs:
+            if dev['size'] != 'Unknown':
+                if size > dev['size']:
+                    raise InvalidParameter("GINDASDPAR0015E")
         try:
             dasd_utils._create_dasd_part(dev_name, size)
         except OperationFailed as e:

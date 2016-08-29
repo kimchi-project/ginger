@@ -20,10 +20,13 @@
 
 import os
 import platform
+import psutil
 import re
 import subprocess
 
+from threading import Timer
 from wok.exception import InvalidParameter, NotFoundError, OperationFailed
+from wok.exception import TimeoutExpired
 from wok.plugins.ginger.model.utils import _get_paths, _hex_to_binary
 from wok.plugins.ginger.model.utils import get_directories, get_dirname
 from wok.plugins.ginger.model.utils import syspath_eckd
@@ -126,20 +129,47 @@ def _create_dasd_part(dev, size):
     :param size: block size
     :return:
     """
+    def kill_proc(proc, timeout_flag):
+        try:
+            parent = psutil.Process(proc.pid)
+            for child in parent.get_children(recursive=True):
+                child.kill()
+            # kill the process after no children is left
+            proc.kill()
+        except OSError:
+            pass
+        else:
+            timeout_flag[0] = True
+
     dasd_devs = _get_dasd_names()
     if dev not in dasd_devs:
         raise NotFoundError("GINDASDPAR0012E", {'name': dev})
     p_str = _form_part_str(size)
     devname = '/dev/' + dev
-    p1_out = subprocess.Popen(["echo", "-e", "\'", p_str, "\'"],
-                              stdout=subprocess.PIPE)
-    p2_out = subprocess.Popen(["fdasd", devname], stdin=p1_out.stdout,
-                              stderr=subprocess.PIPE, stdout=subprocess.PIPE)
-    p1_out.stdout.close()
-    out, err = p2_out.communicate()
-    if p2_out.returncode != 0:
-        raise OperationFailed("GINDASDPAR0007E",
-                              {'name': devname, 'err': err})
+    try:
+        p1_out = subprocess.Popen(["echo", "-e", "\'", p_str, "\'"],
+                                  stdout=subprocess.PIPE)
+        p2_out = subprocess.Popen(["fdasd", devname], stdin=p1_out.stdout,
+                                  stderr=subprocess.PIPE,
+                                  stdout=subprocess.PIPE)
+        p1_out.stdout.close()
+        timeout = 2.0
+        timeout_flag = [False]
+        timer = Timer(timeout, kill_proc, [p2_out, timeout_flag])
+        timer.setDaemon(True)
+        timer.start()
+        out, err = p2_out.communicate()
+        if timeout_flag[0]:
+            msg_args = {'cmd': "fdasd " + devname, 'seconds': str(timeout)}
+            raise TimeoutExpired("WOKUTILS0002E", msg_args)
+        if p2_out.returncode != 0:
+            raise OperationFailed("GINDASDPAR0007E",
+                                  {'name': devname, 'err': err})
+    except TimeoutExpired:
+        raise
+    finally:
+        if timer and not timeout_flag[0]:
+            timer.cancel()
 
 
 def _form_part_str(size):
