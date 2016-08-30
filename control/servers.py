@@ -22,6 +22,7 @@ from wok.control.base import Collection, Resource
 from wok.control.utils import UrlSubNode
 
 from sel import Sels
+from servers_sensors import ServerSensors
 
 SERVERS_REQUESTS = {
     'POST': {'default': "GINSE0001L"}
@@ -55,6 +56,7 @@ class Server(Resource):
         self.poweron = self.generate_action_handler('poweron')
         self.poweroff = self.generate_action_handler('poweroff')
         self.sels = Sels(self.model, ident)
+        self.sensors = ServerSensors(self.model, ident)
         self.log_map = SERVER_REQUESTS
 
     @property

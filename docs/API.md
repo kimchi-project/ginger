@@ -1180,3 +1180,19 @@ URI: /plugins/ginger/services/*:service_name*
 * **DELETE**:
 
   * /plugins/ginger/servers/*:server_name*/sels/*:sel_id* - Delete SEL with id sel_id
+
+### Collection: Sensors
+
+**URI:** /plugins/ginger/servers/*:server_name*/sensors
+
+**Methods:**
+
+*  **GET**: Retrieves the sensor data for the given server .
+       * Filter Parameters:
+         * sensor_type : Returns the sensor data for the given sensor type only
+       * Response:
+         * SensorId
+         * SensorReading
+         * Status
+         * EntityID
+         * Discrete state

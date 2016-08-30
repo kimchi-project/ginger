@@ -392,6 +392,10 @@ messages = {
     "GINSEL00004E": _("Unable to delete System Event Log %(sel_id)s for server %(name)s. IPMI Command error %(err)s. rc =%(rc)s"),
     "GINSEL00005E": _("Cannot process System Event Log entry %(selString)s"),
 
+    "GINSDR00001E": _("Unable to get SDR information for server %(name)s. IPMI Command error %(err)s , rc = %(rc)s"),
+    "GINSDR00002E": _("Cannot process SDR entry %(sdrString)s"),
+    "GINSDR00003E": _("%(sensor_type)s is not a valid sensor type"),
+
     # These messages (ending with L) are for user log purposes
     "GINAUD0001L": _("Create audit rule '%(rule)s' type '%(type)s'"),
     "GINAUD0002L": _("Delete audit rule '%(ident)s'"),

@@ -33,10 +33,6 @@ class SelTests(unittest.TestCase):
         objstore_loc = config.get_object_store() + '_ginger'
         self._objstore = ObjectStore(objstore_loc)
 
-    def test_get_sel_server_not_present(self):
-        sels = sel.SelsModel()
-        self.assertRaises(OperationFailed, sels.get_list, 'server1')
-
     @mock.patch('wok.plugins.ginger.model.sel.get_config', autospec=True)
     @mock.patch('wok.plugins.ginger.model.sel.run_command', autospec=True)
     def test_sel_server_present(self, mock_run_command, mock_get_config):
@@ -44,7 +40,7 @@ class SelTests(unittest.TestCase):
             u'username': u'',
             u'status': u'up',
             u'password': u'WA4M7if4b+9GDqZ0H/ShlA==',
-            u'ipaddr': u'9.126.138.136',
+            u'ipaddr': u'127.0.0.0',
             u'name': u'serverpresent',
             u'salt': u'tNqVtx7lQxJGpjOE'}
         mock_run_command.return_value = [
@@ -52,7 +48,6 @@ class SelTests(unittest.TestCase):
             "",
             0]
         sels = sel.SelsModel()
-        print sels.get_list('serverpresent')
         self.assertGreaterEqual(len(sels.get_list('serverpresent')), 1)
 
     @mock.patch('wok.plugins.ginger.model.sel.get_config', autospec=True)
@@ -63,7 +58,7 @@ class SelTests(unittest.TestCase):
             u'username': u'',
             u'status': u'up',
             u'password': u'WA4M7if4b+9GDqZ0H/ShlA==',
-            u'ipaddr': u'9.126.138.136',
+            u'ipaddr': u'127.0.0.0',
             u'name': u'serverpresent',
             u'salt': u'tNqVtx7lQxJGpjOE'}
         mock_run_command.return_value = ["", "error", 1]
@@ -78,7 +73,7 @@ class SelTests(unittest.TestCase):
             u'username': u'',
             u'status': u'up',
             u'password': u'WA4M7if4b+9GDqZ0H/ShlA==',
-            u'ipaddr': u'9.126.138.136',
+            u'ipaddr': u'127.0.0.0',
             u'name': u'serverpresent',
             u'salt': u'tNqVtx7lQxJGpjOE'}
         mock_run_command.return_value = ["", "error", 1]
@@ -97,7 +92,7 @@ class SelTests(unittest.TestCase):
             u'username': u'',
             u'status': u'up',
             u'password': u'WA4M7if4b+9GDqZ0H/ShlA==',
-            u'ipaddr': u'9.126.138.136',
+            u'ipaddr': u'127.0.0.0',
             u'name': u'serverpresent',
             u'salt': u'tNqVtx7lQxJGpjOE'}
         mock_run_command.return_value = [
@@ -115,7 +110,7 @@ class SelTests(unittest.TestCase):
             u'username': u'',
             u'status': u'up',
             u'password': u'WA4M7if4b+9GDqZ0H/ShlA==',
-            u'ipaddr': u'9.126.138.136',
+            u'ipaddr': u'127.0.0.0',
             u'name': u'serverpresent',
             u'salt': u'tNqVtx7lQxJGpjOE'}
         mock_run_command.return_value = [
@@ -135,7 +130,7 @@ class SelTests(unittest.TestCase):
             u'username': u'',
             u'status': u'up',
             u'password': u'WA4M7if4b+9GDqZ0H/ShlA==',
-            u'ipaddr': u'9.126.138.136',
+            u'ipaddr': u'127.0.0.0',
             u'name': u'serverpresent',
             u'salt': u'tNqVtx7lQxJGpjOE'}
         mock_run_command.return_value = ["", "error", 1]
@@ -150,7 +145,7 @@ class SelTests(unittest.TestCase):
             u'username': u'',
             u'status': u'up',
             u'password': u'WA4M7if4b+9GDqZ0H/ShlA==',
-            u'ipaddr': u'9.126.138.136',
+            u'ipaddr': u'127.0.0.0',
             u'name': u'serverpresent',
             u'salt': u'tNqVtx7lQxJGpjOE'}
         mock_run_command.return_value = ["deleted 5", "", 0]
@@ -165,7 +160,7 @@ class SelTests(unittest.TestCase):
             u'username': u'',
             u'status': u'up',
             u'password': u'WA4M7if4b+9GDqZ0H/ShlA==',
-            u'ipaddr': u'9.126.138.136',
+            u'ipaddr': u'127.0.0.0',
             u'name': u'serverpresent',
             u'salt': u'tNqVtx7lQxJGpjOE'}
         mock_run_command.return_value = [

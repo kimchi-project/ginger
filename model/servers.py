@@ -34,6 +34,8 @@ SERVERCONFIGPATH = os.path.join(
     PluginPaths('ginger').conf_dir,
     'server.config')
 ALPHABET = string.digits + string.ascii_letters
+SDR_LOCAL_CACHE_DIR = PluginPaths('ginger').conf_dir
+SDR_CACHE = 'sdr_cache'
 
 
 def _check_if_server_with_name_exists(nameToCheck, existingServers):
@@ -155,6 +157,11 @@ def delete_config(serverName):
         raise OperationFailed('GINSE00005E', {'name': serverName})
 
     _update_server_data(existingServers)
+    localSdrCache = os.path.join(
+        SDR_LOCAL_CACHE_DIR,
+        SDR_CACHE + "_" + serverName)
+    if os.path.isfile(localSdrCache):
+        os.remove(localSdrCache)
 
 
 def encrypt(text, salt):
