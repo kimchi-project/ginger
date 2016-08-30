@@ -944,19 +944,48 @@ URI: /plugins/ginger/services/*:service_name*
 
 * **GET**: Retrieve a summarized list of NFS shares/exports of the specified server
 
+### Resource: Audit
+
+**URI:** /plugins/ginger/audit
+
+**Actions (POST):**
+
+**URI:** /plugins/ginger/audit/load_rules
+
+* load_rules: Load the predefined rules.
+
+    * rule no. : Dictionary. Dictionary of predefined loaded rules.
+         * loaded : Loaded status of the rule. Values can be yes or no.
+         * persisted : Persisted status of the rule.Values can be yes or no.
+         * type : Type of the rule (filesystem rule, systemcall rule, control rule)
+         * rule_info : Dictionary containing the info of the rule.
+             * action:(systemcall rule) Specifies when a certain event is logged. action can be either always or never
+             * filter:(systemcall rule) Specifies which kernel rule-matching filter is applied to the event.
+                      The rule-matching filter can be one of the following: task, exit, user, and exclude.
+             * systemcall:(systemcall rule) Specifies the system call by its name.
+             * field:(system rule) Specifies additional options that furthermore modify the rule to match events based
+                     on a specified architecture, group ID, process ID, and others.
+             * key: Helps to identify which rule or a set of rules generated a particular log entry.
+             * permissions:(filesystem rule) They are the permissions that are logged.
+             * file_to_watch:(filesystem rule) This is the file or directory that is audited.
+             * conf_option: (control rule) Details of the control rule.
+             * conf_value: (control rule) Rule value.
+    *rule: The full rule string.
+
+
 ### Collection: Rules
 
-**URI:**  /plugins/ginger/audit/rules
+**URI:** /plugins/ginger/audit/rules
 
 **METHODS:**
 
 * **GET**: Retrieve the list of persisted and loaded rules.
 
-* **POST**: Create a new rule(filesystem, system, control rule)
+* **POST**: Create a new rule(filesystem rule, systemcall rule, control rule)
     * type: Type of the rule.
-    * rule_info: The information about the rule.
-        * action:(system rule) Specifies when a certain event is logged. action can be either always or never
-        * filter:(system rule) Specifies which kernel rule-matching filter is applied to the event.
+    * rule_info: The information about the rule.(filesystem rule, systemcall rule)
+        * action:(systemcall rule) Specifies when a certain event is logged. action can be either always or never
+        * filter:(systemcall rule) Specifies which kernel rule-matching filter is applied to the event.
                  The rule-matching filter can be one of the following: task, exit, user, and exclude.
         * systemcall:(system rule) Specifies the system call by its name.
         * field:(system rule) Specifies additional options that furthermore modify the rule to match events based
@@ -964,7 +993,8 @@ URI: /plugins/ginger/services/*:service_name*
         * key: Helps to identify which rule or a set of rules generated a particular log entry.
         * permissions:(filesystem rule) They are the permissions that are logged.
         * file_to_watch:(filesystem rule) This is the file or directory that is audited.
-    *rule:(control rule) The fule rule string.
+    *rule: The full rule string.
+
 ### Resource: Rule
 
 **URI:** /plugins/ginger/rule/*fullrulestring*
@@ -973,16 +1003,85 @@ URI: /plugins/ginger/services/*:service_name*
 
 * **DELETE**: delete the given rule(filesystem, system, control rule).
 
+* **PUT**: Updates the rule .
 
 **Actions (POST):**
 
-**URI:**  /plugins/ginger/audit/rules/*fullrulestring*/load
+**URI:** /plugins/ginger/audit/rules/*fullrulestring*/load
 
 * load: Load the rules if not loaded.
 
-**URI:**  /plugins/ginger/audit/rules/*fullstring*/persist
+**URI:** /plugins/ginger/audit/rules/*fullstring*/persist
 
-* persist: Persist the rule if  not persisted.
+* persist: Persist the rule if not persisted.
+
+**URI:** /plugins/ginger/audit/rules/*fullstring*/unload
+
+* unload: Unloads the rule if loaded.
+
+
+### Resource: Conf
+
+**URI:** /plugins/ginger/audit/conf
+
+**METHODS:**
+
+* **GET**: Retrieve the list of audit.conf details.
+
+* **PUT**: Updates the audit.conf details.
+
+**Actions (POST):**
+
+**URI:** /plugins/ginger/audit/conf/audisp_enable
+
+* audisp_enable: Enables the audit dispatcher in audit.conf file
+
+**URI:** /plugins/ginger/audit/conf/audisp_disable
+
+* audisp_disable: Disables the audit dispatcher in audit.conf file
+
+### Collection: Reports
+
+**URI:** /plugins/ginger/audit/reports
+
+**METHODS:**
+
+* **GET**: Retrieves a summarized list of audit reports.
+           Retrieves a filtered list of reports when _filter is provided.
+        * summary: list. Summarized list of audit reports
+
+### Collection: Graphs
+
+**URI:** /plugins/ginger/audit/graphs
+
+**METHODS:**
+
+* **GET**: Creates a graph on the filtered output of the audit report.
+           Graph creation requires two columns to be provided as input.
+        * Graph: string. Path where the graph has been created.
+
+### Collection: Logs
+
+**URI:** /plugins/ginger/audit/logs
+
+**METHODS:**
+
+* **GET**: Retrieves a summarized list of audit logs.
+           Retrieves a filtered list of logs when _filter is provided.
+        * record number: dictionary. Contains the details of each log.
+            * MSG : string. Specifies the message content of the log.
+            * TYPE : string . Specifies the type of the log.
+            * Date and Time : string . Specifies the date and time of the log.
+
+### Resource: Syscall
+
+**URI:** /plugins/ginger/audit/syscall
+
+**METHODS:**
+
+* **GET**: Retrieve the list of system calls.
+
+*NOTE: The syscall API is for providing the list of systemcalls to the UI.
 
 ### Collection: iSCSI Targets
 
