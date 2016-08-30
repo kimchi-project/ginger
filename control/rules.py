@@ -21,17 +21,21 @@ from wok.control.base import Collection, Resource
 
 
 RULES_REQUESTS = {
-    'POST': {
-        'default': "GINAUD0001L"
-    },
+    'POST': {'default': "GINAUD0005L"},
 }
 
 RULE_REQUESTS = {
-    'DELETE': {'default': "GINAUD0002L"},
-    'POST': {
-        'persist': "GINAUD0003L",
-        'load': "GINAUD0004L",
+    'DELETE': {
+        'default': "GINAUD0003L",
     },
+    'PUT': {
+        'default': "GINAUD0004L",
+    },
+    'POST': {
+        'persist': "GINAUD0007L",
+        'load': "GINAUD0008L",
+        'unload': "GINAUD0009L"
+    }
 }
 
 
@@ -39,10 +43,7 @@ class Rules(Collection):
     def __init__(self, model):
         super(Rules, self).__init__(model)
         self.resource = Rule
-
-        # set user log messages and make sure all parameters are present
         self.log_map = RULES_REQUESTS
-        self.log_args.update({'rule': '', 'type': ''})
 
 
 class Rule(Resource):
@@ -51,8 +52,7 @@ class Rule(Resource):
         self.uri_fmt = '/audit/rules/%s'
         self.persist = self.generate_action_handler('persist')
         self.load = self.generate_action_handler('load')
-
-        # set user log messages and make sure all parameters are present
+        self.unload = self.generate_action_handler('unload')
         self.log_map = RULE_REQUESTS
 
     @property

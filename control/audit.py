@@ -20,7 +20,18 @@
 from wok.control.base import Resource
 from wok.control.utils import UrlSubNode
 
+from conf import Conf
+from graph import Graphs
+from log import Logs
+from report import Reports
 from rules import Rules
+from syscall import Syscall
+
+AUDIT_REQUESTS = {
+    'POST': {
+        'load_rules': "GINAUD0001L"
+    },
+}
 
 
 @UrlSubNode('audit', True)
@@ -29,8 +40,16 @@ class Audit(Resource):
     def __init__(self, model, id=None):
         super(Audit, self).__init__(model, id)
         self.role_key = "administration"
+        self.conf = Conf(model)
+        self.graphs = Graphs(model)
+        self.logs = Logs(model)
+        self.reports = Reports(model)
         self.rules = Rules(model)
+        self.syscall = Syscall(model)
         self.uri_fmt = '/audit/%s'
+        self.load_rules = self.generate_action_handler('load_rules',
+                                                       ['auditrule_file'])
+        self.log_map = AUDIT_REQUESTS
 
     @property
     def data(self):

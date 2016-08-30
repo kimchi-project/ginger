@@ -31,9 +31,12 @@ tmp_rules_file = '/etc/audit/tmpaudit.rules'
 
 gingerAuditLock = threading.RLock()
 
+action_list = ['always', 'never']
+filter_list = ['task', 'user', 'exit', 'exclude']
 
-def merge_rules(loaded_rules, persisted_rules, control_rules):
-    return set(loaded_rules + persisted_rules + control_rules)
+
+def merge_rules(loaded_rules, persisted_rules):
+    return set(loaded_rules + persisted_rules)
 
 
 def get_list_of_persisted_rules():
@@ -47,25 +50,46 @@ def get_list_of_persisted_rules():
             for each_rule in rule_file:
                 if each_rule[:2] in "-a,-w":
                     persist_rules.append(each_rule.rstrip('\n'))
-        return persist_rules
+        return persist_rules + get_list_of_persisted_control_rules()
     except Exception, e:
         raise OperationFailed('GINAUD0001E', {'error': e.message})
 
 
 def get_list_of_loaded_rules():
-    cmd = ['auditctl', '-l']
-    out, err, returncode = run_command(cmd)
+    cmd_sc = ['auditctl', '-l']
+    out, err, returncode = run_command(cmd_sc)
     if returncode == 0:
         audit_rules = out.split('\n')
         audit_rules.pop()
         if audit_rules[0] == "No rules":
             audit_rules.pop()
-        return audit_rules
+        return audit_rules + get_list_of_loaded_control_rules()
     else:
-        raise OperationFailed('GINAUD0002E', {'name': ' '.join(cmd)})
+        raise OperationFailed('GINAUD0002E', {'name': ' '.join(cmd_sc)})
 
 
-def get_list_of_control_rules():
+def get_list_of_loaded_control_rules():
+    control_rules = []
+    control_rules_dict = {'backlog_limit': '-b',
+                          'enabled': '-e',
+                          'failure': '-f',
+                          'rate_limit': '-r'}
+    cmd_cntl = ['auditctl', '-s']
+    out, err, returncode = run_command(cmd_cntl)
+    if returncode == 0:
+        audit_status = out.split('\n')
+        for each_line in audit_status:
+            if each_line.split(' ')[0] in control_rules_dict:
+                audit_control_rule = control_rules_dict[
+                                         each_line.split(' ')[0]] + \
+                                     " " + each_line.split(' ')[1]
+                control_rules.append(audit_control_rule)
+        return control_rules
+    else:
+        raise OperationFailed('GINAUD0002E', {'name': ' '.join(cmd_cntl)})
+
+
+def get_list_of_persisted_control_rules():
     control_rules = []
     with open(persisted_rules_file, "r") as rule_file:
         for each_rule in rule_file:
@@ -84,29 +108,17 @@ class RulesModel(object):
         :return:
         """
         return merge_rules(get_list_of_loaded_rules(),
-                           get_list_of_persisted_rules(),
-                           get_list_of_control_rules())
+                           get_list_of_persisted_rules())
 
     def create(self, params):
         """
-        Creates a file system and System rule.
+        Creates rules.
         :param params:
         :return:
         """
         try:
             gingerAuditLock.acquire()
-            rule = ''
-            if params["type"] == "Filesystem Rule":
-                rule = '-w'
-                rule = self.create_fs_rule(rule, params)
-                self.write_to_audit_rules(rule)
-            elif params["type"] == "System Rule":
-                rule = '-a'
-                rule = self.create_sc_rule(rule, params)
-                self.write_to_audit_rules(rule)
-            elif params["type"] == "Control Rule":
-                rule = self.create_control_rule(params)
-                self.write_to_aucontrol_rules(rule)
+            rule = self.construct_rules(params)
             self.load_audit_rule(rule)
             return rule
         except Exception, e:
@@ -114,11 +126,32 @@ class RulesModel(object):
         finally:
             gingerAuditLock.release()
 
-    def create_control_rule(self, params):
+    def construct_rules(self, params):
+        """
+        Creates file system, system rule and control rules.
+        :param params: dict with rules params
+        :return: the rule
+        """
+        try:
+            rule = ''
+            if params["type"] == "Filesystem Rule":
+                rule = '-w'
+                rule = self.construct_fs_rule(rule, params)
+            elif params["type"] == "System Rule":
+                rule = '-a'
+                rule = self.construct_sc_rule(rule, params)
+            elif params["type"] == "Control Rule":
+                rule = self.construct_control_rule(params)
+                self.write_to_aucontrol_rules(rule)
+            return rule
+        except Exception, e:
+            raise OperationFailed("GINAUD0003E", {'error': e.message})
+
+    def construct_control_rule(self, params):
         if "rule" in params:
             return params["rule"]
 
-    def create_fs_rule(self, rule, params):
+    def construct_fs_rule(self, rule, params):
         if "rule_info" in params:
             if "file_to_watch" in params["rule_info"]:
                 rule = rule + " " + params["rule_info"]["file_to_watch"]
@@ -130,7 +163,7 @@ class RulesModel(object):
             raise MissingParameter("GINAUD0004E")
         return rule
 
-    def create_sc_rule(self, rule, params):
+    def construct_sc_rule(self, rule, params):
         if "rule_info" in params:
             if "action" in params["rule_info"]:
                 rule = rule + " " + params["rule_info"]["action"]
@@ -161,7 +194,7 @@ class RulesModel(object):
         load_cmd = rule_cmd + ops
         out, err, returncode = run_command(load_cmd)
         if returncode != 0:
-            raise OperationFailed('GINAUD0002E', {'name': ' '.join(load_cmd)})
+            raise OperationFailed('GINAUD0022E', {'error': err})
 
     def write_to_audit_rules(self, rule):
         try:
@@ -203,13 +236,25 @@ class RuleModel(object):
         """
         try:
             gingerAuditLock.acquire()
-            self.delete_rule_line(name)
-            self.reload_rules()
-            wok_log.info('Rule has been deleted succesfully ' + name)
+            if self.is_rule_exists(name):
+                self.delete_rule(name)
+                wok_log.info('Rule has been deleted succesfully ' + name)
         except Exception, e:
             raise OperationFailed('GINAUD0006E', {'err': e.message})
         finally:
             gingerAuditLock.release()
+
+    def delete_rule(self, name):
+        """
+        Deletes the rule from the rules file and
+        reloads the rule file.
+        :param name:
+        :return:
+        """
+        self.delete_rule_line(name)
+        info = self.get_audit_rule_info(name)
+        if info['loaded'] == 'yes':
+            self.reload_rules(name)
 
     def delete_rule_line(self, name):
         rule_file = open(persisted_rules_file).read()
@@ -228,25 +273,57 @@ class RuleModel(object):
     def persist(self, name):
         try:
             gingerAuditLock.acquire()
-            info = self.get_audit_rule_info(name)
-            if info['persisted'] == 'no':
-                RulesModel().write_to_audit_rules(name)
+            if not self.is_rule_exists(name):
+                info = self.get_audit_rule_info(name)
+                if info['persisted'] == 'no':
+                    RulesModel().write_to_audit_rules(name)
+            else:
+                raise OperationFailed("GINAUD0020E", {"name": name})
         finally:
             gingerAuditLock.release()
 
-    def reload_rules(self):
-        reload_cmd = ['auditctl', '-R', persisted_rules_file]
-        out, err, returncode = run_command(reload_cmd)
+    def unload(self, name):
+        """
+        Unloads the filesystem and system rules.
+        :param name: rule name
+        :return:
+        """
+        try:
+            gingerAuditLock.acquire()
+            info = self.get_audit_rule_info(name)
+            if info['type'] == 'Filesystem Rule' or info['type'] \
+                    == 'System Rule':
+                self.reload_rules(name)
+            else:
+                raise OperationFailed('GINAUD0012E', {'name': name})
+        except Exception:
+            raise OperationFailed('GINAUD0013E', {'name': name})
+        finally:
+            gingerAuditLock.release()
+
+    def reload_rules(self, name):
+        rules_list = get_list_of_loaded_rules()
+        unload_all_rules = ['auditctl', '-D']
+        out, err, returncode = run_command(unload_all_rules)
         if returncode != 0:
-            raise OperationFailed('GINAUD0002E',
-                                  {'name': ' '.join(reload_cmd)})
+            raise OperationFailed('GINAUD0002E', {'name': unload_all_rules})
+        for each_rule in rules_list:
+            if each_rule != str(name):
+                self.load(each_rule)
 
     def load(self, name):
+        """
+        Loads a persisted rule.
+        :param name: rule
+        :return:
+        """
         try:
             gingerAuditLock.acquire()
             info = self.get_audit_rule_info(name)
             if info['loaded'] == 'no':
                 RulesModel().load_audit_rule(name)
+        except Exception:
+            raise OperationFailed('GINAUD0018E', {'name': name})
         finally:
             gingerAuditLock.release()
 
@@ -256,12 +333,36 @@ class RuleModel(object):
             audit_info = {'rule': name,
                           'type': rule_type}
             self.loaded_or_persisted(audit_info, name)
-
             if rule_type == "Filesystem Rule":
                 self.get_filesystem_rule_info(audit_info, name)
             elif rule_type == "System Rule":
                 self.get_system_rule_info(audit_info, name)
+            elif rule_type == "Control Rule":
+                self.get_control_rule_info(audit_info, name)
             return audit_info
+        except Exception, e:
+            raise OperationFailed("GINAUD0007E", {"error": e.message})
+
+    def get_control_rule_info(self, audit_info, name):
+        try:
+            control_rules_dict = {'-b': 'Sets the maximum amount of existing'
+                                        ' Audit buffers in the kernel',
+                                  '-e': 'Enables(1) and disables(0) the Audit'
+                                        ' system or locks(2) its '
+                                        'configuration',
+                                  '-f': 'Sets the action that is performed'
+                                        ' when a critical error is detected',
+                                  '-r': 'Sets the rate of generated messages'
+                                        ' per second,',
+                                  '-D': 'Delete all rules'}
+            control_info = {}
+            control_info['rule_info'] = {}
+            if name.split(" ")[0] != "-D":
+                control_info['rule_info']['conf_value'] = name.split(" ")[1]
+            control_info['rule_info']['conf_option'] = \
+                name.split(" ")[0] + ": " + \
+                control_rules_dict[name.split(" ")[0]]
+            audit_info.update(control_info)
         except Exception, e:
             raise OperationFailed("GINAUD0007E", {"error": e.message})
 
@@ -293,26 +394,15 @@ class RuleModel(object):
             filesystemcall_info['rule_info']['key'] = \
                 self.get_fsauditrule_keyname(name)
             audit_info.update(filesystemcall_info)
-            filesystemcall_info['rule_info']['file_to_wacth'] = \
+            filesystemcall_info['rule_info']['file_to_watch'] = \
                 self.get_fsauditrule_filetowatch(name)
         except Exception, e:
             raise OperationFailed("GINAUD0009E", {"error": e.message})
 
     def loaded_or_persisted(self, audit_info, name):
-        if name in get_list_of_loaded_rules() and name in \
-                get_list_of_persisted_rules():
-            audit_info['loaded'] = 'yes'
-            audit_info['persisted'] = 'yes'
-
-        if name in get_list_of_loaded_rules() and name not in \
-                get_list_of_persisted_rules():
-            audit_info['loaded'] = 'yes'
-            audit_info['persisted'] = 'no'
-
-        if name not in get_list_of_loaded_rules() and name in \
-                get_list_of_persisted_rules():
-            audit_info['loaded'] = 'no'
-            audit_info['persisted'] = 'yes'
+        yes_no = {True: 'yes', False: 'no'}
+        audit_info['loaded'] = yes_no[name in get_list_of_loaded_rules()]
+        audit_info['persisted'] = yes_no[name in get_list_of_persisted_rules()]
 
     def get_systemauditrule_field(self, rule):
         regex = '[-][F]\s+(\S+)'
@@ -329,8 +419,14 @@ class RuleModel(object):
     def get_systemcall_action_filter(self, systemcall_info, rule):
         try:
             match = re.search(r'\-a\s*(\w+)(,)(\w+)', rule)
-            systemcall_info['rule_info']['action'] = match.group(1)
-            systemcall_info['rule_info']['filter'] = match.group(3)
+            if match.group(1) in action_list:
+                systemcall_info['rule_info']['action'] = match.group(1)
+            if match.group(3) in action_list:
+                systemcall_info['rule_info']['action'] = match.group(3)
+            if match.group(1) in filter_list:
+                systemcall_info['rule_info']['filter'] = match.group(1)
+            if match.group(3) in filter_list:
+                systemcall_info['rule_info']['filter'] = match.group(3)
         except:
             return ""
 
@@ -374,3 +470,40 @@ class RuleModel(object):
             return match.group(1)
         except AttributeError:
             return "N/A"
+
+    def is_rule_exists(self, name):
+        """
+        Check if the rule exists in the rule file.
+        :param name: rule name
+        :return: boolean value
+        """
+        with open(persisted_rules_file) as f:
+            for line in f:
+                if name in line:
+                    return True
+
+    def update(self, name, params):
+        """
+        Modifies the rule.
+        :param name: the existing rule.
+        :param params: The dict of params for the new rule.
+        :return: the new rule.
+        """
+        try:
+            gingerAuditLock.acquire()
+            if self.is_rule_exists(name):
+                info = self.get_audit_rule_info(name)
+                if info['loaded'] == 'yes':
+                    RulesModel().create(params)
+                rule = RulesModel().construct_rules(params)
+                RulesModel().write_to_audit_rules(rule)
+                wok_log.info("Deleting the existing rule %s" % name)
+                self.delete_rule(name)
+                wok_log.info("The rule has been modified successfully.")
+                return rule
+            else:
+                raise MissingParameter("GINAUD0010E", {"name": name})
+        except Exception:
+            raise OperationFailed("GINAUD0011E", {"name": name})
+        finally:
+            gingerAuditLock.release()
