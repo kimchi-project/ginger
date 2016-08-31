@@ -30,17 +30,17 @@ class FileSystemsModel(object):
 
     def create(self, params):
 
-        if 'type' not in params:
+        if not params.get('type'):
             raise MissingParameter("GINFS00016E")
 
         if params['type'] == 'local':
 
-            if 'blk_dev' not in params:
+            if not params.get('blk_dev'):
                 raise MissingParameter("GINFS00009E")
 
             blk_dev = params['blk_dev']
 
-            if 'mount_point' not in params:
+            if not params.get('mount_point'):
                 raise MissingParameter("GINFS00010E")
 
             mount_point = params['mount_point']
@@ -58,26 +58,29 @@ class FileSystemsModel(object):
 
         elif params['type'] == 'nfs':
 
-            if 'server' not in params:
+            if not params.get('server'):
                 raise MissingParameter("GINFS00014E")
 
             server = params['server']
 
-            if 'share' not in params:
+            if not params.get('share'):
                 raise MissingParameter("GINFS00015E")
 
             share = params['share']
 
-            if 'mount_point' not in params:
+            if not params.get('mount_point'):
                 raise MissingParameter("GINFS00010E")
 
             mount_point = params['mount_point']
 
             mount_options = params.get('mount_options', '')
 
-            fs_utils.nfsmount(server, share, mount_point, mount_options)
-            dev_info = server + ':' + share
-            fs_utils.make_persist(dev_info, mount_point, mount_options)
+            try:
+                fs_utils.nfsmount(server, share, mount_point, mount_options)
+                dev_info = server + ':' + share
+                fs_utils.make_persist(dev_info, mount_point, mount_options)
+            except Exception as e:
+                raise InvalidParameter("GINFS00018E", {"err": e})
             return mount_point
         else:
             raise InvalidParameter("GINFS00017E")

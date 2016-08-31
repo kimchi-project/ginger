@@ -206,7 +206,7 @@ messages = {
     "GINFS00015E": _("required remote share location"),
     "GINFS00016E": _("required type as local or nfs"),
     "GINFS00017E": _("Invalid type needs to be either local or nfs"),
-    "GINFS00018E": _("NFS mount failed"),
+    "GINFS00018E": _("NFS mount failed, %(err)s"),
     "GINFS00019E": _("Filesystem %(name)s already mounted in fstab."),
 
     "GINSP00001E": _("File location required for creating a swap device."),
