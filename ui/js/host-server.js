@@ -174,6 +174,54 @@ ginger.loadBootgridSRVActions = function() {
         wok.confirm(settings, function() {});
       }
     }
+  },{
+    id: 'srv-sdr-button',
+    class: 'fa fa-file',
+    label: i18n['GINSERV0019M'],
+    onClick: function(event) {
+      var selectedIf = ginger.getSelectedRowsData(ginger.opts_srv_if);
+      if (selectedIf && (selectedIf.length == 1)) {
+       wok.window.open('plugins/ginger/host-server-sdr.html');
+      } else {
+        var settings = {
+          content: i18n["GINSERV0009M"],
+          confirm: i18n["GINNET0015M"]
+        };
+        wok.confirm(settings, function() {});
+      }
+    }
+  },{
+    id: 'srv-sel-button',
+    class: 'fa fa-file',
+    label: i18n['GINSERV0016M'],
+    onClick: function(event) {
+      var selectedIf = ginger.getSelectedRowsData(ginger.opts_srv_if);
+      if (selectedIf && (selectedIf.length == 1)) {
+       wok.window.open('plugins/ginger/host-server-sel.html');
+      } else {
+        var settings = {
+          content: i18n["GINSERV0009M"],
+          confirm: i18n["GINNET0015M"]
+        };
+        wok.confirm(settings, function() {});
+      }
+    }
+  },{
+    id: 'srv-temp-button',
+    class: 'fa fa-file',
+    label: i18n['GINSERV0020M'],
+    onClick: function(event) {
+      var selectedIf = ginger.getSelectedRowsData(ginger.opts_srv_if);
+      if (selectedIf && (selectedIf.length == 1)) {
+       wok.window.open('plugins/ginger/host-server-temp.html');
+      } else {
+        var settings = {
+          content: i18n["GINSERV0009M"],
+          confirm: i18n["GINNET0015M"]
+        };
+        wok.confirm(settings, function() {});
+      }
+    }
   }];
 
   ginger.opts_srv_if['addButtons'] = JSON.stringify(addButton);

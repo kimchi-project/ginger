@@ -1698,3 +1698,51 @@ ginger.serverPowerOff = function(moduleId, suc, err) {
         }
      });
 }
+ginger.getSel = function(serverName, suc, err) {
+     wok.requestJSON({
+        url: 'plugins/ginger/servers/'+ serverName + '/sels',
+        type: 'GET',
+        contentType: 'application/json',
+        dataType: 'json',
+        success: suc,
+        error : err || function(data) {
+            wok.message.error(data.responseJSON.reason);
+        }
+     });
+ }
+ginger.deleteSel = function(serverName, eventId, suc, err) {
+     wok.requestJSON({
+        url: 'plugins/ginger/servers/'+ serverName + '/sels/' + eventId,
+        type: 'DELETE',
+        contentType: 'application/json',
+        dataType: 'json',
+        success: suc,
+        error : err || function(data) {
+            wok.message.error(data.responseJSON.reason);
+        }
+     });
+}
+ginger.getSdr = function(serverName, suc, err) {
+     wok.requestJSON({
+        url: 'plugins/ginger/servers/'+ serverName + '/sensors',
+        type: 'GET',
+        contentType: 'application/json',
+        dataType: 'json',
+        success: suc,
+        error : err || function(data) {
+            wok.message.error(data.responseJSON.reason);
+        }
+     });
+}
+ginger.getSdrType = function(serverName, sdrType, suc, err) {
+     wok.requestJSON({
+        url: 'plugins/ginger/servers/'+ serverName + '/sensors' + '?sensor_type=' + sdrType,
+        type: 'GET',
+        contentType: 'application/json',
+        dataType: 'json',
+        success: suc,
+        error : err || function(data) {
+            wok.message.error(data.responseJSON.reason);
+        }
+     });
+}

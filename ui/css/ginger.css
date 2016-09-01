@@ -2887,3 +2887,18 @@ ul.nav > li.active > span.tree-toggle:before {
 #server-global-content-area .bootgrid-table th {
   background-color: #eee;
 }
+
+#sel-configuration {
+  overflow-y: auto;
+  height: 400px;
+}
+
+#sdr-configuration {
+  overflow-y: auto;
+  height: 400px;
+}
+
+#temp-configuration {
+  overflow-y: auto;
+  height: 400px;
+}

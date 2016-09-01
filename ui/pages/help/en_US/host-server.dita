@@ -45,6 +45,15 @@ for servers being managed.</dd>
 </dlentry><dlentry>
 <dt>Power Off</dt>
 <dd>The Power Off option allows to power off the server being managed.</dd>
+</dlentry><dlentry>
+<dt>System Event Logs</dt>
+<dd>The System Logs option allows to view and delete all the System Event Logs.</dd>
+</dlentry><dlentry>
+<dt>Sensor Data Records</dt>
+<dd>The Sensor data records option allows to view all the sensor details and corresponding values.</dd>
+</dlentry><dlentry>
+<dt>System Temperature Reading</dt>
+<dd>The System Temperature Reading option allows to view temperature reading of the sensors.</dd>
 </dlentry></dl></dd>
 </dlentry></dl><?Pub Caret 2101?>
 </csbody>
