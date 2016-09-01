@@ -1244,6 +1244,10 @@ URI: /plugins/ginger/services/*:service_name*
  * /plugins/ginger/servers/*:server_name*/poweron - Power On the specified server
  * /plugins/ginger/servers/*:server_name*/poweroff - Power Off the specified server
 
+* **PUT**: Update the IPMI username & password for the managed server
+  * username - Username to communicate via IPMI (Optional)
+  * password - IPMI password corresponding to the username
+
 * **DELETE**:
 
  * /plugins/ginger/servers/*:server_name* - Removes the server from the list of managed servers

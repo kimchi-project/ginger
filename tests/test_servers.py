@@ -22,7 +22,7 @@ import unittest
 
 import wok.plugins.ginger.model.servers as servers
 
-from wok.exception import OperationFailed
+from wok.exception import OperationFailed, MissingParameter, InvalidParameter
 
 
 class ServerOperationTests(unittest.TestCase):
@@ -165,3 +165,87 @@ class ServerOperationTests(unittest.TestCase):
         server1 = servers.ServerModel()
         resp = server1.delete('def')
         self.assertEquals(None, resp)
+
+    @mock.patch('wok.plugins.ginger.model.servers.run_command', autospec=True)
+    @mock.patch('wok.plugins.ginger.model.servers.get_config', autospec=True)
+    def test_update_server(self, mock_get_config, mock_run_command):
+        server = servers.ServerModel()
+        rc = 0
+        mock_get_config.return_value = {
+            u'username': u'Interns',
+            u'password': u'baremetal',
+            u'ipaddr': u'127.0.0.1',
+            u'name': u'abc'}
+        mock_run_command.return_value = [
+                "System Power : on\nPower Overload : false\n", "", rc]
+        params = {
+            u'username': u'Interns',
+            u'password': u'baremetal'}
+        name = 'abc'
+        resp = server.update(name, params)
+        self.assertEquals('abc', resp)
+
+    @mock.patch('wok.plugins.ginger.model.servers.run_command', autospec=True)
+    @mock.patch('wok.plugins.ginger.model.servers.get_config', autospec=True)
+    def test_update_server_failure(self, mock_get_config, mock_run_command):
+        server = servers.ServerModel()
+        rc = 1
+        mock_get_config.return_value = {
+            u'username': u'Interns',
+            u'password': u'baremetal',
+            u'ipaddr': u'127.0.0.1',
+            u'name': u'abc'}
+        mock_run_command.return_value = [
+                "System Power : off\nPower Overload : false\n",
+                "",
+                rc]
+        params = {
+            u'username': u'Interns',
+            u'password': u'wrong_pass'}
+        name = 'abc'
+        self.assertRaises(OperationFailed, server.update,
+                          name, params)
+
+    @mock.patch('wok.plugins.ginger.model.servers.run_command', autospec=True)
+    @mock.patch('wok.plugins.ginger.model.servers.get_config', autospec=True)
+    def test_update_server_invalidparam(self,
+                                        mock_get_config, mock_run_command):
+        server = servers.ServerModel()
+        rc = 1
+        mock_get_config.return_value = {
+            u'username': u'Interns',
+            u'password': u'baremetal',
+            u'ipaddr': u'127.0.0.1',
+            u'name': u'abc'}
+        mock_run_command.return_value = [
+                "System Power : off\nPower Overload : false\n",
+                "",
+                rc]
+        params = {
+            u'username': u'Interns',
+            u'password': u'wrong_pass',
+            u'name': u'abc'}
+        name = 'abc'
+        self.assertRaises(InvalidParameter, server.update,
+                          name, params)
+
+    @mock.patch('wok.plugins.ginger.model.servers.run_command', autospec=True)
+    @mock.patch('wok.plugins.ginger.model.servers.get_config', autospec=True)
+    def test_update_server_without_pass(self,
+                                        mock_get_config, mock_run_command):
+        server = servers.ServerModel()
+        rc = 1
+        mock_get_config.return_value = {
+            u'username': u'Interns',
+            u'password': u'baremetal',
+            u'ipaddr': u'127.0.0.1',
+            u'name': u'abc'}
+        mock_run_command.return_value = [
+                "System Power : off\nPower Overload : false\n",
+                "",
+                rc]
+        params = {
+            u'username': u'Interns'}
+        name = 'abc'
+        self.assertRaises(MissingParameter, server.update,
+                          name, params)

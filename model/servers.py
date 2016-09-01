@@ -27,7 +27,7 @@ import time
 from Crypto.Cipher import AES
 
 from wok.config import PluginPaths
-from wok.exception import OperationFailed, MissingParameter
+from wok.exception import OperationFailed, MissingParameter, InvalidParameter
 from wok.utils import run_command
 
 SERVERCONFIGPATH = os.path.join(
@@ -112,6 +112,15 @@ def get_server_status(serverData):
     else:
         return {}  # return - raising exception is handled by the caller
     return serverData
+
+
+def update_config(serverConfig):
+    existingServers = _read_server_data()
+    for each in existingServers:
+        if serverConfig['name'] == each['name']:
+            each.update(serverConfig)
+            _update_server_data(existingServers)
+            break
 
 
 def server_power_cycle(serverData, cmd):
@@ -277,3 +286,24 @@ class ServerModel(object):
                 raise OperationFailed('GINSE00007E', {'name': name})
         else:
             return  # "server is already in powered OFF"
+
+    def update(self, name, params):
+        if params.get('name') or params.get('ipaddr'):
+            raise InvalidParameter("GINSE00009E")
+        if not params.get('password'):
+            raise MissingParameter("GINSE00008E")
+        serverData = get_config(name)
+        ipaddr = serverData['ipaddr']
+        serverData['salt'] = ''.join(random.choice(ALPHABET)
+                                     for i in range(16))
+        serverData['password'] = encrypt(params['password'],
+                                         serverData['salt'])
+        if params.get('username'):
+            serverData['username'] = params['username']
+        serverData = get_server_status(serverData)
+        if not serverData:
+            raise OperationFailed('GINSE00003E', {'name': name,
+                                                  'ipaddr': ipaddr})
+        else:
+            update_config(serverData)
+            return serverData['name']

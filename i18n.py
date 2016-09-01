@@ -402,6 +402,8 @@ messages = {
     "GINSE00005E": _("Server with name %(name)s is not found"),
     "GINSE00006E": _("Power on server %(name)s failed"),
     "GINSE00007E": _("Power off server %(name)s failed"),
+    "GINSE00008E": _("Password parameter is required"),
+    "GINSE00009E": _("Invalid parameter, only username and password updates are allowed"),
 
     "GINSEL00001E": _("Unable to get System Event Log information for server %(name)s. IPMI Command error %(err)s. rc = %(rc)s"),
     "GINSEL00002E": _("Unable to get details of server %(name)s"),
@@ -475,6 +477,7 @@ messages = {
     "GINSE0002L": _("Remove managed server '%(ident)s'"),
     "GINSE0003L": _("Power on managed server '%(ident)s'"),
     "GINSE0004L": _("Power off managed server '%(ident)s'"),
+    "GINSE0005L": _("Update Credentials of managed server '%(ident)s'"),
     "GINSEL0001L": _("Delete System Event Log entry '%(ident)s'"),
     "GINSEP0001L": _("Start IBM Serviceable Event Provider (SEP)"),
     "GINSEP0002L": _("Stop IBM Serviceable Event Provider (SEP)"),

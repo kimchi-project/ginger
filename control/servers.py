@@ -34,6 +34,7 @@ SERVER_REQUESTS = {
         'poweron': "GINSE0003L",
         'poweroff': "GINSE0004L,"
     },
+    'PUT': {'default': "GINSE0005L"},
 }
 
 
@@ -52,7 +53,7 @@ class Server(Resource):
     def __init__(self, model, ident):
         super(Server, self).__init__(model, ident)
         self.uri_fmt = '/servers/%s'
-        self.admin_methods = ['GET', 'POST', 'DELETE']
+        self.admin_methods = ['GET', 'POST', 'DELETE', 'PUT']
         self.poweron = self.generate_action_handler('poweron')
         self.poweroff = self.generate_action_handler('poweroff')
         self.sels = Sels(self.model, ident)
