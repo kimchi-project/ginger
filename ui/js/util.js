@@ -1662,6 +1662,19 @@ ginger.addServer = function(parms, suc, err){
         }
     });
 };
+ginger.UpdServer = function(name, params, suc, err){
+    $.ajax({
+        url : 'plugins/ginger/servers/' + name,
+        type : 'PUT',
+        contentType : 'application/json',
+        dataType : 'json',
+        data : JSON.stringify(params),
+        success: suc,
+        error: err || function(data) {
+            wok.message.error(data.responseJSON.reason);
+        }
+    });
+};
 ginger.removeServer = function(moduleId, suc, err) {
     wok.requestJSON({
         url: 'plugins/ginger/servers/' + moduleId,
