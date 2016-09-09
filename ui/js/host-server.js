@@ -62,6 +62,23 @@ ginger.saveServer = function() {
     });
 };
 
+ginger.updateServer = function() {
+  var username = document.getElementById('username').value;
+  var password = document.getElementById('password').value;
+  var servername = document.getElementById('servername').value;
+  ginger.showBootgridLoading(ginger.opts_srv_if);
+  ginger.UpdServer(servername, { 'username' : username, 'password' : password}, function(result) {
+        wok.window.close();
+        ginger.initServerConfigGridData();
+        ginger.hideBootgridLoading(ginger.opts_srv_if);
+  }, function(error) {
+    ginger.hideBootgridLoading(ginger.opts_srv_if);
+    var errmessage = error.responseJSON.reason;
+    alert(errmessage);
+    wok.window.close();
+    });
+};
+
 function validateAddServer(fieldName, value){
   if(value == null || value == ""){
     alert(fieldName + " is mandantory and cannot be left empty");
@@ -166,6 +183,22 @@ ginger.loadBootgridSRVActions = function() {
                 ginger.initServerConfigGridData();
           });
 	});
+      } else {
+        var settings = {
+          content: i18n["GINSERV0009M"],
+          confirm: i18n["GINNET0015M"]
+        };
+        wok.confirm(settings, function() {});
+      }
+    }
+  },{
+    id: 'srv-update-button',
+    class: 'fa fa-plus-circle',
+    label: i18n['GINSERV0015M'],
+    onClick: function(event) {
+      var selectedIf = ginger.getSelectedRowsData(ginger.opts_srv_if);
+      if (selectedIf && (selectedIf.length == 1)) {
+       wok.window.open('plugins/ginger/host-upd-server.html');
       } else {
         var settings = {
           content: i18n["GINSERV0009M"],
