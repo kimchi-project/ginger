@@ -931,11 +931,11 @@ ginger.loadAuditRulesData =  function(){
         }
 
         if(rule.rule_info){
-            rows += "<td>" + JSON.stringify(rule.rule_info) + "</td></tr>";
+          rows += "<td>" + JSON.stringify(rule.rule_info) + "</td>";
         }else{
-            rows += "<td></td></tr>";
+          rows += "<td></td>";
         }
-
+        rows += "<td>" + rule.persisted + "</td></tr>";
       });
       $("#audit-rules-table tbody").html(rows);
     }
@@ -964,7 +964,7 @@ ginger.loadAuditRulesData =  function(){
             orderable: false, targets: [3,4,5]
           },
           {
-            visible : false,  targets: [6]
+            visible : false,  targets: [6,7]
           }
         ],
         autoWidth:false,
@@ -975,14 +975,12 @@ ginger.loadAuditRulesData =  function(){
           "sEmptyTable": i18n['GINNET0063M']
         }
     });
-
-      // Add event listener for opening and closing details
-      $('#audit-rules-table tbody').off();
-      $('#audit-rules-table tbody').on('click', 'td.details-control', function () {
-        //,td span.fa
-        var tr = $(this).closest('tr');
-        var row = auditRulesTable.row( tr );
-        var ruleInfo = (row.data()[6]!="")?JSON.parse(row.data()[6]):i18n['GINAUDIT0001M'];
+     // Add event listener for opening and closing details
+       $('#audit-rules-table tbody').on('click', 'td.details-control', function () {
+         //,td span.fa
+         var tr = $(this).closest('tr');
+         var row = auditRulesTable.row( tr );
+         var ruleInfo = (row.data()[6]!="")?JSON.parse(row.data()[6]):i18n['GINAUDIT0001M'];
 
         if (row.child.isShown()) {
             // This row is already open - close it
@@ -1009,6 +1007,178 @@ ginger.loadAuditRulesData =  function(){
     wok.message.error(err.responseJSON.reason, '#alert-modal-audit-rules-container');
   });
 };
+$('#audit-rule-add-btn').click(function() {
+    wok.window.open('plugins/ginger/host-admin-addAuditRule.html');
+});
+$('#Audit-Rule-Configure-btn').click(function() {
+    wok.window.open('plugins/ginger/host-admin-ConfigAuditRule.html');
+});
+$('#Audit-Rule-Import-btn').click(function() {
+    wok.window.open('plugins/ginger/host-admin-ImportAuditRule.html');
+});
+$('#Audit-Rule-Edit-btn').click(function() {
+    var auditRulesTable = $('#audit-rules-table').DataTable();
+    if (auditRulesTable.rows('.selected').data().length == 0 || auditRulesTable.rows('.selected').data().length > 1) {
+        var settings = {
+            content: i18n["GINAUDIT0030M"],
+            confirm: i18n["GINNET0015M"]
+        };
+        wok.confirm(settings, function() {}, function() {});
+    } else {
+        var selectedRowsData = auditRulesTable.rows('.selected').data();
+        var ruleName;
+        var persistcheck;
+        $.each(selectedRowsData, function(index, value) {
+            ruleName = value[1];
+            persistcheck = value[7];
+        });
+        if (persistcheck == "no") {
+            var settings = {
+                content: i18n["GINAUDIT0031M"],
+                confirm: i18n["GINNET0015M"]
+            };
+            wok.confirm(settings, function() {}, function() {});
+        } else {
+            if (ruleName == "Filesystem Rule") {
+                wok.window.open('plugins/ginger/host-admin-EditAuditRule.html');
+            } else if (ruleName == "Control Rule") {
+                wok.window.open('plugins/ginger/host-admin-editControlRule.html');
+            } else if (ruleName == "System Rule") {
+                wok.window.open('plugins/ginger/host-admin-editSystemRule.html');
+            }
+        }
+    }
+});
+$('#Audit-Rule-refresh-btn').on('click', function() {
+    $('#audit-rules-table tbody').off();
+    $("#audit-rules-table tbody").html("");
+    $("#audit-rules-table").DataTable().destroy();
+    ginger.loadAuditRulesData();
+});
+//delete Audit rules
+$('#audit-rule-delete-btn').on('click', function(event) {
+    var auditRulesTable = $('#audit-rules-table').DataTable();
+    if (auditRulesTable.rows('.selected').data().length == 0) {
+        var settings = {
+            content: i18n["GINAUDIT0021M"],
+            confirm: i18n["GINNET0015M"]
+        };
+        wok.confirm(settings, function() {}, function() {});
+    } else {
+        var selectedRowsData = auditRulesTable.rows('.selected').data();
+        var selectedRows = [];
+        $.each(selectedRowsData, function(key, value) {
+            selectedRows.push(value[2]);
+        });
+        var settings = {
+            content: i18n["GINAUDIT0022M"] + ": " + selectedRows,
+            confirm: i18n["GINNET0015M"]
+        };
+        wok.confirm(settings, function() {
+            $.each(selectedRows, function(key, value) {
+                ginger.deleteAuditRule(value, function(result) {
+                    wok.message.success(i18n["GINAUDIT0023M"]+' '+value, '#audit-message');
+                }, function(error) {
+                    wok.message.error(error.responseJSON.reason, '#audit-message', true);
+                });
+            });
+              $('#Audit-Rule-refresh-btn').trigger('click');
+        });
+    }
+});
+//audit load
+$('#Audit-Rule-Load-btn').on('click', function(event) {
+    var auditRulesTable = $('#audit-rules-table').DataTable();
+    if (auditRulesTable.rows('.selected').data().length == 0) {
+        var settings = {
+            content: i18n["GINAUDIT0021M"],
+            confirm: i18n["GINNET0015M"]
+        };
+        wok.confirm(settings, function() {}, function() {});
+    } else {
+        var selectedRowsData = auditRulesTable.rows('.selected').data();
+        var selectedRows = [];
+        $.each(selectedRowsData, function(key, value) {
+            selectedRows.push(value[2]);
+        });
+        var settings = {
+            content: i18n["GINAUDIT0024M"] + ": " + selectedRows,
+            confirm: i18n["GINNET0015M"]
+        };
+        wok.confirm(settings, function() {
+            $.each(selectedRows, function(index, value) {
+                ginger.LoadAuditRule(value, function(result) {
+                    wok.message.success(i18n["GINAUDIT0025M"]+' '+value, '#audit-message');
+                }, function(error) {
+                    wok.message.error(error.responseJSON.reason, '#audit-message', true);
+                })
+            });
+            $('#Audit-Rule-refresh-btn').trigger('click');
+        });
+    }
+});
+//unload rule
+$('#Audit-Rule-unload-btn').on('click', function(event) {
+    var auditRulesTable = $('#audit-rules-table').DataTable();
+    if (auditRulesTable.rows('.selected').data().length == 0) {
+        var settings = {
+            content: i18n["GINAUDIT0021M"],
+            confirm: i18n["GINNET0015M"]
+        };
+        wok.confirm(settings, function() {}, function() {});
+    } else {
+        var selectedRowsData = auditRulesTable.rows('.selected').data();
+        var selectedRows = [];
+        $.each(selectedRowsData, function(key, value) {
+            selectedRows.push(value[2]);
+        });
+        var settings = {
+            content: i18n["GINAUDIT0026M"] + ": " + selectedRows,
+            confirm: i18n["GINNET0015M"]
+        };
+        wok.confirm(settings, function() {
+            $.each(selectedRows, function(index, value) {
+                ginger.UnLoadAuditRule(value, function(result) {
+                    wok.message.success(i18n["GINAUDIT0027M"]+' '+value, '#audit-message');
+                }, function(error) {
+                    wok.message.error(error.responseJSON.reason, '#audit-message', true);
+                })
+            });
+            $('#Audit-Rule-refresh-btn').trigger('click');
+        });
+    }
+});
+//persist audit
+$('#Audit-Rule-Persist-btn').on('click', function(event) {
+    var auditRulesTable = $('#audit-rules-table').DataTable();
+    if (auditRulesTable.rows('.selected').data().length == 0) {
+        var settings = {
+            content: i18n["GINAUDIT0021M"],
+            confirm: i18n["GINNET0015M"]
+        };
+        wok.confirm(settings, function() {}, function() {});
+    } else {
+        var selectedRowsData = auditRulesTable.rows('.selected').data();
+        var selectedRows = [];
+        $.each(selectedRowsData, function(key, value) {
+            selectedRows.push(value[2]);
+        });
+        var settings = {
+            content: i18n["GINAUDIT0028M"] + ": " + selectedRows,
+            confirm: i18n["GINNET0015M"]
+        };
+        wok.confirm(settings, function() {
+            $.each(selectedRows, function(key, value) {
+                ginger.PersistAuditRule(value, function(result) {
+                    wok.message.success(i18n["GINAUDIT0029M"]+' '+value, '#audit-message');
+                }, function(error) {
+                    wok.message.error(error.responseJSON.reason, '#audit-message', true);
+                })
+            });
+            $('#Audit-Rule-refresh-btn').trigger('click');
+        });
+    }
+});
 
 ginger.ruleDetailsPopulation = function(data , row){
     var text='';

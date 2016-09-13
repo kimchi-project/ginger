@@ -1633,6 +1633,171 @@ ginger.getAuditRules = function(suc, err) {
        }
    });
  };
+ ginger.addFileAudit = function(filerule, suc, err) {
+     wok.requestJSON({
+         url: 'plugins/ginger/audit/rules',
+         type: 'POST',
+         contentType: 'application/json',
+         data: JSON.stringify(filerule),
+         dataType: 'json',
+         success: suc,
+         error: err || function(data) {
+             wok.message.error(data.responseJSON.reason);
+         }
+     });
+ };
+ ginger.addControlAudit = function(cntrlrule, suc, err) {
+     wok.requestJSON({
+         url: 'plugins/ginger/audit/rules',
+         type: 'POST',
+         contentType: 'application/json',
+         data: JSON.stringify(cntrlrule),
+         dataType: 'json',
+         success: suc,
+         error: err || function(data) {
+             wok.message.error(data.responseJSON.reason);
+         }
+     });
+ };
+ ginger.addSyscallAudit = function(syscallrule, suc, err) {
+     wok.requestJSON({
+         url: 'plugins/ginger/audit/rules',
+         type: 'POST',
+         contentType: 'application/json',
+         data: JSON.stringify(syscallrule),
+         dataType: 'json',
+         success: suc,
+         error: err || function(data) {
+             wok.message.error(data.responseJSON.reason);
+         }
+     });
+ };
+ ginger.deleteAuditRule = function(ruleName, suc, err) {
+     wok.requestJSON({
+         url: '/plugins/ginger/audit/rules/' + encodeURIComponent(ruleName.trim()),
+         type: 'DELETE',
+         contentType: 'application/json',
+         dataType: 'json',
+         success: suc,
+         error: err || function(data) {
+             wok.message.error(data.responseJSON.reason);
+         }
+     });
+ };
+ ginger.LoadAuditRule = function(ruleName, suc, err) {
+     wok.requestJSON({
+         url: '/plugins/ginger/audit/rules/' + encodeURIComponent(ruleName.trim()) + "/load",
+         type: 'POST',
+         contentType: 'application/json',
+         dataType: 'json',
+         success: suc,
+         error: err || function(data) {
+             wok.message.error(data.responseJSON.reason);
+         }
+     });
+ };
+ ginger.UnLoadAuditRule = function(ruleName, suc, err) {
+     wok.requestJSON({
+         url: '/plugins/ginger/audit/rules/' + encodeURIComponent(ruleName.trim()) + "/unload",
+         type: 'POST',
+         contentType: 'application/json',
+         dataType: 'json',
+         success: suc,
+         error: err || function(data) {
+             wok.message.error(data.responseJSON.reason);
+         }
+     });
+ };
+ ginger.PersistAuditRule = function(ruleName, suc, err) {
+     wok.requestJSON({
+         url: '/plugins/ginger/audit/rules/' + encodeURIComponent(ruleName.trim()) + "/persist",
+         type: 'POST',
+         contentType: 'application/json',
+         dataType: 'json',
+         success: suc,
+         error: err || function(data) {
+             wok.message.error(data.responseJSON.reason);
+         }
+     });
+ };
+ ginger.retrieveConfigInfo = function(suc, err) {
+     wok.requestJSON({
+         url: 'plugins/ginger/audit/conf',
+         type: 'GET',
+         contentType: 'application/json',
+         dataType: 'json',
+         resend: true,
+         success: suc,
+         error: err || function(data) {
+             wok.message.error(data.responseJSON.reason);
+         }
+     });
+ };
+ ginger.loadPredefinedRule = function(path, suc, err) {
+     wok.requestJSON({
+         url: '/plugins/ginger/audit/load',
+         type: 'POST',
+         contentType: 'application/json',
+         data: JSON.stringify(path),
+         dataType: 'json',
+         success: suc,
+         error: err || function(data) {
+             wok.message.error(data.responseJSON.reason);
+         }
+     });
+ };
+ ginger.AuditConfig = function(configvalues, suc, err) {
+     wok.requestJSON({
+         url: 'plugins/ginger/audit/conf',
+         type: 'PUT',
+         contentType: 'application/json',
+         data: JSON.stringify(configvalues),
+         dataType: 'json',
+         success: suc,
+         error: err || function(data) {
+             wok.message.error(data.responseJSON.reason);
+         }
+     });
+ };
+ ginger.EditAuditRule = function(ruleName, updatedRule, suc, err) {
+     wok.requestJSON({
+         url: 'plugins/ginger/audit/rules/' + encodeURIComponent(ruleName.trim()),
+         type: 'PUT',
+         contentType: 'application/json',
+         data: JSON.stringify(updatedRule),
+         dataType: 'json',
+         success: suc,
+         error: err || function(data) {
+             wok.message.error(data.responseJSON.reason);
+         }
+     });
+ };
+ ginger.EditSyscallAudit = function(ruleName, updatedRule, suc, err) {
+     wok.requestJSON({
+         url: 'plugins/ginger/audit/rules/' + encodeURIComponent(ruleName.trim()),
+         type: 'PUT',
+         contentType: 'application/json',
+         data: JSON.stringify(updatedRule),
+         dataType: 'json',
+         success: suc,
+         error: err || function(data) {
+             wok.message.error(data.responseJSON.reason);
+         }
+     });
+ };
+ ginger.listofsyscall = function(suc, err) {
+     wok.requestJSON({
+         url: 'plugins/ginger/audit/syscall',
+         type: 'GET',
+         contentType: 'application/json',
+         dataType: 'json',
+         resend: true,
+         success: suc,
+         error: err || function(data) {
+             wok.message.error(data.responseJSON.reason);
+         }
+     });
+ };
 /**
   * Get the Audit logs list.
   */
