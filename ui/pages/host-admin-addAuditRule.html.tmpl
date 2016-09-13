@@ -1,0 +1,226 @@
+#*
+ * Project Ginger
+ *
+ * Copyright IBM Corp, 2016
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *#
+#unicode UTF-8
+#import gettext
+#from wok.cachebust import href
+#silent t = gettext.translation($lang.domain, $lang.localedir, languages=$lang.lang, fallback=True)
+#silent _ = t.gettext
+#silent _t = t.gettext
+<!DOCTYPE html>
+<html>
+    <head>
+        <script type="text/javascript" src="plugins/ginger/js/host-admin-addauditrule.js">
+        </script>
+    </head>
+    <body>
+    <div class="modal-content" id="AuditRule">
+        <div class="modal-header">
+            <button type="button" id="Add-Rule-button-close" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <h4 class="modal-title">$_("Audit Rule")</h4>
+        </div>
+        <hr>
+        <div class="modal-body" id="AddAuditRule">
+            <div id="alert-audit-modal"></div>
+            <form id="form-rule-add" class="tab-pane form-horizontal">
+                <span id="addrule-message" style="display:none;"></span>
+                <div class="form-group">
+                    <label class="col-md-5 col-lg-5"> Type </label>
+                    <select id="Ruletype" name="type" class="selectpicker col-md-7 col-lg-7">
+                        <option value="filesystem">$_("File System")</option>
+                        <option value="systemcall">$_("System Call")</option>
+                        <option value="controlrule">$_("Control Rule")</option>
+                    </select>
+                  </div>
+                <div class="row" id="AddFilesystemRule">
+                    <div class="form-group">
+                        <label for="filepath"  class="col-md-5 col-lg-5">$_("Path to File")</label>
+                        <div class="row col-md-7 col-lg-7"><input type="text" class="form-control inputbox" id="fpath" name="PathName" />
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label for="permissions" class="col-md-5 col-lg-5">$_("Permisions")</label>
+                         <div id="pers">
+                           <span class="btn btn-default btn-file row col-md-7 col-lg-7">
+                           <label class="form-check-inline">
+                             <input class="form-check-input" type="checkbox" name="permission" id="readp" value="r">&nbspRead
+                           </label>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                           <label class="form-check-inline">
+                             <input class="form-check-input" type="checkbox" name="permission" id="writep" value="w">&nbspWrite
+                           </label>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                           <label class="form-check-inline">
+                             <input class="form-check-input" type="checkbox" name="permission" id="executep" value="x">&nbspExecute
+                           </label>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                           <label class="form-check-inline">
+                             <input class="form-check-input" type="checkbox" name="permission" id="changep" value="a">&nbspChange
+                           </label>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                         </span>
+                       </div>
+                     </div>
+                     <div class="form-group">
+                         <label for="Filekeyname" class="col-md-5 col-lg-5" >$_("Key Name")</label>
+                         <div class="row col-md-7 col-lg-7"><input type="text" class="form-control inputbox" id="Filekeyname" name="keyName" /></div>
+                    </div>
+              </div>
+              <div class="row" id="AddSystemcallRule" style="display:none" hidden>
+                  <div class="form-group">
+                    <label class="col-md-5 col-lg-5"> Action </label>
+                      <select id="sysaction" name="type" class="selectpicker col-md-7 col-lg-7">
+                          <option value="always">$_("Always")</option>
+                          <option value="never">$_("Never")</option>
+                      </select>
+                    </div>
+                    <div class="form-group">
+                      <label class="col-md-5 col-lg-5"> Filter </label>
+                      <select id="sysfilter" name="type" class="selectpicker col-md-7 col-lg-7">
+                          <option value="task">$_("Task")</option>
+                          <option value="exit">$_("Exit")</option>
+                          <option value="user">$_("User")</option>
+                          <option value="exclude">$_("Exclude")</option>
+                      </select></div>
+                      <div class="form-group">
+                        <label class="col-md-5 col-lg-5"> System Calls </label>
+                        <select id="syscallsload" name="syscall" class="selectpicker col-md-7 col-lg-7" multiple>
+                        </select></div>
+                        <div class="form-group">
+                      <label for="sysCalls" class="col-md-5 col-lg-5" >$_("Fields")</label>
+                      <div class="row col-md-7 col-lg-7">
+                        <table id="sysCalls"  class="table table-striped" cellspacing="0">
+                            <thead>
+                                <tr>
+                                    <th>$_("Name")</th>
+                                    <th>$_("Operator")</th>
+                                    <th>$_("Value")</th>
+                                    <td>
+                                      <span class="valueadd btn btn-link">
+                                          <i class="fa fa-plus-circle"></i>
+                                          Add
+                                      </span>
+                                    </td>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr>
+                                  <td><select name="name" class="col-md-11 col-lg-11 form-control">
+                                      <option value="arch">$_("architecture")</option>
+                                      <option value="auid">$_("audit uid")</option>
+                                      <option value="devmajor">$_("Device Major Number")</option>
+                                      <option value="devminor">$_("Device Minor Number")</option>
+                                      <option value="dir">$_("Directory")</option>
+                                      <option value="egid">$_("Effective Group ID")</option>
+                                      <option value="euid">$_("Effectice user ID")</option>
+                                      <option value="exit">$_("exit")</option>
+
+                                      <option value="fsgid">$_("Filesystem group ID")</option>
+                                      <option value="fsuid">$_("Filesystem user ID")</option>
+                                      <option value="gid">$_("Group ID")</option>
+                                      <option value="inode">$_("Inode Number")</option>
+                                      <option value="key">$_("Key")</option>
+                                      <option value="msgtype">$_("msgtype")</option>
+                                      <option value="obj_uid">$_("Object's UID")</option>
+                                      <option value="obj_gid">$_("Object's GID")</option>
+
+                                      <option value="obj_user">$_("Resource SE Linux User")</option>
+                                      <option value="obj_role">$_("Resource SE Linux Role")</option>
+                                      <option value="obj_type">$_("Resource SE Linux Type")</option>
+                                      <option value="obj_lev_low">$_("Resource SE Linux Low Level")</option>
+                                      <option value="obj_lev_high">$_("Resource SE Linux High Level")</option>
+                                      <option value="path">$_("path")</option>
+                                      <option value="perm">$_("permission")</option>
+                                      <option value="pers">$_("Personality Number")</option>
+
+                                      <option value="pid">$_("Process ID")</option>
+                                      <option value="ppid">$_("Parent's process ID")</option>
+                                      <option value="subj_user">$_("Program's SE Linux User")</option>
+                                      <option value="subj_role">$_("Program's SE Linux Role")</option>
+                                      <option value="subj_type">$_("Program's SE Linux Type")</option>
+                                      <option value="subj_sen">$_("Program's SE Linux Sensitivity")</option>
+                                      <option value="subj_clr">$_("Program's SE Linux Clearance")</option>
+                                      <option value="sgid">$_("Saved GroupID")</option>
+                                      <option value="success">$_("success")</option>
+                                      <option value="suid">$_("Saved User ID")</option>
+
+                                      <option value="uid">$_("User ID")</option>
+                                  </select></td>
+                                  <td><select name="operator" class="col-md-11 col-lg-11 form-control">
+                                      <option value="=">$_("=")</option>
+                                      <option value="!=">$_("!=")</option>
+                                      <option value="<">$_("<")</option>
+                                      <option value="<=">$_("<=")</option>
+                                      <option value=">">$_(">")</option>
+                                      <option value=">=">$_(">=")</option>
+                                      <option value="&">$_("&")</option>
+                                      <option value="&=">$_("&=")</option>
+                                  </select></td>
+                                  <td><input type="text" class="form-control inputbox " name="FieldValue" /></td>
+                                  <td>
+                                    <span class="valueDelete btn btn-link">
+                                        <i class="fa fa-trash"></i>
+                                        Delete
+                                    </span>
+                                    </td></tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label for="Syskeyname" class="col-md-5 col-lg-5" >$_("Key Name")</label>
+                      <div class="row col-md-7 col-lg-7"><input type="text" class="form-control inputbox " id="Syskeyname" name="keyName" /></div>
+                    </div>
+                </div>
+                <div class="row" id="AddControlRule" style="display:none" hidden>
+                    <div class="form-group">
+                        <label class="col-md-5 col-lg-5"> Option </label>
+                        <select id="option" name="type" class="selectpicker col-md-7 col-lg-7">
+                            <option value="-b">$_("-b (backlog)")</option>
+                            <option value="-f">$_("-f")</option>
+                            <option value="-r">$_("-r (rate)")</option>
+                        </select></div>
+                        <div class="form-group">
+                        <label for="controlRvalue" class="col-md-5 col-lg-5" >$_("Value")</label>
+                        <div id="bvalue" class="row col-md-7 col-lg-7" hidden><input type="number" class="form-control inputbox " id="bvaluedata" name="value" step="1" min="0" max="999" value="0" /></div>
+                        <div id="rvalue"class="row col-md-7 col-lg-7" hidden><input class="form-control inputbox " id="rvaluedata" name="value" type="number" step="1" min="0" max="999" value="64"/></div>
+                        <div id="evalue"class="row col-md-7 col-lg-7" hidden>
+                          <select class="selectpicker col-sm-12" id="evaluedata">
+                            <option value="0">$_("0")</option>
+                            <option value="1">$_("1")</option>
+                            <option value="2">$_("2")</option>
+                          </select>
+                        </div>
+                        <div id="fvalue"class="row col-md-7 col-lg-7" hidden>
+                          <select class="selectpicker col-sm-12" id="fvaluedata">
+                            <option value="0">$_("0")</option>
+                            <option value="1">$_("1")</option>
+                            <option value="2">$_("2")</option>
+                          </select>
+                        </div>
+                     </div>
+                    </div>
+          </form>
+      </div>
+      <div class="modal-footer">
+          <button type="button" id="AuditRule-submit" class="btn btn-default" >$_("Apply")</button>
+          <button type="button" id="AuditRule-cancel" class="btn btn-default" data-dismiss="modal">$_("Cancel")</button>
+      </div>
+  </div>
+  <script>
+         ginger.initAddRule();
+  </script>
+</body>
+</html>

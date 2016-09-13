@@ -1,0 +1,60 @@
+#*
+ * Project Ginger
+ *
+ * Copyright IBM Corp, 2016
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *#
+#unicode UTF-8
+#import gettext
+#from wok.cachebust import href
+#silent t = gettext.translation($lang.domain, $lang.localedir, languages=$lang.lang, fallback=True)
+#silent _ = t.gettext
+#silent _t = t.gettext
+<!DOCTYPE html>
+<html>
+    <head>
+        <script type="text/javascript" src="plugins/ginger/js/host-admin-importauditrule.js">
+        </script>
+    </head>
+    <body>
+    <div class="modal-content" id="Audit-Import">
+        <div class="modal-header">
+            <button type="button" id="AuditImport-button-close" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <h4 class="modal-title">$_("Load Predefined Rules")</h4>
+        </div>
+        <hr>
+        <div class="modal-body" id="AuditImport">
+          <div id="alert-audit-modal"></div>
+          <form id="form-rule-import" class="tab-pane form-horizontal">
+              <span id="importrule-message" style="display:none;"></span>
+              <div class="form-group">
+                  <label class="col-sm-4"> Rules File Path</label>
+                  <div class="col-sm-8 col-xs-3">
+                    <input id="import-filepath" class="form-control" name="pname" type="text"/>
+                  </div>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+              <button type="button" id="AuditImport-submit" class="btn btn-default" >$_("Apply")</button>
+              <button type="button" id="AuditImport-cancel" class="btn btn-default" data-dismiss="modal">$_("Cancel")</button>
+          </div>
+      </div>
+      <script>
+             ginger.initImportRule();
+      </script>
+    </body>
+    </html>
