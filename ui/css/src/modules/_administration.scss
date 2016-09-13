@@ -422,10 +422,6 @@
 
 #audit-rules-content-area{
 
-  .fa {
-    cursor: pointer;
-  }
-
   .audit-rules-loaded-enable .fa {
     font-size: 20px;
     color: #78d470;
@@ -516,12 +512,60 @@
           }
       }
   }
-
+}
+#audit-logs-content-area,
+#audit-rules-content-area {
   td.content {
     max-width: 250px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
    }
+
+   .fa {
+     cursor: pointer;
+   }
 }
-/* End of Firmware Progress Accordion */
+
+#audit-logs-content-area {
+  .audit-log-details {
+      width: 100%;
+      padding: 8px;
+      background: $table-bg-active;
+    }
+
+  .audit-log-info {
+      width: 100%;
+      background: $table-bg;
+      display: block;
+      min-height: 100px;
+      padding-top:10px;
+      padding-left:10px;
+    }
+
+    dl {
+      margin-bottom:0px;
+      padding-bottom: 10px;
+    }
+
+    dd {
+      padding-bottom: 15px;
+    }
+
+    .btn {
+      border-radius: 1px;
+    }
+}
+
+#auditlogReport {
+  .report{
+      max-height: 250px;
+      overflow-y: auto;
+      display: block;
+      background: $table-bg-active;
+      padding: 10px;
+      padding-top: 20px;
+      margin-top:20px;
+      border-top: 1px solid $table-border-color;
+  }
+}
