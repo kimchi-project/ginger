@@ -1633,6 +1633,84 @@ ginger.getAuditRules = function(suc, err) {
        }
    });
  };
+/**
+  * Get the Audit logs list.
+  */
+ ginger.getAuditLogs = function(suc, err) {
+   wok.requestJSON({
+       url : '/plugins/ginger/audit/logs',
+       type : 'GET',
+       contentType : 'application/json',
+       dataType : 'json',
+       success : suc,
+       error : err || function(data) {
+           wok.message.error(data.responseJSON.reason);
+       }
+   });
+ };
+
+ /**
+  * Get the Audit logs filter.
+  */
+ ginger.filterAuditLogs = function(params, suc, err) {
+   wok.requestJSON({
+       url : '/plugins/ginger/audit/logs?_filter='+encodeURIComponent(params),
+       type : 'GET',
+       contentType : 'application/json',
+       dataType : 'json',
+       success : suc,
+       error : err || function(data) {
+           wok.message.error(data.responseJSON.reason);
+       }
+   });
+ };
+
+ /**
+  * Get the Audit summary report.
+  */
+ ginger.getAuditSummaryReport = function(suc, err) {
+   wok.requestJSON({
+       url : '/plugins/ginger/audit/reports',
+       type : 'GET',
+       contentType : 'application/json',
+       dataType : 'json',
+       success : suc,
+       error : err || function(data) {
+           wok.message.error(data.responseJSON.reason);
+       }
+   });
+ };
+
+ /**
+  * Get the Audit report after filtering.
+  */
+ ginger.getAuditReport = function(params,suc, err) {
+   wok.requestJSON({
+       url : '/plugins/ginger/audit/reports?_filter='+encodeURIComponent(params),
+       type : 'GET',
+       contentType : 'application/json',
+       dataType : 'json',
+       success : suc,
+       error : err || function(data) {
+           wok.message.error(data.responseJSON.reason);
+       }
+   });
+ };
+ /**
+  * Get the report graph.
+  */
+ ginger.getReportGraph = function(params,suc, err) {
+   wok.requestJSON({
+       url : '/plugins/ginger/audit/graphs?_filter='+params,
+       type : 'GET',
+       contentType : 'application/json',
+       dataType : 'json',
+       success : suc,
+       error : err || function(data) {
+           wok.message.error(data.responseJSON.reason);
+       }
+   });
+ };
 
 /**
  * Systems Platform Management

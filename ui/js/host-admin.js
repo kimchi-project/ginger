@@ -899,6 +899,7 @@ ginger.initFirmware = function() {
 
 ginger.initAuditRules = function(){
    ginger.loadAuditRulesData();
+   ginger.loadAuditlogsData();
 };
 
 ginger.loadAuditRulesData =  function(){
@@ -993,6 +994,7 @@ ginger.loadAuditRulesData =  function(){
             ginger.ruleDetailsPopulation(ruleInfo,row);
             $("span",$(this)).addClass('fa-chevron-up').removeClass('fa-chevron-down');
             tr.addClass('shown');
+            $('.audit-rules-details',$("#audit-rules-table tbody")).closest("tr").css("color","black");
         }
     });
 
@@ -1054,6 +1056,561 @@ ginger.ruleDetailsPopulation = function(data , row){
 
 };
 
+ginger.loadAuditlogsData =  function(){
+  $(".logs-loader").show();
+  ginger.getAuditLogs(function(result) {
+     ginger.createAuditLogsTable(result);
+  },function(err){
+    $(".logs-loader").hide();
+    wok.message.error(err.responseJSON.reason, '#alert-modal-audit-logs-container');
+  });
+
+  ginger.initFilterInfo();
+  ginger.initSummaryInfo();
+
+};
+ginger.createAuditLogsTable = function(data){
+  var rows = "";
+  if (data.length > 0) {
+      $.each(data, function(index, log){
+        var logDetails = log['record'+(index+1)];
+        if(logDetails){
+          rows += "<tr><td>" + logDetails['Date and Time'] + "</td>";
+          rows += "<td>" + logDetails['TYPE'] + "</td>";
+          rows += "<td class=\"content\">" + logDetails['MSG']+ "</td>";
+          rows += "<td style=\"text-align:center;\" class=\"details-control\"><span class=\"fa fa-chevron-down common-down fa-lg\"></span> </td></tr>";
+        }
+      });
+    }
+  $("#audit-logs-table tbody").html(rows);
+
+  var auditLogsTable = $("#audit-logs-table").DataTable({
+      columnDefs: [
+        {
+          "width":"15%", "targets" : 0
+        },
+        {
+          "width":"15%", "targets" : 1
+        },
+        {
+          "width":"60%", "targets" : 2
+        },
+        {
+          "width":"10%", "targets" : 3
+        },
+        {
+          orderable: false, targets: [3]
+        }
+      ],
+      autoWidth:false,
+      "dom": '<"row"<"log-report pull-left"><"log-filter pull-left"><"log-reset pull-left"><"col-sm-12 filter"<"pull-right"l><"pull-right"f>>><"row"<"col-sm-12"t>><"row"<"col-sm-6 pages"p><"col-sm-6 info"i>>',
+      "initComplete": function(settings, json) {
+        wok.initCompleteDataTableCallback(settings);
+        var reportButton = '<button class="btn btn-primary pull-left" id="log-report-btn" aria-expanded="false" data-toggle="modal" data-target="#auditlogReport"><i class="fa fa-file-archive-o">&nbsp;</i> ' + i18n['GINAUDIT0008M'] + '</button>';
+        var filterButton = '<button class="btn btn-primary" id="log-filter-btn" aria-expanded="false" data-toggle="modal" data-target="#auditlogFilter"><i class="fa fa-filter">&nbsp;</i>' + i18n['GINAUDIT0007M']  + '</button>';
+        var resetButton = '<button class="btn btn-primary" id="log-reset-btn" aria-expanded="false"><i class="fa fa-undo">&nbsp;</i>' + i18n['GINAUDIT0019M']  + '</button>';
+        $(".log-report").html(reportButton);
+        $(".log-filter").append(filterButton);
+        $(".log-reset").html(resetButton);
+      },
+      "oLanguage": {
+        "sEmptyTable": i18n['GINAUDIT0012M']
+      }
+  });
+
+    // Add event listener for opening and closing details
+    $('#audit-logs-table tbody').off();
+    $('#audit-logs-table tbody').on('click', 'td.details-control', function () {
+      var tr = $(this).closest('tr');
+      var row = auditLogsTable.row( tr );
+      var logMessage = (row.data()[2]!="")?row.data()[2]:i18n['GINAUDIT0001M'];
+      var dateTime = (row.data()[0]!="")?row.data()[0]:'';
+      var type = (row.data()[1]!="")?row.data()[1]:'';
+
+      $('.audit-log-details',$('#audit-logs-table tbody')).parent().remove();
+
+      if (row.child.isShown()) {
+          // This row is already open - close it
+          row.child.hide();
+          $("span",$(this)).addClass('fa-chevron-down').removeClass('fa-chevron-up');
+          tr.removeClass('shown');
+      }else{
+          // Open this row
+          row.child('<div class="audit-log-details"><dl class="audit-log-info"><dt>'+dateTime+'</dt><dd>'+i18n['GINAUDIT0013M']+'</dd><dt>'+type+'</dt><dd>'+i18n['GINAUDIT0014M']+'</dd><dt>'+logMessage+'</dt><dd>'+i18n['GINAUDIT0015M']+'</dd></dl></div>').show();
+          $("span",$(this)).addClass('fa-chevron-up').removeClass('fa-chevron-down');
+          tr.addClass('shown');
+          $('.audit-log-details',$('#audit-logs-table tbody')).closest("tr").css("color","black");
+      }
+  });
+
+  //Row selection
+  $('#audit-logs-table tbody').on('click', 'tr', function () {
+      $(this).toggleClass("selected");
+  });
+
+  $('#log-reset-btn').on('click', function(e) {
+    $(".logs-loader").show();
+    ginger.getAuditLogs(function(result){
+      $("#audit-logs-table tbody").empty();
+      $("#audit-logs-table").DataTable().destroy();
+      ginger.createAuditLogsTable(result);
+    },function(error){
+      wok.message.error(data.responseJSON.reason,"#alert-modal-audit-logs-container");
+    });
+  });
+  $(".logs-loader").hide();
+};
+ginger.populateFilterOptions =  function(row){
+  var optionsList =
+  {'-a':'Audit Event ID',
+  '--arch':'Architecture [b32 | b34]',
+  '-c':'Command',
+  '--debug':'Debug',
+  '-e':'Syscall Exit Code or Error Number',
+  '-f':'File Name',
+  '-gi':'Group ID',
+  '-hn':'Host Name',
+  '--just-one':'Just Once',
+  '-k':'Key String',
+  '-m':'Message',
+  '-p':'Process ID',
+  '-pp':'Parent Process ID',
+  '-r':'Raw',
+  '-sc':'System Call',
+  '--session':'Session ID',
+  '-sv':'Success Value',
+  '-te':'Event End',
+  '-ts':'Event Start',
+  '-tm':'Terminal Value',
+  '-ui':'User ID',
+  '-ul':'Login User ID',
+  '-uu':'Guest UUID',
+  '-vm':'Guest Name',
+  '-w':'Word',
+  '-x':'Executable'};
+
+  var filterField = $('.selectpicker',row);
+   $.each(optionsList,function(key,value){
+     filterField.append($("<option></option>")
+     .attr("value", key.replace(/"/g, ""))
+     .text(value.replace(/"/g, "")));
+   });
+   filterField.selectpicker();
+};
+
+ginger.populateReportOptions =  function(row){
+  var detailReportOptionsList =
+  {'-a':'Authentication Attempts',
+  '--au':'AVC Messages',
+  '--comm':'Commands Run',
+  '-c':'Config Change Report',
+  '-cr':'Crypto Report',
+  '-e':'Event Report',
+  '-f':'File Report',
+  '-h':'Host Report',
+  '--integrity':'Integrity Report',
+  '-k':'Key Report',
+  '-l':'Login Report',
+  '-m':'Account Modification Report',
+  '-ma':'Mandatory Access Control Report',
+  '-n':'Anomaly events Report',
+  '-p':'Process ID Report',
+  '-r':'Resposnse Anomaly Report',
+  '-s':'Syscall Report',
+  '--success':'Success Summary Report',
+  '-t':'Log Time Range Report',
+  '--tty':'TTY keystroke Report',
+  '-tm':'Terminal Report',
+  '-u':'User ID Report',
+  '--virt':'Virtualization Report',
+  '-x':'Executable Report'};
+
+  var summaryReportOptionList = {'--failed':'Failed Summary Report',
+    '-nc':'No Config',
+    '-te':'Event End',
+    '-ts':'Event Start'};
+
+  var type = $('#reportType').val();
+
+  var optionsList = (type=='detailed')?detailReportOptionsList:summaryReportOptionList;
+  var filterField = $('#log-report-fields',row);
+
+   $.each(optionsList,function(key,value){
+     filterField.append($("<option></option>")
+     .attr("value", key.replace(/"/g, ""))
+     .text(value.replace(/"/g, "")));
+   });
+   filterField.selectpicker();
+};
+
+ginger.initFilterInfo = function(){
+  $('#auditlogFilter').on('show.bs.modal', function(event) {
+    $('#log-filter-title').text(i18n['GINAUDIT0011M']);
+    $('#log-path-info','#auditlogFilter').val("/var/log/audit/audit.log");
+
+    var attachEvent = function(row) {
+        $(".delete", row).on("click", function() {
+            row.remove();
+
+            if($('#newRow').children().length===0)
+             $("#filterList",'#auditlogFilter').addClass('hidden');
+         });
+
+        ginger.populateFilterOptions(row);
+
+         $('.selectpicker',row).change(function(){
+           var inputRequiredFieldsList = ['-a','--arch','-c','-e','-f','-ga','-ge','-gi','-hn','-k','-m','-n','-o','-p','-pp','-sc','-se','--session','-su','-sv','-tm','-ua','-ue','-ui','-ul','-uu','-vm','-x'];
+           var selectedValue = $(this).val();
+
+           if(selectedValue=="-te" || selectedValue=="-ts" ){
+             var textField = $('input[type=text]',row);
+             if(textField.length!=0){
+               var parentDiv = textField.parent();
+                textField.remove();
+                parentDiv.show();
+                var selectOptionHtml = $.parseHTML('<select class="selectpicker col-md-12 timeOption">'+
+                '<option value="now">Now</option>'+
+                '<option value="recent">Recent</option>'+
+                '<option value="today">Today</option>'+
+                '<option value="yesterday">Yesterday</option>'+
+                '<option value="this-week">This Week</option>'+
+                '<option value="week-ago">Week Ago</option>'+
+                '<option value="this-month">This Month</option>'+
+                '<option value="this-year">This Year</option>'+
+               '</select>');
+               parentDiv.append(selectOptionHtml);
+               $('.selectpicker',parentDiv).selectpicker();
+            }
+           }else if(inputRequiredFieldsList.indexOf(selectedValue)===-1){
+             var textField = $('input[type=text]',row);
+             if(textField.length==0){
+                if($('.timeOption',row).length!=0){
+                  $('.timeOption',row).parent().append('<input type="text" class="form-control input"  placeholder="'+i18n['GINAUDIT0010M']+'" />');
+                    $('.timeOption',row).remove();
+                }
+             }
+             $('input[type=text]',row).val("").parent().hide();
+           }else{
+             var textField = $('input[type=text]',row);
+             if(textField.length==0){
+                if($('.timeOption',row).length!=0){
+                  $('.timeOption',row).parent().append('<input type="text" class="form-control input"  placeholder="'+i18n['GINAUDIT0010M']+'" />');
+                    $('.timeOption',row).remove();
+                }
+             }
+             textField.attr("disabled",false);
+             $('input[type=text]',row).val("").parent().show();
+           }
+         });
+    };
+
+    $(".add-filter",'#auditlogFilter').on("click", function(e) {
+        e.preventDefault();
+        e.stopImmediatePropagation();
+        $("#filterList").removeClass("hidden");
+
+        var newNode = $.parseHTML('<div class="row" style="margin-bottom:5px;">'+
+        '<div class="col-md-5">' +
+         '<select class="selectpicker col-md-10" id="log-filter-fields">'+
+         '</select>' +
+            '</div>'+
+            '<div class="col-md-5">'+
+              '<input type="text" class="form-control input"  placeholder="'+i18n['GINAUDIT0010M']+'" style="height:40px;"/>' +
+              '</div>'+
+              '<div class="col-md-2">'+
+              '<span class="column-delete btn btn-link delete del-label" style="float:right;">' +
+               '<i class="fa fa-trash"></i></span>' +
+              '</div>'+
+              '</div>'+
+            '</div>');
+
+         $('#newRow','#auditlogFilter').append(newNode);
+         attachEvent($(newNode));
+      });
+
+     $('#log-filter-button-apply').on('click',function(){
+       var params = '';
+       var logFile= ($('#log-path-info',"#auditlogFilter").val()!='')?'-if '+ $('#log-path-info').val():'';
+           params+=logFile;
+
+       if($('input[type=checkbox]:checked',$('#auditlogFilter')).length!==0){
+         params.length>0?params+=' -i':params+='-i';
+       }
+
+      $('#newRow div.row','#auditlogFilter').each(function(){
+           var field = $('.selectpicker',$(this)).val();
+           var value = "";
+
+            if($('.timeOption',$(this)).length!=0){
+              value = $('.timeOption',$(this)).find('option:selected').val();
+            } else {
+              value = $('input[type=text]',$(this)).val();
+            }
+             var inputRequiredFieldsList = ['-a','--arch','-c','-e','-f','-ga','-ge','-gi','-hn','-k','-m','-n','-o','-p','-pp','-sc','-se','--session','-su','-sv','-tm','-ua','-ue','-ui','-ul','-uu','-vm','-x'];
+              if(inputRequiredFieldsList.indexOf(field)!=-1){
+                if(value!=''){
+                  if(params.length>0){
+                     params+=" ";
+                   }
+                  params+=field+" "+value;
+                }
+              }else{
+                if(params.length>0){
+                   params+=" ";
+                 }
+                params+=field+(value!=''?(" "+value):'');
+              }
+
+        });
+
+       $('#auditlogFilter').modal('hide');
+       $(".logs-loader").show();
+
+       if(params==''){
+          ginger.getAuditLogs(function(result){
+            reloadAuditLogs(result);
+          },function(error){
+            wok.message.error(data.responseJSON.reason,"#alert-modal-audit-filter-container");
+          });
+       }else{
+         ginger.filterAuditLogs(params,function(result){
+           reloadAuditLogs(result);
+         },function(error){
+           wok.message.error(data.responseJSON.reason,"#alert-modal-audit-filter-container");
+         });
+       }
+
+       var reloadAuditLogs =  function(result){
+         wok.message.success(i18n['GINAUDIT0016M'],"#alert-modal-audit-logs-container");
+         $("#audit-logs-table tbody").empty();
+         $("#audit-logs-table").DataTable().destroy();
+         ginger.createAuditLogsTable(result);
+       }
+     });
+  });
+
+  $('#auditlogFilter').on('hide.bs.modal', function(event) {
+       $('#log-path-info',$(this)).val('');
+       $('#newRow',$(this)).empty();
+       $('#interpret',$(this)).attr('checked',false);
+       $('#log-filter-button-apply').off();
+   });
+};
+
+ginger.initSummaryInfo = function(){
+  $('#auditlogReport').on('show.bs.modal', function(event) {
+    $("#reportType").selectpicker();
+    $('#log-path-info','#auditlogReport').val("/var/log/audit/audit.log");
+
+    var attachEvent = function(row) {
+        $(".delete", row).on("click", function() {
+            row.remove();
+
+            if($('#newRow','#auditlogReport').children().length===0)
+             $("#filterList",'#auditlogReport').addClass('hidden');
+          });
+
+        ginger.populateReportOptions(row);
+
+         $('#log-report-fields.selectpicker',row).change(function(){
+           var selectedValue = $(this).val();
+           if(selectedValue=="-te" || selectedValue=="-ts" ){
+
+             var optionDropdown = $('select.timeOption',row);
+             optionDropdown.empty();
+             var selectOptionHtml = $.parseHTML('<option value="now">Now</option>'+
+                '<option value="recent">Recent</option>'+
+                '<option value="today">Today</option>'+
+                '<option value="yesterday">Yesterday</option>'+
+                '<option value="this-week">This Week</option>'+
+                '<option value="week-ago">Week Ago</option>'+
+                '<option value="this-month">This Month</option>'+
+                '<option value="this-year">This Year</option>');
+               optionDropdown.append(selectOptionHtml);
+               optionDropdown.selectpicker();
+
+           }else{
+             var optionDropdown = $('.timeOption',row);
+             optionDropdown.hide();
+           }
+         });
+    };
+
+    $(".add-filter",'#auditlogReport').on("click", function(e) {
+        e.preventDefault();
+        e.stopImmediatePropagation();
+        $("#filterList",'#auditlogReport').removeClass("hidden");
+
+        var newNode = $.parseHTML('<div class="row" style="margin-bottom:5px;">'+
+        '<div class="col-md-5">' +
+         '<select class="selectpicker col-md-10" id="log-report-fields">'+
+         '</select>' +
+            '</div>'+
+            '<div class="col-md-5">'+
+            '<select class="selectpicker col-md-10 timeOption">'+
+            '</select>' +
+              '</div>'+
+              '<div class="col-md-2">'+
+              '<span class="column-delete btn btn-link delete del-label" style="float:right">' +
+               '<i class="fa fa-trash"></i></span>' +
+              '</div>'+
+              '</div>'+
+            '</div>');
+
+         $('#newRow','#auditlogReport').append(newNode);
+         attachEvent($(newNode));
+    });
+
+     $("#reportType").change(function(){
+        $('#newRow','#auditlogReport').empty();
+        $('#filterList','#auditlogReport').addClass('hidden');
+     });
+
+     $('#log-report-button-apply').on('click',function(e){
+       e.preventDefault();
+       e.stopImmediatePropagation();
+       $('.report-loader').show();
+      var params = '';
+      var logFile= ($('#log-path-info','#auditlogReport').val()!='')?'-if '+ $('#log-path-info','#auditlogReport').val():'';
+          params+=logFile;
+
+      if($('input[type=checkbox]:checked',$('#auditlogReport')).length!==0){
+        params.length>0?params+=' -i':params+='-i';
+      }
+
+       $('#newRow div.row','#auditlogReport').each(function(){
+         if(params.length>0){
+            params+=" ";
+          }
+          var field = $('.selectpicker',$(this)).val();
+          var value = "";
+
+           if($('.timeOption',$(this)).length!=0){
+             value = $('.timeOption',$(this)).find('option:selected').val();
+           }
+            params+=field+(value!=undefined?(" "+value):'');
+       });
+
+      if(params==''){
+        ginger.getAuditSummaryReport(function(result){
+           populateReport(result);
+        },function(error){
+          wok.message.error(error.responseJSON.reason,"#alert-modal-audit-report-container");
+        })
+      }else{
+        ginger.getAuditReport(params,function(result){
+           populateReport(result);
+        },function(error){
+          wok.message.error(error.responseJSON.reason,"#alert-modal-audit-report-container");
+        });
+      }
+
+       var populateReport = function(result){
+         $('#report-details').removeClass("hidden").focus();
+         $('#summaryreport').empty();
+          var columnInfo = {};
+          var summary = [];
+
+         if(result.length>1){
+          columnInfo  = result[0]["column_info"];
+          summary   = result[1]["summary"];
+            $("#report-graph-button").removeClass("hidden");
+          }else{
+           summary = result[0]["summary"];
+            $("#report-graph-button").addClass("hidden");
+          }
+
+          var  details = "";
+            $.each(summary,function(index,info){
+              if(info!=""){
+                details+=info+"<br>";
+              }
+            });
+
+          ginger.initGraphDetails(columnInfo);
+          $('#summaryreport').append(details);
+          $("#summaryReportPathInfo").html(i18n['GINAUDIT0017M']).removeClass('hidden');
+          $('.report-loader').hide();
+        }
+    });
+
+    $("#report-download-button").on("click",function(e){
+      var reportFilePath = '/data/logs/audit_summary_report.txt';
+      window.open(reportFilePath, '_blank');
+    });
+ });
+
+   $('#auditlogReport').on('hide.bs.modal', function(event) {
+     $('#log-path-info',$(this)).val('');
+     $('#newRow',$(this)).empty();
+     $('#interpret',$(this)).attr('checked',false);
+     $('#log-report-button-apply').off();
+     $("#report-download-button").off();
+     $("#report-graph-button").off();
+      $('#summaryreport').empty();
+      $('#summaryReportPathInfo').empty().hide();
+      $("#report-details").addClass("hidden");
+    });
+};
+ginger.initGraphDetails = function(columnInfo){
+  $('#reportGraph').on('show.bs.modal', function(event) {
+    $("#graphPathInfo").addClass("hidden");
+    $("#graph-name").val(i18n['GINAUDIT0020M']);
+    $("#generate-report-graph-button").addClass("hidden");
+    var graphColumns = $("#graphColumns");
+    graphColumns.empty().selectpicker('destroy');
+    $.each(columnInfo,function(key,value){
+      graphColumns.append($("<option></option>")
+      .attr("value",value)
+      .text(key.replace(/"/g, "")));
+    });
+    graphColumns.selectpicker();
+
+    var checkFields  = function(){
+      if($("#graphColumns").val()!=null && $("#graphColumns").val().length==2 && $("#graphFormat").val()!="" && $("#graph-name").val()!=""){
+          $("#generate-report-graph-button").removeClass("hidden");
+      }else{
+          $("#generate-report-graph-button").addClass("hidden");
+      }
+    }
+
+    $("#graphFormat").selectpicker();
+
+    $("#graphColumns").change(function(e){
+      checkFields();
+    });
+
+    $("#graph-name").keyup(function(e){
+      checkFields();
+    });
+
+    $("#generate-report-graph-button").on('click',function(e){
+      e.preventDefault();
+      e.stopImmediatePropagation();
+      $("#graph").empty();
+      var columns = $("#graphColumns").val();
+      var format = $("#graphFormat").val();
+      var graphName = $("#graph-name").val();
+      var params = graphName+","+columns.toString()+","+format;
+      ginger.getReportGraph(params,function(result){
+        var graphLocation = result[0]['Graph:'];
+        $("#graphPathInfo").html(i18n['GINAUDIT0018M'].replace("%1",graphLocation).replace("data","var/lib/wok")).removeClass("hidden");
+        window.open(graphLocation, '_blank');
+      },function(error){
+        wok.message.error(data.responseJSON.reason,"#alert-modal-audit-graph-container");
+      });
+    });
+   });
+
+     $('#reportGraph').on('hide.bs.modal', function(event) {
+       $("#graphColumns").selectpicker('deselectAll');
+       $("#graphColumns").selectpicker('destroy');
+       $("#graphFormat").selectpicker('destroy');
+       $("#graph-name").val('');
+       $("#graph").empty();
+       $("#generate-report-graph-button").off();
+     });
+ };
 ginger.initAdmin = function() {
     $(".content-area", "#gingerHostAdmin").css("height", "100%");
     ginger.getCapabilities(function(result) {
