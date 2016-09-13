@@ -1,0 +1,321 @@
+#*
+ * Project Ginger
+ *
+ * Copyright IBM Corp, 2016
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *#
+#unicode UTF-8
+#import gettext
+#from wok.cachebust import href
+#silent t = gettext.translation($lang.domain, $lang.localedir, languages=$lang.lang, fallback=True)
+#silent _ = t.gettext
+#silent _t = t.gettext
+<!DOCTYPE html>
+<html>
+    <head>
+        <script type="text/javascript" src="plugins/ginger/js/host-admin-configauditrule.js">
+        </script>
+    </head>
+    <body>
+    <div class="modal-content" id="Audit-Config">
+        <div class="modal-header">
+            <button type="button" id="AuditConfig-button-close" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <h4 class="modal-title">$_("Auditd Configuration")</h4>
+        </div>
+        <hr>
+        <div class="modal-body" id="AuditConfig">
+          <div id="alert-auditconfig-modal"></div>
+          <div id="Audit-Config-tabs">
+            <form role="tabpanel" class="tab-pane form-horizontal" id="Audit-Config-general">
+            <span id="configrule-message" style="display:none;"></span>
+              <div class="form-group">
+                <label class="col-sm-4" for="local_event">$_("Local Event")</label>
+                <div class="col-sm-8">
+                  <select class="selectpicker col-sm-12" id="local_event">
+                    <option value="yes">$_("Yes")</option>
+                    <option value="no">$_("No")</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-4" for="log_file">$_("Log File")</label>
+                <div class="col-sm-8 col-xs-3">
+                  <input id="log_file" class="form-control" name="logfile" type="text"/>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-4" for="write_logs">$_("Write Logs")</label>
+                <div class="col-sm-8">
+                  <select class="selectpicker col-sm-12" id="write_logs">
+                    <option value="yes">$_("Yes")</option>
+                    <option value="no">$_("No")</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-4" for="log_format">$_("Log Format")</label>
+                <div class="col-sm-8">
+                  <select class="selectpicker col-sm-12" id="log_format">
+                    <option value="raw">$_("Raw")</option>
+                    <option value="enriched">$_("Enriched")</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-4" for="log_group">$_("Log Group")</label>
+                <div class="col-sm-8 col-xs-3">
+                  <input id="log_group" class="form-control" name="loggroup" type="text"/>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-4" for="priority_boost">$_("Priority Boost")</label>
+                <div class="col-sm-8 col-xs-3">
+                  <input id="priority_boost" class="form-control" name="priority" type="text"/>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-4" for="flushid">$_("Flush")</label>
+                <div class="col-sm-8">
+                  <select class="selectpicker col-sm-12" id="flushid">
+                    <option value="none">$_("None")</option>
+                    <option value="incremental">$_("Incremental")</option>
+                    <option value="incremental_async">$_("Incremental_async")</option>
+                    <option value="data">$_("Data")</option>
+                    <option value="sync">$_("Sync")</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-4" for="freq">$_("Flush Freq")</label>
+                <div class="col-sm-8 col-xs-3">
+                  <input id="freq" class="form-control" name="freq" type="text"/>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-4" for="nums_logs">$_("Log File Nums")</label>
+                <div class="col-sm-8 col-xs-3">
+                  <input id="nums_logs" class="form-control" name="logfilenumber" type="number" step="1" min="0" max="999"/>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-4" for="disp_qos">$_("Disp_qos")</label>
+                <div class="col-sm-8">
+                  <select class="selectpicker col-sm-12" id="disp_qos">
+                    <option value="lossless">$_("Blocking/Lossless")</option>
+                    <option value="lossy">$_("Non-Blocking/Lossy")</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-4" for="disp_path">$_("Dispatcher Path")</label>
+                <div class="col-sm-8 col-xs-3">
+                  <input id="disp_path" class="form-control" name="logfile" type="text"/>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-4" for="nameformat">$_("Name Format")</label>
+                <div class="col-sm-8">
+                  <select class="selectpicker col-sm-12" id="nameformat">
+                    <option value="none">$_("None")</option>
+                    <option value="hostname">$_("HostName")</option>
+                    <option value="fqd">$_("fqd")</option>
+                    <option value="numeric">$_("Numeric")</option>
+                    <option value="user">$_("User")</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-4" for="namefor">$_("Name")</label>
+                <div class="col-sm-8 col-xs-3">
+                  <input id="namefor" class="form-control" name="name" type="text"/>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-4" for="logfilesize">$_("Max Log FileSize ")</label>
+                <div class="col-sm-8 col-xs-3">
+                  <input id="logfilesize" class="form-control" name="name" type="text"/>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-4" for="logfile_action">$_("Log File Action")</label>
+                <div class="col-sm-8">
+                  <select class="selectpicker col-sm-12" id="logfile_action">
+                    <option value="rotate">$_("Rotate")</option>
+                    <option value="ignore">$_("Ignore")</option>
+                    <option value="syscall">$_("Syscall")</option>
+                    <option value="suspend">$_("Suspend")</option>
+                    <option value="keep_logs">$_("keep_logs")</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-4" for="action_mail_acct">$_("Action Mail")</label>
+                <div class="col-sm-8 col-xs-3">
+                  <input id="action_mail_acct" class="form-control" name="name" type="text"/>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-4" for="space_left">$_("Space Left(MBs)")</label>
+                <div class="col-sm-8 col-xs-3">
+                  <input id="space_left" class="form-control" name="spaceleft" type="number" step="1" min="0" max="999"/>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-4" for="space_left_action">$_("Space Left Action")</label>
+                <div class="col-sm-8">
+                  <select class="selectpicker col-sm-12" id="space_left_action">
+                    <option value="syslog">$_("SYSLOG")</option>
+                    <option value="ignore">$_("Ignore")</option>
+                    <option value="exec">$_("exec")</option>
+                    <option value="rotate">$_("Rotate")</option>
+                    <option value="email">$_("email")</option>
+                    <option value="suspend">$_("Suspend")</option>
+                    <option value="halt">$_("Halt")</option>
+                    <option value="single">$_("Single")</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-4" for="Adminspace_left">$_("Admin Space Left(MBs)")</label>
+                <div class="col-sm-8 col-xs-3">
+                  <input id="Adminspace_left" class="form-control" name="logfilenumber" type="number" step="1" min="0" max="999"/>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-4" for="Admin_spaceleft_action">$_("Admin Space Left Action")</label>
+                <div class="col-sm-8">
+                  <select class="selectpicker col-sm-12" id="Admin_spaceleft_action">
+                    <option value="syslog">$_("SYSLOG")</option>
+                    <option value="ignore">$_("Ignore")</option>
+                    <option value="exec">$_("exec")</option>
+                    <option value="rotate">$_("Rotate")</option>
+                    <option value="email">$_("email")</option>
+                    <option value="suspend">$_("Suspend")</option>
+                    <option value="halt">$_("Halt")</option>
+                    <option value="single">$_("Single")</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-4" for="diskfull_action">$_("Disk Full Action")</label>
+                <div class="col-sm-8">
+                  <select class="selectpicker col-sm-12" id="diskfull_action">
+                    <option value="syslog">$_("SYSLOG")</option>
+                    <option value="ignore">$_("Ignore")</option>
+                    <option value="exec">$_("exec")</option>
+                    <option value="rotate">$_("Rotate")</option>
+                    <option value="suspend">$_("Suspend")</option>
+                    <option value="halt">$_("Halt")</option>
+                    <option value="single">$_("Single")</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-4" for="diskerror_action">$_("Disk Error Action")</label>
+                <div class="col-sm-8">
+                  <select class="selectpicker col-sm-12" id="diskerror_action">
+                    <option value="syslog">$_("SYSLOG")</option>
+                    <option value="ignore">$_("Ignore")</option>
+                    <option value="exec">$_("exec")</option>
+                    <option value="rotate">$_("Rotate")</option>
+                    <option value="suspend">$_("Suspend")</option>
+                    <option value="halt">$_("Halt")</option>
+                    <option value="single">$_("Single")</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-4" for="tcp_listen_port">$_("TCP Listen Port")</label>
+                <div class="col-sm-8 col-xs-3">
+                  <input id="tcp_listen_port" class="form-control" name="portnumber" type="number" step="1" min="1" max="65535"/>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-4" for="tcp_listen_queue">$_("TCP Listen Queue")</label>
+                <div class="col-sm-8 col-xs-3">
+                  <input id="tcp_listen_queue" class="form-control" name="portnumber" type="number" step="1" min="5" max="65535"/>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-4" for="tcp_max_per_address">$_("TCP Max per Address")</label>
+                <div class="col-sm-8 col-xs-3">
+                  <input id="tcp_max_per_address" class="form-control" name="portnumber" type="number" step="1" min="1" max="1024"/>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-4" for="use_libwrap">$_("Use Libwrap")</label>
+                <div class="col-sm-8">
+                  <select class="selectpicker col-sm-12" id="use_libwrap">
+                    <option value="yes">$_("Yes")</option>
+                    <option value="no">$_("No")</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-4" for="tcp_client_port">$_("TCP Client Port")</label>
+                <div class="col-sm-8 col-xs-3">
+                  <input id="tcp_client_port" class="form-control" name="portnumber" type="number" step="1" min="1" max="65535"/>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-4" for="tcp_client_max_idle">$_("TCP Client Max Idle")</label>
+                <div class="col-sm-8 col-xs-3">
+                  <input id="tcp_client_max_idle" class="form-control" name="portnumber" type="number" step="1" min="1" max="65535"/>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-4" for="enable_krb5">$_("Enable Krb5")</label>
+                <div class="col-sm-8">
+                  <select class="selectpicker col-sm-12" id="enable_krb5">
+                    <option value="yes">$_("Yes")</option>
+                    <option value="no">$_("No")</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-4" for="krb5_principle">$_("Krb5 Principle")</label>
+                <div class="col-sm-8 col-xs-3">
+                  <input id="krb5_principle" class="form-control" name="name" type="text"/>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-4" for="krb5_key_file">$_("Krb5 Key File")</label>
+                <div class="col-sm-8 col-xs-3">
+                  <input id="krb5_key_file" class="form-control" name="name" type="text"/>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-4" for="distribute_network">$_("Distribute Network")</label>
+                <div class="col-sm-8">
+                  <select class="selectpicker col-sm-12" id="distribute_network">
+                    <option value="yes">$_("Yes")</option>
+                    <option value="no">$_("No")</option>
+                  </select>
+                </div>
+              </div>
+          </form>
+        </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" id="AuditdConfig-submit" class="btn btn-default" >$_("Apply")</button>
+            <button type="button" id="AuditdConfig-cancel" class="btn btn-default" data-dismiss="modal">$_("Cancel")</button>
+        </div>
+    </div>
+    <script>
+          ginger.initConfigRule();
+    </script>
+  </body>
+  </html>

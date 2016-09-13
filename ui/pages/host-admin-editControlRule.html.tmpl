@@ -1,0 +1,90 @@
+#*
+ * Project Ginger
+ *
+ * Copyright IBM Corp, 2016
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *#
+#unicode UTF-8
+#import gettext
+#from wok.cachebust import href
+#silent t = gettext.translation($lang.domain, $lang.localedir, languages=$lang.lang, fallback=True)
+#silent _ = t.gettext
+#silent _t = t.gettext
+<!DOCTYPE html>
+<html>
+  <head>
+      <script type="text/javascript" src="plugins/ginger/js/host-admin-editrule.js">
+      </script>
+  </head>
+  <body>
+  <div class="modal-content" id="EditControl-Rule">
+      <div class="modal-header">
+          <button type="button" id="EditControlRule-button-close" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+          </button>
+          <h4 class="modal-title">$_("Edit Rule")</h4>
+      </div>
+      <hr>
+      <div class="modal-body" id="AuditControl">
+      <span id="editrule-message" style="display:none;"></span>
+        <form role="tabpanel" class="tab-pane form-horizontal" id="EditControlRule">
+            <div id="controlruleedit">
+            <div class="form-group">
+              <label class="col-sm-4" for="rule-type">$_("Rule Type")</label>
+              <div class="col-sm-8 col-xs-3">
+                <input id="rule-type" class="form-control" name="ruletype" type="text" disabled/>
+              </div>
+            </div>
+            <div class="form-group">
+            <label class="col-sm-4"> Option </label>
+            <select id="optionid" name="type" class="selectpicker col-sm-8 col-xs-3">
+                <option value="-b">$_("-b (backlog)")</option>
+                <option value="-f">$_("-f")</option>
+                <option value="-r">$_("-r (rate)")</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="controlRvalue" class="col-sm-4" >$_("Value")</label>
+            <div id="bvalue" class="row col-sm-8 col-xs-3" hidden>
+              <input type="number" class="form-control inputbox " id="bvaluedata" name="value" step="1" min="0" max="999" value="0" />
+            </div>
+            <div id="rvalue"class="row col-sm-8 col-xs-3" hidden><input class="form-control inputbox " id="rvaluedata" name="value" type="number" step="1" min="0" max="999" value="64"/></div>
+            <div id="evalue"class="row col-sm-8 col-xs-3" hidden>
+              <select class="selectpicker col-sm-12" id="evaluedata">
+                <option value="0">$_("0")</option>
+                <option value="1">$_("1")</option>
+                <option value="2">$_("2")</option>
+              </select>
+            </div>
+            <div id="fvalue"class="row col-sm-8 col-xs-3" hidden>
+              <select class="selectpicker col-sm-12" id="fvaluedata">
+                <option value="0">$_("0")</option>
+                <option value="1">$_("1")</option>
+                <option value="2">$_("2")</option>
+              </select>
+            </div>
+          </div>
+          </div>
+            </form>
+          </div>
+        <div class="modal-footer">
+            <button type="button" id="EditControlRule-submit" class="btn btn-default" >$_("Apply")</button>
+            <button type="button" id="EditControl-cancel" class="btn btn-default" data-dismiss="modal">$_("Cancel")</button>
+        </div>
+    </div>
+    <script>
+           ginger.initEditControlRule();
+    </script>
+  </body>
+  </html>
