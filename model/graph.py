@@ -20,7 +20,12 @@
 
 import subprocess
 
-mkgraph = '/usr/lib/python2.7/site-packages/wok/plugins/ginger/mkgraph.sh'
+from mkgraph import create_graph
+from wok.config import get_log_download_path
+from wok.exception import OperationFailed, InvalidParameter, InvalidOperation
+
+audit_summary_report = \
+    "%s/audit_summary_report.txt" % get_log_download_path()
 
 
 class GraphsModel(object):
@@ -28,19 +33,27 @@ class GraphsModel(object):
         pass
 
     def get_list(self, _filter):
-        filter = str(_filter)
-        params = filter.split(',')
-        report = []
-        cmd = "cat /var/log/wok/audit_summary_report.txt | awk '/^[0-9]/ { " \
-              "printf \"%s %s\\n\", $" + params[1] + ", $" + params[2] + \
-              "}'| sort | uniq | " \
-              "/usr/lib/python2.7" \
-              "/site-packages/wok/plugins/ginger/mkgraph.sh " + params[0]
-        p = subprocess.Popen(cmd, stdin=subprocess.PIPE,
-                             stdout=subprocess.PIPE, shell=True)
-        out = p.communicate()
-        str(out).split('\n')
-        report_dict = dict()
-        report_dict['Graph:'] = "/var/log/wok/" + params[0] + ".svg"
-        report.append(report_dict)
-        return report
+        try:
+            filter = str(_filter)
+            params = filter.split(',')
+            if len(params) != 4:
+                raise InvalidParameter('GINAUD0029E')
+            report = []
+            cmd = "cat " + audit_summary_report + " |" \
+                  " awk '/^[0-9]/ { " \
+                  "printf \"%s %s\\n\", $" + params[1] + ", $" + params[2] + \
+                  "}'| sort | uniq"
+            p = subprocess.Popen(cmd, stdin=subprocess.PIPE,
+                                 stdout=subprocess.PIPE, shell=True)
+            out = p.communicate()
+            str(out).split('\n')
+            create_graph(out, params[0], params[3])
+            report_dict = dict()
+            report_dict['Graph:'] = "/data/logs/" + params[0] + "." + \
+                                    params[3]
+            report.append(report_dict)
+            return report
+        except InvalidOperation:
+            raise
+        except Exception, e:
+            raise OperationFailed('GINAUD0028E', {'error': e.message})

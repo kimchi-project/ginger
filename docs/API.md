@@ -1057,7 +1057,8 @@ URI: /plugins/ginger/services/*:service_name*
 **METHODS:**
 
 * **GET**: Creates a graph on the filtered output of the audit report.
-           Graph creation requires two columns to be provided as input.
+           Graph creation requires graph name, 2 columns from the report and
+           the format of the graph as input .
         * Graph: string. Path where the graph has been created.
 
 ### Collection: Logs
