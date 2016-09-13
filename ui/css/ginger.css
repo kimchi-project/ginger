@@ -702,10 +702,6 @@
   padding-top: 4px;
 }
 
-#audit-rules-content-area .fa {
-  cursor: pointer;
-}
-
 #audit-rules-content-area .audit-rules-loaded-enable .fa {
   font-size: 20px;
   color: #78d470;
@@ -800,6 +796,7 @@
   font-weight: 400;
 }
 
+#audit-logs-content-area td.content,
 #audit-rules-content-area td.content {
   max-width: 250px;
   white-space: nowrap;
@@ -807,7 +804,50 @@
   text-overflow: ellipsis;
 }
 
-/* End of Firmware Progress Accordion */
+#audit-logs-content-area .fa,
+#audit-rules-content-area .fa {
+  cursor: pointer;
+}
+
+#audit-logs-content-area .audit-log-details {
+  width: 100%;
+  padding: 8px;
+  background: #ddd;
+}
+
+#audit-logs-content-area .audit-log-info {
+  width: 100%;
+  background: #fff;
+  display: block;
+  min-height: 100px;
+  padding-top: 10px;
+  padding-left: 10px;
+}
+
+#audit-logs-content-area dl {
+  margin-bottom: 0px;
+  padding-bottom: 10px;
+}
+
+#audit-logs-content-area dd {
+  padding-bottom: 15px;
+}
+
+#audit-logs-content-area .btn {
+  border-radius: 1px;
+}
+
+#auditlogReport .report {
+  max-height: 250px;
+  overflow-y: auto;
+  display: block;
+  background: #ddd;
+  padding: 10px;
+  padding-top: 20px;
+  margin-top: 20px;
+  border-top: 1px solid #eee;
+}
+
 #network-root-container .accordion {
   margin: 12px 20px 12px 60px;
   padding-bottom: 18px;
