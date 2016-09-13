@@ -18,12 +18,13 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301 USA
 
+import re
+
+from wok.config import get_log_download_path
 from wok.utils import run_command
 from wok.exception import OperationFailed
 
-audit_configpath = 'etc/audit/'
-auditlog_file = '/var/log/audit/audit.log'
-report_file = '/var/log/wok/audit_summary_report.txt'
+audit_summary_report = "%s/audit_summary_report.txt" % get_log_download_path()
 
 
 class ReportsModel(object):
@@ -42,7 +43,17 @@ class ReportsModel(object):
                     for each in each_options:
                         summary_cmd.append(each)
             out, error, rc = run_command(summary_cmd)
-            with open("/var/log/wok/audit_summary_report.txt", "w")\
+            regex = "#\s+((\w+\s*)*)"
+            match = re.search(regex, out)
+            if match:
+                column = dict()
+                words = match.group(1)
+                words = words.replace('\n', '')
+                words = words.split(" ")
+                dict_column = {k: v for v, k in enumerate(words)}
+                column['column_info'] = dict_column
+                report.append(column)
+            with open(audit_summary_report, "w")\
                     as report_file:
                 report_file.write(out)
             out_list = out.split('\n')
