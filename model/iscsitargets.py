@@ -146,7 +146,7 @@ class DiscoveredISCSIQNModel(object):
             raise InvalidParameter('GINISCSI012E', {'auth_type': auth_type})
 
 
-class ISCSIAuth(object):
+class ISCSIAuthModel(object):
 
     def lookup(self, name):
         return utils.get_iscsi_auth_info()
