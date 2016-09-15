@@ -1361,12 +1361,17 @@ def modify_iscsid_initiator_auth(auth_type, username, password):
     :param enable:
     :return:
     """
+    iscsi_auth_info = get_iscsi_auth_info()
     if auth_type == 'CHAP':
-        modify_iscsid_conf('node.session.auth.authmethod', auth_type)
+        if iscsi_auth_info['node.session.auth.authmethod'] != 'CHAP':
+            modify_iscsid_conf('node.session.auth.authmethod', auth_type)
         modify_iscsid_conf('node.session.auth.username', username)
         modify_iscsid_conf('node.session.auth.password', password)
     elif auth_type == 'None':
-        modify_iscsid_conf('node.session.auth.authmethod', auth_type)
+        if iscsi_auth_info['node.session.auth.username_in'] == 'None':
+            modify_iscsid_conf('node.session.auth.authmethod', auth_type)
+        modify_iscsid_conf('node.session.auth.username', username)
+        modify_iscsid_conf('node.session.auth.password', password)
     else:
         raise InvalidParameter('GINISCSI012E')
 
@@ -1377,12 +1382,17 @@ def modify_iscsid_target_auth(auth_type, username, password):
     :param enable:
     :return:
     """
+    iscsi_auth_info = get_iscsi_auth_info()
     if auth_type == 'CHAP':
-        modify_iscsid_conf('node.session.auth.authmethod', auth_type)
+        if iscsi_auth_info['node.session.auth.authmethod'] != 'CHAP':
+            modify_iscsid_conf('node.session.auth.authmethod', auth_type)
         modify_iscsid_conf('node.session.auth.username_in', username)
         modify_iscsid_conf('node.session.auth.password_in', password)
     elif auth_type == 'None':
-        modify_iscsid_conf('node.session.auth.authmethod', auth_type)
+        if iscsi_auth_info['node.session.auth.username'] == 'None':
+            modify_iscsid_conf('node.session.auth.authmethod', auth_type)
+        modify_iscsid_conf('node.session.auth.username_in', username)
+        modify_iscsid_conf('node.session.auth.password_in', password)
     else:
         raise InvalidParameter('GINISCSI012E')
 
@@ -1393,12 +1403,19 @@ def modify_iscsid_discovery_initiator_auth(auth_type, username, password):
     :param enable:
     :return:
     """
+    iscsi_auth_info = get_iscsi_auth_info()
     if auth_type == 'CHAP':
-        modify_iscsid_conf('discovery.sendtargets.auth.authmethod', auth_type)
+        if iscsi_auth_info['discovery.sendtargets.auth.authmethod'] != 'CHAP':
+            modify_iscsid_conf(
+                'discovery.sendtargets.auth.authmethod', auth_type)
         modify_iscsid_conf('discovery.sendtargets.auth.username', username)
         modify_iscsid_conf('discovery.sendtargets.auth.password', password)
     elif auth_type == 'None':
-        modify_iscsid_conf('discovery.sendtargets.auth.authmethod', auth_type)
+        if iscsi_auth_info['discovery.sendtargets.auth.username_in'] == 'None':
+            modify_iscsid_conf(
+                'discovery.sendtargets.auth.authmethod', auth_type)
+        modify_iscsid_conf('discovery.sendtargets.auth.username', username)
+        modify_iscsid_conf('discovery.sendtargets.auth.password', password)
     else:
         raise InvalidParameter('GINISCSI012E')
 
@@ -1409,12 +1426,19 @@ def modify_iscsid_discovery_target_auth(auth_type, username, password):
     :param enable:
     :return:
     """
+    iscsi_auth_info = get_iscsi_auth_info()
     if auth_type == 'CHAP':
-        modify_iscsid_conf('discovery.sendtargets.auth.authmethod', auth_type)
+        if iscsi_auth_info['discovery.sendtargets.auth.authmethod'] != 'CHAP':
+            modify_iscsid_conf(
+                'discovery.sendtargets.auth.authmethod', auth_type)
         modify_iscsid_conf('discovery.sendtargets.auth.username_in', username)
         modify_iscsid_conf('discovery.sendtargets.auth.password_in', password)
     elif auth_type == 'None':
-        modify_iscsid_conf('discovery.sendtargets.auth.authmethod', auth_type)
+        if iscsi_auth_info['discovery.sendtargets.auth.username'] == 'None':
+            modify_iscsid_conf(
+                'discovery.sendtargets.auth.authmethod', auth_type)
+        modify_iscsid_conf('discovery.sendtargets.auth.username_in', username)
+        modify_iscsid_conf('discovery.sendtargets.auth.password_in', password)
     else:
         raise InvalidParameter('GINISCSI012E')
 
@@ -1433,11 +1457,14 @@ def modify_iscsid_conf(parameter, value):
             f.seek(0)
             f.truncate()
             for line in lines:
-                if re.match('^#?' +
+                if re.match('^#?\s*' +
                             (parameter[1:] if
                              parameter.startswith("#") else parameter) +
                             '\s', line) is not None:
-                    line = parameter + ' = ' + value + '\n'
+                    if not value or value == 'None':
+                        line = '#' + parameter + ' = ' + 'None' + '\n'
+                    else:
+                        line = parameter + ' = ' + value + '\n'
                 f.write(line)
     except Exception as e:
         raise OperationFailed(

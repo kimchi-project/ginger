@@ -50,6 +50,7 @@ class ISCSIAuthUnitTests(unittest.TestCase):
                'discovery.sendtargets.auth.username_in = user1\n' \
                'discovery.sendtargets.auth.password_in = pass\n'
         open_mock = mock.mock_open(read_data=data)
+        open_mock.return_value.readlines.return_value = data.split('\n')
         with mock.patch('wok.plugins.ginger.model.utils.open',
                         open_mock, create=True):
             auth_info = utils.get_iscsi_auth_info()
@@ -70,6 +71,7 @@ class ISCSIAuthUnitTests(unittest.TestCase):
                'discovery.sendtargets.auth.username_in = user1\n' \
                'discovery.sendtargets.auth.password_in = pass\n'
         open_mock = mock.mock_open(read_data=data)
+        open_mock.return_value.readlines.return_value = data.split('\n')
         with mock.patch('wok.plugins.ginger.model.utils.open',
                         open_mock, create=True):
             auth_info = utils.get_iscsi_iqn_auth_info('test_iqn')[0]['auth']
