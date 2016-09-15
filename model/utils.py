@@ -19,10 +19,12 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 
 import binascii
+import fileinput
 import glob
 import os
 import re
 import subprocess
+import sys
 
 from distutils.version import LooseVersion
 from parted import Device as PDevice
@@ -1556,3 +1558,28 @@ def get_iscsi_iqn_auth_info(iqn):
         raise OperationFailed("GINISCSI019E", {'err': e.message, 'iqn': iqn})
 
     return info_list
+
+
+def del_lines_of_attribute(key_string, conf):
+    try:
+        for line in fileinput.input(conf, inplace=True):
+            my_regex = \
+                "(#)+(" + re.escape(key_string) + ")+\s*\W+\s*(\W+\w+)*"
+            if not re.match(my_regex, line):
+                sys.stdout.write(line)
+
+        for line in fileinput.input(conf, inplace=True):
+            my_regex = "(" + re.escape(key_string) + ")+\s*\W+\s*(\W+\w+)*"
+            if not re.match(my_regex, line):
+                sys.stdout.write(line)
+    except Exception:
+        raise OperationFailed("GINAUDISP0002E", {"name": conf})
+
+
+def write_to_conf(key, value, conf):
+    try:
+        with open(conf, 'a+') as conf_file:
+            conf_file.write(key + " = " + value + "\n")
+            conf_file.close()
+    except Exception:
+        raise OperationFailed("GINAUDISP0003E", {"name": conf})
