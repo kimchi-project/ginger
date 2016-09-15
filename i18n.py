@@ -418,6 +418,12 @@ messages = {
     "GINSDR00001E": _("Unable to get SDR information for server %(name)s. IPMI Command error %(err)s , rc = %(rc)s"),
     "GINSDR00002E": _("Cannot process SDR entry %(sdrString)s"),
     "GINSDR00003E": _("%(sensor_type)s is not a valid sensor type"),
+    "GINAUDISP0001E": _("Error occured in retrieving the info for the plugin %(name)s."),
+    "GINAUDISP0002E": _("Error occured in deleting from the file %(name)s."),
+    "GINAUDISP0003E": _("Error occured in writing to the file %(name)s."),
+    "GINAUDISP0004E": _("Error occured in updating data in the file %(name)s."),
+    "GINAUDISP0005E": _("Error in retrieving the info for the audit dispatcher conf file."),
+    "GINAUDISP0006E": _("Conf file does not exist for the plugin: %(name)s"),
 
     # These messages (ending with L) are for user log purposes
     "GINAUD0001L": _("Create audit rule '%(rule)s' type '%(type)s'"),
@@ -504,4 +510,6 @@ messages = {
     "GINVG0002L": _("Remove host volume group '%(ident)s'"),
     "GINVG0003L": _("Extend host volume group '%(ident)s'"),
     "GINVG0004L": _("Reduce host volume group '%(ident)s'"),
+    "GINAUDISP0001L": _("Updated the auditdisp plugin conf file '%(ident)s'."),
+    "GINAUDISP0002L": _("Updated the auditdisp conf file '%(ident)s'.")
 }
