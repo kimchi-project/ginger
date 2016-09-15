@@ -1084,6 +1084,33 @@ URI: /plugins/ginger/services/*:service_name*
 
 *NOTE: The syscall API is for providing the list of systemcalls to the UI.
 
+## Resource: Auditdisp
+
+**URI:** /plugins/ginger/audit/auditdisp
+
+**METHODS:**
+
+* **GET**: Retrieve the dictionary of auditdisp.conf details.
+
+* **PUT**: Updates the auditdisp.conf details.
+
+### Collection: Audisp_plugins
+
+**URI:** /plugins/ginger/auditdisp/plugins
+
+**METHODS:**
+
+* **GET**: Retrieve the list of audit dispatcher plugins details.
+
+### Resource: Audisp_plugin
+
+**URI:** /plugins/ginger/auditdisp/plugins/*:plugin_name*
+
+**METHODS:**
+
+* **GET**: Retrieve the dictionary of plugin details.
+
+* **PUT**: Updates the plugin's conf details.
 ### Collection: iSCSI Targets
 
 **URI:** /plugins/ginger/stgserver/*:ipaddress*/iscsitargets
