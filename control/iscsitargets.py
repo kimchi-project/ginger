@@ -29,8 +29,6 @@ ISCSIIQN_REQUESTS = {
         'rescan': "GINISCSI0004L",
         'initiator_auth': "GINISCSI0005L",
         'target_auth': "GINISCSI0006L",
-        'discovery_initiator_auth': "GINISCSI0007L",
-        'discovery_target_auth': "GINISCSI0008L",
     },
 }
 
@@ -91,10 +89,6 @@ class DiscoveredISCSIQN(Resource):
             'initiator_auth', ['auth_type', 'username', 'password'])
         self.target_auth = self.generate_action_handler(
             'target_auth', ['auth_type', 'username', 'password'])
-        self.discovery_initiator_auth = self.generate_action_handler(
-            'discovery_initiator_auth', ['auth_type', 'username', 'password'])
-        self.discovery_target_auth = self.generate_action_handler(
-            'discovery_target_auth', ['auth_type', 'username', 'password'])
 
     @property
     def data(self):

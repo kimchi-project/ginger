@@ -1144,19 +1144,6 @@ URI: /plugins/ginger/services/*:service_name*
    * username
    * password
 
-**URI:**  /plugins/ginger/iscsi_qns/*:iqn*/discovery_initiator_auth
-
-* discovery_initiator_auth: Set a discovery session CHAP username and password for the initiator
-   * auth_type - CHAP or None
-   * username
-   * password
-
-**URI:**  /plugins/ginger/iscsi_qns/*:iqn*/discovery_target_auth
-
-* discovery_target_auth: Set a discovery session CHAP username and password for target(s)
-   * auth_type - CHAP or None
-   * username
-   * password
 
 * **DELETE**: Delete the IQN entry from the iscsiadm db
 

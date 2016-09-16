@@ -450,8 +450,6 @@ messages = {
     "GINISCSI0004L": _("Rescan IQN '%(ident)s'"),
     "GINISCSI0005L": _("Set initiator CHAP credentials for IQN '%(ident)s'"),
     "GINISCSI0006L": _("Set targets CHAP credentials for IQN '%(ident)s'"),
-    "GINISCSI0007L": _("Set initiator discovery session CHAP credentials for IQN '%(ident)s'"),
-    "GINISCSI0008L": _("Set targets discovery session CHAP credentials for IQN '%(ident)s'"),
     "GINLV0001L": _("Create logical volume at volume group '%(vg_name)s'"),
     "GINLV0002L": _("Remove logical volume '%(ident)s'"),
     "GINNET0001L": _("Create configuration file for network interface"),
