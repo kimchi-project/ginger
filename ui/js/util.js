@@ -1876,6 +1876,104 @@ ginger.getAuditRules = function(suc, err) {
        }
    });
  };
+/**
+  * Get the Audit dispatcher plugin.
+  */
+ ginger.getDispatcherPlugin = function(suc, err) {
+   wok.requestJSON({
+       url : '/plugins/ginger/auditdisp/plugins',
+       type : 'GET',
+       contentType : 'application/json',
+       dataType : 'json',
+       success : suc,
+       error : err || function(data) {
+           wok.message.error(data.responseJSON.reason);
+       }
+   });
+ };
+
+ /**
+  * Get the audit dispatcher status.
+  */
+ ginger.getAuditStatus = function(suc, err) {
+   wok.requestJSON({
+       url : '/plugins/ginger/audit/conf',
+       type : 'GET',
+       contentType : 'application/json',
+       dataType : 'json',
+       success : suc,
+       error : err || function(data) {
+           wok.message.error(data.responseJSON.reason);
+       }
+   });
+ };
+
+ /**
+  * Change audit dispatcher status.
+  */
+ ginger.changeAuditDispatcherStatus = function(action,suc, err) {
+   wok.requestJSON({
+       url : '/plugins/ginger/audit/conf/audisp_'+action,
+       type : 'POST',
+       contentType : 'application/json',
+       dataType : 'json',
+       data :'',
+       success : suc,
+       error : err || function(data) {
+           wok.message.error(data.responseJSON.reason);
+       }
+   });
+ };
+
+ /**
+  * get audit dispatcher details.
+  */
+ ginger.getDispatcherConfiguration = function(suc, err) {
+   wok.requestJSON({
+       url : '/plugins/ginger/auditdisp',
+       type : 'GET',
+       contentType : 'application/json',
+       dataType : 'json',
+       success : suc,
+       error : err || function(data) {
+           wok.message.error(data.responseJSON.reason);
+       }
+   });
+ };
+
+ /**
+  * update audit dispatcher details.
+  */
+ ginger.updateDispatcherConfiguration = function(params, suc, err) {
+   wok.requestJSON({
+       url : '/plugins/ginger/auditdisp',
+       type : 'PUT',
+       contentType : 'application/json',
+       dataType : 'json',
+       data : JSON.stringify(params),
+       success : suc,
+       error : err || function(data) {
+           wok.message.error(data.responseJSON.reason);
+       }
+   });
+ };
+
+ /**
+  * update audit dispatcher plugin.
+  */
+ ginger.updateDispatcherPlugin = function(name,params, suc, err) {
+   wok.requestJSON({
+       url : '/plugins/ginger/auditdisp/plugins/'+name,
+       type : 'PUT',
+       contentType : 'application/json',
+       dataType : 'json',
+       data : JSON.stringify(params),
+       success : suc,
+       error : err || function(data) {
+           wok.message.error(data.responseJSON.reason);
+       }
+   });
+ };
 
 /**
  * Systems Platform Management
