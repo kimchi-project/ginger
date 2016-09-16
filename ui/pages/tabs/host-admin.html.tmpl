@@ -161,6 +161,43 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
             </div>
         </div>
     </div>
+<!-- Audit dispatcher section -->
+  <div class="panel-group users-ppc-enabled accordion" id="rules-ppc-enabled-accordion" role="tablist" aria-multiselectable="true" style="display: none;">
+    <h3>
+        <a role="button" data-toggle="collapse" data-parent="#rules-ppc-enabled-accordion" href="#audit-dispatcher-content-area" aria-expanded="false" aria-controls="audit-rules-content-area" class="">
+            <span class="accordion-icon"></span><span class="accordion-text">$_("Audit Dispatcher")</span>
+        </a>
+    </h3>
+    <div id="audit-dispatcher-content-area" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+        <span id='alert-modal-audit-dispatcher-container' style='display: none;'></span>
+        <div class='clearfix'>
+            <div class="row">
+               <div class="col-sd-12"><span>&nbsp;</span></div>
+            </div>
+            <div class="row" id="audit-dispatcher">
+              <table id="audit-disp-plugin-table" class="table table-stripped" cellspacing="0" width="100%">
+                <thead>
+                  <tr>
+                    <th>$_("Plugin")</th>
+                    <th>$_("Active")</th>
+                    <th style="text-align:center;">$_("Details")</th>
+                    <th>$_("Info")</th>
+                  </tr>
+                </thead>
+                <tbody></tbody>
+              </table>
+            </div>
+        </div>
+        <div class="wok-mask dispatcher-loader">
+          <div class="wok-mask-loader-container">
+            <div class="wok-mask-loading">
+              <div class="wok-mask-loading-icon"></div>
+              <div class="wok-mask-loading-text">$_("Loading...")</div>
+            </div>
+          </div>
+        </div>
+    </div>
+  </div>
     <!-- Firmware Update Panel -->
             <div class="panel-group firmware-ppc-enabled accordion" id="firmware-ppc-enabled-accordion" role="tablist" aria-multiselectable="true" style="display: none;">
                 <h3>
@@ -703,6 +740,122 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
         </div>
     </div>
  </div>
+ <!-- Audit Dispatcher Configuration -->
+ <div class="modal fade host-modal" id="auditDisprConf" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+     <div class="modal-dialog" role="document">
+         <div class="modal-content" >
+           <div class="modal-header">
+             <button type="button" id="log-filter-button-close" class="close" data-dismiss="modal" aria-label="Close">
+               <span aria-hidden="true">&times;</span>
+             </button>
+             <h4 class="modal-title" id="disp-conf-title">$_("Audit Dispatcher Configuration")</h4>
+             <hr style="width:99%;margin-left:5px;"/>
+           </div>
+           <div class="modal-body">
+             <span id='alert-modal-disp-conf-container' style='display: none;'></span>
+             <form class="form-horizontal" id="form-log-report-filter">
+               <div class="form-group">
+                <label for="overflowAction">$_("Overflow Action")</label>
+                   <div class="form-group">
+                     <input id="overflowAction" class="form-control input" name="overflowAction" style="width:50%;"/>
+                   </div>
+               </div>
+               <div class="form-group">
+                <label for="priorityBoost">$_("Priority Boost")</label>
+                   <div class="form-group">
+                     <input id="priorityBoost" class="form-control input" name="priorityboost" style="width:50%;"/>
+                   </div>
+               </div>
+               <div class="form-group">
+                <label for="qDepth">$_("Q Depth")</label>
+                   <div class="form-group">
+                     <input id="qDepth" class="form-control input" name="qDepth" style="width:50%;"/>
+                   </div>
+               </div>
+               <div class="form-group">
+                <label for="maxRestarts">$_("Max restarts")</label>
+                   <div class="form-group">
+                     <input id="maxRestarts" class="form-control input" name="maxrestarts" style="width:50%;"/>
+                   </div>
+               </div>
+               <div class="form-group">
+                <label for="nameFormat">$_("Name Format")</label>
+                   <div class="form-group">
+                     <input id="nameFormat" class="form-control input" name="nameFormat" style="width:50%;"/>
+                   </div>
+               </div>
+              </form>
+           </div>
+           <div class="modal-footer">
+             <button id="disp-conf-button-apply" class="btn btn-default">$_("Apply")</button>
+             <button id="disp-conf-button-cancel" class="btn btn-default" data-dismiss="modal">$_("Cancel")</button>
+           </div>
+         </div>
+     </div>
+  </div>
+
+  <!-- Audit Dispatcher Plugin Details -->
+  <div class="modal fade host-modal" id="auditPluginDetails" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+      <div class="modal-dialog" role="document">
+          <div class="modal-content" >
+            <div class="modal-header">
+              <button type="button" id="disp-plugin-button-close" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+              <h4 class="modal-title" id="disp-conf-title">$_("Dispatcher Plugin Configuration")</h4>
+              <hr style="width:99%;margin-left:5px;"/>
+            </div>
+            <div class="modal-body">
+              <span id='alert-modal-plugin-container' style='display: none;'></span>
+              <form class="form-horizontal" id="form-plugin-details">
+                <div class="form-group">
+                 <label for="direction">$_("Direction")</label>
+                    <div class="form-group">
+                      <input id="direction" class="form-control input" name="direction" style="width:50%;"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                 <label for="format">$_("Format")</label>
+                    <div class="form-group">
+                      <input id="format" class="form-control input" name="format" style="width:50%;"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                 <label for="args">$_("Args")</label>
+                    <div class="form-group">
+                      <input id="args" class="form-control input" name="args" style="width:50%;"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                 <label for="active">$_("Active")</label>
+                    <div class="form-group">
+                      <select id="active" class="selectpicker col-sm-6" name="active">
+                        <option value="yes">$_("Yes")</option>
+                        <option value="no">$_("No")</option>
+                      </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                 <label for="nameFormat">$_("Path")</label>
+                    <div class="form-group">
+                      <input id="path" class="form-control input" name="path" style="width:50%;"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                 <label for="type">$_("Type")</label>
+                    <div class="form-group">
+                      <input id="type" class="form-control input" name="type" style="width:50%;"/>
+                    </div>
+                </div>
+               </form>
+            </div>
+            <div class="modal-footer">
+              <button id="plugin-update-button-apply" class="btn btn-default">$_("Apply")</button>
+              <button id="plugin-update-button-cancel" class="btn btn-default" data-dismiss="modal">$_("Cancel")</button>
+            </div>
+          </div>
+      </div>
+   </div>
 </div>
 <script id="backupItem" type="text/html">
     <li class="wok-datagrid-row in" name="backupBodyItem" id="{identity}">
