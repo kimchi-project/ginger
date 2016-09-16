@@ -809,13 +809,15 @@
   cursor: pointer;
 }
 
-#audit-logs-content-area .audit-log-details {
+#audit-logs-content-area .audit-log-details,
+#audit-dispatcher-content-area .audit-log-details {
   width: 100%;
   padding: 8px;
   background: #ddd;
 }
 
-#audit-logs-content-area .audit-log-info {
+#audit-logs-content-area .audit-log-info,
+#audit-dispatcher-content-area .audit-log-info {
   width: 100%;
   background: #fff;
   display: block;
@@ -824,16 +826,19 @@
   padding-left: 10px;
 }
 
-#audit-logs-content-area dl {
+#audit-logs-content-area dl,
+#audit-dispatcher-content-area dl {
   margin-bottom: 0px;
   padding-bottom: 10px;
 }
 
-#audit-logs-content-area dd {
+#audit-logs-content-area dd,
+#audit-dispatcher-content-area dd {
   padding-bottom: 15px;
 }
 
-#audit-logs-content-area .btn {
+#audit-logs-content-area .btn,
+#audit-dispatcher-content-area .btn {
   border-radius: 1px;
 }
 
