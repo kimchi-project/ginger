@@ -101,50 +101,6 @@ class DiscoveredISCSIQNModel(object):
         else:
             raise InvalidParameter('GINISCSI012E', {'auth_type': auth_type})
 
-    def discovery_initiator_auth(self, name, auth_type, username, password):
-        if auth_type == 'CHAP':
-            utils.iscsiadm_update_db(
-                iqn=name,
-                db_key='discovery.sendtargets.auth.authmethod',
-                db_key_value=auth_type)
-            utils.iscsiadm_update_db(
-                iqn=name,
-                db_key='discovery.sendtargets.auth.username',
-                db_key_value=username)
-            utils.iscsiadm_update_db(
-                iqn=name,
-                db_key='discovery.sendtargets.auth.password',
-                db_key_value=password)
-        elif auth_type == 'None':
-            utils.iscsiadm_update_db(
-                iqn=name,
-                db_key='discovery.sendtargets.auth.authmethod',
-                db_key_value=auth_type)
-        else:
-            raise InvalidParameter('GINISCSI012E', {'auth_type': auth_type})
-
-    def discovery_target_auth(self, name, auth_type, username, password):
-        if auth_type == 'CHAP':
-            utils.iscsiadm_update_db(
-                iqn=name,
-                db_key='discovery.sendtargets.auth.authmethod',
-                db_key_value=auth_type)
-            utils.iscsiadm_update_db(
-                iqn=name,
-                db_key='discovery.sendtargets.auth.username_in',
-                db_key_value=username)
-            utils.iscsiadm_update_db(
-                iqn=name,
-                db_key='discovery.sendtargets.auth.password_in',
-                db_key_value=password)
-        elif auth_type == 'None':
-            utils.iscsiadm_update_db(
-                iqn=name,
-                db_key='discovery.sendtargets.auth.authmethod',
-                db_key_value=auth_type)
-        else:
-            raise InvalidParameter('GINISCSI012E', {'auth_type': auth_type})
-
 
 class ISCSIAuthModel(object):
 
