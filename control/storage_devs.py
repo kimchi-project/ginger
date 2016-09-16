@@ -21,7 +21,7 @@ from wok.control.base import SimpleCollection
 from wok.control.utils import UrlSubNode
 
 
-@UrlSubNode('storagedevs', True)
+@UrlSubNode('stgdevs', True)
 class StorageDevs(SimpleCollection):
     """
     Collections representing the storage devices on the system

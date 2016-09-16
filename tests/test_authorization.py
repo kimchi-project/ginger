@@ -61,7 +61,7 @@ class AuthorizationTests(unittest.TestCase):
                 '/network/cfginterfaces', '/powerprofiles',
                 '/san_adapters', '/sensors', '/users', '/dasddevs',
                 '/dasdpartitions', '/partitions', '/filesystems',
-                '/lvs', '/pvs', '/storagedevs', '/swaps',
+                '/lvs', '/pvs', '/stgdevs', '/swaps',
                 '/sysmodules', '/vgs']
 
         for api in apis:
