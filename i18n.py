@@ -425,6 +425,10 @@ messages = {
     "GINAUDISP0005E": _("Error in retrieving the info for the audit dispatcher conf file."),
     "GINAUDISP0006E": _("Conf file does not exist for the plugin: %(name)s"),
 
+    "GINFRU00001E": _("Unable to get FRU Device information for server %(name)s. IPMI Command error %(err)s. rc = %(rc)s"),
+    "GINFRU00002E": _("FRU Device %(fru_id)s is not present in server %(name)s"),
+    "GINFRU00003E": _("Cannot process FRU Device information entry %(eachFru)s"),
+
     # These messages (ending with L) are for user log purposes
     "GINAUD0001L": _("Create audit rule '%(rule)s' type '%(type)s'"),
     "GINAUD0002L": _("Delete audit rule '%(ident)s'"),
