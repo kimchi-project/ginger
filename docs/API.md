@@ -1314,3 +1314,35 @@ URI: /plugins/ginger/services/*:service_name*
          * Status
          * EntityID
          * Discrete state
+
+### Collection: FRUS - Field Replacement Units
+
+**URI:** /plugins/ginger/servers/*:server_name*/frus
+
+**Methods:**
+
+*  **GET**: Retrieves all the FRUs (Field Replacement Units) for the given server
+
+### Resource: FRU - Field Replacement Unit
+
+**URI:** /plugins/ginger/servers/*:server_name*/frus/*:fru_id*
+
+**Methods:**
+
+*  **GET**: Retrieves the FRU (Field Replacement Units) with id fru_id
+ * ID
+ * FRUDeviceDescription
+ * Board Mfg
+ * Board MfgDate
+ * Board Product
+ * Board Serial
+ * Board Part Number
+ * Board Extra
+ * Chassis Type
+ * Chassis Part Number
+ * Chassis Serial
+ * Product Manufacturer
+ * Product Name
+ * Product Part Number
+ * Product Version
+ * Product Serial

@@ -21,6 +21,7 @@
 from wok.control.base import Collection, Resource
 from wok.control.utils import UrlSubNode
 
+from fru import Frus
 from sel import Sels
 from servers_sensors import ServerSensors
 
@@ -58,6 +59,7 @@ class Server(Resource):
         self.poweroff = self.generate_action_handler('poweroff')
         self.sels = Sels(self.model, ident)
         self.sensors = ServerSensors(self.model, ident)
+        self.frus = Frus(self.model, ident)
         self.log_map = SERVER_REQUESTS
 
     @property
