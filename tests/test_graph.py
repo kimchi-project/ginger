@@ -1,3 +1,6 @@
+#
+# Project Ginger
+#
 # Copyright IBM Corp, 2016
 #
 # This library is free software; you can redistribute it and/or
@@ -16,12 +19,16 @@
 
 import unittest
 
+from distutils.spawn import find_executable
+
+
+from wok.exception import InvalidOperation, OperationFailed
 from wok.plugins.ginger.model.graph import GraphsModel
-from wok.exception import OperationFailed, InvalidOperation
 
 
 class AuditTests(unittest.TestCase):
 
+    @unittest.skipUnless(find_executable('/usr/bin/dot'), True)
     def test_get_list(self):
         filter = 'abc,2,4,svg'
         report = [{'Graph:': '/data/logs/abc.svg'}]
@@ -29,6 +36,7 @@ class AuditTests(unittest.TestCase):
         exp_out = graphmodel.get_list(filter)
         self.assertEquals(exp_out, report)
 
+    @unittest.skipUnless(find_executable('/usr/bin/dot'), True)
     def test_get_list_failure(self):
         filter = 'abc,6,4,txt'
         report = [{'Graph:': '/var/log/wok/abc.svg'}]
@@ -37,6 +45,7 @@ class AuditTests(unittest.TestCase):
             exp_out = graphmodel.get_list(filter)
             self.assertNotEquals(exp_out, report)
 
+    @unittest.skipUnless(find_executable('/usr/bin/dot'), True)
     def test_get_list_invalid_params(self):
         filter = 'abc,2,4'
         report = [{'Graph:': '/var/lib/wok/logs/abc.svg'}]
