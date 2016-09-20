@@ -1735,7 +1735,7 @@ ginger.getAuditRules = function(suc, err) {
  };
  ginger.loadPredefinedRule = function(path, suc, err) {
      wok.requestJSON({
-         url: '/plugins/ginger/audit/load',
+         url: '/plugins/ginger/audit/load_rules',
          type: 'POST',
          contentType: 'application/json',
          data: JSON.stringify(path),
