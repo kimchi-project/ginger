@@ -377,7 +377,9 @@ ginger.initVolumeGroupGridData = function() {
 
     //Row selection
     $('#volume-group-table tbody').on('click', 'tr', function () {
+       if($(this).attr('role')=='row'){
         $(this).toggleClass("selected");
+       }
 
         if(volumeGroupTable.rows('.selected').data().length>1){
           $('#volume-group-edit-btn').off();
