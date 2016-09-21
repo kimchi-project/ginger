@@ -62,7 +62,7 @@ class CfgInterfacesTests(unittest.TestCase):
         cfgmap = {'NAME': 'testiface', 'DEVICE': 'testdevice', 'ONBOOT': 'Yes',
                   'TYPE': 'bonding',
                   'BONDING_OPTS':
-                      'miimon=1 updelay=0 downdelay=0 mode=balance-rr',
+                  'miimon=1 updelay=0 downdelay=0 mode=balance-rr',
                   'BONDING_MASTER': 'yes'}
         slaves = ['slave1', 'slave2']
         mock_slaves.return_value = slaves

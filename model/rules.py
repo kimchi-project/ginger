@@ -80,9 +80,9 @@ def get_list_of_loaded_control_rules():
         audit_status = out.split('\n')
         for each_line in audit_status:
             if each_line.split(' ')[0] in control_rules_dict:
-                audit_control_rule = control_rules_dict[
-                                         each_line.split(' ')[0]] + \
-                                     " " + each_line.split(' ')[1]
+                audit_control_rule = \
+                    control_rules_dict[each_line.split(' ')[0]] + " " + \
+                    each_line.split(' ')[1]
                 control_rules.append(audit_control_rule)
         return control_rules
     else:

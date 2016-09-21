@@ -29,8 +29,9 @@ class ISCSITargetsUnitTests(unittest.TestCase):
     """
 
     def test_iscsi_discovery(self):
-        discover_output = """9.193.84.125:3260,1 iqn.2015-06.com.example.test:target1
-9.193.84.125:3260,1 iqn.2015-06.com.example.test:target2"""
+        discover_output = \
+            """9.193.84.125:3260,1 iqn.2015-06.com.example.test:target1
+            9.193.84.125:3260,1 iqn.2015-06.com.example.test:target2"""
         parsed_output = utils.parse_iscsi_discovery(discover_output)
         sample_output = parsed_output[0]
         self.assertEqual(

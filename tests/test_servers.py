@@ -177,7 +177,7 @@ class ServerOperationTests(unittest.TestCase):
             u'ipaddr': u'127.0.0.1',
             u'name': u'abc'}
         mock_run_command.return_value = [
-                "System Power : on\nPower Overload : false\n", "", rc]
+            "System Power : on\nPower Overload : false\n", "", rc]
         params = {
             u'username': u'Interns',
             u'password': u'baremetal'}
@@ -196,9 +196,9 @@ class ServerOperationTests(unittest.TestCase):
             u'ipaddr': u'127.0.0.1',
             u'name': u'abc'}
         mock_run_command.return_value = [
-                "System Power : off\nPower Overload : false\n",
-                "",
-                rc]
+            "System Power : off\nPower Overload : false\n",
+            "",
+            rc]
         params = {
             u'username': u'Interns',
             u'password': u'wrong_pass'}
@@ -218,9 +218,9 @@ class ServerOperationTests(unittest.TestCase):
             u'ipaddr': u'127.0.0.1',
             u'name': u'abc'}
         mock_run_command.return_value = [
-                "System Power : off\nPower Overload : false\n",
-                "",
-                rc]
+            "System Power : off\nPower Overload : false\n",
+            "",
+            rc]
         params = {
             u'username': u'Interns',
             u'password': u'wrong_pass',
@@ -241,9 +241,9 @@ class ServerOperationTests(unittest.TestCase):
             u'ipaddr': u'127.0.0.1',
             u'name': u'abc'}
         mock_run_command.return_value = [
-                "System Power : off\nPower Overload : false\n",
-                "",
-                rc]
+            "System Power : off\nPower Overload : false\n",
+            "",
+            rc]
         params = {
             u'username': u'Interns'}
         name = 'abc'
