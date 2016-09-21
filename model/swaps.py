@@ -100,7 +100,6 @@ class SwapsModel(object):
                 utils._activate_swap(file_loc)
 
                 cb('persist swap device')
-                import fs_utils
                 fs_utils.persist_swap_dev(file_loc)
 
                 cb('OK', True)

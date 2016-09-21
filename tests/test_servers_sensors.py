@@ -44,8 +44,8 @@ class SdrsTests(unittest.TestCase):
     @mock.patch('wok.plugins.ginger.model.servers_sensors.run_command',
                 autospec=True)
     @mock.patch('os.path.isfile', autospec=True)
-    def test_sdr_server_present_cache_absent(
-       self, mock_os, mock_run_command,  mock_get_config):
+    def test_sdr_server_present_cache_absent(self, mock_os, mock_run_command,
+                                             mock_get_config):
         mock_os.return_value = False
         mock_get_config.return_value = {
             u'username': u'',
@@ -73,8 +73,8 @@ class SdrsTests(unittest.TestCase):
     @mock.patch('wok.plugins.ginger.model.servers_sensors.run_command',
                 autospec=True)
     @mock.patch('os.path.isfile', autospec=True)
-    def test_sdr_server_present_cache_present(
-       self, mock_os, mock_run_command, mock_get_config):
+    def test_sdr_server_present_cache_present(self, mock_os, mock_run_command,
+                                              mock_get_config):
         mock_os.return_value = True
         mock_get_config.return_value = {
             u'username': u'',
@@ -95,8 +95,8 @@ class SdrsTests(unittest.TestCase):
     @mock.patch('wok.plugins.ginger.model.servers_sensors.run_command',
                 autospec=True)
     @mock.patch('os.path.isfile', autospec=True)
-    def test_sdr_server_present_cmd_err(
-       self, mock_os, mock_run_command, mock_get_config):
+    def test_sdr_server_present_cmd_err(self, mock_os, mock_run_command,
+                                        mock_get_config):
         mock_os.return_value = True
         mock_get_config.return_value = {
             u'username': u'',
@@ -114,8 +114,8 @@ class SdrsTests(unittest.TestCase):
     @mock.patch('wok.plugins.ginger.model.servers_sensors.run_command',
                 autospec=True)
     @mock.patch('os.path.isfile', autospec=True)
-    def test_sdr_with_query_param(
-       self, mock_os, mock_run_command, mock_get_config):
+    def test_sdr_with_query_param(self, mock_os, mock_run_command,
+                                  mock_get_config):
         mock_os.return_value = True
         mock_get_config.return_value = {
             u'username': u'',
@@ -136,8 +136,8 @@ class SdrsTests(unittest.TestCase):
     @mock.patch('wok.plugins.ginger.model.servers_sensors.run_command',
                 autospec=True)
     @mock.patch('os.path.isfile', autospec=True)
-    def test_sdr_with_query_param_failure(
-       self, mock_os, mock_run_command, mock_get_config):
+    def test_sdr_with_query_param_failure(self, mock_os, mock_run_command,
+                                          mock_get_config):
         mock_os.return_value = True
         mock_get_config.return_value = {
             u'username': u'',
@@ -162,8 +162,8 @@ class SdrsTests(unittest.TestCase):
     @mock.patch('wok.plugins.ginger.model.servers_sensors.run_command',
                 autospec=True)
     @mock.patch('os.path.isfile', autospec=True)
-    def test_sdr_parsing_error(
-       self, mock_os, mock_run_command, mock_get_config):
+    def test_sdr_parsing_error(self, mock_os, mock_run_command,
+                               mock_get_config):
         mock_os.return_value = True
         mock_get_config.return_value = {
             u'username': u'',
