@@ -50,7 +50,8 @@ class DASDPartitionsTests(unittest.TestCase):
         mock_delete_part.assert_called_with(dev_name, part_num)
 
     def test_lsblk_parser(self):
-        lsblk_out = """NAME="dasda" TYPE="disk" FSTYPE="" MOUNTPOINT="" MAJ:MIN="94:0"
+        lsblk_out = \
+            """NAME="dasda" TYPE="disk" FSTYPE="" MOUNTPOINT=""MAJ:MIN="94:0"
 NAME="dasda1" TYPE="part" FSTYPE="ext3" MOUNTPOINT="/" MAJ:MIN="94:1"
 NAME="dasdb" TYPE="disk" FSTYPE="" MOUNTPOINT="" MAJ:MIN="94:4"
 NAME="dasdb1" TYPE="part" FSTYPE="" MOUNTPOINT="" MAJ:MIN="94:5"
@@ -58,6 +59,7 @@ NAME="dasdb2" TYPE="part" FSTYPE="" MOUNTPOINT="" MAJ:MIN="94:6"
 NAME="dasdc" TYPE="disk" FSTYPE="" MOUNTPOINT="" MAJ:MIN="94:8"
 
 """
+
         keys = ["NAME", "TYPE", "FSTYPE", "MOUNTPOINT", "MAJ:MIN"]
         parse_out = _parse_lsblk_output(lsblk_out, keys)
         if parse_out[0]['name'] != 'dasda':

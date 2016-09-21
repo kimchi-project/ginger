@@ -78,7 +78,7 @@ class NFSSharesUnitTests(unittest.TestCase):
                                      'type': 'ext4', 'size': 247613436},
                                     {'use%': '67%', 'used': '32528384',
                                      'mounted_on':
-                                         '/var/lib/kimchi/nfs_mount/testnfs',
+                                     '/var/lib/kimchi/nfs_mount/testnfs',
                                      'avail': 16309248,
                                      'filesystem': 'localhost:/var/ftp/nfs1',
                                      'type': 'nfs4', 'size': 51475456},
