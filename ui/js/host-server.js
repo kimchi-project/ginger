@@ -57,14 +57,15 @@ ginger.saveServer = function() {
         var errText = result['responseJSON']['reason'];
        }
     var errmessage = errText;
-    alert(errmessage);
+    wok.message.error(errmessage, '#message-srv-container-area', true);
     wok.window.close();
     });
 };
 
 function validateAddServer(fieldName, value){
   if(value == null || value == ""){
-    alert(fieldName + " is mandantory and cannot be left empty");
+    errmessage = fieldName + " is mandantory and cannot be left empty";
+    wok.message.error(errmessage, '#message-add-container-area', true);
     return true;
   }
 }
