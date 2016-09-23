@@ -1080,8 +1080,9 @@ ginger.initAdmin = function() {
                     case "users":
                         ginger.initUserManagement();
                         break;
-                    case "rules":
+                    case "audit":
                         ginger.initAuditRules();
+                        break;
                 }
             } else {
                 $("." + itemLowCase + "-ppc-enabled").hide();
