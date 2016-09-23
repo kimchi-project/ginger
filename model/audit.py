@@ -21,6 +21,9 @@ import os
 import shutil
 import threading
 
+from distutils.spawn import find_executable
+
+
 import rules
 
 from wok.exception import OperationFailed
@@ -37,6 +40,10 @@ class AuditModel(object):
 
     def __init__(self, **kargs):
         pass
+
+    @staticmethod
+    def is_feature_available():
+        return find_executable('auditctl') is not None
 
     def lookup(self, name):
         return self.get_list_of_pre_rules()
