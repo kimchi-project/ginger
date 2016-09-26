@@ -17,7 +17,7 @@ Requires:	python-ipaddr
 Requires:	python-magic
 Requires:	python-netaddr
 Requires:	python-augeas
-Requires:	python2-crypto
+Requires:	python-crypto
 
 
 %description
