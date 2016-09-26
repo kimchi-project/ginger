@@ -73,12 +73,12 @@
 
   $('#nw-bond-button-cancel').on('click', function() {
     wok.window.close();
-    ginger.listNetworkConfig.refreshNetworkConfigurationDatatable();
+    $('#nw-config-refresh-btn').trigger('click');
   });
 
   $('#nw-bond-button-close').on('click', function() {
     wok.window.close();
-    ginger.listNetworkConfig.refreshNetworkConfigurationDatatable();
+    $('#nw-config-refresh-btn').trigger('click');
   });
 
   nwGeneralForm.on('submit',function(e){
@@ -271,7 +271,7 @@ var applyOnClick = function() {
         }
         wok.message.success(message, '#alert-nw-bond-modal-container', true);
         $(nwApplyButton).prop('disabled', false);
-        ginger.listNetworkConfig.refreshNetworkConfigurationDatatable();
+        $('#nw-config-refresh-btn').trigger('click');
         wok.window.close();
       }, function(err) {
         wok.message.error(err.responseJSON.reason, '#alert-nw-bond-modal-container', true);
@@ -286,7 +286,7 @@ var applyOnClick = function() {
         }
         wok.message.success(message, '#alert-nw-bond-modal-container', true);
         $(nwApplyButton).prop('disabled', false);
-        ginger.listNetworkConfig.refreshNetworkConfigurationDatatable();
+        $('#nw-config-refresh-btn').trigger('click');
         wok.window.close();
       }, function(err) {
         wok.message.error(err.responseJSON.reason, '#alert-nw-bond-modal-container', true);
