@@ -29,12 +29,6 @@ PEP8_WHITELIST = \
 	tests\
 	$(NULL)
 
-ginger_PYTHON = \
-	__init__.py \
-	ginger.py \
-	i18n.py \
-	$(NULL)
-
 gingerdir = $(pythondir)/wok/plugins/ginger
 
 confdir = $(sysconfdir)/wok/plugins.d
@@ -48,9 +42,7 @@ EXTRA_DIST = \
 	build-aux/pkg-version \
 	$(NULL)
 
-CLEANFILES = \
-	$(ginger_PYTHON:%.py=%.pyc) \
-	$(NULL)
+CLEANFILES = `find "$(top_srcdir)" -type f -name "*.pyc" -print`
 
 I18N_FILES = ./i18n.py \
         $(NULL)
