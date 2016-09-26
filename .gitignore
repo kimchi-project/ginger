@@ -16,6 +16,8 @@ config.status
 configure
 contrib/DEBIAN/control
 contrib/make-deb.sh
+contrib/ginger.spec.fedora
+contrib/ginger.spec.suse
 model/config.py
 data/
 ginger-*.tar.gz

@@ -18,8 +18,10 @@ SUBDIRS = DEBIAN
 
 EXTRA_DIST = \
 	make-deb.sh.in \
-        gingerd.service.fedora \
-        gingerd.service.ubuntu \
+	gingerd.service.fedora \
+	gingerd.service.ubuntu \
+	ginger.spec.fedora.in \
+	ginger.spec.suse.in \
 	$(NULL)
 
 make-deb.sh: make-deb.sh.in $(top_builddir)/config.status
@@ -31,4 +33,4 @@ make-deb.sh: make-deb.sh.in $(top_builddir)/config.status
 	    mv $@-t $@
 BUILT_SOURCES = make-deb.sh
 
-CLEANFILES = make-deb.sh
+CLEANFILES = make-deb.sh ginger.spec.fedora ginger.spec.suse ginger.spec

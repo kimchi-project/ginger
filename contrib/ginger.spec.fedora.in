@@ -115,6 +115,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Mon Sep 26 2016 Ramon Medeiros <ramonn@linux.vnet.ibm.com>
+- Separate fedora rpm building
+
 * Tue Jul 12 2016 Daniel Henrique Barboza <danielhb@linux.vnet.ibm.com>
 - Added 'dir' directives for each dir and subdir in the 'files' section
 - rpmlint fixes
