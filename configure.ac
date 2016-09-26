@@ -65,7 +65,6 @@ fi
 AC_CONFIG_FILES([
     Makefile
     control/Makefile
-    ginger.spec
     model/Makefile
     po/Makefile.in
     po/gen-pot
@@ -85,6 +84,8 @@ AC_CONFIG_FILES([
     contrib/Makefile
     contrib/DEBIAN/Makefile
     contrib/DEBIAN/control
+    contrib/ginger.spec.fedora
+    contrib/ginger.spec.suse
     tests/Makefile
 ],[
     chmod +x po/gen-pot

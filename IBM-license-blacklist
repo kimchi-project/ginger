@@ -13,6 +13,8 @@ contrib/DEBIAN/control.in
 contrib/DEBIAN/postinst
 contrib/gingerd.service.fedora
 contrib/gingerd.service.ubuntu
+contrib/ginger.spec.fedora.in
+contrib/ginger.spec.suse.in
 docs/API.md
 ginger.conf
 ginger.spec.in
