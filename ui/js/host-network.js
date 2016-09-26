@@ -534,12 +534,15 @@ ginger.renderNetworkConfig = function() {
 
     var refreshNetworkConfigurationDatatable = function() {
         rows_indexes = [];
+        $('#network-configuration-content-area > .wok-mask').removeClass('hidden');
         $('#network-configuration tbody').off('click', 'input[type="checkbox"]');
         $('#network-configuration').off('click', 'tbody td, thead th:first-child');
         $('#network-configuration').off('click', 'input[name="select_all"]');
         networkConfigTable.destroy();
         getNetworkConfiguration('refresh');
-        loadNetworkConfigDatatable(nwConfigDataSet);
+        setTimeout(function(){
+          loadNetworkConfigDatatable(nwConfigDataSet);
+        },1200);
     };
 
     var networkConfigurationClickHandler = function() {
