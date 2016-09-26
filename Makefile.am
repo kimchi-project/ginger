@@ -42,7 +42,7 @@ EXTRA_DIST = \
 	build-aux/pkg-version \
 	$(NULL)
 
-CLEANFILES = `find "$(top_srcdir)" -type f -name "*.pyc" -print`
+CLEANFILES = ginger.spec `find "$(top_srcdir)" -type f -name "*.pyc" -print`
 
 I18N_FILES = ./i18n.py \
         $(NULL)
@@ -112,11 +112,29 @@ uninstall-local:
 		$(RM) $(DESTDIR)/etc/systemd/system/wokd.service.d/ginger.conf; \
 	fi;
 
+ginger.spec: contrib/ginger.spec.fedora contrib/ginger.spec.suse
+	@if test -e /etc/redhat-release; then					\
+        ln -sf contrib/ginger.spec.fedora $@ ;                  \
+    elif test -e /etc/SuSE-release; then                    \
+        ln -sf contrib/ginger.spec.suse $@ ;                    \
+    else                                                    \
+        echo "Unable to select a spec file for RPM build" ;     \
+        /bin/false ;                                            \
+    fi
+
 rpm: ginger.spec
 	$(MKDIR_P) rpm/BUILD rpm/RPMS rpm/SOURCES rpm/SPECS rpm/SRPMS
 	cp $(top_srcdir)/ginger.spec rpm/SPECS/ginger.spec
 	cp $(DIST_ARCHIVES) rpm/SOURCES
 	rpmbuild -ba --define "_topdir `pwd`/rpm" rpm/SPECS/ginger.spec
+
+fedora-rpm: contrib/kimchi.spec.fedora
+	ln -sf contrib/ginger.spec.fedora ginger.spec
+	$(MAKE) rpm
+
+suse-rpm: contrib/kimchi.spec.suse
+	ln -sf contrib/ginger.spec.suse ginger.spec
+	$(MAKE) rpm
 
 ChangeLog:
 	@if $(GIT) rev-parse &> /dev/null ; then                     \
@@ -134,4 +152,4 @@ clean-local:
 	rm -rf rpm
 
 
-.PHONY: rpm ChangeLog VERSION
+.PHONY: rpm fedora-rpm suse-rpm ChangeLog VERSION

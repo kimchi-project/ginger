@@ -1,0 +1,170 @@
+Name:		ginger
+Version:	@PACKAGE_VERSION@
+Release:	@PACKAGE_RELEASE@%{?dist}
+Summary:	Host management plugin for Wok - Webserver Originated from Kimchi
+BuildRoot:	%{_topdir}/BUILD/%{name}-%{version}-%{release}
+Group:		System Environment/Base
+License:	LGPL/ASL2
+Source0:	%{name}-%{version}.tar.gz
+BuildArch:	noarch
+BuildRequires:	gettext-devel >= 0.17
+Requires:	gettext >= 0.17
+Requires:	wok >= 2.1.0
+Requires:	ginger-base
+Requires:	libuser-python
+Requires:	python-ethtool
+Requires:	python-ipaddr
+Requires:	python-magic
+Requires:	python-netaddr
+Requires:	python-augeas
+Requires:	python2-crypto
+
+
+%description
+Ginger is a host management plugin for Wok (Webserver Originated from Kimchi),
+that provides an intuitive web panel with common tools for configuring and
+operating Linux systems. Kimchi is a Wok plugin for managing KVM/Qemu virtual
+machines.
+
+%if 0%{?fedora} >= 15 || 0%{?rhel} >= 7
+%global with_systemd 1
+%endif
+
+%prep
+%setup -q
+
+
+%build
+%configure
+make
+
+
+%install
+rm -rf %{buildroot}
+make DESTDIR=%{buildroot} install
+
+
+%clean
+rm -rf $RPM_BUILD_ROOT
+
+
+%post
+%if 0%{?with_systemd}
+	install -dm 0755 %{_unitdir}/wokd.service.requires
+	ln -sf ../tuned.service %{_unitdir}/wokd.service.requires
+%endif
+
+
+%postun
+%if 0%{?with_systemd}
+	if [ $1 == 0 ]; then # uninstall
+		rm -f %{_unitdir}/wokd.service.requires/tuned.service
+	fi
+%endif
+
+%posttrans
+%if 0%{?with_systemd}
+	if [ $1 == 0 ]; then # upgrade
+		if ! [ -f %{_unitdir}/wokd.service.requires ]; then
+			ln -sf ../tuned.service %{_unitdir}/wokd.service.requires
+		fi
+		/bin/systemctl daemon-reload >/dev/null 2>&1 || :
+		service wokd restart
+	fi
+%endif
+
+
+%files
+%attr(-,root,root)
+%dir %{python_sitelib}/wok/plugins/ginger
+%{python_sitelib}/wok/plugins/ginger/*.py*
+%{python_sitelib}/wok/plugins/ginger/API.json
+%dir %{python_sitelib}/wok/plugins/ginger/control
+%{python_sitelib}/wok/plugins/ginger/control/*.py*
+%dir %{python_sitelib}/wok/plugins/ginger/model
+%{python_sitelib}/wok/plugins/ginger/model/*.py*
+%{_prefix}/share/locale/*/LC_MESSAGES/ginger.mo
+%dir %{_datadir}/wok/plugins/ginger/ui
+%dir %{_datadir}/wok/plugins/ginger/ui/config
+%{_datadir}/wok/plugins/ginger/ui/config/tab-ext.xml
+%dir %{_datadir}/wok/plugins/ginger/ui/css
+%{_datadir}/wok/plugins/ginger/ui/css/ginger.css
+%dir %{_datadir}/wok/plugins/ginger/ui/css/base
+%dir %{_datadir}/wok/plugins/ginger/ui/css/base/images
+%{_datadir}/wok/plugins/ginger/ui/css/base/images/*.gif
+%{_datadir}/wok/plugins/ginger/ui/css/base/images/*.png
+%dir %{_datadir}/wok/plugins/ginger/ui/images
+%{_datadir}/wok/plugins/ginger/ui/images/*.svg
+%dir %{_datadir}/wok/plugins/ginger/ui/js
+%{_datadir}/wok/plugins/ginger/ui/js/*.js
+%dir %{_datadir}/wok/plugins/ginger/ui/pages
+%{_datadir}/wok/plugins/ginger/ui/pages/i18n.json.tmpl
+%{_datadir}/wok/plugins/ginger/ui/pages/*.html.tmpl
+%dir %{_datadir}/wok/plugins/ginger/ui/pages/help
+%{_datadir}/wok/plugins/ginger/ui/pages/help/ginger-help.css
+%dir %{_datadir}/wok/plugins/ginger/ui/pages/help/en_US
+%dir %{_datadir}/wok/plugins/ginger/ui/pages/help/pt_BR
+%dir %{_datadir}/wok/plugins/ginger/ui/pages/help/zh_CN
+%{_datadir}/wok/plugins/ginger/ui/pages/help/en_US/*.html
+%{_datadir}/wok/plugins/ginger/ui/pages/help/pt_BR/*.html
+%{_datadir}/wok/plugins/ginger/ui/pages/help/zh_CN/*.html
+%dir %{_datadir}/wok/plugins/ginger/ui/pages/tabs
+%{_datadir}/wok/plugins/ginger/ui/pages/tabs/*.html.tmpl
+%{_sysconfdir}/wok/plugins.d/ginger.conf
+%{_sysconfdir}/systemd/system/wokd.service.d/ginger.conf
+
+
+%changelog
+* Mon Sep 26 2016 Ramon Medeiros <ramonn@linux.vnet.ibm.com>
+- Separate fedora rpm building
+
+* Tue Jul 12 2016 Daniel Henrique Barboza <danielhb@linux.vnet.ibm.com>
+- Added 'dir' directives for each dir and subdir in the 'files' section
+- rpmlint fixes
+
+* Tue May 31 2016 Ramon Medeiros <ramonn@linux.vnet.ibm.com>
+- Update spec with Fedora community Guidelines
+
+* Mon May 16 2016 Ramon Medeiros <ramonn@linux.vnet.ibm.com>
+- Does not disable tuned service as dependency when update package
+
+* Wed Mar 23 2016 Daniel Henrique Barboza <dhbarboza82@gmail.com>
+- Removed 'pyparted' from dependencies because it is a Ginger-base dependency
+- Removed 'python-cheetah' from build dependencies
+- Added wok version restriction >= 2.1.0
+
+* Tue Mar 1 2016 Daniel Henrique Barboza <dhbarboza82@gmail.com>
+- added ui/images/*.svg in 'files' section
+
+* Sat Feb 6 2016 Chandra Shekhar Reddy Potula <chandra@linux.vnet.ibm.com>
+- Add libvirt service dependencies to Ginger
+
+* Mon Jan 25 2016 Daniel Henrique Barboza <dhbarboza82@gmail.com>
+- Changed 'controls' dir to 'control' in 'files' section
+- Added 'datadir'/wok/plugins/ginger/ui/pages/*.html.tmpl to 'files'
+- Changed 'models' dir to 'model' in 'files' section
+
+* Fri Dec 25 2015 Daniel Henrique Barboza <dhbarboza82@gmail.com>
+- Changed 'files' to include all ui/js/*.js js files
+- Changed 'files' to include all ui/pages/help/*/*.html help files
+- Changed 'files' to include all ui/pages/tabs/*.html.tmpl tabs
+
+* Wed Dec 16 2015 Daniel Henrique Barboza  <dhbarboza82@gmail.com>
+- Removed 'host-admin.css' from 'files'
+- added 'ui/js/ginger-bootgrid.js' in 'files'
+
+* Fri Dec 11 2015 Daniel Henrique Barboza  <dhbarboza82@gmail.com>
+- Added ui/pages/tabs/host-admin.html.tmpl to 'files'
+
+* Fri Nov 27 2015 Chandra Shekhar Reddy Potula <chandra@linux.vnet.ibm.com>
+- Add missing dependencies for Ginger
+
+* Thu Oct 2 2014 Rodrigo Trujillo <rodrigo.trujillo@linux.vnet.ibm.com>
+- Add Help pages for Ginger
+- Change build system to enable and release Help pages
+
+* Wed Jul  2 2014 Paulo Vital <pvital@linux.vnet.ibm.com> 1.2.1
+- Changed the package name from kimchi-ginger to ginger
+
+* Wed Apr 16 2014 Zhou Zheng Sheng <zhshzhou@linux.vnet.ibm.com> 1.2.0
+- Initial release of Kimchi-ginger dedicated RPM package
