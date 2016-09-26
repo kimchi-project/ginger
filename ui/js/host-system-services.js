@@ -146,7 +146,10 @@ ginger.systeServicesClickHandler = function() {
 };
 
 ginger.generateSystemServiceElem = function(value){
-        var name = value.name.toLowerCase();
+        var name = ''
+        if (value.name !== undefined) {
+            name = value.name.toLowerCase();
+        }
         var servicename = name.split(".service").join("").replace(/[`~!@#$%^&*()_|+\-=?;:'",.<>\{\}\[\]\\\/]/gi, '');
         var id = 'service-'+servicename;
         var collapse_target = id+'-details';
@@ -159,7 +162,10 @@ ginger.generateSystemServiceElem = function(value){
         var description = value.desc;
         var checked = (value.autostart) ? 'checked' : '';
         var autostartonoff  = (value.autostart) ? 'On' : 'Off';
-        var cgroup = value.cgroup.name;
+        var cgroup = ''
+        if (value.cgroup !== undefined) {
+            cgroup = value.cgroup.name;
+        }
         var systemServicesItem = $.parseHTML(wok.substitute($("#systemServicesItem").html(), {
             id: id,
             name: name,
@@ -178,26 +184,28 @@ ginger.generateSystemServiceElem = function(value){
             $('.system-services-cgroup',systemServicesItem).remove();
             $('.column-service-details',systemServicesItem).empty().append('--');
         }
-        if(!jQuery.isEmptyObject(value.cgroup.processes)){
-            $.each(value.cgroup.processes, function(pid,process){
-                var processItem = $.parseHTML(wok.substitute($("#systemServiceProcessItem").html(), {
-                    pid: pid,
-                    process: process
-                }));
-                $('.system-service-process-body',systemServicesItem).append(processItem);
-            });
-        }else {
-            $('.system-services-process',systemServicesItem).remove();
-        }
-        if(sub === 'running') {
-            $('.service-start',systemServicesItem).parent().addClass('disabled');
-        }else {
-            $('.service-stop',systemServicesItem).parent().addClass('disabled');
-        }
-        if($('#system-services-body > li#'+id).length){
-            $('#system-services-body > li#'+id).replaceWith(systemServicesItem);
-        }else {
-            $('#system-services-body').append(systemServicesItem);
+        else {
+            if(!jQuery.isEmptyObject(value.cgroup.processes)){
+                $.each(value.cgroup.processes, function(pid,process){
+                    var processItem = $.parseHTML(wok.substitute($("#systemServiceProcessItem").html(), {
+                        pid: pid,
+                        process: process
+                    }));
+                    $('.system-service-process-body',systemServicesItem).append(processItem);
+                });
+            }else {
+                $('.system-services-process',systemServicesItem).remove();
+            }
+            if(sub === 'running') {
+                $('.service-start',systemServicesItem).parent().addClass('disabled');
+            }else {
+                $('.service-stop',systemServicesItem).parent().addClass('disabled');
+            }
+            if($('#system-services-body > li#'+id).length){
+                $('#system-services-body > li#'+id).replaceWith(systemServicesItem);
+            }else {
+                $('#system-services-body').append(systemServicesItem);
+            }
         }
 };
 
@@ -205,7 +213,11 @@ ginger.loadSystemServices = function(callback){
     ginger.getSystemServices(function(result) {
         if (result && result.length) {
             result.sort(function(a, b) {
-                return a.name.localeCompare( b.name );
+                if (a.name !== undefined && b.name !== undefined) {
+                    return a.name.localeCompare( b.name );
+                } else {
+                    return 0
+                }
             });
             $("#system-services-body").empty();
             $.each(result, function(i,value){
