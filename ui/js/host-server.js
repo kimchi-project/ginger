@@ -256,6 +256,22 @@ ginger.loadBootgridSRVActions = function() {
         wok.confirm(settings, function() {});
       }
     }
+  },{
+    id: 'srv-fru-button',
+    class: 'fa fa-file',
+    label: i18n['GINSERV0021M'],
+    onClick: function(event) {
+      var selectedIf = ginger.getSelectedRowsData(ginger.opts_srv_if);
+      if (selectedIf && (selectedIf.length == 1)) {
+       wok.window.open('plugins/ginger/host-server-fru.html');
+      } else {
+        var settings = {
+          content: i18n["GINSERV0009M"],
+          confirm: i18n["GINNET0015M"]
+        };
+        wok.confirm(settings, function() {});
+      }
+    }
   }];
 
   ginger.opts_srv_if['addButtons'] = JSON.stringify(addButton);

@@ -2100,3 +2100,15 @@ ginger.getSdrType = function(serverName, sdrType, suc, err) {
         }
      });
 }
+ginger.getFru = function(serverName, suc, err) {
+     wok.requestJSON({
+        url: 'plugins/ginger/servers/'+ serverName + '/frus',
+        type: 'GET',
+        contentType: 'application/json',
+        dataType: 'json',
+        success: suc,
+        error : err || function(data) {
+            wok.message.error(data.responseJSON.reason);
+        }
+     });
+}
