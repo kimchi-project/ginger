@@ -18,9 +18,10 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301 USA
 
+import os
 import subprocess
 
-from mkgraph import create_graph
+from mkgraph import create_graph, DOT_CMD
 from wok.config import get_log_download_path
 from wok.exception import OperationFailed, InvalidParameter, InvalidOperation
 
@@ -31,6 +32,9 @@ audit_summary_report = \
 class GraphsModel(object):
     def __init__(self, **kargs):
         pass
+
+    def is_feature_available(self):
+        return os.path.exists(DOT_CMD)
 
     def get_list(self, _filter):
         try:
