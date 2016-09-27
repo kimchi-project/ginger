@@ -30,11 +30,10 @@ from wok.config import PluginPaths
 from wok.exception import OperationFailed, MissingParameter, InvalidParameter
 from wok.utils import run_command
 
-SERVERCONFIGPATH = os.path.join(
-    PluginPaths('ginger').conf_dir,
-    'server.config')
+SERVERCONFIGPATH = os.path.join(PluginPaths('ginger').state_dir,
+                                'server.config')
 ALPHABET = string.digits + string.ascii_letters
-SDR_LOCAL_CACHE_DIR = PluginPaths('ginger').conf_dir
+SDR_LOCAL_CACHE_DIR = PluginPaths('ginger').state_dir
 SDR_CACHE = 'sdr_cache'
 
 
