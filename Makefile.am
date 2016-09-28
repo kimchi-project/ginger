@@ -19,6 +19,8 @@
 
 SUBDIRS= po control model ui contrib tests
 
+ginger_PYTHON = $(wildcard *.py)
+
 AUTOMAKE_OPTIONS = foreign
 
 ACLOCAL_AMFLAGS = --install -I m4
