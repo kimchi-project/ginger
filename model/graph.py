@@ -33,7 +33,8 @@ class GraphsModel(object):
     def __init__(self, **kargs):
         pass
 
-    def is_feature_available(self):
+    @staticmethod
+    def is_feature_available():
         return os.path.exists(DOT_CMD)
 
     def get_list(self, _filter):
