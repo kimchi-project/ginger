@@ -122,7 +122,7 @@ ginger.spec: contrib/ginger.spec.fedora contrib/ginger.spec.suse
         /bin/false ;                                            \
     fi
 
-rpm: ginger.spec
+rpm: dist ginger.spec
 	$(MKDIR_P) rpm/BUILD rpm/RPMS rpm/SOURCES rpm/SPECS rpm/SRPMS
 	cp $(top_srcdir)/ginger.spec rpm/SPECS/ginger.spec
 	cp $(DIST_ARCHIVES) rpm/SOURCES
@@ -152,4 +152,4 @@ clean-local:
 	rm -rf rpm
 
 
-.PHONY: rpm fedora-rpm suse-rpm ChangeLog VERSION
+.PHONY: rpm fedora-rpm suse-rpm VERSION
