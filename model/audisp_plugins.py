@@ -62,7 +62,7 @@ class PluginModel(object):
         return info
 
     def get_plugin_info(self, name):
-        audisp_plugin_conf = {}
+        audisp_plugin_conf = dict()
         audisp_plugin_conf['details'] = {}
         audisp_plugin_conf['name'] = name
         plugin_with_path = os.path.join(plugins_dir, name + ".conf")
@@ -88,6 +88,10 @@ class PluginModel(object):
             for each_key in params:
                 del_lines_of_attribute(each_key, path_to_plugin)
                 write_to_conf(each_key, params[each_key], path_to_plugin)
+        except NotFoundError:
+            raise
+        except OperationFailed:
+            raise
         except Exception:
             raise OperationFailed("GINAUDISP0004E", {"name": name})
         finally:

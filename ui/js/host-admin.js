@@ -1632,8 +1632,8 @@ ginger.populateFilterOptions =  function(row){
 
 ginger.populateReportOptions =  function(row){
   var detailReportOptionsList =
-  {'-a':i18n['GINAUDIREPORT0001M'],
-  '--au':i18n['GINAUDIREPORT0002M'],
+  {'-au':i18n['GINAUDIREPORT0001M'],
+  '-a':i18n['GINAUDIREPORT0002M'],
   '--comm':i18n['GINAUDIREPORT0003M'],
   '-c':i18n['GINAUDIREPORT0004M'],
   '-cr':i18n['GINAUDIREPORT0005M'],

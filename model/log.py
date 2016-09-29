@@ -89,8 +89,9 @@ class LogsModel(object):
                                           r'(\s\S+)*)',
                                           each_line)
                         time_regex = re.search(r'\w+\S\w+\s+\w+\S\w+\S'
-                                               r'(\d+\S\d+\S\d+\s+\d+\S\d+\S'
-                                               r'\d+)', each_line)
+                                               r'(\d+\S\d+\S\d+'
+                                               r'\s+\d+\S\d+\S\d+)',
+                                               each_line)
                         record_details[record]['TYPE'] = regex.groups()[0]
                         record_details[record]['MSG'] = regex.groups()[1]
                         record_details[record]['Date and Time'] = \

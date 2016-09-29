@@ -73,6 +73,7 @@ def get_list_of_loaded_control_rules():
     control_rules_dict = {'backlog_limit': '-b',
                           'enabled': '-e',
                           'failure': '-f',
+                          'flag': '-f',
                           'rate_limit': '-r'}
     cmd_cntl = ['auditctl', '-s']
     out, err, returncode = run_command(cmd_cntl)
@@ -80,9 +81,9 @@ def get_list_of_loaded_control_rules():
         audit_status = out.split('\n')
         for each_line in audit_status:
             if each_line.split(' ')[0] in control_rules_dict:
-                audit_control_rule = \
-                    control_rules_dict[each_line.split(' ')[0]] + " " + \
-                    each_line.split(' ')[1]
+                audit_control_rule = control_rules_dict[
+                                         each_line.split(' ')[0]] + \
+                                     " " + each_line.split(' ')[1]
                 control_rules.append(audit_control_rule)
         return control_rules
     else:
@@ -121,6 +122,8 @@ class RulesModel(object):
             rule = self.construct_rules(params)
             self.load_audit_rule(rule)
             return rule
+        except OperationFailed:
+            raise
         except Exception, e:
             raise OperationFailed('GINAUD0003E', {'error': e.message})
         finally:
@@ -128,21 +131,20 @@ class RulesModel(object):
 
     def construct_rules(self, params):
         """
-        Creates file system, system rule and control rules.
+        Creates file system, system call rule and control rules.
         :param params: dict with rules params
         :return: the rule
         """
         try:
             rule = ''
-            if params["type"] == "Filesystem Rule":
+            if params["type"] == "File System Rule":
                 rule = '-w'
                 rule = self.construct_fs_rule(rule, params)
-            elif params["type"] == "System Rule":
+            elif params["type"] == "System Call Rule":
                 rule = '-a'
                 rule = self.construct_sc_rule(rule, params)
             elif params["type"] == "Control Rule":
                 rule = self.construct_control_rule(params)
-                self.write_to_aucontrol_rules(rule)
             return rule
         except Exception, e:
             raise OperationFailed("GINAUD0003E", {'error': e.message})
@@ -171,16 +173,24 @@ class RulesModel(object):
             if "filter" in params["rule_info"]:
                 rule = rule + ',' + params["rule_info"]["filter"]
 
-            if "field" in params["rule_info"]:
-                rule = self.construct_fields(rule, params)
+            if "archfield" in params["rule_info"]:
+                rule = self.construct_arch_fields(rule, params)
 
             if "systemcall" in params["rule_info"]:
                 rule = rule + ' -S ' + params["rule_info"]["systemcall"]
+
+            if "field" in params["rule_info"]:
+                rule = self.construct_fields(rule, params)
 
             if "key" in params["rule_info"]:
                 rule = rule + " -F key=" + params["rule_info"]["key"]
         else:
             raise MissingParameter("GINAUD0004E")
+        return rule
+
+    def construct_arch_fields(self, rule, params):
+        for each_field in list(params["rule_info"]["archfield"]):
+            rule = rule + " -F " + each_field
         return rule
 
     def construct_fields(self, rule, params):
@@ -239,6 +249,8 @@ class RuleModel(object):
             if self.is_rule_exists(name):
                 self.delete_rule(name)
                 wok_log.info('Rule has been deleted succesfully ' + name)
+            else:
+                self.unload(name)
         except Exception, e:
             raise OperationFailed('GINAUD0006E', {'err': e.message})
         finally:
@@ -273,29 +285,35 @@ class RuleModel(object):
     def persist(self, name):
         try:
             gingerAuditLock.acquire()
-            if not self.is_rule_exists(name):
-                info = self.get_audit_rule_info(name)
-                if info['persisted'] == 'no':
+            info = self.get_audit_rule_info(name)
+            if not self.is_rule_exists(name) and info['persisted'] == 'no':
+                if info['type'] == "Control Rule":
+                    RulesModel().write_to_aucontrol_rules(name)
+                else:
                     RulesModel().write_to_audit_rules(name)
             else:
                 raise OperationFailed("GINAUD0020E", {"name": name})
+        except OperationFailed:
+            raise
         finally:
             gingerAuditLock.release()
 
     def unload(self, name):
         """
-        Unloads the filesystem and system rules.
+        Unloads the filesystem and system call rules.
         :param name: rule name
         :return:
         """
         try:
             gingerAuditLock.acquire()
             info = self.get_audit_rule_info(name)
-            if info['type'] == 'Filesystem Rule' or info['type'] \
-                    == 'System Rule':
+            if info['type'] == 'File System Rule' or info['type'] \
+                    == 'System Call Rule' and info['loaded'] == 'yes':
                 self.reload_rules(name)
             else:
                 raise OperationFailed('GINAUD0012E', {'name': name})
+        except OperationFailed:
+            raise
         except Exception:
             raise OperationFailed('GINAUD0013E', {'name': name})
         finally:
@@ -322,6 +340,8 @@ class RuleModel(object):
             info = self.get_audit_rule_info(name)
             if info['loaded'] == 'no':
                 RulesModel().load_audit_rule(name)
+        except OperationFailed:
+            raise
         except Exception:
             raise OperationFailed('GINAUD0018E', {'name': name})
         finally:
@@ -333,13 +353,15 @@ class RuleModel(object):
             audit_info = {'rule': name,
                           'type': rule_type}
             self.loaded_or_persisted(audit_info, name)
-            if rule_type == "Filesystem Rule":
+            if rule_type == "File System Rule":
                 self.get_filesystem_rule_info(audit_info, name)
-            elif rule_type == "System Rule":
+            elif rule_type == "System Call Rule":
                 self.get_system_rule_info(audit_info, name)
             elif rule_type == "Control Rule":
                 self.get_control_rule_info(audit_info, name)
             return audit_info
+        except OperationFailed:
+            raise
         except Exception, e:
             raise OperationFailed("GINAUD0007E", {"error": e.message})
 
@@ -355,7 +377,7 @@ class RuleModel(object):
                                   '-r': 'Sets the rate of generated messages'
                                         ' per second,',
                                   '-D': 'Delete all rules'}
-            control_info = {}
+            control_info = dict()
             control_info['rule_info'] = {}
             if name.split(" ")[0] != "-D":
                 control_info['rule_info']['conf_value'] = name.split(" ")[1]
@@ -383,7 +405,7 @@ class RuleModel(object):
 
     def get_filesystem_rule_info(self, audit_info, name):
         try:
-            filesystemcall_info = {}
+            filesystemcall_info = dict()
             filesystemcall_info['rule_info'] = {}
             if name.startswith("-w"):
                 filesystemcall_info['rule_info']['status'] = "enable"
@@ -410,7 +432,7 @@ class RuleModel(object):
 
     def get_systemauditrule_call(self, rule):
         try:
-            match = re.search(r'\S.\s+\w+\S\w+\s+\S.\s+\w+\S\w+\s+\S[S]\s+('
+            match = re.search(r'\S*\s+\w+\S+\w+\s+\S*\s+\w+\S+\w+\s+\S[S]\s+('
                               r'\S+)\s+\S+\s+\S+', rule)
             return match.group(1)
         except:
@@ -433,9 +455,9 @@ class RuleModel(object):
     def get_auditrule_type(self, rule):
         try:
             if rule.startswith("-w"):
-                rule_type = "Filesystem Rule"
+                rule_type = "File System Rule"
             if rule.startswith("-a"):
-                rule_type = "System Rule"
+                rule_type = "System Call Rule"
             if rule[:2] in "-b,-e,-f,-r,-D":
                 rule_type = "Control Rule"
             return rule_type
@@ -496,13 +518,18 @@ class RuleModel(object):
                 if info['loaded'] == 'yes':
                     RulesModel().create(params)
                 rule = RulesModel().construct_rules(params)
-                RulesModel().write_to_audit_rules(rule)
+                if info['type'] == "Control Rule":
+                    RulesModel().write_to_aucontrol_rules(rule)
+                else:
+                    RulesModel().write_to_audit_rules(rule)
                 wok_log.info("Deleting the existing rule %s" % name)
                 self.delete_rule(name)
                 wok_log.info("The rule has been modified successfully.")
                 return rule
             else:
                 raise MissingParameter("GINAUD0010E", {"name": name})
+        except MissingParameter:
+            raise
         except Exception:
             raise OperationFailed("GINAUD0011E", {"name": name})
         finally:

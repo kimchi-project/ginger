@@ -379,7 +379,7 @@ messages = {
     "GINAUD0009E": _("Error occurred in fetching filesystem rule info. %(error)s"),
     "GINAUD0010E": _("Rule '%(name)s' is not persisted in the rules file."),
     "GINAUD0011E": _("Error occurred in modifying the rule '%(name)s'."),
-    "GINAUD0012E": _("The rule '%(name)s' cannot be deleted. "),
+    "GINAUD0012E": _("The rule '%(name)s' cannot be unloaded or is already unloaded. "),
     "GINAUD0013E": _("Error occurred in unload operation of rule '%(name)s' ."),
     "GINAUD0014E": _("Error occurred in getting the filtered logs."),
     "GINAUD0015E": _("Error occurred in getting the unfiltered logs."),
@@ -387,8 +387,7 @@ messages = {
     "GINAUD0017E": _("Error occurred in getting the reports."),
     "GINAUD0018E": _("Loading the rule '%(name)s' failed."),
     "GINAUD0019E": _("Error occurred in loading predefined rules."),
-    "GINAUD0020E": _("Error occurred in persisting the rules."
-                     " The rule '%(name)s' already exists."),
+    "GINAUD0020E": _("The rule '%(name)s' is already persisted."),
     "GINAUD0021E": _("The predefined rules files doesn't exist."),
     "GINAUD0022E": _("Execution on auditctl command failed with error '%(error)s'"),
     "GINAUD0023E": _("Error in retrieving the audit conf file details. "),

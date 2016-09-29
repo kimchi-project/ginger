@@ -56,6 +56,8 @@ class AuditdispModel(object):
             for each_key in params:
                 del_lines_of_attribute(each_key, AUDISPD_CONF)
                 write_to_conf(each_key, params[each_key], AUDISPD_CONF)
+        except OperationFailed:
+            raise
         except Exception:
             raise OperationFailed("GINAUDISP0004E", {"name": name})
         finally:
