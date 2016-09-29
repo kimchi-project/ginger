@@ -149,6 +149,8 @@ ginger.generateSystemServiceElem = function(value){
         var name = ''
         if (value.name !== undefined) {
             name = value.name.toLowerCase();
+        } else {
+            return;
         }
         var servicename = name.split(".service").join("").replace(/[`~!@#$%^&*()_|+\-=?;:'",.<>\{\}\[\]\\\/]/gi, '');
         var id = 'service-'+servicename;
@@ -180,32 +182,28 @@ ginger.generateSystemServiceElem = function(value){
             description: description,
             cgroup: cgroup
         }));
-        if(!value.cgroup){
-            $('.system-services-cgroup',systemServicesItem).remove();
-            $('.column-service-details',systemServicesItem).empty().append('--');
+        if((value.cgroup) && (!jQuery.isEmptyObject(value.cgroup.processes))){
+            $.each(value.cgroup.processes, function(pid,process){
+                var processItem = $.parseHTML(wok.substitute($("#systemServiceProcessItem").html(), {
+                    pid: pid,
+                    process: process
+                }));
+                $('.system-service-process-body',systemServicesItem).append(processItem);
+            });
+        }else {
+            $('.system-services-process',systemServicesItem).remove();
         }
-        else {
-            if(!jQuery.isEmptyObject(value.cgroup.processes)){
-                $.each(value.cgroup.processes, function(pid,process){
-                    var processItem = $.parseHTML(wok.substitute($("#systemServiceProcessItem").html(), {
-                        pid: pid,
-                        process: process
-                    }));
-                    $('.system-service-process-body',systemServicesItem).append(processItem);
-                });
-            }else {
-                $('.system-services-process',systemServicesItem).remove();
-            }
-            if(sub === 'running') {
-                $('.service-start',systemServicesItem).parent().addClass('disabled');
-            }else {
-                $('.service-stop',systemServicesItem).parent().addClass('disabled');
-            }
-            if($('#system-services-body > li#'+id).length){
-                $('#system-services-body > li#'+id).replaceWith(systemServicesItem);
-            }else {
-                $('#system-services-body').append(systemServicesItem);
-            }
+
+        if(sub === 'running') {
+            $('.service-start',systemServicesItem).parent().addClass('disabled');
+        }else {
+            $('.service-stop',systemServicesItem).parent().addClass('disabled');
+        }
+
+        if($('#system-services-body > li#'+id).length){
+            $('#system-services-body > li#'+id).replaceWith(systemServicesItem);
+        }else {
+            $('#system-services-body').append(systemServicesItem);
         }
 };
 

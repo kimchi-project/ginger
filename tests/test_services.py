@@ -121,7 +121,7 @@ UnitFileState=disabled\n"""
 
         services_list = ServicesModel().get_list()
         mock_run_cmd.assert_called_once_with(
-            ['systemctl', '--type=service', '--no-pager']
+            ['systemctl', '--type=service', '--no-pager', '--all']
         )
 
         expected_output = [
