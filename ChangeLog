@@ -1,7 +1,11 @@
 CHANGELOG
 =========
 
+#### [2.3.0] ####
+ * [7c81c39] Changing version to 2.3.0                                                      (Daniel Henrique Barboza)
+
 #### [2.3.0-rc1] ####
+ * [6d82ba9] ChangeLog and VERSION changes for 2.3.0-rc1                                    (Daniel Henrique Barboza)
  * [077d301] Fixing is_feature_available method of model/graph.py                           (Daniel Henrique Barboza)
  * [a941998] Issue # 61 :'Add Adapter' button missing in Host -> Network tab.               (Atreyee Mukhopadhyay)
  * [8236532] Issue #412: python-pygraphviz not listed as dependency                         (Ramon Medeiros)
@@ -1049,6 +1053,8 @@ CHANGELOG
  * [5ce4a73] Adapt to new Kimchi authorization scheme                                       (Zhou Zheng Sheng)
 
 #### [] ####
+ * [7c81c39] Changing version to 2.3.0                                                      (Daniel Henrique Barboza)
+ * [6d82ba9] ChangeLog and VERSION changes for 2.3.0-rc1                                    (Daniel Henrique Barboza)
  * [077d301] Fixing is_feature_available method of model/graph.py                           (Daniel Henrique Barboza)
  * [a941998] Issue # 61 :'Add Adapter' button missing in Host -> Network tab.               (Atreyee Mukhopadhyay)
  * [8236532] Issue #412: python-pygraphviz not listed as dependency                         (Ramon Medeiros)
