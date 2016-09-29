@@ -83,38 +83,11 @@ ginger.loadRuleValues = function() {
 ginger.initEditControlRule = function() {
     $('.selectpicker').selectpicker();
     var ruleName = ginger.loadControlRuleValues();
-    $("#optionid").on('change', function() {
-        var optvalue = $("#optionid").val();
-        var val;
-        if (optvalue == "-b") {
-            $('#evalue').hide();
-            $('#fvalue').hide();
-            $('#rvalue').hide();
-            $('#bvalue').show();
-        } else if (optvalue == "-e") {
-            $('#bvalue').hide();
-            $('#fvalue').hide();
-            $('#rvalue').hide();
-            $('#evalue').show();
-        } else if (optvalue == "-f") {
-            $('#evalue').hide();
-            $('#bvalue').hide();
-            $('#rvalue').hide();
-            $('#fvalue').show();
-        } else if (optvalue == "-r") {
-            $('#evalue').hide();
-            $('#fvalue').hide();
-            $('#bvalue').hide();
-            $('#rvalue').show();
-        }
-    });
     $('#EditControlRule-submit').on('click', function(event) {
         var editrule = {};
         var rule_info = {};
         if ($('#optionid').val() == "-b") {
             val = $('#bvaluedata').val();
-        } else if ($('#optionid').val() == "-e") {
-            val = $('#evaluedata').val();
         } else if ($('#optionid').val() == "-f") {
             val = $('#fvaluedata').val();
         } else if ($('#optionid').val() == "-r") {
@@ -171,21 +144,15 @@ ginger.loadControlRuleValues = function() {
             $('#optionid').val(controloption);
             picker.selectpicker("refresh");
             $('#bvaluedata').val(controlvalue.trim());
-        } else if (controloption == "-e") {
-            $('#evalue').show();
-            picker.selectpicker("refresh");
-            $('#optionid').selectpicker("val", controloption);
-            $('#evaluedata').selectpicker("val", controlvalue.trim());
-            picker.selectpicker("refresh");
         } else if (controloption == "-f") {
             $('#fvalue').show();
             $('.selectpicker').selectpicker('refresh');
-            $('#optionid').selectpicker("val", controloption);
+            $('#optionid').val(controloption);
             $('#fvaluedata').selectpicker("val", controlvalue.trim());
             $('.selectpicker').selectpicker('refresh');
         } else if (controloption == "-r") {
             $('#rvalue').show();
-            $('#optionid').selectpicker("val", controloption);
+            $('#optionid').val(controloption);
             $('.selectpicker').selectpicker('refresh');
             $('#rvaluedata').val(controlvalue.trim());
         }
@@ -211,7 +178,8 @@ ginger.initEditSyscallRule = function() {
         var rule_info = {};
         var syscall = [];
         var syscalldata = {};
-        syscalldata['type'] = "System Rule";
+        var archfield = [];
+        syscalldata['type'] = "System Call Rule";
         $('#syscallsload option:selected').each(function() {
             syscall.push($(this).text());
         })
@@ -223,10 +191,15 @@ ginger.initEditSyscallRule = function() {
             arraydata.push(data);
         });
         for (var i = 1; i < arraydata.length; i++) {
+          if(arraydata[i].includes("arch")){
+                      archfield.push(arraydata[i]);
+          } else {
             field.push(arraydata[i]);
+          }
         }
         rule_info['action'] = $('#sysaction').val();
         rule_info['filter'] = $('#sysfilter').val();
+        rule_info['archfield'] = archfield;
         rule_info['systemcall'] = syscall.toString();
         rule_info['field'] = field;
         rule_info['key'] = $('#Syskeyname').val();
@@ -274,7 +247,7 @@ ginger.loadSystemcallRuleValues = function() {
             $('#sysCalls span.valueDelete').off();
         }
         for (i = 0; i < array.length; i++) {
-            var arraylist = array[i];
+            var arraylist = array[i].replace('&lt;','<').replace('&gt;','>');
             sysfiledname = '';
             sysfiledvalue = '';
             sysfiledoperator = '';
@@ -296,7 +269,7 @@ ginger.loadSystemcallRuleValues = function() {
                 sysfiledvaluearray[i] = sysfiledvalue.trim();
             }
         }
-        $('#rule-type').val("System Rule");
+        $('#rule-type').val("System Call Rule");
         $('#sysaction').selectpicker("val", rulearray['action'].trim());
         $('#sysfilter').selectpicker("val", rulearray['filter'].trim());
         var selectrule = [];

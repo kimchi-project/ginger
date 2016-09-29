@@ -89,7 +89,7 @@ ginger.initfilerule = function() {
             filerule['permissions'] = permissions;
             filerule['file_to_watch'] = file_to_watch;
             filerule['key'] = key;
-            fileruleinfo['type'] = "Filesystem Rule";
+            fileruleinfo['type'] = "File System Rule";
             fileruleinfo['rule_info'] = filerule;
             if (file_to_watch.length == 0 || permissions.lenght == 0 || key.length == 0) {
                 wok.message.error(i18n["GINAUDIT0032M"], "#addrule-message");
@@ -135,7 +135,8 @@ ginger.initfilerule = function() {
             var rule_info = {};
             var syscall = [];
             var syscalldata = {};
-            syscalldata['type'] = "System Rule";
+            var archfield = [];
+            syscalldata['type'] = "System Call Rule";
             $('#syscallsload option:selected').each(function() {
                 syscall.push($(this).text());
             })
@@ -147,10 +148,15 @@ ginger.initfilerule = function() {
                 arraydata.push(data);
             });
             for (var i = 1; i < arraydata.length; i++) {
+              if(arraydata[i].includes("arch")){
+                        archfield.push(arraydata[i]);
+              } else {
                 field.push(arraydata[i]);
+              }
             }
             rule_info['action'] = $('#sysaction').val();
             rule_info['filter'] = $('#sysfilter').val();
+            rule_info['archfield'] = archfield;
             rule_info['systemcall'] = syscall.toString();
             rule_info['field'] = field;
             rule_info['key'] = $('#Syskeyname').val();

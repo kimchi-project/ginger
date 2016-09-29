@@ -1774,7 +1774,7 @@ ginger.getAuditRules = function(suc, err) {
  };
  ginger.EditSyscallAudit = function(ruleName, updatedRule, suc, err) {
      wok.requestJSON({
-         url: 'plugins/ginger/audit/rules/' + encodeURIComponent(ruleName.trim()),
+         url: 'plugins/ginger/audit/rules/' + ruleName.replace('&lt;','<').replace('&gt;','>'),
          type: 'PUT',
          contentType: 'application/json',
          data: JSON.stringify(updatedRule),
