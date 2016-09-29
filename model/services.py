@@ -123,7 +123,7 @@ def parse_systemctlshow_output(output):
 
 
 def parse_systemctllist_output(output):
-    """Parses the output of 'systemctl --type=service --no-pager'.
+    """Parses the output of 'systemctl --type=service --no-pager --all'.
 
     Args:
         output (str): the output of the command. Example format:
@@ -186,7 +186,7 @@ def get_services_list():
         List[str]: a list of services.
 
     """
-    cmd = ['systemctl', '--type=service', '--no-pager']
+    cmd = ['systemctl', '--type=service', '--no-pager', '--all']
     output = run_systemd_command(cmd)
     return parse_systemctllist_output(output)
 
