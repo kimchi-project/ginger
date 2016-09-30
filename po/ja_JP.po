@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ginger 1.2.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-06-24 10:07-0300\n"
+"POT-Creation-Date: 2016-09-30 10:02-0300\n"
 "PO-Revision-Date: 2014-06-22 14:00+0800\n"
 "Last-Translator: Zhou Zheng Sheng <zhshzhou@linux.vnet.ibm.com>\n"
 "Language-Team: Zhou Zheng Sheng <zhshzhou@linux.vnet.ibm.com>\n"
@@ -14,6 +14,18 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+
+msgid " Password "
+msgstr ""
+
+msgid " Type "
+msgstr ""
+
+msgid " Username "
+msgstr ""
+
+msgid "!="
+msgstr ""
 
 #, python-format
 msgid "%(mac)s is not a valid mac address."
@@ -24,21 +36,79 @@ msgid "%(name)s is not valid network interface"
 msgstr ""
 
 #, python-format
+msgid "%(sensor_type)s is not a valid sensor type"
+msgstr ""
+
+msgid "&"
+msgstr ""
+
+msgid "&="
+msgstr ""
+
+msgid "&larr; Previous"
+msgstr ""
+
+#, python-format
 msgid "'%(key)s' value is missing."
 msgstr ""
 
-msgid "'yes' or 'no' is allowed value for the BONDING_MASTER"
+msgid "'yes' or 'no' are the allowed values for the VLAN."
 msgstr ""
 
-msgid "'yes' or 'no' is allowed value for the VLAN"
+msgid "-b (backlog)"
+msgstr ""
+
+msgid "-f"
+msgstr ""
+
+msgid "-r (rate)"
+msgstr ""
+
+msgid "0"
+msgstr ""
+
+msgid "1"
+msgstr ""
+
+msgid "2"
+msgstr ""
+
+msgid "<"
+msgstr ""
+
+msgid "<="
+msgstr ""
+
+msgid "="
+msgstr ""
+
+msgid ">"
+msgstr ""
+
+msgid ">="
 msgstr ""
 
 msgid ""
 "A VLAN slave cannot be configured on a bond with the fail_over_mac=follow "
-"option"
+"option."
+msgstr ""
+
+msgid "AVC Messages"
+msgstr ""
+
+msgid "Absolute File Path"
 msgstr ""
 
 msgid "Absolute path to firmware RPM"
+msgstr ""
+
+msgid "Account Modification Report"
+msgstr ""
+
+msgid "Action"
+msgstr ""
+
+msgid "Action Mail"
 msgstr ""
 
 msgid "Actions"
@@ -48,11 +118,26 @@ msgid "Activate"
 msgstr "アクティブ化"
 
 #, python-format
-msgid "Activated host network interface '%(ident)s'"
+msgid "Activate host network interface '%(ident)s'"
 msgstr ""
 
 #, python-format
-msgid "Activated power saving profile '%(ident)s'"
+msgid "Activate power saving profile '%(ident)s'"
+msgstr ""
+
+#, python-format
+msgid ""
+"Activation of interface %(name)s failed. Physical cable is disconnected for "
+"the device '%(name)s'."
+msgstr ""
+
+#, python-format
+msgid ""
+"Activation of vlan/bond interface '%(name)s' failed. Please refresh and try "
+"again. "
+msgstr ""
+
+msgid "Active"
 msgstr ""
 
 msgid "Add"
@@ -76,6 +161,15 @@ msgstr ""
 msgid "Add Interface"
 msgstr ""
 
+msgid "Add New Entry"
+msgstr ""
+
+msgid "Add Partition"
+msgstr ""
+
+msgid "Add Server"
+msgstr ""
+
 msgid "Add Subscription"
 msgstr "サブスクリプションの追加"
 
@@ -89,11 +183,25 @@ msgid "Add a Path"
 msgstr ""
 
 #, python-format
-msgid "Added bonded port '%(bond)s' to OVS bridge '%(ident)s'"
+msgid "Add bonded port '%(bond)s' in OVS bridge '%(ident)s'"
 msgstr ""
 
 #, python-format
-msgid "Added interface '%(interface)s' to OVS bridge '%(ident)s'"
+msgid "Add interface '%(interface)s' to OVS bridge '%(ident)s'"
+msgstr ""
+
+#, python-format
+msgid "Add managed server '%(name)s'"
+msgstr ""
+
+msgid "Add new filter"
+msgstr ""
+
+#, python-format
+msgid "Add physical volume '%(pv_name)s'"
+msgstr ""
+
+msgid "Add to Volume Group"
 msgstr ""
 
 msgid "Address"
@@ -103,6 +211,12 @@ msgid "Address Space"
 msgstr ""
 
 msgid "Addresses"
+msgstr ""
+
+msgid "Admin Space Left Action"
+msgstr ""
+
+msgid "Admin Space Left(MBs)"
 msgstr ""
 
 msgid "Administration"
@@ -117,14 +231,45 @@ msgstr ""
 msgid "Aliases"
 msgstr ""
 
+msgid "Allocated PE"
+msgstr ""
+
+msgid "Allocated PE Size"
+msgstr ""
+
+msgid "Allowed values for BONDING_MASTER are 'yes' or 'no'"
+msgstr ""
+
+msgid "Always"
+msgstr ""
+
 msgid "Ambient"
+msgstr ""
+
+msgid "Anomaly events Report"
 msgstr ""
 
 msgid "Apply"
 msgstr ""
 
+msgid "Architecture [b32 | b34]"
+msgstr ""
+
 #, python-format
 msgid "Archive creation task failed. \"%(err)s\"."
+msgstr ""
+
+msgid "Are you sure you want to add the pv(s)  %1 <br>to volume group %2?"
+msgstr ""
+
+msgid ""
+"Are you sure you want to create physical volues with the selected block "
+"devices?"
+msgstr ""
+
+msgid ""
+"Are you sure you want to create physical volues with the selected partitions/"
+"block devices?"
 msgstr ""
 
 msgid "Are you sure you want to delete interface %1?"
@@ -135,10 +280,91 @@ msgid ""
 "connectivity!"
 msgstr ""
 
+msgid "Are you sure you want to delete server %1?"
+msgstr ""
+
+msgid "Are you sure you want to delete the selected file/device"
+msgstr ""
+
 msgid "Are you sure you want to delete this user?"
 msgstr ""
 
+msgid "Are you sure you want to delete volume group(s) : %1?"
+msgstr ""
+
+msgid "Are you sure you want to power off server %1?"
+msgstr ""
+
+msgid "Are you sure you want to power on server %1?"
+msgstr ""
+
+msgid "Are you sure you want to remove selected devices?"
+msgstr ""
+
+msgid "Are you sure you want to remove the pv(s)  %1 <br>from volume group %2?"
+msgstr ""
+
+msgid "Are you sure you want to unmount the selected file systems?"
+msgstr ""
+
+msgid "Args"
+msgstr ""
+
 msgid "At least one slave is required for the bond interface"
+msgstr ""
+
+msgid "Audit Dispatcher"
+msgstr ""
+
+msgid "Audit Dispatcher Configuration"
+msgstr ""
+
+msgid "Audit Dispatcher disabled successfully."
+msgstr ""
+
+msgid "Audit Dispatcher enabled successfully."
+msgstr ""
+
+msgid "Audit Event ID"
+msgstr ""
+
+msgid "Audit Log Filter"
+msgstr ""
+
+msgid "Audit Log filter applied and output is rendered below"
+msgstr ""
+
+msgid "Audit Logs"
+msgstr ""
+
+msgid "Audit Report"
+msgstr ""
+
+msgid "Audit Report Type"
+msgstr ""
+
+msgid "Audit Rule"
+msgstr ""
+
+msgid "Audit Rules"
+msgstr ""
+
+msgid "Audit dispatcher Configuration details updated successfully"
+msgstr ""
+
+msgid "Audit dispatcher plugin %1 is updated successfully"
+msgstr ""
+
+msgid "Auditd Configuration"
+msgstr ""
+
+msgid "Auth"
+msgstr ""
+
+msgid "Authentication"
+msgstr ""
+
+msgid "Authentication Attempts"
 msgstr ""
 
 msgid "Authors"
@@ -153,6 +379,12 @@ msgstr ""
 msgid "Autostart"
 msgstr ""
 
+msgid "Available (MB)"
+msgstr ""
+
+msgid "BMP"
+msgstr ""
+
 msgid "BOND"
 msgstr ""
 
@@ -164,6 +396,9 @@ msgstr ""
 
 msgid "Batch Delete"
 msgstr "バッチ削除"
+
+msgid "Blocking/Lossless"
+msgstr ""
 
 msgid "Bond %1 was successfully added"
 msgstr ""
@@ -177,13 +412,13 @@ msgstr ""
 msgid "Bond Members"
 msgstr ""
 
-msgid "Bond info is missing"
+msgid "Bond info is missing."
 msgstr ""
 
 msgid "Bond name"
 msgstr ""
 
-msgid "Bonding master is missing"
+msgid "Bonding master is missing."
 msgstr ""
 
 msgid "Bonds"
@@ -217,8 +452,26 @@ msgstr ""
 msgid "Bytes Transmitted"
 msgstr ""
 
+msgid "Can't edit the rule, because selected rule is not persisted"
+msgstr ""
+
 msgid "Cancel"
 msgstr "取消"
+
+msgid "Cannot delete System Event log for id "
+msgstr ""
+
+#, python-format
+msgid "Cannot process FRU Device information entry %(eachFru)s"
+msgstr ""
+
+#, python-format
+msgid "Cannot process SDR entry %(sdrString)s"
+msgstr ""
+
+#, python-format
+msgid "Cannot process System Event Log entry %(selString)s"
+msgstr ""
 
 msgid "Cannot update system firmware while running VMs."
 msgstr "VM の稼働中はシステム・ファームウェアを更新できません。"
@@ -229,28 +482,58 @@ msgstr ""
 msgid "Cgroup"
 msgstr ""
 
-msgid "Change type for partition failed"
+msgid "Change Password"
+msgstr ""
+
+#, python-format
+msgid "Change password for user '%(ident)s'"
+msgstr ""
+
+#, python-format
+msgid "Change type for partition failed. Error: %(err)s"
 msgstr ""
 
 msgid "Close"
 msgstr ""
 
-msgid "Commited host firmware image from temp side to perm side"
+msgid "Command"
+msgstr ""
+
+msgid "Commands Run"
+msgstr ""
+
+msgid "Commit host firmware image from temp side to perm side"
 msgstr ""
 
 msgid "Community"
 msgstr "コミュニティー"
 
+#, python-format
+msgid "Conf file does not exist for the plugin: %(name)s"
+msgstr ""
+
+msgid "Config Change Report"
+msgstr ""
+
 msgid "Configuration Backup"
 msgstr "構成バックアップ"
+
+msgid "Configuration updated successfully"
+msgstr ""
+
+msgid "Configured successfully"
+msgstr ""
 
 msgid "Confirm Password"
 msgstr "確認パスワード"
 
-msgid "Confirmed changes on host network configuration"
+msgid "Confirm changes on host network configuration"
 msgstr ""
 
 msgid "Connect Automatically"
+msgstr ""
+
+msgid "Control Rule"
 msgstr ""
 
 msgid "Cores"
@@ -267,49 +550,79 @@ msgstr ""
 msgid "Create"
 msgstr ""
 
+#, python-format
+msgid "Create DASD partition on '%(dev_name)s' with size %(size)s"
+msgstr ""
+
+#, python-format
+msgid "Create OVS bridge '%(name)s'"
+msgstr ""
+
+msgid "Create Partition"
+msgstr ""
+
+msgid "Create Physical Volumes"
+msgstr ""
+
 msgid "Create a backup"
 msgstr "バックアップの作成"
 
-msgid "Create partition failed"
+msgid "Create a new volume group"
 msgstr ""
 
 #, python-format
-msgid "Created DASD partition on '%(dev_name)s' with size %(size)s"
+msgid "Create archive with description '%(description)s'"
 msgstr ""
 
 #, python-format
-msgid "Created OVS bridge '%(name)s'"
+msgid "Create audit rule '%(rule)s' type '%(type)s'"
+msgstr ""
+
+msgid "Create configuration file for network interface"
 msgstr ""
 
 #, python-format
-msgid "Created archive with description '%(description)s'"
-msgstr ""
-
-msgid "Created configuration file for network interface"
+msgid "Create disk partition at '%(devname)s' with size %(partsize)s"
 msgstr ""
 
 #, python-format
-msgid "Created disk partition at '%(devname)s' with size %(partsize)s"
+msgid "Create host volume group '%(vg_name)s'"
 msgstr ""
 
 #, python-format
-msgid "Created host volume group '%(vg_name)s'"
+msgid "Create logical volume at volume group '%(vg_name)s'"
 msgstr ""
 
 #, python-format
-msgid "Created logical volume at volume group '%(vg_name)s'"
+msgid "Create partition failed. Error: %(err)s"
+msgstr ""
+
+msgid "Create physical volumes : Block Devices"
 msgstr ""
 
 #, python-format
-msgid "Created physical volume '%(pv_name)s'"
+msgid "Create swap device '%(file_loc)s'"
 msgstr ""
 
 #, python-format
-msgid "Created swap device '%(file_loc)s'"
+msgid "Create user '%(name)s'"
 msgstr ""
 
 #, python-format
-msgid "Created user '%(name)s'"
+msgid "Created the rule '%(name)s'"
+msgstr ""
+
+#, python-format
+msgid "Creation of a rule failed. '%(error)s'."
+msgstr ""
+
+msgid "Crypto Report"
+msgstr ""
+
+msgid "Current LV"
+msgstr ""
+
+msgid "Current PV"
 msgstr ""
 
 msgid "Currently logged user of this session is not allowed to be deleted."
@@ -328,8 +641,20 @@ msgstr "DNS"
 msgid "DNS Server"
 msgstr ""
 
+msgid "Data"
+msgstr ""
+
+msgid "Date and Time"
+msgstr ""
+
 #, python-format
-msgid "Deactivated host network interface '%(ident)s'"
+msgid "Deactivate host network interface '%(ident)s'"
+msgstr ""
+
+msgid "Debug"
+msgstr ""
+
+msgid "Decisecond"
 msgstr ""
 
 msgid "Default Gateway"
@@ -341,18 +666,31 @@ msgstr ""
 msgid "Delete Backups in Batch"
 msgstr ""
 
+#, python-format
+msgid "Delete IQN '%(ident)s'"
+msgstr ""
+
+#, python-format
+msgid "Delete System Event Log entry '%(ident)s'"
+msgstr ""
+
+#, python-format
+msgid "Delete audit rule '%(ident)s'"
+msgstr ""
+
 msgid "Delete interface"
 msgstr ""
 
-msgid "Delete partition failed"
+#, python-format
+msgid "Delete partition failed. Error: %(err)s"
 msgstr ""
 
 #, python-format
-msgid "Deleted swap device '%(ident)s'"
+msgid "Delete swap device '%(ident)s'"
 msgstr ""
 
 #, python-format
-msgid "Deleted user '%(ident)s'"
+msgid "Delete user '%(ident)s'"
 msgstr ""
 
 #, python-format
@@ -379,10 +717,25 @@ msgstr "説明が長すぎます。"
 msgid "Detach"
 msgstr ""
 
+msgid "Detailed Report"
+msgstr ""
+
 msgid "Details"
 msgstr ""
 
 msgid "Device"
+msgstr ""
+
+msgid "Device Major Number"
+msgstr ""
+
+msgid "Device Minor Number"
+msgstr ""
+
+msgid "Device Name"
+msgstr ""
+
+msgid "Device added successfully to Volume Group"
 msgstr ""
 
 msgid "Device name is invalid."
@@ -391,11 +744,63 @@ msgstr ""
 msgid "Device name of interface is missing or invalid."
 msgstr ""
 
+msgid "Device removed from Volume Group"
+msgstr ""
+
+msgid "Direction"
+msgstr ""
+
+msgid "Directory"
+msgstr ""
+
+msgid "Disable"
+msgstr ""
+
+msgid "Disable SR-IOV"
+msgstr ""
+
+#, python-format
+msgid "Disabled audit dispatcher in conf file '%(ident)s'"
+msgstr ""
+
 #, python-format
 msgid "Disabled autostart of service '%(ident)s'"
 msgstr ""
 
-msgid "Discarded old archives"
+msgid "Discard old archives"
+msgstr ""
+
+msgid "Discover Targets"
+msgstr ""
+
+msgid "Discovery completed successfully"
+msgstr ""
+
+msgid "Disk Error Action"
+msgstr ""
+
+msgid "Disk Full Action"
+msgstr ""
+
+msgid "Disp_qos"
+msgstr ""
+
+msgid "Dispatcher"
+msgstr ""
+
+msgid "Dispatcher Path"
+msgstr ""
+
+msgid "Dispatcher Plugin Configuration"
+msgstr ""
+
+msgid "Distribute Network"
+msgstr ""
+
+msgid "Do you want to delete following rules ?"
+msgstr ""
+
+msgid "Do you want to delete the partition?"
 msgstr ""
 
 msgid "Do you want to format the selected ECKD device(s)?"
@@ -406,7 +811,28 @@ msgid ""
 "will be skipped i.e. not be formatted!"
 msgstr ""
 
+msgid "Do you want to load following rules ?"
+msgstr ""
+
+msgid "Do you want to persist following rules ?"
+msgstr ""
+
+msgid "Do you want to proceed login for selected devices?"
+msgstr ""
+
+msgid "Do you want to proceed logout for selected devices?"
+msgstr ""
+
+msgid "Do you want to remove the device from VG?"
+msgstr ""
+
 msgid "Do you want to remove the selected Storage device(s)?"
+msgstr ""
+
+msgid "Do you want to unload following rules ?"
+msgstr ""
+
+msgid "Done"
 msgstr ""
 
 msgid "Down"
@@ -415,15 +841,34 @@ msgstr ""
 msgid "Download"
 msgstr ""
 
+msgid "Edit"
+msgstr ""
+
 msgid "Edit Bridge"
 msgstr ""
 
 msgid "Edit Bridge:"
 msgstr ""
 
+msgid "Edit Rule"
+msgstr ""
+
+msgid "Effectice user ID"
+msgstr ""
+
+msgid "Effective Group ID"
+msgstr ""
+
 msgid ""
 "Either no network interface or multiple network interfaces selected. Please "
 "select one."
+msgstr ""
+
+msgid ""
+"Either no server or multiple server information selected. Please select one."
+msgstr ""
+
+msgid "Enable"
 msgstr ""
 
 msgid "Enable Bridge Port"
@@ -435,10 +880,17 @@ msgstr ""
 msgid "Enable IPv6 Default Route"
 msgstr ""
 
+msgid "Enable Krb5"
+msgstr ""
+
 msgid "Enable SR-IOV"
 msgstr ""
 
 msgid "Enable SR-IOV Progress"
+msgstr ""
+
+#, python-format
+msgid "Enable SR-IOV feature for network interface '%(ident)s'"
 msgstr ""
 
 msgid "Enable SR-IOV for"
@@ -448,13 +900,21 @@ msgstr ""
 msgid "Enabled autostart of service '%(ident)s'"
 msgstr ""
 
+msgid "Enriched"
+msgstr ""
+
+msgid "Enter Filter Value"
+msgstr ""
+
+msgid "Enter file name with path (Ex: path/filename"
+msgstr ""
+
 msgid "Equivalent to enabling promiscuous mode on regular Ethernet adapters"
 msgstr ""
 
 #, python-format
-msgid "Error activating power saving profile %(profile)s."
+msgid "Error activating power saving profile %(profile)s, error: %(err)s."
 msgstr ""
-"省電力プロファイル %(profile)s をアクティブにするときにエラーが発生しました。"
 
 #, python-format
 msgid "Error adding port %(port)s in bridge %(name)s. Port already exists."
@@ -482,11 +942,8 @@ msgstr ""
 msgid "Error deleting a swap device. %(err)s"
 msgstr ""
 
-msgid "Error deleting a swap file."
-msgstr ""
-
 #, python-format
-msgid "Error deleting a swap file. %(err)s"
+msgid "Error deleting a swap file: %(err)s"
 msgstr ""
 
 #, python-format
@@ -520,13 +977,23 @@ msgid "Error executing SystemD command %(cmd)s, reason: %(err)s"
 msgstr ""
 
 #, python-format
+msgid "Error executing command to rescan the IQN %(iqn)s - %(err)s"
+msgstr ""
+
+#, python-format
+msgid "Error executing iSCSI target discovery command - %(err)s"
+msgstr ""
+
+#, python-format
+msgid "Error fetching NFS shares for server %(name)s."
+msgstr ""
+
+#, python-format
 msgid "Error fetching info of module %(module)s, reason: %(err)s"
 msgstr ""
 
 #, python-format
-msgid ""
-"Error flashing firmware. rc = %(rc)s. Please see /usr/sbin/update_flash for "
-"rc reasons."
+msgid "Error flashing firmware: %(error)s"
 msgstr ""
 
 #, python-format
@@ -545,6 +1012,28 @@ msgstr ""
 msgid "Error getting loaded module list: %(err)s"
 msgstr ""
 
+#, python-format
+msgid "Error getting the auth info for IQN %(iqn)s - %(err)s"
+msgstr ""
+
+#, python-format
+msgid "Error getting the global iSCSI auth info - %(err)s"
+msgstr ""
+
+#, python-format
+msgid "Error in deleting iSCSI QN %(iqn)s from iscsiadm db - %(err)s"
+msgstr ""
+
+#, python-format
+msgid "Error in determining iSCSI QN %(iqn)s logged in status - %(err)s"
+msgstr ""
+
+msgid "Error in disabling the audit dispatcher. "
+msgstr ""
+
+msgid "Error in enabling the audit dispatcher. "
+msgstr ""
+
 msgid "Error in executing 'df -hT' command"
 msgstr ""
 
@@ -552,18 +1041,51 @@ msgstr ""
 msgid "Error in executing 'lscss -d' command : %(err)s"
 msgstr ""
 
-msgid "Error in executing 'lsdasd -l bus_id' command"
+#, python-format
+msgid "Error in executing 'lsdasd -l bus_id' command: %(err)s"
 msgstr ""
 
-msgid "Error in executing 'lsdasd -l' command"
+#, python-format
+msgid "Error in executing 'lsdasd -l' command: %(err)s"
+msgstr ""
+
+#, python-format
+msgid "Error in executing auditctl command '%(name)s'."
+msgstr ""
+
+#, python-format
+msgid "Error in listing pre-discovered iSCSI targets - %(err)s"
+msgstr ""
+
+#, python-format
+msgid "Error in logging onto iSCSI QN %(iqn)s - %(err)s"
+msgstr ""
+
+#, python-format
+msgid "Error in logging out of iSCSI QN %(iqn)s - %(err)s"
+msgstr ""
+
+#, python-format
+msgid ""
+"Error in modifying iSCSI parameter %(parameter)s with value %(value)s - "
+"%(err)s"
 msgstr ""
 
 #, python-format
 msgid "Error in parsing 'lscss -d' command : %(err)s"
 msgstr ""
 
+msgid "Error in retrieving the audit conf file details. "
+msgstr ""
+
+msgid "Error in retrieving the info for the audit dispatcher conf file."
+msgstr ""
+
 #, python-format
 msgid "Error in the mlx5_SRIOV_enable task: %(err)s"
+msgstr ""
+
+msgid "Error in updating the audit conf file details. "
 msgstr ""
 
 msgid "Error loading SEP subscriptions data from server."
@@ -573,6 +1095,77 @@ msgstr ""
 
 #, python-format
 msgid "Error loading module %(module)s, reason: %(err)s"
+msgstr ""
+
+#, python-format
+msgid "Error occured in deleting from the file %(name)s."
+msgstr ""
+
+#, python-format
+msgid "Error occured in retrieving the info for the plugin %(name)s."
+msgstr ""
+
+#, python-format
+msgid "Error occured in updating data in the file %(name)s."
+msgstr ""
+
+#, python-format
+msgid "Error occured in writing to the file %(name)s."
+msgstr ""
+
+#, python-format
+msgid "Error occurred  while deleting the rule. %(err)s"
+msgstr ""
+
+#, python-format
+msgid "Error occurred in fetching audit rule info. %(error)s"
+msgstr ""
+
+#, python-format
+msgid "Error occurred in fetching filesystem rule info. %(error)s"
+msgstr ""
+
+#, python-format
+msgid "Error occurred in fetching system rule info. %(error)s"
+msgstr ""
+
+msgid "Error occurred in fetching the logs."
+msgstr ""
+
+msgid "Error occurred in getting the filtered logs."
+msgstr ""
+
+msgid "Error occurred in getting the reports."
+msgstr ""
+
+msgid "Error occurred in getting the unfiltered logs."
+msgstr ""
+
+#, python-format
+msgid "Error occurred in graph creation: '%(error)s"
+msgstr ""
+
+msgid "Error occurred in loading predefined rules."
+msgstr ""
+
+#, python-format
+msgid "Error occurred in modifying the rule '%(name)s'."
+msgstr ""
+
+#, python-format
+msgid ""
+"Error occurred in persisting the rules. The rule '%(name)s' already exists."
+msgstr ""
+
+msgid "Error occurred in rendering the graph. "
+msgstr ""
+
+#, python-format
+msgid "Error occurred in unload operation of rule '%(name)s' ."
+msgstr ""
+
+#, python-format
+msgid "Error occurred while writing rule into audit.rules: %(err)s"
 msgstr ""
 
 #, python-format
@@ -588,7 +1181,21 @@ msgid "Error parsing /proc/swaps file. %(err)s"
 msgstr ""
 
 #, python-format
-msgid "Error parsing output of 'lvm version' command.. %(err)s"
+msgid "Error parsing iSCSI target discovery command - %(err)s"
+msgstr ""
+
+#, python-format
+msgid "Error parsing output of 'lvm version' command: %(err)s"
+msgstr ""
+
+#, python-format
+msgid "Error parsing session directory name %(session)s - %(err)s"
+msgstr ""
+
+#, python-format
+msgid ""
+"Error parsing the output of iscsiadm discovery cmd - %(err)s. iscsiadm "
+"discovery Output - %(output)s"
 msgstr ""
 
 #, python-format
@@ -633,6 +1240,23 @@ msgstr ""
 msgid "Error unloading module %(module)s, reason: %(err)s"
 msgstr ""
 
+#, python-format
+msgid ""
+"Error updating iscsiadm db key %(db_key)s for IQN %(iqn)s with error - "
+"%(err)s"
+msgstr ""
+
+#, python-format
+msgid ""
+"Error while getting the status of server with name %(name)s and IP address "
+"or Host Name %(ipaddr)s. Please check the server details and retry the "
+"operation."
+msgstr ""
+
+#, python-format
+msgid "Error while searching the active session for IQN %(iqn)s - %(err)s"
+msgstr ""
+
 msgid ""
 "Error: openib.conf file does not exist in the host. Unable to set SR-IOV "
 "boot script."
@@ -644,24 +1268,57 @@ msgstr ""
 msgid "Errors Transmitted"
 msgstr ""
 
-msgid "Exception getting the route information"
+msgid "Event End"
 msgstr ""
 
-msgid "Exception updating the interface settings"
+msgid "Event Report"
+msgstr ""
+
+msgid "Event Start"
+msgstr ""
+
+#, python-format
+msgid "Exception getting route information: %(err)s"
+msgstr ""
+
+#, python-format
+msgid "Exception updating the interface settings: %(err)s"
 msgstr ""
 
 msgid "Exception updating/creating the ifcfg file."
 msgstr ""
 
-#, python-format
-msgid "Executed action '%(name)s' on network interface '%(ident)s'"
+msgid "Exclude"
+msgstr ""
+
+msgid "Executable"
+msgstr ""
+
+msgid "Executable Report"
 msgstr ""
 
 #, python-format
-msgid "Extended host volume group '%(ident)s'"
+msgid "Execution on auditctl command failed with error '%(error)s'"
+msgstr ""
+
+msgid "Existing physical volumes : "
+msgstr ""
+
+msgid "Exit"
+msgstr ""
+
+msgid "Extend"
+msgstr ""
+
+#, python-format
+msgid "Extend host volume group '%(ident)s'"
 msgstr ""
 
 msgid "FCP Tape Devices"
+msgstr ""
+
+#, python-format
+msgid "FRU Device %(fru_id)s is not present in server %(name)s"
 msgstr ""
 
 msgid "FW update failed: No image file found in the package file."
@@ -669,17 +1326,32 @@ msgstr ""
 "FW 更新が失敗しました: イメージ・ファイルがパッケージ・ファイルに見つかりませ"
 "ん。"
 
+msgid "Failed Summary Report"
+msgstr ""
+
 #, python-format
-msgid "Failed to a delete token from ifcfg file, Error: '%(error)s'"
+msgid "Failed to a delete token from ifcfg file, Error: '%(error)s'."
+msgstr ""
+
+msgid "Failed to bring down the interface %1."
+msgstr ""
+
+msgid "Failed to bring up the interface %1."
+msgstr ""
+
+#, python-format
+msgid "Failed to change password for user '%(user)s', error: '%(err)s'."
 msgstr ""
 
 msgid "Failed to create LV"
 msgstr ""
 
-msgid "Failed to create PV"
+#, python-format
+msgid "Failed to create PV %(name)s."
 msgstr ""
 
-msgid "Failed to create VG"
+#, python-format
+msgid "Failed to create VG %(name)s. Error: %(err)s"
 msgstr ""
 
 #, python-format
@@ -698,7 +1370,8 @@ msgstr ""
 "アーカイブ・ディレクトリー「%(dir)s」の作成に失敗しました。詳細については、エ"
 "ラー・ログを調べてください。"
 
-msgid "Failed to create partition"
+#, python-format
+msgid "Failed to create partition %(name)s, error: %(err)s"
 msgstr ""
 
 #, python-format
@@ -709,6 +1382,12 @@ msgstr ""
 "tar アーカイブ「%(name)s」の作成に失敗しました。cmd: 「%(cmd)s」。詳細につい"
 "ては、エラー・ログを調べてください。"
 
+msgid "Failed to create the graph: Package 'Graphviz' is not installed."
+msgstr ""
+
+msgid "Failed to create the interface %1."
+msgstr ""
+
 msgid "Failed to delete LV"
 msgstr ""
 
@@ -716,7 +1395,8 @@ msgstr ""
 msgid "Failed to delete PV, error: %(err)s"
 msgstr ""
 
-msgid "Failed to delete VG"
+#, python-format
+msgid "Failed to delete VG %(name)s."
 msgstr ""
 
 #, python-format
@@ -727,22 +1407,30 @@ msgstr "アーカイブ・ファイル「%(name)s」の削除に失敗しまし�
 msgid "Failed to delete ifcfg file, Error: '%(error)s'"
 msgstr ""
 
-msgid "Failed to delete partition"
+#, python-format
+msgid "Failed to delete partition %(name)s, error: %(err)s"
 msgstr ""
 
-msgid "Failed to extend VG"
+msgid "Failed to delete the interface %1."
+msgstr ""
+
+#, python-format
+msgid "Failed to extend VG %(name)s."
 msgstr ""
 
 msgid "Failed to fetch LV details"
 msgstr ""
 
-msgid "Failed to fetch PV details"
+#, python-format
+msgid "Failed to fetch PV %(name)s details."
 msgstr ""
 
-msgid "Failed to fetch PV list"
+#, python-format
+msgid "Failed to fetch PV list. Error: %(err)s"
 msgstr ""
 
-msgid "Failed to fetch VG details"
+#, python-format
+msgid "Failed to fetch VG %(name)s details."
 msgstr ""
 
 msgid "Failed to find specified DASD device"
@@ -757,7 +1445,7 @@ msgstr ""
 #, python-format
 msgid ""
 "Failed to format %(name)s. Either format currently going on or device not "
-"available for format. Please try after sometime."
+"available for format. Please try again later."
 msgstr ""
 
 msgid ""
@@ -765,13 +1453,18 @@ msgid ""
 "available for format. Please try after sometime."
 msgstr ""
 
-msgid "Failed to identify the type of interface"
+#, python-format
+msgid "Failed to get the list of persisted rules '%(error)s'."
+msgstr ""
+
+msgid "Failed to identify the type of interface."
 msgstr ""
 
 msgid "Failed to list LVs"
 msgstr ""
 
-msgid "Failed to list VGs"
+#, python-format
+msgid "Failed to list VGs. Error: %(err)s"
 msgstr ""
 
 msgid "Failed to mount the filesystem"
@@ -785,7 +1478,8 @@ msgstr ""
 msgid "Failed to read /etc/resolv.conf because %(reason)s"
 msgstr "%(reason)s が原因で /etc/resolv.conf の読み取りに失敗しました。"
 
-msgid "Failed to reduce VG"
+#, python-format
+msgid "Failed to reduce VG %(name)s."
 msgstr ""
 
 #, python-format
@@ -794,28 +1488,46 @@ msgid ""
 msgstr ""
 
 #, python-format
+msgid ""
+"Failed to remove user '%(user)s' from group '%(group)s'. Error: group name "
+"is an empty string."
+msgstr ""
+
+#, python-format
 msgid "Failed to remove user '%(user)s' from sudoers list"
+msgstr ""
+
+msgid "Failed to restart the interface %1."
 msgstr ""
 
 msgid "Failed to retrieve Globl DNS and Gateway!"
 msgstr ""
 
-msgid "Failed to retrieve details of the specified DASD device"
+#, python-format
+msgid "Failed to retrieve details of DASD device %(name)s, error: %(err)s"
 msgstr ""
 
-msgid "Failed to retrieve details of the specified DASD partition"
+#, python-format
+msgid "Failed to retrieve details of DASD partition %(name)s."
 msgstr ""
 
-msgid "Failed to retrieve details of the specified filesystem"
+#, python-format
+msgid "Failed to retrieve details of the %(name)s filesystem."
 msgstr ""
 
-msgid "Failed to retrieve list of DASD devices"
+#, python-format
+msgid "Failed to retrieve list of DASD devices, error: %(err)s"
 msgstr ""
 
-msgid "Failed to retrieve list of DASD partitions"
+#, python-format
+msgid "Failed to retrieve list of DASD partitions. Error: %(err)s"
 msgstr ""
 
-msgid "Failed to retrieve list of filesystems."
+msgid "Failed to retrieve list of Servers"
+msgstr ""
+
+#, python-format
+msgid "Failed to retrieve list of filesystems. Error: %(err)s"
 msgstr ""
 
 msgid "Failed to retrieve list of interfaces!"
@@ -836,7 +1548,11 @@ msgid ""
 "installed."
 msgstr ""
 
-msgid "Failed to unmount the filesystems"
+#, python-format
+msgid "Failed to unmount filesystem %(name)s, error: %(err)s"
+msgstr ""
+
+msgid "Failed to update the interface %1."
 msgstr ""
 
 #, python-format
@@ -852,16 +1568,36 @@ msgstr ""
 msgid "Features"
 msgstr ""
 
-msgid "Fetching list of partitions failed"
+#, python-format
+msgid "Fetching list of partitions failed. Error: %(err)s"
+msgstr ""
+
+msgid "Field"
+msgstr ""
+
+msgid "Fields"
 msgstr ""
 
 msgid "File"
 msgstr "ファイル"
 
-msgid "File Systems"
+#, python-format
+msgid "File %(file)s already in use."
 msgstr ""
 
-msgid "File already in use."
+msgid "File Name"
+msgstr ""
+
+msgid "File Report"
+msgstr ""
+
+msgid "File System"
+msgstr ""
+
+msgid "File System Type"
+msgstr ""
+
+msgid "File Systems"
 msgstr ""
 
 msgid "File location required for creating a swap device."
@@ -870,7 +1606,29 @@ msgstr ""
 msgid "File name"
 msgstr ""
 
+msgid "File system on %1 successfully unmounted"
+msgstr ""
+
+msgid "File system successfully mounted on  %1"
+msgstr ""
+
+msgid "File to Watch"
+msgstr ""
+
+#, python-format
+msgid "Filesystem %(name)s already mounted in fstab."
+msgstr ""
+
+msgid "Filesystem group ID"
+msgstr ""
+
+msgid "Filesystem user ID"
+msgstr ""
+
 msgid "Filter"
+msgstr ""
+
+msgid "Filter Log"
 msgstr ""
 
 msgid "Filter System Modules"
@@ -898,24 +1656,45 @@ msgstr ""
 "ファームウェア更新を初期化中です。ファームウェアを消去するためにシステムがリ"
 "ブートされます。"
 
-msgid "For vlan creation over bond, slaves has to be up"
+msgid "Flush"
+msgstr ""
+
+msgid "Flush Freq"
+msgstr ""
+
+msgid "For vlan creation over bond, slaves has to be up."
+msgstr ""
+
+msgid "Format"
+msgstr ""
+
+#, python-format
+msgid "Format DASD device '%(ident)s' with block size %(blk_size)s"
 msgstr ""
 
 msgid "Format ECKD"
 msgstr ""
 
+msgid "Format Partition"
+msgstr ""
+
+msgid "Format completed successfully"
+msgstr ""
+
+#, python-format
+msgid "Format disk partition '%(ident)s' with filesystem '%(fstype)s'"
+msgstr ""
+
 msgid "Format partition failed"
 msgstr ""
 
-#, python-format
-msgid "Formatted DASD device '%(ident)s' with block size %(blk_size)s"
-msgstr ""
-
-#, python-format
-msgid "Formatted disk partition '%(ident)s' with filesystem '%(fstype)s'"
-msgstr ""
-
 msgid "Formatting..."
+msgstr ""
+
+msgid "Free PE"
+msgstr ""
+
+msgid "Free PE Size"
 msgstr ""
 
 msgid "Gateway"
@@ -933,6 +1712,15 @@ msgstr ""
 msgid "Generate Default Backup"
 msgstr "デフォルト・バックアップの生成"
 
+msgid "Generate Graph"
+msgstr ""
+
+msgid "Generate Report"
+msgstr ""
+
+msgid "Generating report..."
+msgstr ""
+
 msgid "Generic"
 msgstr ""
 
@@ -940,10 +1728,7 @@ msgid "Get Sensors"
 msgstr ""
 
 #, python-format
-msgid "Given vlan id is not an integer type, Error: '%(error)s'"
-msgstr ""
-
-msgid "Global DNS Addresses"
+msgid "Given vlan id is not an integer type, Error: '%(error)s'."
 msgstr ""
 
 msgid "Global DNS and Gateway applied "
@@ -952,17 +1737,61 @@ msgstr ""
 msgid "Global Network Configuration"
 msgstr ""
 
+msgid ""
+"Go back to previous step to create a volume group from existing physical "
+"volumes."
+msgstr ""
+
+msgid "Graph Columns"
+msgstr ""
+
+msgid "Graph Format"
+msgstr ""
+
+msgid "Graph Name"
+msgstr ""
+
+msgid "Graph Preview"
+msgstr ""
+
 msgid "Group"
 msgstr "グループ"
+
+msgid "Group ID"
+msgstr ""
 
 #, python-format
 msgid "Group name '%(group)s' is already in use'."
 msgstr ""
 
+msgid "Guest Name"
+msgstr ""
+
+msgid "Guest UUID"
+msgstr ""
+
 msgid "HDD"
 msgstr ""
 
+msgid "Halt"
+msgstr ""
+
+msgid "Hard"
+msgstr ""
+
 msgid "Hardware Address"
+msgstr ""
+
+msgid "Header is empty for given pattern."
+msgstr ""
+
+msgid "Host Name"
+msgstr ""
+
+msgid "Host Report"
+msgstr ""
+
+msgid "HostName"
 msgstr ""
 
 msgid "Hostname"
@@ -971,6 +1800,12 @@ msgstr "ホスト名"
 #, python-format
 msgid "Hostname %(hostname)s not found."
 msgstr "ホスト名 %(hostname)s が見つかりません。"
+
+msgid "ID"
+msgstr ""
+
+msgid "IP Address"
+msgstr ""
 
 msgid "IP Addresses"
 msgstr ""
@@ -990,7 +1825,14 @@ msgstr ""
 msgid "IPv6 Settings"
 msgstr ""
 
+#, python-format
+msgid "IQN %(iqn)s is not logged onto the target"
+msgstr ""
+
 msgid "Id"
+msgstr ""
+
+msgid "Ignore"
 msgstr ""
 
 msgid ""
@@ -1007,7 +1849,25 @@ msgstr ""
 msgid "Incorrect swap type, only 'device' and 'file' are allowed."
 msgstr ""
 
+msgid "Incremental"
+msgstr ""
+
+msgid "Incremental_async"
+msgstr ""
+
+msgid "Info"
+msgstr ""
+
+msgid "Initiator"
+msgstr ""
+
+msgid "Inode Number"
+msgstr ""
+
 msgid "Input"
+msgstr ""
+
+msgid "Integrity Report"
 msgstr ""
 
 msgid "Interface"
@@ -1036,7 +1896,7 @@ msgstr ""
 
 #, python-format
 msgid ""
-"Interface '%(name)s' is neither Vlan nor Bond to perform delete operation"
+"Interface '%(name)s' is neither Vlan nor Bond to perform delete operation."
 msgstr ""
 
 msgid "Interface : "
@@ -1061,6 +1921,13 @@ msgstr ""
 msgid "Interfaces"
 msgstr ""
 
+#, python-format
+msgid "Internal error: %(error)s"
+msgstr ""
+
+msgid "Interpret  numeric  entities into text"
+msgstr ""
+
 msgid "Intree"
 msgstr ""
 
@@ -1068,7 +1935,21 @@ msgstr ""
 msgid "Invalid DASD partition, %(name)s"
 msgstr ""
 
-msgid "Invalid bonding option parameter"
+msgid "Invalid Data"
+msgstr ""
+
+msgid "Invalid URI, no list of storage servers available"
+msgstr ""
+
+#, python-format
+msgid "Invalid URI, please use /stgserver/%(ipaddr)s/nfsshares"
+msgstr ""
+
+#, python-format
+msgid "Invalid authentication type - %(auth_type)s"
+msgstr ""
+
+msgid "Invalid bonding option parameter."
 msgstr ""
 
 #, python-format
@@ -1109,6 +1990,12 @@ msgstr "インターフェース・ネットマスクのパラメーターが無
 msgid "Invalid parameter for network gateway"
 msgstr "ネットワーク・ゲートウェイのパラメーターが無効です"
 
+msgid "Invalid parameter, only username and password updates are allowed"
+msgstr ""
+
+msgid "Invalid parameters to create a report graph."
+msgstr ""
+
 #, python-format
 msgid "Invalid prefix '%(PREFIX)s', '%(error)s'."
 msgstr ""
@@ -1117,7 +2004,37 @@ msgstr ""
 msgid "Invalid prefix '%(PREFIX)s'."
 msgstr ""
 
+msgid "Invalid server or no NFS exports found on server."
+msgstr ""
+
 msgid "Invalid type needs to be either local or nfs"
+msgstr ""
+
+msgid "JPEG"
+msgstr ""
+
+msgid "JPG"
+msgstr ""
+
+msgid "Just Once"
+msgstr ""
+
+msgid "Key"
+msgstr ""
+
+msgid "Key Name"
+msgstr ""
+
+msgid "Key Report"
+msgstr ""
+
+msgid "Key String"
+msgstr ""
+
+msgid "Krb5 Key File"
+msgstr ""
+
+msgid "Krb5 Principle"
 msgstr ""
 
 msgid "License"
@@ -1141,26 +2058,91 @@ msgstr ""
 msgid "Load Modules"
 msgstr ""
 
+msgid "Load Predefined Rules"
+msgstr ""
+
 msgid "Load Special Config"
+msgstr ""
+
+#, python-format
+msgid "Load audit rule '%(ident)s'"
+msgstr ""
+
+#, python-format
+msgid "Load kernel module '%(name)s'"
+msgstr ""
+
+#, python-format
+msgid "Load the rule '%(ident)s'"
 msgstr ""
 
 msgid "Loaded"
 msgstr ""
 
-#, python-format
-msgid "Loaded kernel module '%(name)s'"
-msgstr ""
-
 msgid "Loading"
 msgstr ""
 
+#, python-format
+msgid "Loading the rule '%(name)s' failed."
+msgstr ""
+
 msgid "Loading..."
+msgstr ""
+
+msgid "Local Event"
+msgstr ""
+
+msgid "Local File System"
+msgstr ""
+
+msgid "Log File"
+msgstr ""
+
+msgid "Log File Action"
+msgstr ""
+
+msgid "Log File Name"
+msgstr ""
+
+msgid "Log File Nums"
+msgstr ""
+
+msgid "Log Format"
+msgstr ""
+
+msgid "Log Group"
+msgstr ""
+
+msgid "Log Time Range Report"
+msgstr ""
+
+msgid "Login"
+msgstr ""
+
+msgid "Login Report"
+msgstr ""
+
+msgid "Login User ID"
+msgstr ""
+
+#, python-format
+msgid "Login onto IQN '%(ident)s'"
+msgstr ""
+
+msgid "Logout"
+msgstr ""
+
+#, python-format
+msgid "Logout from IQN '%(ident)s'"
 msgstr ""
 
 msgid "Lun scan is enabled. Cannot add/remove LUNs manually"
 msgstr ""
 
 msgid "MAC Address"
+msgstr ""
+
+msgid "MB"
 msgstr ""
 
 msgid "MI(Recommended)"
@@ -1172,6 +2154,9 @@ msgstr ""
 msgid "Mac Address"
 msgstr ""
 
+msgid "Mandatory Access Control Report"
+msgstr ""
+
 msgid "Manual"
 msgstr ""
 
@@ -1181,7 +2166,28 @@ msgstr "マスク"
 msgid "Max"
 msgstr ""
 
+msgid "Max LV"
+msgstr ""
+
+msgid "Max Log FileSize "
+msgstr ""
+
+msgid "Max restarts"
+msgstr ""
+
+msgid "Maximum PV"
+msgstr ""
+
 msgid "Maximum length of device name is 15 characters only."
+msgstr ""
+
+msgid "Message"
+msgstr ""
+
+msgid "Metadata  Sequence No"
+msgstr ""
+
+msgid "Metadata Areas"
 msgstr ""
 
 msgid "Method"
@@ -1193,19 +2199,25 @@ msgstr ""
 msgid "Min"
 msgstr ""
 
-msgid "Minimum one slave has to be given for the bond interface"
+msgid "Minimum one slave has to be given for the bond interface."
 msgstr ""
 
-msgid "Missing IPV4 addresses information"
+msgid "Missing IPV4 addresses information."
+msgstr ""
+
+msgid "Missing Input Parameters"
 msgstr ""
 
 msgid "Missing ipv4 initialization key."
 msgstr ""
 
-msgid "Missing ipv6 address information"
+msgid "Missing ipv6 address information."
 msgstr ""
 
 msgid "Missing ipv6 initialization key."
+msgstr ""
+
+msgid "Missing rule info."
 msgstr ""
 
 msgid "Mixed selection of ECKD and non-ECKD devices"
@@ -1217,16 +2229,20 @@ msgstr ""
 msgid "Model"
 msgstr ""
 
-#, python-format
-msgid ""
-"Modified bonded port '%(bond)s' to replace interface '%(interface_del)s' "
-"with interface '%(interface_add)s' in OVS bridge '%(ident)s'"
-msgstr ""
-
 msgid "Modify"
 msgstr ""
 
+#, python-format
+msgid ""
+"Modify bonded port '%(bond)s' to replace interface '%(interface_del)s' with "
+"interface '%(interface_add)s' in OVS bridge '%(ident)s'"
+msgstr ""
+
 msgid "Module"
+msgstr ""
+
+#, python-format
+msgid "Module %(module)s is already loaded in the kernel."
 msgstr ""
 
 #, python-format
@@ -1239,7 +2255,7 @@ msgstr ""
 msgid "Module %1 was successfully unloaded"
 msgstr ""
 
-msgid "Module 802q is not loaded into kernel"
+msgid "Module 802q is not loaded into kernel."
 msgstr ""
 
 msgid "Module Name"
@@ -1248,11 +2264,17 @@ msgstr ""
 msgid "Monitoring Interval"
 msgstr ""
 
-msgid "Mount Point"
+msgid "Mount"
 msgstr ""
 
 #, python-format
-msgid "Mounted %(type)s filesystem at '%(mount_point)s'"
+msgid "Mount %(type)s filesystem at '%(mount_point)s'"
+msgstr ""
+
+msgid "Mount Point"
+msgstr ""
+
+msgid "Mount with _netdev option"
 msgstr ""
 
 msgid "Multipath Links"
@@ -1261,7 +2283,22 @@ msgstr ""
 msgid "N/A"
 msgstr ""
 
-msgid "NFS mount failed"
+msgid "NFS Path"
+msgstr ""
+
+msgid "NFS Server IP"
+msgstr ""
+
+#, python-format
+msgid "NFS mount failed, %(err)s"
+msgstr ""
+
+msgid ""
+"NFS path will be fetched based on NFS server IP entered.Please click arrow "
+"button to fetch the details"
+msgstr ""
+
+msgid "NIC Type"
 msgstr ""
 
 msgid "NIC type"
@@ -1269,6 +2306,12 @@ msgstr ""
 
 msgid "Name"
 msgstr "名前"
+
+msgid "Name Format"
+msgstr ""
+
+msgid "NetDev"
+msgstr ""
 
 msgid "Netmask"
 msgstr ""
@@ -1279,8 +2322,35 @@ msgstr ""
 msgid "Network Configuration"
 msgstr "ネットワーク構成"
 
+msgid "Network File System"
+msgstr ""
+
+msgid "Never"
+msgstr ""
+
 msgid "New Custom Backup"
 msgstr "新規カスタム・バックアップ"
+
+msgid "New Password"
+msgstr ""
+
+msgid "Next &rarr;"
+msgstr ""
+
+msgid "No"
+msgstr ""
+
+msgid "No Config"
+msgstr ""
+
+msgid "No NFS exports found on server %1"
+msgstr ""
+
+msgid "No VG Name define for this device"
+msgstr ""
+
+msgid "No log found matching the filter"
+msgstr ""
 
 #, python-format
 msgid ""
@@ -1292,16 +2362,38 @@ msgid "No partitions found"
 msgstr ""
 
 #, python-format
-msgid "No partitions found for disk . %(disk)s"
+msgid "No partitions found for disk %(disk)s"
+msgstr ""
+
+msgid "No physical volume selected"
+msgstr ""
+
+msgid "No results found"
 msgstr ""
 
 msgid "No results found!"
 msgstr ""
 
+msgid "No rules selected. Please select one"
+msgstr ""
+
 msgid "No storage device selected. Please select one."
 msgstr ""
 
+#, python-format
+msgid "No valid iSCSI Targets found for IP Address - %(ip_address)s"
+msgstr ""
+
+msgid "Non-Blocking/Lossy"
+msgstr ""
+
 msgid "None"
+msgstr ""
+
+msgid "Now"
+msgstr ""
+
+msgid "Numeric"
 msgstr ""
 
 msgid "OK"
@@ -1310,19 +2402,44 @@ msgstr ""
 msgid "OVS Bridges"
 msgstr ""
 
+msgid "Object's GID"
+msgstr ""
+
+msgid "Object's UID"
+msgstr ""
+
 msgid "Ok"
+msgstr ""
+
+msgid "Operator"
 msgstr ""
 
 msgid "Others"
 msgstr ""
 
+msgid "Overflow Action"
+msgstr ""
+
 msgid "PCI"
+msgstr ""
+
+msgid "PDF"
+msgstr ""
+
+msgid "PE Size"
 msgstr ""
 
 msgid "PID"
 msgstr ""
 
+msgid "PNG"
+msgstr ""
+
 msgid "PREFIX missing."
+msgstr ""
+
+msgid ""
+"PV created successfully please wait till device is added to Volume Group"
 msgstr ""
 
 msgid "Packages Received"
@@ -1348,7 +2465,13 @@ msgstr ""
 msgid "Parent Interface"
 msgstr ""
 
-msgid "Parent interface of type 'Bond' is not active"
+msgid "Parent Process ID"
+msgstr ""
+
+msgid "Parent interface of type 'Bond' is not active."
+msgstr ""
+
+msgid "Parent's process ID"
 msgstr ""
 
 msgid "Parsing df output failed."
@@ -1357,18 +2480,39 @@ msgstr ""
 msgid "Parsing lsdasd output failed"
 msgstr ""
 
+msgid "Partition"
+msgstr ""
+
 #, python-format
 msgid "Partition %(name)s not found."
+msgstr ""
+
+msgid "Partition added successfully"
 msgstr ""
 
 msgid "Partition already mounted"
 msgstr ""
 
+msgid "Partition size exceeds device size"
+msgstr ""
+
 msgid "Password"
 msgstr "パスワード"
 
+msgid "Password Change"
+msgstr ""
+
+msgid "Password parameter is required"
+msgstr ""
+
+msgid "Path"
+msgstr ""
+
 msgid "Path or pattern is too long or too short."
 msgstr "パスまたはパターンが長すぎるか、短すぎます。"
+
+msgid "Path to File"
+msgstr ""
 
 msgid "Paths"
 msgstr ""
@@ -1379,32 +2523,99 @@ msgstr ""
 msgid "Paths Included"
 msgstr ""
 
-#, python-format
-msgid "Persistent file for slave '%(slave)s' is missing"
+msgid "Permisions"
+msgstr ""
+
+msgid "Permission"
 msgstr ""
 
 #, python-format
-msgid "Persistent file is not available for an interface, '%(name)s'"
+msgid "Persist audit rule '%(ident)s'"
+msgstr ""
+
+#, python-format
+msgid "Persist the rule '%(ident)s'"
+msgstr ""
+
+msgid "Persisted"
+msgstr ""
+
+#, python-format
+msgid "Persistent file for slave '%(slave)s' is missing."
+msgstr ""
+
+#, python-format
+msgid "Persistent file is not available for an interface, '%(name)s'."
 msgstr ""
 
 msgid "Persistent file is not available for interface %1."
 msgstr ""
 
-#, python-format
-msgid "Physical cable is disconnected for the device '%(name)s'."
+msgid "Personality Number"
 msgstr ""
 
-msgid "Physical device name is missing"
+msgid "Physical Volumes Name"
+msgstr ""
+
+msgid "Physical device name is missing."
 msgstr ""
 
 msgid "Please check the uniqueness of the paths or patterns."
 msgstr "パスまたはパターンの固有性を確認してください。"
 
+msgid "Please enter Filename and Filesize"
+msgstr ""
+
+msgid "Please enter all fields"
+msgstr ""
+
+msgid "Please provide either file name or directory where the log file exists."
+msgstr ""
+
+msgid "Please select a device"
+msgstr ""
+
+msgid "Please select a plugin to edit"
+msgstr ""
+
+msgid "Please select a volume group for resize."
+msgstr ""
+
+msgid "Please select at lease one volume group for deletion."
+msgstr ""
+
+msgid ""
+"Please select at least one physical volume for removal from Volume Group"
+msgstr ""
+
+msgid "Please select atleaset one block device to create physical volume"
+msgstr ""
+
+msgid "Please select atleaset one partition to create physical volume"
+msgstr ""
+
+msgid ""
+"Please select either an existing physical volume or create a new physical "
+"volume from block device to proceed."
+msgstr ""
+
+msgid "Please select one device to add partition."
+msgstr ""
+
+msgid "Please select one rule to edit"
+msgstr ""
+
 msgid "Please wait..."
+msgstr ""
+
+msgid "Plugin"
 msgstr ""
 
 msgid "Port"
 msgstr "ポート"
+
+msgid "Port Type"
+msgstr ""
 
 msgid "Port type"
 msgstr ""
@@ -1412,8 +2623,36 @@ msgstr ""
 msgid "Power"
 msgstr ""
 
+msgid "Power Off"
+msgstr ""
+
+msgid "Power Off Server"
+msgstr ""
+
+msgid "Power On"
+msgstr ""
+
+msgid "Power On Server"
+msgstr ""
+
 msgid "Power Options"
 msgstr "電源オプション"
+
+#, python-format
+msgid "Power off managed server '%(ident)s'"
+msgstr ""
+
+#, python-format
+msgid "Power off server %(name)s failed"
+msgstr ""
+
+#, python-format
+msgid "Power on managed server '%(ident)s'"
+msgstr ""
+
+#, python-format
+msgid "Power on server %(name)s failed"
+msgstr ""
 
 msgid "Prefix"
 msgstr ""
@@ -1421,24 +2660,66 @@ msgstr ""
 msgid "Preserve the latest"
 msgstr "最新を保持"
 
+msgid "Priority Boost"
+msgstr ""
+
 msgid "Process"
+msgstr ""
+
+msgid "Process ID"
+msgstr ""
+
+msgid "Process ID Report"
 msgstr ""
 
 msgid "Profile"
 msgstr "プロファイル"
 
+msgid "Program's SE Linux Clearance"
+msgstr ""
+
+msgid "Program's SE Linux Role"
+msgstr ""
+
+msgid "Program's SE Linux Sensitivity"
+msgstr ""
+
+msgid "Program's SE Linux Type"
+msgstr ""
+
+msgid "Program's SE Linux User"
+msgstr ""
+
 msgid "Provide required parameters: hostname, port, community."
 msgstr "必須パラメーターのホスト名、ポート、コミュニティーを指定してください。"
+
+msgid "Q Depth"
+msgstr ""
+
+msgid "RDMA Enabled"
+msgstr ""
 
 msgid "RDMA enabled"
 msgstr ""
 
-#, python-format
-msgid "Redefined host network interface '%(ident)s'"
+msgid "Raw"
+msgstr ""
+
+msgid "Re-Scan"
+msgstr ""
+
+msgid "Recent"
 msgstr ""
 
 #, python-format
-msgid "Reduced host volume group '%(ident)s'"
+msgid "Redefine host network interface '%(ident)s'"
+msgstr ""
+
+msgid "Reduce"
+msgstr ""
+
+#, python-format
+msgid "Reduce host volume group '%(ident)s'"
 msgstr ""
 
 msgid "Refresh"
@@ -1450,7 +2731,7 @@ msgstr ""
 msgid "Regular (No Shell)"
 msgstr ""
 
-msgid "Rejected host firmware image on temp side"
+msgid "Reject host firmware image on temp side"
 msgstr ""
 
 msgid "Remove"
@@ -1462,7 +2743,31 @@ msgstr ""
 msgid "Remove Bridge"
 msgstr ""
 
+#, python-format
+msgid "Remove DASD partition '%(ident)s'"
+msgstr ""
+
 msgid "Remove Interface"
+msgstr ""
+
+#, python-format
+msgid "Remove OVS bridge '%(ident)s'"
+msgstr ""
+
+#, python-format
+msgid "Remove archive '%(ident)s'"
+msgstr ""
+
+#, python-format
+msgid "Remove bonded port '%(bond)s' from OVS bridge '%(ident)s'"
+msgstr ""
+
+#, python-format
+msgid "Remove configuration file for network interface '%(ident)s'"
+msgstr ""
+
+#, python-format
+msgid "Remove disk partition '%(ident)s'"
 msgstr ""
 
 #, python-format
@@ -1474,46 +2779,35 @@ msgid "Remove failed: error: %(err)s"
 msgstr ""
 
 #, python-format
-msgid "Removed DASD partition '%(ident)s'"
+msgid "Remove host volume group '%(ident)s'"
 msgstr ""
 
 #, python-format
-msgid "Removed OVS bridge '%(ident)s'"
+msgid "Remove interface '%(interface)s' from OVS bridge '%(ident)s'"
 msgstr ""
 
 #, python-format
-msgid "Removed archive '%(ident)s'"
+msgid "Remove logical volume '%(ident)s'"
 msgstr ""
 
 #, python-format
-msgid "Removed bonded port '%(bond)s' from OVS bridge '%(ident)s'"
+msgid "Remove managed server '%(ident)s'"
 msgstr ""
 
 #, python-format
-msgid "Removed configuration file for network interface '%(ident)s'"
-msgstr ""
-
-#, python-format
-msgid "Removed disk partition '%(ident)s'"
-msgstr ""
-
-#, python-format
-msgid "Removed host volume group '%(ident)s'"
-msgstr ""
-
-#, python-format
-msgid "Removed interface '%(interface)s' from OVS bridge '%(ident)s'"
-msgstr ""
-
-#, python-format
-msgid "Removed logical volume '%(ident)s'"
-msgstr ""
-
-#, python-format
-msgid "Removed physical volume '%(ident)s'"
+msgid "Remove physical volume '%(ident)s'"
 msgstr ""
 
 msgid "Removing..."
+msgstr ""
+
+msgid "Report"
+msgstr ""
+
+msgid "Report Graph"
+msgstr ""
+
+msgid "Report graph is saved in the following path <strong>%1</strong>"
 msgstr ""
 
 msgid "Require DASD device name to be formatted"
@@ -1540,7 +2834,7 @@ msgstr ""
 msgid "Required parameter partition size"
 msgstr ""
 
-msgid "Required pv_name parameter"
+msgid "Required pv_name parameter."
 msgstr ""
 
 msgid "Required pv_paths parameter"
@@ -1550,6 +2844,34 @@ msgid "Required size parameter"
 msgstr ""
 
 msgid "Required vg_name parameter"
+msgstr ""
+
+#, python-format
+msgid "Rescan IQN '%(ident)s'"
+msgstr ""
+
+msgid "Reset"
+msgstr ""
+
+msgid "Resize"
+msgstr ""
+
+msgid "Resource SE Linux High Level"
+msgstr ""
+
+msgid "Resource SE Linux Low Level"
+msgstr ""
+
+msgid "Resource SE Linux Role"
+msgstr ""
+
+msgid "Resource SE Linux Type"
+msgstr ""
+
+msgid "Resource SE Linux User"
+msgstr ""
+
+msgid "Response Anomaly Report"
 msgstr ""
 
 msgid "Restart"
@@ -1562,7 +2884,23 @@ msgstr ""
 msgid "Restarted service '%(ident)s'"
 msgstr ""
 
+msgid "Rotate"
+msgstr ""
+
 msgid "Routes"
+msgstr ""
+
+msgid "Rule"
+msgstr ""
+
+#, python-format
+msgid "Rule '%(name)s' is not persisted in the rules file."
+msgstr ""
+
+msgid "Rule Information not available"
+msgstr ""
+
+msgid "Rule Type"
 msgstr ""
 
 #, python-format
@@ -1583,6 +2921,9 @@ msgstr "SEP 構成"
 
 msgid "SNMP community name must be a single word."
 msgstr "SNMP コミュニティー名は単一のワードでなければなりません。"
+
+msgid "SR-IOV Setup"
+msgstr ""
 
 msgid "SR-IOV action of mlx5 module requires 'num_vfs' argument."
 msgstr ""
@@ -1616,7 +2957,22 @@ msgstr ""
 msgid "SRC Version"
 msgstr ""
 
+msgid "SVG"
+msgstr ""
+
+msgid "SYSLOG"
+msgstr ""
+
 msgid "Save"
+msgstr ""
+
+msgid "Save Server operation failed"
+msgstr ""
+
+msgid "Saved GroupID"
+msgstr ""
+
+msgid "Saved User ID"
 msgstr ""
 
 msgid "Select an Interface"
@@ -1631,6 +2987,12 @@ msgstr ""
 msgid "Select the bond Interfaces"
 msgstr ""
 
+msgid "Selected"
+msgstr ""
+
+msgid "Sensor Data Records"
+msgstr ""
+
 msgid "Sensor Monitor"
 msgstr "センサー・モニター"
 
@@ -1643,8 +3005,52 @@ msgstr ""
 msgid "Sent command to stop service %1"
 msgstr ""
 
+msgid "Server Name"
+msgstr ""
+
+#, python-format
+msgid "Server with IP address or Host Name %(ipaddr)s is already added"
+msgstr ""
+
+#, python-format
+msgid "Server with name %(name)s is already added"
+msgstr ""
+
+#, python-format
+msgid "Server with name %(name)s is not found"
+msgstr ""
+
 #, python-format
 msgid "Service name %(name)s not found."
+msgstr ""
+
+msgid "Session ID"
+msgstr ""
+
+#, python-format
+msgid "Set initiator CHAP credentials for IQN '%(ident)s'"
+msgstr ""
+
+#, python-format
+msgid "Set initiator CHAP credentials in iscsid.conf '%(ident)s'"
+msgstr ""
+
+#, python-format
+msgid ""
+"Set initiator discovery session CHAP credentials in iscsid.conf '%(ident)s'"
+msgstr ""
+
+#, python-format
+msgid "Set targets CHAP credentials for IQN '%(ident)s'"
+msgstr ""
+
+#, python-format
+msgid "Set targets CHAP credentials in iscsid.conf '%(ident)s'"
+msgstr ""
+
+#, python-format
+msgid ""
+"Set targets discovery session CHAP credentials in iscsid.conf '%(ident)s'"
 msgstr ""
 
 msgid "Settings"
@@ -1662,11 +3068,20 @@ msgstr ""
 msgid "Signer Hash Algorithm"
 msgstr ""
 
+msgid "Single"
+msgstr ""
+
 #, python-format
 msgid "Single swap device %(swap)s not found."
 msgstr ""
 
+msgid "Size"
+msgstr ""
+
 msgid "Size (MB)"
+msgstr ""
+
+msgid "Size in MB"
 msgstr ""
 
 msgid "Size is mandatory while creating file type swap device."
@@ -1675,7 +3090,29 @@ msgstr ""
 msgid "Size must be of type integer"
 msgstr ""
 
-msgid "Slave(s) is missing"
+msgid "Skip this step to create a new volume group using new block devices."
+msgstr ""
+
+msgid "Slave(s) is missing."
+msgstr ""
+
+msgid "Soft"
+msgstr ""
+
+msgid ""
+"Some of the selected devices are already Logged in.<br> Do you want to "
+"proceed login for Logged out devices?"
+msgstr ""
+
+msgid ""
+"Some of the selected devices are already Logged out.<br> Do you want to "
+"proceed logout for Logged in devices?"
+msgstr ""
+
+msgid "Space Left Action"
+msgstr ""
+
+msgid "Space Left(MBs)"
 msgstr ""
 
 msgid "Specify name, password, group and profile for the new user."
@@ -1689,7 +3126,7 @@ msgstr "速度"
 msgid "Start"
 msgstr "開始"
 
-msgid "Started IBM Serviceable Event Provider (SEP)"
+msgid "Start IBM Serviceable Event Provider (SEP)"
 msgstr ""
 
 #, python-format
@@ -1708,7 +3145,7 @@ msgstr ""
 msgid "Stop"
 msgstr "停止"
 
-msgid "Stopped IBM Serviceable Event Provider (SEP)"
+msgid "Stop IBM Serviceable Event Provider (SEP)"
 msgstr ""
 
 #, python-format
@@ -1731,10 +3168,81 @@ msgid "Subscribe"
 msgstr ""
 
 #, python-format
-msgid "Subscribed '%(hostname)s' with IBM SEP"
+msgid "Subscribe '%(hostname)s' with IBM SEP"
+msgstr ""
+
+msgid "Success Summary Report"
+msgstr ""
+
+msgid "Success Value"
+msgstr ""
+
+msgid "Successfully added swap device "
+msgstr ""
+
+msgid "Successfully added swap file "
+msgstr ""
+
+msgid "Successfully added the rule"
 msgstr ""
 
 msgid "Successfully applied setting for interface: "
+msgstr ""
+
+msgid "Successfully brought down the interface %1."
+msgstr ""
+
+msgid "Successfully brought up the interface %1."
+msgstr ""
+
+msgid "Successfully created physical volume."
+msgstr ""
+
+msgid "Successfully created the interface %1."
+msgstr ""
+
+msgid "Successfully created volume group  %1"
+msgstr ""
+
+msgid "Successfully deleted"
+msgstr ""
+
+msgid "Successfully deleted the interface %1."
+msgstr ""
+
+msgid "Successfully deleted volume group  %1"
+msgstr ""
+
+msgid "Successfully loaded"
+msgstr ""
+
+msgid "Successfully persisted"
+msgstr ""
+
+msgid "Successfully restarted the interface %1."
+msgstr ""
+
+msgid "Successfully unloaded"
+msgstr ""
+
+msgid "Successfully updated the interface %1."
+msgstr ""
+
+msgid "Summary : Selected Physical Volumes"
+msgstr ""
+
+msgid "Summary Report"
+msgstr ""
+
+msgid ""
+"Summary report is saved in the following path <strong>/var/lib/wok/logs/"
+"audit_summary_report.txt</strong>"
+msgstr ""
+
+msgid "Suspend"
+msgstr ""
+
+msgid "Swap Deletion"
 msgstr ""
 
 msgid "Swap Devices"
@@ -1747,6 +3255,36 @@ msgstr ""
 msgid "Symbolic Name"
 msgstr "シンボル名"
 
+msgid "Sync"
+msgstr ""
+
+msgid "Syscall"
+msgstr ""
+
+msgid "Syscall Exit Code or Error Number"
+msgstr ""
+
+msgid "Syscall Report"
+msgstr ""
+
+msgid "System Call"
+msgstr ""
+
+#, python-format
+msgid ""
+"System Event Log %(sel_id)s is not present in System Event Log information "
+"for server %(name)s"
+msgstr ""
+
+msgid "System Event Log deleted successfully for event id"
+msgstr ""
+
+msgid "System Event Logs"
+msgstr ""
+
+msgid "System ID"
+msgstr ""
+
 msgid "System Modules"
 msgstr ""
 
@@ -1754,6 +3292,9 @@ msgid "System Modules Management"
 msgstr ""
 
 msgid "System Services Management"
+msgstr ""
+
+msgid "System Temperature Reading"
 msgstr ""
 
 msgid "System hostname must be a valid string."
@@ -1765,37 +3306,106 @@ msgstr ""
 msgid "System users are not supported"
 msgstr ""
 
+msgid "Systems Platform Management"
+msgstr ""
+
+msgid "TCP Client Max Idle"
+msgstr ""
+
+msgid "TCP Client Port"
+msgstr ""
+
+msgid "TCP Listen Port"
+msgstr ""
+
+msgid "TCP Listen Queue"
+msgstr ""
+
+msgid "TCP Max per Address"
+msgstr ""
+
+msgid "TTY keystroke Report"
+msgstr ""
+
 msgid "Target"
 msgstr ""
 
-#, python-format
-msgid "The prefix value %(PREFIX)s is not in range 1-128"
+msgid "Target Device"
+msgstr ""
+
+msgid "Task"
+msgstr ""
+
+msgid "Terminal Report"
+msgstr ""
+
+msgid "Terminal Value"
+msgstr ""
+
+msgid "The predefined rules files doesn't exist."
 msgstr ""
 
 #, python-format
-msgid "The prefix value %(PREFIX)s is not in range 1-32"
+msgid "The prefix value %(PREFIX)s is not in range 1-128."
 msgstr ""
 
 #, python-format
-msgid "There was a problem while creating group '%(group)s', error: %(err)s'."
+msgid "The prefix value %(PREFIX)s is not in range 1-32."
 msgstr ""
 
 #, python-format
-msgid "There was a problem while creating user '%(user)s', error: '%(err)s'."
+msgid "The rule '%(name)s' cannot be deleted. "
 msgstr ""
 
 #, python-format
-msgid "There was a problem while deleting group '%(group)s', error: '%(err)s'."
+msgid ""
+"There was a problem while creating group '%(group)s'. Group name is an empty "
+"string."
 msgstr ""
 
 #, python-format
-msgid "There was a problem while deleting user '%(user)s', error: '%(err)s'."
+msgid ""
+"There was a problem while creating user '%(user)s', error: group id %(gid)s "
+"is not of integer type."
+msgstr ""
+
+#, python-format
+msgid ""
+"There was a problem while creating user '%(user)s', error: no_login id "
+"%(no_login)s is not of boolean type."
+msgstr ""
+
+#, python-format
+msgid ""
+"There was a problem while creating user '%(user)s', error: user name is "
+"empty."
+msgstr ""
+
+#, python-format
+msgid ""
+"There was a problem while deleting group '%(group)s'. Group name is an empty "
+"string."
+msgstr ""
+
+#, python-format
+msgid ""
+"There was a problem while deleting user '%(user)s', error: user name is "
+"empty."
 msgstr ""
 
 msgid "There was a problem while fetching user profile, see log for details"
 msgstr ""
 
 msgid "There was a problem while reading users details, see log for details"
+msgstr ""
+
+msgid "This Month"
+msgstr ""
+
+msgid "This Week"
+msgstr ""
+
+msgid "This Year"
 msgstr ""
 
 msgid "This module does not have any parameters."
@@ -1813,24 +3423,25 @@ msgstr ""
 msgid "This will unload the module %1. Do you want to continue?"
 msgstr ""
 
-#, python-format
-msgid ""
-"Timeout while creating archive \"%(identity)s\", the files might be too "
-"large for a configuration backup."
+msgid "Timeout"
 msgstr ""
-"アーカイブ「%(identity)s」の作成中にタイムアウトになりました。構成バックアッ"
-"プにはファイルが大きすぎる可能性があります。"
 
 msgid "Timestamp"
 msgstr "タイム・スタンプ"
 
+msgid "Today"
+msgstr ""
+
+msgid "Total PE"
+msgstr ""
+
 msgid "Type"
 msgstr ""
 
-msgid "Type is missing"
+msgid "Type is missing."
 msgstr ""
 
-msgid "Type is unknown"
+msgid "Type is unknown."
 msgstr ""
 
 msgid "Type required for creating a swap device."
@@ -1853,14 +3464,36 @@ msgid "Unable to bring up the interface '%(name)s', '%(error)s'."
 msgstr ""
 
 #, python-format
+msgid "Unable to change dasd type, error: %(err)s"
+msgstr ""
+
+#, python-format
+msgid "Unable to change the partition type. Error: %(err)s"
+msgstr ""
+
+#, python-format
 msgid "Unable to create a new network script file for the interface %(name)s."
+msgstr ""
+
+#, python-format
+msgid "Unable to create backup, file %(file)s changed as we read it"
 msgstr ""
 
 msgid "Unable to create bond with less than two interfaces."
 msgstr ""
 
 #, python-format
+msgid "Unable to deactivate swap device. %(err)s"
+msgstr ""
+
+#, python-format
 msgid "Unable to deactivate the interface on '%(name)s', '%(error)s'."
+msgstr ""
+
+#, python-format
+msgid ""
+"Unable to delete System Event Log %(sel_id)s for server %(name)s. IPMI "
+"Command error %(err)s. rc =%(rc)s"
 msgstr ""
 
 #, python-format
@@ -1876,8 +3509,34 @@ msgid "Unable to format swap device. %(err)s"
 msgstr ""
 
 #, python-format
+msgid ""
+"Unable to get FRU Device information for server %(name)s. IPMI Command error "
+"%(err)s. rc = %(rc)s"
+msgstr ""
+
+#, python-format
+msgid ""
+"Unable to get SDR information for server %(name)s. IPMI Command error "
+"%(err)s , rc = %(rc)s"
+msgstr ""
+
+#, python-format
+msgid ""
+"Unable to get System Event Log information for server %(name)s. IPMI Command "
+"error %(err)s. rc = %(rc)s"
+msgstr ""
+
+#, python-format
 msgid "Unable to get default gateway: %(err)s"
 msgstr "デフォルト・ゲートウェイを取得できません: %(err)s"
+
+#, python-format
+msgid "Unable to get details of server %(name)s"
+msgstr ""
+
+#, python-format
+msgid "Unable to get iSCSI targets of host %(host)s: Connection timed out"
+msgstr ""
 
 #, python-format
 msgid "Unable to get information of device %(dev)s, error: %(err)s"
@@ -1888,6 +3547,10 @@ msgid "Unable to get single swap device info. %(err)s"
 msgstr ""
 
 msgid "Unable to get single swap device info: directory /proc/swaps not found."
+msgstr ""
+
+#, python-format
+msgid "Unable to include default backup dir (%(dir)s) to a backup file"
 msgstr ""
 
 msgid "Unable to open fstab"
@@ -1921,22 +3584,32 @@ msgstr ""
 msgid "Unload"
 msgstr ""
 
+#, python-format
+msgid "Unload  the rule '%(ident)s'"
+msgstr ""
+
 msgid "Unload Module"
 msgstr ""
 
 #, python-format
-msgid "Unloaded kernel module '%(ident)s'"
+msgid "Unload kernel module '%(ident)s'"
+msgstr ""
+
+msgid "Unmount"
 msgstr ""
 
 #, python-format
-msgid "Unmounted filesystem '%(ident)s'"
+msgid "Unmount filesystem '%(ident)s'"
+msgstr ""
+
+msgid "Unsaved Changes"
 msgstr ""
 
 msgid "Unsubscribe"
 msgstr ""
 
 #, python-format
-msgid "Unsubscribed '%(ident)s' with IBM SEP"
+msgid "Unsubscribe '%(ident)s' with IBM SEP"
 msgstr ""
 
 msgid "Up"
@@ -1945,33 +3618,63 @@ msgstr ""
 msgid "Update"
 msgstr "更新"
 
+#, python-format
+msgid "Update '%(ident)s' subscription with IBM SEP"
+msgstr ""
+
+msgid "Update Credentials"
+msgstr ""
+
+#, python-format
+msgid "Update Credentials of managed server '%(ident)s'"
+msgstr ""
+
 msgid "Update Progress"
 msgstr ""
 
 #, python-format
-msgid "Updated '%(ident)s' subscription with IBM SEP"
+msgid "Update configuration file for network interface '%(ident)s'"
 msgstr ""
 
 #, python-format
-msgid "Updated configuration file for network interface '%(ident)s'"
+msgid "Update disk partition '%(ident)s' to type '%(type)s'"
+msgstr ""
+
+msgid "Update host network configuration"
+msgstr ""
+
+msgid "Updated successfully"
 msgstr ""
 
 #, python-format
-msgid "Updated disk partition '%(ident)s' to type '%(type)s'"
-msgstr ""
-
-msgid "Updated host network configuration"
+msgid "Updated the auditdisp conf file '%(ident)s'."
 msgstr ""
 
 #, python-format
-msgid "Upgraded host firmware with '%(path)s'"
+msgid "Updated the auditdisp plugin conf file '%(ident)s'."
+msgstr ""
+
+#, python-format
+msgid "Upgrade host firmware with '%(path)s'"
 msgstr ""
 
 msgid "Usage"
 msgstr ""
 
+msgid "Use Libwrap"
+msgstr ""
+
 msgid "Use Other"
 msgstr "その他を使用"
+
+msgid "Use%"
+msgstr ""
+
+msgid "Used (MB)"
+msgstr ""
+
+msgid "User"
+msgstr ""
 
 #, python-format
 msgid "User '%(user)s' does not exist."
@@ -1981,6 +3684,12 @@ msgid "User 'no_login' should be boolean."
 msgstr ""
 
 msgid "User Deletion"
+msgstr ""
+
+msgid "User ID"
+msgstr ""
+
+msgid "User ID Report"
 msgstr ""
 
 msgid "User Management"
@@ -2009,6 +3718,9 @@ msgstr ""
 msgid "VG %(name)s contains logical volumes."
 msgstr ""
 
+msgid "VG UUID"
+msgstr ""
+
 msgid "VLAN"
 msgstr ""
 
@@ -2018,13 +3730,19 @@ msgstr ""
 msgid "VLAN Interface name"
 msgstr ""
 
-msgid "VLAN id exceeds the ranges from '0' to '4095'"
+msgid "VLAN id exceeds the ranges from '0' to '4095'."
 msgstr ""
 
 msgid "VLAN interface name is missing or provided incorrectly"
 msgstr ""
 
 msgid "VLANID mandatory in case VLAN interface do not have VLANID in it."
+msgstr ""
+
+msgid "Value"
+msgstr ""
+
+msgid "Value should be integer"
 msgstr ""
 
 msgid "Vermagic"
@@ -2036,16 +3754,37 @@ msgstr ""
 msgid "Virt User"
 msgstr "Virt ユーザー"
 
-msgid "Vlan id is missing"
+msgid "Virtualization Report"
 msgstr ""
 
-msgid "Vlan info is missing"
+msgid "Vlan id is missing."
 msgstr ""
 
-msgid "Vlan is missing"
+msgid "Vlan info is missing."
+msgstr ""
+
+msgid "Vlan is missing."
 msgstr ""
 
 msgid "Volume Group"
+msgstr ""
+
+msgid "Volume Group Name"
+msgstr ""
+
+msgid "Volume Group Size"
+msgstr ""
+
+msgid "Volume Group Status"
+msgstr ""
+
+msgid "Volume group %1 is successfully extended"
+msgstr ""
+
+msgid "Volume group %1 is successfully reduced"
+msgstr ""
+
+msgid "Volume group :  %1"
 msgstr ""
 
 msgid "WWNN"
@@ -2057,10 +3796,43 @@ msgstr "WWPN"
 msgid "Warning: Recent changes has been rolled back, due to operation fail"
 msgstr ""
 
+msgid "Week Ago"
+msgstr ""
+
+msgid "Word"
+msgstr ""
+
+msgid "Write Logs"
+msgstr ""
+
+msgid "Yes"
+msgstr ""
+
+msgid "Yesterday"
+msgstr ""
+
+msgid ""
+"You have unsaved changes and this will discard them. Do you want to continue?"
+msgstr ""
+
+msgid ""
+"You have unsaved changes with invalid data. Do you want to edit them or "
+"discard them?"
+msgstr ""
+
+msgid "You have unsaved changes. Do you want to save them?"
+msgstr ""
+
 msgid "and other %1 bonds"
 msgstr ""
 
 msgid "and other %1 interfaces"
+msgstr ""
+
+msgid "architecture"
+msgstr ""
+
+msgid "audit uid"
 msgstr ""
 
 msgid "backups"
@@ -2069,7 +3841,13 @@ msgstr "バックアップ"
 msgid "days of backups"
 msgstr "日間のバックアップ"
 
+msgid "device deleted successfully"
+msgstr ""
+
 msgid "eg. vlan4094 or vlan.4094 or eth0.4094 or 15 characters device name"
+msgstr ""
+
+msgid "email"
 msgstr ""
 
 msgid "error in filesystem get list util"
@@ -2081,13 +3859,73 @@ msgstr ""
 msgid "error in unmount util"
 msgstr ""
 
-msgid "failed !"
+msgid "exec"
+msgstr ""
+
+msgid "exit"
+msgstr ""
+
+msgid "ext3"
+msgstr ""
+
+msgid "ext4"
+msgstr ""
+
+msgid "failed!"
 msgstr ""
 
 msgid "fdisk command failed"
 msgstr ""
 
 msgid "formatted successfully"
+msgstr ""
+
+msgid "fqd"
+msgstr ""
+
+msgid "iSCSI"
+msgstr ""
+
+msgid "iSCSI Login"
+msgstr ""
+
+msgid "iSCSI Logout"
+msgstr ""
+
+msgid "iSCSI Qualifier Name (IQN)"
+msgstr ""
+
+msgid "iSCSI Remove"
+msgstr ""
+
+msgid "iSCSI global settings loaded successfully"
+msgstr ""
+
+msgid "iSCSI target settings loaded successfully"
+msgstr ""
+
+msgid "iSCSI target settings updated successfully"
+msgstr ""
+
+msgid "iSCSI: Global Authentication Configuration"
+msgstr ""
+
+msgid "iSCSI: Target"
+msgstr ""
+
+msgid "iSCSI: Target Authentication Configuration"
+msgstr ""
+
+msgid "is not logged onto the target"
+msgstr ""
+
+msgid "keep_logs"
+msgstr ""
+
+msgid "logged in successfully"
+msgstr ""
+
+msgid "logged out successfully"
 msgstr ""
 
 msgid "lvcreate command failed"
@@ -2105,13 +3943,28 @@ msgstr ""
 msgid "mkfs command failed"
 msgstr ""
 
+msgid "msgtype"
+msgstr ""
+
 msgid "num_vfs (Number of virtual functions to enable):"
+msgstr ""
+
+msgid "path"
+msgstr ""
+
+msgid "permission"
+msgstr ""
+
+msgid "pervalue"
 msgstr ""
 
 msgid "pvcreate command failed"
 msgstr ""
 
 msgid "pvs command failed"
+msgstr ""
+
+msgid "re-scan completed successfully"
 msgstr ""
 
 msgid "removed successfully"
@@ -2126,7 +3979,22 @@ msgstr ""
 msgid "required type as local or nfs"
 msgstr ""
 
+msgid "success"
+msgstr ""
+
 msgid "successfully"
+msgstr ""
+
+msgid "successfully deleted"
+msgstr ""
+
+msgid "v3"
+msgstr ""
+
+msgid "v4.0"
+msgstr ""
+
+msgid "v4.1"
 msgstr ""
 
 msgid "vgcreate command failed"
@@ -2147,6 +4015,21 @@ msgstr ""
 
 msgid "vgs command for given VG failed"
 msgstr ""
+
+msgid "xfs"
+msgstr ""
+
+#~ msgid "Error activating power saving profile %(profile)s."
+#~ msgstr ""
+#~ "省電力プロファイル %(profile)s をアクティブにするときにエラーが発生しまし"
+#~ "た。"
+
+#~ msgid ""
+#~ "Timeout while creating archive \"%(identity)s\", the files might be too "
+#~ "large for a configuration backup."
+#~ msgstr ""
+#~ "アーカイブ「%(identity)s」の作成中にタイムアウトになりました。構成バック"
+#~ "アップにはファイルが大きすぎる可能性があります。"
 
 #~ msgid ""
 #~ "Error commiting firmware. rc = %(rc)s.                      Ensure you "
