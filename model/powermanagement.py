@@ -17,49 +17,54 @@
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 
-from wok.exception import OperationFailed
+from wok.exception import InvalidOperation, OperationFailed
 from wok.utils import run_command
 from psutil import pid_exists
+
+
+def parse_tunedadm_list(tuned_output):
+    profiles = []
+    lines = tuned_output.rstrip("\n").split("\n")
+    for line in lines:
+        if line.startswith('-'):
+            line = line.strip("- ").split()
+            profiles.append(line[0])
+
+    return profiles
+
+
+def get_tuned_profiles():
+    tuned_cmd = ["tuned-adm", "list"]
+    output, error, returncode = run_command(tuned_cmd)
+    if returncode == 2:
+        raise InvalidOperation('GINPOWER0002E')
+    return parse_tunedadm_list(output)
+
+
+def get_active_tuned_profile():
+    tuned_cmd = ["tuned-adm", "active"]
+    output, error, returncode = run_command(tuned_cmd)
+    # This is a possible scenario where tuned is running
+    # but there is no active profile yet. No need to
+    # report/issue an error.
+    if returncode != 0:
+        return None
+    output = output.split()
+    return output[-1].rstrip()
+
+
+def activate_tuned_profile(powerprofile):
+    tuned_cmd = ["tuned-adm", "profile", powerprofile]
+    output, error, returncode = run_command(tuned_cmd)
+    if returncode != 0:
+        raise OperationFailed("GINPOWER0001E",
+                              {'profile': powerprofile, 'err': error})
 
 
 class PowerProfilesModel(object):
     """
     The model class for power saving profiles of the host
     """
-    def __init__(self):
-        self.error = None
-        # Check if running with any distro other than
-        # RHEL/Fedora, where the 'tuned-adm' package exists.
-        # The idea is to check by the existence of 'yum'
-        # to take care of Ubuntu/Debian verification, and then
-        # check yum to see if the package is installed.
-        yum_cmd = ["yum", "--version"]
-        output, err, returncode = run_command(yum_cmd)
-        if output is None:
-            self.error = 'GINPOWER001E'
-        else:
-            tuned_cmd = ["tuned-adm", "active"]
-            output, err, returncode = run_command(tuned_cmd)
-            # return code '2' at 'tuned-adm active' means that
-            # the tuned daemon is not active
-            if returncode == 2:
-                self.error = 'GINPOWER002E'
-            elif output is None:
-                self.error = 'GINPOWER003E'
-
-    def get_list(self):
-        if self.error is not None:
-            raise OperationFailed(self.error)
-        profiles = []
-        tuned_cmd = ["tuned-adm", "list"]
-        output, error, returncode = run_command(tuned_cmd)
-        lines_output = output.rstrip("\n").split("\n")
-        for line in lines_output:
-            if line.startswith('-'):
-                line = line.strip("- ")
-                profiles.append(line)
-        return profiles
-
     @staticmethod
     def is_feature_available():
         # To make this feature available we need tuned service
@@ -77,24 +82,16 @@ class PowerProfilesModel(object):
 
         return False
 
+    def get_list(self):
+        return get_tuned_profiles()
+
 
 class PowerProfileModel(object):
     """
     The model class to represent a single power saving profile.
     """
-    def _get_active_powersaving_profile(self):
-        tuned_cmd = ["tuned-adm", "active"]
-        output, error, returncode = run_command(tuned_cmd)
-        # This is a possible scenario where tuned is running
-        # but there is no active profile yet. No need to
-        # report/issue an error.
-        if returncode != 0:
-            return None
-        output = output.split()
-        return output[-1].rstrip()
-
     def __init__(self):
-        self.active_powerprofile = self._get_active_powersaving_profile()
+        self.active_powerprofile = get_active_tuned_profile()
 
     def lookup(self, powerprofile):
         is_active = self.active_powerprofile == powerprofile
@@ -102,10 +99,6 @@ class PowerProfileModel(object):
 
     def update(self, powerprofile, params):
         if params['active'] and self.active_powerprofile != powerprofile:
+            activate_tuned_profile(powerprofile)
             self.active_powerprofile = powerprofile
-            tuned_cmd = ["tuned-adm", "profile", powerprofile]
-            output, error, returncode = run_command(tuned_cmd)
-            if returncode != 0:
-                raise OperationFailed("GINPOWER004E",
-                                      {'profile': powerprofile, 'err': error})
         return powerprofile

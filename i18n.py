@@ -184,10 +184,9 @@ messages = {
     "GINSEP0010E": _("Error subscribing SEP data to server: '%(error)s'."),
     "GINSEP0011E": _("Error deleting subscription: '%(error)s'."),
 
-    "GINPOWER001E": _("Failed to retrieve power management profiles: Host OS does not support the tuned-adm package."),
-    "GINPOWER002E": _("Failed to retrieve power management profiles: Daemon 'tuned-adm' is not active."),
-    "GINPOWER003E": _("Failed to retrieve power management profiles: Package 'tuned-adm' is not installed."),
-    "GINPOWER004E": _("Error activating power saving profile %(profile)s, error: %(err)s."),
+    "GINPOWER0001E": _("Error activating power saving profile %(profile)s, error: %(err)s."),
+    "GINPOWER0002E": _("Failed to retrieve power management profiles: Daemon 'tuned-adm' is not active."),
+
     "GINFS00001E": _("Failed to retrieve details of the %(name)s filesystem."),
     "GINFS00002E": _("Failed to unmount filesystem %(name)s, error: %(err)s"),
     "GINFS00003E": _("Parsing df output failed."),
