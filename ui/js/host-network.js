@@ -880,7 +880,8 @@ ginger.renderNetworkConfig = function() {
     }
     networkConfigurationClickHandler();
     return {
-        refreshNetworkConfigurationDatatable: refreshNetworkConfigurationDatatable
+        refreshNetworkConfigurationDatatable: refreshNetworkConfigurationDatatable,
+        rows_indexes : rows_indexes
     };
 }
 
