@@ -48,32 +48,6 @@ make DESTDIR=%{buildroot} install
 rm -rf $RPM_BUILD_ROOT
 
 
-%post
-%if 0%{?with_systemd}
-	install -dm 0755 %{_unitdir}/wokd.service.requires
-	ln -sf ../tuned.service %{_unitdir}/wokd.service.requires
-%endif
-
-
-%postun
-%if 0%{?with_systemd}
-	if [ $1 == 0 ]; then # uninstall
-		rm -f %{_unitdir}/wokd.service.requires/tuned.service
-	fi
-%endif
-
-%posttrans
-%if 0%{?with_systemd}
-	if [ $1 == 0 ]; then # upgrade
-		if ! [ -f %{_unitdir}/wokd.service.requires ]; then
-			ln -sf ../tuned.service %{_unitdir}/wokd.service.requires
-		fi
-		/bin/systemctl daemon-reload >/dev/null 2>&1 || :
-		service wokd restart
-	fi
-%endif
-
-
 %files
 %attr(-,root,root)
 %dir %{python_sitelib}/wok/plugins/ginger
@@ -115,6 +89,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Mon Oct 03 2016 Daniel Henrique Barboza <danielhb@linux.vnet.ibm.com>
+- Removed tuned.adm service scriptlet commands
+
 * Mon Sep 26 2016 Ramon Medeiros <ramonn@linux.vnet.ibm.com>
 - Separate fedora rpm building
 
