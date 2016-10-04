@@ -20,6 +20,8 @@
 import mock
 import unittest
 
+import wok.plugins.ginger.model.powermanagement as powermanag
+from wok.exception import InvalidOperation
 from wok.plugins.ginger.model.powermanagement import PowerProfilesModel
 from wok.plugins.ginger.model.powermanagement import PowerProfileModel
 
@@ -40,6 +42,69 @@ class PowerManagementTests(unittest.TestCase):
 
         PowerProfileModel.__init__ = mock_powerprofile_init
         self.power_profile_model = PowerProfileModel()
+
+    def test_tunedadm_list_parse(self):
+        tuned_list_output = """\
+Available profiles:
+- balanced                    - General non-specialized tuned profile
+- desktop                     - Optmize for the desktop use-case
+- latency-performance         - Optimize for deterministic performance\
+at the cost of increased power consumption
+- network-latency             - Optimize for deterministic performance\
+at the cost of increased power consumption, focused on low latency network\
+performance
+- network-throughput          - Optimize for streaming network throughput.\
+  Generally only necessary on older CPUs or 40G+ networks.
+- powersave                   - Optimize for low power consumption
+- throughput-performance      - Broadly applicable tuning that provides\
+ excellent performance across a variety of common server workloads.\
+  This is the default profile for RHEL7.
+- virtual-guest               - Optimize for running inside a virtual guest.
+- virtual-host                - Optimize for running KVM guests
+Current active profile: throughput-performance"""
+        profiles = powermanag.parse_tunedadm_list(tuned_list_output)
+        self.assertEqual(9, len(profiles))
+        self.assertIn('balanced', profiles)
+        self.assertIn('desktop', profiles)
+        self.assertIn('latency-performance', profiles)
+        self.assertIn('network-latency', profiles)
+        self.assertIn('network-throughput', profiles)
+        self.assertIn('powersave', profiles)
+        self.assertIn('throughput-performance', profiles)
+        self.assertIn('virtual-guest', profiles)
+        self.assertIn('virtual-host', profiles)
+
+    def test_old_tunedadm_list_parse(self):
+        tuned_list_output = """\
+Available profiles:
+- balanced
+- desktop
+- latency-performance
+- network-latency
+- network-throughput
+- powersave
+- throughput-performance
+- virtual-guest
+- virtual-host
+Current active profile: throughput-performance"""
+        profiles = powermanag.parse_tunedadm_list(tuned_list_output)
+        self.assertEqual(9, len(profiles))
+        self.assertIn('balanced', profiles)
+        self.assertIn('desktop', profiles)
+        self.assertIn('latency-performance', profiles)
+        self.assertIn('network-latency', profiles)
+        self.assertIn('network-throughput', profiles)
+        self.assertIn('powersave', profiles)
+        self.assertIn('throughput-performance', profiles)
+        self.assertIn('virtual-guest', profiles)
+        self.assertIn('virtual-host', profiles)
+
+    @mock.patch('wok.plugins.ginger.model.powermanagement.run_command')
+    def test_tuned_daemon_offline(self, mock_run_command):
+        mock_run_command.return_value = ["", "", 2]
+        with self.assertRaisesRegexp(InvalidOperation, 'GINPOWER0002'):
+            self.power_profiles_model.get_list()
+            mock_run_command.assert_called_once_with(['tuned-adm', 'list'])
 
     @mock.patch('wok.plugins.ginger.model.powermanagement.run_command')
     def test_powermanagement_get_list(self, mock_run_command):
