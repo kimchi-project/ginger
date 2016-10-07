@@ -275,16 +275,16 @@ ginger.loadVolumeGroupDetails = function() {
 ginger.initVolumeGroupGridData = function() {
   $(".vg-loader").show();
   ginger.getVolumegroups(function(result) {
+    var rows = "";
 
     if (result.length > 0) {
-      var rows = "";
       $.each(result, function(index, volume){
         rows += "<tr><td>" + volume.vgName + "</td>";
         rows += "<td>" + wok.localeConverters["number-locale-converter"].to(Number((parseInt(volume.vgSize) / 1024).toFixed(2))) + "</td>";
         rows += "<td class=\"details-control\"><span class=\"fa fa-chevron-down common-down fa-lg\" data-row-id=\""+volume.vgName+"\"></span> </td></tr>";
       });
-      $("#volume-group-table tbody").html(rows);
     }
+    $("#volume-group-table tbody").html(rows);
 
     var volumeGroupTable = $("#volume-group-table").DataTable({
         columnDefs: [
