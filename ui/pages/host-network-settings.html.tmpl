@@ -206,6 +206,31 @@
             <input id="nw-settings-mtu-textbox" class="form-control" name="MTU" type="number"  placeholder="enter value between 1 to 9198" min="1" max="9198" step="1" />
           </div>
         </div>
+        <div class="form-group hidden" id="osaoption">
+            <div class="form-group" style="width:auto;height:auto;border:1px dotted black;">
+                <div class="form-group" style="padding-top:10px;">
+                    <span style="font-size:20px;font-family:arial;padding-left:20px;"><b>Options</b></span>
+                </div>
+                <div class="form-group" id="osaport-val">
+                    <label for="osaport-val-textbox" class="control-label col-sm-3" style="padding-left:20px;">$_("OSA Port Number")</label>
+                    <div class="col-sm-8">
+                    <input id="osaport-val-textbox" class="form-control" name="OSAport" type="text" disabled="disabled"/>
+                  </div>
+                </div>
+                <div class="form-group" id="buffercount-val">
+                    <label for="buffercount-val-textbox" class="control-label col-sm-3" style="padding-left:20px;">$_("Buffer Count")</label>
+                    <div class="col-sm-8">
+                    <input id="buffercount-val-textbox" class="form-control" name="buffercount" min="0" max="91980" step="1" type="number"/>
+                  </div>
+                </div>
+                <div class="form-group" id="layerto-val">
+                    <label for="layerto-val-textbox" class="control-label col-sm-3" style="padding-left:20px;">$_("Layer Mode")</label>
+                    <div class="col-sm-8">
+                    <input id="layerto-val-textbox" class="form-control" name="layerto" type="text" disabled="disabled"/>
+                  </div>
+                </div>
+            </div>
+        </div>
         <div class="form-group hidden">
           <label class="control-label col-sm-4" for="nw-settings-firewall-select">$_("Firewall Zone")</label>
           <div class="col-sm-8">
