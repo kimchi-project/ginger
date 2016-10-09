@@ -19,6 +19,7 @@
 ginger.initNwInterfaceSettings = function() {
 
   nwApplyButton = $('#nw-interface-settings-button-apply');
+  var layer2;
 
   nwGeneralForm = $('#form-nw-settings-general');
   nwIpv4Form = $('#form-nw-settings-ipv4');
@@ -82,6 +83,17 @@ ginger.initNwInterfaceSettings = function() {
 
 };
 
+  $('#buffercount-val-textbox').on('keyup click', function() {
+      var buffer = $('#buffercount-val-textbox').val();
+      if (!((ginger.isInteger(buffer) && buffer <= 91980 && buffer >= 0))) {
+          $('#buffercount-val-textbox').val('');
+          $(this).addClass("invalid-field");
+      } else {
+          $(this).removeClass("invalid-field");
+      }
+  });
+
+
 ginger.action_apply_nwsettings = function() {
 
   // on Apply button click
@@ -90,12 +102,21 @@ ginger.action_apply_nwsettings = function() {
 
     nwApplyButton.prop('disabled', true);
     var interfaceDevice = nwDeviceTextbox.val();
+    var options={};
+    if(($('#layerto-val-textbox').val()).length > 0)
+        options.layer2 = layer2;
+    if(($('#buffercount-val-textbox').val()).length > 0)
+        options.buffercount=$('#buffercount-val-textbox').val();
+    if(($('#osaport-val-textbox').val()).length > 0)
+        options.portno=$('#osaport-val-textbox').val();
 
     var getNwSettingsBasicInfoData = function() {
       var basic_info = {};
       var general_form_data = nwGeneralForm.serializeObject();
       general_form_data['DEVICE'] = interfaceDevice;
       var adv_form_data = nwAdvanceForm.serializeObject();
+      var adv_buff_data= {};
+      adv_buff_data.OPTIONS = options;
 
       mac_address = nwHwaddressTextbox.val();
       general_form_data["MACADDR"] = mac_address;
@@ -105,7 +126,8 @@ ginger.action_apply_nwsettings = function() {
       } else {
         general_form_data["ONBOOT"] = "no";
       }
-      data['BASIC_INFO'] = $.extend(general_form_data, adv_form_data);
+      data['BASIC_INFO'] = $.extend(general_form_data, adv_form_data,adv_buff_data);
+      delete data.BASIC_INFO.buffercount;
     }
     getNwSettingsBasicInfoData();
 
@@ -265,11 +287,35 @@ ginger.populateNwSettingsGeneralTab = function(interface) {
     nwSubchTextbox.val(interface.BASIC_INFO.SUBCHANNELS);
     subchannelForm.removeClass("hidden");
   }
-  if (interface.BASIC_INFO.ONBOOT == "\"yes\"" || interface.BASIC_INFO.ONBOOT == "yes") {
-    onBootCheckbox.prop('checked', true);
-  }
+  if ("OPTIONS" in (interface.BASIC_INFO) && interface.BASIC_INFO.TYPE == "Ethernet") {
+    if ("portno" in interface.BASIC_INFO.OPTIONS) {
+        $("#osaport-val-textbox").val(interface.BASIC_INFO.OPTIONS.portno);
+    }
+    if ("buffercount" in interface.BASIC_INFO.OPTIONS) {
+        $("#buffercount-val-textbox").val(interface.BASIC_INFO.OPTIONS.buffercount);
+    }
+    if ("layer2" in interface.BASIC_INFO.OPTIONS) {
+        var layerval;
+        layer2 = interface.BASIC_INFO.OPTIONS.layer2;
+        if (interface.BASIC_INFO.OPTIONS.layer2 == "1") {
+            layerval = "Layer2"
+        }
+        $("#layerto-val-textbox").val(layerval);
+    }
+    $('#osaoption').removeClass("hidden");
+    } else {
+        var arch;
+        ginger.getHostDetails(function(result) {
+            arch = result["architecture"];
+            if (arch == "s390x" && interface.BASIC_INFO.TYPE == "Ethernet") {
+                 $('#osaoption').removeClass("hidden");
+            }
+        });
+    }
+    if (interface.BASIC_INFO.ONBOOT == "\"yes\"" || interface.BASIC_INFO.ONBOOT == "yes") {
+        onBootCheckbox.prop('checked', true);
+   }
 };
-
 // function to populate advance tab
 ginger.populateNwSettingsAdvanceTab = function(interface) {
   if ("MTU" in (interface.BASIC_INFO)) {
