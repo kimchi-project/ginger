@@ -67,7 +67,7 @@ ginger.listBackupArchives = function(suc, err){
 
 ginger.SwapDeviceList = function(suc, err) {
     wok.requestJSON({
-        url: 'plugins/ginger/partitions/',
+        url: 'plugins/ginger/partitions?available=True',
         type: 'GET',
         contentType: 'application/json',
         dataType: 'json',
