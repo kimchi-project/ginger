@@ -865,8 +865,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
         --><span class="column-paths">
             <div class="arrow arrow-down"></div>
         </span><!--
-        --><span class="column-download btn btn-link btn-download"><i class="fa fa-download"></i>$_("Download")</span><!--
-        --><span class="column-delete btn btn-link btn-delete "><i class="fa fa-minus-circle"></i>$_("Remove")</span>
+        --><span class="column-download btn btn-link btn-download" title="$_('Download')" style="text-overflow: ellipsis; white-space: nowrap; overflow: hidden;"><i class="fa fa-download"></i>$_("Download")</span><!--
+        --><span class="column-delete btn btn-link btn-delete " title="$_('Remove')" style="text-overflow: ellipsis; white-space: nowrap; overflow: hidden;"><i class="fa fa-minus-circle"></i>$_("Remove")</span>
         <div class="backup-history" style="display: none;">
             <div class="backup-history-list" ></div>
         </div>
@@ -876,8 +876,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 <script id="backupTooltip" type="text/html">
     <div class="row bkp-paths-header">
         <div class="column-description">$_("Description")</div>
-        <div class="column-paths-included">$_("Paths Included")</div>
-        <div class="column-paths-excluded">$_("Paths Excluded")</div>
+        <div class="column-paths-included" title="$_('Paths Included')" style="text-overflow: ellipsis; white-space: nowrap; overflow: hidden;">$_("Paths Included")</div>
+        <div class="column-paths-excluded" title="$_('Paths Excluded')" style="text-overflow: ellipsis; white-space: nowrap; overflow: hidden;">$_("Paths Excluded")</div>
     </div>
     <div class="row bkp-paths-body">
         <div class="column-description">{description}</div>
