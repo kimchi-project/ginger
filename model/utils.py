@@ -501,7 +501,7 @@ def _vgdisplay_out(name):
                "vg_size,vg_extent_size,pv_pe_count,"
                "pv_pe_alloc_count,pv_used,vg_free_count,pv_free,"
                "vg_uuid,pv_name", "--separator", ":", name,
-               "--units", "K"]
+               "--units", "B"]
     else:
         below_threshold_version = False
         cmd = ["vgs", "-o", "vg_name,vg_sysid,"
@@ -510,7 +510,7 @@ def _vgdisplay_out(name):
                "vg_size,vg_extent_size,pv_pe_count,"
                "pv_pe_alloc_count,pv_used,vg_free_count,pv_free,"
                "vg_uuid,pv_name", "--separator", ":", name,
-               "--units", "K"]
+               "--units", "B"]
     out, err, rc = run_command(cmd)
     if rc != 0:
         raise OperationFailed("GINVG00008E")

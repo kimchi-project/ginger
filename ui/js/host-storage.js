@@ -280,7 +280,7 @@ ginger.initVolumeGroupGridData = function() {
     if (result.length > 0) {
       $.each(result, function(index, volume){
         rows += "<tr><td>" + volume.vgName + "</td>";
-        rows += "<td>" + wok.localeConverters["number-locale-converter"].to(Number((parseInt(volume.vgSize) / 1024).toFixed(2))) + "</td>";
+        rows += "<td>" + wok.changetoProperUnit(volume.vgSize, 1) + "</td>";
         rows += "<td class=\"details-control\"><span class=\"fa fa-chevron-down common-down fa-lg\" data-row-id=\""+volume.vgName+"\"></span> </td></tr>";
       });
     }
@@ -449,7 +449,7 @@ ginger.populateVolumeGroupDetails = function(data){
           break;
        case "vgSize":
           text = i18n['GINVG00012M'];
-          value = ginger.convertSizeToLocaleString(obj,i18n['GINVG00030M']);
+          value = wok.changetoProperUnit(obj, 1);
           break;
        case "maxLV":
           text = i18n['GINVG00013M'];
@@ -508,7 +508,11 @@ ginger.populateVolumeGroupDetails = function(data){
             break;
          case "allocPESize":
             text = i18n['GINVG00028M'];
-            value = ginger.convertSizeToLocaleString(parseInt(obj),i18n['GINVG00030M']);
+            if (obj == 0) {
+              value = ginger.convertSizeToLocaleString(parseInt(obj),i18n['GINVG00030M']);
+            } else {
+              value = wok.changetoProperUnit(obj, 1);
+            }
             break;
           case "metadataSequenceNo":
              text = i18n['GINVG00029M'];
