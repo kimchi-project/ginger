@@ -41,12 +41,11 @@ class RulesTests(unittest.TestCase):
     def test_create_fs_rule_success(self, mock_load_audit_rule,
                                     mock_write_to_audit_rules, mock_fs_rule):
         param = {"type": "Filesystem Rule",
-                 "rule_info": {"key": "modules",
-                               "permissions": "rwxa",
-                               "file_to_watch": "/home/jkatta/1.txt",
+                 "rule_info": {"permissions": "rwxa",
+                               "file_to_watch": "/home/test_user/1.txt",
                                "key": "watch_me"}}
         rule_type = '-w'
-        rule = '-w /home/mesmriti/1.txt -p rwxa -k watch_me'
+        rule = '-w /home/test_user/1.txt -p rwxa -k watch_me'
         mock_fs_rule.return_value = rule
         mock_write_to_audit_rules.return_value = {}
         mock_load_audit_rule.return_value = {}
