@@ -316,6 +316,7 @@ messages = {
     "GINDASDPAR0013E": _("Size must be of type integer"),
     "GINDASDPAR0014E": _("Unable to change dasd type, error: %(err)s"),
     "GINDASDPAR0015E": _("Partition size exceeds device size"),
+    "GINDASDPAR0016E": _("No more free partitions left. Please remove one partition first."),
 
     "GINSYSMOD00001E": _("Error getting loaded module list: %(err)s"),
     "GINSYSMOD00002E": _("Module %(module)s not found."),

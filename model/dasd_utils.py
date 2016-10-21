@@ -24,6 +24,8 @@ import psutil
 import re
 import subprocess
 
+from parted import Device as PDevice
+from parted import Disk as PDisk
 from threading import Timer
 from wok.exception import InvalidParameter, NotFoundError, OperationFailed
 from wok.exception import TimeoutExpired
@@ -129,6 +131,13 @@ def _create_dasd_part(dev, size):
     :param size: block size
     :return:
     """
+    devname = '/dev/' + dev
+    device = PDevice(devname)
+    disk = PDisk(device)
+    num_parts = len(disk.partitions)
+    if num_parts == 3:
+        raise OperationFailed("GINDASDPAR0016E")
+
     def kill_proc(proc, timeout_flag):
         try:
             parent = psutil.Process(proc.pid)
@@ -145,7 +154,6 @@ def _create_dasd_part(dev, size):
     if dev not in dasd_devs:
         raise NotFoundError("GINDASDPAR0012E", {'name': dev})
     p_str = _form_part_str(size)
-    devname = '/dev/' + dev
     try:
         p1_out = subprocess.Popen(["echo", "-e", "\'", p_str, "\'"],
                                   stdout=subprocess.PIPE)
