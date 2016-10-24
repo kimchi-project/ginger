@@ -53,6 +53,9 @@ class SwapsModel(object):
             if params['type'] == 'file' and 'size' not in params:
                 raise InvalidParameter('GINSP00003E')
 
+            if params['type'] == 'file' and os.path.isdir(params['file_loc']):
+                raise InvalidParameter('GINSP00022E')
+
             if params['type'] == 'device' or params['type'] == 'file':
                 taskid = AsyncTask(u'/swaps/file_loc/%s' % (file_loc),
                                    self._create_task, params).id
