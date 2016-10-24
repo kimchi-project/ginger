@@ -55,10 +55,10 @@ ginger.initiSCSIGridData = function() {
                     '<div class="dropdown menu-flat iSCSI-action">',
                     '<button id="iSCSI-action-btn" class="btn btn-primary dropdown-toggle disabled" type="button" data-toggle="dropdown" aria-expanded="false" aria-haspopup="true"><span class="edit-alt"></span>' + i18n['GINIS00004M'] + '<span class="caret"></span></button>',
                     '<ul class="dropdown-menu actionsheet">',
-                    '<li role="presentation"><a id="iSCSI-login-btn" class="iSCSI-login"><i class="fa fa-sign-in"></i>' + i18n['GINIS00005M'] + '</a></li>',
-                    '<li role="presentation"><a id="iSCSI-logout-btn" class="iSCSI-logout"><i class="fa fa-sign-out"></i>' + i18n['GINIS00006M'] + '</a></li>',
+                    '<li role="presentation"><a id="iSCSI-login-btn" class="iSCSI-login  disablelink"><i class="fa fa-sign-in"></i>' + i18n['GINIS00005M'] + '</a></li>',
+                    '<li role="presentation"><a id="iSCSI-logout-btn" class="iSCSI-logout disablelink"><i class="fa fa-sign-out"></i>' + i18n['GINIS00006M'] + '</a></li>',
                     '<li role="presentation"><a id="iSCSI-rescan-btn" class="iSCSI-rescan"><i class="fa fa fa-play-circle-o"></i>' + i18n['GINIS00007M'] + '</a></li>',
-                    '<li role="presentation"><a id="iSCSI-auth-btn" class="iSCSI-auth"><i class="fa fa fa-cog"></i>' + i18n['GINIS00009M'] + '</a></li>',
+                    '<li role="presentation"><a id="iSCSI-auth-btn" class="iSCSI-auth disablelink"><i class="fa fa fa-cog"></i>' + i18n['GINIS00009M'] + '</a></li>',
                     '<li role="presentation" class="critical"><a id="iSCSI-remove-btn" class="iSCSI-remove"><i class="fa fa fa-times"></i>' + i18n['GINIS00008M'] + '</a></li>',
                     '</ul>',
                     '</div></div>'
@@ -480,6 +480,8 @@ ginger.updateiSCSItargetsettings = function(target, RowSelected) {
 ginger.iSCSItoggleButtonState = function(iSCSITable) {
     var RowSelected = iSCSITable.rows('.selected');
     var RowSelectedLength = parseInt(RowSelected.data().length);
+    var loginDevicesSelected = false;
+    var logoutDevicesSelected = false;
 
     $('#iSCSI-auth-btn').off();
     $('#iSCSI-auth-btn').addClass('disablelink');
@@ -496,6 +498,32 @@ ginger.iSCSItoggleButtonState = function(iSCSITable) {
             }
         }
     }
+
+    iSCSITable
+        .rows(function(idx, data, node) {
+            if ($(node).hasClass('selected')) {
+                switch (data.status) {
+                    case true:
+                        loginDevicesSelected = true;
+                        break;
+                    case false:
+                        logoutDevicesSelected = true;
+                        break;
+                }
+            }
+        });
+
+        if(loginDevicesSelected){ //if already logged in device is selected then enable logout button
+            $('#iSCSI-logout-btn').removeClass('disablelink');
+        }else{
+            $('#iSCSI-logout-btn').addClass('disablelink');
+        }
+
+        if(logoutDevicesSelected){ //if already logged out device is selected then enable login button
+            $('#iSCSI-login-btn').removeClass('disablelink');
+        }else{
+            $('#iSCSI-login-btn').addClass('disablelink');
+        }
 }
 $(function () {
   $('[data-toggle="tooltip"]').tooltip()
