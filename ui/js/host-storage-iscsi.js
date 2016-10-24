@@ -484,6 +484,9 @@ ginger.iSCSItoggleButtonState = function(iSCSITable) {
     var logoutDevicesSelected = false;
 
     $('#iSCSI-auth-btn').off();
+    $('#iSCSI-login-btn').off();
+    $('#iSCSI-logout-btn').off();
+
     $('#iSCSI-auth-btn').addClass('disablelink');
     $('#iSCSI-action-btn').addClass("disabled");
 
@@ -515,12 +518,19 @@ ginger.iSCSItoggleButtonState = function(iSCSITable) {
 
         if(loginDevicesSelected){ //if already logged in device is selected then enable logout button
             $('#iSCSI-logout-btn').removeClass('disablelink');
+            $('#iSCSI-logout-btn').on('click', function() {
+                ginger.logoutiSCSIdevice(iSCSITable);
+            });
+
         }else{
             $('#iSCSI-logout-btn').addClass('disablelink');
         }
 
         if(logoutDevicesSelected){ //if already logged out device is selected then enable login button
             $('#iSCSI-login-btn').removeClass('disablelink');
+            $('#iSCSI-login-btn').on('click', function() {
+                ginger.loginiSCSIdevice(iSCSITable);
+            });
         }else{
             $('#iSCSI-login-btn').addClass('disablelink');
         }
