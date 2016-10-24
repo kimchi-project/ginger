@@ -1148,27 +1148,37 @@ ginger.loadGlobalNetworkConfig = function() {
     tableClickHandler();
 
     var tableInputValidation = function() {
-        $('#global-network').on('keyup', 'input[type="text"]', function(e) {
+        $('#global-network').on('input propertychange', 'input[type="text"]', function(e) {
             var row = $(this).parents('tr');
             var currInput = $(this).val();
             var inputs = new Array();
-            // This will make sure that if the user has typed an IP address but not saved it, it will prevent typing the same value in another input:
-            $('#global-network input[type="text"]').not(this).each(function() {
-                inputs.push($(this).val());
-            });
-            if (_.includes(inputs, currInput)) {
-                $(this).parent().addClass('has-error');
-                $(row).find('.save-add-dns,.save-dns').prop('disabled', true);
+            if(currInput.trim() == ""){
+              $(this).parent().addClass('has-error');
+              $(row).find('.save-add-dns,.save-dns').prop('disabled', true);
             } else {
-                $(this).parent().removeClass('has-error');
-                $(row).find('.save-add-dns,.save-dns').prop('disabled', false);
-            }
+              if((ginger.isValidIPv6(currInput)) || ginger.validateIp(currInput) || ginger.validateHostName(currInput)){
+                // This will make sure that if the user has typed an IP address but not saved it, it will prevent typing the same value in another input:
+                $('#global-network input[type="text"]').not(this).each(function() {
+                    inputs.push($(this).val());
+                });
+                if (_.includes(inputs, currInput)) {
+                    $(this).parent().addClass('has-error');
+                    $(row).find('.save-add-dns,.save-dns').prop('disabled', true);
+                } else {
+                    $(this).parent().removeClass('has-error');
+                    $(row).find('.save-add-dns,.save-dns').prop('disabled', false);
+                }
+             } else {
+               $(this).parent().addClass('has-error');
+               $(row).find('.save-add-dns,.save-dns').prop('disabled', true);
+             }
+           }
         });
     }
     tableInputValidation();
 
     var gatewayInputValidation = function() {
-        $('#global-network-config-gateway').on('keyup', function(e) {
+        $('#global-network-config-gateway').on('input propertychange', function(e) {
             var gatewayIP = $('#global-network-config-gateway').val();
 
             if (gatewayIP.trim() == "") {
