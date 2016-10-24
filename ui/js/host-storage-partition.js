@@ -259,6 +259,7 @@ ginger.partition.initPartitionAddButton = function() {
     $('#max-slider-value').text((ginger.partition.PartitionDeviceInfo.size).toLocaleString(wok.lang.get_locale()) + ' MB');
     $('#min-slider-value').text('1 MB');
     $('#slider-value').val(1);
+    $('#addpartition_size').val(1);
 };
 
 ginger.partition.addDASDDevicePartition = function(content) {

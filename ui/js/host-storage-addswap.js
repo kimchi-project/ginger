@@ -40,6 +40,7 @@ ginger.initAddSwap = function() {
        } else if (type == "file") {
             deviceType.hide();
             fileType.show();
+            $('#spanvalue').text('1M');
             $('#slider-id').slider({
                 min: 1,
                 max: 10240,
