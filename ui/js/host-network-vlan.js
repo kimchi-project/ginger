@@ -52,7 +52,6 @@ ginger.initVLANInterfaceSettings = function() {
 
   //Advanced Tab fields
   mtuTextbox = $('#nw-vlan-mtu-textbox', interfaceVLANTabs);
-  // zoneSelect = $('#nw-vlan-firewall-select', interfaceVLANTabs);
 
   selectedInterface = ginger.selectedInterface;
 
@@ -245,9 +244,6 @@ var applyOnClick = function() {
 
         if (ipv6GatewayTextbox.val() != "")
           ipv6_info["IPV6_DEFAULTGW"] = ipv6GatewayTextbox.val();
-
-        // var nwIpv6FormData = nwIpv6Form.serializeObject();
-        // ipv6_info["IPV6_DEFAULTGW"] = nwIpv6FormData["GATEWAY"];
 
         if (ipv6Dns.length > 0) {
           var dns = []
@@ -516,15 +512,6 @@ var populateAdvanceTab = function(interface) {
       $(this).removeClass("invalid-field");
     }
   });
-
-  // For now commenting the zone selection code
-  // if ("ZONE" in (interface.BASIC_INFO)) {
-  //   // $('#nw-vlan-firewall-select', interfaceSetting).val(result.BASIC_INFO.ZONE);
-  //   //  zoneSelect.prop('disabled', false);
-  //   zoneSelect.append($("<option></option>")
-  //     .attr("value", interface.BASIC_INFO.ZONE)
-  //     .text(interface.BASIC_INFO.ZONE));
-  // }
 };
 
 // function to ipv4 Settings tab
@@ -636,7 +623,6 @@ var createIpv4AddressGrid = function(interface) {
 
   if (interface != null) {
     if ("IPV4_INFO" in interface && "IPV4Addresses" in (interface.IPV4_INFO)) {
-      // $('.ipv4-on-off').bootstrapSwitch('state', true);
       if (interface.IPV4_INFO.IPV4Addresses) {
         ipv4VlanIPv4Method.val(i18n['Manual']);
         $('.ipv4-on-off').bootstrapSwitch('state', true);
@@ -965,15 +951,6 @@ var createIpv6AddressGrid = function(interface) {
       "data-class": "center",
       "formatter": "editable-nw-ipv6-addresses"
     },
-    // {
-    //   "column-id": 'GATEWAY',
-    //   "type": 'string',
-    //   "width": "30%",
-    //   "title": "Gateway",
-    //   "header-class":"text-center",
-    //   "data-class":"center",
-    //   "formatter": "editable-nw-ipv6-addresses"
-    // },
     {
       "column-id": "IPADDR",
       "type": 'string',
@@ -1016,19 +993,9 @@ var createIpv6AddressGrid = function(interface) {
         'width': '30%',
         "td-class": "text-center",
         'validation': function() {
-          //  var isValid = ginger.isValidIPv6Prefix($(this).val());
           ginger.markInputInvalid($(this), (ginger.isValidIPv6Prefix($(this).val())));
         }
       }]
-      // {
-      //   'id':'GATEWAY',
-      //   'width':'30%',
-      //   "td-class": "text-center",
-      //   'validation':function() {
-      //      var isValid = ginger.isValidIPv6($(this).val());
-      //         ginger.markInputInvalid($(this),isValid);
-      //    }
-      // }]
     commandSettings = {
       "width": "20%",
       "td-class": "text-center"
@@ -1071,7 +1038,6 @@ var createIpv6DnsGrid = function(interface) {
   if (interface != null) {
     if ("IPV6_INFO" in interface && "DNSAddresses" in (interface.IPV6_INFO)) {
       var DNSAddresses = interface.IPV6_INFO.DNSAddresses
-        // var dns = {}
       for (var i = 0; i < DNSAddresses.length; i++) {
         DNSAddresses[i] = {
           "DNS": DNSAddresses[i]
@@ -1182,7 +1148,6 @@ var createIpv6RouteGrid = function(interface) {
       'width': '20%',
       "td-class": "text-center",
       'validation': function() {
-        //  var isValid = ginger.isValidIPv6Prefix($(this).val());
         ginger.markInputInvalid($(this), (ginger.isValidIPv6Prefix($(this).val())));
       }
     }, {
