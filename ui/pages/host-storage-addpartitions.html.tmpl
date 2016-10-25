@@ -47,7 +47,6 @@
     <div class="form-group  has-feedback">
         <label for="slider-id">$_("Size in MB")</label>
         <input id="addpartition_size" name="addpartition_size" class="form-control typeahead" type="hidden" />
-        <span class="wok-loading-icon form-control-feedback"></span>
     </div>
 
     <!-- Slider -->
@@ -59,6 +58,10 @@
         <div style="margin-left:60px; margin-top:9px;" id="slider-id" class="slider col-md-8 col-lg-8 ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all">
             <span tabindex="0" class="ui-slider-handle ui-state-default ui-corner-all" style="left: 0%;"></span></div><span style="margin-left:50px" id="min-slider-value">1 MB</span><span style="margin-left:405px" id="max-slider-value">10.240 MB</span></div>
     <!-- slider -->
+    <div class="wok-list-loader-container wok-list-loading" id="partition-add-loading" style="display:none; z-index: 1;">
+        <div class="wok-list-loading-icon"></div>
+        <div class="wok-list-loading-text">$_("Creating ...")</div>
+    </div>
 </form>
       </div>
 
