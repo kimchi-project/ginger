@@ -43,7 +43,12 @@ class DiscoveredISCSIQNsModel(object):
 class DiscoveredISCSIQNModel(object):
 
     def lookup(self, name):
-        return utils.get_iqn_info(name)
+        discovered_qns = utils.get_discovered_iscsi_qns()
+        iqn_exists = any(qn["iqn"] == name for qn in discovered_qns)
+        if iqn_exists:
+            return utils.get_iqn_info(name)
+        else:
+            raise NotFoundError("GINISCSI020E")
 
     def login(self, name):
         utils.iscsi_target_login(name)

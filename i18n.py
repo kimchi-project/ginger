@@ -368,6 +368,7 @@ messages = {
     "GINISCSI017E": _("Error in modifying iSCSI parameter %(parameter)s with value %(value)s - %(err)s"),
     "GINISCSI018E": _("Error getting the global iSCSI auth info - %(err)s"),
     "GINISCSI019E": _("Error getting the auth info for IQN %(iqn)s - %(err)s"),
+    "GINISCSI020E": _("Invalid IQN. Given IQN not found in added IQNs"),
 
     "GINAUD0001E": _("Failed to get the list of persisted rules '%(error)s'."),
     "GINAUD0002E": _("Error in executing auditctl command '%(name)s'."),
