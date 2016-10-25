@@ -424,8 +424,12 @@ ginger.partition.deletePartitionDevice = function(PartitionDevice, DeviceName) {
 
 ginger.partition.deleteDASDDevicePartition = function(PartitionDevice, DeviceName) {
 
+  var vg = $('#' + PartitionDevice).children('span.column-vgname').html();
+  var message = (vg == 'N/A' || vg == '')? i18n['GINPT00009M'] : i18n['GINPT00016M'];
+
+
     var settings = {
-        content: i18n['GINPT00009M'],
+        content: message,
         confirm: i18n['GINPT00010M'],
         cancel: i18n['GINPT00011M']
     };
@@ -441,8 +445,11 @@ ginger.partition.deleteDASDDevicePartition = function(PartitionDevice, DeviceNam
 
 ginger.partition.deleteDevicePartition = function(PartitionDevice, DeviceName) {
 
+  var vg = $('#' + PartitionDevice).children('span.column-vgname').html();
+  var message = (vg == 'N/A' || vg == '')? i18n['GINPT00009M'] : i18n['GINPT00016M'];
+
     var settings = {
-        content: i18n['GINPT00009M'],
+        content: message,
         confirm: i18n['GINPT00010M'],
         cancel: i18n['GINPT00011M']
     };
