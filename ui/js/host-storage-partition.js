@@ -226,8 +226,10 @@ ginger.partition.initPartitionAddButton = function() {
 
     var DeviceInfo = ginger.partition.PartitionDeviceInfo;
     var deviceName = DeviceInfo.name;
+
     $('#addpartition').on('click', function() {
 
+        $('#partition-add-loading').show();
         var partitionSize = $('#addpartition_size').val();
         var content = {};
         content.dev_name = deviceName;
@@ -275,7 +277,8 @@ ginger.partition.addDASDDevicePartition = function(content) {
         $('#partition-loading').show();
         $('#addpartition_cancel').trigger('click');
     }, function(error) {
-        wok.message.error(error.responseJSON.reason, '#alert-add-partitions', true);
+        wok.message.error(error.responseJSON.reason, '#alert-add-partition', true);
+        $('#partition-add-loading').hide();
     });
 };
 
@@ -292,11 +295,13 @@ ginger.partition.addDevicePartition = function(content) {
             $('#partition-loading').show();
             $('#addpartition_cancel').trigger('click');
         }, function(error) {
-            wok.message.error(error.responseJSON.reason, '#alert-add-partitions', true);
+            wok.message.error(error.responseJSON.reason, '#alert-add-partition', true);
+            $('#partition-add-loading').hide();
         });
 
     }, function(error) {
         wok.message.error(error.responseJSON.reason, '#alert-modal-nw-container', true);
+        $('#partition-add-loading').hide();
     });
 };
 
