@@ -237,6 +237,11 @@ ginger.partition.initPartitionAddButton = function() {
             case 'dasd':
                 ginger.partition.addDASDDevicePartition(content);
                 break;
+            case 'fc':
+            case 'iscsi':
+                content.dev_name = DeviceInfo.id;
+                ginger.partition.addDevicePartition(content);
+                break;
             default:
                 ginger.partition.addDevicePartition(content);
                 break;
