@@ -79,12 +79,12 @@ ginger.initVLANInterfaceSettings = function() {
 
   $('#nw-vlan-button-cancel').on('click', function() {
     wok.window.close();
-    $('#nw-config-refresh-btn').trigger('click');
+    ginger.listNetworkConfig.refreshNetworkConfigurationDatatable();
   });
 
   $('#nw-vlan-button-close').on('click', function() {
     wok.window.close();
-    $('#nw-config-refresh-btn').trigger('click');
+    ginger.listNetworkConfig.refreshNetworkConfigurationDatatable();
   });
 }
 
@@ -279,7 +279,7 @@ var applyOnClick = function() {
         var message = i18n['GINNET0087M'].replace("%1", '<strong>' + nwVLANInterfaceTextbox.val() + '</strong>');
         wok.message.success(message, '#alert-nw-vlan-modal-container',true);
         $(nwApplyButton).prop('disabled', false);
-        $('#nw-config-refresh-btn').trigger('click');
+        ginger.listNetworkConfig.refreshNetworkConfigurationDatatable();
         wok.window.close();
       }, function(err) {
         wok.message.error(err.responseJSON.reason, '#alert-nw-vlan-modal-container', true);
@@ -290,7 +290,7 @@ var applyOnClick = function() {
         var message = i18n['GINNET0089M'].replace("%1", '<strong>' + nwVLANInterfaceTextbox.val() + '</strong>');
         wok.message.success(message, '#alert-nw-vlan-modal-container',true);
         $(nwApplyButton).prop('disabled', false);
-        $('#nw-config-refresh-btn').trigger('click');
+        ginger.listNetworkConfig.refreshNetworkConfigurationDatatable();
         wok.window.close();
       }, function(err) {
         wok.message.error(err.responseJSON.reason, '#alert-nw-vlan-modal-container', true);

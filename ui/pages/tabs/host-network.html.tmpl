@@ -110,6 +110,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
                   </div>
                 </div>
             </div>
+            <div class="col-sm-6">
+              <div class="pull-left">
+                <div id="network-configuration-actions">
+                </div>
+              </div>
+              <div class="pull-right">
+              </div>
+            </div>
             <div class="row">
               <div class="col-sm-12">
                 <table id="network-configuration" class="table table-striped table-hover" cellspacing="0" width="100%">
@@ -191,14 +199,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
   </script>
 <script id="networkConfigButtonsTmpl" type="html/text">
   <div class="btn-group">
-    <div class="dropdown menu-flat nw-configuration-action">
+    <div class="dropdown menu-flat nw-configuration-action pull-left">
       <button class="btn btn-primary dropdown-toggle" disabled="disabled" type="button" data-toggle="dropdown" aria-expanded="false" aria-haspopup="true"><span class="edit-alt"></span>$_("Actions")<span class="caret"></span></button>
       <ul class="dropdown-menu actionsheet dropdown-menu-right">
           <li class="disabled"><a href="#" class="nw-up"><i class="fa fa-chevron-circle-up"></i>$_("Up")</a></li>
           <li class="disabled"><a href="#" class="nw-down"><i class="fa fa-chevron-circle-down"></i>$_("Down")</a></li>
           <li><a href="#" class="nw-restart"><i class="fa fa-refresh"></i>$_("Restart")</a></li>
           <li class="hidden"><a href="#" class="nw-sriov"><i class="fa fa-play-circle-o"></i>$_("Enable SR-IOV")</a></li>
-          <li class="disabled"><a href="#" class="nw-delete"><i class="fa fa-minus-circle"></i>$_("Delete")</a></li>
+          <li class="disabled critical"><a href="#" class="nw-delete"><i class="fa fa-minus-circle"></i>$_("Delete")</a></li>
           <li class="disabled"><a href="#" class="nw-settings"><i class="fa fa-cog"></i>$_("Settings")</a></li>
       </ul>
     </div>
@@ -209,7 +217,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
           <li><a href="#" class="nw-add-vlan"><i class="fa fa-plus-circle"></i>$_("Add VLAN")</a></li>
       </ul>
     </div>
-    <span><button id="nw-config-refresh-btn" class="btn btn-primary" disabled="disabled"><i class="fa fa-refresh"></i> $_("Refresh")</a></button></span>
+    <span class="pull-right"><button id="nw-config-refresh-btn" class="btn btn-primary" disabled="disabled"><i class="fa fa-refresh"></i> $_("Refresh")</a></button></span>
   </div>
 </script>
 <script id="ovsbridgeTmpl" type="html/text">

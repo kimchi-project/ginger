@@ -1309,6 +1309,10 @@
   color: #999;
 }
 
+#network-configuration-content-area .btn {
+  border-radius: 1px;
+}
+
 #host-storage-root-container .accordion {
   margin: 12px 20px 12px 60px;
   padding-bottom: 18px;

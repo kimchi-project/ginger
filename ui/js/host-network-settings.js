@@ -72,12 +72,12 @@ ginger.initNwInterfaceSettings = function() {
 
   $('#nw-interface-settings-button-cancel').on('click', function() {
     wok.window.close();
-    $('#nw-config-refresh-btn').trigger('click');
+    ginger.listNetworkConfig.refreshNetworkConfigurationDatatable();
   });
 
   $('#nw-interface-settings-button-close').on('click', function() {
     wok.window.close();
-    $('#nw-config-refresh-btn').trigger('click');
+    ginger.listNetworkConfig.refreshNetworkConfigurationDatatable();
   });
 
 };
@@ -238,7 +238,7 @@ ginger.action_apply_nwsettings = function() {
     ginger.updateCfgInterface(interfaceDevice, data, function() {
       wok.message.success(i18n['GINNWS0001M'] + interfaceDevice, '#alert-nw-settings-modal-container');
       $(nwApplyButton).prop('disabled', false);
-      ginger.refreshInterfaces();
+      ginger.listNetworkConfig.refreshNetworkConfigurationDatatable();
       wok.window.close();
     }, function(err) {
       wok.message.error(err.responseJSON.reason, '#alert-nw-settings-modal-container', true);

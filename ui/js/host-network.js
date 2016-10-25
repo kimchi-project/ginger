@@ -272,6 +272,8 @@ ginger.initNetworkConfig = function() {
     // Redesigned Network Configuration table
     //ginger.renderNetworkConfig();
     ginger.listNetworkConfig = ginger.renderNetworkConfig();
+    var buttons = $.parseHTML(wok.substitute($("#networkConfigButtonsTmpl").html(), {}));
+    $('#network-configuration-actions').append(buttons);
 }
 
 ginger.renderNetworkConfig = function() {
@@ -377,7 +379,7 @@ ginger.renderNetworkConfig = function() {
             "processing": true,
             "data": nwConfigDataSet,
             "order": [],
-            "dom": '<"row"<"col-sm-12 filter"<"pull-left buttons"<"#network-configuration-actions.row.grid-control">><"pull-right"f>>><"row"<"col-sm-12"t>><"row datatable-footer"<"col-sm-6 pages"p><"col-sm-6 info"i>>',
+            "dom": '<"pull-right"f><"row"<"col-sm-12"t>><"row datatable-footer"<"col-sm-6 pages"p><"col-sm-6 info"i>>',
             "scrollY": "269px",
             "columnDefs": [{
                 "targets": 0,
@@ -442,8 +444,6 @@ ginger.renderNetworkConfig = function() {
         });
         //$(globalNetworkConfigTable.column('1').header()).wrapInner('<span class="sr-only"></span>');
         $('input[name="select_all"]', networkConfigTable.table().container()).prop('checked', false);
-        var buttons = $.parseHTML(wok.substitute($("#networkConfigButtonsTmpl").html(), {}));
-        $('#network-configuration-actions').append(buttons);
         ginger.nwConfiguration.enableRefresh();
         ginger.nwConfiguration.toggleAdd();
         //tableAdd();
