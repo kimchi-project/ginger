@@ -51,8 +51,8 @@ class FileSystemsModel(object):
                 fs_utils._mount_a_blk_device(blk_dev, mount_point,
                                              mount_options)
                 fs_utils.make_persist(blk_dev, mount_point, mount_options)
-            except Exception:
-                raise InvalidParameter("GINFS00007E")
+            except Exception as e:
+                raise InvalidParameter("GINFS00007E", {"err": e.message})
 
             return mount_point
 
