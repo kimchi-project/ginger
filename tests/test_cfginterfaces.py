@@ -56,6 +56,21 @@ class CfgInterfacesTests(unittest.TestCase):
         self.assertEquals('02:02:03:ff:ff:ff',
                           ethinfo['BASIC_INFO']['MACADDR'])
 
+    @mock.patch('wok.plugins.ginger.model.nw_cfginterfaces_utils.platform')
+    def test_get_basic_info_s390Architecture_withoptions(self, mock_platform):
+        cfgmap = {'NAME': 'testiface', 'DEVICE': 'testdevice',
+                  'ONBOOT': 'Yes', 'TYPE': 'nic',
+                  'OPTIONS': ' layer2=1 portno=0 buffer_count=128',
+                  'SUBCHANNELS': '0.0.09a0,0.0.09a1,0.0.09a2',
+                  'NETTYPE': 'qeth', 'PORTNAME': 'OSAPORT',
+                  'MACADDR': '02:02:03:ff:ff:ff'}
+        mock_platform.machine.return_value = 's390x'
+        ethinfo = CfginterfaceModel().get_basic_info(cfgmap)
+        self.assertEquals('0', ethinfo['BASIC_INFO']['OPTIONS']['portno'])
+        self.assertEquals('128',
+                          ethinfo['BASIC_INFO']['OPTIONS']['buffer_count'])
+        self.assertEquals('1', ethinfo['BASIC_INFO']['OPTIONS']['layer2'])
+
     @mock.patch('wok.plugins.ginger.model.nw_cfginterfaces_utils.'
                 'CfgInterfacesHelper.get_slaves')
     def test_get_basic_info_bond(self, mock_slaves):
@@ -99,17 +114,23 @@ class CfgInterfacesTests(unittest.TestCase):
                     mock_basic_info, mock_read):
         cfgmap = {'BASIC_INFO': {'NAME': 'test_iface',
                                  'DEVICE': 'testdevice',
-                                 'ONBOOT': 'Yes'}}
+                                 'ONBOOT': 'Yes',
+                                 'OPTIONS': {
+                                     "buffer_count": "128"}}}
         interface_name = "test_iface"
         cfgmap_in_interfacefile = \
             {'BASIC_INFO': {'DEVICE': 'testdevice',
-                            'BOOTPROTO': 'dhcp'}}
+                            'BOOTPROTO': 'dhcp',
+                            'OPTIONS': {
+                                "buffer_count": "1223"}
+                            }}
         mock_update_cfgfile.return_value = ""
         mock_read.return_value = cfgmap_in_interfacefile
         updatedcfgmap = {'BASIC_INFO': {'NAME': 'testiface',
                                         'DEVICE': 'testdevice',
                                         'ONBOOT': 'Yes',
-                                        'BOOTPROTO': 'dhcp'}}
+                                        'BOOTPROTO': 'dhcp',
+                                        'OPTIONS': {"buffer_count": "1223"}}}
         mock_basic_info.return_value = updatedcfgmap
         CfginterfaceModel().update(interface_name, cfgmap)
         mock_write.asser_called_once_with()
