@@ -88,6 +88,7 @@ from nw_cfginterfaces_utils import METRIC
 from nw_cfginterfaces_utils import VIA
 from nw_cfginterfaces_utils import CONST_YES
 from nw_cfginterfaces_utils import CONST_NO
+from nw_cfginterfaces_utils import OPTIONS
 
 
 class CfginterfacesModel(object):
@@ -315,7 +316,7 @@ class CfginterfaceModel(object):
             cfgmap[NAME] = params[BASIC_INFO][NAME]
         if ONBOOT in params[BASIC_INFO]:
             cfgmap[ONBOOT] = params[BASIC_INFO][ONBOOT]
-        if MACADDR in params[BASIC_INFO]:
+        if MACADDR in params[BASIC_INFO] and params[BASIC_INFO][MACADDR] != '':
             macaddress = params[BASIC_INFO][MACADDR]
             cfgInterfacesHelper.validate_macaddress(macaddress)
             cfgmap[MACADDR] = macaddress
@@ -330,6 +331,15 @@ class CfginterfaceModel(object):
                 and params[BASIC_INFO][TYPE] == IFACE_VLAN:
             cfgmap.update(cfgInterfacesHelper.validate_and_get_vlan_info
                           (params, cfgmap))
+        if OPTIONS in params[BASIC_INFO]:
+            if params[BASIC_INFO][OPTIONS] != {}:
+                options_dict = ' '.join('%s=%s' % (k, v)
+                                        for k, v in params
+                                        [BASIC_INFO][OPTIONS].items())
+                cfgmap[OPTIONS] = "'" + options_dict + "'"
+            else:
+                if OPTIONS in cfgmap:
+                    del cfgmap[OPTIONS]
         return cfgmap
 
     def update(self, name, params):

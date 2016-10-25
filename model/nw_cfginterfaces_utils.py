@@ -708,6 +708,17 @@ class CfgInterfacesHelper(object):
             for key in basic_info_keys:
                 if key in cfgmap:
                     info[BASIC_INFO][key] = cfgmap[key]
+                if key == OPTIONS and key in cfgmap:
+                    option_list = cfgmap[key].split(" ")
+                    options_dict = dict()
+                    for each in option_list:
+                        if "=" in each:
+                            each = each.replace("'", "")
+                            each = each.replace('"', "")
+                            each = each.split("=")
+                            options_dict[each[0]] = each[1]
+                            options_dict.update(options_dict)
+                    info[BASIC_INFO][key] = options_dict
         wok_log.debug('End get_architecture_specific_info')
         return info
 
