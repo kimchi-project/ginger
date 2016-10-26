@@ -21,9 +21,6 @@
     .accordion {
         @include wok-accordion();
     }
-    .navbar-default.toolbar {
-        background-color: $hosts-color !important;
-    }
 }
 
 #sanadapters-ppc-content-area,
