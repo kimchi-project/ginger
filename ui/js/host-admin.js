@@ -1418,7 +1418,7 @@ ginger.createDispatcherPluginTable = function(data){
         $(".plugin-edit").append(editButton);
         $(".refresh").html(refreshButton);
         $("#action-dropdown-button-dispatcher").empty().append('<i class="fa fa-angle-double-down" style="padding-right:7px;"></i>'+i18n['GINAUDITDISP0012M']);
-        $("#action-dropdown-button-dispatcher").css({'height':'38.7px','font-weight':'500','width':'130px','background-color':'#3a393b','padding':'4px 34px 5px 32px'});
+        $("#action-dropdown-button-dispatcher").css({'height':'38.7px','font-weight':'500','width':'auto','background-color':'#3a393b'});
 
         ginger.getAuditStatus(function(result){
            if(result['dispatcher']!=undefined){
