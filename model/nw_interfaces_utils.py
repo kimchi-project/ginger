@@ -165,6 +165,8 @@ class InterfacesHelper(object):
         wok_log.info('Activating an interface ' + ifacename)
         cmd_ifup = ['ifup', ifacename]
         out, error, returncode = run_command(cmd_ifup)
+        if (returncode == 4):
+            raise OperationFailed('GINNET0095E', {'name': ifacename})
         # Timeout is used for carrier file
         # since the carrier file needs few seconds approx 5 sec
         # to update the carrier value of an iface from 0 to 1.

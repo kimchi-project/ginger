@@ -111,6 +111,8 @@ messages = {
     "GINNET0093E": _("SR-IOV is already disabled (no virtual functions enabled) in interface %(name)s."),
     "GINNET0094E": _("Activation of vlan/bond interface '%(name)s' failed. Please "
                      "refresh and try again. "),
+    "GINNET0095E": _("Activation of vlan interface '%(name)s' failed. "
+                     "Try disabling the DHCP option in IPv4 settings tab."),
 
     "GINUSER0001E": _("Specify name, password, group and profile for the new "
                       "user."),
