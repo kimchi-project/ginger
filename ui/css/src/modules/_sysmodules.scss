@@ -31,9 +31,6 @@
     .accordion {
         @include wok-accordion();
     }
-    .navbar-default.toolbar {
-        background-color: $hosts-color !important;
-    }
 }
 
 #sysmodules-content-area {
