@@ -62,7 +62,7 @@ ginger.loadFileSystemDetails = function() {
     "title": i18n['GINTITLE0004M']
   }, {
     "column-id": "use%",
-    "type": 'string',
+    "type": 'numeric',
     "title": i18n['GINTITLE0005M'],
     "width": "35%",
     "formatter": "percentage-used"
