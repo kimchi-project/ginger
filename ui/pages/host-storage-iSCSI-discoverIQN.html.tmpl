@@ -40,11 +40,24 @@
             <form id="form-iSCSI-add-iqn">
                 <span id="iSCSI-add-iqn-message" style="display:none;"></span>
                 <div class="form-group">
-                    <div class="row"><label for="" class="col-md-5 col-lg-5"> iSCSI Server IP </label></div>
                     <div class="row">
-                      <input type="text" id="iSCSI-add-discovery-ip" placeholder="Server IP" class="">
-                      <input type="text" id="iSCSI-add-discovery-port" placeholder="Port" class="" value="3260">
-                      <a class="btn btn-link iSCSI-discovery"><i class="fa fa-2x fa-arrow-circle-o-right"></i></a>
+                        <div class="col-md-3 col-lg-3">
+                            <label for="">$_("iSCSI Server IP")</label>
+                        </div>
+                        <div class="col-md-3 col-lg-3">
+                            <label for="">$_("Port")</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3 col-lg-3">
+                            <input type="text" id="iSCSI-add-discovery-ip" placeholder="Server IP" class="">
+                        </div>
+                        <div class="col-md-3 col-lg-3">
+                            <input type="text" id="iSCSI-add-discovery-port" placeholder="Port" class="" value="3260">
+                        </div>
+                        <div class="col-md-3 col-lg-3">
+                            <a class="btn btn-link iSCSI-discovery"><i class="fa fa-2x fa-arrow-circle-o-right"></i></a>
+                        </div>
                     </div>
                 </div>
                 <div class="row" id="iSCSI-discovery-container">
