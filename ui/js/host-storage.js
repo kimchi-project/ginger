@@ -354,6 +354,11 @@ ginger.initVolumeGroupGridData = function() {
      }
     });
 
+    //Volume Group resize handler
+    $('#volume-group-edit-btn').on('click',function(){
+      ginger.vgResizeHandler(volumeGroupTable.rows('.selected').data());
+    });
+
     // Add event listener for opening and closing details
     $('#volume-group-table tbody').off();
     $('#volume-group-table tbody').on('click', 'td.details-control', function () {
