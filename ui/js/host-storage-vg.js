@@ -29,14 +29,16 @@
        },
        {
          "container":"partDetails",
-         "validation":"ginger.getSelectedPvDetails"
+         "validation":"ginger.getSelectedPvDetails",
+         "previous":"ginger.getExistingPvDetails"
        },
        {
-         "container":"pvSelection"
+         "container":"pvSelection",
+         "previous":"ginger.loadPartitionsList"
        }
      ];
       ginger.numPages = ginger.pageContentMapping.length;
-      var stepDescription = ['Enter Name','Select PV','Create PV','Summary'];
+      var stepDescription = [i18n['GINVG00046M'],i18n['GINVG00047M'],i18n['GINVG00048M'],i18n['GINVG00049M']];
       ginger.configurePageNavigation(ginger.numPages,ginger.pageContentMapping,"add-expand-vg",stepDescription);
       $("#vg-reduce").css("display","none");
       ginger.getCreateVgDetails("add-expand-vg");
@@ -128,6 +130,10 @@ ginger.configurePageNavigation = function(noOfPages,pageContentMapping,container
      $('#alert-vg-create-modal-container').empty();
      currentStepWizard.removeClass('btn-primary').addClass('btn-default')
      previousStepWizard.removeAttr('disabled').addClass('btn-primary').removeClass('btn-default');
+
+     if(pageContentMapping[currentPage]["previous"]){
+       eval(pageContentMapping[currentPage]["previous"]+"()");
+     }
   });
 
   $("#vg-create-button-next").on('click',function(e){
@@ -174,9 +180,23 @@ ginger.getCreateVgDetails = function(containerId){
 
     if(ginger.pageContentMapping[parseInt($('.pager').data("curr"))]['container']=='pvDetails'){
       var selectedRows = $('#physical-volumes-table').DataTable().rows('.selected').data();
-      $.each(selectedRows,function(index,rows){
-        $("#selected-pv-table").DataTable().row.add([rows[0]]).draw();
-      });
+
+      var selectedPvTable =  $("#selected-pv-table").DataTable();
+      var selectedPvTableRows = selectedPvTable.rows().data();
+
+       $.each(selectedRows,function(index,rows){
+        var isAlreadyAdded  = false;
+        for(var i=0;i< selectedPvTableRows.length;i++){
+            if(selectedPvTableRows[i][0]==rows[0]){
+             isAlreadyAdded  = true;
+             break;
+            }else{
+             isAlreadyAdded  = false;
+             }
+          }
+           if(!isAlreadyAdded)
+           selectedPvTable.row.add([rows[0]]).draw();
+        });
     }
 
     $('#vg-create-button-done').addClass('hidden');
@@ -230,6 +250,12 @@ ginger.loadPhysicalVolumeDetails = function(){
       $(".pv-loader").hide();
   });
 };
+ginger.getExistingPvDetails =  function(){
+  var selectedRows = $('#physical-volumes-table').DataTable().rows(".selected").data();
+  if(selectedRows.length>0){
+     $('#vg-create-button-done').removeClass('hidden');
+  }
+};
 
 ginger.loadPartitionsList = function(){
    var type= 'part';
@@ -256,8 +282,6 @@ ginger.loadPartitionsList = function(){
         "dom": '<"row"<"col-sm-3 partition-buttons"><"col-sm-9 filter"<"pull-left add"><"pull-right"l><"pull-right"f>>><"row"<"col-sm-12"t>><"row"<"col-sm-6 pages"p><"col-sm-6 info"i>>',
           "initComplete": function(settings, json) {
             wok.initCompleteDataTableCallback(settings);
-            var createPvButton = '<button class="btn btn-primary pull-left" id="pv-create-part-button" aria-expanded="false">' + i18n['GINVG00041M'] + '</button>';
-            $(".partition-buttons").html(createPvButton);
             $('#vg-create-button-done').addClass('hidden');
           },
           "oLanguage": {
@@ -270,12 +294,6 @@ ginger.loadPartitionsList = function(){
           $(this).toggleClass("selected");
       });
 
-      //pv creation from partition
-      $('#pv-create-part-button').on('click',function(){
-        var selectedRows = $("#partition-table").DataTable().rows('.selected').data();
-        ginger.createPV(selectedRows);
-      });
-
       $('.partition-loader').hide();
   },function(){
       $('.partition-loader').hide();
@@ -285,6 +303,7 @@ ginger.loadPartitionsList = function(){
 
 ginger.createPV = function(selectedRows){
   if(selectedRows.length>0){
+     $('.selectedPv-loader').show();
        var content = i18n['GINVG0004M'];
        var settings = {
         content: content,
@@ -305,8 +324,13 @@ ginger.createPV = function(selectedRows){
              onTaskAccepted();
               wok.message.success(i18n['GINVG0006M'], '#alert-vg-create-modal-container');
               $("#selected-pv-table").DataTable().row.add([row[0]]).draw();
-              $('#vg-create-button-done').removeClass('hidden');
+              if(index==selectedRows.length-1){
+                $('.selectedPv-loader').hide();
+              }
            },function(error){
+             if(index==selectedRows.length-1){
+               $('.selectedPv-loader').hide();
+             }
              wok.message.error(error.message, '#alert-vg-create-modal-container', true);
              taskAccepted;
            },onTaskAccepted);
@@ -326,12 +350,12 @@ ginger.initSelectedPvList =  function(){
   var selectedPvTable = $("#selected-pv-table").DataTable({
        "initComplete": function(settings, json) {
         wok.initCompleteDataTableCallback(settings);
+        $('.selectedPv-loader').hide();
         },
         "oLanguage": {
           "sEmptyTable": i18n['GINVG00042M']
         }
      });
-
 };
 
 ginger.validateVgName= function(){
@@ -354,14 +378,21 @@ ginger.getSelectedPvDetails = function(){
   $('#vg-create-button-done').addClass('hidden');
 
   var selectedPvs = $('#selected-pv-table').DataTable().rows().data();
+  var partitionSelected = $("#partition-table").DataTable().rows('.selected').data();
 
-  if(selectedPvs!=null && selectedPvs.length>0){
-    $('#vg-create-button-apply').removeClass('hidden');
-  }else{
+  if(selectedPvs.length==0 && partitionSelected.length==0) {
     wok.message.warn(i18n['GINVG00045M'], '#alert-vg-create-modal-container');
     $('#alert-vg-container').focus();
     return false;
+  }else {
+    if(selectedPvs!=null && selectedPvs.length>0){
+      $('#vg-create-button-apply').removeClass('hidden');
+    }
+    if(partitionSelected!=null && partitionSelected.length>0){
+      ginger.createPV(partitionSelected);
+    }
   }
+
    return true;
 };
 
@@ -510,14 +541,16 @@ ginger.populateAddedPvList = function(data,volumeName){
        },
        {
          "container":"partDetails",
-         "validation":"ginger.getSelectedPvDetails"
+         "validation":"ginger.getSelectedPvDetails",
+         "previous":"ginger.getExistingPvDetails"
         },
         {
-         "container":"pvSelection"
-       }
+         "container":"pvSelection",
+         "previous":"ginger.loadPartitionsList"
+        }
      ];
       ginger.numPages = ginger.pageContentMapping.length;
-      var stepDescription = ['Select PV','Create PV','Summary'];
+      var stepDescription = [i18n['GINVG00047M'],i18n['GINVG00048M'],i18n['GINVG00049M']];
       ginger.configurePageNavigation(ginger.numPages,ginger.pageContentMapping,"add-expand-vg",stepDescription);
       ginger.changeButtonStatus(['vg-create-button-prev','vg-create-button-next'],true);
       ginger.getCreateVgDetails("add-expand-vg");
