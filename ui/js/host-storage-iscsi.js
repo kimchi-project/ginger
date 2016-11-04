@@ -329,7 +329,7 @@ ginger.initiSCSIsettings = function(api) {
         });
 
         $('#iSCSI-settings-type').on('change', function() {
-            if ($(this).val() == 'none') {
+            if ($(this).val() == 'None') {
                 $('.iSCSI-credential').hide();
             } else {
                 $('.iSCSI-credential').show();
@@ -351,20 +351,24 @@ ginger.updateiSCSIglobalsettings = function() {
     content.api = $('#iSCSI-settings-authentication').val();
     content.data = {};
     content.data.auth_type = $('#iSCSI-settings-type').val();
-    if (content.data.authtype != 'none') {
-        content.data.username = $('#iSCSI-settings-username').val();
-        content.data.password = $('#iSCSI-settings-password').val();
-    }
+    if(content.data.auth_type === null || content.data.auth_type === undefined){
+        wok.message.error(i18n['GINIS00034M'], '#iSCSI-settings-iqn-message');
+    }else{
+      if (content.data.auth_type != 'None') {
+          content.data.username = $('#iSCSI-settings-username').val();
+          content.data.password = $('#iSCSI-settings-password').val();
+      }
 
-    ginger.iSCSIupdateSettingsDetail(content, function(result) {
-        $(".iSCSI-settings-loader").hide();
-        wok.message.success(i18n['GINIS00030M'], '#iSCSI-alert-container');
-        $('#iSCSI-refresh-btn').trigger('click');
-        $('#iSCSI-settings-close').trigger('click');
-    }, function(err) {
-        $(".iSCSI-settings-loader").hide();
-        wok.message.error(err.responseJSON.reason, '#iSCSI-settings-iqn-message');
-    });
+      ginger.iSCSIupdateSettingsDetail(content, function(result) {
+          $(".iSCSI-settings-loader").hide();
+          wok.message.success(i18n['GINIS00030M'], '#iSCSI-alert-container');
+          $('#iSCSI-refresh-btn').trigger('click');
+          $('#iSCSI-settings-close').trigger('click');
+      }, function(err) {
+          $(".iSCSI-settings-loader").hide();
+          wok.message.error(err.responseJSON.reason, '#iSCSI-settings-iqn-message');
+      });
+    }
 }
 
 ginger.displayiSCSIglobalsettings = function(data, auth) {
@@ -392,7 +396,12 @@ ginger.displayiSCSIglobalsettings = function(data, auth) {
             break;
     }
     $('#iSCSI-settings-container').css('visibility', 'visible');
-    $('.iSCSI-credential').show();
+
+    if($('#iSCSI-settings-type').val() == 'None'){
+      $('.iSCSI-credential').hide();
+    }else{
+      $('.iSCSI-credential').show();
+    }
 }
 
 ginger.displayiSCSITargetsettings = function(data, auth) {
@@ -422,7 +431,11 @@ ginger.displayiSCSITargetsettings = function(data, auth) {
             break;
     }
     $('#iSCSI-target-settings-container').css('visibility', 'visible');
-    $('.iSCSI-credential').show();
+    if($('#iSCSI-target-settings-type').val() == 'None'){
+      $('.iSCSI-credential').hide();
+    }else{
+      $('.iSCSI-credential').show();
+    }
 }
 
 ginger.initiSCSItargetSettings = function(api, row) {
@@ -444,7 +457,7 @@ ginger.initiSCSItargetSettings = function(api, row) {
         });
 
         $('#iSCSI-target-settings-type').on('change', function() {
-            if ($(this).val() == 'none') {
+            if ($(this).val() == 'None') {
                 $('.iSCSI-credential').hide();
             } else {
                 $('.iSCSI-credential').show();
@@ -467,7 +480,7 @@ ginger.updateiSCSItargetsettings = function(target, RowSelected) {
     content.target = target;
     content.data = {};
     content.data.auth_type = $('#iSCSI-target-settings-type').val();
-    if (content.data.authtype != 'none') {
+    if (content.data.auth_type != 'None') {
         content.data.username = $('#iSCSI-target-settings-username').val();
         content.data.password = $('#iSCSI-target-settings-password').val();
     }
