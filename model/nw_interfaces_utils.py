@@ -25,6 +25,7 @@ import time
 import nw_cfginterfaces_utils
 
 from nw_cfginterfaces_utils import CfgInterfacesHelper
+from nw_cfginterfaces_utils import ifcfg_filename_format, network_configpath
 from wok.exception import OperationFailed
 from wok.stringutils import encode_value
 from wok.utils import run_command, wok_log
@@ -140,67 +141,67 @@ class InterfacesHelper(object):
     def activate_iface(self, ifacename):
         wok_log.info('Bring up an interface ' + ifacename)
         iface_type = netinfo.get_interface_type(ifacename)
-        if iface_type == "nic":
+        filename = ifcfg_filename_format % ifacename
+        filepath = os.sep + network_configpath + filename
+        if os.path.exists(filepath):
+            if not (os.stat(filepath).st_size == 0):
+                wok_log.info('Activating an interface ' + ifacename)
+                cmd_ifup = ['ifup', ifacename]
+                out, error, returncode = run_command(cmd_ifup)
+                if (returncode == 4):
+                    raise OperationFailed('GINNET0095E', {'name': ifacename})
+                # Timeout is used for carrier file
+                # since the carrier file needs few seconds approx 5 sec
+                # to update the carrier value of an iface from 0 to 1.
+                self.wait_time_carrier(ifacename)
+                # Check for the carrier value after the device is activated
+                if os.path.isfile(carrier_path % ifacename):
+                    with open(carrier_path % ifacename) as car_file:
+                        carrier_val = car_file.readline().strip()
+                    if (carrier_val == '0'):
+                        if iface_type != "nic":
+                            raise OperationFailed('GINNET0094E',
+                                                  {'name': ifacename})
+                        else:
+                            raise OperationFailed('GINNET0090E',
+                                                  {'name': ifacename})
+                else:
+                    raise OperationFailed('GINNET0091E', {'name': ifacename})
+                if returncode != 0:
+                    raise OperationFailed('GINNET0016E',
+                                          {'name': encode_value(ifacename),
+                                           'error': encode_value(error)})
+                wok_log.info('Connection successfully activated for the '
+                             'interface ' + ifacename)
+            else:
+                cmd_ipup = ['ip', 'link', 'set', '%s' % ifacename, 'up']
+                out, error, returncode = run_command(cmd_ipup)
+                if returncode != 0:
+                    raise OperationFailed('GINNET0059E', {'name': ifacename})
+                wok_log.info('Connection successfully activated for the '
+                             'interface ' + ifacename)
+        else:
             cmd_ipup = ['ip', 'link', 'set', '%s' % ifacename, 'up']
             out, error, returncode = run_command(cmd_ipup)
             if returncode != 0:
-                # non-ascii encoded value and unicode value
-                # cannot be concatenated, so convert both variable
-                # to one format.
-                raise OperationFailed('GINNET0059E',
-                                      {'name': encode_value(ifacename),
-                                       'error': encode_value(error)})
-            # Some times based on system load, it takes few seconds to
-            # reflect the  /sys/class/net files upon execution of 'ip link
-            # set' command.  Following snippet is to wait util files get
-            # reflect.
-            timeout = self.wait_time(ifacename)
-            if timeout == 5:
-                wok_log.warn("Time-out has happened upon execution of 'ip "
-                             "link set <interface> up', hence behavior of "
-                             "activating an interface may not as expected.")
-            else:
-                wok_log.info('Successfully brought up the interface ' +
-                             ifacename)
-        wok_log.info('Activating an interface ' + ifacename)
-        cmd_ifup = ['ifup', ifacename]
-        out, error, returncode = run_command(cmd_ifup)
-        if (returncode == 4):
-            raise OperationFailed('GINNET0095E', {'name': ifacename})
-        # Timeout is used for carrier file
-        # since the carrier file needs few seconds approx 5 sec
-        # to update the carrier value of an iface from 0 to 1.
-        self.wait_time_carrier(ifacename)
-        # Check for the carrier value after the device is activated
-        if os.path.isfile(carrier_path % ifacename):
-            with open(carrier_path % ifacename) as car_file:
-                carrier_val = car_file.readline().strip()
-            if (carrier_val == '0'):
-                if iface_type != "nic":
-                    raise OperationFailed('GINNET0094E', {'name': ifacename})
-                else:
-                    raise OperationFailed('GINNET0090E', {'name': ifacename})
-        else:
-            raise OperationFailed('GINNET0091E', {'name': ifacename})
-        if returncode != 0:
-            raise OperationFailed('GINNET0016E',
-                                  {'name': encode_value(ifacename),
-                                   'error': encode_value(error)})
-        wok_log.info(
-            'Connection successfully activated for the interface ' + ifacename)
+                raise OperationFailed('GINNET0059E', {'name': ifacename})
+            wok_log.info('Connection successfully activated for the '
+                         'interface ' + ifacename)
 
     def deactivate_iface(self, ifacename):
+        filename = ifcfg_filename_format % ifacename
+        filepath = os.sep + network_configpath + filename
         wok_log.info('Deactivating an interface ' + ifacename)
-        cmd_ifdown = ['ifdown', '%s' % ifacename]
-        out, error, returncode = run_command(cmd_ifdown)
-        if returncode != 0:
-            raise OperationFailed('GINNET0017E',
-                                  {'name': encode_value(ifacename),
-                                   'error': encode_value(error)})
-        wok_log.info(
-            'Connection successfully deactivated for the interface ' +
-            ifacename)
-
+        if os.path.exists(filepath):
+            cmd_ifdown = ['ifdown', '%s' % ifacename]
+            out, error, returncode = run_command(cmd_ifdown)
+            if returncode != 0:
+                raise OperationFailed('GINNET0017E',
+                                      {'name': encode_value(ifacename),
+                                       'error': encode_value(error)})
+            wok_log.info(
+                'Connection successfully deactivated for the interface ' +
+                ifacename)
         wok_log.info('Bringing down an interface ' + ifacename)
         iface_type = netinfo.get_interface_type(ifacename)
         if iface_type == "nic":
@@ -217,8 +218,9 @@ class InterfacesHelper(object):
             timeout = self.wait_time(ifacename)
             if timeout == 5:
                 wok_log.warn("Time-out has happened upon execution of 'ip "
-                             "link set <interface> down', hence behavior of "
-                             "activating an interface may not as expected.")
+                             "link set <interface> down', hence behavior "
+                             "of activating an interface may not as "
+                             "expected.")
             else:
                 wok_log.info('Successfully brought down the interface ' +
                              ifacename)

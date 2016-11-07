@@ -46,25 +46,34 @@ class InterfacesTests(unittest.TestCase):
     def test_activate(self, mock_run_command, mock_get_interface_type,
                       mock_os):
         mock_run_command.return_value = ["", "", 0]
+        mock_os.path.isfile.return_value = True
+        mock_get_interface_type.return_value = "nic"
+        interface = "test_eth0"
+        cmd = ['ip', 'link', 'set', '%s' % interface, 'up']
+        InterfaceModel(objstore=self._objstore).activate(interface)
+        mock_run_command.assert_called_once_with(cmd)
+
+    @mock.patch('wok.plugins.gingerbase.netinfo.os')
+    @mock.patch('wok.plugins.gingerbase.netinfo.get_interface_type')
+    @mock.patch('wok.plugins.ginger.model.nw_interfaces_utils.run_command')
+    def test_activate_no_config_file(self, mock_run_command,
+                                     mock_get_interface_type, mock_os):
+        mock_run_command.return_value = ["", "", 0]
         mock_os.path.isfile.return_value = False
-        open_mock = mock.mock_open(read_data='1')
         mock_get_interface_type.return_value = "nic"
         interface = "test_eth0"
         calls = [(['ip', 'link', 'set', '%s' % interface, 'up'],),
                  (['ifup', '%s' % interface],)]
-        with mock.patch('wok.plugins.ginger.model.nw_interfaces_utils.open',
-                        open_mock, create=True):
-            self.assertRaises(OperationFailed, InterfaceModel(
-                              objstore=self._objstore).activate, interface)
+        InterfaceModel(objstore=self._objstore).activate(interface)
         for i in range(0, 1):
             x, y = mock_run_command.call_args_list[i]
             assert x == calls[i]
-        assert mock_run_command.call_count == 2
+        assert mock_run_command.call_count == 1
 
     @mock.patch('wok.plugins.gingerbase.netinfo.get_interface_type')
     @mock.patch('wok.plugins.ginger.model.nw_interfaces_utils.run_command')
     def test_activate_fail(self, mock_run_command, mock_get_interface_type):
-        mock_run_command.return_value = ["", "Unable to activate", 1]
+        mock_run_command.return_value = ["", "Unable to activate", 4]
         mock_get_interface_type.return_value = "nic"
         interface = "test_eth0"
         cmd = ['ip', 'link', 'set', '%s' % interface, 'up']
@@ -73,27 +82,43 @@ class InterfacesTests(unittest.TestCase):
                           interface)
         mock_run_command.assert_called_once_with(cmd)
 
+    @mock.patch('wok.plugins.gingerbase.netinfo.os')
     @mock.patch('wok.plugins.gingerbase.netinfo.get_interface_type')
     @mock.patch('wok.plugins.ginger.model.nw_interfaces_utils.run_command')
-    def test_deactivate(self, mock_run_command, mock_get_interface_type):
+    def test_deactivate(self, mock_run_command, mock_get_interface_type,
+                        mock_os):
         mock_run_command.return_value = ["", "", 0]
+        mock_os.path.isfile.return_value = True
         mock_get_interface_type.return_value = "nic"
         interface = "test_eth0"
-        calls = [(['ifdown', '%s' % interface],),
-                 (['ip', 'link', 'set', '%s' % interface, 'down'],)]
+        cmd = ['ip', 'link', 'set', '%s' % interface, 'down']
+        InterfaceModel(objstore=self._objstore).deactivate(interface)
+        mock_run_command.assert_called_once_with(cmd)
+
+    @mock.patch('wok.plugins.gingerbase.netinfo.os')
+    @mock.patch('wok.plugins.gingerbase.netinfo.get_interface_type')
+    @mock.patch('wok.plugins.ginger.model.nw_interfaces_utils.run_command')
+    def test_deactivate_no_config_file(self, mock_run_command,
+                                       mock_get_interface_type, mock_os):
+        mock_run_command.return_value = ["", "", 0]
+        mock_os.path.isfile.return_value = False
+        mock_get_interface_type.return_value = "nic"
+        interface = "test_eth0"
+        calls = [(['ip', 'link', 'set', '%s' % interface, 'down'],),
+                 (['ifdown', '%s' % interface],)]
         InterfaceModel(objstore=self._objstore).deactivate(interface)
         for i in range(0, 1):
             x, y = mock_run_command.call_args_list[i]
             assert x == calls[i]
-        assert mock_run_command.call_count == 2
+        assert mock_run_command.call_count == 1
 
     @mock.patch('wok.plugins.gingerbase.netinfo.get_interface_type')
     @mock.patch('wok.plugins.ginger.model.nw_interfaces_utils.run_command')
     def test_deactivate_fail(self, mock_run_command, mock_get_interface_type):
-        mock_run_command.return_value = ["", "Unable to deactivate", 1]
+        mock_run_command.return_value = ["", "Unable to deactivate", 4]
         mock_get_interface_type.return_value = "nic"
         interface = "test_eth0"
-        cmd = ['ifdown', '%s' % interface]
+        cmd = ['ip', 'link', 'set', '%s' % interface, 'down']
         self.assertRaises(OperationFailed,
                           InterfaceModel(objstore=self._objstore).deactivate,
                           interface)
