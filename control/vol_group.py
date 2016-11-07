@@ -66,7 +66,8 @@ class VolumeGroup(Resource):
     @property
     def data(self):
         return {'vgName': self.info['VG Name'],
-                'systemID': self.info['System ID'],
+                'systemID': self.info['System ID']
+                if self.info['System ID'] else "None",
                 'format': self.info['Format'],
                 'metadataAreas': self.info['Metadata Areas'],
                 'metadataSequenceNo': self.info['Metadata Sequence No'],
