@@ -196,8 +196,10 @@ ginger.changeArrow = function(obj) {
 ginger.modalSysmodules = function() {
 
     ginger.toggleLoadButton('disable');
+    $("#loadingIcon").show();
+    $("#module").prop("disabled", true);
 
-    ginger.getSysmodules(function(dataReturn) {
+    ginger.getAllSysmodules(function(dataReturn) {
 
     var modulesData = [];
     var modulesTimer;
@@ -215,6 +217,9 @@ ginger.modalSysmodules = function() {
             queryTokenizer: Bloodhound.tokenizers.whitespace,
             local: modulesData
         });
+        $("#loadingIcon").hide();
+        $("#module").prop("value", "");
+        $("#module").prop("disabled", false);
 
         modules.initialize();
 
