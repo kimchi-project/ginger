@@ -167,6 +167,34 @@ def load_kernel_module(module_name, parms=None):
             )
 
 
+def list_kernel_modules():
+    result, err, returncode = run_command(["modprobe", "-c"])
+    text = result.splitlines()
+
+    modules = []
+
+    # remove blacklist modules
+    for i in range(len(text)):
+        if text[i].startswith("#"):
+            text = text[i+1:]
+            break
+
+    # get running modules
+    loaded_modules = get_loaded_modules_list()
+
+    # get modules
+    for i in text:
+        split = i.split()
+        if len(split) > 0:
+            mod_name = i.split().pop()
+        else:
+            continue
+        if mod_name not in modules and mod_name not in loaded_modules:
+            modules.append(mod_name)
+
+    return modules
+
+
 def unload_kernel_module(module_name):
     out, err, returncode = run_command(['modprobe', '-r', module_name])
     if returncode != 0:
@@ -194,7 +222,10 @@ class SysModulesModel(object):
         wok_log.info('Kernel module %s loaded.' % module_name)
         return module_name
 
-    def get_list(self):
+    def get_list(self, _all=None):
+        if _all == "true":
+            return list_kernel_modules()
+
         return get_loaded_modules_list()
 
 
