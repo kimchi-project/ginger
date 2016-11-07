@@ -973,6 +973,19 @@ ginger.isValidMacAddress = function(macaddress) {
     return macaddrRE.test(macaddress);
 }
 
+ginger.getAllSysmodules = function(suc, err) {
+     wok.requestJSON({
+        url: 'plugins/ginger/sysmodules?_all=true',
+        type: 'GET',
+        contentType: 'application/json',
+        dataType: 'json',
+        success: suc,
+        error : err || function(data) {
+            wok.message.error(data.responseJSON.reason);
+        }
+     });
+ }
+
 ginger.getSysmodules = function(suc, err) {
      wok.requestJSON({
         url: 'plugins/ginger/sysmodules',
