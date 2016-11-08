@@ -253,34 +253,34 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
     <div style="" class="well row col-md-12">
         <div class="partition-detail-info">
             <div class="row bkp-paths-header">
-                <div class="column-id">ID</div>
-                <div class="column-bus-id">Bus ID</div>
+                <div class="column-id">$_("ID")</div>
+                <div class="column-bus-id">$_("Bus ID")</div>
             </div>
             <div class="row bkp-paths-body">
                 <div class="column-id">{id}</div>
                 <div class="column-bus-id">{bus_id}</div>
             </div>
             <div class="row bkp-paths-header">
-                <div class="column-partition-details" style="visibility: hidden;"><span class="h2">Partition Details</h2></div>
+                <div class="column-partition-details" style="visibility: hidden;"><span class="h2">$_("Partition Details")</h2></div>
             </div>
         </div>
         <div aria-expanded="true" id="partition-detail-container" class="panel-collapse collapse in" style="visibility: hidden;" role="tabpanel" aria-labelledby="headingOne">
             <span id="alert-partition-details"></span>
             <div class="wok-datagrid">
                 <div class="wok-datagrid-header">
-                    <span class="column-path">Path</span>
-                    <span class="column-type">Type</span>
-                    <span class="column-vgname">VG Name</span>
-                    <span class="column-mount-point">Mount Point</span>
-                    <span class="column-size">Size (MB)</span>
-                    <span class="column-action">Actions</span>
+                    <span class="column-path">$_("Path")</span>
+                    <span class="column-type">$_("Type")</span>
+                    <span class="column-vgname">$_("VG Name")</span>
+                    <span class="column-mount-point">$_("Mount Point")</span>
+                    <span class="column-size">$_("Size (MB)")</span>
+                    <span class="column-action">$_("Actions")</span>
                 </div>
                 <ul id="partition-detail-list" class="wok-datagrid-body"> </ul>
             </div>
         </div>
         <div class="wok-list-loader-container wok-list-loading" id="partition-loading" style="display: nonew; z-index: 1;">
             <div class="wok-list-loading-icon"></div>
-            <div class="wok-list-loading-text">Loading...</div>
+            <div class="wok-list-loading-text">$_("Loading...")</div>
         </div>
     </div>
 </script>
@@ -288,10 +288,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
     <div style="" class="well row col-md-12">
         <div class="partition-detail-info">
             <div class="row bkp-paths-header">
-                <div class="column-id">ID</div>
-                <div class="column-fcplun">FCP Lun</div>
-                <div class="column-wwpn">WWPN</div>
-                <div class="column-hbaid">HBA ID</div>
+                <div class="column-id">$_("ID")</div>
+                <div class="column-fcplun">$_("FCP Lun")</div>
+                <div class="column-wwpn">$_("WWPN")</div>
+                <div class="column-hbaid">$_("HBA ID")</div>
             </div>
             <div class="row bkp-paths-body">
                 <div class="column-id">{id}</div>
@@ -300,26 +300,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
                 <div class="column-hbaid">{hba_id}</div>
             </div>
             <div class="row bkp-paths-header">
-                <div class="column-partition-details" style="visibility: hidden;"><span class="h2">Partition Details</h2></div>
+                <div class="column-partition-details" style="visibility: hidden;"><span class="h2">$_("Partition Details")</h2></div>
             </div>
         </div>
         <div aria-expanded="true" id="partition-detail-container" class="panel-collapse collapse in" style="visibility: hidden;" role="tabpanel" aria-labelledby="headingOne">
             <span id="alert-partition-details"></span>
             <div class="wok-datagrid">
                 <div class="wok-datagrid-header">
-                    <span class="column-path">Path</span>
-                    <span class="column-type">Type</span>
-                    <span class="column-vgname">VG Name</span>
-                    <span class="column-mount-point">Mount Point</span>
-                    <span class="column-size">Size</span>
-                    <span class="column-action">Actions</span>
+                    <span class="column-path">$_("Path")</span>
+                    <span class="column-type">$_("Type")</span>
+                    <span class="column-vgname">$_("VG Name")</span>
+                    <span class="column-mount-point">$_("Mount Point")</span>
+                    <span class="column-size">$_("Size")</span>
+                    <span class="column-action">$_("Actions")</span>
                 </div>
                 <ul id="partition-detail-list" class="wok-datagrid-body"> </ul>
             </div>
         </div>
         <div class="wok-list-loader-container wok-list-loading" id="partition-loading" style="display: none; z-index: 1;">
             <div class="wok-list-loading-icon"></div>
-            <div class="wok-list-loading-text">Loading...</div>
+            <div class="wok-list-loading-text">$_("Loading...")</div>
         </div>
     </div>
 </script>
@@ -333,19 +333,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
         <span class="column-action">
         <span class="pull-left">
                         <div class="dropdown menu-flat storage-action">
-                            <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false" aria-haspopup="true"><span class="edit-alt"></span>Actions<span class="caret"></span></button>
+                            <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false" aria-haspopup="true"><span class="edit-alt"></span>$_("Actions")<span class="caret"></span></button>
         <ul class="dropdown-menu actionsheet">
             <li role="presentation">
-                <a class="pool-activate partition-delete"><i class="fa fa-minus-circle"></i>Delete Partition</a>
+                <a class="pool-activate partition-delete"><i class="fa fa-minus-circle"></i>$_("Delete Partition")</a>
             </li>
             <li role="presentation">
-                <a class="pool-add-volume partition-format"><i class="fa fa fa-pencil-square-o"></i>Format FS</a>
+                <a class="pool-add-volume partition-format"><i class="fa fa fa-pencil-square-o"></i>$_("Format FS")</a>
             </li>
             <li role="presentation">
-                <a class="pool-deactivate partition-add-vg"><i class="fa fa-plus-circle"></i>Add to VG</a>
+                <a class="pool-deactivate partition-add-vg"><i class="fa fa-plus-circle"></i>$_("Add to VG")</a>
             </li>
             <li role="presentation">
-                <a class="pool-activate partition-delete-vg"><i class="fa fa-times"></i>Remove from VG</a>
+                <a class="pool-activate partition-delete-vg"><i class="fa fa-times"></i>$_("Remove from VG")</a>
             </li>
         </ul>
         </div>
@@ -355,7 +355,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 </script>
 <script id="storage-partition-nodata-tmpl" type="html/text">
     <li class="wok-datagrid-row" id="{DeviceName}">
-        <span class="column-nodata">No partition available</span>
+        <span class="column-nodata">$_("No partition available")</span>
     </li>
 </script>
 <script>

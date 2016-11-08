@@ -41,19 +41,19 @@
         <form role="tabpanel" class="tab-pane form-horizontal" id="EditSyscallRule">
             <div id="controlruleedit">
               <div class="form-group">
-              <label class="col-md-5 col-lg-5"> Type </label>
+              <label class="col-md-5 col-lg-5">$_("Type")</label>
               <div class="col-md-7 col-lg-7">
               <input id="rule-type" class="form-control " name="ruletype" type="text" disabled/></div>
             </div>
             <div class="form-group">
-              <label class="col-md-5 col-lg-5"> Action </label>
+              <label class="col-md-5 col-lg-5">$_("Action")</label>
               <select id="sysaction" name="type" class="selectpicker col-md-7 col-lg-7">
                   <option value="always">$_("Always")</option>
                   <option value="never">$_("Never")</option>
               </select>
             </div>
               <div class="form-group">
-              <label class="col-md-5 col-lg-5"> Filter </label>
+              <label class="col-md-5 col-lg-5">$_("Filter")</label>
               <select id="sysfilter" name="type" class="selectpicker col-md-7 col-lg-7">
                   <option value="task">$_("Task")</option>
                   <option value="exit">$_("Exit")</option>
@@ -62,7 +62,7 @@
               </select>
             </div>
             <div class="form-group">
-                <label class="col-md-5 col-lg-5"> System Calls </label>
+                <label class="col-md-5 col-lg-5">$_("System Calls")</label>
                 <select id="syscallsload" name="syscall" class="selectpicker col-md-7 col-lg-7" multiple>
                 </select>
               </div>
@@ -77,7 +77,7 @@
                             <th>$_("Value")</th><th>
                               <span class="valueadd btn btn-link">
                                   <i class="fa fa-plus-circle"></i>
-                                  Add
+                                  $_("Add")
                               </span>
                             </th>
                         </tr>
@@ -139,7 +139,7 @@
                           <td>
                             <span class="valueDelete btn btn-link">
                                 <i class="fa fa-trash"></i>
-                                Delete
+                                $_("Delete")
                             </span>
                             </td></tr>
                   </tbody>
