@@ -91,7 +91,7 @@ ginger.systeServicesClickHandler = function() {
         var service = $(this).data('service');
         if(!$(this).parent().is('.disabled')){
             ginger.startSystemService(service,function(){
-                ginger.loadSystemServices(ginger.systemServicesFilterList.update);
+                ginger.loadSystemServices(ginger.updateFilterList);
                 $('.dropdown.menu-flat.system-service-actions.open').removeClass("open");
                 $('html, body').animate({
                     scrollTop: $("#system-services-alert-container").offset().top
@@ -111,7 +111,7 @@ ginger.systeServicesClickHandler = function() {
         var service = $(this).data('service');
         if(!$(this).parent().is('.disabled')){
             ginger.restartSystemService(service,function(){
-                ginger.loadSystemServices(ginger.systemServicesFilterList.update);
+                ginger.loadSystemServices(ginger.updateFilterList);
                 $('.dropdown.menu-flat.system-service-actions.open').removeClass("open");
                 $('html, body').animate({
                     scrollTop: $("#system-services-alert-container").offset().top
@@ -131,7 +131,7 @@ ginger.systeServicesClickHandler = function() {
         var service = $(this).data('service');
         if(!$(this).parent().is('.disabled')){
             ginger.stopSystemService(service,function(){
-                ginger.loadSystemServices(ginger.systemServicesFilterList.update);
+                ginger.loadSystemServices(ginger.updateFilterList);
                 $('.dropdown.menu-flat.system-service-actions.open').removeClass("open");
                 $('html, body').animate({
                     scrollTop: $("#system-services-alert-container").offset().top
@@ -244,4 +244,13 @@ ginger.buildSystemServicesUi = function() {
         order: "asc"
     });
 
+};
+
+ginger.updateFilterList = function(){
+  ginger.systemServicesFilterList = new List('system-services-content-area', ginger.systemServicesOptions);
+
+  ginger.systemServicesFilterList.sort('service-name-filter', {
+      order: "asc"
+  });
+  ginger.systemServicesFilterList.search($('#search_input_system_services').val());
 };
