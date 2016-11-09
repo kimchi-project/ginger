@@ -1687,7 +1687,7 @@ ginger.getAuditRules = function(suc, err) {
  };
  ginger.deleteAuditRule = function(ruleName, suc, err) {
      wok.requestJSON({
-         url: '/plugins/ginger/audit/rules/' + encodeURIComponent(ruleName.trim()),
+         url: '/plugins/ginger/audit/rules/' + encodeURIComponent(ruleName.replace('&lt;','<').replace('&gt;','>').trim()),
          type: 'DELETE',
          contentType: 'application/json',
          dataType: 'json',
@@ -1787,7 +1787,7 @@ ginger.getAuditRules = function(suc, err) {
  };
  ginger.EditSyscallAudit = function(ruleName, updatedRule, suc, err) {
      wok.requestJSON({
-         url: 'plugins/ginger/audit/rules/' + ruleName.replace('&lt;','<').replace('&gt;','>'),
+         url: 'plugins/ginger/audit/rules/' + encodeURIComponent(ruleName.replace('&lt;','<').replace('&gt;','>').trim()),
          type: 'PUT',
          contentType: 'application/json',
          data: JSON.stringify(updatedRule),

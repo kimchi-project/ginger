@@ -912,7 +912,15 @@ ginger.loadAuditRulesData =  function(){
       $.each(result, function(index, rule){
         rows += "<tr><td>" + (index+1) + "</td>";
         rows += "<td>" + rule.type + "</td>";
-        rows += "<td class=\"content\" title=\""+rule.rule+"\">" + rule.rule + "</td>";
+        var ruleDetails = rule.rule;
+        var titleValue = "";
+
+        if(ruleDetails.substring(ruleDetails.indexOf("-S"),ruleDetails.indexOf("-F")).split(",").length > 10) {
+           titleValue=ruleDetails.replace(/.{80}/g,"$&"+"\n");
+        }else {
+           titleValue = ruleDetails;
+         }
+        rows += "<td class=\"content\" title=\""+titleValue+"\">" + ruleDetails + "</td>";
         rows += "<td style=\"text-align:center;\" class=\"details-control\"><span class=\"fa fa-chevron-down common-down fa-lg\"></span> </td>";
 
         if(rule.loaded=='yes'){
