@@ -29,30 +29,21 @@ from functools import partial
 from wok.asynctask import AsyncTask
 from wok.plugins.ginger.model import GingerModel
 
-from tests.utils import get_free_port, patch_auth, request
+from tests.utils import patch_auth, request
 from tests.utils import run_server, wait_task
 
 
 test_server = None
 model = None
-host = None
-port = None
-ssl_port = None
-cherrypy_port = None
 
 
 def setUpModule():
-    global test_server, model, host, port, ssl_port, cherrypy_port
+    global test_server, model
 
     patch_auth()
     model = GingerModel()
 
-    host = '127.0.0.1'
-    port = get_free_port('http')
-    ssl_port = get_free_port('https')
-    cherrypy_port = get_free_port('cherrypy_port')
-    test_server = run_server(host, port, ssl_port, test_mode=True,
-                             cherrypy_port=cherrypy_port, model=model)
+    test_server = run_server(test_mode=True, model=model)
 
 
 def tearDownModule():
@@ -75,7 +66,7 @@ class TaskTests(unittest.TestCase):
         cb('in progress')
 
     def setUp(self):
-        self.request = partial(request, host, ssl_port)
+        self.request = partial(request)
 
     def _task_lookup(self, taskid):
         return json.loads(

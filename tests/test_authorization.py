@@ -20,26 +20,20 @@
 import unittest
 from functools import partial
 
-from tests.utils import get_free_port, request, run_server
+from tests.utils import request, run_server
 
 from wok.plugins.ginger.model import GingerModel
 
 
 test_server = None
 model = None
-host = None
-port = None
-ssl_port = None
 
 
 def setUpModule():
-    global test_server, model, host, port, ssl_port
+    global test_server, model
 
     model = GingerModel()
-    host = '127.0.0.1'
-    port = get_free_port('http')
-    ssl_port = get_free_port('https')
-    test_server = run_server(host, port, ssl_port, test_mode=True, model=model)
+    test_server = run_server(test_mode=True, model=model)
 
 
 def tearDownModule():
@@ -48,7 +42,7 @@ def tearDownModule():
 
 class AuthorizationTests(unittest.TestCase):
     def setUp(self):
-        self.request = partial(request, host, ssl_port)
+        self.request = partial(request)
 
     def test_nonauth(self):
         # Test APIs that DO NOT require authentication
