@@ -89,14 +89,14 @@
                     <div class="form-group">
                       <label class="col-md-5 col-lg-5">$_("Filter")</label>
                       <select id="sysfilter" name="type" class="selectpicker col-md-7 col-lg-7">
-                          <option value="task">$_("Task")</option>
-                          <option value="exit">$_("Exit")</option>
-                          <option value="user">$_("User")</option>
                           <option value="exclude">$_("Exclude")</option>
-                      </select></div>
+                          <option value="exit">$_("Exit")</option>
+                          <option value="task">$_("Task")</option>
+                          <option value="user">$_("User")</option>
+                        </select></div>
                       <div class="form-group">
                         <label class="col-md-5 col-lg-5">$_("System Calls")</label>
-                        <select id="syscallsload" name="syscall" class="selectpicker col-md-7 col-lg-7" multiple>
+                        <select id="syscallsload" name="syscall" class="selectpicker col-md-7 col-lg-7" required multiple>
                         </select></div>
                         <div class="form-group">
                       <label for="sysCalls" class="col-md-5 col-lg-5" >$_("Fields")</label>
@@ -126,7 +126,6 @@
                                       <option value="egid">$_("Effective Group ID")</option>
                                       <option value="euid">$_("Effectice user ID")</option>
                                       <option value="exit">$_("exit")</option>
-
                                       <option value="fsgid">$_("Filesystem group ID")</option>
                                       <option value="fsuid">$_("Filesystem user ID")</option>
                                       <option value="gid">$_("Group ID")</option>
@@ -134,7 +133,6 @@
                                       <option value="msgtype">$_("msgtype")</option>
                                       <option value="obj_uid">$_("Object's UID")</option>
                                       <option value="obj_gid">$_("Object's GID")</option>
-
                                       <option value="obj_user">$_("Resource SE Linux User")</option>
                                       <option value="obj_role">$_("Resource SE Linux Role")</option>
                                       <option value="obj_type">$_("Resource SE Linux Type")</option>
@@ -143,7 +141,6 @@
                                       <option value="path">$_("path")</option>
                                       <option value="perm">$_("permission")</option>
                                       <option value="pers">$_("Personality Number")</option>
-
                                       <option value="pid">$_("Process ID")</option>
                                       <option value="ppid">$_("Parent's process ID")</option>
                                       <option value="subj_user">$_("Program's SE Linux User")</option>
@@ -154,9 +151,8 @@
                                       <option value="sgid">$_("Saved GroupID")</option>
                                       <option value="success">$_("success")</option>
                                       <option value="suid">$_("Saved User ID")</option>
-
                                       <option value="uid">$_("User ID")</option>
-                                  </select></td>
+                                    </select></td>
                                   <td><select name="operator" class="col-md-11 col-lg-11 form-control">
                                       <option value="=">$_("=")</option>
                                       <option value="!=">$_("!=")</option>

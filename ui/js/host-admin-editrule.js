@@ -18,6 +18,7 @@
 ginger.initEditRule = function() {
     var ruleName = ginger.loadRuleValues();
     $('#EditRule-submit').on('click', function(event) {
+        var file_to_watch = $("#filetowatch").val();
         var editrule = {};
         var rule_info = {};
         var permissions;
@@ -30,13 +31,18 @@ ginger.initEditRule = function() {
         rule_info['file_to_watch'] = $('#filetowatch').val();
         rule_info['key'] = $('#keyedit').val();
         editrule['rule_info'] = rule_info;
-        ginger.EditAuditRule(ruleName, editrule, function() {
-            wok.window.close();
-            $('#Audit-Rule-refresh-btn').trigger('click');
-            wok.message.success(i18n["GINAUDIT0035M"], "#audit-message")
-        }, function(result) {
-            wok.message.error(result.responseJSON.reason, "#editrule-message", true);
-        });
+
+        if (file_to_watch.length == 0 || permissions.length == 0) {
+            wok.message.error(i18n["GINAUDIT0032M"], "#editrule-message");
+        }else {
+            ginger.EditAuditRule(ruleName, editrule, function() {
+                wok.window.close();
+                $('#Audit-Rule-refresh-btn').trigger('click');
+                wok.message.success(i18n["GINAUDIT0035M"], "#audit-message")
+            }, function(result) {
+                wok.message.error(result.responseJSON.reason, "#editrule-message", true);
+            });
+        }
     });
 }
 ginger.loadRuleValues = function() {
@@ -180,9 +186,17 @@ ginger.initEditSyscallRule = function() {
         var syscalldata = {};
         var archfield = [];
         syscalldata['type'] = "System Call Rule";
-        $('#syscallsload option:selected').each(function() {
-            syscall.push($(this).text());
-        })
+        var syscallSelected = $('#syscallsload option:selected');
+
+        if(syscallSelected.length==0){
+          wok.message.error(i18n['GINAUDIT0040M'], "#editrule-message", true);
+          return false;
+        }else{
+          syscallSelected.each(function() {
+              syscall.push($(this).text());
+          });
+        }
+
         $("#sysCalls").find('tr').each(function() {
             var val1 = $(this).find('td:eq(0) select').val();
             var val2 = $(this).find('td:eq(1) select').val();
@@ -243,8 +257,8 @@ ginger.loadSystemcallRuleValues = function() {
         });
         array = rulearray['field'];
         for (var i = 0; i < ((rulearray['field'].length) - 2); i++) {
-            $('#sysCalls').append('<tr><td><select name="name" class="col-md-11 col-lg-11 form-control"><option value="arch">architecture</option><option value="auid">audit uid</option><option value="devmajor">Device Major Number</option><option value="devminor">Device Minor Number</option><option value="dir">Directory</option><option value="egid">Effective Group ID</option><option value="euid">Effectice user ID</option><option value="exit">exit</option><option value="fsgid">Filesystem group ID</option><option value="fsuid">Filesystem user ID</option><option value="gid">Group ID</option><option value="inode">Inode Number</option><option value="key">Key</option><option value="msgtype">msgtype</option><option value="obj_uid">Objects UID</option><option value="obj_gid">Objects GID</option><option value="obj_user">Resource SE Linux User</option><option value="obj_role">Resource SE Linux Role</option><option value="obj_type">Resource SE Linux Type</option><option value="obj_lev_low">Resource SE Linux Low Level</option><option value="obj_lev_high">Resource SE Linux High Level</option><option value="path">path</option><option value="perm">permission</option><option value="pers">Personality Number</option><option value="pid">Process ID</option><option value="ppid">Parents process ID</option><option value="subj_user">Programs SE Linux User</option><option value="subj_role">Programs SE Linux Role</option><option value="subj_type">Programs SE Linux Type</option><option value="subj_sen">Programs SE Linux Sensitivity</option><option value="subj_clr">Programs SE Linux Clearance</option><option value="sgid">Saved GroupID</option><option value="success">success</option><option value="suid">Saved User ID</option><option value="uid">User ID</option></select></td><td><select id="fieldoperator" name="operator" class="col-md-11 col-lg-11 form-control"><option value="=">=</option><option value="!=">!=</option><option value="<"><</option><option value="<="><=</option><option value=">">></option><option value=">=">>=</option><option value="&">&</option><option value="&=">&=</option></select></td><td><input type="text" class="form-control inputbox " name="FieldValue" /></td><td><span class="valueDelete btn btn-link"><i class="fa fa-trash"></i> Delete</span></td></tr>');
-            $('#sysCalls span.valueDelete').off();
+             $('#sysCalls').append('<tr><td><select name="name" class="col-md-11 col-lg-11 form-control"><option value="arch">'+i18n['GINAUDIT0041M']+'</option><option value="auid">'+i18n['GINAUDIT0042M']+'</option><option value="devmajor">'+i18n['GINAUDIT0043M']+'</option><option value="devminor">'+i18n['GINAUDIT0044M']+'</option><option value="dir">'+i18n['GINAUDIT0045M']+'</option><option value="egid">'+i18n['GINAUDIT0046M']+'</option><option value="euid">'+i18n['GINAUDIT0047M']+'</option><option value="exit">'+i18n['GINAUDIT0048M']+'</option><option value="fsgid">'+i18n['GINAUDIT0049M']+'</option><option value="fsuid">'+i18n['GINAUDIT0050M']+'</option><option value="gid">'+i18n['GINAUDIT0051M']+'</option><option value="inode">'+i18n['GINAUDIT0052M']+'</option><option value="msgtype">'+i18n['GINAUDIT0053M']+'</option><option value="obj_uid">'+i18n['GINAUDIT0054M']+'</option><option value="obj_gid">'+i18n['GINAUDIT0055M']+'</option><option value="obj_user">'+i18n['GINAUDIT0056M']+'</option><option value="obj_role">'+i18n['GINAUDIT0057M']+'</option><option value="obj_type">'+i18n['GINAUDIT0058M']+'</option><option value="obj_lev_low">'+i18n['GINAUDIT0059M']+'</option><option value="obj_lev_high">'+i18n['GINAUDIT0060M']+'</option><option value="path">'+i18n['GINAUDIT0061M']+'</option><option value="perm">'+i18n['GINAUDIT0062M']+'</option><option value="pers">'+i18n['GINAUDIT0063M']+'</option><option value="pid">'+i18n['GINAUDIT0064M']+'</option><option value="ppid">'+i18n['GINAUDIT0065M']+'</option><option value="subj_user">'+i18n['GINAUDIT0066M']+'</option><option value="subj_role">'+i18n['GINAUDIT0067M']+'</option><option value="subj_type">'+i18n['GINAUDIT0068M']+'</option><option value="subj_sen">'+i18n['GINAUDIT0069M']+'</option><option value="subj_clr">'+i18n['GINAUDIT0070M']+'</option><option value="sgid">'+i18n['GINAUDIT0071M']+'</option><option value="success">'+i18n['GINAUDIT0072M']+'</option><option value="suid">'+i18n['GINAUDIT0073M']+'</option><option value="uid">'+i18n['GINAUDIT0074M']+'</option></select></td><td><select id="fieldoperator" name="operator" class="col-md-11 col-lg-11 form-control"><option value="=">=</option><option value="!=">!=</option><option value="<"><</option><option value="<="><=</option><option value=">">></option><option value=">=">>=</option><option value="&">&</option><option value="&=">&=</option></select></td><td><input type="text" class="form-control inputbox " name="FieldValue" /></td><td><span class="valueDelete btn btn-link"><i class="fa fa-trash"></i>'+i18n['GINNET0013M']+'</span></td></tr>');
+                       $('#sysCalls span.valueDelete').off();
         }
         for (i = 0; i < array.length; i++) {
             var arraylist = array[i].replace('&lt;','<').replace('&gt;','>');
@@ -292,7 +306,7 @@ ginger.loadSystemcallRuleValues = function() {
         $('#Syskeyname').val(rulearray['key']);
         $('.selectpicker').selectpicker('refresh');
         $('#sysCalls span.valueadd').on('click', function() {
-            $('#sysCalls').append('<tr><td><select name="name" class="col-md-7 col-lg-7 form-control"><option value="arch">architecture</option><option value="auid">audit uid</option><option value="devmajor">Device Major Number</option><option value="devminor">Device Minor Number</option><option value="dir">Directory</option><option value="egid">Effective Group ID</option><option value="euid">Effectice user ID</option><option value="exit">exit</option><option value="fsgid">Filesystem group ID</option><option value="fsuid">Filesystem user ID</option><option value="gid">Group ID</option><option value="inode">Inode Number</option><option value="key">Key</option><option value="msgtype">msgtype</option><option value="obj_uid">Objects UID</option><option value="obj_gid">Objects GID</option><option value="obj_user">Resource SE Linux User</option><option value="obj_role">Resource SE Linux Role</option><option value="obj_type">Resource SE Linux Type</option><option value="obj_lev_low">Resource SE Linux Low Level</option><option value="obj_lev_high">Resource SE Linux High Level</option><option value="path">path</option><option value="perm">permission</option><option value="pers">Personality Number</option><option value="pid">Process ID</option><option value="ppid">Parents process ID</option><option value="subj_user">Programs SE Linux User</option><option value="subj_role">Programs SE Linux Role</option><option value="subj_type">Programs SE Linux Type</option><option value="subj_sen">Programs SE Linux Sensitivity</option><option value="subj_clr">Programs SE Linux Clearance</option><option value="sgid">Saved GroupID</option><option value="success">success</option><option value="suid">Saved User ID</option><option value="uid">User ID</option></select></td><td><select id="fieldoperator" name="operator" class="col-md-7 col-lg-7 form-control"><option value="=">=</option><option value="!=">!=</option><option value="<"><</option><option value="<="><=</option><option value=">">></option><option value=">=">>=</option><option value="&">&</option><option value="&=">&=</option></select></td><td><input type="text" class="form-control inputbox " name="FieldValue" /></td><td><span class="valueDelete btn btn-link"><i class="fa fa-trash"></i> Delete</span></td></tr>');
+            $('#sysCalls').append('<tr><td><select name="name" class="col-md-11 col-lg-11 form-control"><option value="arch">'+i18n['GINAUDIT0041M']+'</option><option value="auid">'+i18n['GINAUDIT0042M']+'</option><option value="devmajor">'+i18n['GINAUDIT0043M']+'</option><option value="devminor">'+i18n['GINAUDIT0044M']+'</option><option value="dir">'+i18n['GINAUDIT0045M']+'</option><option value="egid">'+i18n['GINAUDIT0046M']+'</option><option value="euid">'+i18n['GINAUDIT0047M']+'</option><option value="exit">'+i18n['GINAUDIT0048M']+'</option><option value="fsgid">'+i18n['GINAUDIT0049M']+'</option><option value="fsuid">'+i18n['GINAUDIT0050M']+'</option><option value="gid">'+i18n['GINAUDIT0051M']+'</option><option value="inode">'+i18n['GINAUDIT0052M']+'</option><option value="msgtype">'+i18n['GINAUDIT0053M']+'</option><option value="obj_uid">'+i18n['GINAUDIT0054M']+'</option><option value="obj_gid">'+i18n['GINAUDIT0055M']+'</option><option value="obj_user">'+i18n['GINAUDIT0056M']+'</option><option value="obj_role">'+i18n['GINAUDIT0057M']+'</option><option value="obj_type">'+i18n['GINAUDIT0058M']+'</option><option value="obj_lev_low">'+i18n['GINAUDIT0059M']+'</option><option value="obj_lev_high">'+i18n['GINAUDIT0060M']+'</option><option value="path">'+i18n['GINAUDIT0061M']+'</option><option value="perm">'+i18n['GINAUDIT0062M']+'</option><option value="pers">'+i18n['GINAUDIT0063M']+'</option><option value="pid">'+i18n['GINAUDIT0064M']+'</option><option value="ppid">'+i18n['GINAUDIT0065M']+'</option><option value="subj_user">'+i18n['GINAUDIT0066M']+'</option><option value="subj_role">'+i18n['GINAUDIT0067M']+'</option><option value="subj_type">'+i18n['GINAUDIT0068M']+'</option><option value="subj_sen">'+i18n['GINAUDIT0069M']+'</option><option value="subj_clr">'+i18n['GINAUDIT0070M']+'</option><option value="sgid">'+i18n['GINAUDIT0071M']+'</option><option value="success">'+i18n['GINAUDIT0072M']+'</option><option value="suid">'+i18n['GINAUDIT0073M']+'</option><option value="uid">'+i18n['GINAUDIT0074M']+'</option></select></td><td><select id="fieldoperator" name="operator" class="col-md-11 col-lg-11 form-control"><option value="=">=</option><option value="!=">!=</option><option value="<"><</option><option value="<="><=</option><option value=">">></option><option value=">=">>=</option><option value="&">&</option><option value="&=">&=</option></select></td><td><input type="text" class="form-control inputbox " name="FieldValue" /></td><td><span class="valueDelete btn btn-link"><i class="fa fa-trash"></i>'+i18n['GINNET0013M']+'</span></td></tr>');
             $('#sysCalls span.valueDelete').off();
             $('#sysCalls span.valueDelete').on('click', function() {
                 $(this).parents('tr:first').remove();
