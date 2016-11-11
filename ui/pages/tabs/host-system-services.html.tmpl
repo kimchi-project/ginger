@@ -39,14 +39,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
                         </a>
                     </h3>
                     <div id="system-services-content-area" class="panel-collapse collapse" role="tabpanel" aria-labelledby="system-services-header">
-                        <div class="well">
-                            <div id="system-services-alert-container"></div>
-                            <div class="row grid-control">
-                                 <div class="pull-right">
-                                    <label for="search_input_system_services" class="sr-only">$_("Filter System Services"):</label>
-                                    <input type="text" class="filter form-control search" id="search_input_system_services" placeholder="$_("Filter")">
-                                </div>
-                            </div>
+                      <div id="system-services-alert-container"></div>
+                      <div class="row grid-control">
+                           <div class="pull-right">
+                              <label for="search_input_system_services" class="sr-only">$_("Filter System Services"):</label>
+                              <input type="text" class="filter form-control search" id="search_input_system_services" placeholder="$_("Filter")">
+                          </div>
+                      </div>
                             <div class="wok-datagrid" id="system-services-datagrid">
                                 <div class="wok-datagrid-header">
                                     <span class="column-service-name">$_("Name")</span><!--
@@ -57,7 +56,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
                                     --><span class="column-service-description">$_("Description")</span><!--
                                     --><span class="column-service-actions"><span class="sr-only">$_("Actions")</span></span>
                                 </div>
-                                <ul class="wok-datagrid-body list" id="system-services-body"></ul>
+                                <div class="well">
+                                    <ul class="wok-datagrid-body list" id="system-services-body"></ul>
+                                </div>
                             </div>
                             <div class="wok-mask">
                                 <div class="wok-mask-loader-container">
@@ -67,8 +68,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
+                      </div>
                 </div>
                 <div class="panel-group accordion" id="sysmodules-accordion" role="tablist" aria-multiselectable="false">
                      <h3>
