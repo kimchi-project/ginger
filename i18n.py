@@ -140,8 +140,13 @@ messages = {
     "GINUSER0023E": _("There was a problem while fetching user profile, see log for details"),
     "GINUSER0024E": _("Failed to change password for user '%(user)s', error: '%(err)s'."),
     "GINUSER0025E": _("There was a problem while creating user '%(user)s', error: group id %(gid)s is not of integer type."),
-    "GINUSER0026E": _("There was a problem while creating user '%(user)s', error: no_login id %(no_login)s is not of boolean type."),
+    "GINUSER0026E": _("There was a problem while creating user '%(user)s', error: no_login %(no_login)s is not of boolean type."),
     "GINUSER0027E": _("Failed to remove user '%(user)s' from group '%(group)s'. Error: group name is an empty string."),
+    "GINUSER0028E": _("There was a problem while creating group '%(group)s'. Reason: %(err)s."),
+    "GINUSER0029E": _("There was a problem while deleting group '%(group)s'. Reason: %(err)s."),
+    "GINUSER0030E": _("There was a problem while creating user '%(user)s'. Reason: %(err)s."),
+    "GINUSER0031E": _("There was a problem while deleting user '%(user)s'. Reason: %(err)s."),
+    "GINUSER0032E": _("Failed to remove user '%(user)s' from group '%(group)s'. Error: user name is an empty string."),
 
     "GINFW0001E": _("Cannot update system firmware while running VMs."),
     "GINFW0002E": _("Firmware image unpack failed: rc = %(rc)s. "

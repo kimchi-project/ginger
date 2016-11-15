@@ -81,7 +81,7 @@ def create_group(groupname):
         return new_group[libuser.GIDNUMBER][0]
 
     except Exception as e:
-        raise OperationFailed('GINUSER0014E', {'group': groupname, 'err': e})
+        raise OperationFailed('GINUSER0028E', {'group': groupname, 'err': e})
 
 
 def delete_group(groupname):
@@ -110,7 +110,7 @@ def delete_group(groupname):
         try:
             adm.deleteGroup(group_obj)
         except Exception as e:
-            raise OperationFailed('GINUSER0012E',
+            raise OperationFailed('GINUSER0029E',
                                   {'group': groupname, 'err': e.__str__()})
 
 
@@ -170,7 +170,7 @@ def create_user(name, plain_passwd, gid, no_login=False):
 
     if not adm.lookupGroupById(gid):
         raise OperationFailed(
-            'GINUSER0009E', {'user': name,
+            'GINUSER0030E', {'user': name,
                              'err': "group with id %s doesn't exist" % gid})
 
     try:
@@ -199,11 +199,11 @@ def create_user(name, plain_passwd, gid, no_login=False):
     except UnicodeEncodeError as ue:
         err_msg = ue.message if ue.message else 'Username / password \
             has NON - ASCII charater'
-        raise OperationFailed('GINUSER0009E', {'user': name, 'err': err_msg})
+        raise OperationFailed('GINUSER0030E', {'user': name, 'err': err_msg})
 
     except Exception as e:
         err_msg = e.message if e.message else e
-        raise OperationFailed('GINUSER0009E', {'user': name, 'err': err_msg})
+        raise OperationFailed('GINUSER0030E', {'user': name, 'err': err_msg})
 
 
 def delete_user(username):
@@ -236,7 +236,7 @@ def delete_user(username):
     try:
         adm.deleteUser(user_obj, True, True)
     except Exception as e:
-        raise OperationFailed('GINUSER0010E',
+        raise OperationFailed('GINUSER0031E',
                               {'user': username, 'err': e.__str__()})
 
 
@@ -247,7 +247,7 @@ def remove_user_from_group(user, group):
     :param group: group name
     """
     if not isinstance(user, str) or not user.strip():
-        raise InvalidParameter('GINUSER0010E', {'user': user})
+        raise InvalidParameter('GINUSER0032E', {'user': user})
     if not isinstance(group, str) or not group.strip():
         raise InvalidParameter('GINUSER0027E',
                                {'user': user, 'group': group})
