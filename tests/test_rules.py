@@ -243,9 +243,8 @@ class RulesTests(unittest.TestCase):
         rulemodel.unload(rule)
         mock_get_audit_info.assert_called_with(rule)
 
-    @mock.patch('wok.plugins.ginger.model.rules.RuleModel.get_audit_rule_info')
     @mock.patch('wok.plugins.ginger.model.rules.RulesModel.load_audit_rule')
-    def test_load(self, mock_load, mock_get_audit_info):
+    def test_load(self, mock_load):
         """
          Unittest to load a rule.
         :param mock_write:
@@ -254,27 +253,10 @@ class RulesTests(unittest.TestCase):
         """
         rule = '-a always,exit -F arch=b32 -F arch=b64 -S init_module,' \
                'delete_module,finit_module -F key=abc99'
-        audit_info = {'loaded': 'no', 'persisted': 'yes',
-                      'type': 'System Rule',
-                      'rule_info': {'action': u'always',
-                                    'filter': u'exit',
-                                    'systemcall': u'init_module,'
-                                                  u'delete_module,'
-                                                  u'finit_module',
-                                    'key': u'abc99', 'field': [u'arch=b32',
-                                                               u'arch=b64',
-                                                               u'key=abc99']
-                                    },
-                      'rule': u'-a always,exit -F arch=b32 '
-                              u'-F arch=b64 -S init_module,'
-                              u'delete_module,finit_module'
-                              u' -F key=abc99'
-                      }
-        mock_get_audit_info.return_value = audit_info
         mock_load.return_value = {}
         ruleModel = RuleModel()
         ruleModel.load(rule)
-        mock_get_audit_info.assert_called_with(rule)
+        mock_load.assert_called_with(rule)
 
     @mock.patch('wok.plugins.ginger.model.rules.RuleModel.is_rule_exists')
     @ mock.patch('wok.plugins.ginger.model.rules.RuleModel.delete_rule')

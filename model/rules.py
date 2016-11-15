@@ -48,7 +48,7 @@ def get_list_of_persisted_rules():
     try:
         with open(persisted_rules_file, "r") as rule_file:
             for each_rule in rule_file:
-                if each_rule[:2] in "-a,-w":
+                if each_rule[:2] in "-a,-w,-W":
                     persist_rules.append(each_rule.rstrip('\n'))
         return persist_rules + get_list_of_persisted_control_rules()
     except Exception, e:
@@ -124,6 +124,8 @@ class RulesModel(object):
             return rule
         except OperationFailed:
             raise
+        except MissingParameter:
+            raise
         except Exception, e:
             raise OperationFailed('GINAUD0003E', {'error': e.message})
         finally:
@@ -146,6 +148,8 @@ class RulesModel(object):
             elif params["type"] == "Control Rule":
                 rule = self.construct_control_rule(params)
             return rule
+        except MissingParameter:
+            raise
         except Exception, e:
             raise OperationFailed("GINAUD0003E", {'error': e.message})
 
@@ -157,8 +161,10 @@ class RulesModel(object):
         if "rule_info" in params:
             if "file_to_watch" in params["rule_info"]:
                 rule = rule + " " + params["rule_info"]["file_to_watch"]
-            if "permissions" in params["rule_info"]:
+            if params["rule_info"].get("permissions"):
                 rule = rule + " -p " + params["rule_info"]["permissions"]
+            else:
+                raise MissingParameter("GINAUD0031E")
             if "key" in params["rule_info"]:
                 rule = rule + " -k " + params["rule_info"]["key"]
         else:
@@ -337,9 +343,7 @@ class RuleModel(object):
         """
         try:
             gingerAuditLock.acquire()
-            info = self.get_audit_rule_info(name)
-            if info['loaded'] == 'no':
-                RulesModel().load_audit_rule(name)
+            RulesModel().load_audit_rule(name)
         except OperationFailed:
             raise
         except Exception:
@@ -454,7 +458,7 @@ class RuleModel(object):
 
     def get_auditrule_type(self, rule):
         try:
-            if rule.startswith("-w"):
+            if rule.startswith(("-w", "-W")):
                 rule_type = "File System Rule"
             if rule.startswith("-a"):
                 rule_type = "System Call Rule"
