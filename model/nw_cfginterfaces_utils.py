@@ -1026,9 +1026,6 @@ class CfgInterfacesHelper(object):
                     self.validate_ipv4_address(ipaddrinfo[GATEWAY])
                     cfgmap[GATEWAY + postfix] = ipaddrinfo[GATEWAY]
                 index += 1
-        # Fix for issue 169
-        else:
-            raise MissingParameter('GINNET0061E')
         return cfgmap
 
     def assign_ipv6_address(self, cfgmap, params):
@@ -1055,8 +1052,6 @@ class CfgInterfacesHelper(object):
                     else:
                         cfgmap[IPV6ADDR_SECONDARIES] = \
                             ipaddrinfo[IPADDR] + '/' + ipaddrinfo[PREFIX]
-        else:
-            raise MissingParameter('GINNET0029E')
         return cfgmap
 
     def update_dnsv6_info(self, cfgmap, params):
