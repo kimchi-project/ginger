@@ -48,7 +48,6 @@ messages = {
     "GINNET0026E": _("Missing ipv4 initialization key."),
     "GINNET0027E": _("Missing ipv6 initialization key."),
     "GINNET0028E": _("Invalid ipv6 address '%(ip)s', '%(error)s'."),
-    "GINNET0029E": _("Missing ipv6 address information."),
     "GINNET0030E": _("Exception getting route information: %(err)s"),
     "GINNET0032E": _("Bond info is missing."),
     "GINNET0033E": _("Allowed values for BONDING_MASTER are 'yes' or 'no'"),
