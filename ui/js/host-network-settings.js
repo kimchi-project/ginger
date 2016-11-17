@@ -85,7 +85,7 @@ ginger.initNwInterfaceSettings = function() {
 
   $('#buffercount-val-textbox').on('keyup click', function() {
       var buffer = $('#buffercount-val-textbox').val();
-      if (!((ginger.isInteger(buffer) && buffer <= 91980 && buffer >= 0))) {
+      if (!((ginger.isInteger(buffer) && buffer <= 128 && buffer >= 8))) {
           $('#buffercount-val-textbox').val('');
           $(this).addClass("invalid-field");
       } else {
@@ -106,7 +106,7 @@ ginger.action_apply_nwsettings = function() {
     if(($('#layerto-val-textbox').val()).length > 0)
         options.layer2 = layer2;
     if(($('#buffercount-val-textbox').val()).length > 0)
-        options.buffercount=$('#buffercount-val-textbox').val();
+        options.buffer_count=$('#buffercount-val-textbox').val();
     if(($('#osaport-val-textbox').val()).length > 0)
         options.portno=$('#osaport-val-textbox').val();
 
@@ -127,7 +127,7 @@ ginger.action_apply_nwsettings = function() {
         general_form_data["ONBOOT"] = "no";
       }
       data['BASIC_INFO'] = $.extend(general_form_data, adv_form_data,adv_buff_data);
-      delete data.BASIC_INFO.buffercount;
+      delete data.BASIC_INFO.buffer_count;
     }
     getNwSettingsBasicInfoData();
 
@@ -291,8 +291,8 @@ ginger.populateNwSettingsGeneralTab = function(interface) {
     if ("portno" in interface.BASIC_INFO.OPTIONS) {
         $("#osaport-val-textbox").val(interface.BASIC_INFO.OPTIONS.portno);
     }
-    if ("buffercount" in interface.BASIC_INFO.OPTIONS) {
-        $("#buffercount-val-textbox").val(interface.BASIC_INFO.OPTIONS.buffercount);
+    if ("buffer_count" in interface.BASIC_INFO.OPTIONS) {
+        $("#buffercount-val-textbox").val(interface.BASIC_INFO.OPTIONS.buffer_count);
     }
     if ("layer2" in interface.BASIC_INFO.OPTIONS) {
         var layerval;
