@@ -407,7 +407,7 @@ messages = {
     "GINAUD0028E": _("Error occurred in graph creation: '%(error)s"),
     "GINAUD0029E": _("Invalid parameters to create a report graph."),
     "GINAUD0030E": _("Failed to create the graph: Package 'Graphviz' is not installed."),
-    "GINAUD0031E": _("Atleast one permission is required for File System Rule."),
+    "GINAUD0031E": _("At least one permission is required for File System Rule."),
     "GINSE00001E": _("Missing Input Parameters"),
     "GINSE00002E": _("Server with name %(name)s is already added"),
     "GINSE00003E": _("Error while getting the status of server with name %(name)s and IP address or Host Name %(ipaddr)s. Please check the server details and retry the operation."),
