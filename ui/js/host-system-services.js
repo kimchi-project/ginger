@@ -222,6 +222,9 @@ ginger.loadSystemServices = function(callback){
                 ginger.generateSystemServiceElem(value);
             });
             $('#system-services-datagrid').dataGrid({enableSorting: false});
+        } else {
+            $('#system-services-datagrid ul').addClass('hidden');
+            $('#system-services-datagrid .no-matching-data').removeClass('hidden');
         }
         if(callback){
           callback();
@@ -243,7 +246,7 @@ ginger.buildSystemServicesUi = function() {
     ginger.systemServicesFilterList.sort('service-name-filter', {
         order: "asc"
     });
-
+    ginger.sysmoduleSearch();
 };
 
 ginger.updateFilterList = function(){
@@ -253,4 +256,17 @@ ginger.updateFilterList = function(){
       order: "asc"
   });
   ginger.systemServicesFilterList.search($('#search_input_system_services').val());
+  ginger.sysmoduleSearch();
 };
+
+ginger.sysmoduleSearch = function(){
+  ginger.systemServicesFilterList.on('searchComplete',function(){
+    if(ginger.systemServicesFilterList.matchingItems.length == 0){
+      $('#system-services-datagrid ul').addClass('hidden');
+      $('#system-services-datagrid .no-matching-data').removeClass('hidden');
+    } else {
+      $('#system-services-datagrid ul').removeClass('hidden');
+      $('#system-services-datagrid .no-matching-data').addClass('hidden');
+    }
+  });
+}
