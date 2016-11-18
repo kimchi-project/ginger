@@ -166,7 +166,8 @@ class RulesModel(object):
             else:
                 raise MissingParameter("GINAUD0031E")
             if "key" in params["rule_info"]:
-                rule = rule + " -k " + params["rule_info"]["key"]
+                if params["rule_info"]["key"]:
+                    rule = rule + " -k " + params["rule_info"]["key"]
         else:
             raise MissingParameter("GINAUD0004E")
         return rule
@@ -189,7 +190,8 @@ class RulesModel(object):
                 rule = self.construct_fields(rule, params)
 
             if "key" in params["rule_info"]:
-                rule = rule + " -F key=" + params["rule_info"]["key"]
+                if params["rule_info"]["key"]:
+                    rule = rule + " -F key=" + params["rule_info"]["key"]
         else:
             raise MissingParameter("GINAUD0004E")
         return rule
@@ -436,9 +438,9 @@ class RuleModel(object):
 
     def get_systemauditrule_call(self, rule):
         try:
-            match = re.search(r'\S*\s+\w+\S+\w+\s+\S*\s+\w+\S+\w+\s+\S[S]\s+('
-                              r'\S+)\s+\S+\s+\S+', rule)
-            return match.group(1)
+            regex = '[-][S]\s+(\S+)'
+            syscall_list = re.findall(regex, rule)
+            return " ".join(syscall_list)
         except:
             return "N/A"
 
@@ -474,28 +476,28 @@ class RuleModel(object):
             if key_name:
                 return key_name.lstrip()
         except IndexError:
-            return "N/A"
+            return ""
 
     def get_systemauditrule_keyname(self, rule):
         try:
             match = re.search(r'key=\s*(\w+)', rule)
             return match.group(1)
         except AttributeError:
-            return "N/A"
+            return ""
 
     def get_fsauditrule_permissions(self, rule):
         try:
             match = re.search(r'\-p\s*(\w+)', rule)
             return match.group(1)
         except AttributeError:
-            return "N/A"
+            return ""
 
     def get_fsauditrule_filetowatch(self, rule):
         try:
             match = re.search(r'\S+\s+(\S+)(\s+\S+)*', rule)
             return match.group(1)
         except AttributeError:
-            return "N/A"
+            return ""
 
     def is_rule_exists(self, name):
         """
@@ -533,6 +535,8 @@ class RuleModel(object):
             else:
                 raise MissingParameter("GINAUD0010E", {"name": name})
         except MissingParameter:
+            raise
+        except OperationFailed:
             raise
         except Exception:
             raise OperationFailed("GINAUD0011E", {"name": name})

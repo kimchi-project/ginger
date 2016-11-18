@@ -394,7 +394,7 @@ messages = {
     "GINAUD0016E": _("Error occurred in fetching the logs."),
     "GINAUD0017E": _("Error occurred in getting the reports."),
     "GINAUD0018E": _("Loading the rule '%(name)s' failed."),
-    "GINAUD0019E": _("Error occurred in loading predefined rules."),
+    "GINAUD0019E": _("Error occurred in loading predefined rules: '%(Error)s'"),
     "GINAUD0020E": _("The rule '%(name)s' is already persisted."),
     "GINAUD0021E": _("The predefined rules files doesn't exist."),
     "GINAUD0022E": _("Execution on auditctl command failed with error '%(error)s'"),
