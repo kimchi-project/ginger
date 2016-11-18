@@ -123,33 +123,17 @@ def parse_systemctlshow_output(output):
 
 
 def parse_systemctllist_output(output):
-    """Parses the output of 'systemctl --type=service --no-pager --all'.
-
-    Args:
-        output (str): the output of the command. Example format:
-
-           UNIT              LOAD    ACTIVE   SUB     DESCRIPTION
-           wokd.service      loaded  active   running   Wok - Web
-
-           ● xdm.service   not-found inactive dead    xdm.service
-           LOAD   = Reflects whether the unit definition was (...)
-           ACTIVE = The high-level unit activation state, i.e. (...)
-           SUB    = The low-level unit activation state, values(...)
+    """Parses the output of 'systemctl list-unit-files --no-pager --type=service'.
 
     Returns:
         List[str]: list of services.
 
     """
-    lines = output.strip().split('\n')
-    lines = lines[1:]
+    lines = output.splitlines()[1:-2]
     services = []
     for line in lines:
-        if line == '' or line.startswith('LOAD'):
-            break
-        service = line.split()[0]
-        if service == '●' or service == '*':
-            service = line.split()[1]
-        services.append(service)
+        if "@" not in line:
+            services.append(line.split()[0])
 
     return services
 
@@ -186,7 +170,7 @@ def get_services_list():
         List[str]: a list of services.
 
     """
-    cmd = ['systemctl', '--type=service', '--no-pager', '--all']
+    cmd = ['systemctl', 'list-unit-files', '--no-pager', '--type=service']
     output = run_systemd_command(cmd)
     return parse_systemctllist_output(output)
 
