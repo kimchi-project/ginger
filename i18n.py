@@ -112,6 +112,7 @@ messages = {
                      "refresh and try again. "),
     "GINNET0095E": _("Activation of vlan interface '%(name)s' failed. "
                      "Try disabling the DHCP option in IPv4 settings tab."),
+    "GINNET0096E": _("There is no DEVICE or NAME values in the slave interface configuration file ('%(file)s')."),
 
     "GINUSER0001E": _("Specify name, password, group and profile for the new "
                       "user."),
