@@ -34,22 +34,26 @@ class ServicesTests(unittest.TestCase):
 
     def get_systemlist_output(self):
         return """\
-  UNIT                                LOAD      ACTIVE   SUB     DESCRIPTION
-  user@1000.service      loaded    active  running  User Manager for UID 1000
-  user@42.service        loaded    active  running  User Manager for UID 42
-  vgauthd.service   loaded  inactive dead  VGAuth Service for open-vm-tools
-  vmtoolsd.service  loaded  inactive dead  Service for virtual machines hosted
-  wokd.service      loaded  active running Wok - Webserver Originated from Kim
-  wpa_supplicant.service  loaded    active   running WPA supplicant
-● xdm.service   not-found inactive dead    xdm.service
-● ypbind.service   not-found inactive dead    ypbind.service
+UNIT FILE                                   STATE
+timedatex.service                           enabled
+tuned.service                               enabled
+udisks2.service                             disabled
+unbound-anchor.service                      static
+upower.service                              disabled
+usbmuxd.service                             static
+user@.service                               static
+vgauthd.service                             enabled
+virtlockd.service                           indirect
+virtlogd.service                            indirect
+vmtoolsd.service                            enabled
+wacom-inputattach@.service                  static
+wokd.service                                enabled
+wpa_supplicant.service                      disabled
+wst-schedule.service                        disabled
+yum-makecache.service                       static
+zram.service                                static
 
-LOAD   = Reflects whether the unit definition was properly loaded.
-ACTIVE = The high-level unit activation state, i.e. generalization of SUB.
-SUB    = The low-level unit activation state, values depend on unit type.
-
-163 loaded units listed.
-To show all installed unit files use 'systemctl list-unit-files'.\n"""
+263 unit files listed."""
 
     def get_systemctl_show_output(self):
         return """\
@@ -102,10 +106,12 @@ UnitFileState=disabled\n"""
     def test_systemctl_list_output(self):
         output = self.get_systemlist_output()
         expected_output = [
-            'user@1000.service', 'user@42.service', 'vgauthd.service',
-            'vmtoolsd.service', 'wokd.service', 'wpa_supplicant.service',
-            'xdm.service', 'ypbind.service'
-        ]
+            'timedatex.service', 'tuned.service',
+            'udisks2.service', 'unbound-anchor.service', 'upower.service',
+            'usbmuxd.service', 'vgauthd.service', 'virtlockd.service',
+            'virtlogd.service', 'vmtoolsd.service', 'wokd.service',
+            'wpa_supplicant.service', 'wst-schedule.service',
+            'yum-makecache.service', 'zram.service']
 
         output_array = \
             services.parse_systemctllist_output(output)
@@ -121,14 +127,16 @@ UnitFileState=disabled\n"""
 
         services_list = ServicesModel().get_list()
         mock_run_cmd.assert_called_once_with(
-            ['systemctl', '--type=service', '--no-pager', '--all']
+            ['systemctl', 'list-unit-files', '--no-pager', '--type=service']
         )
 
         expected_output = [
-            'user@1000.service', 'user@42.service', 'vgauthd.service',
-            'vmtoolsd.service', 'wokd.service', 'wpa_supplicant.service',
-            'xdm.service', 'ypbind.service'
-        ]
+            'timedatex.service', 'tuned.service',
+            'udisks2.service', 'unbound-anchor.service', 'upower.service',
+            'usbmuxd.service', 'vgauthd.service', 'virtlockd.service',
+            'virtlogd.service', 'vmtoolsd.service', 'wokd.service',
+            'wpa_supplicant.service', 'wst-schedule.service',
+            'yum-makecache.service', 'zram.service']
 
         for service in expected_output:
             self.assertIn(service, services_list)
