@@ -37,8 +37,9 @@ from wok.plugins.gingerbase.disks import _get_dev_node_path
 LVM_THR_VERSION = "2.02.116"
 
 FC_PATHS = "/dev/disk/by-path/*fc*"
-PATTERN_CCW = "ccw-(?P<hba_id>[\d.]+)-zfcp-(?P<wwpn>[\w]+):(?P<fcp_lun>[\w]+)$"
-PATTERN_PCI = "pci-(?P<hba_id>[\d.:]+)(-vport-(?P<vport>[\w]+))?-fc-" \
+PATTERN_CCW = "ccw-(?P<hba_id>[\da-fA-F.]+)-zfcp-(?P<wwpn>[\w]+):" \
+              "(?P<fcp_lun>[\w]+)$"
+PATTERN_PCI = "pci-(?P<hba_id>[\da-fA-F.:]+)(-vport-(?P<vport>[\w]+))?-fc-" \
               "(?P<wwpn>[\w]+)-lun-(?P<fcp_lun>[\d]+)$"
 
 DEV_TYPES = ["dasd-eckd", "zfcp"]
