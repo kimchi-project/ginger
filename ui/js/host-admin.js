@@ -601,6 +601,10 @@ ginger.initUserManagement = function() {
         });
     };
 
+    $('#usrMgmtRefreshBtn').on('click', function() {
+        listUsers();
+    });
+
     $("#usermangementgrid").on('click','#user-remove', function(event) {
         event.preventDefault();
         var wokUserName = wok.user.getUserName();
