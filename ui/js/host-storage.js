@@ -623,7 +623,7 @@ ginger.loadStorageDeviceDetails = function() {
     "column-id": 'name',
     "type": 'string',
     "identifier": true,
-    "width": "50%",
+    "width": "45%",
     "title": i18n['GINTITLE0001M']
   }, {
     "column-id": 'mpath_count',
@@ -649,7 +649,14 @@ ginger.loadStorageDeviceDetails = function() {
 	    "header-class": "text-center",
 	    "data-class": "center",
 	    "formatter": "row-details"
-  }];
+  },{
+      "column-id": "status",
+      "type": 'string',
+      "title": i18n['GINSERV0003M'],
+      "width": "5%",
+      "header-class": "text-center",
+      "data-class": "center"
+   }];
 
   ginger.getPlugins(function(result) {
       if (ginger.hostarch != 's390x') {
@@ -682,7 +689,11 @@ ginger.createStorageActionButtons = function(opts){
       var selectedRows = ginger.getSelectedRowsData(opts);
       ginger.partition.PartitionDeviceInfo = selectedRows[0];
       if (selectedRows && selectedRows.length === 1) {
-          wok.window.open('plugins/ginger/host-storage-addpartitions.html');
+          if(ginger.partition.PartitionDeviceInfo['status']!='n/f'){
+            wok.window.open('plugins/ginger/host-storage-addpartitions.html');
+          }else {
+            wok.message.warn(i18n['GINPT00017M'], '#alert-modal-nw-container', true);
+          }
       } else {
           wok.message.error(i18n['GINPT00014M'], '#alert-modal-nw-container', true);
       }

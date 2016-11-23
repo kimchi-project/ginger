@@ -435,7 +435,7 @@ ginger.partition.deleteDASDDevicePartition = function(PartitionDevice, DeviceNam
     };
     wok.confirm(settings, function() {
         ginger.deleteDASDDevicePartition(PartitionDevice, function(response) {
-            wok.message.success(PartitionDevice + i18n['GINPT00012M'], '#alert-partition-details');
+            wok.message.success(i18n['GINPT00012M'].replace("%1",PartitionDevice), '#alert-partition-details');
             ginger.partition.RefreshPartitionDetails(DeviceName);
         }, function(error) {
             wok.message.error(error.responseJSON.reason, '#alert-partition-details', true);
@@ -455,7 +455,7 @@ ginger.partition.deleteDevicePartition = function(PartitionDevice, DeviceName) {
     };
     wok.confirm(settings, function() {
         ginger.deleteDevicePartition(PartitionDevice, function(response) {
-            wok.message.success(PartitionDevice + ' ' + i18n['GINPT00012M'], '#alert-partition-details');
+            wok.message.success(i18n['GINPT00012M'].replace("%1",PartitionDevice), '#alert-partition-details');
             ginger.partition.RefreshPartitionDetails(DeviceName);
         }, function(error) {
             wok.message.error(error.responseJSON.reason, '#alert-partition-details', true);

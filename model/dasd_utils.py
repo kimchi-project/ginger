@@ -251,6 +251,7 @@ def get_dasd_devs():
             else:
                 uf_dev['size'] = int(dasdsize[:-2])
             uf_dev['id'] = device['uid']
+            uf_dev['status'] = device['status']
             uf_dev['bus_id'] = device['bus-id']
             uf_dev['mpath_count'] = dasd_pim_dict[uf_dev['bus_id']]
             devs.append(uf_dev)
