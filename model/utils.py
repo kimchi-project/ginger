@@ -1169,12 +1169,14 @@ def get_discovered_iscsi_qns():
         if not os.path.exists(iscsiadm_db_path):
             iscsiadm_db_path = '/var/lib/iscsi/nodes'
 
-        discovered_iqns_list = os.listdir(iscsiadm_db_path)
+        discovered_iqns_list = os.listdir(iscsiadm_db_path) \
+            if os.path.isdir(iscsiadm_db_path) else []
 
         for discovered_iqn in discovered_iqns_list:
             discovered_iqns[discovered_iqn] = False
 
-        current_sessions = os.listdir('/sys/class/iscsi_session')
+        current_sessions = os.listdir('/sys/class/iscsi_session') if \
+            os.path.isdir('/sys/class/iscsi_session') else []
 
         # Iterate over all sessions once for efficiency instead of
         # calling is_target_logged_in function below for every iqn
@@ -1190,7 +1192,7 @@ def get_discovered_iscsi_qns():
                              'targets': get_iscsi_iqn_auth_info(iqn)})
 
     except Exception as e:
-        raise OperationFailed("GINISCSI005E", {'err': e.message})
+        raise OperationFailed("GINISCSI005E", {'err': e.__str__()})
 
     return iqn_list
 
