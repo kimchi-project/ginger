@@ -132,6 +132,7 @@ ginger.createBootgrid = function(opts) {
           "<span class=\"fa fa-trash-o command-delete\" data-row-id=\"" + row[column.id] + "\"></span>";
       },
       "row-details": function(column, row) {
+          if(row['status']!='n/f')
           return "<span class=\"fa fa-chevron-down common-down fa-lg\" data-row-id=\"" + row[column.id] + "\"></span> ";
         }
     },
