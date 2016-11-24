@@ -22,7 +22,7 @@ import datetime
 import re
 
 from wok.utils import run_command
-from wok.exception import OperationFailed
+from wok.exception import InvalidParameter, OperationFailed
 
 audit_configpath = 'etc/audit/'
 auditlog_file = '/var/log/audit/audit.log'
@@ -38,6 +38,8 @@ class LogsModel(object):
                 return self.get_unfiltered_log()
             else:
                 return self.get_filtered_log(str(_filter))
+        except InvalidParameter:
+            raise
         except Exception:
             raise OperationFailed('GINAUD0016E')
 
@@ -51,54 +53,59 @@ class LogsModel(object):
                 for each in each_options:
                     search_cmd.append(each)
             output, error, rc = run_command(search_cmd)
-            if "time->" in output:
-                i = 1
-                out_list = output.split('----')
-                for each in out_list:
-                    record_details = dict()
-                    record = 'record' + str(i)
-                    record_details[record] = each.strip('\n')
-                    record_details[record] = {}
-                    each = each.split('\n')
-                    if each != ['']:
-                        each_line = each[2]
-                        regex = re.search(r'\w+\S(\w+)\s+\w+\S((\S*\s*)*)',
+            if rc == 0:
+                if "time->" in output:
+                    i = 1
+                    out_list = output.split('----')
+                    for each in out_list:
+                        record_details = dict()
+                        record = 'record' + str(i)
+                        record_details[record] = each.strip('\n')
+                        record_details[record] = {}
+                        each = each.split('\n')
+                        if each != ['']:
+                            each_line = each[2]
+                            regex = re.search(r'\w+\S(\w+)\s+\w+\S(('
+                                              r'\S*\s*)*)', each_line)
+                            time_regex = re.search(r'\w+\S\w+\s+\w+\S\w+\S('
+                                                   r'\d+\S\d+)((\S+\s*)*)',
+                                                   each_line)
+                            timestamp = time_regex.groups()[0]
+                            timestamp = float(timestamp)
+                            record_details[record]['TYPE'] = regex.groups()[0]
+                            record_details[record]['MSG'] = regex.groups()[1]
+                            record_details[record]['Date and Time'] = \
+                                datetime.datetime.fromtimestamp(
+                                    timestamp).strftime('%Y-%m-%d %H:%M:%S')
+                            i += 1
+                            log_list.append(record_details)
+                else:
+                    out_list = output.split('----')
+                    i = 1
+                    for each_line in out_list:
+                        record_details = dict()
+                        record = 'record' + str(i)
+                        record_details[record] = each_line.strip('\n')
+                        record_details[record] = {}
+                        if each_line != "":
+                            regex = re.search(r'\w+\S(\w+)\s+(('
+                                              r'\w+\S+\s*)*\S(\s\S+)*)',
+                                              each_line)
+                            time_regex = \
+                                re.search(r'\w+\S\w+\s+\w+\S\w+\S('
+                                          r'\d+\S\d+\S\d+\s+\d+\S\d+\S\d+)',
                                           each_line)
-                        time_regex = re.search(
-                            r'\w+\S\w+\s+\w+\S\w+\S(\d+\S\d+)((\S+\s*)*)',
-                            each_line)
-                        timestamp = time_regex.groups()[0]
-                        timestamp = float(timestamp)
-                        record_details[record]['TYPE'] = regex.groups()[0]
-                        record_details[record]['MSG'] = regex.groups()[1]
-                        record_details[record]['Date and Time'] = \
-                            datetime.datetime.fromtimestamp(
-                                timestamp).strftime('%Y-%m-%d %H:%M:%S')
-                        i += 1
-                        log_list.append(record_details)
+                            record_details[record]['TYPE'] = regex.groups()[0]
+                            record_details[record]['MSG'] = regex.groups()[1]
+                            record_details[record]['Date and Time'] = \
+                                time_regex.groups()[0]
+                            i += 1
+                            log_list.append(record_details)
             else:
-                out_list = output.split('----')
-                i = 1
-                for each_line in out_list:
-                    record_details = dict()
-                    record = 'record' + str(i)
-                    record_details[record] = each_line.strip('\n')
-                    record_details[record] = {}
-                    if each_line != "":
-                        regex = re.search(r'\w+\S(\w+)\s+((\w+\S+\s*)*\S'
-                                          r'(\s\S+)*)',
-                                          each_line)
-                        time_regex = re.search(r'\w+\S\w+\s+\w+\S\w+\S'
-                                               r'(\d+\S\d+\S\d+'
-                                               r'\s+\d+\S\d+\S\d+)',
-                                               each_line)
-                        record_details[record]['TYPE'] = regex.groups()[0]
-                        record_details[record]['MSG'] = regex.groups()[1]
-                        record_details[record]['Date and Time'] = \
-                            time_regex.groups()[0]
-                        i += 1
-                        log_list.append(record_details)
+                raise InvalidParameter('GINAUD0033E',  {'error': error})
             return log_list
+        except InvalidParameter:
+            raise
         except Exception:
             raise OperationFailed('GINAUD0014E')
 

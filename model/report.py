@@ -22,7 +22,7 @@ import re
 
 from wok.config import get_log_download_path
 from wok.utils import run_command
-from wok.exception import OperationFailed
+from wok.exception import InvalidParameter, OperationFailed
 
 audit_summary_report = "%s/audit_summary_report.txt" % get_log_download_path()
 
@@ -43,23 +43,27 @@ class ReportsModel(object):
                     for each in each_options:
                         summary_cmd.append(each)
             out, error, rc = run_command(summary_cmd)
-            regex = "#\s+((\w+\s*)*)"
-            match = re.search(regex, out)
-            if match:
-                column = dict()
-                words = match.group(1)
-                words = words.replace('\n', '')
-                words = words.split(" ")
-                dict_column = {k: v for v, k in enumerate(words)}
-                column['column_info'] = dict_column
-                report.append(column)
-            with open(audit_summary_report, "w")\
-                    as report_file:
-                report_file.write(out)
-            out_list = out.split('\n')
-            report_dict = dict()
-            report_dict['summary'] = out_list
-            report.append(report_dict)
-            return report
+            if rc == 0:
+                regex = "#\s+((\w+\s*)*)"
+                match = re.search(regex, out)
+                if match:
+                    column = dict()
+                    words = match.group(1)
+                    words = words.replace('\n', '')
+                    words = words.split(" ")
+                    dict_column = {k: v for v, k in enumerate(words)}
+                    column['column_info'] = dict_column
+                    report.append(column)
+                with open(audit_summary_report, "w") as report_file:
+                    report_file.write(out)
+                out_list = out.split('\n')
+                report_dict = dict()
+                report_dict['summary'] = out_list
+                report.append(report_dict)
+                return report
+            else:
+                raise InvalidParameter('GINAUD0032E',  {'error': error})
+        except InvalidParameter:
+            raise
         except Exception:
             raise OperationFailed('GINAUD0017E')
