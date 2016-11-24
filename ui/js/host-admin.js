@@ -456,7 +456,11 @@ ginger.refreshSensors = function() {
 
 ginger.initSensorsMonitor = function() {
     ginger.listSensors();
-    setInterval(ginger.refreshSensors, 5000);
+    ginger.refreshSensorsInterval = setInterval(ginger.refreshSensors, 5000);
+
+    $('#administration-root-container').on('remove', function() {
+        ginger.refreshSensorsInterval && clearInterval(ginger.refreshSensorsInterval);
+    });
 
     $('.update-sensors').on('click', function() {
       ginger.lastActiveSensors.length = 0;
