@@ -918,9 +918,10 @@ ginger.loadAuditRulesData =  function(){
         rows += "<td>" + rule.type + "</td>";
         var ruleDetails = rule.rule;
         var titleValue = "";
+        var syscallStartIndex = ruleDetails.indexOf("-S");
 
-        if(ruleDetails.substring(ruleDetails.indexOf("-S"),ruleDetails.indexOf("-F")).split(",").length > 10) {
-           titleValue=ruleDetails.replace(/.{80}/g,"$&"+"\n");
+        if(ruleDetails.substring(syscallStartIndex,ruleDetails.indexOf("-F",syscallStartIndex)).split(",").length > 10) {
+           titleValue=ruleDetails.replace(/.{70}/g,"$&"+"\n");
         }else {
            titleValue = ruleDetails;
          }
@@ -1237,9 +1238,15 @@ ginger.ruleDetailsPopulation = function(data , row){
           break;
        case "systemcall":
           text = i18n['GINAUDIT0004M'];
+          if(value.length > 10) {
+             value=value.toString().replace(/.{70}/g,"$&"+"\n");
+          }
           break;
        case "field":
           text = i18n['GINAUDIT0005M'];
+          if(value.length > 10) {
+             value=value.toString().replace(/.{70}/g,"$&"+"\n");
+          }
           break;
        case "key":
          text = i18n['GINAUDIT0006M'];
