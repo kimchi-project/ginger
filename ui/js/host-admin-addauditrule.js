@@ -71,6 +71,13 @@ $("#option").on('change', function() {
         $('#bvalue').hide();
         $('#rvalue').show();
     }
+    var inputValidation = function(input){
+      var value  = $(input).val().replace(/[^0-9]/g,'');
+      $(input).val(value);
+    }
+    $("#rvaluedata , #bvaluedata").on('change keyup',function(){
+      inputValidation($(this));
+    });
 });
 ginger.initfilerule = function() {
     $("#AuditRule-submit").on('click', function(event) {
@@ -91,9 +98,19 @@ ginger.initfilerule = function() {
             filerule['key'] = key;
             fileruleinfo['type'] = "File System Rule";
             fileruleinfo['rule_info'] = filerule;
-            if (file_to_watch.length == 0 || permissions.length == 0) {
+            if (file_to_watch.length == 0 && permissions.length == 0) {
                 wok.message.error(i18n["GINAUDIT0032M"], "#addrule-message",true);
-            } else {
+                return false;
+            }
+            if (file_to_watch.length == 0) {
+               wok.message.error(i18n["GINAUDIT0075M"], "#addrule-message",true);
+               return false;
+            }
+            if (permissions.length == 0) {
+               wok.message.error(i18n["GINAUDIT0076M"], "#addrule-message",true);
+               return false;
+            }
+            else {
                 ginger.addFileAudit(fileruleinfo, function() {
                     wok.window.close();
                     $('#Audit-Rule-refresh-btn').trigger('click');
@@ -119,7 +136,7 @@ ginger.initfilerule = function() {
             cntrlrule['type'] = "Control Rule";
             cntrlrule['rule'] = result;
             if (val.length == 0) {
-                wok.message.error(i18n["GINAUDIT0032M"], "#addrule-message");
+                wok.message.error(i18n["GINAUDIT0077M"], "#addrule-message");
             } else {
                 ginger.addControlAudit(cntrlrule, function() {
                     wok.window.close();

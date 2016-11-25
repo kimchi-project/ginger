@@ -32,9 +32,18 @@ ginger.initEditRule = function() {
         rule_info['key'] = $('#keyedit').val();
         editrule['rule_info'] = rule_info;
 
-        if (file_to_watch.length == 0 || permissions.length == 0) {
+        if (file_to_watch.length == 0 && permissions.length == 0) {
             wok.message.error(i18n["GINAUDIT0032M"], "#editrule-message");
-        }else {
+            return false;
+        }
+        if (file_to_watch.length == 0) {
+            wok.message.error(i18n["GINAUDIT0075M"], "#editrule-message");
+            return false;
+        }
+        if (permissions.length == 0) {
+            wok.message.error(i18n["GINAUDIT0076M"], "#editrule-message");
+            return false;
+        } else {
             ginger.EditAuditRule(ruleName, editrule, function() {
                 wok.window.close();
                 $('#Audit-Rule-refresh-btn').trigger('click');
@@ -88,10 +97,18 @@ ginger.loadRuleValues = function() {
 }
 ginger.initEditControlRule = function() {
     $('.selectpicker').selectpicker();
+    var inputValidation = function(input){
+      var value  = $(input).val().replace(/[^0-9]/g,'');
+      $(input).val(value);
+    }
+    $("#rvaluedata , #bvaluedata").on('change keyup',function(){
+      inputValidation($(this));
+    });
     var ruleName = ginger.loadControlRuleValues();
     $('#EditControlRule-submit').on('click', function(event) {
         var editrule = {};
         var rule_info = {};
+        var val;
         if ($('#optionid').val() == "-b") {
             val = $('#bvaluedata').val();
         } else if ($('#optionid').val() == "-f") {
@@ -102,6 +119,10 @@ ginger.initEditControlRule = function() {
         editrule['type'] = $('#rule-type').val();
         rule = $('#optionid').val() + ' ' + val;
         editrule['rule'] = rule;
+        if (val.length == 0) {
+                wok.message.error(i18n["GINAUDIT0077M"], "#editrule-message");
+                return false;
+        } else {
         ginger.EditAuditRule(ruleName, editrule, function() {
             wok.window.close();
             $('#Audit-Rule-refresh-btn').trigger('click');
@@ -109,6 +130,7 @@ ginger.initEditControlRule = function() {
         }, function(result) {
             wok.message.error(result.responseJSON.reason, "#editrule-message", true);
         });
+       }
     });
 }
 ginger.loadControlRuleValues = function() {
