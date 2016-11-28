@@ -236,9 +236,12 @@ ginger.initOvsClickHandler = function() {
 
 ginger.addOvsBridgeModal = function() {
     $('#addButton').prop('disabled', true);
-    $('input#bridge[name="name"]').on('keyup', function() {
+    $('input#bridge[name="name"]').on('input propertychange', function() {
+       var ovsNamePattern  = /^[a-zA-Z0-9-_.]+$/;
         if ($(this).val().length != 0) {
-            $('#addButton').prop('disabled', false);
+          var isValidOvsName = ovsNamePattern.test($(this).val());
+          $('#addButton').prop('disabled', !isValidOvsName);
+          $(this).toggleClass("invalid-field", !isValidOvsName);
         } else {
             $('#addButton').prop('disabled', true);
         }
