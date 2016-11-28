@@ -146,7 +146,7 @@ ginger.initFileSystemMount = function(){
     });
   });
 
-  remoteMountPointServerIp.keyup(function(){
+  remoteMountPointServerIp.on('input propertychange',function(){
     if($(this).val()!=''){
       $('#nfs-path-search').attr("disabled",false);
     }else{
