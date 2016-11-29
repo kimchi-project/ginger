@@ -410,6 +410,7 @@ messages = {
     "GINAUD0031E": _("At least one permission is required for File System Rule."),
     "GINAUD0032E": _("Error occurred while generating report: '%(error)s'"),
     "GINAUD0033E": _("Error occurred in searching the audit log: '%(error)s'"),
+    "GINAUD0034E": _("The rule '%(name)s' has not been modified. Please update the rule before applying."),
     "GINSE00001E": _("Missing Input Parameters"),
     "GINSE00002E": _("Server with name %(name)s is already added"),
     "GINSE00003E": _("Error while getting the status of server with name %(name)s and IP address or Host Name %(ipaddr)s. Please check the server details and retry the operation."),

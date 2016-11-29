@@ -283,10 +283,8 @@ class RuleModel(object):
         filter_file.close()
         rule_file = open(persisted_rules_file, 'w')
         for line in open(tmp_rules_file):
-            if name not in line:
+            if name != line.strip('\n'):
                 rule_file.write(line)
-            else:
-                pass
         rule_file.close()
         os.remove(tmp_rules_file)
 
@@ -521,9 +519,11 @@ class RuleModel(object):
             gingerAuditLock.acquire()
             if self.is_rule_exists(name):
                 info = self.get_audit_rule_info(name)
+                rule = RulesModel().construct_rules(params)
+                if rule == name:
+                    raise OperationFailed("GINAUD0034E", {"name": name})
                 if info['loaded'] == 'yes':
                     RulesModel().create(params)
-                rule = RulesModel().construct_rules(params)
                 if info['type'] == "Control Rule":
                     RulesModel().write_to_aucontrol_rules(rule)
                 else:
