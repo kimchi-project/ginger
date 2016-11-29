@@ -273,8 +273,8 @@ ginger.rescaniSCSIdevice = function(iSCSITable) {
 ginger.initiSCSIDiscovery = function() {
     $('#iSCSI-discovery-table').css('visibility', 'hidden');
 
-    $('#iSCSI-add-discovery-ip').on('change input keyup',function(){
-        var isValid = ginger.validateIp($(this).val());
+    $('#iSCSI-add-discovery-ip').on('input propertychange',function(){
+        var isValid = ginger.validateIp($(this).val()) || ginger.validateHostName($(this).val());
         (isValid) ? $(this).removeClass('form-control invalid-field') : $(this).addClass('form-control invalid-field');
     });
 
