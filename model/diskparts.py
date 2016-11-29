@@ -25,6 +25,7 @@ from wok.exception import MissingParameter, NotFoundError, OperationFailed
 from wok.model.tasks import TaskModel
 from wok.plugins.gingerbase.disks import fetch_disks_partitions
 from wok.plugins.gingerbase.disks import _get_vgname, get_partition_details
+from wok.plugins.gingerbase.disks import pvs_with_vg_list
 
 
 class PartitionsModel(object):
@@ -37,13 +38,16 @@ class PartitionsModel(object):
             raise OperationFailed("GINPART00001E",
                                   {'err': e.message})
         result_names = []
+        pv_vglist = pvs_with_vg_list()
         for i in result:
             part_path = i['path']
-            vg_name = _get_vgname(part_path)
-            if vg_name:
-                i['vgname'] = vg_name
+            pv_dict = \
+                next((val for itr, val in enumerate(pv_vglist)
+                      if part_path in val), None)
+            if pv_dict:
+                i['vgname'] = pv_dict[part_path]
             else:
-                i['vgname'] = "N/A"
+                i['vgname'] = 'N/A'
             result_names.append(i['name'])
         if _name:
             name = list(set([_name]).intersection(set(result_names)))
