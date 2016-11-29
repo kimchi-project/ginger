@@ -1576,7 +1576,7 @@
 #storage-device-content-area .usage-icon.icon-high,
 #fcp-tape-devices-content-area .usage-icon.icon-high,
 #san-adapter-content-area .usage-icon.icon-high {
-  background-image: url("../images/theme-default/high.png");
+  background-image: url("../../../images/theme-default/high.png");
 }
 
 #volume-groups-content-area .usage-icon.icon-med,
@@ -1585,7 +1585,7 @@
 #storage-device-content-area .usage-icon.icon-med,
 #fcp-tape-devices-content-area .usage-icon.icon-med,
 #san-adapter-content-area .usage-icon.icon-med {
-  background-image: url("../images/theme-default/med.png");
+  background-image: url("../../../images/theme-default/med.png");
 }
 
 #volume-groups-content-area .usage-icon.icon-low,
@@ -1594,7 +1594,7 @@
 #storage-device-content-area .usage-icon.icon-low,
 #fcp-tape-devices-content-area .usage-icon.icon-low,
 #san-adapter-content-area .usage-icon.icon-low {
-  background-image: url("../images/theme-default/low.png");
+  background-image: url("../../../images/theme-default/low.png");
 }
 
 #volume-groups-content-area .dataTable tbody > tr.selected,
