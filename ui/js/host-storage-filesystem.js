@@ -148,7 +148,9 @@ ginger.initFileSystemMount = function(){
 
   remoteMountPointServerIp.on('input propertychange',function(){
     if($(this).val()!=''){
-      $('#nfs-path-search').attr("disabled",false);
+      var isValid = ginger.validateIp($(this).val()) || ginger.validateHostName($(this).val());
+      $('#nfs-path-search').attr("disabled",!isValid);
+      $(this).toggleClass("invalid-field", !isValid);
     }else{
       $('#nfs-path-search').attr("disabled",true);
      }
