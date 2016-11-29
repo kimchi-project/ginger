@@ -74,7 +74,18 @@ ginger.partition.RefreshPartitionDetails = function() {
 
 ginger.partition.listPartitiondetails = function(DeviceInfo) {
 
-    var DeviceName = DeviceInfo.name;
+    switch (DeviceInfo.type) {
+      case 'dasd':
+          var DeviceName = DeviceInfo.name;
+          break;
+      case 'fc':
+      case 'iscsi':
+          var DeviceName = DeviceInfo.id;
+          break;
+      default:
+          var DeviceName = DeviceInfo.name;
+          break;
+    }
     ginger.getDevicePartition(DeviceName, function(results) {
         ginger.partition.loadPartitionData(DeviceName, results);
     }, function(error) {
