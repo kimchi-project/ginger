@@ -165,13 +165,13 @@
        height:28px;
 
        &.icon-high {
-           background-image: url('#{$wok-icon-path}/high.png');
+           background-image: url('../../#{$wok-icon-path}/high.png');
        }
        &.icon-med {
-           background-image: url('#{$wok-icon-path}/med.png');
+           background-image: url('../../#{$wok-icon-path}/med.png');
        }
        &.icon-low {
-           background-image: url('#{$wok-icon-path}/low.png');
+           background-image: url('../../#{$wok-icon-path}/low.png');
       }
   }
 
