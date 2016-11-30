@@ -21,6 +21,7 @@ import fs_utils
 
 from wok.exception import NotFoundError, OperationFailed
 from wok.exception import InvalidParameter, MissingParameter
+from wok.rollbackcontext import RollbackContext
 
 
 class FileSystemsModel(object):
@@ -48,9 +49,13 @@ class FileSystemsModel(object):
             mount_options = params.get('mount_options', '')
 
             try:
-                fs_utils._mount_a_blk_device(blk_dev, mount_point,
-                                             mount_options)
-                fs_utils.make_persist(blk_dev, mount_point, mount_options)
+                with RollbackContext() as rollback:
+                    fs_utils._mount_a_blk_device(blk_dev, mount_point,
+                                                 mount_options)
+                    rollback.prependDefer(
+                        fs_utils._umount_partition, mount_point)
+                    fs_utils.make_persist(blk_dev, mount_point, mount_options)
+                    rollback.commitAll()
             except Exception as e:
                 raise InvalidParameter("GINFS00007E", {"err": e.message})
 
@@ -76,9 +81,15 @@ class FileSystemsModel(object):
             mount_options = params.get('mount_options', '')
 
             try:
-                fs_utils.nfsmount(server, share, mount_point, mount_options)
-                dev_info = server + ':' + share
-                fs_utils.make_persist(dev_info, mount_point, mount_options)
+                with RollbackContext() as rollback:
+                    fs_utils.nfsmount(
+                        server, share, mount_point, mount_options)
+                    rollback.prependDefer(
+                        fs_utils._umount_partition, mount_point)
+                    dev_info = server + ':' + share
+                    fs_utils.make_persist(
+                        dev_info, mount_point, mount_options)
+                    rollback.commitAll()
             except Exception as e:
                 raise InvalidParameter("GINFS00018E", {"err": e})
             return mount_point

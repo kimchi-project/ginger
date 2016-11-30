@@ -205,7 +205,7 @@ messages = {
     "GINFS00009E": _("Require block dev to mount a filesystem"),
     "GINFS00010E": _("Require mount point to mount a filesystem"),
 
-    "GINFS00011E": _("Unable to open fstab"),
+    "GINFS00011E": _("Unable to open fstab. Error: %(err)s"),
     "GINFS00012E": _("Unable to write fstab"),
     "GINFS00013E": _("Failed to retrieve list of filesystems. Error: %(err)s"),
     "GINFS00014E": _("required server ip addr"),

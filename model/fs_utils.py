@@ -252,8 +252,10 @@ def make_persist(dev, mntpt, mnt_opts):
                 fo.write(dev + " " + mntpt + " " + fs_info['type'] + " " +
                          "defaults 1 2")
             fo.close()
-    except:
-        raise OperationFailed("GINFS00011E")
+    except OperationFailed:
+        raise
+    except Exception as e:
+        raise OperationFailed("GINFS00011E", {'err': e.__str__()})
 
 
 def remove_persist(mntpt):
