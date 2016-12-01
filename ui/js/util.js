@@ -659,8 +659,6 @@ ginger.getDevicePartition =  function(devicename, suc , err){
 }
 
 ginger.addDASDDevicePartition =  function(content, suc , err){
-    console.log("add API partition called for DASD device");
-    console.log(content);
 
     wok.requestJSON({
         url : 'plugins/ginger/dasdpartitions',
@@ -674,8 +672,6 @@ ginger.addDASDDevicePartition =  function(content, suc , err){
 }
 
 ginger.getDevicePartitionPath =  function(device, suc , err){
-    console.log("getDevicePartitionPath called for Other device");
-    console.log(device);
 
     wok.requestJSON({
         url : 'plugins/ginger/partitions/'+device,
@@ -688,8 +684,6 @@ ginger.getDevicePartitionPath =  function(device, suc , err){
 }
 
 ginger.addDevicePartition =  function(content, suc , err){
-    console.log("add API partition called for FC device");
-    console.log(content);
 
     wok.requestJSON({
         url : 'plugins/ginger/partitions',
@@ -703,7 +697,7 @@ ginger.addDevicePartition =  function(content, suc , err){
 }
 
 ginger.deleteDASDDevicePartition =  function(devicename, suc , err){
-    console.log("delete partition called for "+ devicename);
+
     wok.requestJSON({
         url : 'plugins/ginger/dasdpartitions/'+ devicename,
         type : 'DELETE',
@@ -715,7 +709,7 @@ ginger.deleteDASDDevicePartition =  function(devicename, suc , err){
 }
 
 ginger.deleteDevicePartition =  function(devicename, suc , err){
-    console.log("delete partition called for "+ devicename);
+
     wok.requestJSON({
         url : 'plugins/ginger/partitions/'+ devicename,
         type : 'DELETE',
@@ -727,8 +721,6 @@ ginger.deleteDevicePartition =  function(devicename, suc , err){
 }
 
 ginger.formatPartitionDevice =  function(content, suc , err, progress){
-    console.log("format API partition called for ");
-    console.log(content);
 
     var onResponse = function(data) {
        taskID = data['id'];
@@ -747,8 +739,6 @@ ginger.formatPartitionDevice =  function(content, suc , err, progress){
 }
 
 ginger.PartitionCreatePVs =  function(pv_name, suc , err, progress){
-    console.log("CreatePVs API partition called for ");
-    console.log(pv_name);
 
     var onResponse = function(data) {
        taskID = data['id'];
@@ -767,9 +757,6 @@ ginger.PartitionCreatePVs =  function(pv_name, suc , err, progress){
 }
 
 ginger.PartitionDeviceAddtoVG =  function(content, suc , err){
-    console.log("add to VG API partition called for ");
-    console.log(content.pv_paths);
-    console.log(content.vg);
 
         wok.requestJSON({
         url : 'plugins/ginger/vgs/'+ content.vg +'/extend',
@@ -783,9 +770,6 @@ ginger.PartitionDeviceAddtoVG =  function(content, suc , err){
 }
 
 ginger.PartitionDeviceRemoveFromVG =  function(content, suc , err){
-    console.log("remove from VG API partition called for ");
-    console.log(content.pv_paths);
-    console.log(content.vg);
 
         wok.requestJSON({
         url : 'plugins/ginger/vgs/'+ content.vg +'/reduce',
