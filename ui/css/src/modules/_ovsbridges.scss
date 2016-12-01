@@ -106,7 +106,7 @@
     }
 
     > span.column-statistics {
-        width: 80px;
+        width: 150px;
         text-align: center;
     }
 
@@ -114,7 +114,7 @@
         flex-grow: 1 !important;
 
         .btn.dropdown-toggle {
-            width: 173px;
+            width: 226px;
         }
     }
 
@@ -122,6 +122,10 @@
 
 #ovsbridgeGrid .wok-datagrid.bridge-interface > div >div > span.column-ifaction {
         flex-grow: 1 !important;
+}
+
+#ovsbridgeGrid .menu-flat .dropdown-menu > li:first-child > a.edit-bridge {
+    width: 226px;
 }
 
 #ovsbridgeGrid.wok-datagrid span.column-state {
@@ -226,6 +230,10 @@ form[name="ovsaddinterface"] {
 .column-new-bond-action > .btn-primary {
     width: 89.5px;
     text-align: center;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    display: inline-block;
 }
 
 .column-new-iface select[name="new-interface"],

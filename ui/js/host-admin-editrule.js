@@ -260,7 +260,7 @@ ginger.loadSystemcallRuleValues = function() {
     } else {
         var selectedRowsData = auditRulesTable.rows('.selected').data();
         var selectedRows = {};
-        var Rtype;
+        var Rtype,checkkeyfield;
         var ruleName;
         var rulearray = {};
         var rule = {};
@@ -278,7 +278,7 @@ ginger.loadSystemcallRuleValues = function() {
             Rtype = value[1];
         });
         array = rulearray['field'];
-        for (var i = 0; i < ((rulearray['field'].length) - 2); i++) {
+        for (var i = 0; i < ((rulearray['field'].length) - 1); i++) {
              $('#sysCalls').append('<tr><td><select name="name" class="col-md-11 col-lg-11 form-control"><option value="arch">'+i18n['GINAUDIT0041M']+'</option><option value="auid">'+i18n['GINAUDIT0042M']+'</option><option value="devmajor">'+i18n['GINAUDIT0043M']+'</option><option value="devminor">'+i18n['GINAUDIT0044M']+'</option><option value="dir">'+i18n['GINAUDIT0045M']+'</option><option value="egid">'+i18n['GINAUDIT0046M']+'</option><option value="euid">'+i18n['GINAUDIT0047M']+'</option><option value="exit">'+i18n['GINAUDIT0048M']+'</option><option value="fsgid">'+i18n['GINAUDIT0049M']+'</option><option value="fsuid">'+i18n['GINAUDIT0050M']+'</option><option value="gid">'+i18n['GINAUDIT0051M']+'</option><option value="inode">'+i18n['GINAUDIT0052M']+'</option><option value="msgtype">'+i18n['GINAUDIT0053M']+'</option><option value="obj_uid">'+i18n['GINAUDIT0054M']+'</option><option value="obj_gid">'+i18n['GINAUDIT0055M']+'</option><option value="obj_user">'+i18n['GINAUDIT0056M']+'</option><option value="obj_role">'+i18n['GINAUDIT0057M']+'</option><option value="obj_type">'+i18n['GINAUDIT0058M']+'</option><option value="obj_lev_low">'+i18n['GINAUDIT0059M']+'</option><option value="obj_lev_high">'+i18n['GINAUDIT0060M']+'</option><option value="path">'+i18n['GINAUDIT0061M']+'</option><option value="perm">'+i18n['GINAUDIT0062M']+'</option><option value="pers">'+i18n['GINAUDIT0063M']+'</option><option value="pid">'+i18n['GINAUDIT0064M']+'</option><option value="ppid">'+i18n['GINAUDIT0065M']+'</option><option value="subj_user">'+i18n['GINAUDIT0066M']+'</option><option value="subj_role">'+i18n['GINAUDIT0067M']+'</option><option value="subj_type">'+i18n['GINAUDIT0068M']+'</option><option value="subj_sen">'+i18n['GINAUDIT0069M']+'</option><option value="subj_clr">'+i18n['GINAUDIT0070M']+'</option><option value="sgid">'+i18n['GINAUDIT0071M']+'</option><option value="success">'+i18n['GINAUDIT0072M']+'</option><option value="suid">'+i18n['GINAUDIT0073M']+'</option><option value="uid">'+i18n['GINAUDIT0074M']+'</option></select></td><td><select id="fieldoperator" name="operator" class="col-md-11 col-lg-11 form-control"><option value="=">=</option><option value="!=">!=</option><option value="<"><</option><option value="<="><=</option><option value=">">></option><option value=">=">>=</option><option value="&">&</option><option value="&=">&=</option></select></td><td><input type="text" class="form-control inputbox " name="FieldValue" /></td><td><span class="valueDelete btn btn-link"><i class="fa fa-trash"></i>'+i18n['GINNET0013M']+'</span></td></tr>');
                        $('#sysCalls span.valueDelete').off();
         }
@@ -300,9 +300,13 @@ ginger.loadSystemcallRuleValues = function() {
                     if (arraylist[j] == '=' || arraylist[j] == "!" || arraylist[j] == ">" || arraylist[j] == "<" || arraylist[j] == "&")
                         sysfiledoperator = sysfiledoperator + arraylist[j];
                 }
-                sysfiledoperatorarray[i] = sysfiledoperator.trim();
-                sysfilednamearray[i] = sysfiledname.trim();
-                sysfiledvaluearray[i] = sysfiledvalue.trim();
+                if(sysfiledname.trim()!="key"){
+                      sysfiledoperatorarray[i] = sysfiledoperator.trim();
+                      sysfilednamearray[i] = sysfiledname.trim();
+                      sysfiledvaluearray[i] = sysfiledvalue.trim();
+                } else{
+                  checkkeyfield = 1;
+                }
             }
         }
         $('#rule-type').val("System Call Rule");
@@ -316,6 +320,13 @@ ginger.loadSystemcallRuleValues = function() {
             finalselect.push(selectrule[i].trim());
         }
         i = -1;
+        if(sysfilednamearray.length == 0 && rulearray['field'].length == 0){
+            $('#sysCalls span.valueDelete').parents('tr:first').remove();
+        }
+        if(checkkeyfield == 1){
+            $('#sysCalls span.valueDelete').parents('tr:first').remove();
+        }
+
         $("#sysCalls").find('tr').each(function() {
             var val1 = $(this).find('td:eq(0) select').val(sysfilednamearray[i]);
             var val2 = $(this).find('td:eq(1) select').val(sysfiledoperatorarray[i]);

@@ -58,16 +58,18 @@
                         <label for="permissions" class="col-md-5 col-lg-5">$_("Permisions")</label>
                          <div id="pers">
                            <span class="btn btn-default btn-file row col-md-7 col-lg-7">
-                           <label class="form-check-inline">
+                           <div>
+                           <label class="form-check-inline" style="width:50%; padding-right:25px;">
                              <input class="form-check-input" type="checkbox" name="permission" id="readp" value="r">&nbsp$_("Read")
                            </label>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-                           <label class="form-check-inline">
+                           <label class="form-check-inline" style="width:50%;">
                              <input class="form-check-input" type="checkbox" name="permission" id="writep" value="w">&nbsp$_("Write")
                            </label>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-                           <label class="form-check-inline">
+                           </div>
+                           <label class="form-check-inline" style="width:50%;">
                              <input class="form-check-input" type="checkbox" name="permission" id="executep" value="x">&nbsp$_("Execute")
                            </label>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-                           <label class="form-check-inline">
+                           <label class="form-check-inline" style="width:50%;">
                              <input class="form-check-input" type="checkbox" name="permission" id="changep" value="a">&nbsp$_("Change")
                            </label>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
                          </span>
@@ -96,7 +98,7 @@
                         </select></div>
                       <div class="form-group">
                         <label class="col-md-5 col-lg-5">$_("System Calls")</label>
-                        <select id="syscallsload" name="syscall" class="selectpicker col-md-7 col-lg-7" required multiple>
+                        <select data-none-selected-text="$_('Nothing selected')" id="syscallsload" name="syscall" class="selectpicker col-md-7 col-lg-7" required multiple>
                         </select></div>
                         <div class="form-group">
                       <label for="sysCalls" class="col-md-5 col-lg-5" >$_("Fields")</label>

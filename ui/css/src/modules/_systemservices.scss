@@ -49,6 +49,7 @@
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
+        display: inline-block;
         @media (min-width: $screen-sm + 12) {
             width: 20.2%;
             min-width: 20.2%;
@@ -70,6 +71,10 @@
         flex-basis: 80px;
         text-align: center;
         text-transform: capitalize;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: inline-block;
     }
 
     span.column-service-details {
@@ -77,6 +82,10 @@
         min-width: 60px;
         flex-basis: 60px;
         text-align: center;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: inline-block;
     }
 
     span.column-service-description {
