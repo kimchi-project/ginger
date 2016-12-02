@@ -28,9 +28,10 @@ from wok.utils import wok_log
 
 from wok.plugins.gingerbase import netinfo
 
-from interfaces import InterfaceModel
 from nw_interfaces_utils import cfgInterfacesHelper
+from nw_interfaces_utils import InterfacesHelper
 
+from nw_cfginterfaces_utils import OPTIONS
 from nw_cfginterfaces_utils import network_configpath
 from nw_cfginterfaces_utils import ifcfg_filename_format
 from nw_cfginterfaces_utils import route_format
@@ -88,7 +89,6 @@ from nw_cfginterfaces_utils import METRIC
 from nw_cfginterfaces_utils import VIA
 from nw_cfginterfaces_utils import CONST_YES
 from nw_cfginterfaces_utils import CONST_NO
-from nw_cfginterfaces_utils import OPTIONS
 
 
 class CfginterfacesModel(object):
@@ -201,7 +201,7 @@ class CfginterfaceModel(object):
         type = netinfo.get_interface_type(name)
         allowed_active_types = [IFACE_BOND, IFACE_VLAN]
         if type in allowed_active_types:
-            InterfaceModel().deactivate(name)
+            InterfacesHelper().deactivate_iface(name)
 
     def get_cfginterface_info(self, iface):
         ethinfo = {}
