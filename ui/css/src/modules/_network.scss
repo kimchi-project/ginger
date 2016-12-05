@@ -263,6 +263,14 @@
     padding: 0 0 10px 0;
   }
 
+  .btn {
+    border-radius: 1px;
+  }
+
+  .btn-primary {
+    height: 40px;
+  }
+
   label[for="global-network-config-gateway"] {
     margin-right: 5px;
   }

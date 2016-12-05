@@ -48,10 +48,10 @@ ginger.initiSCSIGridData = function() {
             "dom": '<"row"<"col-sm-7 iSCSI-buttons"><"col-sm-5 filter"<"pull-right"l><"pull-right"f>>><"row"<"col-sm-12"t>><"row"<"col-sm-6 pages"p><"col-sm-6 info"i>>',
             "initComplete": function(settings, json) {
                 wok.initCompleteDataTableCallback(settings);
-                var refreshButton = '<div class="btn-group"><button class="btn btn-primary" id="iSCSI-refresh-btn" aria-expanded="false"><i class="fa fa-refresh"></i> ' + i18n['GINIS00001M'] + '</button></div>';
-                var discoverButton = '<button id="iSCSI-add" class="btn btn-primary"><i class="fa fa-plus-circle"></i> ' + i18n['GINIS00002M'] + '</button>';
-                var settingsButton = '<button id="iSCSI-settings" class="btn btn-primary"><i class="fa fa-cogs"></i> ' + i18n['GINIS00003M'] + '</button>';
-                var actionButton = ['<div class="btn-group">',
+                var refreshButton = '<div class="btn-group" style="margin-left:-5px;"><button class="btn btn-primary" id="iSCSI-refresh-btn" aria-expanded="false"><i class="fa fa-refresh"></i> ' + i18n['GINIS00001M'] + '</button></div>';
+                var discoverButton = '<button id="iSCSI-add" class="btn btn-primary" style="margin-left:-5px;"><i class="fa fa-plus-circle"></i> ' + i18n['GINIS00002M'] + '</button>';
+                var settingsButton = '<button id="iSCSI-settings" class="btn btn-primary" style="margin-left:-5px;"><i class="fa fa-cogs"></i> ' + i18n['GINIS00003M'] + '</button>';
+                var actionButton = ['<div class="btn-group" style="margin-left:-5px;">',
                     '<div class="dropdown menu-flat iSCSI-action">',
                     '<button id="iSCSI-action-btn" class="btn btn-primary dropdown-toggle disabled" type="button" data-toggle="dropdown" aria-expanded="false" aria-haspopup="true"><span class="edit-alt"></span>' + i18n['GINIS00004M'] + '<span class="caret"></span></button>',
                     '<ul class="dropdown-menu actionsheet">',

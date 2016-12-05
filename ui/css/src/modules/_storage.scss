@@ -180,6 +180,14 @@
       background-color: #008abf;
     }
   }
+
+  .btn {
+    border-radius: 1px;
+  }
+
+  .btn-primary {
+    height: 40px;
+  }
 }
 hr {
   display:block;
@@ -487,7 +495,16 @@ hr {
     font-size: 12px;
     line-height: 1.428571429;
     border-radius: 15px;
+ }
 }
+
+#iSCSI-content-area{
+  .btn {
+    border-radius: 1px;
+  }
+  .btn-primary {
+    height: 40px;
+  }
 }
 
 #iSCSI {

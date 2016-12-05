@@ -87,9 +87,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
                       <div id="file-systems-unmount" class="pull-left">
                         <div class="btn-group"><button class="btn btn-primary" id="file-systems-unmount-btn" aria-expanded="false"><i class="fa fa-eject">&nbsp;</i>$_("Unmount")</button></div>
                       </div>
-                      <div id="file-systems-refresh" class="pull-right">
-                       <div class="btn-group"><button class="btn btn-primary" id="file-systems-refresh-btn" aria-expanded="false"><i class="fa fa-refresh"></i>$_("Refresh")</button></div>
-                       <span class="btn-group"><button class="btn btn-primary" id="file-systems-mount-btn" aria-expanded="false"><i class="fa fa-hdd-o">&nbsp;</i>$_("Mount")</button></span>
+                      <div id="file-systems-refresh">
+                         <button class="btn btn-primary" id="file-systems-mount-btn" aria-expanded="false"><i class="fa fa-hdd-o">&nbsp;</i>$_("Mount")</button>
+                         <button class="btn btn-primary" id="file-systems-refresh-btn" style="margin-left:-5px;"aria-expanded="false"><i class="fa fa-refresh">&nbsp;</i>$_("Refresh")</button>
                       </div>
                     <div class="row col-md-12" id="file-systems" style="padding-left:20px;">
                     </div>
@@ -109,12 +109,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
                    <span id="swap-message" style="display:none;"></span>
                     <div class="row">
                       <div id="swap-devices-alert-container"></div>
-                      <div class="btn-group">
-                          <button class="btn btn-primary actBtn add-user" id="delete-swap-device-btn" type="submit" disabled  ><i class="fa fa-minus-circle"></i> $_("Delete")</button>
+                      <div class="btn-group pull-left">
+                          <button class="btn btn-primary actBtn add-user critical" id="delete-swap-device-btn" type="submit" disabled  ><i class="fa fa-minus-circle"></i> $_("Delete")</button>
                       </div>
-                      <div id="swap-devices-refresh" class="pull-right">
+                      <div id="swap-devices-refresh" class="pull-left">
                       <button class="btn btn-primary " id="add-swap-device-btn" type="submit" ><i class="fa fa-plus-circle"></i> $_("Add")</button>
-                      <button class="btn btn-primary" id="swap-devices-refresh-btn" aria-expanded="false"><i class="fa fa-refresh"></i>$_("Refresh")</button></div>
+                      <button class="btn btn-primary" id="swap-devices-refresh-btn" aria-expanded="false" style="margin-left:-5px;"><i class="fa fa-refresh">&nbsp;</i>$_("Refresh")</button></div>
                     </div>
                     <div class="row col-md-12" id="swap-devices" style="padding-left:20px;"></div>
                   </div>
@@ -129,15 +129,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
               </h3>
               <div id="storage-device-content-area" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
                   <div class='clearfix'>
-                    <div class="row"  style="padding-left:50px;">
-                        <div id="file-systems-actions" class="pull-left">
-                        </div>
+                    <div class="row">
+                        <div id="file-systems-actions" class="pull-left"></div>
                         <div id="storage-devices-alert-container"></div>
-                        <span class="pull-right">
-                        <span id="file-system-refresh">
-                        <div class="btn-group"><button class="btn btn-primary" id="storage-device-refresh-btn" aria-expanded="false"><i class="fa fa-refresh"></i>$_("Refresh")</button></div></span>
-                        <span id="file-systems-add">
-                        </span>
+                        <span class="pull-left">
+                         <span id="file-systems-add"></span>
+                         <span id="file-system-refresh"><div class="btn-group"><button class="btn btn-primary" id="storage-device-refresh-btn" aria-expanded="false" style="margin-left:-5px;"><i class="fa fa-refresh">&nbsp;</i>$_("Refresh")</button></div></span>
                         </span>
                     </div>
                        <span id='alert-modal-nw-container' style='display: none;'></span>
@@ -157,8 +154,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
                 <div class='clearfix'>
                   <div class="row">
                       <div id="fcp-tape-devices-alert-container"></div>
-                      <div id="fcp-tape-devices-refresh" class="pull-right">
-                      <div class="btn-group"><button class="btn btn-primary" id="refresh-fcp-tape-devices-btn" aria-expanded="false"><i class="fa fa-refresh"></i>$_("Refresh")</button></div></div>
+                      <div id="fcp-tape-devices-refresh" class="pull-left">
+                      <div class="btn-group"><button class="btn btn-primary" id="refresh-fcp-tape-devices-btn" aria-expanded="false"><i class="fa fa-refresh">&nbsp;</i>$_("Refresh")</button></div></div>
                   </div>
                   <div class="row col-md-12" id="fcp-tape-devices" style="padding-left:20px;"></div>
                 </div>

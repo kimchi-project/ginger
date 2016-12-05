@@ -262,3 +262,11 @@ form[name="ovsaddinterface"] {
 .bridge-bonds.wok-datagrid > .wok-datagrid-body > .wok-datagrid-row > span.column-new-bond-iface .bootstrap-select:not([class*=col-]):not([class*=form-control]):not(.input-group-btn) {
     width: 365px;
 }
+#ovsbridge-content-area {
+  .btn {
+    border-radius: 1px;
+  }
+  .btn-primary {
+    height: 40px;
+  }
+}

@@ -1190,6 +1190,14 @@
   padding: 0 0 10px 0;
 }
 
+#network-global-configuration-content-area .btn {
+  border-radius: 1px;
+}
+
+#network-global-configuration-content-area .btn-primary {
+  height: 40px;
+}
+
 #network-global-configuration-content-area label[for="global-network-config-gateway"] {
   margin-right: 5px;
 }
@@ -1606,6 +1614,24 @@
   background-color: #008abf;
 }
 
+#volume-groups-content-area .btn,
+#file-systems-content-area .btn,
+#swap-devices-content-area .btn,
+#storage-device-content-area .btn,
+#fcp-tape-devices-content-area .btn,
+#san-adapter-content-area .btn {
+  border-radius: 1px;
+}
+
+#volume-groups-content-area .btn-primary,
+#file-systems-content-area .btn-primary,
+#swap-devices-content-area .btn-primary,
+#storage-device-content-area .btn-primary,
+#fcp-tape-devices-content-area .btn-primary,
+#san-adapter-content-area .btn-primary {
+  height: 40px;
+}
+
 hr {
   display: block;
   margin-left: 30px;
@@ -1949,6 +1975,14 @@ hr {
   font-size: 12px;
   line-height: 1.428571429;
   border-radius: 15px;
+}
+
+#iSCSI-content-area .btn {
+  border-radius: 1px;
+}
+
+#iSCSI-content-area .btn-primary {
+  height: 40px;
 }
 
 #iSCSI div.dataTables_wrapper div.dataTables_filter .form-control {
@@ -2593,6 +2627,14 @@ form[name="ovsaddinterface"] {
 .bridge-bonds.wok-datagrid > .wok-datagrid-body > .wok-datagrid-row > span.column-new-bond-iface,
 .bridge-bonds.wok-datagrid > .wok-datagrid-body > .wok-datagrid-row > span.column-new-bond-iface .bootstrap-select:not([class*=col-]):not([class*=form-control]):not(.input-group-btn) {
   width: 365px;
+}
+
+#ovsbridge-content-area .btn {
+  border-radius: 1px;
+}
+
+#ovsbridge-content-area .btn-primary {
+  height: 40px;
 }
 
 #system-services-content-area .well {
