@@ -156,7 +156,7 @@ def run_systemd_command(command):
     """
     output, err, rcode = run_command(command)
     if rcode != 0:
-        cmd_str = command.join(' ')
+        cmd_str = ' '.join(command)
         raise OperationFailed(
             'GINSERV00001E', {'cmd': cmd_str, 'err': err}
         )
