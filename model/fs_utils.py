@@ -304,4 +304,4 @@ def nfsmount(server, share, mount_point, mnt_opts):
         nfs_cmd = ['mount', server + ':' + share, mount_point]
     nfs_out, err, rc = run_command(nfs_cmd)
     if rc:
-        raise OperationFailed("GINFS00018E", err)
+        raise OperationFailed("GINFS00018E", {'err': err})
