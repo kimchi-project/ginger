@@ -116,7 +116,7 @@ class NetworkModel(object):
         _, err, rc = run_command(['ip', 'route', 'add', 'default', 'via',
                                   gateway])
         if rc:
-            raise OperationFailed('GINNET0011E', {'reason': err})
+            raise OperationFailed('GINNET0011E', {'err': err})
 
         self._save_gateway_changes(old_iface, old_gateway)
 
@@ -173,5 +173,5 @@ class NetworkModel(object):
             _, err, rc = run_command(['ip', 'route', 'add', 'default', 'via',
                                       gateway])
             if rc:
-                raise OperationFailed('GINNET0011E', {'reason': err})
+                raise OperationFailed('GINNET0011E', {'err': err})
         raise OperationFailed('GINNET0089W')
