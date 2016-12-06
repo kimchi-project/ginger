@@ -64,20 +64,20 @@ ginger.systeServicesClickHandler = function() {
             ginger.enableSystemService(service, function(){
                 ginger.getSystemService(service, function(result){
                     ginger.generateSystemServiceElem(result);
-                },function(){
+                },function(err){
                     wok.message.error(err.responseJSON.reason,'#system-services-alert-container',true);
                 });
-            }, function(){
+            }, function(err){
                 wok.message.error(err.responseJSON.reason,'#system-services-alert-container',true);
             });
         }else {
             ginger.disableSystemService(service, function(){
                 ginger.getSystemService(service, function(result){
                     ginger.generateSystemServiceElem(result);
-                },function(){
+                },function(err){
                     wok.message.error(err.responseJSON.reason,'#system-services-alert-container',true);
                 });
-            }, function(){
+            }, function(err){
                 wok.message.error(err.responseJSON.reason,'#system-services-alert-container',true);
             });
         }
@@ -97,7 +97,7 @@ ginger.systeServicesClickHandler = function() {
                     scrollTop: $("#system-services-alert-container").offset().top
                 }, 1000);
                 wok.message.success(i18n['GINSYS0027M'].replace("%1", '<strong>'+service+'</strong>'),'#system-services-alert-container',true);
-            },function(){
+            },function(err){
                 wok.message.error(err.responseJSON.reason,'#system-services-alert-container',true);
             });
         }
@@ -117,7 +117,7 @@ ginger.systeServicesClickHandler = function() {
                     scrollTop: $("#system-services-alert-container").offset().top
                 }, 1000);
                 wok.message.success(i18n['GINSYS0029M'].replace("%1", '<strong>'+service+'</strong>'),'#system-services-alert-container',true);
-            },function(){
+            },function(err){
                 wok.message.error(err.responseJSON.reason,'#system-services-alert-container',true);
             });
         }
@@ -137,7 +137,7 @@ ginger.systeServicesClickHandler = function() {
                     scrollTop: $("#system-services-alert-container").offset().top
                 }, 1000);
                 wok.message.success(i18n['GINSYS0028M'].replace("%1", '<strong>'+service+'</strong>'),'#system-services-alert-container',true);
-            },function(){
+            },function(err){
                 wok.message.error(err.responseJSON.reason,'#system-services-alert-container',true);
             });
         }
