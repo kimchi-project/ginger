@@ -682,7 +682,7 @@ ginger.renderNetworkConfig = function() {
                         ginger.enableInterface(ifDevice, "down", function(result) {
                             // Second Bring the interface up back again
                             ginger.enableInterface(ifDevice, "up", function(result) {
-                                var message = i18n['GINNET0084M'].replace('%1', '<strong>' + ifDevice + '</strong>');
+                                var message = i18n['GINNET0083M'].replace('%1', '<strong>' + ifDevice + '</strong>');
                                 wok.message.success(message, '#message-network-configuration-container-area', true);
                                 refreshNetworkConfigurationDatatable();
                             }, function(err) {
