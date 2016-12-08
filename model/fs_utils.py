@@ -75,6 +75,10 @@ def _get_fs_info(mnt_pt):
     """
     fs_info = {}
     try:
+        mnt_pt = mnt_pt.strip() if mnt_pt.strip() == '/' \
+            else mnt_pt.strip().rstrip('/')
+        # 'df -kT' command doesn't have extra '/' at end for mount
+        # point, so remove '/' at end for given mount point
         fs_search_list = _get_df_output()
         for i in fs_search_list:
             if mnt_pt == i['mounted_on']:
@@ -118,7 +122,7 @@ def _mount_a_blk_device(blk_dev, mount_point, mnt_opts):
         mnt_cmd = ['/bin/mount', blk_dev, mount_point]
     mount_out, err, rc = run_command(mnt_cmd)
     if rc:
-        wok_log.error("Mounting block device failed")
+        wok_log.error("Mounting block device failed. Error: %s" % err)
         raise OperationFailed("GINFS00007E", {'err': err})
     return
 
@@ -244,13 +248,15 @@ def make_persist(dev, mntpt, mnt_opts):
             raise OperationFailed("GINFS00019E", {'name': mntpt})
         else:
             fs_info = _get_fs_info(mntpt)
+            if not fs_info.get('type') and not fs_info.get('mounted_on'):
+                raise Exception('Failed to fetch filesystem details')
             fo = open("/etc/fstab", "a+")
             if mnt_opts:
-                fo.write(dev + " " + mntpt + " " + fs_info['type'] + " " +
-                         mnt_opts + " " + "0 0")
+                fo.write(dev + " " + fs_info['mounted_on'] + " " +
+                         fs_info['type'] + " " + mnt_opts + " " + "0 0\n")
             else:
-                fo.write(dev + " " + mntpt + " " + fs_info['type'] + " " +
-                         "defaults 1 2")
+                fo.write(dev + " " + fs_info['mounted_on'] + " " +
+                         fs_info['type'] + " " + "defaults 1 2\n")
             fo.close()
     except OperationFailed:
         raise

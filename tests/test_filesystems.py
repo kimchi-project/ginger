@@ -99,7 +99,7 @@ class FileSystemTests(unittest.TestCase):
                        'persistent': persistent})
             rollback.prependDefer(fsd.delete, mntpt)
 
-            with self.assertRaises(InvalidParameter):
+            with self.assertRaises(OperationFailed):
                 fs.create({'type': fstype, 'blk_dev': blkdev,
                            'mount_point': mntpt,
                            'persistent': persistent})

@@ -44,7 +44,9 @@ class FileSystemsModel(object):
             if not params.get('mount_point'):
                 raise MissingParameter("GINFS00010E")
 
-            mount_point = params['mount_point']
+            mount_point = params['mount_point'].strip()
+            if mount_point != '/':
+                mount_point = mount_point.rstrip('/')
 
             mount_options = params.get('mount_options', '')
 
@@ -56,8 +58,12 @@ class FileSystemsModel(object):
                         fs_utils._umount_partition, mount_point)
                     fs_utils.make_persist(blk_dev, mount_point, mount_options)
                     rollback.commitAll()
+            except OperationFailed:
+                raise
+            except InvalidParameter:
+                raise
             except Exception as e:
-                raise InvalidParameter("GINFS00007E", {"err": e.message})
+                raise InvalidParameter("GINFS00007E", {"err": e.__str__()})
 
             return mount_point
 
@@ -76,7 +82,9 @@ class FileSystemsModel(object):
             if not params.get('mount_point'):
                 raise MissingParameter("GINFS00010E")
 
-            mount_point = params['mount_point']
+            mount_point = params['mount_point'].strip()
+            if mount_point != '/':
+                mount_point = mount_point.rstrip('/')
 
             mount_options = params.get('mount_options', '')
 
@@ -90,6 +98,10 @@ class FileSystemsModel(object):
                     fs_utils.make_persist(
                         dev_info, mount_point, mount_options)
                     rollback.commitAll()
+            except OperationFailed:
+                raise
+            except InvalidParameter:
+                raise
             except Exception as e:
                 raise InvalidParameter("GINFS00018E", {"err": e})
             return mount_point
@@ -102,7 +114,7 @@ class FileSystemsModel(object):
 
         except OperationFailed as e:
             raise OperationFailed("GINFS00013E",
-                                  {'err': e.message})
+                                  {'err': e.__str__()})
 
         return fs_names
 
@@ -132,4 +144,4 @@ class FileSystemModel(object):
             fs_utils.remove_persist(name)
         except OperationFailed as e:
             raise OperationFailed("GINFS00002E",
-                                  {'name': name, 'err': e.message})
+                                  {'name': name, 'err': e.__str__()})
