@@ -525,5 +525,12 @@ messages = {
     "GINVG0003L": _("Extend host volume group '%(ident)s'"),
     "GINVG0004L": _("Reduce host volume group '%(ident)s'"),
     "GINAUDISP0001L": _("Updated the auditdisp plugin conf file '%(ident)s'."),
-    "GINAUDISP0002L": _("Updated the auditdisp conf file '%(ident)s'.")
+    "GINAUDISP0002L": _("Updated the auditdisp conf file '%(ident)s'."),
+
+    # These messages (ending with M) are for globalization
+    "GINAUD0001M": _("Sets the maximum amount of existing Audit buffers in the kernel"),
+    "GINAUD0002M": _("Enables(1) and disables(0) the Audit system or locks(2) its configuration"),
+    "GINAUD0003M": _("Sets the action that is performed when a critical error is detected"),
+    "GINAUD0004M": _("Sets the rate of generated messages per second"),
+    "GINAUD0005M": _("Delete all rules")
 }

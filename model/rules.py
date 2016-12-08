@@ -23,6 +23,7 @@ import re
 import threading
 
 from wok.exception import MissingParameter, OperationFailed
+from wok.message import WokMessage
 from wok.utils import run_command, wok_log
 
 audit_configpath = 'etc/audit/'
@@ -371,16 +372,21 @@ class RuleModel(object):
 
     def get_control_rule_info(self, audit_info, name):
         try:
-            control_rules_dict = {'-b': 'Sets the maximum amount of existing'
-                                        ' Audit buffers in the kernel',
-                                  '-e': 'Enables(1) and disables(0) the Audit'
-                                        ' system or locks(2) its '
-                                        'configuration',
-                                  '-f': 'Sets the action that is performed'
-                                        ' when a critical error is detected',
-                                  '-r': 'Sets the rate of generated messages'
-                                        ' per second,',
-                                  '-D': 'Delete all rules'}
+            msg_b = WokMessage("GINAUD0001M", None, "/plugins/ginger")
+            text_b = msg_b.get_text(prepend_code=False, translate=True)
+            msg_e = WokMessage("GINAUD0002M", None, "/plugins/ginger")
+            text_e = msg_e.get_text(prepend_code=False, translate=True)
+            msg_f = WokMessage("GINAUD0003M", None, "/plugins/ginger")
+            text_f = msg_f.get_text(prepend_code=False, translate=True)
+            msg_r = WokMessage("GINAUD0004M", None, "/plugins/ginger")
+            text_r = msg_r.get_text(prepend_code=False, translate=True)
+            msg_D = WokMessage("GINAUD0005M", None, "/plugins/ginger")
+            text_D = msg_D.get_text(prepend_code=False, translate=True)
+            control_rules_dict = {'-b': text_b,
+                                  '-e': text_e,
+                                  '-f': text_f,
+                                  '-r': text_r,
+                                  '-D': text_D}
             control_info = dict()
             control_info['rule_info'] = {}
             if name.split(" ")[0] != "-D":
