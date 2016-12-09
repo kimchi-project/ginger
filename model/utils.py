@@ -95,8 +95,12 @@ def _create_file(size, file_loc):
     :param size: size of the file
     :return:
     """
+    size = size.rstrip('M')
+    # size is given in Mb,
+    # block size is fixed as 1M
+    # for 1000 Mb size bs=1M and count 1000
     out, err, rc = run_command(
-        ["dd", "if=/dev/zero", "of=" + file_loc, "bs=" + size, "count=1"])
+        ["dd", "if=/dev/zero", "of=" + file_loc, "bs=1M", "count=" + size])
 
     if rc != 0:
         if "Text file busy" in err:
