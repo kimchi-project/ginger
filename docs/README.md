@@ -62,43 +62,18 @@ Installing From Packages
 ------------------------
 
 Kimchi and Ginger teams provide packages of the latest stable release of Wok,
-Ginger Base and Ginger. To install them, follow these instructions:
+Ginger Base and Ginger. To install them, follow the install instructions
+on:
 
-**For Fedora:**
+http://kimchi-project.github.io/wok/downloads/
 
-```
-$ wget http://kimchi-project.github.io/wok/downloads/wok-2.0.0-0.fc23.noarch.rpm
-$ wget http://kimchi-project.github.io/gingerbase/downloads/ginger-base-2.0.0-0.fc23.noarch.rpm
-$ wget http://kimchi-project.github.io/ginger/downloads/ginger-2.0.0-0.fc23.noarch.rpm
-$ sudo dnf install wok-*.rpm ginger-*.rpm
-```
+and
 
-**For RHEL:**
+http://kimchi-project.github.io/gingerbase/downloads/
 
-```
-$ wget http://kimchi-project.github.io/wok/downloads/wok-2.0.0-0.el7.noarch.rpm
-$ wget http://kimchi-project.github.io/gingerbase/downloads/ginger-base-2.0.0-0.el7.noarch.rpm
-$ wget http://kimchi-project.github.io/ginger/downloads/ginger-2.0.0-0.el7.noarch.rpm
-$ sudo yum install wok-*.rpm ginger-*.rpm
-```
+and
 
-**For Debian/Ubuntu:**
-
-```
-$ wget http://kimchi-project.github.io/wok/downloads/wok-2.0.0-0.noarch.deb
-$ wget http://kimchi-project.github.io/gingerbase/downloads/ginger-base-2.0.0-0.noarch.deb
-$ wget http://kimchi-project.github.io/ginger/downloads/ginger-2.0.0-0.noarch.deb
-$ sudo dpkg -i wok-*.deb ginger-*.deb
-```
-
-**For OpenSUSE:**
-
-```
-$ wget http://kimchi-project.github.io/wok/downloads/wok-2.0.0-0.noarch.rpm
-$ wget http://kimchi-project.github.io/gingerbase/downloads/ginger-base-2.0.0-0.noarch.rpm
-$ wget http://kimchi-project.github.io/ginger/downloads/ginger-2.0.0-0.noarch.rpm
-$ sudo zypper install wok-*.rpm ginger-*.rpm
-```
+http://kimchi-project.github.io/ginger/downloads/
 
 Installing from Source Code
 ---------------------------
