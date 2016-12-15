@@ -129,7 +129,7 @@ ginger.initFileSystemMount = function(){
       mountOptions+=','+mountType;
      }
 
-     if($('input[type=checkbox]:checked').length!==0){
+     if($('#nfs-mount-netdev:checked').length!==0){
           mountOptions+=','+'_netdev';
      }
         if(mountOptions!=""){
