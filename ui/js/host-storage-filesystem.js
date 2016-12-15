@@ -109,7 +109,7 @@ ginger.initFileSystemMount = function(){
      }
 
      if(nfsMountVersion.val()=='2' || nfsMountVersion.val()=='3'){
-       mountOptions+='netserv='+nfsMountVersion.val();
+       mountOptions+='nfsvers='+nfsMountVersion.val();
      }else{
            if(nfsMountVersion.val()!=''){
            mountOptions+=nfsMountVersion.find('option:selected').text();

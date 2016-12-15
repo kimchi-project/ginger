@@ -142,6 +142,8 @@ class FileSystemModel(object):
         try:
             fs_utils._umount_partition(name)
             fs_utils.remove_persist(name)
+        except OperationFailed:
+            raise
         except OperationFailed as e:
             raise OperationFailed("GINFS00002E",
                                   {'name': name, 'err': e.__str__()})

@@ -201,7 +201,7 @@ messages = {
     "GINFS00005E": _("error in filesystem info fetch util"),
     "GINFS00006E": _("Error in executing 'df -hT' command"),
     "GINFS00007E": _("Failed to mount the filesystem, error: %(err)s"),
-    "GINFS00008E": _("error in unmount util"),
+    "GINFS00008E": _("error in unmount util %(err)s"),
     "GINFS00009E": _("Require block dev to mount a filesystem"),
     "GINFS00010E": _("Require mount point to mount a filesystem"),
 
