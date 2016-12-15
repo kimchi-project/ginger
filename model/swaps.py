@@ -21,6 +21,7 @@
 import os
 
 import fs_utils
+import time
 import utils
 
 from diskparts import PartitionModel
@@ -92,7 +93,8 @@ class SwapsModel(object):
                         dmname = dev
                     part = PartitionModel(objstore=self.objstore)
                     dev_type = part.lookup(dmname)
-                    if dev_type['type'] == 'part':
+                    if dev_type['type'] == 'part' and \
+                       'dasd' not in dev_type['name']:
                         type = '82'   # hex value for type Linux Swap
                         part.change_type(dmname, type)
 
@@ -157,11 +159,19 @@ class SwapModel(object):
 
     def delete(self, name):
         try:
-            fs_utils.unpersist_swap_dev(name)
             swap_details = self.lookup(name)
+            if 'dm-' in name:
+                dmdev = name.split('/')[-1]
+                dmname = \
+                    open('/sys/block/'+dmdev+'/dm/name').readline().rstrip()
+                name = '/dev/mapper/' + dmname
+            fs_utils.unpersist_swap_dev(name)
             if swap_details['type'] == 'file':
                 SwapsModel.delete_swap_file(swap_details['filename'])
             else:
                 utils._swapoff_device(name)
+                # wait to allow swapoff action to complete
+                time.sleep(1)
+                utils.remove_swap_sig(name)
         except Exception as e:
             raise OperationFailed("GINSP00009E", {'err': e.message})

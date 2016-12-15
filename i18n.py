@@ -237,6 +237,7 @@ messages = {
     "GINSP00020E": _("File %(file)s already in use."),
     "GINSP00021E": _("Unable to change the partition type. Error: %(err)s"),
     "GINSP00022E": _("File path cannot be an existing directory"),
+    "GINSP00023E": _("Unable to remove swap signature. Error: %(err)s"),
 
     "GINPART00001E": _("Fetching list of partitions failed. Error: %(err)s"),
     "GINPART00002E": _("Create partition failed. Error: %(err)s"),

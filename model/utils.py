@@ -1609,3 +1609,14 @@ def write_to_conf(key, value, conf):
             conf_file.close()
     except Exception:
         raise OperationFailed("GINAUDISP0003E", {"name": conf})
+
+
+def remove_swap_sig(device):
+    """
+    Remove the swap signature from the device
+    :param device: path of the device
+    """
+    cmd = ["wipefs", "-a", device]
+    out, err, rc = run_command(cmd)
+    if rc != 0:
+        raise OperationFailed("GINSP00023E", {"err": err})
