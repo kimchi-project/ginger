@@ -32,7 +32,7 @@ from wok.utils import run_command
 gingerAuditLock = threading.RLock()
 
 
-RULE_FILE = '/etc/audit/audit.rules'
+RULE_FILE = '/etc/audit/rules.d/audit.rules'
 
 
 class AuditModel(object):

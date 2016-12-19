@@ -27,7 +27,7 @@ from wok.message import WokMessage
 from wok.utils import run_command, wok_log
 
 audit_configpath = 'etc/audit/'
-persisted_rules_file = '/etc/audit/audit.rules'
+persisted_rules_file = '/etc/audit/rules.d/audit.rules'
 tmp_rules_file = '/etc/audit/tmpaudit.rules'
 
 gingerAuditLock = threading.RLock()
