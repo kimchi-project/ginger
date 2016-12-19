@@ -259,10 +259,12 @@ def create_disk_part(dev, size):
                               stderr=subprocess.PIPE, stdout=subprocess.PIPE)
     p1_out.stdout.close()
     out, err = p2_out.communicate()
-    if p2_out.returncode != 0:
+    if p2_out.returncode == 1 and "WARNING" in out:
+        run_command(["partprobe", dev, "-s"])
+    else:
         raise OperationFailed("GINPART00011E", err)
     part_path = get_dev_part(dev)
-    return part_path.split('/')[2]
+    return part_path.split('/')[-1]
 
 
 def _form_part_str(size):
