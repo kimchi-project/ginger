@@ -110,15 +110,6 @@ $ sudo apt-get install  hddtemp python-libuser python-ethtool python-augeas \
 $ sudo apt-get install python-mock
 ```
 
-At the moment of this writing (11-30-2015), libuser has a bug that prevents it
-to work properly in Ubuntu 15.10 and older releases
-(https://bugs.launchpad.net/ubuntu/+source/libuser/+bug/1387274). A workaround
-is needed to fix this bug:
-
-```
-$ sudo touch /etc/libuser.conf
-```
-
 **For OpenSUSE:**
 
 ```

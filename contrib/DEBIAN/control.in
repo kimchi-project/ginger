@@ -5,6 +5,7 @@ Priority: optional
 Architecture: all
 Depends: wok (>= 2.1.0),
          ginger-base,
+         libuser,
          python-libuser,
          python-ethtool,
          python-ipaddr,
