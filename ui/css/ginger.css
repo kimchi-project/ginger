@@ -909,6 +909,10 @@
   overflow: visible;
 }
 
+#alert-user-modal .alert {
+  padding: 8px 32px 8px 16px;
+}
+
 #network-root-container .accordion {
   margin: 12px 20px 12px 60px;
   padding-bottom: 18px;
