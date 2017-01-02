@@ -334,8 +334,8 @@ ginger.renderNetworkConfig = function() {
                 ginger.nwConfiguration.disableDown();
                 ginger.nwConfiguration.disableRestart();
             }
-            if ((networkModule !== 'mlx5_core' && networkModule === 'mlx5-core') || networkNicType === 'virtual') {
-                // 3 - Hide and disable SR-IOV
+            if ((networkModule === 'mlx5_core' || networkModule === 'mlx5-core')
+                && networkNicType === 'physical') {
                 ginger.nwConfiguration.showSrIov();
             } else {
                 ginger.nwConfiguration.hideSrIov();
