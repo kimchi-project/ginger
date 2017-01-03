@@ -225,6 +225,7 @@ ginger.initOvsClickHandler = function() {
                 var bridgeItem = $('div.wok-datagrid-row[data-name="' + ginger.selectedBridge + '"');
                 wok.message.success(i18n['GINNET0050M'].replace("%1", '<strong>' + ginger.selectedBridge + '</strong>'), '#ovs-alert-container');
                 bridgeItem.remove();
+                refreshOvsBridges();
                 $('body').animate({ scrollTop: 0 }, 1000);
             }, function(err) {
                 wok.message.error(err.responseJSON.reason, '#ovs-alert-container');
