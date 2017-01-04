@@ -1,5 +1,5 @@
 /*
- * Copyright IBM Corp, 2014-2016
+ * Copyright IBM Corp, 2014-2017
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -1098,6 +1098,7 @@ $('#audit-rule-delete-btn').on('click', function(event) {
         wok.confirm(settings, function() {}, function() {});
     } else {
         var selectedRowsData = auditRulesTable.rows('.selected').data();
+        var selectedRowsDataLength = auditRulesTable.rows('.selected').data().length;
         var selectedRows = [];
         $.each(selectedRowsData, function(key, value) {
             selectedRows.push(value[2]);
@@ -1110,21 +1111,37 @@ $('#audit-rule-delete-btn').on('click', function(event) {
             $.each(selectedRowsData, function(key, value) {
               if(value[1] == "Control Rule" && value[7] == "no" && value[8] == "yes"){
                 wok.message.error(i18n["GINAUDIT0036M"]+' '+value[2], '#audit-message', true);
+                selectedRowsDataLength = selectedRowsDataLength - 1;
               } else if(value[1] == "Control Rule" && (value[2] == "-D" || value[2].includes("-e"))){
                 wok.message.error(i18n["GINAUDIT0039M"]+' '+value[2], '#audit-message', true);
+                selectedRowsDataLength = selectedRowsDataLength - 1;
               } else {
                 ginger.deleteAuditRule(value[2], function(result) {
                   if(value[1] == "Control Rule"){
                     wok.message.success(i18n["GINAUDIT0037M"]+' '+value[2], '#audit-message');
+                    selectedRowsDataLength = selectedRowsDataLength - 1;
+                    if(selectedRowsDataLength === 0){
+                        $('#Audit-Rule-refresh-btn').trigger('click');
+                    }
                   } else{
                     wok.message.success(i18n["GINAUDIT0023M"]+' '+value[2], '#audit-message');
+                    selectedRowsDataLength = selectedRowsDataLength - 1;
+                    if(selectedRowsDataLength === 0){
+                        $('#Audit-Rule-refresh-btn').trigger('click');
+                    }
                   }
                 }, function(error) {
                     wok.message.error(error.responseJSON.reason, '#audit-message', true);
+                    selectedRowsDataLength = selectedRowsDataLength - 1;
+                    if(selectedRowsDataLength === 0){
+                        $('#Audit-Rule-refresh-btn').trigger('click');
+                    }
                 });
               }
+              if(selectedRowsDataLength === 0){
+                  $('#Audit-Rule-refresh-btn').trigger('click');
+              }
             });
-              setTimeout(function(){$('#Audit-Rule-refresh-btn').trigger('click')},500);
         });
     }
 });
