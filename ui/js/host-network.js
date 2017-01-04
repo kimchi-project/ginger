@@ -1161,6 +1161,12 @@ ginger.loadGlobalNetworkConfig = function() {
             }
         });
     }
+    // disable nw-settings for Ubuntu
+    ginger.getHostDetails(function(result) {
+        if (result["os_distro"] == "Ubuntu") {
+            $(".nw-configuration-action > .btn").hide();
+        }
+    });
     tableClickHandler();
 
     var tableInputValidation = function() {
