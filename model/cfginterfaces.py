@@ -106,7 +106,7 @@ class CfginterfacesModel(object):
         return sorted(map(decode_value, nics_with_ifcfgfile))
 
     def create(self, params):
-        if params[BASIC_INFO][TYPE] == IFACE_BOND \
+        if params[BASIC_INFO][TYPE] in IFACE_BOND \
                 or params[BASIC_INFO][TYPE] == IFACE_VLAN:
             cfg_map = cfgInterfacesHelper.validate_minimal_info(params)
             if params[BASIC_INFO][TYPE] == IFACE_VLAN:
@@ -180,7 +180,7 @@ class CfginterfaceModel(object):
     def delete(self, name):
         self.deactivate_if_itis_active(name)
         iface_type = cfgInterfacesHelper.get_type_from_cfg(name)
-        if iface_type == IFACE_BOND:
+        if iface_type in IFACE_BOND:
             cfgInterfacesHelper.remove_bond_persistent(name)
         elif iface_type == IFACE_VLAN:
             cfgInterfacesHelper.remove_vlan_persistent(name)
@@ -191,7 +191,7 @@ class CfginterfaceModel(object):
 
     def deactivate_if_itis_active(self, name):
         type = netinfo.get_interface_type(name)
-        allowed_active_types = [IFACE_BOND, IFACE_VLAN]
+        allowed_active_types = IFACE_BOND + [IFACE_VLAN]
         if type in allowed_active_types:
             InterfacesHelper().deactivate_iface(name)
 
@@ -234,7 +234,7 @@ class CfginterfaceModel(object):
             info[BASIC_INFO][TYPE] = interface_type
             if interface_type == IFACE_VLAN:
                 cfgInterfacesHelper.get_vlan_info(info, cfgmap)
-            elif interface_type == IFACE_BOND:
+            elif interface_type in IFACE_BOND:
                 cfgInterfacesHelper.get_bond_info(info, cfgmap)
         wok_log.debug('end get_basic_info')
         if MTU not in cfgmap:
@@ -314,7 +314,7 @@ class CfginterfaceModel(object):
         if ZONE in params[BASIC_INFO]:
             cfgmap[ZONE] = params[BASIC_INFO][ZONE]
         if TYPE in params[BASIC_INFO] \
-                and params[BASIC_INFO][TYPE] == IFACE_BOND:
+                and params[BASIC_INFO][TYPE] in IFACE_BOND:
             cfgmap.update(self.validate_and_get_bond_info(params, cfgmap))
         if TYPE in params[BASIC_INFO] \
                 and params[BASIC_INFO][TYPE] == IFACE_VLAN:
@@ -348,7 +348,7 @@ class CfginterfaceModel(object):
         return cfg_map
 
     def validate_and_get_bond_info(self, params, cfgmap):
-        if cfgmap[TYPE] == IFACE_BOND:
+        if cfgmap[TYPE] in IFACE_BOND:
             cfgInterfacesHelper.clean_slaves(cfgmap, params)
         bond_info = {}
         wok_log.info('Validating bond info given for interface')

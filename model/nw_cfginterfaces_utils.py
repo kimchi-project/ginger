@@ -69,7 +69,7 @@ SLAVE = 'SLAVE'
 MASTER = 'MASTER'
 # interface types
 IFACE_ETHERNET = 'nic'
-IFACE_BOND = 'bonding'
+IFACE_BOND = ['Bond', 'bonding']
 IFACE_VLAN = 'vlan'
 
 # Architecture type
@@ -91,10 +91,10 @@ BONDING_MASTER = 'BONDING_MASTER'
 BONDINFO = 'BONDINFO'
 SLAVES = 'SLAVES'
 BONDING_OPTS_LIST = ["ad_select", "arp_interval", "arp_ip_target",
-                     "arp_validate", "downdelay", "fail_over_mac",
-                     "lacp_rate", "miimon", "mode", "primary",
-                     "primary_reselect", "resend_igmp", "updelay",
-                     "use_carrier", "xmit_hash_policy"]
+                     "arp_validate", "miimon", "downdelay", "fail_over_mac",
+                     "lacp_rate", "mode", "primary", "primary_reselect",
+                     "resend_igmp", "updelay", "use_carrier",
+                     "xmit_hash_policy"]
 
 STATE_DOWN = "down"
 CFGMAP_QUOTES = ["BONDING_OPTS"]
@@ -183,9 +183,8 @@ class CfgInterfacesHelper(object):
         """
         nics = []
         for nic in interfaces:
-            if netinfo.get_interface_type(nic) in \
-                    [IFACE_ETHERNET, IFACE_BOND,
-                     IFACE_VLAN]:
+            ifaces = [IFACE_ETHERNET, IFACE_VLAN] + IFACE_BOND
+            if netinfo.get_interface_type(nic) in ifaces:
                 nics.append(nic)
         return nics
 
@@ -206,7 +205,7 @@ class CfgInterfacesHelper(object):
                 interface_type = parser.get(decode_value(input))
                 # Fix for ginger issue #70
                 interface_type = self.trim_quotes(interface_type)
-                if interface_type in [IFACE_BOND, IFACE_VLAN]:
+                if interface_type in [IFACE_VLAN] + IFACE_BOND:
                     cfg_file = input.rsplit('/', 1)[0]
                     try:
                         cfg_device = parser.get(decode_value(cfg_file +
