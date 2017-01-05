@@ -21,6 +21,7 @@
 
 import ethtool
 import os
+import platform
 
 from wok.exception import InvalidParameter, MissingParameter, OperationFailed
 from wok.stringutils import decode_value, encode_value
@@ -108,6 +109,20 @@ class CfginterfacesModel(object):
     def create(self, params):
         if params[BASIC_INFO][TYPE] in IFACE_BOND \
                 or params[BASIC_INFO][TYPE] == IFACE_VLAN:
+
+            # Fedora only allows Bond as bonding type
+            if "Fedora" in platform.linux_distribution()[0]:
+                params[BASIC_INFO][TYPE] = "Bond"
+
+                # raise error if miimon is 0
+                mi = int(params[BASIC_INFO][BONDINFO][BONDING_OPTS]["miimon"])
+                if mi < 1:
+                    raise InvalidParameter("GINNET0097E", {"miimon": "1"})
+
+            # s390x needs miimon at least 100
+            if "s390x" in platform.architecture()[0]:
+                raise InvalidParameter("GINNET0097E", {"miimon": "100"})
+
             cfg_map = cfgInterfacesHelper.validate_minimal_info(params)
             if params[BASIC_INFO][TYPE] == IFACE_VLAN:
                 cfgInterfacesHelper.validate_info_for_vlan(params)
