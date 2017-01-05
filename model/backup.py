@@ -2,7 +2,7 @@
 #
 # Project Ginger
 #
-# Copyright IBM Corp, 2016
+# Copyright IBM Corp, 2016-2017
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -270,6 +270,7 @@ class ArchiveModel(object):
 
     def __init__(self, **kargs):
         self._objstore = kargs['objstore']
+        self.task = TaskModel(**kargs)
 
     def lookup(self, archive_id):
         with self._objstore as session:
@@ -297,3 +298,29 @@ class ArchiveModel(object):
     def delete(self, archive_id):
         with self._objstore as session:
             self._session_delete_archive(session, archive_id)
+
+    def _restore_tar(self, archive_id):
+        backup_dir = os.path.join(PluginPaths('ginger').state_dir,
+                                  'ginger_backups')
+        backup_file = os.path.join(backup_dir, archive_id + '.tar.gz')
+        cmd = ['tar', '-xzf', backup_file, '-C', '/']
+        out, err, rc = run_command(cmd)
+        if rc != 0:
+            raise OperationFailed('GINHBK0001E', {'name': backup_file,
+                                                  'cmd': ' '.join(cmd)})
+
+    def _restore_task(self, rb, backup_id):
+        rb('entering task to restore config backup')
+        try:
+            self._restore_tar(backup_id)
+            rb('OK', True)
+        except (InvalidOperation) as e:
+            rb(e.message, False)
+        except (OperationFailed) as e:
+            rb(e.message, False)
+            raise OperationFailed('GINHBK0013E', {'err': e.message})
+
+    def restore(self, archive_id):
+        taskid = AsyncTask(u'/backup/restore/%s' % (archive_id),
+                           self._restore_task, archive_id).id
+        return self.task.lookup(taskid)

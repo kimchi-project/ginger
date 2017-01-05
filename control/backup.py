@@ -1,7 +1,7 @@
 #
 # Project Ginger
 #
-# Copyright IBM Corp, 2016
+# Copyright IBM Corp, 2016-2017
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -67,6 +67,7 @@ class Archive(Resource):
     def __init__(self, model, ident):
         super(Archive, self).__init__(model, ident)
         self.log_map = ARCHIVE_REQUESTS
+        self.restore = self.generate_action_handler_task('restore')
 
     @property
     def data(self):

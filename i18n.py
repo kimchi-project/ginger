@@ -1,5 +1,5 @@
 #
-# Projact Ginger
+# Project Ginger
 #
 # Copyright IBM Corp, 2014-2017
 #
@@ -175,6 +175,7 @@ messages = {
     "GINHBK0010E": _('Unable to create backup, file %(file)s changed as we read it'),
     "GINHBK0011E": _('Archive creation task failed. "%(err)s".'),
     "GINHBK0012E": _('Unable to include default backup dir (%(dir)s) to a backup file'),
+    "GINHBK0013E": _('Archive restore task failed. "%(err)s".'),
 
     "GINADAP0001E": _("SAN adapter '%(adapter)s' does not exist in the system."
                       ),

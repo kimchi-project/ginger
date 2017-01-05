@@ -120,6 +120,9 @@ server.
 
 * **DELETE**: Delete the configuration backup.
 
+**Actions (POST):**
+
+* restore: Restore the configuration backup.
 
 ### Resource: Configuration
 
