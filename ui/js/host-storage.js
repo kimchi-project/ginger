@@ -1,5 +1,5 @@
 /*
- * Copyright IBM Corp, 2015-2016
+ * Copyright IBM Corp, 2015-2017
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -292,14 +292,13 @@ ginger.initVolumeGroupGridData = function() {
             orderable: false,
             targets: 2
           }],
-        "dom": '<"#vg-buttons.row pull-left"<"#vg-actions.col-sm-2"><"vg-buttons pull-right"><"add pull-right">><"row"<"col-sm-12 filter"<"pull-right"l><"pull-right"f>>><"row"<"col-sm-12"t>><"row"<"col-sm-6 pages"p><"col-sm-6 info"i>>',
+        "dom": '<"#vg-buttons.row pull-left"<"vg-buttons pull-right"><"add pull-right">><"row"<"col-sm-12 filter"<"pull-right"l><"pull-right"f>>><"row"<"col-sm-12"t>><"row"<"col-sm-6 pages"p><"col-sm-6 info"i>>',
         "initComplete": function(settings, json) {
           wok.initCompleteDataTableCallback(settings);
           var refreshButton = '<button class="btn btn-primary pull-left" id="volume-groups-refresh-btn" aria-expanded="false"><i class="fa fa-refresh">&nbsp;</i> ' + i18n['GINTITLE0021M'] + '</button>';
           var addButton = '<button class="btn btn-primary" id="volume-groups-add-btn" aria-expanded="false"><i class="fa fa-plus-circle">&nbsp;</i>' + i18n['GINBG00004M']  + '</button>';
           $(".vg-buttons").html(refreshButton);
           $(".add").append(addButton);
-          ginger.createVgActionButtons();
         },
         "oLanguage": {
           "sEmptyTable": i18n['GINNET0063M']
@@ -403,40 +402,6 @@ ginger.initVolumeGroupGridData = function() {
     $(".vg-loader").hide();
     wok.message.error(err.responseJSON.reason, '#volume-group-alert-container');
   });
-};
-
-//Volume group buttons list
-ginger.createVgActionButtons = function(){
-  var actionButton = [{
-    id: 'volume-group-edit-btn',
-    class: 'fa fa-arrows-h',
-    label: i18n['GINVG00031M']
-  },
-  {
-    id: 'volume-group-delete-btn',
-    class: 'fa fa-minus-circle',
-    label: i18n['GINNET0013M'],
-    critical:true,
-  }];
-
-    var actionListSettings = {
-      panelID: 'vg-actions',
-      buttons: actionButton,
-      type: 'action'
-    };
-    ginger.createActionButtons(actionListSettings);
-};
-
-ginger.volumeGroupDetailsPopulation = function(volumeGroupName,row){
-  var vgDetails = '';
-  ginger.getVolumeGroupDetails(volumeGroupName,function(data){
-    vgDetails =  ginger.populateVolumeGroupDetails(data);
-    row.child('<div class="volumeGroup-details" style="display: block;"><div class="details-list">'+vgDetails+'</div></div>').show();
-  },function(e){
-    vgDetails = '';
-  });
-
-   return vgDetails;
 };
 
 ginger.populateVolumeGroupDetails = function(data){
