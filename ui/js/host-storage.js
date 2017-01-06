@@ -319,45 +319,6 @@ ginger.initVolumeGroupGridData = function() {
       wok.window.open('plugins/ginger/host-storage-vg-add.html');
     });
 
-    //Volume group deletion handler
-    $('#volume-group-delete-btn').on('click',function(event){
-       if(volumeGroupTable.rows('.selected').data().length==0){
-         var settings = {
-           content: i18n['GINVG00037M'],
-           confirm: i18n["GINNET0015M"]
-          };
-           wok.confirm(settings,function(){},function(){});
-      }else{
-       var selectedRowsData = volumeGroupTable.rows('.selected').data();
-       var selectedRows = [];
-          $.each(selectedRowsData,function(index,row){
-            selectedRows.push(row[0]);
-          });
-       var settings = {
-         content: i18n['GINVG0003M'].replace('%1',selectedRows),
-         confirm: i18n["GINNET0015M"]
-       };
-       wok.confirm(settings, function(){
-        $.each(selectedRows,function(index,row){
-          ginger.deleteVolumeGroup(row,function(result){
-           wok.message.success(i18n['GINVG0002M'].replace("%1",row), '#alert-vg-container');
-           $("#volume-group-table tbody").html("");
-           volumeGroupTable.destroy();
-           ginger.initVolumeGroupGridData();
-         },function(error){
-           wok.message.error(error.responseJSON.reason, '#alert-vg-container', true);
-           $('#volume-groups-refresh-btn').trigger('click');
-         })
-       });
-     });
-     }
-    });
-
-    //Volume Group resize handler
-    $('#volume-group-edit-btn').on('click',function(){
-      ginger.vgResizeHandler(volumeGroupTable.rows('.selected').data());
-    });
-
     // Add event listener for opening and closing details
     $('#volume-group-table tbody').off();
     $('#volume-group-table tbody').on('click', 'td.details-control', function () {
@@ -385,15 +346,8 @@ ginger.initVolumeGroupGridData = function() {
         $(this).toggleClass("selected");
        }
 
-        if(volumeGroupTable.rows('.selected').data().length>1){
-          $('#volume-group-edit-btn').off();
-          $('#volume-group-edit-btn').addClass("disablelink");
-         }else{
-            $('#volume-group-edit-btn').off();
-            $('#volume-group-edit-btn').removeClass("disablelink");
-            $('#volume-group-edit-btn').on('click',function(){
-              ginger.vgResizeHandler(volumeGroupTable.rows('.selected').data());
-            });
+        if(volumeGroupTable.rows('.selected').data().length<=1){
+            ginger.vgResizeHandler(volumeGroupTable.rows('.selected').data());
          }
     });
 
