@@ -1,5 +1,5 @@
 /*
- * Copyright IBM Corp, 2016
+ * Copyright IBM Corp, 2016-2017
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -435,8 +435,23 @@ ginger.partition.deletePartitionDevice = function(PartitionDevice, DeviceName) {
 
 ginger.partition.deleteDASDDevicePartition = function(PartitionDevice, DeviceName) {
 
+  var message = i18n['GINPT00009M']; // default message assuming no volume group
   var vg = $('#' + PartitionDevice).children('span.column-vgname').html();
-  var message = (vg == 'N/A' || vg == '')? i18n['GINPT00009M'] : i18n['GINPT00016M'];
+  var refresh_required = false;
+  ginger.getDevicePartitionPath(PartitionDevice, function(response){
+    if (typeof response.vgname === 'undefined') {
+      message = i18n['GINPT00009M'];
+    }
+    else {
+      message = (response.vgname == 'N/A' || response.vgname == '')? i18n['GINPT00009M'] : i18n['GINPT00016M'];
+      if (vg != response.vgname){
+        // current dom data is not up to date with backend
+        refresh_required = true;
+      }
+    }
+  }, function(err){
+      message = (vg == 'N/A' || vg == '')? i18n['GINPT00009M'] : i18n['GINPT00016M'];
+  }, true);
 
     var settings = {
         content: message,
@@ -449,14 +464,34 @@ ginger.partition.deleteDASDDevicePartition = function(PartitionDevice, DeviceNam
             ginger.partition.RefreshPartitionDetails(DeviceName);
         }, function(error) {
             wok.message.error(error.responseJSON.reason, '#alert-partition-details', true);
+            ginger.partition.RefreshPartitionDetails(DeviceName);
         });
-    }, function() {});
+    }, function() {
+      if (refresh_required){
+        ginger.partition.RefreshPartitionDetails(DeviceName);
+      }
+    });
 };
 
 ginger.partition.deleteDevicePartition = function(PartitionDevice, DeviceName) {
 
+  var message = i18n['GINPT00009M']; // default message assuming no volume group
   var vg = $('#' + PartitionDevice).children('span.column-vgname').html();
-  var message = (vg == 'N/A' || vg == '')? i18n['GINPT00009M'] : i18n['GINPT00016M'];
+  var refresh_required = false;
+  ginger.getDevicePartitionPath(PartitionDevice, function(response){
+    if (typeof response.vgname === 'undefined') {
+      message = i18n['GINPT00009M'];
+    }
+    else {
+      message = (response.vgname == 'N/A' || response.vgname == '')? i18n['GINPT00009M'] : i18n['GINPT00016M'];
+      if (vg != response.vgname){
+        // current dom data is not up to date with backend
+        refresh_required = true;
+      }
+    }
+  }, function(err){
+      message = (vg == 'N/A' || vg == '')? i18n['GINPT00009M'] : i18n['GINPT00016M'];
+  }, true);
 
     var settings = {
         content: message,
@@ -469,8 +504,13 @@ ginger.partition.deleteDevicePartition = function(PartitionDevice, DeviceName) {
             ginger.partition.RefreshPartitionDetails(DeviceName);
         }, function(error) {
             wok.message.error(error.responseJSON.reason, '#alert-partition-details', true);
+            ginger.partition.RefreshPartitionDetails(DeviceName);
         });
-    }, function() {});
+    }, function() {
+      if (refresh_required){
+        ginger.partition.RefreshPartitionDetails(DeviceName);
+      }
+    });
 };
 
 ginger.partition.hideColumn = function(HTMLtmpl, content) {

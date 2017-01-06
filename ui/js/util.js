@@ -1,5 +1,5 @@
 /*
- * Copyright IBM Corp, 2014-2016
+ * Copyright IBM Corp, 2014-2017
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -671,13 +671,14 @@ ginger.addDASDDevicePartition =  function(content, suc , err){
         });
 }
 
-ginger.getDevicePartitionPath =  function(device, suc , err){
+ginger.getDevicePartitionPath =  function(device, suc , err, sync=false){
 
     wok.requestJSON({
         url : 'plugins/ginger/partitions/'+device,
         type : 'GET',
         contentType : 'application/json',
         dataType : 'json',
+        async : !sync,
         success : suc,
         error : err
         });
