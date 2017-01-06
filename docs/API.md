@@ -103,7 +103,7 @@ server.
 
 ### Resource: Archive (configuration backup)
 
-**URI:** /plugins/ginger/backup/archive/*:identity*
+**URI:** /plugins/ginger/backup/archives/*:identity*
 
 **Methods:**
 
