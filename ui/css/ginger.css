@@ -167,7 +167,7 @@
   clear: both;
 }
 
-#administration-root-container .accordion:first-chld {
+#administration-root-container .accordion:first-child {
   margin-top: 24px;
 }
 
@@ -2033,7 +2033,7 @@ hr {
   clear: both;
 }
 
-#host-sysmodules-root-container .accordion:first-chld {
+#host-sysmodules-root-container .accordion:first-child {
   margin-top: 24px;
 }
 
