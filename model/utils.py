@@ -2,7 +2,7 @@
 #
 # Project Ginger
 #
-# Copyright IBM Corp, 2016
+# Copyright IBM Corp, 2016-2017
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -259,10 +259,18 @@ def create_disk_part(dev, size):
                               stderr=subprocess.PIPE, stdout=subprocess.PIPE)
     p1_out.stdout.close()
     out, err = p2_out.communicate()
-    if p2_out.returncode == 1 and "WARNING" in out:
-        run_command(["partprobe", dev, "-s"])
-    else:
-        raise OperationFailed("GINPART00011E", err)
+    if p2_out.returncode == 1:
+        if 'warning: re-reading the partition table failed' in out.lower():
+            run_command(["partprobe", dev, "-s"])
+        elif 'value out of range' in out.lower():
+            raise OperationFailed("GINPART00011E",
+                                  {'err': 'Given size exceeds the available'
+                                          ' size on the disk'})
+        else:
+            raise OperationFailed("GINPART00011E", {'err': err})
+    elif p2_out.returncode != 0:
+        # for other error codes raise exception
+        raise OperationFailed("GINPART00011E", {'err': err})
     part_path = get_dev_part(dev)
     return part_path.split('/')[-1]
 
@@ -351,7 +359,7 @@ def delete_part(partname):
     d1_out.stdout.close()
     out, err = d2_out.communicate()
     if d2_out.returncode != 0:
-        raise OperationFailed("GINPART00011E", err)
+        raise OperationFailed("GINPART00011E", {'err': err})
 
 
 def _get_pv_devices():

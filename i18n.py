@@ -250,7 +250,7 @@ messages = {
     "GINPART00007E": _("Delete partition failed. Error: %(err)s"),
     "GINPART00008E": _("Required parameter device name"),
     "GINPART00009E": _("Required parameter partition size"),
-    "GINPART00011E": _("fdisk command failed"),
+    "GINPART00011E": _("fdisk command failed. Reason: %(err)s"),
     "GINPART00012E": _("mkfs command failed"),
     "GINPART00013E": _("No partitions found"),
     "GINPART00014E": _("Partition %(name)s not found."),

@@ -1,7 +1,7 @@
 #
 # Project Ginger
 #
-# Copyright IBM Corp, 2016
+# Copyright IBM Corp, 2016-2017
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -68,9 +68,9 @@ class PartitionsModel(object):
         part_size = params['partsize']
         try:
             return utils.create_disk_part(dev_name, part_size)
-        except OperationFailed as e:
+        except Exception as e:
             raise OperationFailed("GINPART00002E",
-                                  {'err': e.message})
+                                  {'err': e.__str__()})
 
 
 class PartitionModel(object):
