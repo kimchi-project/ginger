@@ -247,6 +247,26 @@ ginger.setupBakGrid = function() {
                 var bakItem = $(this).parent();
                 window.open('plugins/ginger/backup/archives/' + encodeURIComponent(bakItem.prop("id")) + '/file');
             });
+            $(".btn-restore").on("click", function(event) {
+                event.preventDefault();
+                var taskAccepted = false;
+                var onTaskAccepted = function() {
+                  if (taskAccepted) {
+                    return;
+                  }
+                  taskAccepted = true;
+                };
+                wok.message.success(i18n['GINCFGB00004M'], '#alert-modal-container');
+                $(".btn-restore").css('cursor', 'not-allowed');
+                $(".btn-delete").css('cursor', 'not-allowed');
+                var bakItem = $(this).parent();
+                ginger.restoreBackupArchive(bakItem.prop("id"), function() {
+                    wok.message.success(i18n['GINCFGB00003M'], '#alert-modal-container');
+                    $(".btn-restore").css('cursor', '');
+                    $(".btn-delete").css('cursor', '');
+                    ginger.setupBakGrid();
+                }, function() {}, onTaskAccepted )
+            });
             $(".btn-delete").on("click", function(event) {
                 event.preventDefault();
                 event.stopImmediatePropagation();

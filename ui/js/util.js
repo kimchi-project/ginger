@@ -171,6 +171,26 @@ ginger.deleteBackupArchives = function(content, suc, err) {
     });
 };
 
+ginger.restoreBackupArchive = function(id, suc, err, progress) {
+
+    var onResponse = function(data) {
+      taskID = data['id'];
+      ginger.trackTask(taskID, suc, err, progress);
+    };
+
+    wok.requestJSON({
+        url : 'plugins/ginger/backup/archives/' + encodeURIComponent(id) +
+              '/restore/',
+        type : 'POST',
+        contentType : 'application/json',
+        dataType : 'json',
+        success : onResponse,
+        error : err || function(data) {
+            wok.message.error(data.responseJSON.reason);
+        }
+    });
+};
+
 ginger.getInterfaces = function(suc, err) {
     wok.requestJSON({
         url : 'plugins/ginger/network/interfaces',

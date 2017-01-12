@@ -167,25 +167,31 @@
         margin-bottom: 20px;
     }
     .column-file {
-        width: 47.4790%;
+        // width: 47.4790%;
+        width: 40%;
         word-wrap: break-word;
     }
     .column-timestamp {
-        width: 18.9608%;
+        // width: 18.9608%;
+        width: 16%;
     }
     .column-paths {
-        width: 11.5000%;
+        width: 10%;
         vertical-align: middle;
         text-align: center;
     }
     .column-download {
         width: 11.0300%;
     }
+    .column-restore {
+        width: 11.0300%;
+    }
     .column-delete {
         width: 11.0300%;
     }
     .btn .fa-download,
-    .btn .fa-minus-circle {
+    .btn .fa-minus-circle,
+    .btn .fa-history {
         margin-right: 10px;
         font-size: 20px;
     }

@@ -251,11 +251,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
                             --><span class="column-timestamp">$_("Timestamp")</span><!--
                             --><span class="column-paths">$_("Paths")</span><!--
                         --><span class="column-download" style="display:none">
-                                <span class="sr-only">$_("Download")</span><!--
-                            --></span><!--
+                               <span class="sr-only">$_("Download")</span><!--
+                        --></span><!--
+                      --><span class="column-restore" style="display:none">
+                             <span class="sr-only">$_("Restore")</span><!--
+                      --></span><!--
                         --><span class="column-delete" style="display:none">
-                                <span class="sr-only">$_("Delete")</span><!--
-                            --></span>
+                               <span class="sr-only">$_("Delete")</span><!--
+                        --></span>
                     </div>
                     <ul class="wok-datagrid-body" id="bakGridBody"></ul>
                  </div>
@@ -872,6 +875,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
             <div class="arrow arrow-down"></div>
         </span><!--
         --><span class="column-download btn btn-link btn-download" title="$_('Download')" style="text-overflow: ellipsis; white-space: nowrap; overflow: hidden;"><i class="fa fa-download"></i>$_("Download")</span><!--
+        --><span class="column-restore btn btn-link btn-restore" title="$_('Restore')" style="text-overflow: ellipsis; white-space: nowrap; overflow: hidden;"><i class="fa fa-history"></i>$_("Restore")</span><!--
         --><span class="column-delete btn btn-link btn-delete " title="$_('Remove')" style="text-overflow: ellipsis; white-space: nowrap; overflow: hidden;"><i class="fa fa-minus-circle"></i>$_("Remove")</span>
         <div class="backup-history" style="display: none;">
             <div class="backup-history-list" ></div>

@@ -415,16 +415,16 @@
 }
 
 #backup-ppc-content-area .column-file {
-  width: 47.4790%;
+  width: 40%;
   word-wrap: break-word;
 }
 
 #backup-ppc-content-area .column-timestamp {
-  width: 18.9608%;
+  width: 16%;
 }
 
 #backup-ppc-content-area .column-paths {
-  width: 11.5000%;
+  width: 10%;
   vertical-align: middle;
   text-align: center;
 }
@@ -433,12 +433,17 @@
   width: 11.0300%;
 }
 
+#backup-ppc-content-area .column-restore {
+  width: 11.0300%;
+}
+
 #backup-ppc-content-area .column-delete {
   width: 11.0300%;
 }
 
 #backup-ppc-content-area .btn .fa-download,
-#backup-ppc-content-area .btn .fa-minus-circle {
+#backup-ppc-content-area .btn .fa-minus-circle,
+#backup-ppc-content-area .btn .fa-history {
   margin-right: 10px;
   font-size: 20px;
 }
