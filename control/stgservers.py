@@ -1,7 +1,7 @@
 #
 # Project Ginger
 #
-# Copyright IBM Corp, 2016
+# Copyright IBM Corp, 2016-2017
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -25,7 +25,6 @@ from wok.control.utils import UrlSubNode
 class StgServers(Collection):
     def __init__(self, model):
         super(StgServers, self).__init__(model)
-        self.role_key = 'host'
         self.admin_methods = ['GET', 'POST', 'DELETE']
         self.resource = StgServer
 
@@ -33,7 +32,6 @@ class StgServers(Collection):
 class StgServer(Resource):
     def __init__(self, model, ident):
         super(StgServer, self).__init__(model, ident)
-        self.role_key = 'host'
         self.admin_methods = ['GET', 'POST', 'DELETE']
         self.uri_fmt = "/stgserver/%s"
         self.nfsshares = NFSShares(self.model, ident)
@@ -49,7 +47,6 @@ class ISCSITargets(SimpleCollection):
     def __init__(self, model, server):
         super(ISCSITargets, self).__init__(model)
         self.admin_methods = ['GET']
-        self.role_key = 'host'
         self.server = server
         self.resource_args = [self.server, ]
         self.model_args = [self.server, ]
@@ -59,7 +56,6 @@ class NFSShares(SimpleCollection):
     def __init__(self, model, server):
         super(NFSShares, self).__init__(model)
         self.admin_methods = ['GET']
-        self.role_key = 'host'
         self.server = server
         self.resource_args = [self.server, ]
         self.model_args = [self.server, ]

@@ -1,7 +1,7 @@
 #
 # Project Ginger
 #
-# Copyright IBM Corp, 2016
+# Copyright IBM Corp, 2016-2017
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -39,7 +39,6 @@ class Audit(Resource):
 
     def __init__(self, model, id=None):
         super(Audit, self).__init__(model, id)
-        self.role_key = "administration"
         self.conf = Conf(model)
         self.graphs = Graphs(model)
         self.logs = Logs(model)

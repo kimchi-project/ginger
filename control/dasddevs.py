@@ -1,7 +1,7 @@
 #
 # Project Ginger
 #
-# Copyright IBM Corp, 2016
+# Copyright IBM Corp, 2016-2017
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -35,7 +35,6 @@ class DASDdevs(Collection):
     """
     def __init__(self, model):
         super(DASDdevs, self).__init__(model)
-        self.role_key = 'storage'
         self.admin_methods = ['GET', 'POST', 'DELETE']
         self.resource = DASDdev
 
@@ -68,7 +67,6 @@ class DASDdev(Resource):
     """
     def __init__(self, model, ident):
         super(DASDdev, self).__init__(model, ident)
-        self.role_key = 'storage'
         self.admin_methods = ['GET', 'POST', 'DELETE']
         self.uri_fmt = "/dasddevs/%s"
         self.format = self.generate_action_handler_task('format', ['blk_size'])

@@ -1,7 +1,7 @@
 #
 # Project Ginger
 #
-# Copyright IBM Corp, 2016
+# Copyright IBM Corp, 2016-2017
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -29,5 +29,4 @@ class StorageDevs(SimpleCollection):
 
     def __init__(self, model):
         super(StorageDevs, self).__init__(model)
-        self.role_key = 'host'
         self.admin_methods = ['GET']

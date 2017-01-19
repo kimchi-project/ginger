@@ -1,7 +1,7 @@
 #
 # Project Ginger
 #
-# Copyright IBM Corp, 2016
+# Copyright IBM Corp, 2016-2017
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -32,7 +32,6 @@ CONF_REQUESTS = {
 class Conf(Resource):
     def __init__(self, model, id=None):
         super(Conf, self).__init__(model, id)
-        self.role_key = "administration"
         self.uri_fmt = '/audit/conf/%s'
         self.audisp_enable = self.generate_action_handler('audisp_enable')
         self.audisp_disable = self.generate_action_handler('audisp_disable')

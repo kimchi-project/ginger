@@ -1,7 +1,7 @@
 #
 # Project Ginger
 #
-# Copyright IBM Corp, 2016
+# Copyright IBM Corp, 2016-2017
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -34,7 +34,6 @@ FIRMWARE_REQUESTS = {
 class Firmware(Resource):
     def __init__(self, model, id=None):
         super(Firmware, self).__init__(model, id)
-        self.role_key = "administration"
         self.admin_methods = ['GET', 'POST']
         self.uri_fmt = "/firmware/%s"
         self.commit = self.generate_action_handler('commit')

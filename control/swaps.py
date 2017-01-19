@@ -1,7 +1,7 @@
 #
 # Project Ginger
 #
-# Copyright IBM Corp, 2016
+# Copyright IBM Corp, 2016-2017
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -34,7 +34,6 @@ SWAP_REQUESTS = {
 class Swaps(AsyncCollection):
     def __init__(self, model):
         super(Swaps, self).__init__(model)
-        self.role_key = 'storage'
         self.admin_methods = ['GET', 'POST', 'DELETE']
         self.resource = Swap
 
@@ -46,7 +45,6 @@ class Swaps(AsyncCollection):
 class Swap(Resource):
     def __init__(self, model, ident):
         super(Swap, self).__init__(model, ident)
-        self.role_key = 'storage'
         self.admin_methods = ['GET', 'POST', 'DELETE']
         self.uri_fmt = "/swaps/%s"
         self.log_map = SWAP_REQUESTS

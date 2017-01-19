@@ -1,7 +1,7 @@
 #
 # Project Ginger
 #
-# Copyright IBM Corp, 2016
+# Copyright IBM Corp, 2016-2017
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -47,7 +47,6 @@ class DiscoveredISCSIQNs(Collection):
 
     def __init__(self, model):
         super(DiscoveredISCSIQNs, self).__init__(model)
-        self.role_key = 'host'
         self.admin_methods = ['GET', 'POST', 'DELETE']
         self.resource = DiscoveredISCSIQN
 
@@ -78,7 +77,6 @@ class DiscoveredISCSIQN(Resource):
 
     def __init__(self, model, ident):
         super(DiscoveredISCSIQN, self).__init__(model, ident)
-        self.role_key = 'host'
         self.admin_methods = ['GET', 'POST', 'DELETE']
         self.uri_fmt = "/iscsi_qns/%s"
         self.login = self.generate_action_handler('login')
@@ -103,7 +101,6 @@ class ISCSIAuth(Resource):
 
     def __init__(self, model):
         super(ISCSIAuth, self).__init__(model, None)
-        self.role_key = 'host'
         self.admin_methods = ['GET', 'POST', 'DELETE']
         self.uri_fmt = "/iscsi_auth/%s"
         # modify auth settings globally for all IQNs

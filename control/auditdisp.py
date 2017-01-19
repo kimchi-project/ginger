@@ -1,7 +1,7 @@
 #
 # Project Ginger
 #
-# Copyright IBM Corp, 2016
+# Copyright IBM Corp, 2016-2017
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -34,7 +34,6 @@ class Auditdisp(Resource):
 
     def __init__(self, model, id=None):
         super(Auditdisp, self).__init__(model, id)
-        self.role_key = "administration"
         self.plugins = Plugins(model)
         self.uri_fmt = '/auditdisp/%s'
         self.log_map = AUDISP_REQUESTS

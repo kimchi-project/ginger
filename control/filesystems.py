@@ -1,7 +1,7 @@
 #
 # Project Ginger
 #
-# Copyright IBM Corp, 2016
+# Copyright IBM Corp, 2016-2017
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -37,7 +37,6 @@ class FileSystems(Collection):
     """
     def __init__(self, model):
         super(FileSystems, self).__init__(model)
-        self.role_key = 'host'
         self.admin_methods = ['GET', 'POST', 'DELETE']
         self.resource = FileSystem
 
@@ -58,7 +57,6 @@ class FileSystem(Resource):
     """
     def __init__(self, model, ident):
         super(FileSystem, self).__init__(model, ident)
-        self.role_key = 'host'
         self.admin_methods = ['GET', 'POST', 'DELETE']
         self.uri_fmt = "/filesystems/%s"
         self.log_map = FILESYSTEM_REQUESTS

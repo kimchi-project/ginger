@@ -1,7 +1,7 @@
 #
 # Project Ginger
 #
-# Copyright IBM Corp, 2016
+# Copyright IBM Corp, 2016-2017
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -28,7 +28,6 @@ class ServerSensors(Collection):
         self.server = server
         self.resource_args = [self.server, ]
         self.model_args = [self.server, ]
-        self.role_key = "administration"
         self.admin_methods = ['GET']
 
     def get(self, filter_params):

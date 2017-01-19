@@ -1,7 +1,7 @@
 #
 # Project Ginger
 #
-# Copyright IBM Corp, 2016
+# Copyright IBM Corp, 2016-2017
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -34,7 +34,6 @@ SYSMODULE_REQUESTS = {
 class SysModules(Collection):
     def __init__(self, model):
         super(SysModules, self).__init__(model)
-        self.role_key = 'adminstration'
         self.admin_methods = ['GET', 'POST']
         self.resource = SysModule
 
@@ -46,7 +45,6 @@ class SysModules(Collection):
 class SysModule(Resource):
     def __init__(self, model, ident):
         super(SysModule, self).__init__(model, ident)
-        self.role_key = 'administration'
         self.admin_methods = ['GET', 'DELETE']
         self.uri_fmt = "/sysmodules/%s"
         self.log_map = SYSMODULE_REQUESTS

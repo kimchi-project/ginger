@@ -1,7 +1,7 @@
 #
 # Project Ginger
 #
-# Copyright IBM Corp, 2016
+# Copyright IBM Corp, 2016-2017
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -41,7 +41,6 @@ class VolumeGroups(AsyncCollection):
     """
     def __init__(self, model):
         super(VolumeGroups, self).__init__(model)
-        self.role_key = 'host'
         self.admin_methods = ['GET', 'POST', 'DELETE']
         self.resource = VolumeGroup
 
@@ -56,7 +55,6 @@ class VolumeGroup(Resource):
     """
     def __init__(self, model, ident):
         super(VolumeGroup, self).__init__(model, ident)
-        self.role_key = 'host'
         self.admin_methods = ['GET', 'POST', 'DELETE']
         self.uri_fmt = "/vgs/%s"
         self.log_map = VOLUMEGROUP_REQUESTS

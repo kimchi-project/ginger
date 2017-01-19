@@ -1,7 +1,7 @@
 #
 # Project Ginger
 #
-# Copyright IBM Corp, 2016
+# Copyright IBM Corp, 2016-2017
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -25,7 +25,6 @@ from wok.control.utils import UrlSubNode
 class SanAdapters(Collection):
     def __init__(self, model):
         super(SanAdapters, self).__init__(model)
-        self.role_key = "administration"
         self.admin_methods = ['GET']
         self.resource = SanAdapter
 

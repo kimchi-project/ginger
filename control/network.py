@@ -1,7 +1,7 @@
 #
 # Project Ginger
 #
-# Copyright IBM Corp, 2016
+# Copyright IBM Corp, 2016-2017
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -37,7 +37,6 @@ class Network(Resource):
 
     def __init__(self, model):
         super(Network, self).__init__(model, None)
-        self.role_key = "administration"
         self.admin_methods = ['PUT', 'POST']
         self.interfaces = Interfaces(model)
         self.cfginterfaces = Cfginterfaces(model)

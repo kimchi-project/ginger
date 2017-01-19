@@ -1,7 +1,7 @@
 #
 # Project Ginger
 #
-# Copyright IBM Corp, 2016
+# Copyright IBM Corp, 2016-2017
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -43,7 +43,6 @@ class Sep(Resource):
     def __init__(self, model):
         super(Sep, self).__init__(model)
         self.admin_methods = ['GET', 'POST']
-        self.role_key = "administration"
         self.uri_fmt = "/ibm_sep/%s"
         self.start = self.generate_action_handler('start')
         self.stop = self.generate_action_handler('stop')

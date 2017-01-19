@@ -1,7 +1,7 @@
 #
 # Project Ginger
 #
-# Copyright IBM Corp, 2016
+# Copyright IBM Corp, 2016-2017
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -44,7 +44,6 @@ class Partitions(Collection):
 
     def __init__(self, model):
         super(Partitions, self).__init__(model)
-        self.role_key = 'storage'
         self.admin_methods = ['GET', 'POST', 'DELETE']
         self.resource = Partition
 
@@ -85,7 +84,6 @@ class Partition(Resource):
     """
 
     def __init__(self, model, id):
-        self.role_key = 'storage'
         self.admin_methods = ['GET', 'POST', 'DELETE']
         self.uri_fmt = '/partitions/%s'
         self.format = self.generate_action_handler_task('format', ['fstype'])
