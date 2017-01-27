@@ -347,6 +347,11 @@ ginger.renderNetworkConfig = function() {
             } else {
                 ginger.nwConfiguration.enableDelete();
             }
+            if(networkType.toLowerCase() == 'bonding' || networkType.toLowerCase() == 'bond' || networkType.toLowerCase() == 'vlan'){
+                ginger.nwConfiguration.disableSetOSAPort();
+            }else{
+                ginger.nwConfiguration.enableSetOSAPort();
+            }
         } else if (rows_indexes.length && rows_indexes.length > 1) {
             var networkType = 0;
             ginger.nwConfiguration.enableActions();
@@ -369,6 +374,12 @@ ginger.renderNetworkConfig = function() {
                     ginger.nwConfiguration.disableRestart();
 
                 }
+if(networkConfigTable.row(rows_indexes[key]).data()[3] == "bonding" || networkConfigTable.row(rows_indexes[key]).data()[3] == "Bond" || networkConfigTable.row(rows_indexes[key]).data()[3] == "vlan"){
+                  ginger.nwConfiguration.disableSetOSAPort();
+                }
+else{
+               ginger.nwConfiguration.enableSetOSAPort();
+                        }
             });
             if (networkType === 1) {
                 ginger.nwConfiguration.disableDelete();
@@ -1389,4 +1400,12 @@ ginger.nwConfiguration.toggleAdd = function() {
     } else {
         ginger.nwConfiguration.hideAdd();
     }
+};
+
+ginger.nwConfiguration.disableSetOSAPort = function() {
+    $("#nw-osa-port-button").parent().addClass('disabled');
+};
+
+ginger.nwConfiguration.enableSetOSAPort = function() {
+    $("#nw-osa-port-button").parent().removeClass('disabled');
 };
