@@ -80,6 +80,9 @@ def get_final_list():
             final_dict['size'] = blk_dict[blk]['size']
             final_dict['type'] = blk_dict[blk]['transport']
 
+            if final_dict['type'] == 'iscsi':
+                final_dict['status'] = ''
+
             if final_dict['type'] == 'fc':
                 final_dict['hba_id'] = fc_blk_dict[blk].get('hba_id', '')
                 final_dict['wwpn'] = fc_blk_dict[blk].get('wwpn', '')
