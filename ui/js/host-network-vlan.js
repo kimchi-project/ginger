@@ -78,7 +78,6 @@ ginger.initVLANInterfaceSettings = function() {
 
   $('#nw-vlan-button-cancel').on('click', function() {
     wok.window.close();
-    ginger.listNetworkConfig.refreshNetworkConfigurationDatatable();
   });
 
   $('#nw-vlan-button-close').on('click', function() {

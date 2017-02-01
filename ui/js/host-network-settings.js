@@ -73,7 +73,6 @@ ginger.initNwInterfaceSettings = function() {
 
   $('#nw-interface-settings-button-cancel').on('click', function() {
     wok.window.close();
-    ginger.listNetworkConfig.refreshNetworkConfigurationDatatable();
   });
 
   $('#nw-interface-settings-button-close').on('click', function() {

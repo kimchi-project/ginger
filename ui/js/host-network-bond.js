@@ -73,7 +73,6 @@
 
   $('#nw-bond-button-cancel').on('click', function() {
     wok.window.close();
-    ginger.listNetworkConfig.refreshNetworkConfigurationDatatable();
   });
 
   $('#nw-bond-button-close').on('click', function() {
