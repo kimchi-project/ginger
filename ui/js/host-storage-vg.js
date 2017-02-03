@@ -121,6 +121,7 @@ ginger.configurePageNavigation = function(noOfPages,pageContentMapping,container
 
     if(goToPage===0){
       $("#vg-create-button-prev").addClass('disabled');
+      $('#vg-create-button-done').addClass('hidden');
     }
      $("#vg-create-button-next").removeClass('disabled');
      $('.pager').data("curr",goToPage);
