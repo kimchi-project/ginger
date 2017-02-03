@@ -1865,8 +1865,8 @@ ginger.initFilterInfo = function(){
             filtercheck = $('.selectpicker',$(this)).val();
             if(filtercheck == "-te" || filtercheck =="-ts"){
                filtervaluearray.push("eventfilter");
-            } else{
-              filtervaluearray.push($('input[type=text]',$(this)).val());
+            } else if($('input[type=text]',$(this)).parent().css('display') != 'none'){
+                filtervaluearray.push($('input[type=text]',$(this)).val());
             }
        });
        for (var i=0; i<filtervaluearray.length; i++){
