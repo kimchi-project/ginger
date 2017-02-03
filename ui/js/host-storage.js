@@ -141,6 +141,7 @@ ginger.initFileSystemsGridData = function() {
         result[i]['size'] = Number(result[i]['size'].toFixed(2));
     }
     ginger.loadBootgridData(opts['gridId'], result);
+    $('#' + opts['gridId']).bootgrid('deselect');
     ginger.showBootgridData(opts);
     ginger.hideBootgridLoading(opts);
   },function(err){
@@ -627,6 +628,7 @@ ginger.initStorageDevicesGridData = function() {
   opts['gridId'] = "stgDevGrid";
   ginger.getStgdevs(function(result) {
     ginger.loadBootgridData(opts['gridId'], result);
+    $('#' + opts['gridId']).bootgrid('deselect');
     ginger.hideBootgridLoading(opts);
   },function(err){
     wok.message.error(err.responseJSON.reason, '#storage-devices-alert-container');
