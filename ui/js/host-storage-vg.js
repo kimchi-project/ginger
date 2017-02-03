@@ -326,6 +326,7 @@ ginger.createPV = function(selectedRows){
               $("#selected-pv-table").DataTable().row.add([row[0]]).draw();
               if(index==selectedRows.length-1){
                 $('.selectedPv-loader').hide();
+                $('#vg-create-button-apply').removeClass('hidden');
               }
            },function(error){
              if(index==selectedRows.length-1){
