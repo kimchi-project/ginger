@@ -1987,7 +1987,7 @@ ginger.initSummaryInfo = function(){
                 '<option value="this-year">'+i18n['GINAUDIREPORT0036M']+'</option>');
                optionDropdown.append(selectOptionHtml);
                optionDropdown.selectpicker();
-
+               $('.timeOption',row).show();
            }else{
              var optionDropdown = $('.timeOption',row);
              optionDropdown.hide();
