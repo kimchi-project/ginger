@@ -335,6 +335,8 @@ ginger.createPV = function(selectedRows){
              taskAccepted;
            },onTaskAccepted);
         });
+      },function(){
+        $('#vg-create-button-prev').trigger('click');
       });
   }else{
     var content = ((type=='part')?i18n['GINVG0007M']:i18n['GINVG0008M']);
