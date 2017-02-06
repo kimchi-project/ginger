@@ -214,15 +214,13 @@ def change_part_type(part, type_hex):
     :param type_hex: partition type in hex
     :return:
     """
-    devname = ''.join(i for i in part if not i.isdigit())
-    majmin = _get_dev_major_min(devname)
-
-    dev_path = _get_dev_node_path(majmin)
-    partnum = ''.join(filter(lambda x: x.isdigit(), part))
-
-    device = PDevice(dev_path)
-    disk = PDisk(device)
-    parts = disk.partitions
+    dev_path, partnum = _get_devpath_n_partnum(part)
+    try:
+        device = PDevice(dev_path)
+        disk = PDisk(device)
+        parts = disk.partitions
+    except Exception as e:
+        raise OperationFailed('GINPART00006E', {'err': e.__str__()})
 
     if len(parts) == 1:
         typ_str = '\nt\n' + type_hex + '\n' + 'w\n'
@@ -239,10 +237,53 @@ def change_part_type(part, type_hex):
     t1_out.stdout.close()
     out, err = t2_out.communicate()
 
-    if t2_out.returncode != 0:
+    if t2_out.returncode == 1:
+        if 'warning: re-reading the partition table failed' in out.lower():
+            run_command(["partprobe", dev_path, "-s"])
+        else:
+            raise OperationFailed("GINSP00021E", {'err': err})
+    elif t2_out.returncode != 0:
         raise OperationFailed("GINSP00021E", {'err': err})
 
     return part
+
+
+def _get_devpath_n_partnum(partition):
+    """
+    method to retrieve full device path and partition number
+    Args:
+        partition: partition device
+
+    Returns: full path of device and partition id
+    """
+    devname, partnum = None, None
+    # check if the given device is multipath lun id
+    if os.path.exists('/dev/mapper/' + partition):
+        # in general lun id is hexadecimal with
+        # p1,p2 etc indicating partition id
+        part_details = re.search(r'([0-9a-fA-F]+)p(\d+)', partition)
+        if part_details:
+            devname, partnum = part_details.groups()
+    # check if regular block device
+    elif os.path.exists('/dev/' + partition):
+        part_details = re.search(r'([a-zA-Z]+)(\d+)', partition)
+        if part_details:
+            devname, partnum = part_details.groups()
+    if not devname or not partnum:
+        # try to find using lsblk output
+        majmin = _get_dev_major_min(partition)
+        part_path = _get_dev_node_path(majmin)
+        if part_path.startswith('/dev/mapper'):
+            dev_path, partnum = re.search('(/dev/mapper/[0-9a-fA-F]+)p(\d+)',
+                                          part_path).groups()
+        else:
+            dev_path, partnum = re.search(r'(/dev/[a-zA-Z]+)(\d+)',
+                                          part_path).groups()
+    else:
+        # get full device path
+        majmin = _get_dev_major_min(devname)
+        dev_path = _get_dev_node_path(majmin)
+    return dev_path, partnum
 
 
 def create_disk_part(dev, size):
@@ -339,13 +380,13 @@ def delete_part(partname):
     :param partname: name of the partition to be deleted
     :return:
     """
-    devname = ''.join(i for i in partname if not i.isdigit())
-    majmin = _get_dev_major_min(devname)
-    dev_path = _get_dev_node_path(majmin)
-    partnum = ''.join(filter(lambda x: x.isdigit(), partname))
-    device = PDevice(dev_path)
-    disk = PDisk(device)
-    parts = disk.partitions
+    dev_path, partnum = _get_devpath_n_partnum(partname)
+    try:
+        device = PDevice(dev_path)
+        disk = PDisk(device)
+        parts = disk.partitions
+    except Exception as e:
+        raise OperationFailed('GINPART00007E', {'err': e.__str__()})
     if len(parts) == 1:
         typ_str = '\nd\nw\n'
     elif len(parts) > 1:
@@ -358,7 +399,12 @@ def delete_part(partname):
                               stderr=subprocess.PIPE, stdout=subprocess.PIPE)
     d1_out.stdout.close()
     out, err = d2_out.communicate()
-    if d2_out.returncode != 0:
+    if d2_out.returncode == 1:
+        if 'warning: re-reading the partition table failed' in out.lower():
+            run_command(["partprobe", dev_path, "-s"])
+        else:
+            raise OperationFailed("GINPART00011E", {'err': err})
+    elif d2_out.returncode != 0:
         raise OperationFailed("GINPART00011E", {'err': err})
 
 

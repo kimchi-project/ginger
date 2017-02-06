@@ -2,7 +2,7 @@
 #
 # Project Ginger
 #
-# Copyright IBM Corp, 2016
+# Copyright IBM Corp, 2016-2017
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -171,8 +171,11 @@ def _create_dasd_part(dev, size):
             msg_args = {'cmd': "fdasd " + devname, 'seconds': str(timeout)}
             raise TimeoutExpired("WOKUTILS0002E", msg_args)
         if p2_out.returncode != 0:
-            raise OperationFailed("GINDASDPAR0007E",
-                                  {'name': devname, 'err': err})
+            if 'error while rereading partition table' in err.lower():
+                run_command(["partprobe", devname, "-s"])
+            else:
+                raise OperationFailed("GINDASDPAR0007E",
+                                      {'name': devname, 'err': err})
     except TimeoutExpired:
         raise
     finally:
@@ -203,8 +206,11 @@ def _delete_dasd_part(dev, part_id):
     p1_out.stdout.close()
     out, err = p2_out.communicate()
     if p2_out.returncode != 0:
-        raise OperationFailed("GINDASDPAR0010E",
-                              {'name': devname, 'err': err})
+        if 'error while rereading partition table' in err.lower():
+            run_command(["partprobe", devname, "-s"])
+        else:
+            raise OperationFailed("GINDASDPAR0010E",
+                                  {'name': devname, 'err': err})
     return
 
 
@@ -332,10 +338,13 @@ def change_dasdpart_type(part, type):
     :param type: partition type to be changed to e.g 4 (Linux LVM type)
     :return:
     """
-    partnum = ''.join(filter(lambda x: x.isdigit(), part))
-    typ_str = '\nt\n' + partnum + '\n' + type + '\n' + 'w\n'
-    devname = ''.join(i for i in part if not i.isdigit())
+    part_details = re.search(r'(dasd[a-zA-Z]+)(\d+)', part)
+    if not part_details:
+        raise OperationFailed('GINDASDPAR0011E', {'name': part})
+    devname, partnum = part_details.groups()
     devname = '/dev/' + devname
+
+    typ_str = '\nt\n' + partnum + '\n' + type + '\n' + 'w\n'
     p1_out = subprocess.Popen(["echo", "-e", "\'", typ_str, "\'"],
                               stdout=subprocess.PIPE)
     p2_out = subprocess.Popen(["fdasd", devname], stdin=p1_out.stdout,
@@ -343,6 +352,8 @@ def change_dasdpart_type(part, type):
     p1_out.stdout.close()
     out, err = p2_out.communicate()
     if p2_out.returncode != 0:
-        raise OperationFailed("GINDASDPAR0014E",
-                              {'err': err})
+        if 'error while rereading partition table' in err.lower():
+            run_command(["partprobe", devname, "-s"])
+        else:
+            raise OperationFailed("GINDASDPAR0014E", {'err': err})
     return
