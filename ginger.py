@@ -44,6 +44,7 @@ class Ginger(WokRoot):
         self.api_schema = json.load(open(os.path.join(os.path.dirname(
                                     os.path.abspath(__file__)), 'API.json')))
         self.domain = "ginger"
+        self.depends = ['gingerbase']
         self.messages = messages
         self.paths = PluginPaths('ginger')
 
