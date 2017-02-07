@@ -98,6 +98,7 @@ ginger.editBridgeClickHandlers = function() {
     $('.bridge-bonds').on('click','.save-new-bond',function(e){
         e.preventDefault();
         e.stopPropagation();
+        $('.bootstrap-select.open').removeClass('open');
         var row = $(this).parent().parent();
         var name = $('input[name="new-bond-name"]', row).val();
         var ifaces = $('select[name="new-bond-interfaces"]', row).val();
@@ -134,6 +135,7 @@ ginger.editBridgeClickHandlers = function() {
     $('.bridge-bonds').on('click','.cancel-new-bond',function(e){
         e.preventDefault();
         e.stopPropagation();
+        $('.bootstrap-select.open').removeClass('open');
         $('.column-empty','.ovs-bond-body').removeClass('hidden');
         $(this).parent().parent().remove();
         $('.bridge-interfaces').dataGrid('destroy');
