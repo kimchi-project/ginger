@@ -1,7 +1,7 @@
 #
 # Project Ginger
 #
-# Copyright IBM Corp, 2015-2016
+# Copyright IBM Corp, 2015-2017
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -398,7 +398,8 @@ class InterfacesTests(unittest.TestCase):
 
         open_ = mock_open(read_data='')
 
-        with patch.object(builtins, 'open', open_):
+        with patch('__builtin__.open', open_):
+            open_.call_args_list = []
             iface_model = InterfaceModel(objstore=self._objstore)
             task_obj = iface_model.enable_sriov('iface1', 4)
             self.task.wait(task_obj['id'])
@@ -406,10 +407,10 @@ class InterfacesTests(unittest.TestCase):
             finished_task = self.task.lookup(task_obj['id'])
             self.assertEquals(finished_task['status'], 'finished')
             mock_isfile.assert_called_once_with(file1)
+            self.assertIn(call(file1, 'w'), open_.call_args_list)
+            self.assertEqual(open_().write.mock_calls,
+                             [call('0\n'), call('4\n')])
 
-        self.assertEqual(open_.call_args_list,
-                         [call(file1, 'w'), call(file1, 'w')])
-        self.assertEqual(open_().write.mock_calls, [call('0\n'), call('4\n')])
         mock_create_cfg_file.assert_has_calls(
             [call('sriov1'), call('sriov2')]
         )
