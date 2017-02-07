@@ -664,13 +664,21 @@ ginger.changeActionButtonsState = function() {
     $('#action-dropdown-button-file-systems-actions').prop('title', '');
 
     var dasd = false;
+    var iscsi = false;
+    var otherdevices = false;
     $.each(ginger.getSelectedRowsData(opts), function(i, row) {
-      if (row['type'] === "dasd") {
-        dasd = true;
+      switch (row['type']) {
+        case "dasd": dasd = true;
+          break;
+        case "iscsi" : iscsi = true;
+          break;
+        default : otherdevices = true;
+          break;
       }
     });
 
     ginger.changeButtonStatus(["sd-format-button"], dasd);
+    ginger.changeButtonStatus(["sd-remove-button"], !iscsi || dasd || otherdevices);
   }
 };
 
