@@ -152,7 +152,7 @@ ginger.generateSystemServiceElem = function(value){
         } else {
             return;
         }
-        var servicename = name.split(".service").join("").replace(/[`~!@#$%^&*()_|+\-=?;:'",.<>\{\}\[\]\\\/]/gi, '');
+        var servicename = name.split(".service").join("").replace(/[`~!@#$%^&*()_|+=?;:'",.<>\{\}\[\]\\\/]/gi, '');
         var id = 'service-'+servicename;
         var collapse_target = id+'-details';
         var loaded = value.load;
