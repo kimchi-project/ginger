@@ -1,7 +1,7 @@
 #
 # Project Ginger
 #
-# Copyright IBM Corp, 2016
+# Copyright IBM Corp, 2016-2017
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -22,18 +22,12 @@ from functools import partial
 
 from tests.utils import request, run_server
 
-from wok.plugins.ginger.model import GingerModel
-
-
 test_server = None
-model = None
 
 
 def setUpModule():
-    global test_server, model
-
-    model = GingerModel()
-    test_server = run_server(test_mode=True, model=model)
+    global test_server
+    test_server = run_server(test_mode=False)
 
 
 def tearDownModule():

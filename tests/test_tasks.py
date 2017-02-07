@@ -2,7 +2,7 @@
 #
 # Project Ginger
 #
-# Copyright IBM Corp, 2015-2016
+# Copyright IBM Corp, 2015-2017
 #
 # Code derived from Project Kimchi
 #
@@ -27,23 +27,17 @@ import urllib2
 from functools import partial
 
 from wok.asynctask import AsyncTask
-from wok.plugins.ginger.model import GingerModel
 
 from tests.utils import patch_auth, request
 from tests.utils import run_server, wait_task
 
-
 test_server = None
-model = None
 
 
 def setUpModule():
-    global test_server, model
-
+    global test_server
     patch_auth()
-    model = GingerModel()
-
-    test_server = run_server(test_mode=True, model=model)
+    test_server = run_server(test_mode=False)
 
 
 def tearDownModule():
