@@ -218,7 +218,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 <script id="ovsbridgeTmpl" type="html/text">
 <div id="bridge-{id}" class="bridge" data-name="{name}">
       <span class='column-name name-filter' title="{name}">{name}</span><!--
- --><span class='column-bonds' title="{bondPlus}">{bonds}</span><!--
+ --><span class='column-bonds' title="{bonds}">{bonds}</span><!--
  --><span class='column-interfaces' title="{interfacePlus}">{interfaces}</span><!--
  --><span class='column-statistics'>{statistics}</span><!--
  --><span class="column-action">
@@ -255,7 +255,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 <script id="interfaceBodyTmpl" type="html/text">
 <div id="interface-{id}" data-name="{name}"  role="row">
         <span role="gridcell" class="column-state" title="$_("Interface is") {state}"><span class="sr-only">$_("Interface is") {state}</span><i class="fa fa-power-off {stateClass}"></i></span><!--
-  --><span role="gridcell" class='column-ifname'>{name}</span><!--
+  --><span role="gridcell" class='column-ifname' title='{name}'>{name}</span><!--
   --><span role="gridcell" class='column-stat'>{rxBytes}<span class="sr-only"> $_("Bytes Received")</span></span><!--
   --><span role="gridcell" class='column-stat'>{txBytes}<span class="sr-only"> $_("Bytes Transmitted")</span></span><!--
   --><span role="gridcell" class='column-stat'>{rxPackets}<span class="sr-only"> $_("Packages Received")</span></span><!--

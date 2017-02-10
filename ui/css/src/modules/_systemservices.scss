@@ -1,7 +1,7 @@
 //
 // Project Ginger
 //
-// Copyright IBM Corp, 2016
+// Copyright IBM Corp, 2016-2017
 //
 // Code derived from Project Kimchi
 //
@@ -78,9 +78,9 @@
     }
 
     span.column-service-details {
-        width: 60px;
-        min-width: 60px;
-        flex-basis: 60px;
+        width: 75px;
+        min-width: 75px;
+        flex-basis: 75px;
         text-align: center;
         white-space: nowrap;
         overflow: hidden;

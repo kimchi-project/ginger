@@ -1124,7 +1124,7 @@ $('#audit-rule-delete-btn').on('click', function(event) {
             selectedRows.push(value[2]);
         });
         var settings = {
-            content: i18n["GINAUDIT0022M"] + selectedRows,
+            content: i18n["GINAUDIT0022M"] + '<br>' + selectedRows,
             confirm: i18n["GINNET0015M"]
         };
         wok.confirm(settings, function() {
@@ -1181,7 +1181,7 @@ $('#Audit-Rule-Load-btn').on('click', function(event) {
             selectedRows.push(value[2]);
         });
         var settings = {
-            content: i18n["GINAUDIT0024M"] + selectedRows,
+            content: i18n["GINAUDIT0024M"] + '<br>' + selectedRows,
             confirm: i18n["GINNET0015M"]
         };
         wok.confirm(settings, function() {
@@ -1212,7 +1212,7 @@ $('#Audit-Rule-unload-btn').on('click', function(event) {
             selectedRows.push(value[2]);
         });
         var settings = {
-            content: i18n["GINAUDIT0026M"] + selectedRows,
+            content: i18n["GINAUDIT0026M"] + '<br>' + selectedRows,
             confirm: i18n["GINNET0015M"]
         };
         wok.confirm(settings, function() {
@@ -1247,7 +1247,7 @@ $('#Audit-Rule-Persist-btn').on('click', function(event) {
             selectedRows.push(value[2]);
         });
         var settings = {
-            content: i18n["GINAUDIT0028M"] + selectedRows,
+            content: i18n["GINAUDIT0028M"] + '<br>' + selectedRows,
             confirm: i18n["GINNET0015M"]
         };
         wok.confirm(settings, function() {

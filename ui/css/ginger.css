@@ -2469,6 +2469,11 @@ hr {
 
 #ovsbridgeGrid.wok-datagrid > .wok-datagrid-header > span.column-name,
 #ovsbridgeGrid.wok-datagrid > .wok-datagrid-body > .wok-datagrid-row > span.column-name {
+  display: inline-block;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
   width: 210px;
 }
 
@@ -2476,6 +2481,11 @@ hr {
 #ovsbridgeGrid.wok-datagrid > .wok-datagrid-header > span.column-interfaces,
 #ovsbridgeGrid.wok-datagrid > .wok-datagrid-body > .wok-datagrid-row > span.column-bonds,
 #ovsbridgeGrid.wok-datagrid > .wok-datagrid-body > .wok-datagrid-row > span.column-interfaces {
+  display: inline-block;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
   width: 270px;
 }
 
@@ -2523,6 +2533,11 @@ hr {
 }
 
 #ovsbridgeGrid.wok-datagrid span.column-ifname {
+  display: inline-block;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
   width: 170px;
 }
 
@@ -2708,9 +2723,9 @@ form[name="ovsaddinterface"] {
 }
 
 #system-services-content-area span.column-service-details {
-  width: 60px;
-  min-width: 60px;
-  flex-basis: 60px;
+  width: 75px;
+  min-width: 75px;
+  flex-basis: 75px;
   text-align: center;
   white-space: nowrap;
   overflow: hidden;

@@ -1,7 +1,7 @@
 //
 // Project Ginger
 //
-// Copyright IBM Corp, 2016
+// Copyright IBM Corp, 2016-2017
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -97,11 +97,21 @@
 #ovsbridgeGrid.wok-datagrid > .wok-datagrid-body > .wok-datagrid-row {
 
     > span.column-name {
+        display: inline-block;
+        overflow-x: hidden;
+        overflow-y: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
         width: 210px;
     }
 
     > span.column-bonds,
     > span.column-interfaces {
+        display: inline-block;
+        overflow-x: hidden;
+        overflow-y: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
         width: 270px;
     }
 
@@ -148,6 +158,11 @@
 }
 
 #ovsbridgeGrid.wok-datagrid span.column-ifname {
+    display: inline-block;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
     width: 170px;
 }
 
