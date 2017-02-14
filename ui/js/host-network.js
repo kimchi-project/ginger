@@ -1147,15 +1147,15 @@ ginger.loadGlobalNetworkConfig = function() {
                 }
                 $('#network-global-configuration-content-area > .wok-mask').removeClass('hidden');
                 ginger.updateNetworkGlobals(global_info, function(result) {
-                    var message = i18n['GINNET0024M'] + " " + i18n['GINNET0020M'];
+                    var message = i18n['GINNET0024M'];
                     globalNetworkConfigTable.destroy();
                     getNetworkGlobalConfiguration();
                     wok.message.success(message, '#message-nw-global-container-area');
                     $('#network-global-configuration-content-area > .wok-mask').addClass('hidden');
                 }, function(error) {
                     $('#network-global-configuration-content-area > .wok-mask').addClass('hidden');
-                    var message = i18n['GINNET0024M'] + " " + i18n['GINNET0021M'] + " " + error.responseJSON.reason;
-                    wok.message.error(error.responseJSON.reason, '#message-nw-global-container-area', true);
+                    var message = i18n['GINNET0091M'] + " " + error.responseJSON.reason;
+                    wok.message.error(message, '#message-nw-global-container-area', true);
                 });
             }
 
