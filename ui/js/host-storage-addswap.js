@@ -1,5 +1,5 @@
 /*
- * Copyright IBM Corp, 2016
+ * Copyright IBM Corp, 2016-2017
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -91,6 +91,7 @@ ginger.loadSwapDeviceList = function() {
     opts['gridFields'] = JSON.stringify(gridFields);
     opts['converters'] = wok.localeConverters;
     var grid = ginger.createBootgrid(opts);
+    ginger.showBootgridLoading(opts);
     grid.on("loaded.rs.jquery.bootgrid", function(e) {
         $('#AddSwapGrid .select-box').hide();
     }).on("selected.rs.jquery.bootgrid", function(e) {
@@ -107,11 +108,17 @@ ginger.initSwapDeviceGridData = function() {
     var opts = [];
     opts['gridId'] = "AddSwapGrid";
     ginger.SwapDeviceList(function(result) {
+        var filtered_results = [];
         for (i = 0; i < result.length; i++) {
             result[i]['size'] = parseInt(result[i]['size']) / 1024;
             result[i]['size'] = Number(result[i]['size'].toFixed(2));
+            // Above condition tells that it is a block device and it's not partition
+            if((result[i].name).startsWith("dasd") && result[i].pkname == "") {
+                continue
+          }
+          filtered_results.push(result[i]);
         }
-        ginger.loadBootgridData(opts['gridId'], result);
+        ginger.loadBootgridData(opts['gridId'], filtered_results);
         ginger.showBootgridData(opts);
         ginger.hideBootgridLoading(opts);
     });

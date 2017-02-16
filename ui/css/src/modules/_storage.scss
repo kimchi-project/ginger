@@ -1,7 +1,7 @@
 //
 // Project Ginger
 //
-// Copyright IBM Corp, 2015-2016
+// Copyright IBM Corp, 2015-2017
 //
 // Code derived from Project Kimchi
 //
@@ -530,4 +530,26 @@ hr {
         background: none repeat scroll 0 0 #6b6b6b;
         cursor: not-allowed;
     }
+}
+
+#AddSwap-device-container .absolute-middle,
+#AddSwap-device-container .wok-mask,
+#AddSwap-device-container .wok-grid-mask,
+#AddSwap-device-container .wok-list-mask,
+#AddSwap-device-container .wok-mask-loading,
+#AddSwap-device-container .wok-grid-loading,
+#AddSwap-device-container .wok-list-loading,
+#AddSwap-device-container .wok-mask-loader-container,
+#AddSwap-device-container .wok-grid-loader-container,
+#AddSwap-device-container .wok-list-loader-container,
+#AddSwap-device-container .wok-mask-loading-icon,
+#AddSwap-device-container .wok-grid-loading-icon,
+#AddSwap-device-container .wok-list-loading-icon {
+ top: 65px !important;
+}
+
+#AddSwap-device-container .wok-mask-loading-text,
+#AddSwap-device-container .wok-grid-loading-text,
+#AddSwap-device-container .wok-list-loading-text {
+ padding-top : 85px !important;
 }
