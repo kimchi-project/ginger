@@ -54,6 +54,10 @@ ginger.initConfigRule = function() {
         krb5_key_file = $('#krb5_key_file', AuditConfigTabs);
         distribute_network = $('#distribute_network', AuditConfigTabs);
 
+        $('#Audit-Config-general').on('change', function(){
+            $("#AuditdConfig-submit").prop("disabled", false);
+        });
+
         //get details
         ginger.retrieveConfigInfo(function suc(result) {
             ginger.populateAuditConfigGeneralTab(result);
