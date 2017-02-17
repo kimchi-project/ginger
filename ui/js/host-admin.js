@@ -1457,9 +1457,20 @@ ginger.createDispatcherPluginTable = function(data){
       $.each(data, function(index, log){
         if(log){
           rows += "<tr><td>" + log['name'] + "</td>";
-          rows += "<td>" + log['details']['active'] + "</td>";
+          if(log['details']['active'] == "yes"){
+              active = i18n['GINNET0077M'];
+          }else{
+              active = i18n['GINNET0078M'];
+          }
+          rows += "<td>" + active + "</td>";
           rows += "<td style=\"text-align:center;\" class=\"details-control\"><span class=\"fa fa-chevron-down common-down fa-lg\"></span></td>";
-          rows +="<td>" +JSON.stringify(log['details'])+"</td></tr>";
+          details = log['details'];
+          if(details["active"] == "yes"){
+              details["active"] = i18n['GINNET0077M'];
+          }else{
+              details["active"] = i18n['GINNET0078M'];
+          }
+          rows +="<td>" +JSON.stringify(details)+"</td></tr>";
         }
       });
     }
@@ -1664,10 +1675,15 @@ ginger.getPluginDetails = function(){
     $("#direction").val(detailsInfo['direction']);
     $("#format").val(detailsInfo['format']);
     $("#args").val(detailsInfo['args']);
-    $("#active").val(detailsInfo['active']);
+    if(detailsInfo['active'] == i18n['GINNET0077M']){
+        $("#active").val("yes");
+    }else{
+        $("#active").val("no");
+    }
     $("#path").val(detailsInfo['path']);
     $("#type").val(detailsInfo['type']);
     $("#active").selectpicker();
+    $('#active').selectpicker('refresh');
 
 
 
