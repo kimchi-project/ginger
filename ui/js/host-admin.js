@@ -619,13 +619,16 @@ ginger.initUserManagement = function() {
                     userProfile: result[i]["profile"]
                 }));
                 $(".ginger .host-admin .user-manage").append(nodeNameItem);
+                $('#usrMgmtRefreshBtn').prop('disabled', false);
             }
         }, function(err) {
           wok.message.error(err.responseJSON.reason, '#alert-modal-user-container', true);
+          $('#usrMgmtRefreshBtn').prop('disabled', false);
         });
     };
 
     $('#usrMgmtRefreshBtn').on('click', function() {
+        $(this).prop('disabled', true);
         listUsers();
     });
 
