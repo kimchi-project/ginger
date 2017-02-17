@@ -467,18 +467,7 @@ ginger.initVolumeGroupEdit =  function(){
 
          ginger.editgetVolumeGroup(volumeName,vgModifyParams,type,function(result){
             wok.message.success(i18n['GINVG00035M'].replace("%1", volumeName), '#alert-vg-container');
-
-            var pvList = result['pvNames'];
-            var addedPvs = [];
-            $.each(pvList,function(index,pv){
-              var pvPath = {};
-               pvPath['path']=pv;
-               addedPvs.push(pvPath);
-            });
-            $("#addedPvList tbody").html("");
-            $("#addedPvList").DataTable().destroy();
-             ginger.populateAddedPvList(addedPvs,volumeName);
-
+             $('#volume-groups-refresh-btn').trigger('click');
              $("#vg-reduce").css("display","block");
              $("#add-expand-vg").css("display","none");
              wok.window.close();
@@ -583,19 +572,9 @@ ginger.reduceVolumeGroup = function(volumeName){
         };
 
         ginger.editgetVolumeGroup(volumeName,vgModifyParams,type,function(result){
-           wok.message.success(i18n['GINVG00034M'].replace("%1", volumeName), '#alert-vg-create-modal-container');
-
-           var pvList = result['pvNames'];
-           var addedPvs = [];
-           $.each(pvList,function(index,pv){
-             var pvPath = {};
-              pvPath['path']=pv;
-              addedPvs.push(pvPath);
-           });
-           $("#addedPvList tbody").html("");
-           $("#addedPvList").DataTable().destroy();
-           ginger.populateAddedPvList(addedPvs,volumeName);
-
+           wok.message.success(i18n['GINVG00034M'].replace("%1", volumeName), '#alert-vg-container');
+           $('#volume-groups-refresh-btn').trigger('click');
+           wok.window.close();
         },function(err){
             wok.message.error(err.responseJSON.reason,'#alert-vg-create-modal-container');
         });
