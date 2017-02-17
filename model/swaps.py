@@ -78,7 +78,7 @@ class SwapsModel(object):
 
             except (InvalidParameter) as e:
                 cb('OK', False)
-                raise InvalidParameter("GINSP00020E")
+                raise InvalidParameter("GINSP00020E", {'file': file_loc})
             except (OperationFailed) as e:
                 cb('OK', False)
                 raise OperationFailed('GINSP00005E',

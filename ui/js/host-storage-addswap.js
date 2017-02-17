@@ -169,7 +169,8 @@ $("#Swap-submit").on('click', function(event) {
             }, function(result) {
                 wok.window.close();
                 ginger.initSwapDevicesGridData();
-                wok.message.error(result.message, "#swap-message", true);
+                var message = result.message ? result.message : result.responseJSON.reason;
+                wok.message.error(message, "#swap-message", true);
             });
         }
     }
