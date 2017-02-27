@@ -1,7 +1,7 @@
 #
 # Project Ginger
 #
-# Copyright IBM Corp, 2016
+# Copyright IBM Corp, 2016-2017
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -26,8 +26,8 @@ from wok.plugins.ginger.model.audit import AuditModel
 class AuditTests(unittest.TestCase):
 
     @mock.patch('wok.plugins.ginger.model.rules.RuleModel.get_audit_rule_info')
-    @mock.patch('wok.plugins.ginger.model.rules.get_list_of_loaded_rules')
-    def test_get_list_of_pre_rules(self, mock_get_lis_predef_rules,
+    @mock.patch('wok.plugins.ginger.model.rules.get_list_of_persisted_rules')
+    def test_get_list_of_pre_rules(self, mock_get_list_of_persisted_rules,
                                    mock_audit_rule_info):
         """
          Unittest to test the get list of predefined rules.
@@ -54,10 +54,11 @@ class AuditTests(unittest.TestCase):
                               u'delete_module,finit_module'
                               u' -F key=abc99'
                       }
-        mock_get_lis_predef_rules.return_value = rule_list
+        mock_get_list_of_persisted_rules.return_value = rule_list
         mock_audit_rule_info.return_value = audit_info
         auditmodel = AuditModel()
-        auditmodel.get_list_of_pre_rules()
+        result = auditmodel.get_list_of_pre_rules()
+        self.assertEquals(result['rule1'], audit_info)
 
     @mock.patch('wok.plugins.ginger.model.audit.AuditModel.'
                 'load_predefined_rules')
