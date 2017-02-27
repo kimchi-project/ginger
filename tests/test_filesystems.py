@@ -1,7 +1,7 @@
 #
 # Project Ginger
 #
-# Copyright IBM Corp, 2015-2016
+# Copyright IBM Corp, 2015-2017
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -25,34 +25,39 @@ from wok.exception import OperationFailed, MissingParameter, InvalidParameter
 from wok.rollbackcontext import RollbackContext
 from wok.utils import run_command
 
+import tests.utils as utils
+
 import wok.plugins.ginger.model.filesystem as filesystem
 from wok.plugins.ginger.model.fs_utils import _parse_df_output
 
 
+TESTFILE = {True: "/testfile", False: "/tmp/testfile"}[utils.running_as_root()]
+TESTDIR = {True: "/test", False: "/tmp/test"}[utils.running_as_root()]
+NFSSHARE = {True: "/var/ftp/nfs1",
+            False: "/tmp/ftp/nfs1"}[utils.running_as_root()]
+
+
 def create_file(self):
-    fcmd = ["dd", "if=/dev/zero", "of=/testfile",
+    fcmd = ["dd", "if=/dev/zero", "of=%s" % TESTFILE,
             "bs=10M", "count=1"]
     fout, err, rc = run_command(fcmd)
     if rc:
         self.assertRaises(OperationFailed)
 
-    fscmd = ["mkfs.ext4", "/testfile", "-F"]
+    fscmd = ["mkfs.ext4", TESTFILE, "-F"]
     fsout, err, rc = run_command(fscmd)
     if rc:
         self.assertRaises(OperationFailed)
 
-    mntpt = '/test'
-    if not os.path.exists(mntpt):
-        os.makedirs(mntpt)
+    if not os.path.exists(TESTDIR):
+        os.makedirs(TESTDIR)
 
 
 def delete_file(self):
-    fname = "/testfile"
-    mntpt = '/test'
-    if os.path.exists(fname):
-        os.remove(fname)
-    if os.path.exists(mntpt):
-        os.rmdir(mntpt)
+    if os.path.exists(TESTFILE):
+        os.remove(TESTFILE)
+    if os.path.exists(TESTDIR):
+        os.rmdir(TESTDIR)
 
 
 class FileSystemTests(unittest.TestCase):
@@ -61,6 +66,7 @@ class FileSystemTests(unittest.TestCase):
         fs_list = fs.get_list()
         self.assertGreaterEqual(len(fs_list), 0)
 
+    @unittest.skipUnless(utils.running_as_root(), 'Must be run as root')
     def test_mount_local_fs(self):
         fs = filesystem.FileSystemsModel()
         fsd = filesystem.FileSystemModel()
@@ -68,8 +74,8 @@ class FileSystemTests(unittest.TestCase):
         create_file(self)
 
         fstype = 'local'
-        blkdev = '/testfile'
-        mntpt = '/test'
+        blkdev = TESTFILE
+        mntpt = TESTDIR
         persistent = False
 
         fs_list = fs.get_list()
@@ -83,6 +89,7 @@ class FileSystemTests(unittest.TestCase):
 
         delete_file(self)
 
+    @unittest.skipUnless(utils.running_as_root(), 'Must be run as root')
     def test_mount_existing_fs_fails(self):
         fs = filesystem.FileSystemsModel()
         fsd = filesystem.FileSystemModel()
@@ -90,8 +97,8 @@ class FileSystemTests(unittest.TestCase):
         create_file(self)
 
         fstype = 'local'
-        blkdev = '/testfile'
-        mntpt = '/test'
+        blkdev = TESTFILE
+        mntpt = TESTDIR
         persistent = False
 
         with RollbackContext() as rollback:
@@ -137,8 +144,8 @@ tmpfs                   tmpfs      3886100    25748   3860352   1% /tmp
         fs = filesystem.FileSystemsModel()
         fstype = 'nfs'
         server = 'localhost'
-        share = '/var/ftp/nfs1'
-        mntpt = '/test'
+        share = NFSSHARE
+        mntpt = TESTDIR
         mntopts = ''
 
         fs.create({'type': fstype, 'server': server,
@@ -152,8 +159,8 @@ tmpfs                   tmpfs      3886100    25748   3860352   1% /tmp
     def test_nfs_mount_missing_type(self):
         fs = filesystem.FileSystemsModel()
         server = 'localhost'
-        share = '/var/ftp/nfs1'
-        mntpt = '/test'
+        share = NFSSHARE
+        mntpt = TESTDIR
 
         params = {'server': server, 'share': share, 'mount_point': mntpt}
 
@@ -163,8 +170,8 @@ tmpfs                   tmpfs      3886100    25748   3860352   1% /tmp
         fs = filesystem.FileSystemsModel()
         fstype = 'invalid'
         server = 'localhost'
-        share = '/var/ftp/nfs1'
-        mntpt = '/test'
+        share = NFSSHARE
+        mntpt = TESTDIR
 
         params = {'type': fstype, 'server': server,
                   'share': share, 'mount_point': mntpt}
@@ -174,8 +181,8 @@ tmpfs                   tmpfs      3886100    25748   3860352   1% /tmp
     def test_nfs_mount_missing_server(self):
         fs = filesystem.FileSystemsModel()
         fstype = 'nfs'
-        share = '/var/ftp/nfs1'
-        mntpt = '/test'
+        share = NFSSHARE
+        mntpt = TESTDIR
 
         params = {'type': fstype, 'share': share, 'mount_point': mntpt}
 
@@ -185,7 +192,7 @@ tmpfs                   tmpfs      3886100    25748   3860352   1% /tmp
         fs = filesystem.FileSystemsModel()
         fstype = 'nfs'
         server = 'localhost'
-        mntpt = '/test'
+        mntpt = TESTDIR
 
         params = {'type': fstype, 'server': server, 'mount_point': mntpt}
 
@@ -195,7 +202,7 @@ tmpfs                   tmpfs      3886100    25748   3860352   1% /tmp
         fs = filesystem.FileSystemsModel()
         fstype = 'nfs'
         server = 'localhost'
-        share = '/var/ftp/nfs1'
+        share = NFSSHARE
 
         params = {'type': fstype, 'server': server, 'share': share}
 
