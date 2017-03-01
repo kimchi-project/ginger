@@ -1,7 +1,7 @@
 #
 # Project Ginger
 #
-# Copyright IBM Corp, 2016
+# Copyright IBM Corp, 2016-2017
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -258,11 +258,16 @@ class RulesTests(unittest.TestCase):
         ruleModel.load(rule)
         mock_load.assert_called_with(rule)
 
+
+    @mock.patch('wok.plugins.ginger.model.rules.get_list_of_loaded_rules')
+    @mock.patch('wok.plugins.ginger.model.rules.get_list_of_persisted_rules')
     @mock.patch('wok.plugins.ginger.model.rules.RuleModel.is_rule_exists')
-    @ mock.patch('wok.plugins.ginger.model.rules.RuleModel.delete_rule')
-    @mock.patch('wok.plugins.ginger.model.rules.RulesModel.construct_rules')
-    def test_update(self, mock_create_rules, mock_delete_rule,
-                    mock_rule_exists):
+    @mock.patch('wok.plugins.ginger.model.rules.RuleModel.delete_rule')
+    @mock.patch('wok.plugins.ginger.model.rules.RulesModel.create')
+    @mock.patch('wok.plugins.ginger.model.rules.RulesModel.'
+                'write_to_audit_rules')
+    def test_update(self, mock_write_to, mock_create_rules, mock_delete_rule,
+                    mock_rule_exists, mock_list_persisted, mock_list_loaded):
         """
         Unittest to update a rule.
         :param mock_create_rules:
@@ -270,20 +275,23 @@ class RulesTests(unittest.TestCase):
         :param mock_rule_exists:
         :return:
         """
-        param = {"type": "System Rule",
+        param = {"type": "System Call Rule",
                  "rule_info": {"action": "always",
                                "filter": "exit",
                                "systemcall": "init_module,delete_module"
                                              ",finit_module",
                                "field": ["arch=b32", "arch=b64"],
                                "key": "abcde"}}
-        old_rule = '-a always,exit -F arch=b32 -F arch=b64 -S init_module,' \
-                   'delete_module,finit_module -F key=abc99'
-        new_rule = '-a always,exit -F arch=b32 -F arch=b64 -S init_module,' \
-                   'delete_module,finit_module -F key=abcde'
+        old_rule = '-a always,exit -S init_module,delete_module,finit_module '\
+                   '-F arch=b32 -F arch=b64 -F key=abc99'
+        new_rule = '-a always,exit -S init_module,delete_module,finit_module '\
+                   '-F arch=b32 -F arch=b64 -F key=abcde'
         mock_rule_exists.return_value = True
         mock_delete_rule.return_value = {}
         mock_create_rules.return_value = new_rule
+        mock_write_to.return_value = True
+        mock_list_persisted.return_value = []
+        mock_list_loaded.return_value = []
         ruleModel = RuleModel()
         out_rule = ruleModel.update(old_rule, param)
         self.assertEquals(out_rule, new_rule)
