@@ -1,7 +1,7 @@
 #
 # Project Ginger
 #
-# Copyright IBM Corp, 2016
+# Copyright IBM Corp, 2016-2017
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -22,6 +22,8 @@ import unittest
 
 from wok.plugins.ginger.model.utils import write_to_conf
 from wok.plugins.ginger.model.auditdisp import AuditdispModel
+
+import tests.utils as utils
 
 
 class AuditdispTests(unittest.TestCase):
@@ -67,10 +69,9 @@ class AuditdispTests(unittest.TestCase):
             mock_write.return_value = {}
             write_to_conf(key, value, AUDISPD_CONF)
 
-    @mock.patch('wok.plugins.ginger.model.'
-                'utils.del_lines_of_attribute')
-    @mock.patch('wok.plugins.ginger.model.'
-                'utils.write_to_conf')
+    @mock.patch('wok.plugins.ginger.model.auditdisp.del_lines_of_attribute')
+    @mock.patch('wok.plugins.ginger.model.auditdisp.write_to_conf')
+    @unittest.skipUnless(utils.running_as_root(), 'Must be run as root')
     def test_update(self, mock_write, mock_del):
         """
         Unit test to update data to audisp conf file.

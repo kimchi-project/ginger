@@ -1,7 +1,7 @@
 #
 # Project Ginger
 #
-# Copyright IBM Corp, 2016
+# Copyright IBM Corp, 2016-2017
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -19,6 +19,8 @@
 
 import mock
 import unittest
+
+import tests.utils as utils
 
 from wok.exception import NotFoundError
 from wok.plugins.ginger.model.audisp_plugins import PluginsModel, write_to_conf
@@ -41,6 +43,7 @@ class Audisp_PluginsTests(unittest.TestCase):
         out = audisp_plugins.get_list()
         self.assertIn(plugin, out)
 
+    @unittest.skipUnless(utils.running_as_root(), 'Must be run as root')
     def test_get_list_invalid_plugin(self):
         """
          Unittest to test invalid plugin in list of plugins.

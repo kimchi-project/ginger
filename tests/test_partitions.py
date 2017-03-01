@@ -1,7 +1,7 @@
 #
 # Project Ginger
 #
-# Copyright IBM Corp, 2015-2016
+# Copyright IBM Corp, 2015-2017
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -21,6 +21,8 @@ import mock
 import unittest
 import wok.plugins.ginger.model.diskparts as diskparts
 
+import tests.utils as utils
+
 from wok import config
 from wok.exception import MissingParameter, NotFoundError
 from wok.model.tasks import TaskModel
@@ -33,6 +35,7 @@ class PartitionTests(unittest.TestCase):
         self._objstore = ObjectStore(objstore_loc)
         self.task_model = TaskModel(objstore=self._objstore)
 
+    @unittest.skipUnless(utils.running_as_root(), 'Must be run as root')
     def test_get_part_list(self):
         parts = diskparts.PartitionsModel()
         parts_list = parts.get_list()
