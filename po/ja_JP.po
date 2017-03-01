@@ -1,12 +1,12 @@
 # English translations for Ginger package.
-# Copyright IBM Corp, 2015-2016
+# Copyright IBM Corp, 2015-2017
 # This file is distributed under the same license as the Ginger package.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Ginger 1.2.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-11-08 10:20-0200\n"
+"POT-Creation-Date: 2017-03-02 16:12-0300\n"
 "PO-Revision-Date: 2014-06-22 14:00+0800\n"
 "Last-Translator: Zhou Zheng Sheng <zhshzhou@linux.vnet.ibm.com>\n"
 "Language-Team: Zhou Zheng Sheng <zhshzhou@linux.vnet.ibm.com>\n"
@@ -16,129 +16,136 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 msgid " CHAP "
-msgstr ""
+msgstr " CHAP"
 
 msgid " None "
-msgstr ""
+msgstr " なし"
 
 msgid " Password "
-msgstr ""
+msgstr " パスワード"
 
 msgid " Type "
-msgstr ""
+msgstr " タイプ"
 
 msgid " Username "
-msgstr ""
+msgstr " ユーザー名 "
 
 msgid "!="
-msgstr ""
+msgstr "!="
 
 #, python-format
 msgid "%(mac)s is not a valid mac address."
-msgstr ""
+msgstr "%(mac)s は有効な MAC アドレスではありません。"
 
 #, python-format
 msgid "%(name)s is not valid network interface"
-msgstr ""
+msgstr "%(name)s は有効なネットワーク・インターフェースではありません"
 
 #, python-format
 msgid "%(sensor_type)s is not a valid sensor type"
-msgstr ""
+msgstr "%(sensor_type)s は有効なセンサー・タイプではありません"
+
+msgid "%1 device deleted successfully."
+msgstr "%1 個のデバイスを正常に削除しました。"
 
 msgid "&"
-msgstr ""
+msgstr "&"
 
 msgid "&="
-msgstr ""
+msgstr "&="
 
 msgid "&larr; Previous"
-msgstr ""
+msgstr "&larr; 前へ"
 
 #, python-format
 msgid "'%(key)s' value is missing."
-msgstr ""
+msgstr "「%(key)s」値がありません"
 
 msgid "'%1' deleted successfully."
-msgstr ""
+msgstr "「%1」が正常に削除されました。"
 
 msgid "'yes' or 'no' are the allowed values for the VLAN."
-msgstr ""
+msgstr "VLAN に許可されている値は「yes」または「no」です。"
 
 msgid "-b (backlog)"
-msgstr ""
+msgstr "-b (バックログ)"
 
 msgid "-f (flag/failure)"
-msgstr ""
+msgstr "-f (フラグ/障害)"
 
 msgid "-r (rate)"
-msgstr ""
+msgstr "-r (速度)"
 
 msgid "0"
-msgstr ""
+msgstr "0"
 
 msgid "1"
-msgstr ""
+msgstr "1"
 
 msgid "2"
-msgstr ""
+msgstr "2"
 
 msgid "<"
-msgstr ""
+msgstr "<"
 
 msgid "<="
-msgstr ""
+msgstr "<="
 
 msgid "="
-msgstr ""
+msgstr "="
 
 msgid ">"
-msgstr ""
+msgstr ">"
 
 msgid ">="
-msgstr ""
+msgstr ">="
 
 msgid ""
 "A VLAN slave cannot be configured on a bond with the fail_over_mac=follow "
 "option."
 msgstr ""
+"VLAN スレーブは fail_over_mac=follow オプションを使用した結合では構成できませ"
+"ん。"
 
 msgid "AVC Messages"
-msgstr ""
+msgstr "AVC メッセージ"
 
 msgid "Absolute File Path"
-msgstr ""
+msgstr "絶対ファイル・パス"
 
 msgid "Absolute path to firmware RPM"
-msgstr ""
+msgstr "ファームウェア RPM への絶対パス"
 
 msgid "Account Modification Report"
-msgstr ""
+msgstr "アカウント変更レポート"
 
 msgid "Action"
-msgstr ""
+msgstr "アクション"
 
 msgid "Action Mail"
-msgstr ""
+msgstr "アクション・メール"
 
 msgid "Actions"
-msgstr ""
+msgstr "アクション"
 
 msgid "Activate"
 msgstr "アクティブ化"
 
 #, python-format
 msgid "Activate host network interface '%(ident)s'"
-msgstr ""
+msgstr "ホスト・ネットワーク・インターフェース「%(ident)s」のアクティブ化"
 
 #, python-format
 msgid "Activate power saving profile '%(ident)s'"
-msgstr ""
+msgstr "省電力プロファイル「%(ident)s」のアクティブ化"
 
 #, python-format
 msgid ""
 "Activation of interface %(name)s failed. Physical cable is disconnected for "
 "the device '%(name)s'."
 msgstr ""
+"インターフェース %(name)s をアクティブ化できませんでした。デバイス"
+"「%(name)s」の物理ケーブルが切断されています。"
 
 #, python-format
 msgid ""
@@ -151,36 +158,38 @@ msgid ""
 "Activation of vlan/bond interface '%(name)s' failed. Please refresh and try "
 "again. "
 msgstr ""
+"vlan/結合インターフェース「%(name)s」をアクティブ化できませんでした。リフレッ"
+"シュして再試行してください。"
 
 msgid "Active"
-msgstr ""
+msgstr "アクティブ"
 
 msgid "Add"
-msgstr ""
+msgstr "追加"
 
 msgid "Add Adapter"
-msgstr ""
+msgstr "アダプターの追加"
 
 msgid "Add Bond"
-msgstr ""
+msgstr "結合の追加"
 
 msgid "Add Bridge"
-msgstr ""
+msgstr "ブリッジの追加"
 
 msgid "Add ECKD Device"
-msgstr ""
+msgstr "ECKD デバイスの追加"
 
 msgid "Add FCP Device"
-msgstr ""
+msgstr "FCP デバイスの追加"
 
 msgid "Add Interface"
-msgstr ""
+msgstr "インターフェースの追加"
 
 msgid "Add New Entry"
-msgstr ""
+msgstr "新規項目の追加"
 
 msgid "Add Server"
-msgstr ""
+msgstr "サーバーの追加"
 
 msgid "Add Subscription"
 msgstr "サブスクリプションの追加"
@@ -189,50 +198,50 @@ msgid "Add User"
 msgstr "ユーザーの追加"
 
 msgid "Add VLAN"
-msgstr ""
+msgstr "VLAN の追加"
 
 msgid "Add a Path"
-msgstr ""
+msgstr "パスの追加"
 
 #, python-format
 msgid "Add bonded port '%(bond)s' in OVS bridge '%(ident)s'"
-msgstr ""
+msgstr "OVS ブリッジ「%(ident)s」で結合ポート「%(bond)s」を追加"
 
 #, python-format
 msgid "Add interface '%(interface)s' to OVS bridge '%(ident)s'"
-msgstr ""
+msgstr "OVS ブリッジ「%(ident)s」にインターフェース「%(interface)s」を追加"
 
 #, python-format
 msgid "Add managed server '%(name)s'"
-msgstr ""
+msgstr "管理対象サーバー「%(name)s」の追加"
 
 msgid "Add new filter"
-msgstr ""
+msgstr "新規フィルターの追加"
 
 #, python-format
 msgid "Add physical volume '%(pv_name)s'"
-msgstr ""
+msgstr "物理ボリューム「%(pv_name)s」の追加"
 
 msgid "Add to VG"
-msgstr ""
+msgstr "VG への追加"
 
 msgid "Add to Volume Group"
-msgstr ""
+msgstr "ボリューム・グループへの追加"
 
 msgid "Address"
-msgstr ""
+msgstr "アドレス"
 
 msgid "Address Space"
-msgstr ""
+msgstr "アドレス・スペース"
 
 msgid "Addresses"
-msgstr ""
+msgstr "アドレス"
 
 msgid "Admin Space Left Action"
-msgstr ""
+msgstr "残された管理スペースのアクション"
 
 msgid "Admin Space Left(MBs)"
-msgstr ""
+msgstr "残された管理スペース (MB)"
 
 msgid "Administration"
 msgstr "管理"
@@ -241,342 +250,370 @@ msgid "Administrator"
 msgstr "管理者"
 
 msgid "Advanced"
-msgstr ""
+msgstr "拡張"
 
 msgid "Aliases"
-msgstr ""
+msgstr "エイリアス"
 
 msgid "Allocated PE"
-msgstr ""
+msgstr "割り振り済み PE"
 
 msgid "Allocated PE Size"
-msgstr ""
+msgstr "割り振り済み PE のサイズ"
 
 msgid "Allowed values for BONDING_MASTER are 'yes' or 'no'"
-msgstr ""
+msgstr "BONDING_MASTER の許可値は「yes」または「no」です"
 
 msgid "Always"
-msgstr ""
+msgstr "常時"
 
 msgid "Ambient"
-msgstr ""
+msgstr "周囲"
 
 msgid "Anomaly events Report"
-msgstr ""
+msgstr "例外イベント・レポート"
 
 msgid "Apply"
-msgstr ""
+msgstr "適用"
 
-msgid "Architecture [b32 | b34]"
-msgstr ""
+msgid "Architecture [b32 | b64]"
+msgstr "アーキテクチャー [b32 | b64]"
 
 #, python-format
 msgid "Archive creation task failed. \"%(err)s\"."
+msgstr "アーカイブ作成タスクが失敗しました。\"%(err)s\"."
+
+#, python-format
+msgid "Archive restore task failed. \"%(err)s\"."
 msgstr ""
 
 msgid "Are you sure you want to add the pv(s)  %1 <br>to volume group %2?"
-msgstr ""
+msgstr "pv %1 をボリューム・グループ %2 に追加<br>しますか?"
 
 msgid ""
-"Are you sure you want to create physical volues with the selected block "
+"Are you sure you want to create physical volumes with the selected block "
 "devices?"
-msgstr ""
+msgstr "選択したブロック・デバイスで物理ボリュームを作成しますか?"
 
 msgid ""
-"Are you sure you want to create physical volues with the selected partitions/"
-"block devices?"
+"Are you sure you want to create physical volumes with the selected "
+"partitions/block devices?"
 msgstr ""
+"選択したパーティション/ブロック・デバイスで物理ボリュームを作成しますか?"
 
 msgid "Are you sure you want to delete interface %1?"
-msgstr ""
+msgstr "インターフェース %1 を削除しますか?"
 
 msgid ""
 "Are you sure you want to delete interface %1? <br> This may affect network "
 "connectivity!"
 msgstr ""
+"インターフェース %1 を削除しますか? <br> この影響がネットワーク接続に及ぶ可能"
+"性があります。"
 
 msgid "Are you sure you want to delete server %1?"
-msgstr ""
+msgstr "サーバー %1 を削除しますか?"
 
-msgid "Are you sure you want to delete the selected file/device"
-msgstr ""
+msgid "Are you sure you want to delete the selected file/device?"
+msgstr "選択したファイル/デバイスを削除しますか?"
 
 msgid "Are you sure you want to delete this user?"
-msgstr ""
+msgstr "このユーザーを削除しますか?"
 
 msgid "Are you sure you want to delete volume group(s) : %1?"
-msgstr ""
+msgstr "ボリューム・グループ %1 を削除しますか?"
 
 msgid "Are you sure you want to power off server %1?"
-msgstr ""
+msgstr "サーバー %1 の電源をオフにしますか?"
 
 msgid "Are you sure you want to power on server %1?"
-msgstr ""
+msgstr "サーバー %1 の電源をオンにしますか?"
 
 msgid "Are you sure you want to remove selected devices?"
-msgstr ""
+msgstr "選択したデバイスを除去しますか?"
 
 msgid "Are you sure you want to remove the pv(s)  %1 <br>from volume group %2?"
-msgstr ""
+msgstr "pv %1 をボリューム・グループ %2 から除去<br>しますか?"
 
 msgid "Are you sure you want to unmount the selected file systems?"
-msgstr ""
+msgstr "選択したファイルシステムをアンマウントしますか?"
 
 msgid "Args"
-msgstr ""
+msgstr "引数"
+
+msgid "At least one permission is required for File System Rule."
+msgstr "少なくとも 1 つの許可がファイルシステム規則に必要です。"
 
 msgid "At least one slave is required for the bond interface"
-msgstr ""
+msgstr "結合インターフェースには少なくとも 1 つのスレーブが必要です"
 
 msgid "Audit Dispatcher"
-msgstr ""
+msgstr "監査ディスパッチャー"
 
 msgid "Audit Dispatcher Configuration"
-msgstr ""
+msgstr "監査ディスパッチャー構成"
 
 msgid "Audit Dispatcher disabled successfully."
-msgstr ""
+msgstr "監査ディスパッチャーは正常に使用不可になりました。"
 
 msgid "Audit Dispatcher enabled successfully."
-msgstr ""
+msgstr "監査ディスパッチャーは正常に使用可能になりました。"
 
 msgid "Audit Event ID"
-msgstr ""
+msgstr "監査イベント ID"
 
 msgid "Audit Log Filter"
-msgstr ""
+msgstr "監査ログ・フィルター"
 
 msgid "Audit Log filter applied and output is rendered below"
-msgstr ""
+msgstr "監査ログ・フィルターが適用されました。出力は以下のとおりです"
+
+msgid "Audit Log filter must be unique"
+msgstr "監査ログ・フィルターは固有でなければなりません"
 
 msgid "Audit Logs"
-msgstr ""
+msgstr "監査ログ"
 
 msgid "Audit Report"
-msgstr ""
+msgstr "監査レポート"
 
 msgid "Audit Report Type"
-msgstr ""
+msgstr "監査レポート・タイプ"
+
+msgid "Audit Report filter must be unique"
+msgstr "監査レポート・フィルターは固有でなければなりません"
 
 msgid "Audit Rule"
-msgstr ""
+msgstr "監査規則"
 
 msgid "Audit Rules"
-msgstr ""
+msgstr "監査規則"
 
 msgid "Audit dispatcher Configuration details updated successfully"
-msgstr ""
+msgstr "監査ディスパッチャー構成詳細が正常に更新されました"
 
 msgid "Audit dispatcher plugin %1 is updated successfully"
-msgstr ""
+msgstr "監査ディスパッチャー・プラグイン %1 は正常に更新されました"
 
 msgid "Auditd Configuration"
-msgstr ""
+msgstr "Auditd の構成"
 
 msgid "Auth"
-msgstr ""
+msgstr "認証"
 
 msgid "Authentication"
-msgstr ""
+msgstr "認証"
 
 msgid "Authentication Attempts"
-msgstr ""
+msgstr "認証の試行"
 
 msgid "Authors"
-msgstr ""
+msgstr "作成者"
 
 msgid "Automatic"
-msgstr ""
+msgstr "自動"
 
 msgid "Automatic(DHCP)"
-msgstr ""
+msgstr "自動 (DHCP)"
 
 msgid "Autostart"
-msgstr ""
+msgstr "自動開始"
 
 msgid "Available (MB)"
+msgstr "使用可能 (MB)"
+
+msgid ""
+"Available size on the disk can be lesser than the selectable size, due to "
+"some overhead or additional partitions available."
 msgstr ""
 
 msgid "BMP"
-msgstr ""
+msgstr "BMP"
 
 msgid "BOND"
-msgstr ""
+msgstr "結合"
 
 msgid "BOND interface name is missing or invalid"
-msgstr ""
+msgstr "結合インターフェース名が指定されていないか、または無効です"
 
 msgid "Basic information of interface is missing."
-msgstr ""
+msgstr "インターフェースの基本情報がありません。"
 
 msgid "Batch Delete"
 msgstr "バッチ削除"
 
 msgid "Blocking/Lossless"
-msgstr ""
+msgstr "ブロック/可逆"
 
 msgid "Bond %1 was successfully added"
-msgstr ""
+msgstr "結合 %1 は正常に追加されました"
 
 msgid "Bond %1 was successfully modified"
-msgstr ""
+msgstr "結合 %1 は正常に変更されました"
 
 msgid "Bond %1 was successfully removed"
-msgstr ""
+msgstr "結合 %1 は正常に除去されました"
 
 msgid "Bond Members"
-msgstr ""
+msgstr "結合メンバー"
 
 msgid "Bond info is missing."
-msgstr ""
+msgstr "結合情報がありません。"
 
 msgid "Bond name"
-msgstr ""
+msgstr "結合名"
 
 msgid "Bonding master is missing."
-msgstr ""
+msgstr "結合マスターがありません。"
 
 msgid "Bonds"
-msgstr ""
+msgstr "結合"
 
 msgid "Boot protocol is missing for ipv4 settings."
-msgstr ""
+msgstr "ipv4 設定のブート・プロトコルがありません。"
 
 msgid "Boot protocol is missing for ipv6 settings."
-msgstr ""
+msgstr "ipv6 設定のブート・プロトコルがありません。"
 
 #, python-format
 msgid "Bridge %(bridge)s does not have a bond named %(bond)s."
-msgstr ""
+msgstr "ブリッジ %(bridge)s に結合 %(bond)s はありません。"
 
 msgid "Bridge %1 was successfully removed"
-msgstr ""
+msgstr "ブリッジ %1 は正常に除去されました"
 
 msgid "Bridge Name"
-msgstr ""
+msgstr "ブリッジ名"
 
 msgid "Bring down interface"
-msgstr ""
+msgstr "インターフェースを停止する"
 
 msgid "Bring up interface"
-msgstr ""
+msgstr "インターフェースを起動する"
 
 msgid "Buffer Count"
-msgstr ""
+msgstr "バッファー・カウント"
 
 msgid "Bus ID"
-msgstr ""
+msgstr "バス ID"
 
 msgid "Bytes Received"
-msgstr ""
+msgstr "受信バイト"
 
 msgid "Bytes Transmitted"
-msgstr ""
+msgstr "送信バイト"
 
 msgid "CHAP"
-msgstr ""
+msgstr "CHAP"
 
 msgid "Can not delete Control Rule, since it is not persisted"
-msgstr ""
+msgstr "制御規則は永続規則ではないため削除できません"
 
 msgid "Can't edit the rule, because selected rule is not persisted"
-msgstr ""
+msgstr "選択された規則は永続規則ではないため編集できません"
 
 msgid "Cancel"
 msgstr "取消"
 
 msgid "Cannot delete System Event log for id "
-msgstr ""
+msgstr "ID のシステム・イベント・ログを削除できません"
 
 #, python-format
 msgid "Cannot process FRU Device information entry %(eachFru)s"
-msgstr ""
+msgstr "FRU デバイス情報項目 %(eachFru)s を処理できません"
 
 #, python-format
 msgid "Cannot process SDR entry %(sdrString)s"
-msgstr ""
+msgstr "SDR 項目 %(sdrString)s を処理できません"
 
 #, python-format
 msgid "Cannot process System Event Log entry %(selString)s"
-msgstr ""
+msgstr "システム・イベント・ログ項目 %(selString)s を処理できません"
 
 msgid "Cannot update system firmware while running VMs."
 msgstr "VM の稼働中はシステム・ファームウェアを更新できません。"
 
 msgid "Capacity"
-msgstr ""
+msgstr "容量"
 
 msgid "Capacity (MB)"
-msgstr ""
+msgstr "容量 (MB)"
 
 msgid "Cgroup"
-msgstr ""
+msgstr "Cgroup"
 
 msgid "Change"
-msgstr ""
+msgstr "変更"
 
 msgid "Change Password"
-msgstr ""
+msgstr "パスワードの変更"
 
 #, python-format
 msgid "Change password for user '%(ident)s'"
-msgstr ""
+msgstr "ユーザー「%(ident)s」のパスワードを変更"
 
 #, python-format
 msgid "Change type for partition failed. Error: %(err)s"
-msgstr ""
+msgstr "パーティションのタイプを変更できませんでした。エラー: %(err)s"
 
 msgid "Close"
-msgstr ""
+msgstr "クローズ"
 
 msgid "Command"
-msgstr ""
+msgstr "コマンド"
 
 msgid "Commands Run"
-msgstr ""
+msgstr "コマンド実行"
 
 msgid "Commit host firmware image from temp side to perm side"
 msgstr ""
+"一時サイドから永久サイドにホスト・ファームウェア・イメージをコミットする"
 
 msgid "Community"
 msgstr "コミュニティー"
 
 #, python-format
 msgid "Conf file does not exist for the plugin: %(name)s"
-msgstr ""
+msgstr "プラグインの構成ファイルが存在しません: %(name)s"
 
 msgid "Config Backup has been successfully created."
+msgstr "構成バックアップが正常に作成されました。"
+
+msgid "Config Backup has been successfully restored."
 msgstr ""
 
 msgid "Config Change Report"
-msgstr ""
+msgstr "構成変更レポート"
 
 msgid "Configuration Backup"
 msgstr "構成バックアップ"
 
 msgid "Configuration updated successfully"
-msgstr ""
+msgstr "構成が正常に更新されました"
+
+msgid "Configure Audit"
+msgstr "監査の構成"
 
 msgid "Configured successfully"
-msgstr ""
+msgstr "正常に構成されました"
 
 msgid "Confirm Password"
 msgstr "確認パスワード"
 
 msgid "Confirm changes on host network configuration"
-msgstr ""
+msgstr "ホスト・ネットワーク構成に関する変更を確認"
 
 msgid "Connect Automatically"
-msgstr ""
+msgstr "自動的に接続"
 
 msgid "Control Rule"
-msgstr ""
+msgstr "制御規則"
 
 msgid "Control Rules can not be unloaded"
-msgstr ""
+msgstr "制御規則をアンロードできません"
 
 msgid "Cores"
-msgstr ""
+msgstr "コア"
 
 #, python-format
 msgid "Could not add user '%(user)s' to kvm group."
@@ -585,176 +622,181 @@ msgstr "ユーザー「%(user)s」を kvm グループに追加できません�
 #, python-format
 msgid "Could not add user '%(user)s' to sudoers list, error: '%(err)s'."
 msgstr ""
+"ユーザー「%(user)s」を sudoers リストに追加できませんでした。エラー: "
+"「%(err)s」。"
 
 msgid "Create"
-msgstr ""
+msgstr "作成"
 
 #, python-format
 msgid "Create DASD partition on '%(dev_name)s' with size %(size)s"
-msgstr ""
+msgstr "DASD パーティションを「%(dev_name)s」上にサイズ %(size)s で作成"
 
 #, python-format
 msgid "Create OVS bridge '%(name)s'"
-msgstr ""
+msgstr "OVS ブリッジ「%(name)s」の作成"
 
 msgid "Create Partition"
-msgstr ""
+msgstr "パーティションの作成"
 
 msgid "Create Physical Volumes"
-msgstr ""
+msgstr "物理ボリュームの作成"
 
 msgid "Create a backup"
 msgstr "バックアップの作成"
 
 msgid "Create a new PV"
-msgstr ""
+msgstr "新規 PV の作成"
 
 msgid "Create a new volume group"
-msgstr ""
+msgstr "新規ボリューム・グループの作成"
 
 #, python-format
 msgid "Create archive with description '%(description)s'"
-msgstr ""
-
-#, python-format
-msgid "Create audit rule '%(rule)s' type '%(type)s'"
-msgstr ""
+msgstr "説明「%(description)s」を持つアーカイブを作成"
 
 msgid "Create configuration file for network interface"
-msgstr ""
+msgstr "ネットワーク・インターフェースの構成ファイルを作成"
 
 #, python-format
 msgid "Create disk partition at '%(devname)s' with size %(partsize)s"
-msgstr ""
+msgstr "ディスク・パーティションを「%(devname)s」にサイズ %(partsize)s で作成"
 
 #, python-format
 msgid "Create host volume group '%(vg_name)s'"
-msgstr ""
+msgstr "ホスト・ボリューム・グループ「%(vg_name)s」の作成"
 
 #, python-format
 msgid "Create logical volume at volume group '%(vg_name)s'"
-msgstr ""
+msgstr "ボリューム・グループ「%(vg_name)s」に論理ボリュームを作成"
 
 #, python-format
 msgid "Create partition failed. Error: %(err)s"
-msgstr ""
+msgstr "パーティションを作成できませんでした。エラー: %(err)s"
 
 msgid "Create physical volumes : Block Devices"
-msgstr ""
+msgstr "物理ボリュームの作成: ブロック・デバイス"
 
 #, python-format
 msgid "Create swap device '%(file_loc)s'"
-msgstr ""
+msgstr "スワップ・デバイス「%(file_loc)s」の作成"
 
 #, python-format
 msgid "Create user '%(name)s'"
-msgstr ""
+msgstr "ユーザー「%(name)s」の作成"
 
 #, python-format
-msgid "Created the rule '%(name)s'"
-msgstr ""
+msgid "Created the rule of type: '%(type)s'"
+msgstr "タイプ「%(type)s」の規則が作成されました"
 
 msgid "Creating ..."
-msgstr ""
+msgstr "作成中 ..."
 
 #, python-format
 msgid "Creation of a rule failed. '%(error)s'."
-msgstr ""
+msgstr "規則を作成できませんでした。'%(error)s'."
 
 msgid "Crypto Report"
-msgstr ""
+msgstr "暗号レポート"
 
 msgid "Current LV"
-msgstr ""
+msgstr "現行 LV"
 
 msgid "Current PV"
-msgstr ""
+msgstr "現行 PV"
 
 msgid "Currently logged user of this session is not allowed to be deleted."
-msgstr ""
+msgstr "このセッションの現行ログオン・ユーザーは削除できません。"
 
 msgid "Custom Load"
-msgstr ""
+msgstr "カスタム・ロード"
 
 #, python-format
 msgid "DASD device %(name)s not found"
-msgstr ""
+msgstr "DASD デバイス %(name)s が見つかりません"
 
 msgid "DNS"
 msgstr "DNS"
 
 msgid "DNS Server"
-msgstr ""
+msgstr "DNS サーバー"
 
 msgid "Data"
-msgstr ""
+msgstr "データ"
 
 msgid "Date and Time"
-msgstr ""
+msgstr "日付および時刻"
 
 #, python-format
 msgid "Deactivate host network interface '%(ident)s'"
-msgstr ""
+msgstr "ホスト・ネットワーク・インターフェース「%(ident)s」の非アクティブ化"
 
 msgid "Debug"
-msgstr ""
+msgstr "デバッグ"
 
 msgid "Decisecond"
-msgstr ""
+msgstr "10 分の 1 秒"
 
 msgid "Default Gateway"
-msgstr ""
+msgstr "デフォルト・ゲートウェイ"
 
 msgid "Delete"
-msgstr ""
+msgstr "削除"
 
 msgid "Delete Backups in Batch"
-msgstr ""
+msgstr "バッチでバックアップを削除"
 
 #, python-format
 msgid "Delete IQN '%(ident)s'"
-msgstr ""
+msgstr "IQN「%(ident)s」の削除"
 
 msgid "Delete Partition"
-msgstr ""
+msgstr "パーティションの削除"
 
 #, python-format
 msgid "Delete System Event Log entry '%(ident)s'"
-msgstr ""
+msgstr "システム・イベント・ログ項目「%(ident)s」の削除"
+
+msgid "Delete all rules"
+msgstr "すべての規則を削除"
 
 #, python-format
 msgid "Delete audit rule '%(ident)s'"
-msgstr ""
+msgstr "監査規則「%(ident)s」の削除"
 
 msgid "Delete interface"
-msgstr ""
+msgstr "インターフェースの削除"
 
 #, python-format
 msgid "Delete partition failed. Error: %(err)s"
-msgstr ""
+msgstr "パーティションを削除できませんでした。エラー: %(err)s"
 
 #, python-format
 msgid "Delete swap device '%(ident)s'"
-msgstr ""
+msgstr "スワップ・デバイス「%(ident)s」の削除"
 
 #, python-format
 msgid "Delete user '%(ident)s'"
-msgstr ""
+msgstr "ユーザー「%(ident)s」の削除"
 
 #, python-format
 msgid ""
 "Deletion is not supported for group found in '/etc/sudoers' file. Group: "
 "%(group)s"
 msgstr ""
+"「/etc/sudoers」ファイルにあるグループに関して削除はサポートされていません。"
+"グループ: %(group)s"
 
 #, python-format
 msgid ""
 "Deletion is not supported for users found in '/etc/sudoers' file. User: "
 "%(user)s"
 msgstr ""
+"「/etc/sudoers」ファイルにあるユーザーに関して削除はサポートされていません。"
+"ユーザー: %(user)s"
 
 msgid "Depends On"
-msgstr ""
+msgstr "依存先"
 
 msgid "Description"
 msgstr "説明"
@@ -763,245 +805,268 @@ msgid "Description too long."
 msgstr "説明が長すぎます。"
 
 msgid "Detach"
-msgstr ""
+msgstr "切り離し"
 
 msgid "Detailed Report"
-msgstr ""
+msgstr "詳細レポート"
 
 msgid "Details"
-msgstr ""
+msgstr "詳細"
 
 msgid "Device"
-msgstr ""
+msgstr "デバイス"
 
 msgid "Device Major Number"
-msgstr ""
+msgstr "デバイス・メジャー番号"
 
 msgid "Device Minor Number"
-msgstr ""
+msgstr "デバイス・マイナー番号"
 
 msgid "Device Name"
-msgstr ""
+msgstr "デバイス名"
 
 msgid "Device added successfully to Volume Group"
-msgstr ""
+msgstr "ボリューム・グループにデバイスが正常に追加されました"
 
 msgid "Device name is invalid."
-msgstr ""
+msgstr "デバイス名が無効です。"
 
 msgid "Device name of interface is missing or invalid."
-msgstr ""
+msgstr "インターフェースのデバイス名が指定されていないか、または無効です。"
 
 msgid "Device removed from Volume Group"
-msgstr ""
+msgstr "ボリューム・グループからデバイスが除去されました"
 
 msgid "Direction"
-msgstr ""
+msgstr "方向"
 
 msgid "Directory"
-msgstr ""
+msgstr "ディレクトリー"
 
 msgid "Disable"
-msgstr ""
+msgstr "使用不可"
 
 msgid "Disable SR-IOV"
-msgstr ""
+msgstr "SR-IOV を使用不可にする"
 
 #, python-format
 msgid "Disabled audit dispatcher in conf file '%(ident)s'"
 msgstr ""
+"構成ファイル「%(ident)s」において使用不可になっている監査ディスパッチャー"
 
 #, python-format
 msgid "Disabled autostart of service '%(ident)s'"
-msgstr ""
+msgstr "サービス「%(ident)s」の無効化された自動開始"
 
 msgid "Discard old archives"
-msgstr ""
+msgstr "古いアーカイブを破棄"
 
 msgid "Discover Targets"
-msgstr ""
+msgstr "ターゲットのディスカバー"
 
 msgid "Discovery Initiator"
-msgstr ""
+msgstr "ディスカバリー・イニシエーター"
 
 msgid "Discovery Target"
-msgstr ""
+msgstr "ディスカバリー・ターゲット"
 
 msgid "Discovery completed successfully"
-msgstr ""
+msgstr "ディスカバリーが正常に完了しました"
 
 msgid "Disk Error Action"
-msgstr ""
+msgstr "ディスク・エラー・アクション"
 
 msgid "Disk Full Action"
-msgstr ""
+msgstr "ディスク・フル・アクション"
 
 msgid "Disp_qos"
-msgstr ""
+msgstr "Disp_qos"
 
 msgid "Dispatcher"
-msgstr ""
+msgstr "ディスパッチャー"
 
 msgid "Dispatcher Path"
-msgstr ""
+msgstr "ディスパッチャー・パス"
 
 msgid "Dispatcher Plugin Configuration"
-msgstr ""
+msgstr "ディスパッチャー・プラグイン構成"
 
 msgid "Distribute Network"
-msgstr ""
+msgstr "ネットワークの分散"
 
 msgid "Do you want to delete following rules ?"
-msgstr ""
+msgstr "次の規則を削除しますか?"
 
 msgid "Do you want to delete the partition?"
-msgstr ""
+msgstr "パーティションを削除しますか?"
 
 msgid "Do you want to format the selected ECKD device(s)?"
-msgstr ""
+msgstr "選択した ECKD デバイスをフォーマットしますか?"
 
 msgid ""
 "Do you want to format the selected ECKD device(s)? Non-ECKD device(s) which "
 "will be skipped i.e. not be formatted!"
 msgstr ""
+"選択した ECKD デバイスをフォーマットしますか? ECKD デバイス以外はスキップされ"
+"ます (つまり、フォーマットされません)。"
 
 msgid "Do you want to load following rules ?"
-msgstr ""
+msgstr "次の規則をロードしますか?"
 
 msgid "Do you want to persist following rules ?"
-msgstr ""
+msgstr "次の規則を永続化しますか?"
 
 msgid "Do you want to proceed login for selected devices?"
-msgstr ""
+msgstr "選択したデバイスに対してログインを続行しますか?"
 
 msgid "Do you want to proceed logout for selected devices?"
-msgstr ""
+msgstr "選択したデバイスに対してログアウトを続行しますか?"
 
 msgid "Do you want to remove the device from VG?"
-msgstr ""
+msgstr "このデバイスを VG から除去しますか?"
 
 msgid "Do you want to remove the selected Storage device(s)?"
-msgstr ""
+msgstr "選択したストレージ・デバイスを除去しますか?"
 
 msgid "Do you want to unload following rules ?"
-msgstr ""
+msgstr "次の規則をアンロードしますか?"
 
 msgid "Done"
-msgstr ""
+msgstr "完了"
 
 msgid "Down"
-msgstr ""
+msgstr "ダウン"
 
 msgid "Download"
-msgstr ""
+msgstr "ダウンロード"
 
 msgid "Edit"
-msgstr ""
+msgstr "編集"
 
 msgid "Edit Bridge"
-msgstr ""
+msgstr "ブリッジの編集"
 
 msgid "Edit Bridge:"
-msgstr ""
+msgstr "ブリッジの編集:"
 
 msgid "Edit Rule"
-msgstr ""
+msgstr "規則の編集"
 
 msgid "Effectice user ID"
-msgstr ""
+msgstr "実効ユーザー ID"
 
 msgid "Effective Group ID"
-msgstr ""
+msgstr "実効グループ ID"
 
 msgid ""
 "Either no network interface or multiple network interfaces selected. Please "
 "select one."
 msgstr ""
+"ネットワーク・インターフェースが選択されていないか、または複数のネットワー"
+"ク・インターフェースが選択されています。いずれか 1 つを選択してください。"
 
 msgid ""
 "Either no server or multiple server information selected. Please select one."
 msgstr ""
+"サーバー情報が選択されていないか、または複数のサーバー情報が選択されました。"
+"いずれか 1 つを選択してください。"
 
 msgid "Enable"
-msgstr ""
+msgstr "使用可能"
 
 msgid "Enable Bridge Port"
-msgstr ""
+msgstr "ブリッジ・ポートを使用可能にする"
 
 msgid "Enable IPv4 Default Route"
-msgstr ""
+msgstr "IPv4 デフォルト経路を使用可能にする"
 
 msgid "Enable IPv6 Default Route"
-msgstr ""
+msgstr "IPv6 デフォルト経路を使用可能にする"
 
 msgid "Enable Krb5"
-msgstr ""
+msgstr "Krb5 を使用可能にする"
 
 msgid "Enable SR-IOV"
-msgstr ""
+msgstr "SR-IOV を使用可能にする"
 
 msgid "Enable SR-IOV Progress"
-msgstr ""
+msgstr "SR-IOV の進行を有効にする"
 
 #, python-format
 msgid "Enable SR-IOV feature for network interface '%(ident)s'"
 msgstr ""
+"ネットワーク・インターフェース「%(ident)s」に対して SR-IOV 機能を使用可能にす"
+"る"
 
 msgid "Enable SR-IOV for"
-msgstr ""
+msgstr "SR-IOV を使用可能にする"
 
 #, python-format
 msgid "Enabled autostart of service '%(ident)s'"
+msgstr "サービス「%(ident)s」の自動開始が有効になりました"
+
+msgid ""
+"Enables(1) and disables(0) the Audit system or locks(2) its configuration"
 msgstr ""
+"監査システムを使用可能(1)/使用不可(0)にするか、またはその構成をロック(2)"
 
 msgid "Enriched"
-msgstr ""
+msgstr "整形"
 
 msgid "Enter Filter Value"
-msgstr ""
+msgstr "フィルター値の入力"
 
 msgid "Enter Name"
-msgstr ""
+msgstr "名前の入力"
 
 msgid "Enter file name with path (Ex: path/filename"
-msgstr ""
+msgstr "ファイル名をパス付きで入力 (例: path/filename"
 
 msgid "Equivalent to enabling promiscuous mode on regular Ethernet adapters"
 msgstr ""
+"通常のイーサネット・アダプターでプロミスキャス・モードを有効にすることと同様"
 
 #, python-format
 msgid "Error activating power saving profile %(profile)s, error: %(err)s."
 msgstr ""
+"省電力プロファイル %(profile)s をアクティブ化するときにエラーが発生しました。"
+"エラー: %(err)s。"
 
 #, python-format
 msgid "Error adding port %(port)s in bridge %(name)s. Port already exists."
 msgstr ""
+"ブリッジ %(name)s でポート %(port)s を追加するときにエラーが発生しました。そ"
+"のポートは既に存在しています。"
 
 #, python-format
 msgid ""
 "Error commiting firmware. rc = %(rc)s. Ensure you are booted to the "
 "temporary side."
 msgstr ""
+"ファームウェアをコミットするときにエラーが発生しました。rc = %(rc)s。一時サイ"
+"ドにブートされていることを確認してください。"
 
 #, python-format
 msgid "Error creating OVS bridge %(name)s. OVS bridge already exists."
 msgstr ""
+"OVS ブリッジ %(name)s を作成するときにエラーが発生しました。この OVS ブリッジ"
+"は既に存在しています。"
 
 #, python-format
 msgid "Error creating a flat file. %(err)s"
-msgstr ""
+msgstr "フラット・ファイルを作成するときにエラーが発生しました: %(err)s"
 
 #, python-format
 msgid "Error creating a swap device. %(err)s "
-msgstr ""
+msgstr "スワップ・デバイスを作成するときにエラーが発生しました: %(err)s "
 
 #, python-format
 msgid "Error deleting a swap device. %(err)s"
-msgstr ""
+msgstr "スワップ・デバイスを削除するときにエラーが発生しました: %(err)s"
 
 #, python-format
 msgid "Error deleting a swap file: %(err)s"
-msgstr ""
+msgstr "スワップ・ファイルを削除するときにエラーが発生しました: %(err)s"
 
 #, python-format
 msgid "Error deleting subscription: '%(error)s'."
@@ -1010,140 +1075,165 @@ msgstr ""
 
 #, python-format
 msgid "Error executing 'ls -l /dev/disk/by-id, %(err)s"
-msgstr ""
+msgstr "「ls -l /dev/disk/by-id」を実行するときにエラーが発生しました: %(err)s"
 
 #, python-format
 msgid "Error executing 'lsblk -Po, %(err)s"
-msgstr ""
+msgstr "「lsblk -Po」を実行するときにエラーが発生しました: %(err)s"
 
 #, python-format
 msgid "Error executing 'lvm version' command. %(err)s"
-msgstr ""
+msgstr "「lvm version」コマンドを実行するときにエラーが発生しました: %(err)s"
 
 msgid ""
 "Error executing OVS command. Please check if 'openvswitch' service is "
 "running."
 msgstr ""
+"OVS コマンドを実行するときにエラーが発生しました。「openvswitch」サービスが実"
+"行されていることを確認してください。"
 
 #, python-format
 msgid "Error executing OVS command: %(err)s"
-msgstr ""
+msgstr "OVS コマンドを実行するときにエラーが発生しました: %(err)s"
 
 #, python-format
 msgid "Error executing SystemD command %(cmd)s, reason: %(err)s"
 msgstr ""
+"SystemD コマンド %(cmd)s を実行するときにエラーが発生しました。理由: %(err)s"
 
 #, python-format
 msgid "Error executing command to rescan the IQN %(iqn)s - %(err)s"
 msgstr ""
+"IQN %(iqn)s を再スキャンするコマンドを実行するときにエラーが発生しました - "
+"%(err)s"
 
 #, python-format
 msgid "Error executing iSCSI target discovery command - %(err)s"
 msgstr ""
+"iSCSI ターゲット・ディスカバリー・コマンドを実行するときにエラーが発生しまし"
+"た - %(err)s"
 
 #, python-format
 msgid "Error fetching NFS shares for server %(name)s."
 msgstr ""
+"サーバー %(name)s の NFS シェアをフェッチするときにエラーが発生しました。"
 
 #, python-format
 msgid "Error fetching info of module %(module)s, reason: %(err)s"
 msgstr ""
+"モジュール %(module)s の情報をフェッチするときにエラーが発生しました。理由: "
+"%(err)s"
 
 #, python-format
 msgid "Error flashing firmware: %(error)s"
-msgstr ""
+msgstr "ファームウェアを消去するときにエラーが発生しました: %(error)s"
 
 #, python-format
 msgid "Error getting bus id of DASD device, %(err)s"
-msgstr ""
+msgstr "DASD デバイスのバス ID を取得するときにエラーが発生しました: %(err)s"
 
 #, python-format
 msgid "Error getting information from ifcfg file: '%(error)s'."
 msgstr ""
+"ifcfg ファイルから情報を取得するときにエラーが発生しました: 「%(error)s」。"
 
 #, python-format
 msgid "Error getting list of storage devices, %(err)s"
 msgstr ""
+"ストレージ・デバイスのリストを取得するときにエラーが発生しました: %(err)s"
 
 #, python-format
 msgid "Error getting loaded module list: %(err)s"
 msgstr ""
+"ロードされたモジュール・リストを取得するときにエラーが発生しました: %(err)s"
 
 #, python-format
 msgid "Error getting the auth info for IQN %(iqn)s - %(err)s"
-msgstr ""
+msgstr "IQN %(iqn)s の認証情報を取得するときにエラーが発生しました - %(err)s"
 
 #, python-format
 msgid "Error getting the global iSCSI auth info - %(err)s"
 msgstr ""
+"グローバル iSCSI 認証情報を取得するときにエラーが発生しました - %(err)s"
 
 #, python-format
 msgid "Error in deleting iSCSI QN %(iqn)s from iscsiadm db - %(err)s"
 msgstr ""
+"iscsiadm db から iSCSI QN %(iqn)s を削除するときにエラーが発生しました - "
+"%(err)s"
 
 #, python-format
 msgid "Error in determining iSCSI QN %(iqn)s logged in status - %(err)s"
 msgstr ""
+"iSCSI QN %(iqn)s ログイン状況を判別するときにエラーが発生しました - %(err)s"
 
 msgid "Error in disabling the audit dispatcher. "
-msgstr ""
+msgstr "監査ディスパッチャーを使用不可にするときにエラーが発生しました。"
 
 msgid "Error in enabling the audit dispatcher. "
-msgstr ""
+msgstr "監査ディスパッチャーを使用可能にするときにエラーが発生しました。 "
 
 msgid "Error in executing 'df -hT' command"
-msgstr ""
+msgstr "「df -hT」コマンドを実行するときにエラーが発生しました"
 
 #, python-format
 msgid "Error in executing 'lscss -d' command : %(err)s"
-msgstr ""
+msgstr "「lscss -d」コマンドを実行するときにエラーが発生しました: %(err)s"
 
 #, python-format
 msgid "Error in executing 'lsdasd -l bus_id' command: %(err)s"
 msgstr ""
+"「lsdasd -l bus_id」コマンドを実行するときにエラーが発生しました: %(err)s"
 
 #, python-format
 msgid "Error in executing 'lsdasd -l' command: %(err)s"
-msgstr ""
+msgstr "「lsdasd -l」コマンドを実行するときにエラーが発生しました: %(err)s"
 
 #, python-format
 msgid "Error in executing auditctl command '%(name)s'."
-msgstr ""
+msgstr "auditctl コマンド「%(name)s」を実行するときにエラーが発生しました。"
 
 #, python-format
 msgid "Error in listing pre-discovered iSCSI targets - %(err)s"
 msgstr ""
+"事前にディスカバーされた iSCSI ターゲットをリストするときにエラーが発生しまし"
+"た - %(err)s"
 
 #, python-format
 msgid "Error in logging onto iSCSI QN %(iqn)s - %(err)s"
-msgstr ""
+msgstr "iSCSI QN %(iqn)s にログオンするときにエラーが発生しました - %(err)s"
 
 #, python-format
 msgid "Error in logging out of iSCSI QN %(iqn)s - %(err)s"
 msgstr ""
+"iSCSI QN %(iqn)s からログアウトするときにエラーが発生しました - %(err)s"
 
 #, python-format
 msgid ""
 "Error in modifying iSCSI parameter %(parameter)s with value %(value)s - "
 "%(err)s"
 msgstr ""
+"値 %(value)s が指定された iSCSI パラメーター %(parameter)s を変更するときにエ"
+"ラーが発生しました - %(err)s"
 
 #, python-format
 msgid "Error in parsing 'lscss -d' command : %(err)s"
-msgstr ""
+msgstr "「lscss -d」コマンドを構文解析するときにエラーが発生しました: %(err)s"
 
 msgid "Error in retrieving the audit conf file details. "
-msgstr ""
+msgstr "監査構成ファイル詳細を取得するときにエラーが発生しました。"
 
 msgid "Error in retrieving the info for the audit dispatcher conf file."
 msgstr ""
+"監査ディスパッチャー構成ファイルに関する情報を取得するときにエラーが発生しま"
+"した。"
 
 #, python-format
 msgid "Error in the mlx5_SRIOV_enable task: %(err)s"
-msgstr ""
+msgstr "mlx5_SRIOV_enable タスクでエラーが発生しました: %(err)s"
 
 msgid "Error in updating the audit conf file details. "
-msgstr ""
+msgstr "監査構成ファイル詳細を更新するときにエラーが発生しました。"
 
 msgid "Error loading SEP subscriptions data from server."
 msgstr ""
@@ -1153,116 +1243,139 @@ msgstr ""
 #, python-format
 msgid "Error loading module %(module)s, reason: %(err)s"
 msgstr ""
+"モジュール %(module)s をロードするときにエラーが発生しました。理由: %(err)s"
 
 #, python-format
 msgid "Error occured in deleting from the file %(name)s."
-msgstr ""
+msgstr "ファイル %(name)s から削除を行うときにエラーが発生しました。"
 
 #, python-format
 msgid "Error occured in retrieving the info for the plugin %(name)s."
-msgstr ""
+msgstr "プラグイン %(name)s に関する情報を取得するときにエラーが発生しました。"
 
 #, python-format
 msgid "Error occured in updating data in the file %(name)s."
-msgstr ""
+msgstr "ファイル %(name)s にあるデータを更新するときにエラーが発生しました。"
 
 #, python-format
 msgid "Error occured in writing to the file %(name)s."
-msgstr ""
+msgstr "ファイル %(name)s に書き込みを行うときにエラーが発生しました。"
 
 #, python-format
 msgid "Error occurred  while deleting the rule. %(err)s"
-msgstr ""
+msgstr "規則を削除するときにエラーが発生しました。%(err)s"
 
 #, python-format
 msgid "Error occurred in fetching audit rule info. %(error)s"
-msgstr ""
+msgstr "監査規則情報をフェッチするときにエラーが発生しました。%(error)s"
 
 #, python-format
 msgid "Error occurred in fetching filesystem rule info. %(error)s"
 msgstr ""
+"ファイルシステム規則情報をフェッチするときにエラーが発生しました。%(error)s"
 
 #, python-format
 msgid "Error occurred in fetching system rule info. %(error)s"
-msgstr ""
+msgstr "システム規則情報をフェッチするときにエラーが発生しました。%(error)s"
 
 msgid "Error occurred in fetching the logs."
-msgstr ""
+msgstr "ログをフェッチするときにエラーが発生しました。"
 
 msgid "Error occurred in getting the filtered logs."
-msgstr ""
+msgstr "フィルタリングされたログを取得するときにエラーが発生しました。"
 
 msgid "Error occurred in getting the reports."
-msgstr ""
+msgstr "レポートを取得するときにエラーが発生しました。"
 
 msgid "Error occurred in getting the unfiltered logs."
-msgstr ""
+msgstr "フィルタリングされていないログを取得するときにエラーが発生しました。"
 
 #, python-format
-msgid "Error occurred in graph creation: '%(error)s"
-msgstr ""
+msgid "Error occurred in graph creation: '%(error)s'"
+msgstr "グラフの作成中にエラーが発生しました: 「%(error)s」"
 
-msgid "Error occurred in loading predefined rules."
-msgstr ""
+#, python-format
+msgid "Error occurred in loading predefined rules: '%(Error)s'"
+msgstr "事前定義規則のロード中にエラーが発生しました: 「%(Error)s」"
 
 #, python-format
 msgid "Error occurred in modifying the rule '%(name)s'."
-msgstr ""
+msgstr "規則「%(name)s」を変更するときにエラーが発生しました。"
 
 msgid "Error occurred in rendering the graph. "
-msgstr ""
+msgstr "グラフを描画するときにエラーが発生しました。"
+
+#, python-format
+msgid "Error occurred in searching the audit log: '%(error)s'"
+msgstr "監査ログの検索中にエラーが発生しました: 「%(error)s」"
 
 #, python-format
 msgid "Error occurred in unload operation of rule '%(name)s' ."
-msgstr ""
+msgstr "規則「%(name)s」のアンロード操作でエラーが発生しました。"
+
+#, python-format
+msgid "Error occurred while generating report: '%(error)s'"
+msgstr "レポートの生成中にエラーが発生しました: 「%(error)s」"
 
 #, python-format
 msgid "Error occurred while writing rule into audit.rules: %(err)s"
-msgstr ""
+msgstr "audit.rules に規則を書き込むときにエラーが発生しました: %(err)s"
 
 #, python-format
 msgid "Error parsing 'ls -l /dev/disk/by-id', %(err)s"
 msgstr ""
+"「ls -l /dev/disk/by-id」を構文解析するときにエラーが発生しました: %(err)s"
 
 #, python-format
 msgid "Error parsing 'lsblk -Po', %(err)s"
-msgstr ""
+msgstr "「lsblk -Po」を構文解析するときにエラーが発生しました: %(err)s"
 
 #, python-format
 msgid "Error parsing /proc/swaps file. %(err)s"
-msgstr ""
+msgstr "/proc/swaps ファイルを解析するときにエラーが発生しました。%(err)s"
 
 #, python-format
 msgid "Error parsing iSCSI target discovery command - %(err)s"
 msgstr ""
+"iSCSI ターゲット・ディスカバリー・コマンドを構文解析するときにエラーが発生し"
+"ました - %(err)s"
 
 #, python-format
 msgid "Error parsing output of 'lvm version' command: %(err)s"
 msgstr ""
+"「lvm version」コマンドの出力を解析するときにエラーが発生しました: %(err)s"
 
 #, python-format
 msgid "Error parsing session directory name %(session)s - %(err)s"
 msgstr ""
+"セッション・ディレクトリー名 %(session)s を解析するときにエラーが発生しまし"
+"た - %(err)s"
 
 #, python-format
 msgid ""
 "Error parsing the output of iscsiadm discovery cmd - %(err)s. iscsiadm "
 "discovery Output - %(output)s"
 msgstr ""
+"iscsiadm ディスカバリー・コマンドの出力を解析するときにエラーが発生しました "
+"- %(err)s。iscsiadm ディスカバリー出力 - %(output)s"
 
 #, python-format
 msgid "Error reducing volume group : %(err)s"
-msgstr ""
+msgstr "ボリューム・グループを削減するときにエラーが発生しました: %(err)s"
 
 #, python-format
 msgid ""
 "Error rejecting firmware. rc = %(rc)s. Ensure you are booted to the "
 "permanent side."
 msgstr ""
+"ファームウェアをリジェクトするときにエラーが発生しました。rc = %(rc)s。永久サ"
+"イドにブートされていることを確認してください。"
 
 #, python-format
 msgid "Error retrieving OVS bridge %(name)s. OVS bridge does not exist."
 msgstr ""
+"OVS ブリッジ %(name)s を取得するときにエラーが発生しました。OVS ブリッジは存"
+"在していません。"
 
 #, python-format
 msgid "Error retrieving SEP subscribers data: '%(error)s'."
@@ -1273,6 +1386,7 @@ msgstr ""
 #, python-format
 msgid "Error retrieving information of partition %(name)s : %(err)s"
 msgstr ""
+"パーティション %(name)s の情報を取得するときにエラーが発生しました: %(err)s"
 
 #, python-format
 msgid "Error starting SEP service: '%(error)s'."
@@ -1291,12 +1405,16 @@ msgstr ""
 #, python-format
 msgid "Error unloading module %(module)s, reason: %(err)s"
 msgstr ""
+"モジュール %(module)s をアンロードするときにエラーが発生しました。理由: "
+"%(err)s"
 
 #, python-format
 msgid ""
 "Error updating iscsiadm db key %(db_key)s for IQN %(iqn)s with error - "
 "%(err)s"
 msgstr ""
+"IQN %(iqn)s の iscsiadm db key %(db_key)s を更新するときにエラーが発生しまし"
+"た - %(err)s"
 
 #, python-format
 msgid ""
@@ -1304,80 +1422,87 @@ msgid ""
 "or Host Name %(ipaddr)s. Please check the server details and retry the "
 "operation."
 msgstr ""
+"名前 %(name)s および IP アドレス/ホスト名 %(ipaddr)s のサーバーの状況を取得す"
+"るときにエラーが発生しました。サーバーの詳細を調べて、操作を再試行してくださ"
+"い。"
 
 #, python-format
 msgid "Error while searching the active session for IQN %(iqn)s - %(err)s"
 msgstr ""
+"アクティブ・セッションにおいて IQN %(iqn)s を検索しているときにエラーが発生し"
+"ました - %(err)s"
 
 msgid ""
 "Error: openib.conf file does not exist in the host. Unable to set SR-IOV "
 "boot script."
 msgstr ""
+"エラー: openib.conf ファイルがホストに存在しません。SR-IOV ブート・スクリプト"
+"を設定できません。"
 
 msgid "Errors Received"
-msgstr ""
+msgstr "エラーが受信されました"
 
 msgid "Errors Transmitted"
-msgstr ""
+msgstr "エラーが送信されました"
 
 msgid "Event End"
-msgstr ""
+msgstr "イベント終了"
 
 msgid "Event Report"
-msgstr ""
+msgstr "イベント・レポート"
 
 msgid "Event Start"
-msgstr ""
+msgstr "イベント開始"
 
 #, python-format
 msgid "Exception getting route information: %(err)s"
-msgstr ""
+msgstr "経路情報を取得するときに例外が発生しました: %(err)s"
 
 #, python-format
 msgid "Exception updating the interface settings: %(err)s"
-msgstr ""
+msgstr "インターフェース設定を更新するときにエラーが発生しました: %(err)s"
 
 msgid "Exception updating/creating the ifcfg file."
-msgstr ""
+msgstr "ifcfg ファイルを更新/作成するときに例外が発生しました。"
 
 msgid "Exclude"
-msgstr ""
+msgstr "除外"
 
 msgid "Executable"
-msgstr ""
+msgstr "実行可能"
 
 msgid "Executable Report"
-msgstr ""
+msgstr "実行可能レポート"
 
 msgid "Execute"
-msgstr ""
+msgstr "実行"
 
 #, python-format
 msgid "Execution on auditctl command failed with error '%(error)s'"
-msgstr ""
+msgstr "auditctl コマンドでの実行がエラー「%(error)s」で失敗しました"
 
 msgid "Existing physical volumes : "
-msgstr ""
+msgstr "既存の物理ボリューム: "
 
 msgid "Exit"
-msgstr ""
+msgstr "終了"
 
 msgid "Extend"
-msgstr ""
+msgstr "拡張"
 
 #, python-format
 msgid "Extend host volume group '%(ident)s'"
-msgstr ""
+msgstr "ホスト・ボリューム・グループ「%(ident)s」の拡張"
 
 msgid "FCP Lun"
-msgstr ""
+msgstr "FCP Lun"
 
 msgid "FCP Tape Devices"
-msgstr ""
+msgstr "FCP テープ・デバイス"
 
 #, python-format
 msgid "FRU Device %(fru_id)s is not present in server %(name)s"
-msgstr ""
+msgstr "FRU デバイス %(fru_id)s がサーバー %(name)s にありません"
 
 msgid "FRU Information"
 msgstr ""
@@ -1388,77 +1513,81 @@ msgstr ""
 "ん。"
 
 msgid "Failed Summary Report"
-msgstr ""
+msgstr "失敗要約レポート"
 
 #, python-format
 msgid "Failed to a delete token from ifcfg file, Error: '%(error)s'."
 msgstr ""
+"ifcfg ファイルからトークンを削除できませんでした。エラー: 「%(error)s」。"
 
 msgid "Failed to bring down the interface %1."
-msgstr ""
+msgstr "インターフェース %1 を停止できませんでした。"
 
 msgid "Failed to bring up the interface %1."
-msgstr ""
+msgstr "インターフェース %1 を起動できませんでした。"
 
 #, python-format
 msgid "Failed to change password for user '%(user)s', error: '%(err)s'."
 msgstr ""
+"ユーザー「%(user)s」のパスワードを変更できませんでした。エラー: 「%(err)s」。"
 
 msgid "Failed to create LV"
-msgstr ""
+msgstr "LV を作成できませんでした"
 
 #, python-format
 msgid "Failed to create PV %(name)s."
-msgstr ""
+msgstr "PV %(name)s を作成できませんでした。"
 
 #, python-format
 msgid "Failed to create VG %(name)s. Error: %(err)s"
-msgstr ""
+msgstr "VG %(name)s を作成できませんでした。エラー: %(err)s"
 
 #, python-format
 msgid ""
 "Failed to create archive \"%(identity)s\". Inspect error log for more "
 "information."
 msgstr ""
-"アーカイブ「%(identity)s」の作成に失敗しました。詳細については、エラー・ログ"
-"を調べてください。"
+"アーカイブ「%(identity)s」を作成できませんでした。詳しくは、エラー・ログを調"
+"べてください。"
 
 #, python-format
 msgid ""
 "Failed to create archive dir \"%(dir)s\". Inspect error log for more "
 "information."
 msgstr ""
-"アーカイブ・ディレクトリー「%(dir)s」の作成に失敗しました。詳細については、エ"
+"アーカイブ・ディレクトリー「%(dir)s」を作成できませんでした。詳しくは、エ"
 "ラー・ログを調べてください。"
 
 #, python-format
 msgid "Failed to create partition %(name)s, error: %(err)s"
-msgstr ""
+msgstr "パーティション %(name)s を作成できませんでした。エラー: %(err)s"
 
 #, python-format
 msgid ""
 "Failed to create tar archive \"%(name)s\", cmd: \"%(cmd)s\". Inspect error "
 "log for more information."
 msgstr ""
-"tar アーカイブ「%(name)s」の作成に失敗しました。cmd: 「%(cmd)s」。詳細につい"
-"ては、エラー・ログを調べてください。"
+"tar アーカイブ「%(name)s」を作成できませんでした。コマンド: 「%(cmd)s」。詳し"
+"くは、エラー・ログを調べてください。"
 
 msgid "Failed to create the graph: Package 'Graphviz' is not installed."
 msgstr ""
+"グラフを作成できませんでした: パッケージ「Graphviz」がインストールされていま"
+"せん。"
 
 msgid "Failed to create the interface %1."
-msgstr ""
+msgstr "インターフェース %1 を作成できませんでした。"
 
 msgid "Failed to delete LV"
-msgstr ""
+msgstr "LV を削除できませんでした"
 
 #, python-format
 msgid "Failed to delete PV, error: %(err)s"
-msgstr ""
+msgstr "PV を削除できませんでした。エラー: %(err)s"
 
 #, python-format
 msgid "Failed to delete VG %(name)s."
-msgstr ""
+msgstr "VG %(name)s を削除できませんでした。"
 
 #, python-format
 msgid "Failed to delete archive file \"%(name)s\"."
@@ -1466,75 +1595,81 @@ msgstr "アーカイブ・ファイル「%(name)s」の削除に失敗しまし�
 
 #, python-format
 msgid "Failed to delete ifcfg file, Error: '%(error)s'"
-msgstr ""
+msgstr "ifcfg ファイルを削除できませんでした。エラー: 「%(error)s」"
 
 #, python-format
 msgid "Failed to delete partition %(name)s, error: %(err)s"
-msgstr ""
+msgstr "パーティション %(name)s を削除できませんでした。エラー: %(err)s"
 
 msgid "Failed to delete the interface %1."
-msgstr ""
+msgstr "インターフェース %1 を削除できませんでした。"
 
 #, python-format
 msgid "Failed to extend VG %(name)s."
-msgstr ""
+msgstr "VG %(name)s を拡張できませんでした。"
 
 msgid "Failed to fetch LV details"
-msgstr ""
+msgstr "LV 詳細をフェッチできませんでした"
 
 #, python-format
 msgid "Failed to fetch PV %(name)s details."
-msgstr ""
+msgstr "PV %(name)s 詳細をフェッチできませんでした。"
 
 #, python-format
 msgid "Failed to fetch PV list. Error: %(err)s"
-msgstr ""
+msgstr "PV リストをフェッチできませんでした。エラー: %(err)s"
 
 #, python-format
 msgid "Failed to fetch VG %(name)s details."
-msgstr ""
+msgstr "VG %(name)s 詳細をフェッチできませんでした。"
 
 msgid "Failed to find specified DASD device"
-msgstr ""
+msgstr "指定の DASD デバイスが見つかりませんでした。"
 
 #, python-format
 msgid ""
 "Failed to format %(name)s. Either format currently going on or device not "
 "available for format"
 msgstr ""
+"%(name)s をフォーマットできませんでした。フォーマットが現在行われているか、ま"
+"たはデバイスが、フォーマットできないデバイスです"
 
 #, python-format
 msgid ""
 "Failed to format %(name)s. Either format currently going on or device not "
 "available for format. Please try again later."
 msgstr ""
+"%(name)s をフォーマットできませんでした。フォーマットが現在行われているか、ま"
+"たはデバイスが、フォーマットできないデバイスです。後で再試行してください。"
 
 msgid ""
 "Failed to format %1. Either format currently going on or device not "
 "available for format. Please try after sometime."
 msgstr ""
+"%1 をフォーマットできませんでした。フォーマットが現在行われているか、またはデ"
+"バイスが、フォーマットできないデバイスです。しばらくしてから試してください。"
 
 #, python-format
 msgid "Failed to get the list of persisted rules '%(error)s'."
-msgstr ""
+msgstr "永続規則のリストを取得できませんでした (「%(error)s」)。"
 
 msgid "Failed to identify the type of interface."
-msgstr ""
+msgstr "インターフェースのタイプを識別できませんでした。"
 
 msgid "Failed to list LVs"
-msgstr ""
+msgstr "LV をリストできませんでした"
 
 #, python-format
 msgid "Failed to list VGs. Error: %(err)s"
-msgstr ""
+msgstr "VG をリストできませんでした。エラー: %(err)s"
 
 #, python-format
 msgid "Failed to mount the filesystem, error: %(err)s"
-msgstr ""
+msgstr "ファイルシステムのマウントに失敗しました。エラー: %(err)s"
 
 #, python-format
 msgid "Failed to parse '/etc/sudoers' file. Error: %(error)s"
-msgstr ""
+msgstr "「/etc/sudoers」ファイルを解析できませんでした。エラー: %(error)s"
 
 #, python-format
 msgid "Failed to read /etc/resolv.conf because %(reason)s"
@@ -1542,161 +1677,176 @@ msgstr "%(reason)s が原因で /etc/resolv.conf の読み取りに失敗しま�
 
 #, python-format
 msgid "Failed to reduce VG %(name)s."
-msgstr ""
+msgstr "VG %(name)s を削減できませんでした。"
 
 #, python-format
 msgid ""
 "Failed to remove user '%(user)s' from group '%(group)s'. Error: '%(err)s'"
 msgstr ""
+"グループ「%(group)s」からユーザー「%(user)s」を除去できませんでした。エラー: "
+"「%(err)s」"
 
 #, python-format
 msgid ""
 "Failed to remove user '%(user)s' from group '%(group)s'. Error: group name "
 "is an empty string."
 msgstr ""
+"グループ「%(group)s」からユーザー「%(user)s」を除去できませんでした。エラー: "
+"グループ名が空ストリングです。"
+
+#, python-format
+msgid ""
+"Failed to remove user '%(user)s' from group '%(group)s'. Error: user name is "
+"an empty string."
+msgstr ""
+"グループ「%(group)s」からユーザー「%(user)s」を除去できませんでした。エラー: "
+"ユーザー名が空ストリングです。"
 
 #, python-format
 msgid "Failed to remove user '%(user)s' from sudoers list"
-msgstr ""
+msgstr "sudoers リストからユーザー「%(user)s」を除去できませんでした"
 
 msgid "Failed to restart the interface %1."
-msgstr ""
+msgstr "インターフェース %1 を再始動できませんでした。"
 
 msgid "Failed to retrieve Globl DNS and Gateway!"
-msgstr ""
+msgstr "グローバル DNS およびゲートウェイを取得できませんでした。"
 
 #, python-format
 msgid "Failed to retrieve details of DASD device %(name)s, error: %(err)s"
-msgstr ""
+msgstr "DASD デバイス %(name)s の詳細を取得できませんでした。エラー: %(err)s"
 
 #, python-format
 msgid "Failed to retrieve details of DASD partition %(name)s."
-msgstr ""
+msgstr "DASD パーティション %(name)s の詳細を取得できませんでした。"
 
 #, python-format
 msgid "Failed to retrieve details of the %(name)s filesystem."
-msgstr ""
+msgstr "%(name)s ファイルシステムの詳細を取得できませんでした。"
 
 #, python-format
 msgid "Failed to retrieve list of DASD devices, error: %(err)s"
-msgstr ""
+msgstr "DASD デバイスのリストを取得できませんでした。エラー: %(err)s"
 
 #, python-format
 msgid "Failed to retrieve list of DASD partitions. Error: %(err)s"
-msgstr ""
+msgstr "DASD パーティションのリストを取得できませんでした。エラー: %(err)s"
 
 msgid "Failed to retrieve list of Servers"
-msgstr ""
+msgstr "サーバーのリストを取得できませんでした"
 
 #, python-format
 msgid "Failed to retrieve list of filesystems. Error: %(err)s"
-msgstr ""
+msgstr "ファイルシステムのリストを取得できませんでした。エラー: %(err)s"
 
 msgid "Failed to retrieve list of interfaces!"
-msgstr ""
+msgstr "インターフェースのリストを取得できませんでした。"
 
 msgid ""
 "Failed to retrieve power management profiles: Daemon 'tuned-adm' is not "
 "active."
 msgstr ""
+"電源管理プロファイルを取得できませんでした: デーモン「tuned-adm」がアクティブ"
+"ではありません。"
 
 #, python-format
 msgid "Failed to unmount filesystem %(name)s, error: %(err)s"
 msgstr ""
+"ファイルシステム %(name)s をアンマウントできませんでした。エラー: %(err)s"
 
 msgid "Failed to update the interface %1."
-msgstr ""
+msgstr "インターフェース %1 を更新できませんでした。"
 
 #, python-format
 msgid "Failed to write /etc/resolv.conf because %(reason)s"
 msgstr "%(reason)s が原因で /etc/resolv.conf の書き込みに失敗しました。"
 
 msgid "Fans"
-msgstr ""
+msgstr "ファン"
 
 msgid "Fault"
-msgstr ""
+msgstr "フォールト"
 
 msgid "Features"
-msgstr ""
+msgstr "機能"
 
 #, python-format
 msgid "Fetching list of partitions failed. Error: %(err)s"
-msgstr ""
+msgstr "パーティションのリストをフェッチできませんでした。エラー: %(err)s"
 
 msgid "Field"
-msgstr ""
+msgstr "フィールド"
 
 msgid "Fields"
-msgstr ""
+msgstr "フィールド"
 
 msgid "File"
 msgstr "ファイル"
 
 #, python-format
 msgid "File %(file)s already in use."
-msgstr ""
+msgstr "ファイル %(file)s は既に使用されています。"
 
 msgid "File Name"
-msgstr ""
+msgstr "ファイル名"
 
 msgid "File Report"
-msgstr ""
+msgstr "ファイル・レポート"
 
 msgid "File System"
-msgstr ""
+msgstr "ファイルシステム"
 
 msgid "File System Rule"
-msgstr ""
+msgstr "ファイルシステム規則"
 
 msgid "File System Type"
-msgstr ""
+msgstr "ファイルシステム・タイプ"
 
 msgid "File Systems"
-msgstr ""
+msgstr "ファイルシステム"
 
 msgid "File location required for creating a swap device."
-msgstr ""
+msgstr "スワップ・デバイスを作成するにはファイル・ロケーションが必要です。"
 
 msgid "File name"
-msgstr ""
+msgstr "ファイル名"
 
 msgid "File path cannot be an existing directory"
-msgstr ""
+msgstr "ファイル・パスは既存のディレクトリーにはできません"
 
 msgid "File system on %1 successfully unmounted"
-msgstr ""
+msgstr "%1 上のファイルシステムは正常にアンマウントされました"
 
 msgid "File system successfully mounted on  %1"
-msgstr ""
+msgstr "ファイルシステムは正常に %1 上にマウントされました"
 
 msgid "File to Watch"
-msgstr ""
+msgstr "監視対象のファイル"
 
 #, python-format
 msgid "Filesystem %(name)s already mounted in fstab."
-msgstr ""
+msgstr "ファイルシステム %(name)s は既に fstab にマウントされています。"
 
 msgid "Filesystem group ID"
-msgstr ""
+msgstr "ファイルシステム・グループ ID"
 
 msgid "Filesystem user ID"
-msgstr ""
+msgstr "ファイルシステム・ユーザー ID"
 
 msgid "Filter"
-msgstr ""
+msgstr "フィルター"
 
 msgid "Filter Log"
-msgstr ""
+msgstr "ログのフィルタリング"
 
 msgid "Filter System Modules"
-msgstr ""
+msgstr "システム・モジュールのフィルタリング"
 
 msgid "Filter System Services"
-msgstr ""
+msgstr "システム・サービスのフィルタリング"
 
 msgid "Firewall Zone"
-msgstr ""
+msgstr "ファイアウォール・ゾーン"
 
 msgid "Firmware Update"
 msgstr "ファームウェア更新"
@@ -1715,148 +1865,157 @@ msgstr ""
 "ブートされます。"
 
 msgid "Flush"
-msgstr ""
+msgstr "フラッシュ"
 
 msgid "Flush Freq"
-msgstr ""
+msgstr "フラッシュ頻度"
 
 msgid "For vlan creation over bond, slaves has to be up."
 msgstr ""
+"結合を使用して vlan を作成する場合、スレーブは起動していなければなりません。"
 
 msgid "Format"
-msgstr ""
+msgstr "フォーマット"
 
 #, python-format
 msgid "Format DASD device '%(ident)s' with block size %(blk_size)s"
 msgstr ""
+"DASD デバイス「%(ident)s」をブロック・サイズ %(blk_size)s でフォーマット"
 
 msgid "Format ECKD"
-msgstr ""
+msgstr "ECKD のフォーマット"
 
 msgid "Format FS"
-msgstr ""
+msgstr "FS のフォーマット"
 
 msgid "Format Partition"
-msgstr ""
+msgstr "パーティションのフォーマット"
 
 msgid "Format completed successfully"
-msgstr ""
+msgstr "フォーマットが正常に完了しました"
 
 #, python-format
 msgid "Format disk partition '%(ident)s' with filesystem '%(fstype)s'"
 msgstr ""
+"ディスク・パーティション「%(ident)s」をファイルシステム「%(fstype)s」でフォー"
+"マット"
 
 msgid "Format partition failed"
-msgstr ""
+msgstr "パーティションをフォーマットできませんでした"
 
 msgid "Formatting..."
-msgstr ""
+msgstr "フォーマットしています..."
 
 msgid "Free PE"
-msgstr ""
+msgstr "フリー PE"
 
 msgid "Free PE Size"
-msgstr ""
+msgstr "フリー PE サイズ"
 
 msgid "Gateway"
 msgstr "ゲートウェイ"
 
 msgid "Gateway information is missing."
-msgstr ""
+msgstr "ゲートウェイ情報がありません。"
 
 msgid "General"
-msgstr ""
+msgstr "一般"
 
 msgid "Generate Backup"
-msgstr ""
+msgstr "バックアップの生成"
 
 msgid "Generate Default Backup"
 msgstr "デフォルト・バックアップの生成"
 
 msgid "Generate Graph"
-msgstr ""
+msgstr "グラフの生成"
 
 msgid "Generate Report"
-msgstr ""
+msgstr "レポートの生成"
 
 msgid "Generating report..."
-msgstr ""
+msgstr "レポートを生成しています..."
 
 msgid "Generic"
-msgstr ""
+msgstr "汎用"
 
 msgid "Get Sensors"
-msgstr ""
+msgstr "センサーの取得"
 
 #, python-format
 msgid "Given vlan id is not an integer type, Error: '%(error)s'."
-msgstr ""
+msgstr "指定された vlan id は整数型ではありません。エラー: 「%(error)s」。"
 
-msgid "Global DNS and Gateway applied "
-msgstr ""
+msgid "Global DNS and Gateway applied successfully"
+msgstr "グローバル DNS およびゲートウェイを正常に適用しました"
+
+msgid "Global DNS and Gateway failed to apply"
+msgstr "グローバル DNS およびゲートウェイを適用できませんでした"
 
 msgid "Global Network Configuration"
-msgstr ""
+msgstr "グローバル・ネットワーク構成"
 
 msgid ""
 "Go back to previous step to create a volume group from existing physical "
 "volumes."
 msgstr ""
+"前のステップに戻って既存の物理ボリュームからボリューム・グループを作成してく"
+"ださい。"
 
 msgid "Graph Columns"
-msgstr ""
+msgstr "グラフ列"
 
 msgid "Graph Format"
-msgstr ""
+msgstr "グラフ・フォーマット"
 
 msgid "Graph Name"
-msgstr ""
+msgstr "グラフ名"
 
 msgid "Graph Preview"
-msgstr ""
+msgstr "グラフ・プレビュー"
 
 msgid "Group"
 msgstr "グループ"
 
 msgid "Group ID"
-msgstr ""
+msgstr "グループ ID"
 
 #, python-format
 msgid "Group name '%(group)s' is already in use'."
-msgstr ""
+msgstr "グループ名「%(group)s」は既に使用されています。"
 
 msgid "Guest Name"
-msgstr ""
+msgstr "ゲスト名"
 
 msgid "Guest UUID"
-msgstr ""
+msgstr "ゲスト UUID"
 
 msgid "HBA ID"
-msgstr ""
+msgstr "HBA ID"
 
 msgid "HDD"
-msgstr ""
+msgstr "HDD"
 
 msgid "Halt"
-msgstr ""
+msgstr "停止"
 
 msgid "Hard"
-msgstr ""
+msgstr "ハード"
 
 msgid "Hardware Address"
-msgstr ""
+msgstr "ハードウェア・アドレス"
 
 msgid "Header is empty for given pattern."
-msgstr ""
+msgstr "指定のパターンに関してヘッダーが空です。"
 
 msgid "Host Name"
-msgstr ""
+msgstr "ホスト名"
 
 msgid "Host Report"
-msgstr ""
+msgstr "ホスト・レポート"
 
 msgid "HostName"
-msgstr ""
+msgstr "ホスト名"
 
 msgid "Hostname"
 msgstr "ホスト名"
@@ -1866,73 +2025,80 @@ msgid "Hostname %(hostname)s not found."
 msgstr "ホスト名 %(hostname)s が見つかりません。"
 
 msgid "ID"
-msgstr ""
+msgstr "ID"
 
 msgid "IP Address"
-msgstr ""
+msgstr "IP アドレス"
 
 msgid "IP Addresses"
-msgstr ""
+msgstr "IP アドレス"
 
 msgid "IP address is missing."
-msgstr ""
+msgstr "IP アドレスがありません。"
 
 msgid "IPv4"
-msgstr ""
+msgstr "IPv4"
 
 msgid "IPv4 Settings"
-msgstr ""
+msgstr "IPv4 設定"
 
 msgid "IPv6"
-msgstr ""
+msgstr "IPv6"
 
 msgid "IPv6 Settings"
-msgstr ""
+msgstr "IPv6 設定"
 
 #, python-format
 msgid "IQN %(iqn)s is not logged onto the target"
-msgstr ""
+msgstr "IQN %(iqn)s はターゲットにログオンしていません"
 
 msgid "Id"
-msgstr ""
+msgstr "Id"
 
 msgid "Ignore"
-msgstr ""
+msgstr "無視"
+
+msgid "Import"
+msgstr "インポート"
 
 msgid ""
 "In order to enable the selected feature you must fill the parameters below:"
 msgstr ""
+"選択した機能を使用可能にするには、以下のパラメーターを指定する必要がありま"
+"す。"
 
 msgid "In-Use/Max Ports"
 msgstr "使用中のポート数/最大ポート数"
 
 #, python-format
 msgid "Incompatible output from 'lvm version' command. %(err)s"
-msgstr ""
+msgstr "「lvm version」コマンドからの出力に互換性がありません。%(err)s"
 
 msgid "Incorrect swap type, only 'device' and 'file' are allowed."
 msgstr ""
+"スワップ・タイプが正しくありません。使用できるのは「device」と「file」のみで"
+"す。"
 
 msgid "Incremental"
-msgstr ""
+msgstr "増分"
 
 msgid "Incremental_async"
-msgstr ""
+msgstr "Incremental_async"
 
 msgid "Info"
-msgstr ""
+msgstr "通知"
 
 msgid "Initiator"
-msgstr ""
+msgstr "イニシエーター"
 
 msgid "Inode Number"
-msgstr ""
+msgstr "i ノード番号"
 
 msgid "Input"
-msgstr ""
+msgstr "入力"
 
 msgid "Integrity Report"
-msgstr ""
+msgstr "整合性レポート"
 
 msgid "Interface"
 msgstr "インターフェース"
@@ -1940,92 +2106,99 @@ msgstr "インターフェース"
 #, python-format
 msgid "Interface %(iface)s not found in openvswitch database."
 msgstr ""
+"openvswitch データベースにインターフェース %(iface)s が見つかりません。"
 
 #, python-format
 msgid ""
 "Interface %(name)s loaded with driver %(module)s does not support SR-IOV."
 msgstr ""
+"ドライバー %(module)s でロードされたインターフェース %(name)s は SR-IOV をサ"
+"ポートしていません。"
 
 msgid "Interface %1 was successfully added"
-msgstr ""
+msgstr "インターフェース %1 は正常に追加されました"
 
 msgid "Interface %1 was successfully removed"
-msgstr ""
+msgstr "インターフェース %1 は正常に除去されました"
 
 #, python-format
 msgid ""
 "Interface '%(name)s' doesn't exist. Please refresh the network list to fetch "
 "the latest list of interfaces"
 msgstr ""
+"インターフェース「%(name)s」は存在していません。ネットワーク・リストを最新表"
+"示して、インターフェースの最新リストをフェッチしてください"
 
 #, python-format
 msgid ""
 "Interface '%(name)s' is neither Vlan nor Bond to perform delete operation."
 msgstr ""
+"削除操作を実行するインターフェース「%(name)s」は Vlan でも結合でもありませ"
+"ん。"
 
 msgid "Interface : "
-msgstr ""
+msgstr "インターフェース: "
 
 msgid "Interface Name"
-msgstr ""
+msgstr "インターフェース名"
 
 msgid "Interface is"
-msgstr ""
+msgstr "インターフェース: "
 
 msgid "Interface to be added"
-msgstr ""
+msgstr "追加対象のインターフェース"
 
 msgid "Interface to be removed"
-msgstr ""
+msgstr "除去対象のインターフェース"
 
 #, python-format
 msgid "Interface with the name '%(iface)s' already exists ."
-msgstr ""
+msgstr "「%(iface)s」という名前のインターフェースは既に存在しています。"
 
 msgid "Interfaces"
-msgstr ""
+msgstr "インターフェース"
 
 #, python-format
 msgid "Internal error: %(error)s"
-msgstr ""
+msgstr "内部エラー: %(error)s"
 
 msgid "Interpret  numeric  entities into text"
-msgstr ""
+msgstr "数値エンティティーをテキストに変換"
 
 msgid "Intree"
-msgstr ""
+msgstr "Intree"
 
 #, python-format
 msgid "Invalid DASD partition, %(name)s"
-msgstr ""
+msgstr "DASD パーティション %(name)s が無効です"
 
 msgid "Invalid Data"
-msgstr ""
+msgstr "データが無効です"
 
 msgid "Invalid IQN. Given IQN not found in added IQNs"
-msgstr ""
+msgstr "IQN が無効です。追加された IQN の中に当該 IQN が見つかりません"
 
 msgid "Invalid URI, no list of storage servers available"
-msgstr ""
+msgstr "URI が無効です。使用可能なストレージ・サーバーのリストがありません。"
 
 #, python-format
 msgid "Invalid URI, please use /stgserver/%(ipaddr)s/nfsshares"
-msgstr ""
+msgstr "URI が無効です。/stgserver/%(ipaddr)s/nfsshares を使用してください。"
 
 #, python-format
 msgid "Invalid authentication type - %(auth_type)s"
-msgstr ""
+msgstr "認証タイプが無効です - %(auth_type)s"
 
 msgid "Invalid bonding option parameter."
-msgstr ""
+msgstr "結合オプション・パラメーターが無効です。"
 
 #, python-format
 msgid "Invalid boot protocol '%(mode)s', "
-msgstr ""
+msgstr "ブート・プロトコル「%(mode)s」が無効です。"
 
 #, python-format
 msgid "Invalid bus ID, %(bus_id)s"
-msgstr ""
+msgstr "バス ID %(bus_id)s が無効です"
 
 msgid "Invalid counts_ago number."
 msgstr "counts_ago 数が無効です。"
@@ -2035,15 +2208,15 @@ msgstr "days_ago 数が無効です。"
 
 #, python-format
 msgid "Invalid input to extend VG: error: %(err)s"
-msgstr ""
+msgstr "入力が無効であるため VG を拡張できません: エラー: %(err)s"
 
 #, python-format
 msgid "Invalid ipv4 address '%(ip)s', '%(error)s'."
-msgstr ""
+msgstr "ipv4 アドレス「%(ip)s」が無効です。「%(error)s」。"
 
 #, python-format
 msgid "Invalid ipv6 address '%(ip)s', '%(error)s'."
-msgstr ""
+msgstr "ipv6 アドレス「%(ip)s」が無効です。「%(error)s」。"
 
 msgid "Invalid parameter for DNS servers"
 msgstr "DNS サーバーのパラメーターが無効です"
@@ -2058,968 +2231,1041 @@ msgid "Invalid parameter for network gateway"
 msgstr "ネットワーク・ゲートウェイのパラメーターが無効です"
 
 msgid "Invalid parameter, only username and password updates are allowed"
-msgstr ""
+msgstr "パラメーターが無効です。ユーザー名とパスワードの更新のみが許可されます"
 
 msgid "Invalid parameters to create a report graph."
-msgstr ""
+msgstr "パラメーターが無効であるためレポート・グラフを作成できません。"
 
 #, python-format
 msgid "Invalid prefix '%(PREFIX)s', '%(error)s'."
-msgstr ""
+msgstr "プレフィックス「%(PREFIX)s」が無効です。「%(error)s」。"
 
 #, python-format
 msgid "Invalid prefix '%(PREFIX)s'."
-msgstr ""
+msgstr "プレフィックス「%(PREFIX)s」が無効です。"
 
 msgid "Invalid server or no NFS exports found on server."
 msgstr ""
+"サーバーが無効であるか、または NFS エクスポートがサーバー上に見つかりません。"
 
 msgid "Invalid type needs to be either local or nfs"
-msgstr ""
+msgstr "タイプが無効です。local または nfs にする必要があります"
 
 msgid "JPEG"
-msgstr ""
+msgstr "JPEG"
 
 msgid "JPG"
-msgstr ""
+msgstr "JPG"
 
 msgid "Just Once"
-msgstr ""
+msgstr "1 回のみ"
 
 msgid "Key"
-msgstr ""
+msgstr "鍵"
 
 msgid "Key Name"
-msgstr ""
+msgstr "鍵名"
 
 msgid "Key Report"
-msgstr ""
+msgstr "鍵レポート"
 
 msgid "Key String"
-msgstr ""
+msgstr "鍵ストリング"
 
 msgid "Krb5 Key File"
-msgstr ""
+msgstr "Krb5 鍵ファイル"
 
 msgid "Krb5 Principle"
-msgstr ""
+msgstr "Krb5 プリンシパル"
 
 msgid "Layer Mode"
-msgstr ""
+msgstr "レイヤー・モード"
 
 msgid "License"
-msgstr ""
+msgstr "ライセンス"
 
 msgid "Link Down Delay"
-msgstr ""
+msgstr "リンクダウン遅延"
 
 msgid "Link Monitoring"
-msgstr ""
+msgstr "リンク・モニター"
 
 msgid "Link Up Delay"
-msgstr ""
+msgstr "リンクアップ遅延"
 
 msgid "Load"
-msgstr ""
+msgstr "ロード"
 
 msgid "Load Module"
-msgstr ""
+msgstr "モジュールのロード"
 
 msgid "Load Modules"
-msgstr ""
+msgstr "モジュールのロード"
 
 msgid "Load Predefined Rules"
-msgstr ""
+msgstr "事前定義規則のロード"
 
 msgid "Load Special Config"
-msgstr ""
+msgstr "特殊構成のロード"
 
 #, python-format
 msgid "Load audit rule '%(ident)s'"
-msgstr ""
+msgstr "監査規則「%(ident)s」のロード"
 
 #, python-format
 msgid "Load kernel module '%(name)s'"
-msgstr ""
+msgstr "カーネル・モジュール「%(name)s」のロード"
 
 #, python-format
 msgid "Load the rule '%(ident)s'"
-msgstr ""
+msgstr "規則「%(ident)s」のロード"
 
 msgid "Loaded"
-msgstr ""
+msgstr "ロード済み"
+
+#, python-format
+msgid "Loaded pre-defined rules from the file: '%(auditrule_file)s'"
+msgstr "事前定義規則がファイル「%(auditrule_file)s」からロードされました"
 
 msgid "Loading"
-msgstr ""
+msgstr "ロード中"
 
 msgid "Loading list of unloaded modules, please wait"
 msgstr ""
 
 #, python-format
 msgid "Loading the rule '%(name)s' failed."
-msgstr ""
+msgstr "規則「%(name)s」をロードできませんでした。"
 
 msgid "Loading..."
-msgstr ""
+msgstr "ロード中..."
 
 msgid "Local Event"
-msgstr ""
+msgstr "ローカル・イベント"
 
 msgid "Local File System"
-msgstr ""
+msgstr "ローカル・ファイルシステム"
 
 msgid "Log File"
-msgstr ""
+msgstr "ログ・ファイル"
 
 msgid "Log File Action"
-msgstr ""
+msgstr "ログ・ファイル・アクション"
 
 msgid "Log File Name"
-msgstr ""
+msgstr "ログ・ファイル名"
 
 msgid "Log File Nums"
-msgstr ""
+msgstr "ログ・ファイル数"
 
 msgid "Log Format"
-msgstr ""
+msgstr "ログ・フォーマット"
 
 msgid "Log Group"
-msgstr ""
+msgstr "ログ・グループ"
 
 msgid "Log Time Range Report"
-msgstr ""
+msgstr "ログ時刻範囲レポート"
 
 msgid "Login"
-msgstr ""
+msgstr "ログイン"
 
 msgid "Login Report"
-msgstr ""
+msgstr "ログイン・レポート"
 
 msgid "Login User ID"
-msgstr ""
+msgstr "ログイン・ユーザー ID"
 
 #, python-format
 msgid "Login onto IQN '%(ident)s'"
-msgstr ""
+msgstr "IQN「%(ident)s」へのログオン"
 
 msgid "Logout"
-msgstr ""
+msgstr "ログアウト"
 
 #, python-format
 msgid "Logout from IQN '%(ident)s'"
-msgstr ""
+msgstr "IQN「%(ident)s」からのログアウト"
 
 msgid "Lun scan is enabled. Cannot add/remove LUNs manually"
-msgstr ""
+msgstr "Lun スキャンが有効になっています。LUN は手動で追加/除去できません"
 
 msgid "MAC Address"
-msgstr ""
+msgstr "MAC アドレス"
 
 msgid "MB"
-msgstr ""
+msgstr "MB"
 
 msgid "MI(Recommended)"
-msgstr ""
+msgstr "MI(推奨)"
 
 msgid "MTU"
-msgstr ""
+msgstr "MTU"
 
 msgid "Mac Address"
-msgstr ""
+msgstr "MAC アドレス"
 
 msgid "Mandatory Access Control Report"
-msgstr ""
+msgstr "必須アクセス管理レポート"
 
 msgid "Manual"
-msgstr ""
+msgstr "手動"
 
 msgid "Mask"
 msgstr "マスク"
 
 msgid "Max"
-msgstr ""
+msgstr "最大"
 
 msgid "Max LV"
-msgstr ""
+msgstr "最大 LV"
 
 msgid "Max Log FileSize "
-msgstr ""
+msgstr "最大ログ・ファイル・サイズ"
 
 msgid "Max restarts"
-msgstr ""
+msgstr "最大再始動回数"
 
 msgid "Maximum PV"
-msgstr ""
+msgstr "最大 PV"
 
 msgid "Maximum length of device name is 15 characters only."
-msgstr ""
+msgstr "デバイス名の最大長は 15 文字です。"
 
 msgid "Message"
-msgstr ""
+msgstr "メッセージ"
 
 msgid "Metadata  Sequence No"
-msgstr ""
+msgstr "メタデータ・シーケンス番号"
 
 msgid "Metadata Areas"
-msgstr ""
+msgstr "メタデータ域"
 
 msgid "Method"
-msgstr ""
+msgstr "方式"
 
 msgid "Metric"
-msgstr ""
+msgstr "メトリック"
 
 msgid "Min"
-msgstr ""
+msgstr "最小"
 
 msgid "Minimum one slave has to be given for the bond interface."
 msgstr ""
+"結合インターフェースには少なくとも 1 つのスレーブを指定する必要があります。"
 
 msgid "Missing IPV4 addresses information."
-msgstr ""
+msgstr "IPV4 アドレス情報がありません。"
 
 msgid "Missing Input Parameters"
-msgstr ""
+msgstr "入力パラメーターがありません"
 
 msgid "Missing ipv4 initialization key."
-msgstr ""
-
-msgid "Missing ipv6 address information."
-msgstr ""
+msgstr "ipv4 初期化キーがありません。"
 
 msgid "Missing ipv6 initialization key."
-msgstr ""
+msgstr "ipv6 初期化キーがありません。"
 
 msgid "Missing rule info."
-msgstr ""
+msgstr "規則情報がありません。"
 
 msgid "Mixed selection of ECKD and non-ECKD devices"
-msgstr ""
+msgstr "ECKD デバイスと非 ECKD デバイスの混合選択"
 
 msgid "Mode"
-msgstr ""
+msgstr "モード"
 
 msgid "Model"
-msgstr ""
+msgstr "モデル"
 
 msgid "Modify"
-msgstr ""
+msgstr "変更"
 
 #, python-format
 msgid ""
 "Modify bonded port '%(bond)s' to replace interface '%(interface_del)s' with "
 "interface '%(interface_add)s' in OVS bridge '%(ident)s'"
 msgstr ""
+"結合ポート「%(bond)s」を変更して、OVS ブリッジ「%(ident)s」においてインター"
+"フェース「%(interface_del)s」をインターフェース「%(interface_add)s」で置き換"
+"えてください"
 
 msgid "Module"
-msgstr ""
+msgstr "モジュール"
 
 #, python-format
 msgid "Module %(module)s is already loaded in the kernel."
-msgstr ""
+msgstr "モジュール %(module)s は既にカーネルにロードされています。"
 
 #, python-format
 msgid "Module %(module)s not found."
-msgstr ""
+msgstr "モジュール %(module)s が見つかりません。"
 
 msgid "Module %1 was successfully loaded"
-msgstr ""
+msgstr "モジュール %1 は正常にロードされました"
 
 msgid "Module %1 was successfully unloaded"
-msgstr ""
+msgstr "モジュール %1 は正常にアンロードされました"
 
 msgid "Module 802q is not loaded into kernel."
-msgstr ""
+msgstr "モジュール 802q はカーネルにロードされていません。"
 
 msgid "Module Name"
-msgstr ""
+msgstr "モジュール名"
 
 msgid "Monitoring Interval"
+msgstr "モニター間隔"
+
+#, python-format
+msgid "Monitoring interval must be at least %(miimon)s"
 msgstr ""
 
 msgid "Mount"
-msgstr ""
+msgstr "マウント"
 
 #, python-format
 msgid "Mount %(type)s filesystem at '%(mount_point)s'"
-msgstr ""
+msgstr "%(type)s ファイルシステムを「%(mount_point)s」にマウント"
 
 msgid "Mount Point"
-msgstr ""
+msgstr "マウント・ポイント"
 
 msgid "Mount with _netdev option"
-msgstr ""
+msgstr "_netdev オプションでマウント"
 
 msgid "Multipath Links"
-msgstr ""
+msgstr "マルチパス・リンク"
 
 msgid "N/A"
-msgstr ""
+msgstr "N/A"
 
 msgid "NFS Path"
-msgstr ""
+msgstr "NFS パス"
 
 msgid "NFS Server IP"
-msgstr ""
+msgstr "NFS サーバー IP"
 
 #, python-format
 msgid "NFS mount failed, %(err)s"
-msgstr ""
+msgstr "NFS をマウントできませんでした: %(err)s"
 
 msgid ""
 "NFS path will be fetched based on NFS server IP entered.Please click arrow "
 "button to fetch the details"
 msgstr ""
+"NFS パスは、入力された NFS サーバー IP に基づいてフェッチされます。詳細を"
+"フェッチするには、矢印ボタンをクリックしてください"
 
 msgid "NIC Type"
-msgstr ""
+msgstr "NIC タイプ"
 
 msgid "NIC type"
-msgstr ""
+msgstr "NIC タイプ"
 
 msgid "Name"
 msgstr "名前"
 
 msgid "Name Format"
-msgstr ""
+msgstr "名前フォーマット"
 
 msgid "NetDev"
-msgstr ""
+msgstr "NetDev"
 
 msgid "Netmask"
-msgstr ""
+msgstr "ネットマスク"
 
 msgid "Network"
-msgstr ""
+msgstr " ネットワーク"
 
 msgid "Network Configuration"
 msgstr "ネットワーク構成"
 
 msgid "Network File System"
-msgstr ""
+msgstr "ネットワーク・ファイルシステム"
 
 msgid "Never"
-msgstr ""
+msgstr "記録しない"
 
 msgid "New Config Backup creation has started."
+msgstr "新規構成バックアップの作成が開始されました。"
+
+msgid "New Config Backup restore has started."
 msgstr ""
 
 msgid "New Custom Backup"
 msgstr "新規カスタム・バックアップ"
 
 msgid "New Password"
-msgstr ""
+msgstr "新規パスワード"
 
 msgid "Next &rarr;"
-msgstr ""
+msgstr "次へ &rarr;"
 
 msgid "No"
-msgstr ""
+msgstr " いいえ"
 
 msgid "No Config"
-msgstr ""
+msgstr "構成がありません"
 
 msgid "No NFS exports found on server %1"
-msgstr ""
+msgstr "NFS エクスポートがサーバー %1 上に見つかりません"
 
 msgid "No VG Name define for this device"
-msgstr ""
+msgstr "このデバイスには VG 名が定義されていません"
 
 msgid "No log found matching the filter"
-msgstr ""
+msgstr "フィルターに適合するログが見つかりません"
 
 msgid "No more free partitions left. Please remove one partition first."
 msgstr ""
+"空きパーティションが残っていません。まずパーティションを 1 つ削除してくださ"
+"い。"
 
 #, python-format
 msgid ""
 "No more than %(max_dasd_fmt)s concurrent DASD format operations are "
 "permitted."
 msgstr ""
+"許可されている並行 DASD フォーマット操作は %(max_dasd_fmt)s 個のみです。"
 
 msgid "No partition available"
-msgstr ""
+msgstr "使用可能なパーティションがありません"
 
 msgid "No partitions found"
-msgstr ""
+msgstr "パーティションが見つかりません"
 
 #, python-format
 msgid "No partitions found for disk %(disk)s"
-msgstr ""
+msgstr "ディスク %(disk)s のパーティションが見つかりません"
 
 msgid "No physical volume selected"
-msgstr ""
+msgstr "物理ボリュームが選択されていません"
+
+msgid "No result found"
+msgstr "結果が見つかりません"
 
 msgid "No results found"
-msgstr ""
+msgstr "結果が見つかりません"
 
 msgid "No results found!"
-msgstr ""
+msgstr "結果が見つかりません。"
 
 msgid "No rules selected. Please select one"
-msgstr ""
+msgstr "規則が選択されていません。いずれか 1 つを選択してください"
 
 msgid "No storage device selected. Please select one."
 msgstr ""
+"ストレージ・デバイスが選択されていません。いずれか 1 つを選択してください。"
 
 #, python-format
 msgid "No valid iSCSI Targets found for IP Address - %(ip_address)s"
 msgstr ""
+"次の IP アドレスに有効な iSCSI ターゲットが見つかりません - %(ip_address)s"
 
 msgid "Non-Blocking/Lossy"
-msgstr ""
+msgstr "非ブロック/非可逆"
 
 msgid "None"
-msgstr ""
+msgstr "なし"
+
+msgid "Nothing selected"
+msgstr "何も選択されていません"
 
 msgid "Now"
-msgstr ""
+msgstr "現在"
 
 msgid "Numeric"
-msgstr ""
+msgstr "数値"
+
+msgid "OFF"
+msgstr "オフ"
 
 msgid "OK"
-msgstr ""
+msgstr "OK"
+
+msgid "ON"
+msgstr "オン"
 
 msgid "OSA Port Number"
-msgstr ""
+msgstr "OSA ポート番号"
 
 msgid "OVS Bridges"
-msgstr ""
+msgstr "OVS ブリッジ"
 
 msgid "Object's GID"
-msgstr ""
+msgstr "オブジェクトの GID"
 
 msgid "Object's UID"
-msgstr ""
+msgstr "オブジェクトの UID"
 
 msgid "Ok"
-msgstr ""
+msgstr "OK"
 
 msgid "Operator"
-msgstr ""
+msgstr "演算子"
 
 msgid "Option"
-msgstr ""
+msgstr "オプション"
 
 msgid "Options"
-msgstr ""
+msgstr "オプション"
 
 msgid "Others"
-msgstr ""
+msgstr "その他"
 
 msgid "Overflow Action"
-msgstr ""
+msgstr "オーバーフロー・アクション"
 
 msgid "PCI"
-msgstr ""
+msgstr "PCI"
 
 msgid "PDF"
-msgstr ""
+msgstr "PDF"
 
 msgid "PE Size"
-msgstr ""
+msgstr "PE サイズ"
 
 msgid "PID"
-msgstr ""
+msgstr "PID"
 
 msgid "PNG"
-msgstr ""
+msgstr "PNG"
 
 msgid "PREFIX missing."
-msgstr ""
+msgstr "PREFIX がありません。"
 
 msgid ""
 "PV created successfully please wait till device is added to Volume Group"
 msgstr ""
+"PV は正常に作成されました。デバイスがボリューム・グループに追加されるまで待機"
+"してください"
 
 msgid "Packages Received"
-msgstr ""
+msgstr "受信されたパッケージ"
 
 msgid "Packages Transmitted"
-msgstr ""
+msgstr "送信されたパッケージ"
 
 msgid "Packaging Path "
-msgstr ""
+msgstr "パッケージ化パス"
 
 msgid "Parameter"
-msgstr ""
+msgstr "パラメーター"
 
 msgid "Parameters"
-msgstr ""
+msgstr "パラメーター"
 
 msgid ""
 "Parameters must be set with an equals sign (=) and separated by a whitespace "
 "( ). <br /> Example: param1=value param2=value"
 msgstr ""
+"パラメーターは等号 (=) を使用して設定する必要があります。パラメーター同士は空"
+"白文字 ( ) で区切らなければなりません。<br /> 例: param1=value param2=value"
 
 msgid "Parent Interface"
-msgstr ""
+msgstr "親インターフェース"
 
 msgid "Parent Process ID"
-msgstr ""
+msgstr "親プロセス ID"
 
 msgid "Parent interface of type 'Bond' is not active."
-msgstr ""
+msgstr "タイプ「Bond」の親インターフェースがアクティブではありません。"
 
 msgid "Parent's process ID"
-msgstr ""
+msgstr "親のプロセス ID"
 
 msgid "Parsing df output failed."
-msgstr ""
+msgstr "df 出力を解析できませんでした。"
 
 msgid "Parsing lsdasd output failed"
-msgstr ""
+msgstr "lsdasd 出力を解析できませんでした"
 
 msgid "Partition"
-msgstr ""
+msgstr "パーティション"
 
 #, python-format
 msgid "Partition %(name)s not found."
-msgstr ""
+msgstr "パーティション %(name)s が見つかりません。"
 
 msgid "Partition Details"
-msgstr ""
+msgstr "パーティション詳細"
 
 msgid "Partition added successfully"
-msgstr ""
+msgstr "パーティションは正常に追加されました"
 
 msgid "Partition already mounted"
-msgstr ""
+msgstr "パーティションは既にマウントされています"
 
 msgid "Partition size exceeds device size"
-msgstr ""
+msgstr "パーティション・サイズがデバイス・サイズを超えています"
 
 msgid "Password"
 msgstr "パスワード"
 
 msgid "Password Change"
-msgstr ""
+msgstr "パスワード変更"
 
 msgid "Password changed successfully for '%1'."
-msgstr ""
+msgstr "「%1」のパスワードが正常に変更されました。"
 
 msgid "Password changed successfully. Please login to continue!"
-msgstr ""
+msgstr "パスワードが正常に変更されました。続行するにはログインしてください。"
 
 msgid "Password parameter is required"
-msgstr ""
+msgstr "パスワード・パラメーターが必要です"
 
 msgid "Path"
-msgstr ""
+msgstr "パス"
 
 msgid "Path or pattern is too long or too short."
 msgstr "パスまたはパターンが長すぎるか、短すぎます。"
 
 msgid "Path to File"
-msgstr ""
+msgstr "ファイルへのパス"
 
 msgid "Paths"
-msgstr ""
+msgstr "パス"
 
 msgid "Paths Excluded"
-msgstr ""
+msgstr "除外するパス"
 
 msgid "Paths Included"
-msgstr ""
+msgstr "組み込むパス"
 
 msgid "Permisions"
-msgstr ""
+msgstr "許可"
 
 msgid "Permission"
-msgstr ""
+msgstr "許可"
+
+msgid "Persist"
+msgstr "永続"
 
 #, python-format
 msgid "Persist audit rule '%(ident)s'"
-msgstr ""
+msgstr "監査規則「%(ident)s」の永続化"
 
 #, python-format
 msgid "Persist the rule '%(ident)s'"
-msgstr ""
+msgstr "規則「%(ident)s」の永続化"
 
 msgid "Persisted"
-msgstr ""
+msgstr "永続"
 
 #, python-format
 msgid "Persistent file for slave '%(slave)s' is missing."
-msgstr ""
+msgstr "スレーブ「%(slave)s」の永続ファイルがありません。"
 
 #, python-format
 msgid "Persistent file is not available for an interface, '%(name)s'."
-msgstr ""
+msgstr "インターフェース「%(name)s」の永続ファイルが使用不可です。"
 
 msgid "Persistent file is not available for interface %1."
-msgstr ""
+msgstr "インターフェース %1 の永続ファイルが使用不可です。"
 
 msgid "Personality Number"
-msgstr ""
+msgstr "パーソナリティー番号"
 
 msgid "Physical Volumes Name"
-msgstr ""
+msgstr "物理ボリューム名"
 
 msgid "Physical device name is missing."
-msgstr ""
+msgstr "物理デバイス名がありません。"
 
 msgid "Please check the uniqueness of the paths or patterns."
 msgstr "パスまたはパターンの固有性を確認してください。"
 
 msgid "Please enter Filename and Filesize"
-msgstr ""
+msgstr "ファイル名とファイル・サイズを入力してください"
 
-msgid "Please enter all fields"
-msgstr ""
+msgid "Please enter Path to File and permissions"
+msgstr "ファイルへのパスと許可を入力してください"
+
+msgid "Please enter Path to File."
+msgstr "ファイルへのパスを入力してください。"
+
+msgid "Please enter filter field value"
+msgstr "フィルター・フィールド値を入力してください"
+
+msgid "Please enter the permissions"
+msgstr "許可を入力してください"
 
 msgid "Please provide either file name or directory where the log file exists."
 msgstr ""
+"ファイル名を入力するか、またはログ・ファイルが存在するディレクトリーを入力し"
+"てください。"
+
+msgid "Please provide value for the selected option."
+msgstr "選択したオプションの値を指定してください。"
+
+msgid "Please select Systemcall"
+msgstr "システム呼び出しを選択してください"
 
 msgid "Please select a device"
-msgstr ""
+msgstr "デバイスを選択してください"
 
 msgid "Please select a plugin to edit"
-msgstr ""
+msgstr "編集するプラグインを選択してください"
 
 msgid "Please select a volume group for resize."
-msgstr ""
+msgstr "サイズ変更対象のボリューム・グループを選択してください。"
 
 msgid "Please select at lease one volume group for deletion."
-msgstr ""
+msgstr "削除対象のボリューム・グループを 1 つ以上選択してください。"
 
 msgid ""
 "Please select at least one physical volume for removal from Volume Group"
 msgstr ""
+"ボリューム・グループから除去する物理ボリュームを 1 つ以上選択してください"
 
 msgid "Please select atleaset one block device to create physical volume"
 msgstr ""
+"物理ボリュームを作成するには、ブロック・デバイスを 1 つ以上選択してください"
 
 msgid "Please select atleaset one partition to create physical volume"
 msgstr ""
+"物理ボリュームを作成するには、パーティションを 1 つ以上選択してください"
 
 msgid ""
 "Please select either an existing physical volume or select a block device "
 "for creating a new physical volume to proceed."
 msgstr ""
+"新規物理ボリュームの作成を続行するには、既存の物理ボリュームを選択するか、ブ"
+"ロック・デバイスを選択してください。"
 
 msgid "Please select one device to add partition."
-msgstr ""
+msgstr "デバイスを 1 つ選択してパーティションを追加してください。"
 
 msgid "Please select one rule to edit"
-msgstr ""
+msgstr "編集する規則を 1 つ選択してください"
 
 msgid "Please select type of Authentication"
-msgstr ""
+msgstr "認証のタイプを選択してください"
 
 msgid "Please wait..."
-msgstr ""
+msgstr "お待ちください..."
 
 msgid "Plugin"
-msgstr ""
+msgstr "プラグイン"
 
 msgid "Port"
 msgstr "ポート"
 
 msgid "Port Type"
-msgstr ""
+msgstr "ポート・タイプ"
 
 msgid "Port type"
-msgstr ""
+msgstr "ポート・タイプ"
 
 msgid "Power"
-msgstr ""
+msgstr "電源"
 
 msgid "Power Off"
-msgstr ""
+msgstr "電源オフ"
 
 msgid "Power Off Server"
-msgstr ""
+msgstr "サーバーの電源をオフにする"
 
 msgid "Power On"
-msgstr ""
+msgstr "電源オン"
 
 msgid "Power On Server"
-msgstr ""
+msgstr "サーバーの電源をオンにする"
 
 msgid "Power Options"
 msgstr "電源オプション"
 
 #, python-format
 msgid "Power off managed server '%(ident)s'"
-msgstr ""
+msgstr "管理対象サーバー「%(ident)s」の電源をオフにする"
 
 #, python-format
 msgid "Power off server %(name)s failed"
-msgstr ""
+msgstr "サーバー %(name)s の電源をオフにできませんでした"
 
 #, python-format
 msgid "Power on managed server '%(ident)s'"
-msgstr ""
+msgstr "管理対象サーバー「%(ident)s」の電源をオンにする"
 
 #, python-format
 msgid "Power on server %(name)s failed"
-msgstr ""
+msgstr "サーバー %(name)s の電源をオンにできませんでした"
 
 msgid "Prefix"
-msgstr ""
+msgstr "プレフィックス"
 
-msgid "Preserve the latest"
-msgstr "最新を保持"
+msgid "Preserve the latest number of backups:"
+msgstr "次のバックアップの最新数を保持:"
+
+msgid "Preserve the latest number of days of backups:"
+msgstr "次の日数のバックアップの最新数を保持:"
 
 msgid "Priority Boost"
-msgstr ""
+msgstr "優先順位"
 
 msgid "Process"
-msgstr ""
+msgstr "プロセス"
 
 msgid "Process ID"
-msgstr ""
+msgstr "プロセス ID"
 
 msgid "Process ID Report"
-msgstr ""
+msgstr "プロセス ID レポート"
 
 msgid "Profile"
 msgstr "プロファイル"
 
 msgid "Program's SE Linux Clearance"
-msgstr ""
+msgstr "プログラムの SE Linux クリアランス"
 
 msgid "Program's SE Linux Role"
-msgstr ""
+msgstr "プログラムの SE Linux ロール"
 
 msgid "Program's SE Linux Sensitivity"
-msgstr ""
+msgstr "プログラムの SE Linux 機密性"
 
 msgid "Program's SE Linux Type"
-msgstr ""
+msgstr "プログラムの SE Linux タイプ"
 
 msgid "Program's SE Linux User"
-msgstr ""
+msgstr "プログラムの SE Linux ユーザー"
 
 msgid "Provide required parameters: hostname, port, community."
 msgstr "必須パラメーターのホスト名、ポート、コミュニティーを指定してください。"
 
 msgid "Q Depth"
-msgstr ""
+msgstr "Q 深度"
 
 msgid "RDMA Enabled"
-msgstr ""
+msgstr "RDMA 対応"
 
 msgid "RDMA enabled"
-msgstr ""
+msgstr "RDMA 対応"
 
 msgid "Raw"
-msgstr ""
+msgstr "ロー"
 
 msgid "Re-Scan"
-msgstr ""
+msgstr "再スキャン"
 
 msgid "Read"
-msgstr ""
+msgstr "読み取り"
 
 msgid "Recent"
-msgstr ""
+msgstr "最新"
 
 #, python-format
 msgid "Redefine host network interface '%(ident)s'"
-msgstr ""
+msgstr "ホスト・ネットワーク・インターフェース「%(ident)s」の再定義"
 
 msgid "Reduce"
-msgstr ""
+msgstr "削減"
 
 #, python-format
 msgid "Reduce host volume group '%(ident)s'"
-msgstr ""
+msgstr "ホスト・ボリューム・グループ「%(ident)s」の削減"
 
 msgid "Refresh"
-msgstr ""
+msgstr "リフレッシュ"
 
 msgid "Regular"
-msgstr ""
+msgstr "通常"
 
 msgid "Regular (No Shell)"
-msgstr ""
+msgstr "通常 (シェルなし)"
 
 msgid "Reject host firmware image on temp side"
-msgstr ""
+msgstr "一時サイドでホスト・ファームウェア・イメージをリジェクト"
 
 msgid "Remove"
-msgstr ""
+msgstr "除去"
 
 msgid "Remove Bond"
-msgstr ""
+msgstr "結合の除去"
 
 msgid "Remove Bridge"
-msgstr ""
+msgstr "ブリッジの除去"
 
 #, python-format
 msgid "Remove DASD partition '%(ident)s'"
-msgstr ""
+msgstr "DASD パーティション「%(ident)s」の除去"
 
 msgid "Remove Interface"
-msgstr ""
+msgstr "インターフェースの除去"
 
 #, python-format
 msgid "Remove OVS bridge '%(ident)s'"
-msgstr ""
+msgstr "OVS ブリッジ「%(ident)s」の除去"
 
 #, python-format
 msgid "Remove archive '%(ident)s'"
-msgstr ""
+msgstr "アーカイブ「%(ident)s」の除去"
 
 #, python-format
 msgid "Remove bonded port '%(bond)s' from OVS bridge '%(ident)s'"
-msgstr ""
+msgstr "OVS ブリッジ「%(ident)s」から結合ポート「%(bond)s」を除去"
 
 #, python-format
 msgid "Remove configuration file for network interface '%(ident)s'"
-msgstr ""
+msgstr "ネットワーク・インターフェース「%(ident)s」用の構成ファイルを除去"
 
 #, python-format
 msgid "Remove disk partition '%(ident)s'"
-msgstr ""
+msgstr "ディスク・パーティション「%(ident)s」の除去"
 
 #, python-format
 msgid "Remove failed: device %(dev)s not found."
-msgstr ""
+msgstr "除去できませんでした: デバイス %(dev)s が見つかりませんでした。"
 
 #, python-format
 msgid "Remove failed: error: %(err)s"
-msgstr ""
+msgstr "除去できませんでした: エラー: %(err)s"
 
 msgid "Remove from VG"
-msgstr ""
+msgstr "VG から除去"
 
 #, python-format
 msgid "Remove host volume group '%(ident)s'"
-msgstr ""
+msgstr "ホスト・ボリューム・グループ「%(ident)s」の除去"
 
 #, python-format
 msgid "Remove interface '%(interface)s' from OVS bridge '%(ident)s'"
-msgstr ""
+msgstr "OVS ブリッジ「%(ident)s」からインターフェース「%(interface)s」を除去"
 
 #, python-format
 msgid "Remove logical volume '%(ident)s'"
-msgstr ""
+msgstr "論理ボリューム「%(ident)s」の除去"
 
 #, python-format
 msgid "Remove managed server '%(ident)s'"
-msgstr ""
+msgstr "管理対象サーバー「%(ident)s」の除去"
 
 #, python-format
 msgid "Remove physical volume '%(ident)s'"
-msgstr ""
+msgstr "物理ボリューム「%(ident)s」の除去"
 
 msgid "Removing..."
-msgstr ""
+msgstr "除去しています..."
 
 msgid "Report"
-msgstr ""
+msgstr "レポート"
 
 msgid "Report Graph"
-msgstr ""
+msgstr "レポート・グラフ"
 
 msgid "Report graph is saved in the following path <strong>%1</strong>"
-msgstr ""
+msgstr "レポート・グラフはパス <strong>%1</strong> に保存されています"
 
 msgid "Require DASD device name to be formatted"
-msgstr ""
+msgstr "DASD デバイス名をフォーマットする必要があります"
 
 msgid "Require block dev to mount a filesystem"
-msgstr ""
+msgstr "ブロック・デバイスからファイルシステムをマウントする必要があります"
 
 msgid "Require block size for formatting DASD device"
-msgstr ""
+msgstr "DASD デバイスのフォーマット用のブロック・サイズが必要です"
 
 msgid "Require mount point to mount a filesystem"
-msgstr ""
+msgstr "マウント・ポイントからファイルシステムをマウントする必要があります"
 
 msgid "Require name to create DASD device partition"
-msgstr ""
+msgstr "DASD デバイス・パーティションを作成するには名前が必要です"
 
 msgid "Require partition size to create DASD device partition"
 msgstr ""
+"DASD デバイス・パーティションを作成するにはパーティション・サイズが必要です"
 
 msgid "Required parameter device name"
-msgstr ""
+msgstr "パラメーター・デバイス名が要求されました"
 
 msgid "Required parameter partition size"
-msgstr ""
+msgstr "パラメーター・パーティション・サイズが要求されました"
 
 msgid "Required pv_name parameter."
-msgstr ""
+msgstr "pv_name パラメーターが要求されました。"
 
 msgid "Required pv_paths parameter"
-msgstr ""
+msgstr "pv_paths パラメーターが要求されました"
 
 msgid "Required size parameter"
-msgstr ""
+msgstr "サイズ・パラメーターが要求されました"
 
 msgid "Required vg_name parameter"
-msgstr ""
+msgstr "vg_name パラメーターが要求されました"
 
 #, python-format
 msgid "Rescan IQN '%(ident)s'"
-msgstr ""
+msgstr "IQN「%(ident)s」の再スキャン"
 
 msgid "Reset"
-msgstr ""
+msgstr "リセット"
 
 msgid "Resize"
-msgstr ""
+msgstr "サイズ変更"
 
 msgid "Resource SE Linux High Level"
-msgstr ""
+msgstr "リソース SE Linux 高レベル"
 
 msgid "Resource SE Linux Low Level"
-msgstr ""
+msgstr "リソース SE Linux 低レベル"
 
 msgid "Resource SE Linux Role"
-msgstr ""
+msgstr "リソース SE Linux ロール"
 
 msgid "Resource SE Linux Type"
-msgstr ""
+msgstr "リソース SE Linux タイプ"
 
 msgid "Resource SE Linux User"
-msgstr ""
+msgstr "リソース SE Linux ユーザー"
 
 msgid "Response Anomaly Report"
-msgstr ""
+msgstr "応答例外レポート"
 
 msgid "Restart"
-msgstr ""
+msgstr "再始動"
 
 msgid "Restart interface"
-msgstr ""
+msgstr "インターフェースの再始動"
 
 #, python-format
 msgid "Restarted service '%(ident)s'"
+msgstr "サービス「%(ident)s」が再始動されました"
+
+msgid "Restore"
 msgstr ""
 
 msgid "Rotate"
-msgstr ""
+msgstr "ローテーション"
 
 msgid "Routes"
-msgstr ""
+msgstr "経路"
 
 msgid "Rule"
-msgstr ""
+msgstr "規則"
 
 #, python-format
 msgid "Rule '%(name)s' is not persisted in the rules file."
-msgstr ""
+msgstr "規則「%(name)s」は規則ファイルにおいて永続化されていません。"
 
 msgid "Rule Information not available"
-msgstr ""
+msgstr "規則情報がありません"
 
 msgid "Rule Type"
-msgstr ""
+msgstr "規則タイプ"
+
+msgid "Rules"
+msgstr "規則"
 
 msgid "Rules File Path"
-msgstr ""
+msgstr "規則ファイル・パス"
 
 #, python-format
 msgid ""
 "Run time information is not available for the interface on '%(name)s'. "
 "Activation of the interface on '%(name)s' went wrong."
 msgstr ""
+"「%(name)s」上のインターフェースに関するランタイム情報がありません。"
+"「%(name)s」上のインターフェースをアクティブ化できませんでした。"
 
 msgid "SAN Adapters"
 msgstr "SAN アダプター"
@@ -3035,208 +3281,248 @@ msgid "SNMP community name must be a single word."
 msgstr "SNMP コミュニティー名は単一のワードでなければなりません。"
 
 msgid "SR-IOV Setup"
-msgstr ""
+msgstr "SR-IOV セットアップ"
 
 msgid "SR-IOV action of mlx5 module requires 'num_vfs' argument."
-msgstr ""
+msgstr "mlx5 モジュールの SR-IOV アクションには「num_vfs」引数が必要です。"
 
 msgid "SR-IOV enablement failed: num_vfs must be an integer."
 msgstr ""
+"SR-IOV を使用可能にできませんでした: num_vfs は整数でなければなりません。"
 
 msgid ""
 "SR-IOV enablement failed: required files under /sys directory not found."
 msgstr ""
+"SR-IOV を使用可能にできませんでした: /sys ディレクトリーの下に必須ファイルが"
+"見つかりませんでした。"
 
 #, python-format
 msgid ""
 "SR-IOV is already configured in interface %(name)s with %(num_vf)s virtual "
 "functions."
 msgstr ""
+"SR-IOV は、%(num_vf)s 個の仮想関数を使用してインターフェース %(name)s におい"
+"て既に構成されています。"
 
 #, python-format
 msgid ""
 "SR-IOV is already disabled (no virtual functions enabled) in interface "
 "%(name)s."
 msgstr ""
+"SR-IOV はインターフェース %(name)s において既に使用不可になっています (仮想関"
+"数は使用可能になっていません)。"
 
 #, python-format
 msgid "SR-IOV is not enabled in the firmware of the interface %(name)s."
 msgstr ""
+"SR-IOV がインターフェース %(name)s のファームウェアにおいて使用可能になってい"
+"ません。"
 
 msgid "SR-IOV: Single Root I/O Virtualization"
-msgstr ""
+msgstr "SR-IOV: 単一ルート入出力仮想化"
 
 msgid "SRC Version"
-msgstr ""
+msgstr "SRC バージョン"
 
 msgid "SVG"
-msgstr ""
+msgstr "SVG"
 
 msgid "SYSLOG"
-msgstr ""
+msgstr "SYSLOG"
 
 msgid "Save"
-msgstr ""
+msgstr "保存"
 
 msgid "Save Server operation failed"
-msgstr ""
+msgstr "保存サーバー操作が失敗しました"
 
 msgid "Saved GroupID"
-msgstr ""
+msgstr "グループ ID が保存されました"
 
 msgid "Saved User ID"
-msgstr ""
+msgstr "ユーザー ID が保存されました"
 
 msgid "Select an Interface"
-msgstr ""
+msgstr "インターフェースの選択"
 
 msgid "Select an Interface to be added"
-msgstr ""
+msgstr "追加対象のインターフェースを選択"
 
 msgid "Select an Interface to be removed"
-msgstr ""
+msgstr "除去対象のインターフェースを選択"
 
 msgid "Select an existing PV"
-msgstr ""
+msgstr "既存の PV を選択"
 
 msgid "Select the bond Interfaces"
-msgstr ""
+msgstr "結合インターフェースの選択"
 
 msgid "Selected"
-msgstr ""
+msgstr "選択済み"
 
 msgid "Selected Control Rules can not be deleted"
-msgstr ""
+msgstr "選択された制御規則を削除できません"
 
 msgid ""
-"Selected partition is part of a volume group. Removal may hamper the volume "
+"Selected Partition is part of a Volumn group. Removal may hamper the Volumn "
 "group usage. Are you sure you want to delete this partition?"
 msgstr ""
+"選択されたパーティションはボリューム・グループの一部です。削除すると、ボ"
+"リューム・グループの使用が妨げられるおそれがあります。このパーティションを削"
+"除しますか?"
+
+msgid ""
+"Selected device is not formatted. Please format the device to proceed with "
+"partition creation."
+msgstr ""
+"選択したデバイスはフォーマットされていません。パーティション作成を先に進める"
+"には、デバイスをフォーマットしてください。"
 
 msgid "Sensor Data Records"
-msgstr ""
+msgstr "センサー・データ・レコード"
 
 msgid "Sensor Monitor"
 msgstr "センサー・モニター"
 
 msgid "Sent command to restart service %1"
-msgstr ""
+msgstr "サービス %1 を再始動するコマンドが送信されました"
 
 msgid "Sent command to start service %1"
-msgstr ""
+msgstr "サービス %1 を開始するコマンドが送信されました"
 
 msgid "Sent command to stop service %1"
-msgstr ""
+msgstr "サービス %1 を停止するコマンドが送信されました"
 
 msgid "Server Name"
-msgstr ""
+msgstr "サーバー名"
 
 #, python-format
 msgid "Server with IP address or Host Name %(ipaddr)s is already added"
-msgstr ""
+msgstr "IP アドレス/ホスト名 %(ipaddr)s のサーバーは既に追加されています"
 
 #, python-format
 msgid "Server with name %(name)s is already added"
-msgstr ""
+msgstr "名前 %(name)s のサーバーは既に追加されています"
 
 #, python-format
 msgid "Server with name %(name)s is not found"
-msgstr ""
+msgstr "名前 %(name)s のサーバーが見つかりません"
 
 #, python-format
 msgid "Service name %(name)s not found."
-msgstr ""
+msgstr "サービス名 %(name)s が見つかりません。"
 
 msgid "Session ID"
-msgstr ""
+msgstr "セッション ID"
 
 #, python-format
 msgid "Set initiator CHAP credentials for IQN '%(ident)s'"
-msgstr ""
+msgstr "IQN「%(ident)s」のイニシエーター CHAP 資格情報を設定"
 
 #, python-format
 msgid "Set initiator CHAP credentials in iscsid.conf '%(ident)s'"
-msgstr ""
+msgstr "iscsid.conf「%(ident)s」にイニシエーター CHAP 資格情報を設定"
 
 #, python-format
 msgid ""
 "Set initiator discovery session CHAP credentials in iscsid.conf '%(ident)s'"
 msgstr ""
+"iscsid.conf「%(ident)s」にイニシエーター・ディスカバリー・セッション CHAP 資"
+"格情報を設定"
 
 #, python-format
 msgid "Set targets CHAP credentials for IQN '%(ident)s'"
-msgstr ""
+msgstr "IQN「%(ident)s」のターゲット CHAP 資格情報を設定"
 
 #, python-format
 msgid "Set targets CHAP credentials in iscsid.conf '%(ident)s'"
-msgstr ""
+msgstr "iscsid.conf「%(ident)s」にターゲット CHAP 資格情報を設定"
 
 #, python-format
 msgid ""
 "Set targets discovery session CHAP credentials in iscsid.conf '%(ident)s'"
 msgstr ""
+"iscsid.conf「%(ident)s」にターゲット・ディスカバリー・セッション CHAP 資格情"
+"報を設定"
+
+msgid "Sets the action that is performed when a critical error is detected"
+msgstr "クリティカル・エラーが検出されたときに実行するアクションを設定します"
+
+msgid "Sets the maximum amount of existing Audit buffers in the kernel"
+msgstr "カーネル内の監査バッファーの最大量を設定します"
+
+msgid "Sets the rate of generated messages per second"
+msgstr "生成されるメッセージの秒あたりの率を設定します"
 
 msgid "Settings"
-msgstr ""
+msgstr "設定"
 
 msgid "Showing {{ctx.start}} to {{ctx.end}} of {{ctx.total}} entries"
 msgstr ""
+"{{ctx.total}} 個の項目のうち {{ctx.start}} 個目から {{ctx.end}} 個目までを表"
+"示しています"
 
 msgid "Signature Key"
-msgstr ""
+msgstr "署名鍵"
 
 msgid "Signer"
-msgstr ""
+msgstr "署名者"
 
 msgid "Signer Hash Algorithm"
-msgstr ""
+msgstr "署名者ハッシュ・アルゴリズム"
 
 msgid "Single"
-msgstr ""
+msgstr "単一"
 
 #, python-format
 msgid "Single swap device %(swap)s not found."
-msgstr ""
+msgstr "単一スワップ・デバイス %(swap)s が見つかりません。"
 
 msgid "Size"
-msgstr ""
+msgstr "サイズ"
 
 msgid "Size (MB)"
-msgstr ""
+msgstr "サイズ (MB)"
 
 msgid "Size in MB"
-msgstr ""
+msgstr "サイズ (MB)"
 
 msgid "Size is mandatory while creating file type swap device."
-msgstr ""
+msgstr "ファイル・タイプ・スワップ・デバイスを作成するときにサイズは必須です。"
 
 msgid "Size must be of type integer"
-msgstr ""
+msgstr "サイズの型は整数でなければなりません"
 
 msgid "Skip this step to create a new volume group using new block devices."
 msgstr ""
+"新規ブロック・デバイスを使用して新規ボリューム・グループを作成する場合は、こ"
+"のステップをスキップしてください。"
 
 msgid "Slave(s) is missing."
-msgstr ""
+msgstr "スレーブがありません。"
 
 msgid "Soft"
-msgstr ""
+msgstr "ソフト"
 
 msgid ""
 "Some of the selected devices are already Logged in.<br> Do you want to "
 "proceed login for Logged out devices?"
 msgstr ""
+"選択されたデバイスのいくつかには既にログインされています。<br> ログアウト・デ"
+"バイス用のログインを続行しますか?"
 
 msgid ""
 "Some of the selected devices are already Logged out.<br> Do you want to "
 "proceed logout for Logged in devices?"
 msgstr ""
+"選択されたデバイスのいくつかからは既にログアウトされています。<br> ログイン・"
+"デバイス用のログアウトを続行しますか?"
 
 msgid "Space Left Action"
-msgstr ""
+msgstr "残されたスペースのアクション"
 
 msgid "Space Left(MBs)"
-msgstr ""
+msgstr "残されたスペース (MB)"
 
 msgid "Specify name, password, group and profile for the new user."
 msgstr ""
@@ -3250,253 +3536,271 @@ msgid "Start"
 msgstr "開始"
 
 msgid "Start IBM Serviceable Event Provider (SEP)"
-msgstr ""
+msgstr "IBM 保守可能イベント・プロバイダー (SEP) の開始"
 
 #, python-format
 msgid "Started service '%(ident)s'"
-msgstr ""
+msgstr "サービス「%(ident)s」が開始されました"
 
 msgid "State"
 msgstr "状態"
 
 msgid "Statistics"
-msgstr ""
+msgstr "統計"
 
 msgid "Status"
-msgstr ""
+msgstr "状況"
 
 msgid "Stop"
 msgstr "停止"
 
 msgid "Stop IBM Serviceable Event Provider (SEP)"
-msgstr ""
+msgstr "IBM 保守可能イベント・プロバイダー (SEP) の停止"
 
 #, python-format
 msgid "Stopped service '%(ident)s'"
-msgstr ""
+msgstr "サービス「%(ident)s」が停止されました"
 
 msgid "Storage"
-msgstr ""
+msgstr "ストレージ"
 
 msgid "Storage Devices"
-msgstr ""
+msgstr "ストレージ・デバイス"
 
 msgid "Subchannels"
-msgstr ""
+msgstr "サブチャネル"
 
 msgid "Submit"
 msgstr "実行依頼"
 
 msgid "Subscribe"
-msgstr ""
+msgstr "登録"
 
 #, python-format
 msgid "Subscribe '%(hostname)s' with IBM SEP"
-msgstr ""
+msgstr "「%(hostname)s」を IBM SEP に登録"
 
 msgid "Success Summary Report"
-msgstr ""
+msgstr "正常終了要約レポート"
 
 msgid "Success Value"
-msgstr ""
+msgstr "正常終了値"
 
 msgid "Successfully added swap device "
-msgstr ""
+msgstr "スワップ・デバイスが正常に追加されました"
 
 msgid "Successfully added swap file "
-msgstr ""
+msgstr "スワップ・ファイルが正常に追加されました"
 
 msgid "Successfully added the rule"
-msgstr ""
+msgstr "規則が正常に追加されました"
 
 msgid "Successfully applied setting for interface: "
-msgstr ""
+msgstr "インターフェースの設定が正常に適用されました: "
 
 msgid "Successfully brought down the interface %1."
-msgstr ""
+msgstr "インターフェース %1 が正常に停止しました。"
 
 msgid "Successfully brought up the interface %1."
-msgstr ""
+msgstr "インターフェース %1 が正常に起動しました。"
 
 msgid "Successfully created physical volume."
-msgstr ""
+msgstr "物理ボリュームが正常に作成されました。"
 
 msgid "Successfully created the interface %1."
-msgstr ""
+msgstr "インターフェース %1 が正常に作成されました。"
 
 msgid "Successfully created volume group  %1"
-msgstr ""
+msgstr "ボリューム・グループ %1 が正常に作成されました"
 
 msgid "Successfully deleted"
-msgstr ""
+msgstr "正常に削除されました"
 
 msgid "Successfully deleted the interface %1."
-msgstr ""
+msgstr "インターフェース %1 が正常に削除されました。"
 
 msgid "Successfully deleted volume group  %1"
-msgstr ""
+msgstr "ボリューム・グループ %1 が正常に削除されました"
 
 msgid "Successfully loaded"
-msgstr ""
+msgstr "正常にロードされました"
 
 msgid "Successfully persisted"
-msgstr ""
+msgstr "正常に永続化されました"
 
 msgid "Successfully restarted the interface %1."
-msgstr ""
+msgstr "インターフェース %1 が正常に再始動されました。"
 
 msgid "Successfully unloaded"
-msgstr ""
+msgstr "正常にアンロードされました"
 
 msgid "Successfully unpersisted the rule (Control Rules can not be unloaded)"
-msgstr ""
+msgstr "規則が正常に永続化解除されました (制御規則はアンロードできません)"
 
 msgid "Successfully updated the interface %1."
-msgstr ""
+msgstr "インターフェース %1 が正常に更新されました。"
 
 msgid "Summary"
-msgstr ""
+msgstr "要約"
 
 msgid "Summary : Selected Physical Volumes"
-msgstr ""
+msgstr "要約: 選択された物理ボリューム"
 
 msgid "Summary Report"
-msgstr ""
+msgstr "要約レポート"
 
 msgid ""
 "Summary report is saved in the following path <strong>/var/lib/wok/logs/"
 "audit_summary_report.txt</strong>"
 msgstr ""
+"要約レポートはパス <strong>/var/lib/wok/logs/audit_summary_report.txt</"
+"strong> に保存されています"
 
 msgid "Suspend"
-msgstr ""
+msgstr "中断"
 
 msgid "Swap Deletion"
-msgstr ""
+msgstr "スワップ削除"
 
 msgid "Swap Devices"
-msgstr ""
+msgstr "スワップ・デバイス"
 
 #, python-format
 msgid "Swap device not found. %(name)s"
-msgstr ""
+msgstr "スワップ・デバイスが見つかりません。%(name)s"
 
 msgid "Symbolic Name"
 msgstr "シンボル名"
 
 msgid "Sync"
-msgstr ""
+msgstr "同期"
 
 msgid "Syscall"
-msgstr ""
+msgstr "シスコール"
 
 msgid "Syscall Exit Code or Error Number"
-msgstr ""
+msgstr "シスコール出口コード/エラー番号"
 
 msgid "Syscall Report"
-msgstr ""
+msgstr "シスコール・レポート"
 
 msgid "System Call"
-msgstr ""
+msgstr "システム呼び出し"
 
 msgid "System Call Rule"
-msgstr ""
+msgstr "システム呼び出し規則"
 
 msgid "System Calls"
-msgstr ""
+msgstr "システム呼び出し"
 
 #, python-format
 msgid ""
 "System Event Log %(sel_id)s is not present in System Event Log information "
 "for server %(name)s"
 msgstr ""
+"システム・イベント・ログ %(sel_id)s がサーバー %(name)s に関するシステム・イ"
+"ベント・ログ情報に含まれていません"
 
 msgid "System Event Log deleted successfully for event id"
-msgstr ""
+msgstr "イベント ID のシステム・イベント・ログが正常に削除されました"
 
 msgid "System Event Logs"
-msgstr ""
+msgstr "システム・イベント・ログ"
 
 msgid "System ID"
-msgstr ""
+msgstr "システム ID"
 
 msgid "System Modules"
 msgstr ""
 
 msgid "System Modules Management"
-msgstr ""
+msgstr "システム・モジュール管理"
 
 msgid "System Services Management"
-msgstr ""
+msgstr "システム・サービス管理"
 
 msgid "System Temperature Reading"
-msgstr ""
+msgstr "システム温度読み取り"
 
 msgid "System hostname must be a valid string."
 msgstr "システム・ホスト名は有効なストリングでなければなりません。"
 
 msgid "System port number must be an integer between 1 and 65535."
-msgstr ""
+msgstr "システム・ポート番号は 1 から 65535 までの整数でなければなりません。"
 
 msgid "System users are not supported"
-msgstr ""
+msgstr "システム・ユーザーはサポートされていません"
 
 msgid "Systems Platform Management"
-msgstr ""
+msgstr "システム・プラットフォーム管理"
 
 msgid "TCP Client Max Idle"
-msgstr ""
+msgstr "TCP クライアント最大アイドル"
 
 msgid "TCP Client Port"
-msgstr ""
+msgstr "TCP クライアント・ポート"
 
 msgid "TCP Listen Port"
-msgstr ""
+msgstr "TCP Listen ポート"
 
 msgid "TCP Listen Queue"
-msgstr ""
+msgstr "TCP Listen キュー"
 
 msgid "TCP Max per Address"
-msgstr ""
+msgstr "アドレスあたりの TCP 最大値"
 
 msgid "TTY keystroke Report"
-msgstr ""
+msgstr "TTY キー・ストローク・レポート"
 
 msgid "Target"
-msgstr ""
+msgstr "ターゲット"
 
 msgid "Target Device"
-msgstr ""
+msgstr "ターゲット・デバイス"
 
 msgid "Task"
-msgstr ""
+msgstr "タスク"
 
 msgid "Terminal Report"
-msgstr ""
+msgstr "端末レポート"
 
 msgid "Terminal Value"
-msgstr ""
+msgstr "端末値"
 
 msgid "The predefined rules files doesn't exist."
-msgstr ""
+msgstr "事前定義規則ファイルが存在していません。"
 
 #, python-format
 msgid "The prefix value %(PREFIX)s is not in range 1-128."
-msgstr ""
+msgstr "プレフィックス値 %(PREFIX)s は 1 から 128 までの範囲にありません。"
 
 #, python-format
 msgid "The prefix value %(PREFIX)s is not in range 1-32."
-msgstr ""
+msgstr "プレフィックス値 %(PREFIX)s は 1 から 32 までの範囲にありません。"
 
 #, python-format
 msgid "The rule '%(name)s' cannot be unloaded or is already unloaded. "
 msgstr ""
+"規則「%(name)s」はアンロードできないか、または既にアンロードされています。"
+
+#, python-format
+msgid ""
+"The rule '%(name)s' has not been modified. Please update the rule before "
+"applying."
+msgstr ""
+"規則「%(name)s」は変更されていません。適用する前に規則を更新してください。"
 
 #, python-format
 msgid "The rule '%(name)s' is already persisted."
-msgstr ""
+msgstr "規則「%(name)s」は既に永続化されています。"
 
 msgid "The two passwords entered do not match."
+msgstr "入力された 2 つのパスワードが一致しません。"
+
+#, python-format
+msgid ""
+"There is no DEVICE or NAME values in the slave interface configuration file "
+"('%(file)s')."
 msgstr ""
 
 #, python-format
@@ -3504,139 +3808,178 @@ msgid ""
 "There was a problem while creating group '%(group)s'. Group name is an empty "
 "string."
 msgstr ""
+"グループ「%(group)s」を作成するときに問題が発生しました。グループ名が空ストリ"
+"ングです。"
+
+#, python-format
+msgid "There was a problem while creating group '%(group)s'. Reason: %(err)s."
+msgstr "グループ「%(group)s」を作成するときに問題が発生しました。理由: %(err)s"
 
 #, python-format
 msgid ""
 "There was a problem while creating user '%(user)s', error: group id %(gid)s "
 "is not of integer type."
 msgstr ""
+"ユーザー「%(user)s」を作成するときに問題が発生しました。エラー: グループ ID "
+"%(gid)s は整数型ではありません。"
 
 #, python-format
 msgid ""
-"There was a problem while creating user '%(user)s', error: no_login id "
+"There was a problem while creating user '%(user)s', error: no_login "
 "%(no_login)s is not of boolean type."
 msgstr ""
+"ユーザー「%(user)s」を作成するときに問題が発生しました。エラー: no_login "
+"%(no_login)s はブール型ではありません。"
 
 #, python-format
 msgid ""
 "There was a problem while creating user '%(user)s', error: user name is "
 "empty."
 msgstr ""
+"ユーザー「%(user)s」を作成するときに問題が発生しました。エラー: ユーザー名が"
+"空です。"
+
+#, python-format
+msgid "There was a problem while creating user '%(user)s'. Reason: %(err)s."
+msgstr "ユーザー「%(user)s」を作成するときに問題が発生しました。理由: %(err)s"
 
 #, python-format
 msgid ""
 "There was a problem while deleting group '%(group)s'. Group name is an empty "
 "string."
 msgstr ""
+"グループ「%(group)s」を削除するときに問題が発生しました。グループ名が空ストリ"
+"ングです。"
+
+#, python-format
+msgid "There was a problem while deleting group '%(group)s'. Reason: %(err)s."
+msgstr "グループ「%(group)s」を削除するときに問題が発生しました。理由: %(err)s"
 
 #, python-format
 msgid ""
 "There was a problem while deleting user '%(user)s', error: user name is "
 "empty."
 msgstr ""
+"ユーザー「%(user)s」を削除するときに問題が発生しました。エラー: ユーザー名が"
+"空です。"
+
+#, python-format
+msgid "There was a problem while deleting user '%(user)s'. Reason: %(err)s."
+msgstr "ユーザー「%(user)s」を削除するときに問題が発生しました。理由: %(err)s"
 
 msgid "There was a problem while fetching user profile, see log for details"
 msgstr ""
+"ユーザー・プロファイルをフェッチするときに問題が発生しました。詳しくは、ログ"
+"を参照してください"
 
 msgid "There was a problem while reading users details, see log for details"
 msgstr ""
+"ユーザー詳細を読み取るときに問題が発生しました。詳しくは、ログを参照してくだ"
+"さい"
 
 msgid "This Month"
-msgstr ""
+msgstr "今月"
 
 msgid "This Week"
-msgstr ""
+msgstr "今週"
 
 msgid "This Year"
-msgstr ""
+msgstr "今年"
 
 msgid "This module does not have any parameters."
-msgstr ""
+msgstr "このモジュールにはパラメーターがありません。"
 
 msgid "This will remove the bond %1. Do you want to continue?"
-msgstr ""
+msgstr "これにより結合 %1 は除去されます。続行しますか ?"
 
 msgid "This will remove the bridge %1. Do you want to continue?"
-msgstr ""
+msgstr "これによりブリッジ %1 は除去されます。 続行しますか ?"
 
 msgid "This will remove the interface %1 from %2. Do you want to continue?"
-msgstr ""
+msgstr "これによりインターフェース %1 は %2 から除去されます。続行しますか ?"
 
 msgid "This will unload the module %1. Do you want to continue?"
-msgstr ""
+msgstr "これによりモジュール %1 はアンロードされます。続行しますか ?"
 
 msgid "Timeout"
-msgstr ""
+msgstr "タイムアウト"
 
 msgid "Timestamp"
 msgstr "タイム・スタンプ"
 
 msgid "Today"
-msgstr ""
+msgstr "今日"
 
 msgid "Total PE"
-msgstr ""
+msgstr "合計 PE"
 
 msgid "Type"
-msgstr ""
+msgstr "タイプ"
 
 msgid "Type is missing."
-msgstr ""
+msgstr "タイプがありません。"
 
 msgid "Type is unknown."
-msgstr ""
+msgstr "タイプが不明です。"
 
 msgid "Type required for creating a swap device."
-msgstr ""
+msgstr "スワップ・デバイスを作成するにはタイプが必要です。"
 
 #, python-format
 msgid "Unable to activate swap device. %(err)s"
-msgstr ""
+msgstr "スワップ・デバイスをアクティブ化できません。%(err)s"
 
 #, python-format
 msgid "Unable to activate the interface on '%(name)s', '%(error)s'."
 msgstr ""
+"「%(name)s」でインターフェースをアクティブ化できません。「%(error)s」。"
 
 #, python-format
 msgid "Unable to bring down the interface '%(name)s', '%(error)s'."
-msgstr ""
+msgstr "インターフェース「%(name)s」を停止できません。「%(error)s」。"
 
 #, python-format
 msgid "Unable to bring up the interface '%(name)s', '%(error)s'."
-msgstr ""
+msgstr "インターフェース「%(name)s」を起動できません。「%(error)s」。"
 
 #, python-format
 msgid "Unable to change dasd type, error: %(err)s"
-msgstr ""
+msgstr "dasd タイプを変更できません。エラー: %(err)s"
 
 #, python-format
 msgid "Unable to change the partition type. Error: %(err)s"
-msgstr ""
+msgstr "パーティション・タイプを変更できません。エラー: %(err)s"
 
 #, python-format
 msgid "Unable to create a new network script file for the interface %(name)s."
 msgstr ""
+"インターフェース %(name)s に対して新規ネットワーク・スクリプト・ファイルを作"
+"成できません。"
 
 #, python-format
 msgid "Unable to create backup, file %(file)s changed as we read it"
 msgstr ""
+"バックアップを作成できません。ファイル %(file)s は読み取り時に変更されました"
 
 msgid "Unable to create bond with less than two interfaces."
-msgstr ""
+msgstr "2 つ未満のインターフェースで結合を作成することはできません。"
 
 #, python-format
 msgid "Unable to deactivate swap device. %(err)s"
-msgstr ""
+msgstr "スワップ・デバイスを非アクティブ化できません。%(err)s"
 
 #, python-format
 msgid "Unable to deactivate the interface on '%(name)s', '%(error)s'."
 msgstr ""
+"「%(name)s」でインターフェースを非アクティブ化できません。「%(error)s」。"
 
 #, python-format
 msgid ""
 "Unable to delete System Event Log %(sel_id)s for server %(name)s. IPMI "
 "Command error %(err)s. rc =%(rc)s"
 msgstr ""
+"サーバー %(name)s のシステム・イベント・ログ %(sel_id)s を削除できません。"
+"IPMI コマンド・エラー %(err)s。rc =%(rc)s"
 
 #, python-format
 msgid "Unable to delete default gateway: %(err)s"
@@ -3644,29 +3987,35 @@ msgstr "デフォルト・ゲートウェイを削除できません: %(err)s"
 
 #, python-format
 msgid "Unable to find device %(dev)s ."
-msgstr ""
+msgstr "デバイス %(dev)s が見つかりません。"
 
 #, python-format
 msgid "Unable to format swap device. %(err)s"
-msgstr ""
+msgstr "スワップ・デバイスをフォーマットできません。%(err)s"
 
 #, python-format
 msgid ""
 "Unable to get FRU Device information for server %(name)s. IPMI Command error "
 "%(err)s. rc = %(rc)s"
 msgstr ""
+"サーバー %(name)s に関する FRU デバイス情報を取得できません。IPMI コマンド・"
+"エラー %(err)s。rc = %(rc)s"
 
 #, python-format
 msgid ""
 "Unable to get SDR information for server %(name)s. IPMI Command error "
 "%(err)s , rc = %(rc)s"
 msgstr ""
+"サーバー %(name)s に関する SDR 情報を取得できません。IPMI コマンド・エラー "
+"%(err)s、rc = %(rc)s"
 
 #, python-format
 msgid ""
 "Unable to get System Event Log information for server %(name)s. IPMI Command "
 "error %(err)s. rc = %(rc)s"
 msgstr ""
+"サーバー %(name)s に関するシステム・イベント・ログ情報を取得できません。IPMI "
+"コマンド・エラー %(err)s。rc = %(rc)s"
 
 #, python-format
 msgid "Unable to get default gateway: %(err)s"
@@ -3674,165 +4023,181 @@ msgstr "デフォルト・ゲートウェイを取得できません: %(err)s"
 
 #, python-format
 msgid "Unable to get details of server %(name)s"
-msgstr ""
+msgstr "サーバー %(name)s の詳細を取得できません"
 
 #, python-format
 msgid "Unable to get iSCSI targets of host %(host)s: Connection timed out"
 msgstr ""
+"ホスト %(host)s の iSCSI ターゲットを取得できませんでした: 接続がタイムアウト"
+"になりました"
 
 #, python-format
 msgid "Unable to get information of device %(dev)s, error: %(err)s"
-msgstr ""
+msgstr "デバイス %(dev)s の情報を取得できません。エラー: %(err)s"
 
 #, python-format
 msgid "Unable to get single swap device info. %(err)s"
-msgstr ""
+msgstr "単一スワップ・デバイス情報を取得できません。%(err)s"
 
 msgid "Unable to get single swap device info: directory /proc/swaps not found."
 msgstr ""
+"単一スワップ・デバイス情報を取得できません。ディレクトリー /proc/swaps が見つ"
+"かりません。"
 
 #, python-format
 msgid "Unable to include default backup dir (%(dir)s) to a backup file"
 msgstr ""
+"デフォルト・バックアップ・ディレクトリー (%(dir)s) をバックアップ・ファイルに"
+"含めることはできません"
 
-msgid "Unable to open fstab"
-msgstr ""
+#, python-format
+msgid "Unable to open fstab. Error: %(err)s"
+msgstr "fstab を開くことができません。エラー: %(err)s"
 
 #, python-format
 msgid "Unable to parse 'swapon -s' output. %(err)s"
-msgstr ""
+msgstr "「swapon -s」出力を解析できません。%(err)s"
 
 #, python-format
 msgid "Unable to read or update SR-IOV boot script file. Error: %(err)s"
 msgstr ""
+"SR-IOV ブート・スクリプト・ファイルを読み取る/更新することができません。エ"
+"ラー: %(err)s"
 
 #, python-format
 msgid "Unable to read or update openib.conf file. Error: %(err)s"
 msgstr ""
+"openib.conf ファイルを読み取る/更新することができません。エラー: %(err)s"
+
+#, python-format
+msgid "Unable to remove swap signature. Error: %(err)s"
+msgstr "スワップ署名を除去できません。エラー: %(err)s"
 
 #, python-format
 msgid ""
 "Unable to set %(num_vf)s virtual functions for interface %(name)s. Maximum "
 "allowed in the firmware is %(max_vf)s."
 msgstr ""
+"インターフェース %(name)s に対して %(num_vf)s 仮想関数を設定できません。"
+"ファームウェアで許可されている最大値は %(max_vf)s です。"
 
 #, python-format
 msgid "Unable to set default gateway: %(err)s"
 msgstr "デフォルト・ゲートウェイを設定できません: %(err)s"
 
 msgid "Unable to write fstab"
-msgstr ""
+msgstr "fstab を書き込むことができません"
 
 msgid "Unload"
-msgstr ""
+msgstr "アンロード"
 
 #, python-format
 msgid "Unload  the rule '%(ident)s'"
-msgstr ""
+msgstr "規則「%(ident)s」のアンロード"
 
 msgid "Unload Module"
-msgstr ""
+msgstr "モジュールのアンロード"
 
 #, python-format
 msgid "Unload kernel module '%(ident)s'"
-msgstr ""
+msgstr "カーネル・モジュール「%(ident)s」のアンロード"
 
 msgid "Unmount"
-msgstr ""
+msgstr "アンマウント"
 
 #, python-format
 msgid "Unmount filesystem '%(ident)s'"
-msgstr ""
+msgstr "ファイルシステム「%(ident)s」のアンマウント"
 
 msgid "Unsaved Changes"
-msgstr ""
+msgstr "未保存の変更"
 
 msgid "Unsubscribe"
-msgstr ""
+msgstr "登録解除"
 
 #, python-format
 msgid "Unsubscribe '%(ident)s' with IBM SEP"
-msgstr ""
+msgstr "「%(ident)s」を IBM SEP から登録解除"
 
 msgid "Up"
-msgstr ""
+msgstr "起動"
 
 msgid "Update"
 msgstr "更新"
 
 #, python-format
 msgid "Update '%(ident)s' subscription with IBM SEP"
-msgstr ""
+msgstr "IBM SEP に登録されている「%(ident)s」を更新"
 
 msgid "Update Credentials"
-msgstr ""
+msgstr "資格情報の更新"
 
 #, python-format
 msgid "Update Credentials of managed server '%(ident)s'"
-msgstr ""
+msgstr "管理対象サーバー「%(ident)s」の資格情報を更新"
 
 msgid "Update Progress"
-msgstr ""
+msgstr "更新の進行状況"
 
 #, python-format
 msgid "Update configuration file for network interface '%(ident)s'"
-msgstr ""
+msgstr "ネットワーク・インターフェース「%(ident)s」の構成ファイルを更新"
 
 #, python-format
 msgid "Update disk partition '%(ident)s' to type '%(type)s'"
-msgstr ""
+msgstr "ディスク・パーティション「%(ident)s」をタイプ「%(type)s」に更新"
 
 msgid "Update host network configuration"
-msgstr ""
+msgstr "ホスト・ネットワーク構成の更新"
 
 msgid "Updated successfully"
-msgstr ""
+msgstr "正常に更新されました"
 
 #, python-format
 msgid "Updated the auditdisp conf file '%(ident)s'."
-msgstr ""
+msgstr "auditdisp 構成ファイル「%(ident)s」が更新されました。"
 
 #, python-format
 msgid "Updated the auditdisp plugin conf file '%(ident)s'."
-msgstr ""
+msgstr "auditdisp プラグイン構成ファイル「%(ident)s」が更新されました。"
 
 #, python-format
 msgid "Upgrade host firmware with '%(path)s'"
-msgstr ""
+msgstr "ホスト・ファームウェアを「%(path)s」でアップグレード"
 
 msgid "Usage"
-msgstr ""
+msgstr "使用法"
 
 msgid "Use Libwrap"
-msgstr ""
+msgstr "Libwrap の使用"
 
 msgid "Use Other"
 msgstr "その他を使用"
 
 msgid "Use%"
-msgstr ""
+msgstr "使用率(%)"
 
 msgid "Used (MB)"
-msgstr ""
+msgstr "使用量 (MB)"
 
 msgid "User"
-msgstr ""
+msgstr "ユーザー"
 
 #, python-format
 msgid "User '%(user)s' does not exist."
 msgstr "ユーザー「%(user)s」は存在しません。"
 
 msgid "User 'no_login' should be boolean."
-msgstr ""
+msgstr "ユーザー「no_login」はブール値でなければなりません。"
 
 msgid "User Deletion"
-msgstr ""
+msgstr "ユーザー削除"
 
 msgid "User ID"
-msgstr ""
+msgstr "ユーザー ID"
 
 msgid "User ID Report"
-msgstr ""
+msgstr "ユーザー ID レポート"
 
 msgid "User Management"
 msgstr "ユーザー管理"
@@ -3841,7 +4206,7 @@ msgid "User Name"
 msgstr "ユーザー名"
 
 msgid "User group should be non-empty string."
-msgstr ""
+msgstr "ユーザー・グループは空以外のストリングにしてください。"
 
 msgid "User name is a required string."
 msgstr "ユーザー名は必須ストリングです。"
@@ -3851,92 +4216,98 @@ msgstr "ユーザー・パスワードは必須ストリングです。"
 
 msgid "User profile should be one among regularuser, virtuser or admin."
 msgstr ""
+"ユーザー・プロファイルは regularuser、virtuser、または admin のいずれかにして"
+"ください。"
 
 #, python-format
 msgid "User/Login '%(user)s' already in use."
-msgstr ""
+msgstr "ユーザー/ログイン「%(user)s」は既に使用されています。"
+
+msgid "Username"
+msgstr "ユーザー名"
 
 #, python-format
 msgid "VG %(name)s contains logical volumes."
-msgstr ""
+msgstr "VG %(name)s には論理ボリュームが含まれています。"
 
 msgid "VG Name"
-msgstr ""
+msgstr "VG 名"
 
 msgid "VG UUID"
-msgstr ""
+msgstr "VG UUID"
 
 msgid "VG name"
-msgstr ""
+msgstr "VG 名"
 
 msgid "VLAN"
-msgstr ""
+msgstr "VLAN"
 
 msgid "VLAN Id"
-msgstr ""
+msgstr "VLAN Id"
 
 msgid "VLAN Interface name"
-msgstr ""
+msgstr "VLAN インターフェース名"
 
 msgid "VLAN id exceeds the ranges from '0' to '4095'."
-msgstr ""
+msgstr "VLAN id が「0」から「4095」までの範囲にありません。"
 
 msgid "VLAN interface name is missing or provided incorrectly"
-msgstr ""
+msgstr "VLAN インターフェース名がないか、または正しく指定されていません"
 
 msgid "VLANID mandatory in case VLAN interface do not have VLANID in it."
 msgstr ""
+"VLAN インターフェースに VLANID が含まれていない場合、VLANID は必須です。"
 
 msgid "Value"
-msgstr ""
+msgstr "値"
 
 msgid "Value should be integer"
-msgstr ""
+msgstr "値は整数にしてください"
 
 msgid "Vermagic"
-msgstr ""
+msgstr "Vermagic"
 
 msgid "Version"
-msgstr ""
+msgstr "バージョン"
 
 msgid "Virt User"
 msgstr "Virt ユーザー"
 
 msgid "Virtualization Report"
-msgstr ""
+msgstr "仮想化レポート"
 
 msgid "Vlan id is missing."
-msgstr ""
+msgstr "Vlan id がありません。"
 
 msgid "Vlan info is missing."
-msgstr ""
+msgstr "Vlan 情報がありません。"
 
 msgid "Vlan is missing."
-msgstr ""
+msgstr "Vlan がありません。"
 
 msgid "Volume Group"
-msgstr ""
+msgstr "ボリューム・グループ"
 
 msgid "Volume Group Name"
-msgstr ""
+msgstr "ボリューム・グループ名"
 
 msgid "Volume Group Size"
-msgstr ""
+msgstr "ボリューム・グループ・サイズ"
 
 msgid "Volume Group Status"
-msgstr ""
+msgstr "ボリューム・グループ状況"
 
 msgid "Volume Groups"
-msgstr ""
+msgstr "ボリューム・グループ"
 
 msgid "Volume group %1 is successfully extended"
-msgstr ""
+msgstr "ボリューム・グループ %1 は正常に拡張されました"
 
 msgid "Volume group %1 is successfully reduced"
-msgstr ""
+msgstr "ボリューム・グループ %1 は正常に削減されました"
 
 msgid "Volume group :  %1"
-msgstr ""
+msgstr "ボリューム・グループ: %1"
 
 msgid "WWNN"
 msgstr "WWNN"
@@ -3945,242 +4316,247 @@ msgid "WWPN"
 msgstr "WWPN"
 
 msgid "Warning: Recent changes has been rolled back, due to operation fail"
-msgstr ""
+msgstr "警告: 操作が失敗したため、最新の変更がロールバックされました"
 
 msgid "Week Ago"
-msgstr ""
+msgstr "1 週間前"
 
 msgid "Word"
-msgstr ""
+msgstr "ワード"
 
 msgid "Write"
-msgstr ""
+msgstr "書き込み"
 
 msgid "Write Logs"
-msgstr ""
+msgstr "ログを書き込む"
 
 msgid "Yes"
-msgstr ""
+msgstr " はい"
 
 msgid "Yesterday"
-msgstr ""
+msgstr "昨日"
 
 msgid ""
 "You have unsaved changes and this will discard them. Do you want to continue?"
 msgstr ""
+"未保存の変更があります。これを行うと、その変更は破棄されます。続行しますか ?"
 
 msgid ""
 "You have unsaved changes with invalid data. Do you want to edit them or "
 "discard them?"
 msgstr ""
+"無効データが含まれている未保存の変更があります。その変更を編集しますか、それ"
+"とも破棄しますか?"
 
 msgid "You have unsaved changes. Do you want to save them?"
-msgstr ""
+msgstr "未保存の変更があります。保存しますか?"
 
 msgid "and other %1 bonds"
-msgstr ""
+msgstr "および他の %1 結合"
 
 msgid "and other %1 interfaces"
-msgstr ""
+msgstr "および他の %1 インターフェース"
 
 msgid "architecture"
-msgstr ""
+msgstr "アーキテクチャー"
 
 msgid "audit uid"
-msgstr ""
-
-msgid "backups"
-msgstr "バックアップ"
-
-msgid "days of backups"
-msgstr "日間のバックアップ"
-
-msgid "device deleted successfully"
-msgstr ""
+msgstr "監査 uid"
 
 msgid "eg. vlan4094 or vlan.4094 or eth0.4094 or 15 characters device name"
-msgstr ""
+msgstr "例えば、vlan4094、vlan.4094、eth0.4094 など、15 文字のデバイス名"
 
 msgid "email"
-msgstr ""
+msgstr "E メール"
 
 msgid "error in filesystem get list util"
-msgstr ""
+msgstr "ファイルシステム・リスト取得ユーティリティーでエラーが発生しました"
 
 msgid "error in filesystem info fetch util"
-msgstr ""
+msgstr "ファイルシステム情報フェッチ・ユーティリティーでエラーが発生しました"
 
-msgid "error in unmount util"
-msgstr ""
+#, python-format
+msgid "error in unmount util %(err)s"
+msgstr "アンマウント・ユーティリティーでエラーが発生しました: %(err)s"
 
 msgid "exec"
-msgstr ""
+msgstr "exec"
 
 msgid "exit"
-msgstr ""
+msgstr "出口"
 
 msgid "ext3"
-msgstr ""
+msgstr "ext3"
 
 msgid "ext4"
-msgstr ""
+msgstr "ext4"
 
 msgid "failed!"
-msgstr ""
+msgstr "失敗しました。"
 
-msgid "fdisk command failed"
-msgstr ""
+#, python-format
+msgid "fdisk command failed. Reason: %(err)s"
+msgstr "fdisk コマンドが失敗しました。理由: %(err)s"
 
 msgid "formatted successfully"
-msgstr ""
+msgstr "正常にフォーマットされました"
 
 msgid "fqd"
-msgstr ""
+msgstr "fqd"
 
 msgid "iSCSI"
-msgstr ""
+msgstr "iSCSI"
 
 msgid "iSCSI Login"
-msgstr ""
+msgstr "iSCSI ログイン"
 
 msgid "iSCSI Logout"
-msgstr ""
+msgstr "iSCSI ログアウト"
 
 msgid "iSCSI Qualifier Name (IQN)"
-msgstr ""
+msgstr "iSCSI 修飾子名 (IQN)"
 
 msgid "iSCSI Remove"
-msgstr ""
+msgstr "iSCSI 除去"
 
 msgid "iSCSI Server IP"
-msgstr ""
+msgstr "iSCSI サーバー IP"
 
 msgid "iSCSI global settings loaded successfully"
-msgstr ""
+msgstr "iSCSI グローバル設定が正常にロードされました"
 
 msgid "iSCSI target settings loaded successfully"
-msgstr ""
+msgstr "iSCSI ターゲット設定が正常にロードされました"
 
 msgid "iSCSI target settings updated successfully"
-msgstr ""
+msgstr "iSCSI ターゲット設定が正常に更新されました"
 
 msgid "iSCSI: Global Authentication Configuration"
-msgstr ""
+msgstr "iSCSI: グローバル認証構成"
 
 msgid "iSCSI: Target"
-msgstr ""
+msgstr "iSCSI: ターゲット"
 
 msgid "iSCSI: Target Authentication Configuration"
-msgstr ""
+msgstr "iSCSI: ターゲット認証構成"
+
+msgid "invalid field"
+msgstr "無効フィールド"
 
 msgid "is not logged onto the target"
-msgstr ""
+msgstr "はターゲットにログオンしていません"
 
 msgid "keep_logs"
-msgstr ""
+msgstr "keep_logs"
 
 msgid "loadvalue"
-msgstr ""
+msgstr "loadvalue"
 
 msgid "logged in successfully"
-msgstr ""
+msgstr "正常にログインしました"
 
 msgid "logged out successfully"
-msgstr ""
+msgstr "正常にログアウトしました"
 
 msgid "lvcreate command failed"
-msgstr ""
+msgstr "lvcreate コマンドが失敗しました"
 
 msgid "lvdisplay command failed"
-msgstr ""
+msgstr "lvdisplay コマンドが失敗しました"
 
 msgid "lvremove command failed"
-msgstr ""
+msgstr "lvremove コマンドが失敗しました"
 
 msgid "lvs command failed"
-msgstr ""
+msgstr "lvs コマンドが失敗しました"
 
 msgid "mkfs command failed"
-msgstr ""
+msgstr "mkfs コマンドが失敗しました"
 
 msgid "msgtype"
-msgstr ""
-
-msgid "not interger."
-msgstr ""
+msgstr "msgtype"
 
 msgid "num_vfs (Number of virtual functions to enable):"
-msgstr ""
+msgstr "num_vfs (使用可能にする仮想関数の数):"
 
 msgid "path"
-msgstr ""
+msgstr "パス"
 
 msgid "permission"
-msgstr ""
+msgstr "許可"
 
 msgid "pervalue"
-msgstr ""
+msgstr "pervalue"
 
 msgid "pvcreate command failed"
-msgstr ""
+msgstr "pvcreate コマンドが失敗しました"
 
 msgid "pvs command failed"
-msgstr ""
+msgstr "pvs コマンドが失敗しました"
 
 msgid "re-scan completed successfully"
-msgstr ""
+msgstr "再スキャンが正常に完了しました"
 
 msgid "removed successfully"
-msgstr ""
+msgstr "正常に除去されました"
 
 msgid "required remote share location"
-msgstr ""
+msgstr "リモート共有ロケーションが必要です"
 
 msgid "required server ip addr"
-msgstr ""
+msgstr "サーバー IP アドレスが必要です"
 
 msgid "required type as local or nfs"
-msgstr ""
+msgstr "タイプが local または nfs として必要です"
 
 msgid "success"
-msgstr ""
+msgstr "正常終了"
 
 msgid "successfully"
-msgstr ""
+msgstr "正常"
 
 msgid "successfully deleted"
-msgstr ""
+msgstr "正常に削除されました"
 
 msgid "v3"
-msgstr ""
+msgstr "v3"
 
 msgid "v4.0"
-msgstr ""
+msgstr "v4.0"
 
 msgid "v4.1"
-msgstr ""
+msgstr "v4.1"
 
 msgid "vgcreate command failed"
-msgstr ""
+msgstr "vgcreate コマンドが失敗しました"
 
 msgid "vgextend command failed"
-msgstr ""
+msgstr "vgextend コマンドが失敗しました"
 
 #, python-format
 msgid "vgreduce command failed : %(err)s"
-msgstr ""
+msgstr "vgreduce コマンドが失敗しました: %(err)s"
 
 msgid "vgremove command failed"
-msgstr ""
+msgstr "vgremove コマンドが失敗しました"
 
 msgid "vgs command failed"
-msgstr ""
+msgstr "vgs コマンドが失敗しました"
 
 msgid "vgs command for given VG failed"
-msgstr ""
+msgstr "指定の VG に対する vgs コマンドが失敗しました"
 
 msgid "xfs"
-msgstr ""
+msgstr "xfs"
+
+#~ msgid "Preserve the latest"
+#~ msgstr "最新を保持"
+
+#~ msgid "backups"
+#~ msgstr "バックアップ"
+
+#~ msgid "days of backups"
+#~ msgstr "日間のバックアップ"
 
 #~ msgid "Error activating power saving profile %(profile)s."
 #~ msgstr ""

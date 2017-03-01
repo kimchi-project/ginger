@@ -1,12 +1,12 @@
 # English translations for Ginger package.
-# Copyright IBM Corp, 2014-2016
+# Copyright IBM Corp, 2014-2017
 # This file is distributed under the same license as the Ginger package.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Ginger 1.2.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-11-08 10:20-0200\n"
+"POT-Creation-Date: 2017-03-02 16:12-0300\n"
 "PO-Revision-Date: 2014-06-22 14:00+0800\n"
 "Last-Translator: Zhou Zheng Sheng <zhshzhou@linux.vnet.ibm.com>\n"
 "Language-Team: Zhou Zheng Sheng <zhshzhou@linux.vnet.ibm.com>\n"
@@ -16,129 +16,132 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 msgid " CHAP "
-msgstr ""
+msgstr " CHAP"
 
 msgid " None "
-msgstr ""
+msgstr " 无"
 
 msgid " Password "
-msgstr ""
+msgstr " 密码"
 
 msgid " Type "
-msgstr ""
+msgstr " 类型"
 
 msgid " Username "
-msgstr ""
+msgstr " 用户名"
 
 msgid "!="
-msgstr ""
+msgstr "!="
 
 #, python-format
 msgid "%(mac)s is not a valid mac address."
-msgstr ""
+msgstr "%(mac)s 是无效 MAC 地址。"
 
 #, python-format
 msgid "%(name)s is not valid network interface"
-msgstr ""
+msgstr "%(name)s 是无效网络接口。"
 
 #, python-format
 msgid "%(sensor_type)s is not a valid sensor type"
-msgstr ""
+msgstr "%(sensor_type)s 是无效传感器类型"
+
+msgid "%1 device deleted successfully."
+msgstr "已成功删除 %1 设备。"
 
 msgid "&"
-msgstr ""
+msgstr "&"
 
 msgid "&="
-msgstr ""
+msgstr "&="
 
 msgid "&larr; Previous"
-msgstr ""
+msgstr "&larr; 上一步"
 
 #, python-format
 msgid "'%(key)s' value is missing."
-msgstr ""
+msgstr "缺少“%(key)s”值。"
 
 msgid "'%1' deleted successfully."
-msgstr ""
+msgstr "已成功删除“%1”。"
 
 msgid "'yes' or 'no' are the allowed values for the VLAN."
-msgstr ""
+msgstr "VLAN 的允许值为“yes”或“no”。"
 
 msgid "-b (backlog)"
-msgstr ""
+msgstr "-b（待办事项）"
 
 msgid "-f (flag/failure)"
-msgstr ""
+msgstr "-f（标志/故障）"
 
 msgid "-r (rate)"
-msgstr ""
+msgstr "-r（速率）"
 
 msgid "0"
-msgstr ""
+msgstr "0"
 
 msgid "1"
-msgstr ""
+msgstr "1"
 
 msgid "2"
-msgstr ""
+msgstr "2"
 
 msgid "<"
-msgstr ""
+msgstr "<"
 
 msgid "<="
-msgstr ""
+msgstr "<="
 
 msgid "="
-msgstr ""
+msgstr "="
 
 msgid ">"
-msgstr ""
+msgstr ">"
 
 msgid ">="
-msgstr ""
+msgstr ">="
 
 msgid ""
 "A VLAN slave cannot be configured on a bond with the fail_over_mac=follow "
 "option."
-msgstr ""
+msgstr "无法在 bond 上使用 fail_over_mac=follow 选项来配置 VLAN 从属项。"
 
 msgid "AVC Messages"
-msgstr ""
+msgstr "AVC 消息"
 
 msgid "Absolute File Path"
-msgstr ""
+msgstr "绝对文件路径"
 
 msgid "Absolute path to firmware RPM"
-msgstr ""
+msgstr "固件 RPM 的绝对路径"
 
 msgid "Account Modification Report"
-msgstr ""
+msgstr "帐户修改报告"
 
 msgid "Action"
-msgstr ""
+msgstr "操作"
 
 msgid "Action Mail"
-msgstr ""
+msgstr "操作邮件"
 
 msgid "Actions"
-msgstr ""
+msgstr "操作"
 
 msgid "Activate"
 msgstr "激活"
 
 #, python-format
 msgid "Activate host network interface '%(ident)s'"
-msgstr ""
+msgstr "激活主机网络接口“%(ident)s”"
 
 #, python-format
 msgid "Activate power saving profile '%(ident)s'"
-msgstr ""
+msgstr "激活节能概要文件“%(ident)s”"
 
 #, python-format
 msgid ""
 "Activation of interface %(name)s failed. Physical cable is disconnected for "
 "the device '%(name)s'."
-msgstr ""
+msgstr "激活接口 %(name)s 失败。设备“%(name)s”的物理电缆已断开连接。"
 
 #, python-format
 msgid ""
@@ -150,37 +153,37 @@ msgstr ""
 msgid ""
 "Activation of vlan/bond interface '%(name)s' failed. Please refresh and try "
 "again. "
-msgstr ""
+msgstr "激活 vlan/bond 接口“%(name)s”失败。请刷新并重试。"
 
 msgid "Active"
-msgstr ""
+msgstr "活动"
 
 msgid "Add"
-msgstr ""
+msgstr "添加"
 
 msgid "Add Adapter"
-msgstr ""
+msgstr "添加适配器"
 
 msgid "Add Bond"
-msgstr ""
+msgstr "添加 bond"
 
 msgid "Add Bridge"
-msgstr ""
+msgstr "添加网桥"
 
 msgid "Add ECKD Device"
-msgstr ""
+msgstr "添加 ECKD 设备"
 
 msgid "Add FCP Device"
-msgstr ""
+msgstr "添加 FCP 设备"
 
 msgid "Add Interface"
-msgstr ""
+msgstr "添加接口"
 
 msgid "Add New Entry"
-msgstr ""
+msgstr "添加新条目"
 
 msgid "Add Server"
-msgstr ""
+msgstr "添加服务器"
 
 msgid "Add Subscription"
 msgstr "添加预订"
@@ -189,50 +192,50 @@ msgid "Add User"
 msgstr "添加用户"
 
 msgid "Add VLAN"
-msgstr ""
+msgstr "添加 VLAN"
 
 msgid "Add a Path"
-msgstr ""
+msgstr "添加路径"
 
 #, python-format
 msgid "Add bonded port '%(bond)s' in OVS bridge '%(ident)s'"
-msgstr ""
+msgstr "在 OVS 网桥“%(ident)s”中添加 bond 端口“%(bond)s”"
 
 #, python-format
 msgid "Add interface '%(interface)s' to OVS bridge '%(ident)s'"
-msgstr ""
+msgstr "向 OVS 网桥“%(ident)s”添加接口“%(interface)s”"
 
 #, python-format
 msgid "Add managed server '%(name)s'"
-msgstr ""
+msgstr "添加受管服务器“%(name)s”"
 
 msgid "Add new filter"
-msgstr ""
+msgstr "添加新过滤器"
 
 #, python-format
 msgid "Add physical volume '%(pv_name)s'"
-msgstr ""
+msgstr "添加物理卷“%(pv_name)s”"
 
 msgid "Add to VG"
-msgstr ""
+msgstr "添加至 VG"
 
 msgid "Add to Volume Group"
-msgstr ""
+msgstr "添加至卷组"
 
 msgid "Address"
-msgstr ""
+msgstr "地址"
 
 msgid "Address Space"
-msgstr ""
+msgstr "地址空间"
 
 msgid "Addresses"
-msgstr ""
+msgstr "地址"
 
 msgid "Admin Space Left Action"
-msgstr ""
+msgstr "“余下管理空间”操作"
 
 msgid "Admin Space Left(MBs)"
-msgstr ""
+msgstr "余下管理空间 (MB)"
 
 msgid "Administration"
 msgstr "管理"
@@ -241,520 +244,543 @@ msgid "Administrator"
 msgstr "管理员"
 
 msgid "Advanced"
-msgstr ""
+msgstr "高级"
 
 msgid "Aliases"
-msgstr ""
+msgstr "别名"
 
 msgid "Allocated PE"
-msgstr ""
+msgstr "已分配 PE"
 
 msgid "Allocated PE Size"
-msgstr ""
+msgstr "已分配 PE 大小"
 
 msgid "Allowed values for BONDING_MASTER are 'yes' or 'no'"
-msgstr ""
+msgstr "BONDING_MASTER 的允许值为“yes”或“no”"
 
 msgid "Always"
-msgstr ""
+msgstr "始终"
 
 msgid "Ambient"
-msgstr ""
+msgstr "环境"
 
 msgid "Anomaly events Report"
-msgstr ""
+msgstr "异常事件报告"
 
 msgid "Apply"
-msgstr ""
+msgstr "应用"
 
-msgid "Architecture [b32 | b34]"
-msgstr ""
+msgid "Architecture [b32 | b64]"
+msgstr "体系结构 [b32 | b64]"
 
 #, python-format
 msgid "Archive creation task failed. \"%(err)s\"."
+msgstr "归档创建任务失败。\"%(err)s\"."
+
+#, python-format
+msgid "Archive restore task failed. \"%(err)s\"."
 msgstr ""
 
 msgid "Are you sure you want to add the pv(s)  %1 <br>to volume group %2?"
-msgstr ""
+msgstr "确定要将 pv %1 <br>添加至卷组 %2 吗？"
 
 msgid ""
-"Are you sure you want to create physical volues with the selected block "
+"Are you sure you want to create physical volumes with the selected block "
 "devices?"
-msgstr ""
+msgstr "确定要创建带有所选块设备的物理卷吗？"
 
 msgid ""
-"Are you sure you want to create physical volues with the selected partitions/"
-"block devices?"
-msgstr ""
+"Are you sure you want to create physical volumes with the selected "
+"partitions/block devices?"
+msgstr "确定要创建带有所选分区/块设备的物理卷吗？"
 
 msgid "Are you sure you want to delete interface %1?"
-msgstr ""
+msgstr "确定要删除接口 %1 吗？"
 
 msgid ""
 "Are you sure you want to delete interface %1? <br> This may affect network "
 "connectivity!"
-msgstr ""
+msgstr "确定要删除接口 %1 吗？<br> 这可能会影响网络连接！"
 
 msgid "Are you sure you want to delete server %1?"
-msgstr ""
+msgstr "确定要删除服务器 %1 吗？"
 
-msgid "Are you sure you want to delete the selected file/device"
-msgstr ""
+msgid "Are you sure you want to delete the selected file/device?"
+msgstr "确定要删除所选文件/设备?"
 
 msgid "Are you sure you want to delete this user?"
-msgstr ""
+msgstr "确定要删除此用户吗？"
 
 msgid "Are you sure you want to delete volume group(s) : %1?"
-msgstr ""
+msgstr "确定要删除卷组 %1 吗？"
 
 msgid "Are you sure you want to power off server %1?"
-msgstr ""
+msgstr "确定要对服务器 %1 断电吗？"
 
 msgid "Are you sure you want to power on server %1?"
-msgstr ""
+msgstr "确定要对服务器 %1 通电吗？"
 
 msgid "Are you sure you want to remove selected devices?"
-msgstr ""
+msgstr "确定要移除所选设备吗？"
 
 msgid "Are you sure you want to remove the pv(s)  %1 <br>from volume group %2?"
-msgstr ""
+msgstr "确定要从卷组 %2 移除 pv %1 <br>吗？"
 
 msgid "Are you sure you want to unmount the selected file systems?"
-msgstr ""
+msgstr "确定要卸载所选文件系统吗？"
 
 msgid "Args"
-msgstr ""
+msgstr "自变量"
+
+msgid "At least one permission is required for File System Rule."
+msgstr "文件系统规则至少需要一个许可权。"
 
 msgid "At least one slave is required for the bond interface"
-msgstr ""
+msgstr "bond 接口需要至少一个从属项"
 
 msgid "Audit Dispatcher"
-msgstr ""
+msgstr "审计分派器"
 
 msgid "Audit Dispatcher Configuration"
-msgstr ""
+msgstr "审计分派器配置"
 
 msgid "Audit Dispatcher disabled successfully."
-msgstr ""
+msgstr "已成功禁用审计分派器。"
 
 msgid "Audit Dispatcher enabled successfully."
-msgstr ""
+msgstr "已成功启用审计分派器。"
 
 msgid "Audit Event ID"
-msgstr ""
+msgstr "审计事件标识"
 
 msgid "Audit Log Filter"
-msgstr ""
+msgstr "审计日志过滤器"
 
 msgid "Audit Log filter applied and output is rendered below"
-msgstr ""
+msgstr "已应用审计日志过滤器，输出呈示如下"
+
+msgid "Audit Log filter must be unique"
+msgstr "审计日志过滤器必须唯一"
 
 msgid "Audit Logs"
-msgstr ""
+msgstr "审计日志"
 
 msgid "Audit Report"
-msgstr ""
+msgstr "审计报告"
 
 msgid "Audit Report Type"
-msgstr ""
+msgstr "审计报告类型"
+
+msgid "Audit Report filter must be unique"
+msgstr "审计报告过滤器必须唯一"
 
 msgid "Audit Rule"
-msgstr ""
+msgstr "审计规则"
 
 msgid "Audit Rules"
-msgstr ""
+msgstr "审计规则"
 
 msgid "Audit dispatcher Configuration details updated successfully"
-msgstr ""
+msgstr "已成功更新审计分派器配置详细信息"
 
 msgid "Audit dispatcher plugin %1 is updated successfully"
-msgstr ""
+msgstr "已成功更新审计分派器插件 %1"
 
 msgid "Auditd Configuration"
-msgstr ""
+msgstr "Auditd 配置"
 
 msgid "Auth"
-msgstr ""
+msgstr "认证"
 
 msgid "Authentication"
-msgstr ""
+msgstr "认证"
 
 msgid "Authentication Attempts"
-msgstr ""
+msgstr "认证尝试"
 
 msgid "Authors"
-msgstr ""
+msgstr "作者"
 
 msgid "Automatic"
-msgstr ""
+msgstr "自动"
 
 msgid "Automatic(DHCP)"
-msgstr ""
+msgstr "自动 (DHCP)"
 
 msgid "Autostart"
-msgstr ""
+msgstr "自动启动"
 
 msgid "Available (MB)"
+msgstr "可用 (MB)"
+
+msgid ""
+"Available size on the disk can be lesser than the selectable size, due to "
+"some overhead or additional partitions available."
 msgstr ""
 
 msgid "BMP"
-msgstr ""
+msgstr "BMP"
 
 msgid "BOND"
-msgstr ""
+msgstr "BOND"
 
 msgid "BOND interface name is missing or invalid"
-msgstr ""
+msgstr "bond 接口名称缺失或无效"
 
 msgid "Basic information of interface is missing."
-msgstr ""
+msgstr "缺少接口的基本信息。"
 
 msgid "Batch Delete"
 msgstr "批量删除"
 
 msgid "Blocking/Lossless"
-msgstr ""
+msgstr "分块/无损"
 
 msgid "Bond %1 was successfully added"
-msgstr ""
+msgstr "已成功添加 Bond %1"
 
 msgid "Bond %1 was successfully modified"
-msgstr ""
+msgstr "已成功修改 Bond %1"
 
 msgid "Bond %1 was successfully removed"
-msgstr ""
+msgstr "已成功移除 Bond %1"
 
 msgid "Bond Members"
-msgstr ""
+msgstr "Bond 成员"
 
 msgid "Bond info is missing."
-msgstr ""
+msgstr "缺少 Bond 信息。"
 
 msgid "Bond name"
-msgstr ""
+msgstr "Bond 名称"
 
 msgid "Bonding master is missing."
-msgstr ""
+msgstr "缺少 bonding 主项。"
 
 msgid "Bonds"
-msgstr ""
+msgstr "Bond"
 
 msgid "Boot protocol is missing for ipv4 settings."
-msgstr ""
+msgstr "ipv4 设置缺少引导协议。"
 
 msgid "Boot protocol is missing for ipv6 settings."
-msgstr ""
+msgstr "ipv6 设置缺少引导协议。"
 
 #, python-format
 msgid "Bridge %(bridge)s does not have a bond named %(bond)s."
-msgstr ""
+msgstr "网桥 %(bridge)s 没有名为 %(bond)s 的 bond。"
 
 msgid "Bridge %1 was successfully removed"
-msgstr ""
+msgstr "已成功移除网桥 %1"
 
 msgid "Bridge Name"
-msgstr ""
+msgstr "网桥名称"
 
 msgid "Bring down interface"
-msgstr ""
+msgstr "关闭接口"
 
 msgid "Bring up interface"
-msgstr ""
+msgstr "启动接口"
 
 msgid "Buffer Count"
-msgstr ""
+msgstr "缓冲区计数"
 
 msgid "Bus ID"
-msgstr ""
+msgstr "总线标识"
 
 msgid "Bytes Received"
-msgstr ""
+msgstr "接收到的字节数"
 
 msgid "Bytes Transmitted"
-msgstr ""
+msgstr "传输的字节数"
 
 msgid "CHAP"
-msgstr ""
+msgstr "CHAP"
 
 msgid "Can not delete Control Rule, since it is not persisted"
-msgstr ""
+msgstr "无法删除控制规则，因为它未保存"
 
 msgid "Can't edit the rule, because selected rule is not persisted"
-msgstr ""
+msgstr "无法编辑该规则，因为所选规则未保存"
 
 msgid "Cancel"
 msgstr "取消"
 
 msgid "Cannot delete System Event log for id "
-msgstr ""
+msgstr "无法删除对应标识的系统事件日志"
 
 #, python-format
 msgid "Cannot process FRU Device information entry %(eachFru)s"
-msgstr ""
+msgstr "无法处理 FRU 设备信息条目 %(eachFru)s"
 
 #, python-format
 msgid "Cannot process SDR entry %(sdrString)s"
-msgstr ""
+msgstr "无法处理 SDR 条目 %(sdrString)s"
 
 #, python-format
 msgid "Cannot process System Event Log entry %(selString)s"
-msgstr ""
+msgstr "无法处理系统事件日志条目 %(selString)s"
 
 msgid "Cannot update system firmware while running VMs."
 msgstr "运行 VM 时无法更新系统固件。"
 
 msgid "Capacity"
-msgstr ""
+msgstr "容量"
 
 msgid "Capacity (MB)"
-msgstr ""
+msgstr "容量 (MB)"
 
 msgid "Cgroup"
-msgstr ""
+msgstr "Cgroup"
 
 msgid "Change"
-msgstr ""
+msgstr "更改"
 
 msgid "Change Password"
-msgstr ""
+msgstr "更改密码"
 
 #, python-format
 msgid "Change password for user '%(ident)s'"
-msgstr ""
+msgstr "更改用户“%(ident)s”的密码"
 
 #, python-format
 msgid "Change type for partition failed. Error: %(err)s"
-msgstr ""
+msgstr "更改分区类型失败。错误：%(err)s"
 
 msgid "Close"
-msgstr ""
+msgstr "关闭"
 
 msgid "Command"
-msgstr ""
+msgstr "命令"
 
 msgid "Commands Run"
-msgstr ""
+msgstr "所运行命令"
 
 msgid "Commit host firmware image from temp side to perm side"
-msgstr ""
+msgstr "将主机固件映像从临时端落实至永久端"
 
 msgid "Community"
 msgstr "社区"
 
 #, python-format
 msgid "Conf file does not exist for the plugin: %(name)s"
-msgstr ""
+msgstr "以下插件没有配置文件：%(name)s"
 
 msgid "Config Backup has been successfully created."
+msgstr "已成功创建配置备份。"
+
+msgid "Config Backup has been successfully restored."
 msgstr ""
 
 msgid "Config Change Report"
-msgstr ""
+msgstr "配置更改报告"
 
 msgid "Configuration Backup"
 msgstr "配置备份"
 
 msgid "Configuration updated successfully"
-msgstr ""
+msgstr "已成功更新配置"
+
+msgid "Configure Audit"
+msgstr "配置审计"
 
 msgid "Configured successfully"
-msgstr ""
+msgstr "已成功配置"
 
 msgid "Confirm Password"
 msgstr "确认密码"
 
 msgid "Confirm changes on host network configuration"
-msgstr ""
+msgstr "确认主机网络配置的更改"
 
 msgid "Connect Automatically"
-msgstr ""
+msgstr "自动连接"
 
 msgid "Control Rule"
-msgstr ""
+msgstr "控制规则"
 
 msgid "Control Rules can not be unloaded"
-msgstr ""
+msgstr "无法卸载控制规则"
 
 msgid "Cores"
-msgstr ""
+msgstr "核心数"
 
 #, python-format
 msgid "Could not add user '%(user)s' to kvm group."
-msgstr "无法将用户“%(user)s”添加至 KVM 组。"
+msgstr "无法将用户“%(user)s”添加至 kvm 组。"
 
 #, python-format
 msgid "Could not add user '%(user)s' to sudoers list, error: '%(err)s'."
-msgstr ""
+msgstr "无法将用户“%(user)s”添加至 sudoers 列表，错误：“%(err)s”。"
 
 msgid "Create"
-msgstr ""
+msgstr "创建"
 
 #, python-format
 msgid "Create DASD partition on '%(dev_name)s' with size %(size)s"
-msgstr ""
+msgstr "在“%(dev_name)s”上创建大小为 %(size)s 的 DASD 分区"
 
 #, python-format
 msgid "Create OVS bridge '%(name)s'"
-msgstr ""
+msgstr "创建 OVS 网桥“%(name)s”"
 
 msgid "Create Partition"
-msgstr ""
+msgstr "创建分区"
 
 msgid "Create Physical Volumes"
-msgstr ""
+msgstr "创建物理卷"
 
 msgid "Create a backup"
 msgstr "创建备份"
 
 msgid "Create a new PV"
-msgstr ""
+msgstr "创建新的 PV"
 
 msgid "Create a new volume group"
-msgstr ""
+msgstr "创建新的卷组"
 
 #, python-format
 msgid "Create archive with description '%(description)s'"
-msgstr ""
-
-#, python-format
-msgid "Create audit rule '%(rule)s' type '%(type)s'"
-msgstr ""
+msgstr "创建带有描述“%(description)s”的归档"
 
 msgid "Create configuration file for network interface"
-msgstr ""
+msgstr "为网络接口创建配置文件"
 
 #, python-format
 msgid "Create disk partition at '%(devname)s' with size %(partsize)s"
-msgstr ""
+msgstr "在“%(devname)s”上创建大小为 %(partsize)s 的磁盘分区"
 
 #, python-format
 msgid "Create host volume group '%(vg_name)s'"
-msgstr ""
+msgstr "创建主机卷组“%(vg_name)s”"
 
 #, python-format
 msgid "Create logical volume at volume group '%(vg_name)s'"
-msgstr ""
+msgstr "在卷组“%(vg_name)s”上创建逻辑卷"
 
 #, python-format
 msgid "Create partition failed. Error: %(err)s"
-msgstr ""
+msgstr "创建分区失败。错误：%(err)s"
 
 msgid "Create physical volumes : Block Devices"
-msgstr ""
+msgstr "创建物理卷：块设备"
 
 #, python-format
 msgid "Create swap device '%(file_loc)s'"
-msgstr ""
+msgstr "创建交换设备“%(file_loc)s”"
 
 #, python-format
 msgid "Create user '%(name)s'"
-msgstr ""
+msgstr "创建用户“%(name)s”"
 
 #, python-format
-msgid "Created the rule '%(name)s'"
-msgstr ""
+msgid "Created the rule of type: '%(type)s'"
+msgstr "已创建以下类型的规则：“%(type)s”"
 
 msgid "Creating ..."
-msgstr ""
+msgstr "正在创建..."
 
 #, python-format
 msgid "Creation of a rule failed. '%(error)s'."
-msgstr ""
+msgstr "创建规则失败。'%(error)s'."
 
 msgid "Crypto Report"
-msgstr ""
+msgstr "密码报告"
 
 msgid "Current LV"
-msgstr ""
+msgstr "当前 LV"
 
 msgid "Current PV"
-msgstr ""
+msgstr "当前 PV"
 
 msgid "Currently logged user of this session is not allowed to be deleted."
-msgstr ""
+msgstr "不允许删除此会话的当前登录用户。"
 
 msgid "Custom Load"
-msgstr ""
+msgstr "定制装入"
 
 #, python-format
 msgid "DASD device %(name)s not found"
-msgstr ""
+msgstr "找不到 DASD 设备“%(name)s”"
 
 msgid "DNS"
 msgstr "DNS"
 
 msgid "DNS Server"
-msgstr ""
+msgstr "DNS 服务器"
 
 msgid "Data"
-msgstr ""
+msgstr "数据"
 
 msgid "Date and Time"
-msgstr ""
+msgstr "日期和时间"
 
 #, python-format
 msgid "Deactivate host network interface '%(ident)s'"
-msgstr ""
+msgstr "取消激活主机网络接口“%(ident)s”"
 
 msgid "Debug"
-msgstr ""
+msgstr "调试"
 
 msgid "Decisecond"
-msgstr ""
+msgstr "Decisecond"
 
 msgid "Default Gateway"
-msgstr ""
+msgstr "缺省网关"
 
 msgid "Delete"
-msgstr ""
+msgstr "删除"
 
 msgid "Delete Backups in Batch"
-msgstr ""
+msgstr "批量删除备份"
 
 #, python-format
 msgid "Delete IQN '%(ident)s'"
-msgstr ""
+msgstr "删除 IQN“%(ident)s”"
 
 msgid "Delete Partition"
-msgstr ""
+msgstr "删除分区"
 
 #, python-format
 msgid "Delete System Event Log entry '%(ident)s'"
-msgstr ""
+msgstr "删除系统事件日志条目“%(ident)s”"
+
+msgid "Delete all rules"
+msgstr "删除所有规则"
 
 #, python-format
 msgid "Delete audit rule '%(ident)s'"
-msgstr ""
+msgstr "删除审计规则“%(ident)s”"
 
 msgid "Delete interface"
-msgstr ""
+msgstr "删除接口"
 
 #, python-format
 msgid "Delete partition failed. Error: %(err)s"
-msgstr ""
+msgstr "删除分区失败。错误：%(err)s"
 
 #, python-format
 msgid "Delete swap device '%(ident)s'"
-msgstr ""
+msgstr "删除交换设备“%(ident)s”"
 
 #, python-format
 msgid "Delete user '%(ident)s'"
-msgstr ""
+msgstr "删除用户“%(ident)s”"
 
 #, python-format
 msgid ""
 "Deletion is not supported for group found in '/etc/sudoers' file. Group: "
 "%(group)s"
-msgstr ""
+msgstr "“/etc/sudoers”文件中的组不支持删除。组：%(group)s"
 
 #, python-format
 msgid ""
 "Deletion is not supported for users found in '/etc/sudoers' file. User: "
 "%(user)s"
-msgstr ""
+msgstr "“/etc/sudoers”文件中的用户不支持删除。用户：%(user)s"
 
 msgid "Depends On"
-msgstr ""
+msgstr "依赖项"
 
 msgid "Description"
 msgstr "描述"
@@ -763,245 +789,249 @@ msgid "Description too long."
 msgstr "描述内容太长。"
 
 msgid "Detach"
-msgstr ""
+msgstr "拆离"
 
 msgid "Detailed Report"
-msgstr ""
+msgstr "详细报告"
 
 msgid "Details"
-msgstr ""
+msgstr "详细信息"
 
 msgid "Device"
-msgstr ""
+msgstr "设备"
 
 msgid "Device Major Number"
-msgstr ""
+msgstr "设备主编号"
 
 msgid "Device Minor Number"
-msgstr ""
+msgstr "设备次编号"
 
 msgid "Device Name"
-msgstr ""
+msgstr "设备名称"
 
 msgid "Device added successfully to Volume Group"
-msgstr ""
+msgstr "设备已成功添加至卷组"
 
 msgid "Device name is invalid."
-msgstr ""
+msgstr "设备名无效。"
 
 msgid "Device name of interface is missing or invalid."
-msgstr ""
+msgstr "接口的设备名缺失或无效。"
 
 msgid "Device removed from Volume Group"
-msgstr ""
+msgstr "已从卷组移除设备"
 
 msgid "Direction"
-msgstr ""
+msgstr "方向"
 
 msgid "Directory"
-msgstr ""
+msgstr "目录"
 
 msgid "Disable"
-msgstr ""
+msgstr "禁用"
 
 msgid "Disable SR-IOV"
-msgstr ""
+msgstr "禁用 SR-IOV"
 
 #, python-format
 msgid "Disabled audit dispatcher in conf file '%(ident)s'"
-msgstr ""
+msgstr "已在配置文件“%(ident)s”中禁用审计分派器"
 
 #, python-format
 msgid "Disabled autostart of service '%(ident)s'"
-msgstr ""
+msgstr "已禁用服务“%(ident)s”的自动启动"
 
 msgid "Discard old archives"
-msgstr ""
+msgstr "废弃旧归档"
 
 msgid "Discover Targets"
-msgstr ""
+msgstr "发现目标"
 
 msgid "Discovery Initiator"
-msgstr ""
+msgstr "发现发起方"
 
 msgid "Discovery Target"
-msgstr ""
+msgstr "发现目标"
 
 msgid "Discovery completed successfully"
-msgstr ""
+msgstr "成功完成发现"
 
 msgid "Disk Error Action"
-msgstr ""
+msgstr "磁盘错误操作"
 
 msgid "Disk Full Action"
-msgstr ""
+msgstr "磁盘已满操作"
 
 msgid "Disp_qos"
-msgstr ""
+msgstr "Disp_qos"
 
 msgid "Dispatcher"
-msgstr ""
+msgstr "分派器"
 
 msgid "Dispatcher Path"
-msgstr ""
+msgstr "分派器路径"
 
 msgid "Dispatcher Plugin Configuration"
-msgstr ""
+msgstr "分派器插件配置"
 
 msgid "Distribute Network"
-msgstr ""
+msgstr "分发网络"
 
 msgid "Do you want to delete following rules ?"
-msgstr ""
+msgstr "要删除以下规则吗？"
 
 msgid "Do you want to delete the partition?"
-msgstr ""
+msgstr "要删除分区吗？"
 
 msgid "Do you want to format the selected ECKD device(s)?"
-msgstr ""
+msgstr "要格式化所选 ECKD 设备吗？"
 
 msgid ""
 "Do you want to format the selected ECKD device(s)? Non-ECKD device(s) which "
 "will be skipped i.e. not be formatted!"
-msgstr ""
+msgstr "要格式化所选 ECKD 设备吗？非 ECKD 设备将被跳过（即，不会格式化）！"
 
 msgid "Do you want to load following rules ?"
-msgstr ""
+msgstr "要装入以下规则吗？"
 
 msgid "Do you want to persist following rules ?"
-msgstr ""
+msgstr "要保存以下规则吗？"
 
 msgid "Do you want to proceed login for selected devices?"
-msgstr ""
+msgstr "要针对所选设备继续登录吗？"
 
 msgid "Do you want to proceed logout for selected devices?"
-msgstr ""
+msgstr "要针对所选设备继续注销吗？"
 
 msgid "Do you want to remove the device from VG?"
-msgstr ""
+msgstr "要从 VG 移除该设备吗？"
 
 msgid "Do you want to remove the selected Storage device(s)?"
-msgstr ""
+msgstr "要移除所选存储设备吗？"
 
 msgid "Do you want to unload following rules ?"
-msgstr ""
+msgstr "要卸载以下规则吗？"
 
 msgid "Done"
-msgstr ""
+msgstr "完成"
 
 msgid "Down"
-msgstr ""
+msgstr "下移"
 
 msgid "Download"
-msgstr ""
+msgstr "下载"
 
 msgid "Edit"
-msgstr ""
+msgstr "编辑"
 
 msgid "Edit Bridge"
-msgstr ""
+msgstr "编辑网桥"
 
 msgid "Edit Bridge:"
-msgstr ""
+msgstr "编辑网桥："
 
 msgid "Edit Rule"
-msgstr ""
+msgstr "编辑规则"
 
 msgid "Effectice user ID"
-msgstr ""
+msgstr "有效用户标识"
 
 msgid "Effective Group ID"
-msgstr ""
+msgstr "有效组标识"
 
 msgid ""
 "Either no network interface or multiple network interfaces selected. Please "
 "select one."
-msgstr ""
+msgstr "未选择网络接口或选择了多个网络接口。请选择一个。"
 
 msgid ""
 "Either no server or multiple server information selected. Please select one."
-msgstr ""
+msgstr "未选择服务器信息或选择了多个服务器信息。请选择一个。"
 
 msgid "Enable"
-msgstr ""
+msgstr "启用"
 
 msgid "Enable Bridge Port"
-msgstr ""
+msgstr "启用网桥端口"
 
 msgid "Enable IPv4 Default Route"
-msgstr ""
+msgstr "启用 IPv4 缺省路由"
 
 msgid "Enable IPv6 Default Route"
-msgstr ""
+msgstr "启用 IPv6 缺省路由"
 
 msgid "Enable Krb5"
-msgstr ""
+msgstr "启用 Krb5"
 
 msgid "Enable SR-IOV"
-msgstr ""
+msgstr "启用 SR-IOV"
 
 msgid "Enable SR-IOV Progress"
-msgstr ""
+msgstr "启用 SR-IOV 进度"
 
 #, python-format
 msgid "Enable SR-IOV feature for network interface '%(ident)s'"
-msgstr ""
+msgstr "对网络接口“%(ident)s”启用 SR-IOV 功能"
 
 msgid "Enable SR-IOV for"
-msgstr ""
+msgstr "对其启用 SR-IOV"
 
 #, python-format
 msgid "Enabled autostart of service '%(ident)s'"
-msgstr ""
+msgstr "已启用服务“%(ident)s”的自动启动"
+
+msgid ""
+"Enables(1) and disables(0) the Audit system or locks(2) its configuration"
+msgstr "启用 (1) 和禁用 (0) 审计系统，或者锁定 (2) 其配置"
 
 msgid "Enriched"
-msgstr ""
+msgstr "已增加"
 
 msgid "Enter Filter Value"
-msgstr ""
+msgstr "输入过滤值"
 
 msgid "Enter Name"
-msgstr ""
+msgstr "输入名称"
 
 msgid "Enter file name with path (Ex: path/filename"
-msgstr ""
+msgstr "输入带路径的文件名（例如：path/filename）"
 
 msgid "Equivalent to enabling promiscuous mode on regular Ethernet adapters"
-msgstr ""
+msgstr "等价于在常规以太网适配器上启用混合方式"
 
 #, python-format
 msgid "Error activating power saving profile %(profile)s, error: %(err)s."
-msgstr ""
+msgstr "激活节能概要文件 %(profile)s 时出错，错误：%(err)s。"
 
 #, python-format
 msgid "Error adding port %(port)s in bridge %(name)s. Port already exists."
-msgstr ""
+msgstr "在网桥 %(name)s 中添加端口 %(port)s 时出错。端口已存在。"
 
 #, python-format
 msgid ""
 "Error commiting firmware. rc = %(rc)s. Ensure you are booted to the "
 "temporary side."
-msgstr ""
+msgstr "落实固件时出错。返回码 = %(rc)s。确保您已引导至临时端。"
 
 #, python-format
 msgid "Error creating OVS bridge %(name)s. OVS bridge already exists."
-msgstr ""
+msgstr "创建 OVS 网桥 %(name)s 时出错。OVS 网桥已存在。"
 
 #, python-format
 msgid "Error creating a flat file. %(err)s"
-msgstr ""
+msgstr "创建平面文件时出错。%(err)s"
 
 #, python-format
 msgid "Error creating a swap device. %(err)s "
-msgstr ""
+msgstr "创建交换设备时出错。%(err)s"
 
 #, python-format
 msgid "Error deleting a swap device. %(err)s"
-msgstr ""
+msgstr "删除交换设备时出错。%(err)s"
 
 #, python-format
 msgid "Error deleting a swap file: %(err)s"
-msgstr ""
+msgstr "删除交换文件时出错：%(err)s"
 
 #, python-format
 msgid "Error deleting subscription: '%(error)s'."
@@ -1009,257 +1039,268 @@ msgstr "删除预订时出错：“%(error)s”。"
 
 #, python-format
 msgid "Error executing 'ls -l /dev/disk/by-id, %(err)s"
-msgstr ""
+msgstr "执行“ls -l /dev/disk/by-id”时出错，%(err)s"
 
 #, python-format
 msgid "Error executing 'lsblk -Po, %(err)s"
-msgstr ""
+msgstr "执行“lsblk -Po”时出错，%(err)s"
 
 #, python-format
 msgid "Error executing 'lvm version' command. %(err)s"
-msgstr ""
+msgstr "执行“lvm version”命令时出错。%(err)s"
 
 msgid ""
 "Error executing OVS command. Please check if 'openvswitch' service is "
 "running."
-msgstr ""
+msgstr "执行 OVS 命令时出错。请检查“openvswitch”服务是否正在运行。"
 
 #, python-format
 msgid "Error executing OVS command: %(err)s"
-msgstr ""
+msgstr "执行 OVS 命令时出错：%(err)s"
 
 #, python-format
 msgid "Error executing SystemD command %(cmd)s, reason: %(err)s"
-msgstr ""
+msgstr "执行 SystemD 命令 %(cmd)s 时出错，原因：%(err)s"
 
 #, python-format
 msgid "Error executing command to rescan the IQN %(iqn)s - %(err)s"
-msgstr ""
+msgstr "执行用于重新扫描 IQN %(iqn)s 的命令时出错 - %(err)s"
 
 #, python-format
 msgid "Error executing iSCSI target discovery command - %(err)s"
-msgstr ""
+msgstr "执行 iSCSI 目标发现命令时出错 - %(err)s"
 
 #, python-format
 msgid "Error fetching NFS shares for server %(name)s."
-msgstr ""
+msgstr "访存服务器 %(name)s 的 NFS 共享时出错。"
 
 #, python-format
 msgid "Error fetching info of module %(module)s, reason: %(err)s"
-msgstr ""
+msgstr "访存模块 %(module)s 的信息时出错，原因：%(err)s"
 
 #, python-format
 msgid "Error flashing firmware: %(error)s"
-msgstr ""
+msgstr "刷新固件时出错：%(error)s"
 
 #, python-format
 msgid "Error getting bus id of DASD device, %(err)s"
-msgstr ""
+msgstr "获取 DASD 设备的总线标识时出错，%(err)s"
 
 #, python-format
 msgid "Error getting information from ifcfg file: '%(error)s'."
-msgstr ""
+msgstr "从 ifcfg 文件获取信息时出错：“%(error)s”。"
 
 #, python-format
 msgid "Error getting list of storage devices, %(err)s"
-msgstr ""
+msgstr "获取存储设备的列表时出错，%(err)s"
 
 #, python-format
 msgid "Error getting loaded module list: %(err)s"
-msgstr ""
+msgstr "获取已装入模块列表时出错：%(err)s"
 
 #, python-format
 msgid "Error getting the auth info for IQN %(iqn)s - %(err)s"
-msgstr ""
+msgstr "获取 IQN %(iqn)s 的认证信息时出错 - %(err)s"
 
 #, python-format
 msgid "Error getting the global iSCSI auth info - %(err)s"
-msgstr ""
+msgstr "获取全局 iSCSI 认证信息时出错 - %(err)s"
 
 #, python-format
 msgid "Error in deleting iSCSI QN %(iqn)s from iscsiadm db - %(err)s"
-msgstr ""
+msgstr "从 iscsiadm 数据库删除 iSCSI QN %(iqn)s 时出错 - %(err)s"
 
 #, python-format
 msgid "Error in determining iSCSI QN %(iqn)s logged in status - %(err)s"
-msgstr ""
+msgstr "确定 iSCSI QN %(iqn)s 登录状态时出错 - %(err)s"
 
 msgid "Error in disabling the audit dispatcher. "
-msgstr ""
+msgstr "禁用审计分派器时出错。"
 
 msgid "Error in enabling the audit dispatcher. "
-msgstr ""
+msgstr "启用审计分派器时出错。"
 
 msgid "Error in executing 'df -hT' command"
-msgstr ""
+msgstr "执行“df -hT”命令时出错"
 
 #, python-format
 msgid "Error in executing 'lscss -d' command : %(err)s"
-msgstr ""
+msgstr "执行“lscss -d”命令时出错：%(err)s"
 
 #, python-format
 msgid "Error in executing 'lsdasd -l bus_id' command: %(err)s"
-msgstr ""
+msgstr "执行“lsdasd -l bus_id”命令时出错：%(err)s"
 
 #, python-format
 msgid "Error in executing 'lsdasd -l' command: %(err)s"
-msgstr ""
+msgstr "执行“lsdasd -l”命令时出错：%(err)s"
 
 #, python-format
 msgid "Error in executing auditctl command '%(name)s'."
-msgstr ""
+msgstr "执行 auditctl 命令“%(name)s”时出错。"
 
 #, python-format
 msgid "Error in listing pre-discovered iSCSI targets - %(err)s"
-msgstr ""
+msgstr "列示预先发现的 iSCSI 目标时出错 - %(err)s"
 
 #, python-format
 msgid "Error in logging onto iSCSI QN %(iqn)s - %(err)s"
-msgstr ""
+msgstr "登录 iSCSI QN %(iqn)s 时出错 - %(err)s"
 
 #, python-format
 msgid "Error in logging out of iSCSI QN %(iqn)s - %(err)s"
-msgstr ""
+msgstr "注销 iSCSI QN %(iqn)s 时出错 - %(err)s"
 
 #, python-format
 msgid ""
 "Error in modifying iSCSI parameter %(parameter)s with value %(value)s - "
 "%(err)s"
-msgstr ""
+msgstr "使用值 %(value)s 修改 iSCSI 参数 %(parameter)s 时出错 - %(err)s"
 
 #, python-format
 msgid "Error in parsing 'lscss -d' command : %(err)s"
-msgstr ""
+msgstr "解析“lscss -d”命令时出错：%(err)s"
 
 msgid "Error in retrieving the audit conf file details. "
-msgstr ""
+msgstr "检索审计配置文件详细信息时出错。"
 
 msgid "Error in retrieving the info for the audit dispatcher conf file."
-msgstr ""
+msgstr "检索审计分派器配置文件的信息时出错。"
 
 #, python-format
 msgid "Error in the mlx5_SRIOV_enable task: %(err)s"
-msgstr ""
+msgstr "执行 mlx5_SRIOV_enable 任务时出错：%(err)s"
 
 msgid "Error in updating the audit conf file details. "
-msgstr ""
+msgstr "更新审计配置文件详细信息时出错。"
 
 msgid "Error loading SEP subscriptions data from server."
 msgstr "从服务器装入 SEP 预订数据时出错。"
 
 #, python-format
 msgid "Error loading module %(module)s, reason: %(err)s"
-msgstr ""
+msgstr "装入模块 %(module)s 时出错，原因：%(err)s"
 
 #, python-format
 msgid "Error occured in deleting from the file %(name)s."
-msgstr ""
+msgstr "从文件 %(name)s 删除数据时发生了错误。"
 
 #, python-format
 msgid "Error occured in retrieving the info for the plugin %(name)s."
-msgstr ""
+msgstr "检索插件 %(name)s 的信息时发生了错误。"
 
 #, python-format
 msgid "Error occured in updating data in the file %(name)s."
-msgstr ""
+msgstr "更新文件 %(name)s 中的数据时发生了错误。"
 
 #, python-format
 msgid "Error occured in writing to the file %(name)s."
-msgstr ""
+msgstr "写至文件 %(name)s 时发生了错误。"
 
 #, python-format
 msgid "Error occurred  while deleting the rule. %(err)s"
-msgstr ""
+msgstr "删除规则时发生了错误。%(err)s"
 
 #, python-format
 msgid "Error occurred in fetching audit rule info. %(error)s"
-msgstr ""
+msgstr "访存审计规则信息时发生了错误。%(error)s"
 
 #, python-format
 msgid "Error occurred in fetching filesystem rule info. %(error)s"
-msgstr ""
+msgstr "访存文件系统规则信息时发生了错误。%(error)s"
 
 #, python-format
 msgid "Error occurred in fetching system rule info. %(error)s"
-msgstr ""
+msgstr "访存系统规则信息时发生了错误。%(error)s"
 
 msgid "Error occurred in fetching the logs."
-msgstr ""
+msgstr "访存日志时发生了错误。"
 
 msgid "Error occurred in getting the filtered logs."
-msgstr ""
+msgstr "获取已过滤日志时发生了错误。"
 
 msgid "Error occurred in getting the reports."
-msgstr ""
+msgstr "获取报告时发生了错误。"
 
 msgid "Error occurred in getting the unfiltered logs."
-msgstr ""
+msgstr "获取未过滤日志时发生了错误。"
 
 #, python-format
-msgid "Error occurred in graph creation: '%(error)s"
-msgstr ""
+msgid "Error occurred in graph creation: '%(error)s'"
+msgstr "创建图形时发生错误：“%(error)s”"
 
-msgid "Error occurred in loading predefined rules."
-msgstr ""
+#, python-format
+msgid "Error occurred in loading predefined rules: '%(Error)s'"
+msgstr "装入预定义规则时发生错误：“%(Error)s”"
 
 #, python-format
 msgid "Error occurred in modifying the rule '%(name)s'."
-msgstr ""
+msgstr "修改规则“%(name)s”时发生了错误。"
 
 msgid "Error occurred in rendering the graph. "
-msgstr ""
+msgstr "呈现图形时发生了错误。"
+
+#, python-format
+msgid "Error occurred in searching the audit log: '%(error)s'"
+msgstr "搜索审计日志时发生错误：“%(error)s”"
 
 #, python-format
 msgid "Error occurred in unload operation of rule '%(name)s' ."
-msgstr ""
+msgstr "卸载规则“%(name)s”时发生了错误。"
+
+#, python-format
+msgid "Error occurred while generating report: '%(error)s'"
+msgstr "生成报告时发生错误：“%(error)s”"
 
 #, python-format
 msgid "Error occurred while writing rule into audit.rules: %(err)s"
-msgstr ""
+msgstr "将规则写至 audit.rules 时发生了错误：%(err)s"
 
 #, python-format
 msgid "Error parsing 'ls -l /dev/disk/by-id', %(err)s"
-msgstr ""
+msgstr "解析“ls -l /dev/disk/by-id”时出错，%(err)s"
 
 #, python-format
 msgid "Error parsing 'lsblk -Po', %(err)s"
-msgstr ""
+msgstr "解析“lsblk -Po”时出错，%(err)s"
 
 #, python-format
 msgid "Error parsing /proc/swaps file. %(err)s"
-msgstr ""
+msgstr "解析 /proc/swaps 文件时出错。%(err)s"
 
 #, python-format
 msgid "Error parsing iSCSI target discovery command - %(err)s"
-msgstr ""
+msgstr "解析 iSCSI 目标发现命令时出错 - %(err)s"
 
 #, python-format
 msgid "Error parsing output of 'lvm version' command: %(err)s"
-msgstr ""
+msgstr "解析“lvm version”命令的输出时出错：%(err)s"
 
 #, python-format
 msgid "Error parsing session directory name %(session)s - %(err)s"
-msgstr ""
+msgstr "解析会话目录名称 %(session)s 时出错 - %(err)s"
 
 #, python-format
 msgid ""
 "Error parsing the output of iscsiadm discovery cmd - %(err)s. iscsiadm "
 "discovery Output - %(output)s"
 msgstr ""
+"解析 iscsiadm discovery 命令的输出时出错 - %(err)s。iscsiadm discovery 输出 "
+"- %(output)s"
 
 #, python-format
 msgid "Error reducing volume group : %(err)s"
-msgstr ""
+msgstr "减少卷组时出错：%(err)s"
 
 #, python-format
 msgid ""
 "Error rejecting firmware. rc = %(rc)s. Ensure you are booted to the "
 "permanent side."
-msgstr ""
+msgstr "拒绝固件时出错。返回码 = %(rc)s。确保您已引导至永久端。"
 
 #, python-format
 msgid "Error retrieving OVS bridge %(name)s. OVS bridge does not exist."
-msgstr ""
+msgstr "检索 OVS 网桥 %(name)s 时出错。OVS 网桥不存在。"
 
 #, python-format
 msgid "Error retrieving SEP subscribers data: '%(error)s'."
@@ -1267,7 +1308,7 @@ msgstr "检索 SEP 订户数据时出错：“%(error)s”。"
 
 #, python-format
 msgid "Error retrieving information of partition %(name)s : %(err)s"
-msgstr ""
+msgstr "检索分区 %(name)s 的信息时出错：%(err)s"
 
 #, python-format
 msgid "Error starting SEP service: '%(error)s'."
@@ -1283,13 +1324,14 @@ msgstr "向服务器预订 SEP 数据时出错：“%(error)s”。"
 
 #, python-format
 msgid "Error unloading module %(module)s, reason: %(err)s"
-msgstr ""
+msgstr "卸载模块 %(module)s 时出错，原因：%(err)s"
 
 #, python-format
 msgid ""
 "Error updating iscsiadm db key %(db_key)s for IQN %(iqn)s with error - "
 "%(err)s"
 msgstr ""
+"对 IQN %(iqn)s 更新 iscsiadm 数据库密钥 %(db_key)s 时出错，错误 - %(err)s"
 
 #, python-format
 msgid ""
@@ -1297,80 +1339,82 @@ msgid ""
 "or Host Name %(ipaddr)s. Please check the server details and retry the "
 "operation."
 msgstr ""
+"获取名称为 %(name)s 且 IP 地址或主机名为 %(ipaddr)s 的服务器的状态时出错。请"
+"检查服务器详细信息并重试该操作。"
 
 #, python-format
 msgid "Error while searching the active session for IQN %(iqn)s - %(err)s"
-msgstr ""
+msgstr "搜索 IQN %(iqn)s 的活动会话时出错 - %(err)s"
 
 msgid ""
 "Error: openib.conf file does not exist in the host. Unable to set SR-IOV "
 "boot script."
-msgstr ""
+msgstr "错误：主机中没有 openib.conf 文件。无法设置 SR-IOV 引导脚本。"
 
 msgid "Errors Received"
-msgstr ""
+msgstr "接收到的错误数"
 
 msgid "Errors Transmitted"
-msgstr ""
+msgstr "已传输的错误数"
 
 msgid "Event End"
-msgstr ""
+msgstr "事件结束"
 
 msgid "Event Report"
-msgstr ""
+msgstr "事件报告"
 
 msgid "Event Start"
-msgstr ""
+msgstr "事件开始"
 
 #, python-format
 msgid "Exception getting route information: %(err)s"
-msgstr ""
+msgstr "获取路由信息时发生异常：%(err)s"
 
 #, python-format
 msgid "Exception updating the interface settings: %(err)s"
-msgstr ""
+msgstr "更新接口设置时发生异常：%(err)s"
 
 msgid "Exception updating/creating the ifcfg file."
-msgstr ""
+msgstr "更新/创建 ifcfg 文件时发生异常。"
 
 msgid "Exclude"
-msgstr ""
+msgstr "排除"
 
 msgid "Executable"
-msgstr ""
+msgstr "可执行文件"
 
 msgid "Executable Report"
-msgstr ""
+msgstr "可执行报告"
 
 msgid "Execute"
-msgstr ""
+msgstr "执行"
 
 #, python-format
 msgid "Execution on auditctl command failed with error '%(error)s'"
-msgstr ""
+msgstr "执行 auditctl 命令失败，发生错误“%(error)s”"
 
 msgid "Existing physical volumes : "
-msgstr ""
+msgstr "现有物理卷："
 
 msgid "Exit"
-msgstr ""
+msgstr "退出"
 
 msgid "Extend"
-msgstr ""
+msgstr "扩展"
 
 #, python-format
 msgid "Extend host volume group '%(ident)s'"
-msgstr ""
+msgstr "扩展主机卷组“%(ident)s”"
 
 msgid "FCP Lun"
-msgstr ""
+msgstr "FCP LUN"
 
 msgid "FCP Tape Devices"
-msgstr ""
+msgstr "FCP 磁带设备"
 
 #, python-format
 msgid "FRU Device %(fru_id)s is not present in server %(name)s"
-msgstr ""
+msgstr "FRU 设备 %(fru_id)s 不在服务器 %(name)s 中"
 
 msgid "FRU Information"
 msgstr ""
@@ -1379,466 +1423,478 @@ msgid "FW update failed: No image file found in the package file."
 msgstr "FW 更新失败：软件包文件中未发现任何映像文件。"
 
 msgid "Failed Summary Report"
-msgstr ""
+msgstr "失败摘要报告"
 
 #, python-format
 msgid "Failed to a delete token from ifcfg file, Error: '%(error)s'."
-msgstr ""
+msgstr "无法从 ifcfg 文件删除令牌，错误：“%(error)s”。"
 
 msgid "Failed to bring down the interface %1."
-msgstr ""
+msgstr "无法关闭接口 %1。"
 
 msgid "Failed to bring up the interface %1."
-msgstr ""
+msgstr "无法启动接口 %1。"
 
 #, python-format
 msgid "Failed to change password for user '%(user)s', error: '%(err)s'."
-msgstr ""
+msgstr "无法更改用户“%(user)s”的密码，错误：“%(err)s”。"
 
 msgid "Failed to create LV"
-msgstr ""
+msgstr "无法创建 LV"
 
 #, python-format
 msgid "Failed to create PV %(name)s."
-msgstr ""
+msgstr "无法创建 PV %(name)s。"
 
 #, python-format
 msgid "Failed to create VG %(name)s. Error: %(err)s"
-msgstr ""
+msgstr "无法创建 VG %(name)s。错误：%(err)s"
 
 #, python-format
 msgid ""
 "Failed to create archive \"%(identity)s\". Inspect error log for more "
 "information."
-msgstr "未能创建归档“%(identity)s”。检查错误日志以了解更多信息。"
+msgstr "无法创建归档“%(identity)s”。检查错误日志以了解更多信息。"
 
 #, python-format
 msgid ""
 "Failed to create archive dir \"%(dir)s\". Inspect error log for more "
 "information."
-msgstr "未能创建归档 dir“%(dir)s”。检查错误日志以了解更多信息。"
+msgstr "无法创建归档目录“%(dir)s”。检查错误日志以了解更多信息。"
 
 #, python-format
 msgid "Failed to create partition %(name)s, error: %(err)s"
-msgstr ""
+msgstr "无法创建分区 %(name)s，错误：%(err)s"
 
 #, python-format
 msgid ""
 "Failed to create tar archive \"%(name)s\", cmd: \"%(cmd)s\". Inspect error "
 "log for more information."
 msgstr ""
-"未能创建 tar 归档“%(name)s”，命令：“%(cmd)s。检查错误日志以了解更多信息。"
+"无法创建 tar 归档“%(name)s”，命令：“%(cmd)s”。检查错误日志以了解更多信息。"
 
 msgid "Failed to create the graph: Package 'Graphviz' is not installed."
-msgstr ""
+msgstr "无法创建图形：未安装软件包“Graphviz”。"
 
 msgid "Failed to create the interface %1."
-msgstr ""
+msgstr "无法创建接口 %1。"
 
 msgid "Failed to delete LV"
-msgstr ""
+msgstr "无法删除 LV"
 
 #, python-format
 msgid "Failed to delete PV, error: %(err)s"
-msgstr ""
+msgstr "无法删除 PV，错误：%(err)s"
 
 #, python-format
 msgid "Failed to delete VG %(name)s."
-msgstr ""
+msgstr "无法删除 VG %(name)s。"
 
 #, python-format
 msgid "Failed to delete archive file \"%(name)s\"."
-msgstr "未能删除归档文件“%(name)s”。"
+msgstr "无法删除归档文件“%(name)s”。"
 
 #, python-format
 msgid "Failed to delete ifcfg file, Error: '%(error)s'"
-msgstr ""
+msgstr "无法删除 ifcfg 文件，错误：“%(error)s”"
 
 #, python-format
 msgid "Failed to delete partition %(name)s, error: %(err)s"
-msgstr ""
+msgstr "无法删除分区 %(name)s，错误：%(err)s"
 
 msgid "Failed to delete the interface %1."
-msgstr ""
+msgstr "无法删除接口 %1。"
 
 #, python-format
 msgid "Failed to extend VG %(name)s."
-msgstr ""
+msgstr "无法扩展 VG %(name)s。"
 
 msgid "Failed to fetch LV details"
-msgstr ""
+msgstr "无法访存 LV 详细信息"
 
 #, python-format
 msgid "Failed to fetch PV %(name)s details."
-msgstr ""
+msgstr "无法访存 PV %(name)s 详细信息。"
 
 #, python-format
 msgid "Failed to fetch PV list. Error: %(err)s"
-msgstr ""
+msgstr "无法访存 PV 列表。错误：%(err)s"
 
 #, python-format
 msgid "Failed to fetch VG %(name)s details."
-msgstr ""
+msgstr "无法访存 VG %(name)s 详细信息。"
 
 msgid "Failed to find specified DASD device"
-msgstr ""
+msgstr "找不到所指定 DASD 设备"
 
 #, python-format
 msgid ""
 "Failed to format %(name)s. Either format currently going on or device not "
 "available for format"
-msgstr ""
+msgstr "无法格式化 %(name)s。格式化当前正在进行，或者该设备不可进行格式化"
 
 #, python-format
 msgid ""
 "Failed to format %(name)s. Either format currently going on or device not "
 "available for format. Please try again later."
 msgstr ""
+"无法格式化 %(name)s。格式化当前正在进行，或者该设备不可进行格式化。请稍后重"
+"试。"
 
 msgid ""
 "Failed to format %1. Either format currently going on or device not "
 "available for format. Please try after sometime."
 msgstr ""
+"无法格式化 %1。格式化当前正在进行，或者该设备不可进行格式化。请稍后重试。"
 
 #, python-format
 msgid "Failed to get the list of persisted rules '%(error)s'."
-msgstr ""
+msgstr "无法获取已保存规则的列表：“%(error)s”。"
 
 msgid "Failed to identify the type of interface."
-msgstr ""
+msgstr "无法确定接口类型。"
 
 msgid "Failed to list LVs"
-msgstr ""
+msgstr "无法列示 LV"
 
 #, python-format
 msgid "Failed to list VGs. Error: %(err)s"
-msgstr ""
+msgstr "无法列示 VG。错误：%(err)s"
 
 #, python-format
 msgid "Failed to mount the filesystem, error: %(err)s"
-msgstr ""
+msgstr "未能安装文件系统，错误：%(err)s"
 
 #, python-format
 msgid "Failed to parse '/etc/sudoers' file. Error: %(error)s"
-msgstr ""
+msgstr "无法解析“/etc/sudoers”文件。错误：%(error)s"
 
 #, python-format
 msgid "Failed to read /etc/resolv.conf because %(reason)s"
-msgstr "未能读取 /etc/resolv.conf，原因为 %(reason)s"
+msgstr "无法读取 /etc/resolv.conf，原因为 %(reason)s"
 
 #, python-format
 msgid "Failed to reduce VG %(name)s."
-msgstr ""
+msgstr "无法减少 VG %(name)s。"
 
 #, python-format
 msgid ""
 "Failed to remove user '%(user)s' from group '%(group)s'. Error: '%(err)s'"
-msgstr ""
+msgstr "无法从组“%(group)s”中移除用户“%(user)s”。错误：“%(err)s”"
 
 #, python-format
 msgid ""
 "Failed to remove user '%(user)s' from group '%(group)s'. Error: group name "
 "is an empty string."
-msgstr ""
+msgstr "无法从组“%(group)s”中移除用户“%(user)s”。错误：组名为空字符串。"
+
+#, python-format
+msgid ""
+"Failed to remove user '%(user)s' from group '%(group)s'. Error: user name is "
+"an empty string."
+msgstr "无法从组“%(group)s”中移除用户“%(user)s”。错误：用户名为空字符串。"
 
 #, python-format
 msgid "Failed to remove user '%(user)s' from sudoers list"
-msgstr ""
+msgstr "无法从 sudoers 列表中移除用户“%(user)s”。"
 
 msgid "Failed to restart the interface %1."
-msgstr ""
+msgstr "无法重新启动接口 %1。"
 
 msgid "Failed to retrieve Globl DNS and Gateway!"
-msgstr ""
+msgstr "无法检索全局 DNS 和网关！"
 
 #, python-format
 msgid "Failed to retrieve details of DASD device %(name)s, error: %(err)s"
-msgstr ""
+msgstr "无法检索 DASD 设备 %(name)s 的详细信息，错误：%(err)s"
 
 #, python-format
 msgid "Failed to retrieve details of DASD partition %(name)s."
-msgstr ""
+msgstr "无法检索 DASD 分区 %(name)s 的详细信息。"
 
 #, python-format
 msgid "Failed to retrieve details of the %(name)s filesystem."
-msgstr ""
+msgstr "无法检索 %(name)s 文件系统的详细信息。"
 
 #, python-format
 msgid "Failed to retrieve list of DASD devices, error: %(err)s"
-msgstr ""
+msgstr "无法检索 DASD 设备的列表，错误：%(err)s"
 
 #, python-format
 msgid "Failed to retrieve list of DASD partitions. Error: %(err)s"
-msgstr ""
+msgstr "无法检索 DASD 分区的列表。错误：%(err)s"
 
 msgid "Failed to retrieve list of Servers"
-msgstr ""
+msgstr "无法检索服务器列表"
 
 #, python-format
 msgid "Failed to retrieve list of filesystems. Error: %(err)s"
-msgstr ""
+msgstr "无法检索文件系统列表。错误：%(err)s"
 
 msgid "Failed to retrieve list of interfaces!"
-msgstr ""
+msgstr "无法检索接口列表！"
 
 msgid ""
 "Failed to retrieve power management profiles: Daemon 'tuned-adm' is not "
 "active."
-msgstr ""
+msgstr "无法检索电源管理概要文件：守护程序“tuned-adm”处于不活动状态。"
 
 #, python-format
 msgid "Failed to unmount filesystem %(name)s, error: %(err)s"
-msgstr ""
+msgstr "无法卸载文件系统 %(name)s，错误：%(err)s"
 
 msgid "Failed to update the interface %1."
-msgstr ""
+msgstr "无法更新接口 %1。"
 
 #, python-format
 msgid "Failed to write /etc/resolv.conf because %(reason)s"
 msgstr "未能写入 /etc/resolv.conf，原因为 %(reason)s"
 
 msgid "Fans"
-msgstr ""
+msgstr "风扇"
 
 msgid "Fault"
-msgstr ""
+msgstr "故障"
 
 msgid "Features"
-msgstr ""
+msgstr "功能"
 
 #, python-format
 msgid "Fetching list of partitions failed. Error: %(err)s"
-msgstr ""
+msgstr "访存分区列表失败。错误：%(err)s"
 
 msgid "Field"
-msgstr ""
+msgstr "字段"
 
 msgid "Fields"
-msgstr ""
+msgstr "字段"
 
 msgid "File"
 msgstr "文件"
 
 #, python-format
 msgid "File %(file)s already in use."
-msgstr ""
+msgstr "文件 %(file)s 已在使用中。"
 
 msgid "File Name"
-msgstr ""
+msgstr "文件名"
 
 msgid "File Report"
-msgstr ""
+msgstr "文件报告"
 
 msgid "File System"
-msgstr ""
+msgstr "文件系统"
 
 msgid "File System Rule"
-msgstr ""
+msgstr "文件系统规则"
 
 msgid "File System Type"
-msgstr ""
+msgstr "文件系统类型"
 
 msgid "File Systems"
-msgstr ""
+msgstr "文件系统"
 
 msgid "File location required for creating a swap device."
-msgstr ""
+msgstr "创建交换设备所需的文件位置。"
 
 msgid "File name"
-msgstr ""
+msgstr "文件名"
 
 msgid "File path cannot be an existing directory"
-msgstr ""
+msgstr "文件路径不能是现有目录"
 
 msgid "File system on %1 successfully unmounted"
-msgstr ""
+msgstr "%1 上的文件系统已成功卸载"
 
 msgid "File system successfully mounted on  %1"
-msgstr ""
+msgstr "已在 %1 上成功安装文件系统"
 
 msgid "File to Watch"
-msgstr ""
+msgstr "要监视的文件"
 
 #, python-format
 msgid "Filesystem %(name)s already mounted in fstab."
-msgstr ""
+msgstr "文件系统 %(name)s 已安装在 fstab 中。"
 
 msgid "Filesystem group ID"
-msgstr ""
+msgstr "文件系统组标识"
 
 msgid "Filesystem user ID"
-msgstr ""
+msgstr "文件系统用户标识"
 
 msgid "Filter"
-msgstr ""
+msgstr "过滤"
 
 msgid "Filter Log"
-msgstr ""
+msgstr "过滤器日志"
 
 msgid "Filter System Modules"
-msgstr ""
+msgstr "过滤系统模块"
 
 msgid "Filter System Services"
-msgstr ""
+msgstr "过滤系统服务"
 
 msgid "Firewall Zone"
-msgstr ""
+msgstr "防火墙区域"
 
 msgid "Firmware Update"
 msgstr "固件更新"
 
 #, python-format
 msgid "Firmware image unpack failed: rc = %(rc)s. Details: %(err)s"
-msgstr "固件映像解包失败：rc = %(rc)s。详细信息：%(err)s"
+msgstr "固件映像解压失败：返回码 = %(rc)s。详细信息：%(err)s"
 
 msgid ""
 "Firmware update is initializing. System will reboot in order to flash the "
 "firmware."
-msgstr "正在初始化固件更新。系统会重新引导以刷新固件。"
+msgstr "固件更新正在初始化。系统将重新引导以刷新固件。"
 
 msgid "Flush"
-msgstr ""
+msgstr "刷新"
 
 msgid "Flush Freq"
-msgstr ""
+msgstr "刷新频率"
 
 msgid "For vlan creation over bond, slaves has to be up."
-msgstr ""
+msgstr "要基于 bond 创建 VLAN，从属项必须已启动。"
 
 msgid "Format"
-msgstr ""
+msgstr "格式化"
 
 #, python-format
 msgid "Format DASD device '%(ident)s' with block size %(blk_size)s"
-msgstr ""
+msgstr "格式化块大小为 %(blk_size)s 的 DASD 设备“%(ident)s”"
 
 msgid "Format ECKD"
-msgstr ""
+msgstr "格式化 ECKD"
 
 msgid "Format FS"
-msgstr ""
+msgstr "格式化 FS"
 
 msgid "Format Partition"
-msgstr ""
+msgstr "格式化分区"
 
 msgid "Format completed successfully"
-msgstr ""
+msgstr "已成功完成格式化"
 
 #, python-format
 msgid "Format disk partition '%(ident)s' with filesystem '%(fstype)s'"
-msgstr ""
+msgstr "格式化带有文件系统“%(fstype)s”的磁盘分区“%(ident)s”"
 
 msgid "Format partition failed"
-msgstr ""
+msgstr "格式化分区失败"
 
 msgid "Formatting..."
-msgstr ""
+msgstr "正在格式化..."
 
 msgid "Free PE"
-msgstr ""
+msgstr "可用 PE"
 
 msgid "Free PE Size"
-msgstr ""
+msgstr "可用 PE 大小"
 
 msgid "Gateway"
 msgstr "网关"
 
 msgid "Gateway information is missing."
-msgstr ""
+msgstr "缺少网关信息。"
 
 msgid "General"
-msgstr ""
+msgstr "常规"
 
 msgid "Generate Backup"
-msgstr ""
+msgstr "生成备份"
 
 msgid "Generate Default Backup"
 msgstr "生成缺省备份"
 
 msgid "Generate Graph"
-msgstr ""
+msgstr "生成图形"
 
 msgid "Generate Report"
-msgstr ""
+msgstr "生成报告"
 
 msgid "Generating report..."
-msgstr ""
+msgstr "正在生成报告..."
 
 msgid "Generic"
-msgstr ""
+msgstr "通用"
 
 msgid "Get Sensors"
-msgstr ""
+msgstr "获取传感器"
 
 #, python-format
 msgid "Given vlan id is not an integer type, Error: '%(error)s'."
-msgstr ""
+msgstr "给定 VLAN 标识不是整数类型，错误：“%(error)s”。"
 
-msgid "Global DNS and Gateway applied "
-msgstr ""
+msgid "Global DNS and Gateway applied successfully"
+msgstr "已成功应用全局 DNS 和网关"
+
+msgid "Global DNS and Gateway failed to apply"
+msgstr "未能应用全局 DNS 和网关"
 
 msgid "Global Network Configuration"
-msgstr ""
+msgstr "全局网络配置"
 
 msgid ""
 "Go back to previous step to create a volume group from existing physical "
 "volumes."
-msgstr ""
+msgstr "返回至上一步以通过现有物理卷创建卷组。"
 
 msgid "Graph Columns"
-msgstr ""
+msgstr "图形列"
 
 msgid "Graph Format"
-msgstr ""
+msgstr "图形格式"
 
 msgid "Graph Name"
-msgstr ""
+msgstr "图形名称"
 
 msgid "Graph Preview"
-msgstr ""
+msgstr "图形预览"
 
 msgid "Group"
 msgstr "组"
 
 msgid "Group ID"
-msgstr ""
+msgstr "组标识"
 
 #, python-format
 msgid "Group name '%(group)s' is already in use'."
-msgstr ""
+msgstr "组名“%(group)s”已在使用中。"
 
 msgid "Guest Name"
-msgstr ""
+msgstr "访客名称"
 
 msgid "Guest UUID"
-msgstr ""
+msgstr "访客 UUID"
 
 msgid "HBA ID"
-msgstr ""
+msgstr "HBA 标识"
 
 msgid "HDD"
-msgstr ""
+msgstr "HDD"
 
 msgid "Halt"
-msgstr ""
+msgstr "中止"
 
 msgid "Hard"
-msgstr ""
+msgstr "硬"
 
 msgid "Hardware Address"
-msgstr ""
+msgstr "硬件地址"
 
 msgid "Header is empty for given pattern."
-msgstr ""
+msgstr "对于给定模式，标题为空。"
 
 msgid "Host Name"
-msgstr ""
+msgstr "主机名"
 
 msgid "Host Report"
-msgstr ""
+msgstr "主机报告"
 
 msgid "HostName"
-msgstr ""
+msgstr "主机名"
 
 msgid "Hostname"
 msgstr "主机名"
@@ -1848,166 +1904,169 @@ msgid "Hostname %(hostname)s not found."
 msgstr "找不到主机名 %(hostname)s。"
 
 msgid "ID"
-msgstr ""
+msgstr "标识"
 
 msgid "IP Address"
-msgstr ""
+msgstr "IP 地址"
 
 msgid "IP Addresses"
-msgstr ""
+msgstr "IP 地址"
 
 msgid "IP address is missing."
-msgstr ""
+msgstr "缺少 IP 地址。"
 
 msgid "IPv4"
-msgstr ""
+msgstr "IPv4"
 
 msgid "IPv4 Settings"
-msgstr ""
+msgstr "IPv4 设置"
 
 msgid "IPv6"
-msgstr ""
+msgstr "IPv6"
 
 msgid "IPv6 Settings"
-msgstr ""
+msgstr "IPv6 设置"
 
 #, python-format
 msgid "IQN %(iqn)s is not logged onto the target"
-msgstr ""
+msgstr "IQN %(iqn)s 未登录目标"
 
 msgid "Id"
-msgstr ""
+msgstr "标识"
 
 msgid "Ignore"
-msgstr ""
+msgstr "忽略"
+
+msgid "Import"
+msgstr "导入"
 
 msgid ""
 "In order to enable the selected feature you must fill the parameters below:"
-msgstr ""
+msgstr "为启用所选功能，必须填写以下参数："
 
 msgid "In-Use/Max Ports"
 msgstr "使用中/最大端口数"
 
 #, python-format
 msgid "Incompatible output from 'lvm version' command. %(err)s"
-msgstr ""
+msgstr "“lvm version”命令的输出不兼容。%(err)s"
 
 msgid "Incorrect swap type, only 'device' and 'file' are allowed."
-msgstr ""
+msgstr "错误交换类型，只允许“device”和“file”。"
 
 msgid "Incremental"
-msgstr ""
+msgstr "递增"
 
 msgid "Incremental_async"
-msgstr ""
+msgstr "递增_非同步"
 
 msgid "Info"
-msgstr ""
+msgstr "信息"
 
 msgid "Initiator"
-msgstr ""
+msgstr "发起方"
 
 msgid "Inode Number"
-msgstr ""
+msgstr "索引节点号"
 
 msgid "Input"
-msgstr ""
+msgstr "输入"
 
 msgid "Integrity Report"
-msgstr ""
+msgstr "完整性报告"
 
 msgid "Interface"
 msgstr "接口"
 
 #, python-format
 msgid "Interface %(iface)s not found in openvswitch database."
-msgstr ""
+msgstr "在 openvswitch 数据库中找不到接口 %(iface)s。"
 
 #, python-format
 msgid ""
 "Interface %(name)s loaded with driver %(module)s does not support SR-IOV."
-msgstr ""
+msgstr "使用驱动程序 %(module)s 装入的接口 %(name)s 不支持 SR-IOV。"
 
 msgid "Interface %1 was successfully added"
-msgstr ""
+msgstr "已成功添加接口 %1"
 
 msgid "Interface %1 was successfully removed"
-msgstr ""
+msgstr "已成功移除接口 %1"
 
 #, python-format
 msgid ""
 "Interface '%(name)s' doesn't exist. Please refresh the network list to fetch "
 "the latest list of interfaces"
-msgstr ""
+msgstr "接口“%(name)s”不存在。请刷新网络列表以访存接口的最新列表"
 
 #, python-format
 msgid ""
 "Interface '%(name)s' is neither Vlan nor Bond to perform delete operation."
-msgstr ""
+msgstr "接口“%(name)s”既不是 VLAN 也不是 Bond，无法执行删除操作。"
 
 msgid "Interface : "
-msgstr ""
+msgstr "接口："
 
 msgid "Interface Name"
-msgstr ""
+msgstr "接口名称"
 
 msgid "Interface is"
-msgstr ""
+msgstr "接口为"
 
 msgid "Interface to be added"
-msgstr ""
+msgstr "要添加的接口"
 
 msgid "Interface to be removed"
-msgstr ""
+msgstr "要移除的接口"
 
 #, python-format
 msgid "Interface with the name '%(iface)s' already exists ."
-msgstr ""
+msgstr "名称为“%(iface)s”的接口已存在。"
 
 msgid "Interfaces"
-msgstr ""
+msgstr "接口"
 
 #, python-format
 msgid "Internal error: %(error)s"
-msgstr ""
+msgstr "内部错误：%(error)s"
 
 msgid "Interpret  numeric  entities into text"
-msgstr ""
+msgstr "将数字实体解释为文本"
 
 msgid "Intree"
-msgstr ""
+msgstr "入树"
 
 #, python-format
 msgid "Invalid DASD partition, %(name)s"
-msgstr ""
+msgstr "无效 DASD 分区，%(name)s"
 
 msgid "Invalid Data"
-msgstr ""
+msgstr "无效数据"
 
 msgid "Invalid IQN. Given IQN not found in added IQNs"
-msgstr ""
+msgstr "无效 IQN。在添加的 IQN 中找不到给定 IQN"
 
 msgid "Invalid URI, no list of storage servers available"
-msgstr ""
+msgstr "无效 URI，没有可用存储服务器列表"
 
 #, python-format
 msgid "Invalid URI, please use /stgserver/%(ipaddr)s/nfsshares"
-msgstr ""
+msgstr "无效 URI，请使用 /stgserver/%(ipaddr)s/nfsshares"
 
 #, python-format
 msgid "Invalid authentication type - %(auth_type)s"
-msgstr ""
+msgstr "无效认证类型 - %(auth_type)s"
 
 msgid "Invalid bonding option parameter."
-msgstr ""
+msgstr "无效 bonding 选项参数。"
 
 #, python-format
 msgid "Invalid boot protocol '%(mode)s', "
-msgstr ""
+msgstr "无效引导协议“%(mode)s”，"
 
 #, python-format
 msgid "Invalid bus ID, %(bus_id)s"
-msgstr ""
+msgstr "无效总线标识，%(bus_id)s"
 
 msgid "Invalid counts_ago number."
 msgstr "无效 counts_ago 数目。"
@@ -2017,15 +2076,15 @@ msgstr "无效 days_ago 数目。"
 
 #, python-format
 msgid "Invalid input to extend VG: error: %(err)s"
-msgstr ""
+msgstr "对扩展 VG 的输入无效，错误：%(err)s"
 
 #, python-format
 msgid "Invalid ipv4 address '%(ip)s', '%(error)s'."
-msgstr ""
+msgstr "无效 IPv4 地址“%(ip)s”，“%(error)s”。"
 
 #, python-format
 msgid "Invalid ipv6 address '%(ip)s', '%(error)s'."
-msgstr ""
+msgstr "无效 IPv6 地址“%(ip)s”，“%(error)s”。"
 
 msgid "Invalid parameter for DNS servers"
 msgstr "DNS 服务器参数无效"
@@ -2040,975 +2099,1027 @@ msgid "Invalid parameter for network gateway"
 msgstr "网络网关参数无效"
 
 msgid "Invalid parameter, only username and password updates are allowed"
-msgstr ""
+msgstr "无效参数，仅允许用户名和密码更新"
 
 msgid "Invalid parameters to create a report graph."
-msgstr ""
+msgstr "用于创建报告图形的参数无效。"
 
 #, python-format
 msgid "Invalid prefix '%(PREFIX)s', '%(error)s'."
-msgstr ""
+msgstr "无效前缀“%(PREFIX)s”，“%(error)s”。"
 
 #, python-format
 msgid "Invalid prefix '%(PREFIX)s'."
-msgstr ""
+msgstr "无效前缀“%(PREFIX)s”。"
 
 msgid "Invalid server or no NFS exports found on server."
-msgstr ""
+msgstr "无效服务器，或在服务器上找不到 NFS 导出。"
 
 msgid "Invalid type needs to be either local or nfs"
-msgstr ""
+msgstr "无效类型，需要 local 或 nfs"
 
 msgid "JPEG"
-msgstr ""
+msgstr "JPEG"
 
 msgid "JPG"
-msgstr ""
+msgstr "JPG"
 
 msgid "Just Once"
-msgstr ""
+msgstr "仅限一次"
 
 msgid "Key"
-msgstr ""
+msgstr "密钥"
 
 msgid "Key Name"
-msgstr ""
+msgstr "密钥名称"
 
 msgid "Key Report"
-msgstr ""
+msgstr "密钥报告"
 
 msgid "Key String"
-msgstr ""
+msgstr "密钥字符串"
 
 msgid "Krb5 Key File"
-msgstr ""
+msgstr "Krb5 密钥文件"
 
 msgid "Krb5 Principle"
-msgstr ""
+msgstr "Krb5 主体"
 
 msgid "Layer Mode"
-msgstr ""
+msgstr "层方式"
 
 msgid "License"
-msgstr ""
+msgstr "许可证"
 
 msgid "Link Down Delay"
-msgstr ""
+msgstr "链接向下延迟"
 
 msgid "Link Monitoring"
-msgstr ""
+msgstr "链接监视"
 
 msgid "Link Up Delay"
-msgstr ""
+msgstr "链接向上延迟"
 
 msgid "Load"
-msgstr ""
+msgstr "装入"
 
 msgid "Load Module"
-msgstr ""
+msgstr "装入模块"
 
 msgid "Load Modules"
-msgstr ""
+msgstr "装入模块"
 
 msgid "Load Predefined Rules"
-msgstr ""
+msgstr "装入预定义规则"
 
 msgid "Load Special Config"
-msgstr ""
+msgstr "装入特殊配置"
 
 #, python-format
 msgid "Load audit rule '%(ident)s'"
-msgstr ""
+msgstr "装入审计规则“%(ident)s”"
 
 #, python-format
 msgid "Load kernel module '%(name)s'"
-msgstr ""
+msgstr "装入内核模块“%(name)s”"
 
 #, python-format
 msgid "Load the rule '%(ident)s'"
-msgstr ""
+msgstr "装入规则“%(ident)s”"
 
 msgid "Loaded"
-msgstr ""
+msgstr "已装入"
+
+#, python-format
+msgid "Loaded pre-defined rules from the file: '%(auditrule_file)s'"
+msgstr "已从以下文件中装入预定义规则：“%(auditrule_file)s”"
 
 msgid "Loading"
-msgstr ""
+msgstr "正在装入"
 
 msgid "Loading list of unloaded modules, please wait"
 msgstr ""
 
 #, python-format
 msgid "Loading the rule '%(name)s' failed."
-msgstr ""
+msgstr "装入规则“%(name)s”失败。"
 
 msgid "Loading..."
-msgstr ""
+msgstr "正在装入..."
 
 msgid "Local Event"
-msgstr ""
+msgstr "本地事件"
 
 msgid "Local File System"
-msgstr ""
+msgstr "本地文件系统"
 
 msgid "Log File"
-msgstr ""
+msgstr "日志文件"
 
 msgid "Log File Action"
-msgstr ""
+msgstr "日志文件操作"
 
 msgid "Log File Name"
-msgstr ""
+msgstr "日志文件名称"
 
 msgid "Log File Nums"
-msgstr ""
+msgstr "日志文件编号"
 
 msgid "Log Format"
-msgstr ""
+msgstr "日志格式"
 
 msgid "Log Group"
-msgstr ""
+msgstr "日志组"
 
 msgid "Log Time Range Report"
-msgstr ""
+msgstr "日志时间范围报告"
 
 msgid "Login"
-msgstr ""
+msgstr "登录"
 
 msgid "Login Report"
-msgstr ""
+msgstr "登录报告"
 
 msgid "Login User ID"
-msgstr ""
+msgstr "登录用户标识"
 
 #, python-format
 msgid "Login onto IQN '%(ident)s'"
-msgstr ""
+msgstr "登录 IQN“%(ident)s”"
 
 msgid "Logout"
-msgstr ""
+msgstr "注销"
 
 #, python-format
 msgid "Logout from IQN '%(ident)s'"
-msgstr ""
+msgstr "从 IQN“%(ident)s”注销"
 
 msgid "Lun scan is enabled. Cannot add/remove LUNs manually"
-msgstr ""
+msgstr "已启用 LUN 扫描。无法手动添加/移除 LUN"
 
 msgid "MAC Address"
-msgstr ""
+msgstr "MAC 地址"
 
 msgid "MB"
-msgstr ""
+msgstr "MB"
 
 msgid "MI(Recommended)"
-msgstr ""
+msgstr "MI（建议）"
 
 msgid "MTU"
-msgstr ""
+msgstr "MTU"
 
 msgid "Mac Address"
-msgstr ""
+msgstr "MAC 地址"
 
 msgid "Mandatory Access Control Report"
-msgstr ""
+msgstr "必需访问控制报告"
 
 msgid "Manual"
-msgstr ""
+msgstr "手动"
 
 msgid "Mask"
 msgstr "掩码"
 
 msgid "Max"
-msgstr ""
+msgstr " 最大值"
 
 msgid "Max LV"
-msgstr ""
+msgstr "最大 LV"
 
 msgid "Max Log FileSize "
-msgstr ""
+msgstr "最大日志文件大小"
 
 msgid "Max restarts"
-msgstr ""
+msgstr "最大重新启动数"
 
 msgid "Maximum PV"
-msgstr ""
+msgstr "最大 PV"
 
 msgid "Maximum length of device name is 15 characters only."
-msgstr ""
+msgstr "设备名的最大长度为 15 个字符。"
 
 msgid "Message"
-msgstr ""
+msgstr "消息"
 
 msgid "Metadata  Sequence No"
-msgstr ""
+msgstr "元数据序列号"
 
 msgid "Metadata Areas"
-msgstr ""
+msgstr "元数据区域"
 
 msgid "Method"
-msgstr ""
+msgstr "方法"
 
 msgid "Metric"
-msgstr ""
+msgstr "指标"
 
 msgid "Min"
-msgstr ""
+msgstr "最小值"
 
 msgid "Minimum one slave has to be given for the bond interface."
-msgstr ""
+msgstr "必须至少给予 bond 接口一个从属项。"
 
 msgid "Missing IPV4 addresses information."
-msgstr ""
+msgstr "缺少 IPV4 地址信息。"
 
 msgid "Missing Input Parameters"
-msgstr ""
+msgstr "缺少输入参数"
 
 msgid "Missing ipv4 initialization key."
-msgstr ""
-
-msgid "Missing ipv6 address information."
-msgstr ""
+msgstr "缺少 ipv4 初始化键。"
 
 msgid "Missing ipv6 initialization key."
-msgstr ""
+msgstr "缺少 IPv6 初始化键。"
 
 msgid "Missing rule info."
-msgstr ""
+msgstr "缺少规则信息。"
 
 msgid "Mixed selection of ECKD and non-ECKD devices"
-msgstr ""
+msgstr "ECKD 和非 ECKD 设备的混合选择"
 
 msgid "Mode"
-msgstr ""
+msgstr "方式"
 
 msgid "Model"
-msgstr ""
+msgstr "型号"
 
 msgid "Modify"
-msgstr ""
+msgstr "修改"
 
 #, python-format
 msgid ""
 "Modify bonded port '%(bond)s' to replace interface '%(interface_del)s' with "
 "interface '%(interface_add)s' in OVS bridge '%(ident)s'"
 msgstr ""
+"修改 bond 端口“%(bond)s”以将接口“%(interface_del)s”替换为 OVS 网"
+"桥“%(ident)s”中的接口“%(interface_add)s”"
 
 msgid "Module"
-msgstr ""
+msgstr "模块"
 
 #, python-format
 msgid "Module %(module)s is already loaded in the kernel."
-msgstr ""
+msgstr "已在内核中装入模块 %(module)s。"
 
 #, python-format
 msgid "Module %(module)s not found."
-msgstr ""
+msgstr "找不到模块 %(module)s。"
 
 msgid "Module %1 was successfully loaded"
-msgstr ""
+msgstr "已成功装入模块 %1"
 
 msgid "Module %1 was successfully unloaded"
-msgstr ""
+msgstr "已成功卸载模块 %1"
 
 msgid "Module 802q is not loaded into kernel."
-msgstr ""
+msgstr "模块 802q 未装入到内核中。"
 
 msgid "Module Name"
-msgstr ""
+msgstr "模块名称"
 
 msgid "Monitoring Interval"
+msgstr "监视时间间隔"
+
+#, python-format
+msgid "Monitoring interval must be at least %(miimon)s"
 msgstr ""
 
 msgid "Mount"
-msgstr ""
+msgstr "安装"
 
 #, python-format
 msgid "Mount %(type)s filesystem at '%(mount_point)s'"
-msgstr ""
+msgstr "在“%(mount_point)s”上安装 %(type)s 文件系统"
 
 msgid "Mount Point"
-msgstr ""
+msgstr "安装点"
 
 msgid "Mount with _netdev option"
-msgstr ""
+msgstr "使用 _netdev 选项安装"
 
 msgid "Multipath Links"
-msgstr ""
+msgstr "多路径链接"
 
 msgid "N/A"
-msgstr ""
+msgstr "不适用"
 
 msgid "NFS Path"
-msgstr ""
+msgstr "NFS 路径"
 
 msgid "NFS Server IP"
-msgstr ""
+msgstr "NFS 服务器 IP"
 
 #, python-format
 msgid "NFS mount failed, %(err)s"
-msgstr ""
+msgstr "NFS 安装失败，%(err)s"
 
 msgid ""
 "NFS path will be fetched based on NFS server IP entered.Please click arrow "
 "button to fetch the details"
 msgstr ""
+"将根据所输入的 NFS 服务器 IP 访存 NFS 路径。请单击方向按钮以访存详细信息。"
 
 msgid "NIC Type"
-msgstr ""
+msgstr "NIC 类型"
 
 msgid "NIC type"
-msgstr ""
+msgstr "NIC 类型"
 
 msgid "Name"
 msgstr "名称"
 
 msgid "Name Format"
-msgstr ""
+msgstr "名称格式"
 
 msgid "NetDev"
-msgstr ""
+msgstr "网络设备"
 
 msgid "Netmask"
-msgstr ""
+msgstr "网络掩码"
 
 msgid "Network"
-msgstr ""
+msgstr "网络"
 
 msgid "Network Configuration"
 msgstr "网络配置"
 
 msgid "Network File System"
-msgstr ""
+msgstr "网络文件系统"
 
 msgid "Never"
-msgstr ""
+msgstr "从不"
 
 msgid "New Config Backup creation has started."
+msgstr "已开始创建新的配置备份。"
+
+msgid "New Config Backup restore has started."
 msgstr ""
 
 msgid "New Custom Backup"
 msgstr "新建定制备份"
 
 msgid "New Password"
-msgstr ""
+msgstr "新密码"
 
 msgid "Next &rarr;"
-msgstr ""
+msgstr "下一步 &rarr;"
 
 msgid "No"
-msgstr ""
+msgstr "否"
 
 msgid "No Config"
-msgstr ""
+msgstr "未配置"
 
 msgid "No NFS exports found on server %1"
-msgstr ""
+msgstr "在服务器 %1 上找不到 NFS 导出"
 
 msgid "No VG Name define for this device"
-msgstr ""
+msgstr "未对此设备定义 VG 名称"
 
 msgid "No log found matching the filter"
-msgstr ""
+msgstr "找不到与过滤器相匹配的日志"
 
 msgid "No more free partitions left. Please remove one partition first."
-msgstr ""
+msgstr "没有更多可用分区。请先移除一个分区。"
 
 #, python-format
 msgid ""
 "No more than %(max_dasd_fmt)s concurrent DASD format operations are "
 "permitted."
-msgstr ""
+msgstr "不允许超过 %(max_dasd_fmt)s 个并行 DASD 格式操作。"
 
 msgid "No partition available"
-msgstr ""
+msgstr "没有可用分区"
 
 msgid "No partitions found"
-msgstr ""
+msgstr "找不到分区"
 
 #, python-format
 msgid "No partitions found for disk %(disk)s"
-msgstr ""
+msgstr "找不到对应磁盘 %(disk)s 的分区"
 
 msgid "No physical volume selected"
-msgstr ""
+msgstr "未选择物理卷"
+
+msgid "No result found"
+msgstr "找不到结果"
 
 msgid "No results found"
-msgstr ""
+msgstr "找不到结果"
 
 msgid "No results found!"
-msgstr ""
+msgstr "找不到结果！"
 
 msgid "No rules selected. Please select one"
-msgstr ""
+msgstr "未选择规则。请选择一个"
 
 msgid "No storage device selected. Please select one."
-msgstr ""
+msgstr "未选择存储设备。请选择一个。"
 
 #, python-format
 msgid "No valid iSCSI Targets found for IP Address - %(ip_address)s"
-msgstr ""
+msgstr "找不到对应 IP 地址 %(ip_address)s 的有效 iSCSI 目标"
 
 msgid "Non-Blocking/Lossy"
-msgstr ""
+msgstr "非分块/有损"
 
 msgid "None"
-msgstr ""
+msgstr "无"
+
+msgid "Nothing selected"
+msgstr "未选择任何内容"
 
 msgid "Now"
-msgstr ""
+msgstr "现在"
 
 msgid "Numeric"
-msgstr ""
+msgstr "数字"
+
+msgid "OFF"
+msgstr "关闭"
 
 msgid "OK"
-msgstr ""
+msgstr "确定"
+
+msgid "ON"
+msgstr "打开"
 
 msgid "OSA Port Number"
-msgstr ""
+msgstr "OSA 端口号"
 
 msgid "OVS Bridges"
-msgstr ""
+msgstr "OVS 网桥"
 
 msgid "Object's GID"
-msgstr ""
+msgstr "对象的 GID"
 
 msgid "Object's UID"
-msgstr ""
+msgstr "对象的 UID"
 
 msgid "Ok"
-msgstr ""
+msgstr "确定"
 
 msgid "Operator"
-msgstr ""
+msgstr "操作员"
 
 msgid "Option"
-msgstr ""
+msgstr "选项"
 
 msgid "Options"
-msgstr ""
+msgstr "选项"
 
 msgid "Others"
-msgstr ""
+msgstr "其他"
 
 msgid "Overflow Action"
-msgstr ""
+msgstr "溢出操作"
 
 msgid "PCI"
-msgstr ""
+msgstr "PCI"
 
 msgid "PDF"
-msgstr ""
+msgstr "PDF"
 
 msgid "PE Size"
-msgstr ""
+msgstr "PE 大小"
 
 msgid "PID"
-msgstr ""
+msgstr "PID"
 
 msgid "PNG"
-msgstr ""
+msgstr "PNG"
 
 msgid "PREFIX missing."
-msgstr ""
+msgstr "缺少 PREFIX。"
 
 msgid ""
 "PV created successfully please wait till device is added to Volume Group"
-msgstr ""
+msgstr "已成功创建 PV，请等待，直至设备添加到卷组"
 
 msgid "Packages Received"
-msgstr ""
+msgstr "已接收软件包"
 
 msgid "Packages Transmitted"
-msgstr ""
+msgstr "已传输软件包"
 
 msgid "Packaging Path "
-msgstr ""
+msgstr "打包路径"
 
 msgid "Parameter"
-msgstr ""
+msgstr "参数"
 
 msgid "Parameters"
-msgstr ""
+msgstr "参数"
 
 msgid ""
 "Parameters must be set with an equals sign (=) and separated by a whitespace "
 "( ). <br /> Example: param1=value param2=value"
 msgstr ""
+"必须使用等号 (=) 设置参数并使用空格 ( ) 分隔。<br /> 示例：param1=value "
+"param2=value"
 
 msgid "Parent Interface"
-msgstr ""
+msgstr "父接口"
 
 msgid "Parent Process ID"
-msgstr ""
+msgstr "父进程标识"
 
 msgid "Parent interface of type 'Bond' is not active."
-msgstr ""
+msgstr "类型为“Bond”的父接口未处于活动状态。"
 
 msgid "Parent's process ID"
-msgstr ""
+msgstr "父代的进程标识"
 
 msgid "Parsing df output failed."
-msgstr ""
+msgstr "解析 df 输出失败。"
 
 msgid "Parsing lsdasd output failed"
-msgstr ""
+msgstr "解析 lsdasd 输出失败"
 
 msgid "Partition"
-msgstr ""
+msgstr "分区"
 
 #, python-format
 msgid "Partition %(name)s not found."
-msgstr ""
+msgstr "找不到分区 %(name)s。"
 
 msgid "Partition Details"
-msgstr ""
+msgstr "分区详细信息"
 
 msgid "Partition added successfully"
-msgstr ""
+msgstr "已成功添加分区"
 
 msgid "Partition already mounted"
-msgstr ""
+msgstr "已安装分区"
 
 msgid "Partition size exceeds device size"
-msgstr ""
+msgstr "分区大小超过设备大小"
 
 msgid "Password"
 msgstr "密码"
 
 msgid "Password Change"
-msgstr ""
+msgstr "密码更改"
 
 msgid "Password changed successfully for '%1'."
-msgstr ""
+msgstr "已成功更改“%1”的密码。"
 
 msgid "Password changed successfully. Please login to continue!"
-msgstr ""
+msgstr "已成功更改密码。请登录以继续！"
 
 msgid "Password parameter is required"
-msgstr ""
+msgstr "需要密码参数"
 
 msgid "Path"
-msgstr ""
+msgstr "路径"
 
 msgid "Path or pattern is too long or too short."
 msgstr "路径或模式太长或太短。"
 
 msgid "Path to File"
-msgstr ""
+msgstr "文件的路径"
 
 msgid "Paths"
-msgstr ""
+msgstr "路径"
 
 msgid "Paths Excluded"
-msgstr ""
+msgstr "已排除路径"
 
 msgid "Paths Included"
-msgstr ""
+msgstr "已包括路径"
 
 msgid "Permisions"
-msgstr ""
+msgstr "许可权"
 
 msgid "Permission"
-msgstr ""
+msgstr "许可权"
+
+msgid "Persist"
+msgstr "保存"
 
 #, python-format
 msgid "Persist audit rule '%(ident)s'"
-msgstr ""
+msgstr "保存审计规则“%(ident)s”"
 
 #, python-format
 msgid "Persist the rule '%(ident)s'"
-msgstr ""
+msgstr "保存规则“%(ident)s”"
 
 msgid "Persisted"
-msgstr ""
+msgstr "已保存"
 
 #, python-format
 msgid "Persistent file for slave '%(slave)s' is missing."
-msgstr ""
+msgstr "缺少从属项“%(slave)s”的持久文件。"
 
 #, python-format
 msgid "Persistent file is not available for an interface, '%(name)s'."
-msgstr ""
+msgstr "持久文件对接口“%(name)s”不可用。"
 
 msgid "Persistent file is not available for interface %1."
-msgstr ""
+msgstr "持久文件对接口 %1 不可用。"
 
 msgid "Personality Number"
-msgstr ""
+msgstr "个性化编号"
 
 msgid "Physical Volumes Name"
-msgstr ""
+msgstr "物理卷名称"
 
 msgid "Physical device name is missing."
-msgstr ""
+msgstr "缺少物理设备名。"
 
 msgid "Please check the uniqueness of the paths or patterns."
 msgstr "请检查路径或模式的唯一性。"
 
 msgid "Please enter Filename and Filesize"
-msgstr ""
+msgstr "请输入文件名和文件大小"
 
-msgid "Please enter all fields"
-msgstr ""
+msgid "Please enter Path to File and permissions"
+msgstr "请输入文件路径和许可权"
+
+msgid "Please enter Path to File."
+msgstr "请输入文件路径。"
+
+msgid "Please enter filter field value"
+msgstr "请输入过滤器字段值"
+
+msgid "Please enter the permissions"
+msgstr "请输入许可权"
 
 msgid "Please provide either file name or directory where the log file exists."
-msgstr ""
+msgstr "请提供日志文件的名称或所在目录。"
+
+msgid "Please provide value for the selected option."
+msgstr "请提供所选选项的值。"
+
+msgid "Please select Systemcall"
+msgstr "请选择系统调用"
 
 msgid "Please select a device"
-msgstr ""
+msgstr "请选择设备"
 
 msgid "Please select a plugin to edit"
-msgstr ""
+msgstr "请选择要编辑的插件"
 
 msgid "Please select a volume group for resize."
-msgstr ""
+msgstr "请选择卷组以调整大小。"
 
 msgid "Please select at lease one volume group for deletion."
-msgstr ""
+msgstr "请选择至少一个卷组以进行删除。"
 
 msgid ""
 "Please select at least one physical volume for removal from Volume Group"
-msgstr ""
+msgstr "请选择至少一个物理卷以从卷组中移除"
 
 msgid "Please select atleaset one block device to create physical volume"
-msgstr ""
+msgstr "请选择至少一个块设备以创建物理卷"
 
 msgid "Please select atleaset one partition to create physical volume"
-msgstr ""
+msgstr "请选择至少一个分区以创建物理卷"
 
 msgid ""
 "Please select either an existing physical volume or select a block device "
 "for creating a new physical volume to proceed."
-msgstr ""
+msgstr "请选择现有物理卷或者选择用于创建新物理卷的块设备以继续。"
 
 msgid "Please select one device to add partition."
-msgstr ""
+msgstr "请选择一个设备以添加分区。"
 
 msgid "Please select one rule to edit"
-msgstr ""
+msgstr "请选择一个规则以进行编辑"
 
 msgid "Please select type of Authentication"
-msgstr ""
+msgstr "请选择认证类型"
 
 msgid "Please wait..."
-msgstr ""
+msgstr "请稍候..."
 
 msgid "Plugin"
-msgstr ""
+msgstr "插件"
 
 msgid "Port"
 msgstr "端口"
 
 msgid "Port Type"
-msgstr ""
+msgstr "端口类型"
 
 msgid "Port type"
-msgstr ""
+msgstr "端口类型"
 
 msgid "Power"
-msgstr ""
+msgstr "电源"
 
 msgid "Power Off"
-msgstr ""
+msgstr "断电"
 
 msgid "Power Off Server"
-msgstr ""
+msgstr "对服务器断电"
 
 msgid "Power On"
-msgstr ""
+msgstr "通电"
 
 msgid "Power On Server"
-msgstr ""
+msgstr "对服务器通电"
 
 msgid "Power Options"
 msgstr "电源选项"
 
 #, python-format
 msgid "Power off managed server '%(ident)s'"
-msgstr ""
+msgstr "对受管服务器“%(ident)s”断电"
 
 #, python-format
 msgid "Power off server %(name)s failed"
-msgstr ""
+msgstr "对服务器 %(name)s 断电失败"
 
 #, python-format
 msgid "Power on managed server '%(ident)s'"
-msgstr ""
+msgstr "对受管服务器“%(ident)s”通电"
 
 #, python-format
 msgid "Power on server %(name)s failed"
-msgstr ""
+msgstr "对服务器 %(name)s 通电失败"
 
 msgid "Prefix"
-msgstr ""
+msgstr "前缀"
 
-msgid "Preserve the latest"
-msgstr "保留最新"
+msgid "Preserve the latest number of backups:"
+msgstr "最新备份的保留数："
+
+msgid "Preserve the latest number of days of backups:"
+msgstr "最新备份的保留天数："
 
 msgid "Priority Boost"
-msgstr ""
+msgstr "优先级升降"
 
 msgid "Process"
-msgstr ""
+msgstr "进程"
 
 msgid "Process ID"
-msgstr ""
+msgstr "进程标识"
 
 msgid "Process ID Report"
-msgstr ""
+msgstr "进程标识报告"
 
 msgid "Profile"
 msgstr "概要文件"
 
 msgid "Program's SE Linux Clearance"
-msgstr ""
+msgstr "程序的 SE Linux 隔离"
 
 msgid "Program's SE Linux Role"
-msgstr ""
+msgstr "程序的 SE Linux 角色"
 
 msgid "Program's SE Linux Sensitivity"
-msgstr ""
+msgstr "程序的 SE Linux 敏感度"
 
 msgid "Program's SE Linux Type"
-msgstr ""
+msgstr "程序的 SE Linux 类型"
 
 msgid "Program's SE Linux User"
-msgstr ""
+msgstr "程序的 SE Linux 用户"
 
 msgid "Provide required parameters: hostname, port, community."
 msgstr "提供必需参数：hostname、port 和 community。"
 
 msgid "Q Depth"
-msgstr ""
+msgstr "Q 深度"
 
 msgid "RDMA Enabled"
-msgstr ""
+msgstr "已启用 RDMA"
 
 msgid "RDMA enabled"
-msgstr ""
+msgstr "已启用 RDMA"
 
 msgid "Raw"
-msgstr ""
+msgstr "原始"
 
 msgid "Re-Scan"
-msgstr ""
+msgstr "重新扫描"
 
 msgid "Read"
-msgstr ""
+msgstr "读取"
 
 msgid "Recent"
-msgstr ""
+msgstr "最近"
 
 #, python-format
 msgid "Redefine host network interface '%(ident)s'"
-msgstr ""
+msgstr "重新定义主机网络接口“%(ident)s”"
 
 msgid "Reduce"
-msgstr ""
+msgstr "减少"
 
 #, python-format
 msgid "Reduce host volume group '%(ident)s'"
-msgstr ""
+msgstr "减少主机卷组“%(ident)s”"
 
 msgid "Refresh"
-msgstr ""
+msgstr "刷新"
 
 msgid "Regular"
-msgstr ""
+msgstr "常规"
 
 msgid "Regular (No Shell)"
-msgstr ""
+msgstr "常规（无 Shell）"
 
 msgid "Reject host firmware image on temp side"
-msgstr ""
+msgstr "拒绝临时端上的主机固件映像"
 
 msgid "Remove"
-msgstr ""
+msgstr "移除"
 
 msgid "Remove Bond"
-msgstr ""
+msgstr "移除 Bond"
 
 msgid "Remove Bridge"
-msgstr ""
+msgstr "移除网桥"
 
 #, python-format
 msgid "Remove DASD partition '%(ident)s'"
-msgstr ""
+msgstr "移除 DASD 分区“%(ident)s”"
 
 msgid "Remove Interface"
-msgstr ""
+msgstr "移除接口"
 
 #, python-format
 msgid "Remove OVS bridge '%(ident)s'"
-msgstr ""
+msgstr "移除 OVS 网桥“%(ident)s”"
 
 #, python-format
 msgid "Remove archive '%(ident)s'"
-msgstr ""
+msgstr "移除归档“%(ident)s”"
 
 #, python-format
 msgid "Remove bonded port '%(bond)s' from OVS bridge '%(ident)s'"
-msgstr ""
+msgstr "从 OVS 网桥“%(ident)s”移除 bond 端口“%(bond)s”"
 
 #, python-format
 msgid "Remove configuration file for network interface '%(ident)s'"
-msgstr ""
+msgstr "移除网络接口“%(ident)s”的配置文件"
 
 #, python-format
 msgid "Remove disk partition '%(ident)s'"
-msgstr ""
+msgstr "移除磁盘分区“%(ident)s”"
 
 #, python-format
 msgid "Remove failed: device %(dev)s not found."
-msgstr ""
+msgstr "移除失败：找不到设备 %(dev)s。"
 
 #, python-format
 msgid "Remove failed: error: %(err)s"
-msgstr ""
+msgstr "移除失败：错误 %(err)s"
 
 msgid "Remove from VG"
-msgstr ""
+msgstr "从 VG 中移除"
 
 #, python-format
 msgid "Remove host volume group '%(ident)s'"
-msgstr ""
+msgstr "移除主机卷组“%(ident)s”"
 
 #, python-format
 msgid "Remove interface '%(interface)s' from OVS bridge '%(ident)s'"
-msgstr ""
+msgstr "从 OVS 网桥“%(ident)s”移除接口“%(interface)s”"
 
 #, python-format
 msgid "Remove logical volume '%(ident)s'"
-msgstr ""
+msgstr "移除逻辑卷“%(ident)s”"
 
 #, python-format
 msgid "Remove managed server '%(ident)s'"
-msgstr ""
+msgstr "移除受管服务器“%(ident)s”"
 
 #, python-format
 msgid "Remove physical volume '%(ident)s'"
-msgstr ""
+msgstr "移除物理卷“%(ident)s”"
 
 msgid "Removing..."
-msgstr ""
+msgstr "正在移除..."
 
 msgid "Report"
-msgstr ""
+msgstr "报告"
 
 msgid "Report Graph"
-msgstr ""
+msgstr "报告图形"
 
 msgid "Report graph is saved in the following path <strong>%1</strong>"
-msgstr ""
+msgstr "报告图形保存在以下路径中：<strong>%1</strong>"
 
 msgid "Require DASD device name to be formatted"
-msgstr ""
+msgstr "需要应进行格式化处理的 DASD 设备名"
 
 msgid "Require block dev to mount a filesystem"
-msgstr ""
+msgstr "需要块设备安装文件系统"
 
 msgid "Require block size for formatting DASD device"
-msgstr ""
+msgstr "需要块大小以格式化 DASD 设备"
 
 msgid "Require mount point to mount a filesystem"
-msgstr ""
+msgstr "需要安装点以安装文件系统"
 
 msgid "Require name to create DASD device partition"
-msgstr ""
+msgstr "需要名称以创建 DASD 设备分区"
 
 msgid "Require partition size to create DASD device partition"
-msgstr ""
+msgstr "需要分区大小以创建 DASD 设备分区"
 
 msgid "Required parameter device name"
-msgstr ""
+msgstr "必需参数设备名"
 
 msgid "Required parameter partition size"
-msgstr ""
+msgstr "必需参数分区大小"
 
 msgid "Required pv_name parameter."
-msgstr ""
+msgstr "必需 pv_name 参数。"
 
 msgid "Required pv_paths parameter"
-msgstr ""
+msgstr "必需 pv_paths 参数"
 
 msgid "Required size parameter"
-msgstr ""
+msgstr "必需 size 参数"
 
 msgid "Required vg_name parameter"
-msgstr ""
+msgstr "必需 vg_name 参数"
 
 #, python-format
 msgid "Rescan IQN '%(ident)s'"
-msgstr ""
+msgstr "重新扫描 IQN“%(ident)s”"
 
 msgid "Reset"
-msgstr ""
+msgstr "重置"
 
 msgid "Resize"
-msgstr ""
+msgstr "调整大小"
 
 msgid "Resource SE Linux High Level"
-msgstr ""
+msgstr "资源 SE Linux 高级"
 
 msgid "Resource SE Linux Low Level"
-msgstr ""
+msgstr "资源 SE Linux 低级"
 
 msgid "Resource SE Linux Role"
-msgstr ""
+msgstr "资源 SE Linux 角色"
 
 msgid "Resource SE Linux Type"
-msgstr ""
+msgstr "资源 SE Linux 类型"
 
 msgid "Resource SE Linux User"
-msgstr ""
+msgstr "资源 SE Linux 用户"
 
 msgid "Response Anomaly Report"
-msgstr ""
+msgstr "响应异常报告"
 
 msgid "Restart"
-msgstr ""
+msgstr "重新启动"
 
 msgid "Restart interface"
-msgstr ""
+msgstr "重新启动接口"
 
 #, python-format
 msgid "Restarted service '%(ident)s'"
+msgstr "已重新启动服务“%(ident)s”"
+
+msgid "Restore"
 msgstr ""
 
 msgid "Rotate"
-msgstr ""
+msgstr "循环"
 
 msgid "Routes"
-msgstr ""
+msgstr "路由"
 
 msgid "Rule"
-msgstr ""
+msgstr "规则"
 
 #, python-format
 msgid "Rule '%(name)s' is not persisted in the rules file."
-msgstr ""
+msgstr "规则“%(name)s”未保存在规则文件中。"
 
 msgid "Rule Information not available"
-msgstr ""
+msgstr "规则信息不可用"
 
 msgid "Rule Type"
-msgstr ""
+msgstr "规则类型"
+
+msgid "Rules"
+msgstr "规则"
 
 msgid "Rules File Path"
-msgstr ""
+msgstr "规则文件路径"
 
 #, python-format
 msgid ""
 "Run time information is not available for the interface on '%(name)s'. "
 "Activation of the interface on '%(name)s' went wrong."
-msgstr ""
+msgstr "运行时信息对“%(name)s”上的接口不可用。激活“%(name)s”上的接口失败。"
 
 msgid "SAN Adapters"
 msgstr "SAN 适配器"
 
 #, python-format
 msgid "SAN adapter '%(adapter)s' does not exist in the system."
-msgstr "SAN 适配器“%(adapter)s”在系统中不存在。"
+msgstr "系统中不存在 SAN 适配器“%(adapter)s”。"
 
 msgid "SEP Configuration"
 msgstr "SEP 配置"
@@ -3017,208 +3128,224 @@ msgid "SNMP community name must be a single word."
 msgstr "SNMP 社区名必须是单个单词。"
 
 msgid "SR-IOV Setup"
-msgstr ""
+msgstr "SR-IOV 设置"
 
 msgid "SR-IOV action of mlx5 module requires 'num_vfs' argument."
-msgstr ""
+msgstr "mlx5 模块的 SR-IOV 操作需要“num_vfs”自变量。"
 
 msgid "SR-IOV enablement failed: num_vfs must be an integer."
-msgstr ""
+msgstr "SR-IOV 启用失败：num_vfs 必须为整数。"
 
 msgid ""
 "SR-IOV enablement failed: required files under /sys directory not found."
-msgstr ""
+msgstr "SR-IOV 启用失败：找不到 /sys 目录下的必需文件。"
 
 #, python-format
 msgid ""
 "SR-IOV is already configured in interface %(name)s with %(num_vf)s virtual "
 "functions."
-msgstr ""
+msgstr "已在带有 %(num_vf)s 虚拟功能的接口 %(name)s 中配置 SR-IOV。"
 
 #, python-format
 msgid ""
 "SR-IOV is already disabled (no virtual functions enabled) in interface "
 "%(name)s."
-msgstr ""
+msgstr "已在接口 %(name)s 中禁用 SR-IOV（未启用虚拟功能）。"
 
 #, python-format
 msgid "SR-IOV is not enabled in the firmware of the interface %(name)s."
-msgstr ""
+msgstr "未在接口 %(name)s 的固件中启用 SR-IOV。"
 
 msgid "SR-IOV: Single Root I/O Virtualization"
-msgstr ""
+msgstr "SR-IOV：单根 I/O 虚拟化"
 
 msgid "SRC Version"
-msgstr ""
+msgstr "SRC 版本"
 
 msgid "SVG"
-msgstr ""
+msgstr "SVG"
 
 msgid "SYSLOG"
-msgstr ""
+msgstr "系统日志"
 
 msgid "Save"
-msgstr ""
+msgstr "保存"
 
 msgid "Save Server operation failed"
-msgstr ""
+msgstr "保存服务器操作失败"
 
 msgid "Saved GroupID"
-msgstr ""
+msgstr "已保存组标识"
 
 msgid "Saved User ID"
-msgstr ""
+msgstr "已保存用户标识"
 
 msgid "Select an Interface"
-msgstr ""
+msgstr "选择接口"
 
 msgid "Select an Interface to be added"
-msgstr ""
+msgstr "选择要添加的接口"
 
 msgid "Select an Interface to be removed"
-msgstr ""
+msgstr "选择要移除的接口"
 
 msgid "Select an existing PV"
-msgstr ""
+msgstr "选择现有 PV"
 
 msgid "Select the bond Interfaces"
-msgstr ""
+msgstr "选择 bond 接口"
 
 msgid "Selected"
-msgstr ""
+msgstr "已选择"
 
 msgid "Selected Control Rules can not be deleted"
-msgstr ""
+msgstr "无法删除所选控制规则"
 
 msgid ""
-"Selected partition is part of a volume group. Removal may hamper the volume "
+"Selected Partition is part of a Volumn group. Removal may hamper the Volumn "
 "group usage. Are you sure you want to delete this partition?"
 msgstr ""
+"所选分区是卷组的一部分。删除此分区可能会妨碍对卷组的使用。确定要删除此分区"
+"吗？"
+
+msgid ""
+"Selected device is not formatted. Please format the device to proceed with "
+"partition creation."
+msgstr "所选设备未格式化。请格式化该设备以继续创建分区。"
 
 msgid "Sensor Data Records"
-msgstr ""
+msgstr "传感器数据记录"
 
 msgid "Sensor Monitor"
 msgstr "传感器监视器"
 
 msgid "Sent command to restart service %1"
-msgstr ""
+msgstr "已发送用于重新启动服务 %1 的命令"
 
 msgid "Sent command to start service %1"
-msgstr ""
+msgstr "已发送用于启动服务 %1 的命令"
 
 msgid "Sent command to stop service %1"
-msgstr ""
+msgstr "已发送用于停止服务 %1 的命令"
 
 msgid "Server Name"
-msgstr ""
+msgstr "服务器名称"
 
 #, python-format
 msgid "Server with IP address or Host Name %(ipaddr)s is already added"
-msgstr ""
+msgstr "已添加带有 IP 地址或主机名 %(ipaddr)s 的服务器"
 
 #, python-format
 msgid "Server with name %(name)s is already added"
-msgstr ""
+msgstr "已添加带有名称 %(name)s 的服务器"
 
 #, python-format
 msgid "Server with name %(name)s is not found"
-msgstr ""
+msgstr "找不到带有名称 %(name)s 的服务器"
 
 #, python-format
 msgid "Service name %(name)s not found."
-msgstr ""
+msgstr "找不到服务名称 %(name)s。"
 
 msgid "Session ID"
-msgstr ""
+msgstr "会话标识"
 
 #, python-format
 msgid "Set initiator CHAP credentials for IQN '%(ident)s'"
-msgstr ""
+msgstr "为 IQN“%(ident)s”设置发起方 CHAP 凭证"
 
 #, python-format
 msgid "Set initiator CHAP credentials in iscsid.conf '%(ident)s'"
-msgstr ""
+msgstr "在 iscsid.conf“%(ident)s”中设置发起方 CHAP 凭证"
 
 #, python-format
 msgid ""
 "Set initiator discovery session CHAP credentials in iscsid.conf '%(ident)s'"
-msgstr ""
+msgstr "在 iscsid.conf“%(ident)s”中设置发起方发现会话 CHAP 凭证"
 
 #, python-format
 msgid "Set targets CHAP credentials for IQN '%(ident)s'"
-msgstr ""
+msgstr "为 IQN“%(ident)s”设置目标 CHAP 凭证"
 
 #, python-format
 msgid "Set targets CHAP credentials in iscsid.conf '%(ident)s'"
-msgstr ""
+msgstr "在 iscsid.conf“%(ident)s”中设置目标 CHAP 凭证"
 
 #, python-format
 msgid ""
 "Set targets discovery session CHAP credentials in iscsid.conf '%(ident)s'"
-msgstr ""
+msgstr "在 iscsid.conf“%(ident)s”中设置目标发现会话 CHAP 凭证"
+
+msgid "Sets the action that is performed when a critical error is detected"
+msgstr "设置当检测到关键错误时执行的操作"
+
+msgid "Sets the maximum amount of existing Audit buffers in the kernel"
+msgstr "设置内核中现有审计缓冲区的最大数量"
+
+msgid "Sets the rate of generated messages per second"
+msgstr "设置每秒生成消息的速率"
 
 msgid "Settings"
-msgstr ""
+msgstr "设置"
 
 msgid "Showing {{ctx.start}} to {{ctx.end}} of {{ctx.total}} entries"
-msgstr ""
+msgstr "显示 {{ctx.start}} 到 {{ctx.end}} 个条目（共 {{ctx.total}} 个条目）"
 
 msgid "Signature Key"
-msgstr ""
+msgstr "签名密钥"
 
 msgid "Signer"
-msgstr ""
+msgstr "签署者"
 
 msgid "Signer Hash Algorithm"
-msgstr ""
+msgstr "签署者散列算法"
 
 msgid "Single"
-msgstr ""
+msgstr "单个"
 
 #, python-format
 msgid "Single swap device %(swap)s not found."
-msgstr ""
+msgstr "找不到单个交换设备 %(swap)s。"
 
 msgid "Size"
-msgstr ""
+msgstr "大小"
 
 msgid "Size (MB)"
-msgstr ""
+msgstr "大小 (MB)"
 
 msgid "Size in MB"
-msgstr ""
+msgstr "大小 (MB)"
 
 msgid "Size is mandatory while creating file type swap device."
-msgstr ""
+msgstr "创建文件类型交换设备时大小是必需的。"
 
 msgid "Size must be of type integer"
-msgstr ""
+msgstr "大小必须为整数类型"
 
 msgid "Skip this step to create a new volume group using new block devices."
-msgstr ""
+msgstr "跳过此步骤以使用新块设备创建新卷组。"
 
 msgid "Slave(s) is missing."
-msgstr ""
+msgstr "缺少从属项。"
 
 msgid "Soft"
-msgstr ""
+msgstr "软"
 
 msgid ""
 "Some of the selected devices are already Logged in.<br> Do you want to "
 "proceed login for Logged out devices?"
-msgstr ""
+msgstr "某些所选设备已登录。<br> 要针对已注销设备继续登录吗？"
 
 msgid ""
 "Some of the selected devices are already Logged out.<br> Do you want to "
 "proceed logout for Logged in devices?"
-msgstr ""
+msgstr "某些所选设备已注销。<br> 要针对已登录设备继续注销吗？"
 
 msgid "Space Left Action"
-msgstr ""
+msgstr "“余下空间”操作"
 
 msgid "Space Left(MBs)"
-msgstr ""
+msgstr "余下空间 (MB)"
 
 msgid "Specify name, password, group and profile for the new user."
 msgstr "指定新用户的名称、密码、组和概要文件。"
@@ -3230,393 +3357,426 @@ msgid "Start"
 msgstr "启动"
 
 msgid "Start IBM Serviceable Event Provider (SEP)"
-msgstr ""
+msgstr "启动 IBM Serviceable Event Provider (SEP)"
 
 #, python-format
 msgid "Started service '%(ident)s'"
-msgstr ""
+msgstr "已启动服务“%(ident)s”"
 
 msgid "State"
 msgstr "状态"
 
 msgid "Statistics"
-msgstr ""
+msgstr "统计信息"
 
 msgid "Status"
-msgstr ""
+msgstr "状态"
 
 msgid "Stop"
 msgstr "停止"
 
 msgid "Stop IBM Serviceable Event Provider (SEP)"
-msgstr ""
+msgstr "停止 IBM Serviceable Event Provider (SEP)"
 
 #, python-format
 msgid "Stopped service '%(ident)s'"
-msgstr ""
+msgstr "已停止服务“%(ident)s”"
 
 msgid "Storage"
-msgstr ""
+msgstr "存储器"
 
 msgid "Storage Devices"
-msgstr ""
+msgstr "存储设备"
 
 msgid "Subchannels"
-msgstr ""
+msgstr "子通道"
 
 msgid "Submit"
 msgstr "提交"
 
 msgid "Subscribe"
-msgstr ""
+msgstr "预订"
 
 #, python-format
 msgid "Subscribe '%(hostname)s' with IBM SEP"
-msgstr ""
+msgstr "使用 IBM SEP 预订“%(hostname)s”"
 
 msgid "Success Summary Report"
-msgstr ""
+msgstr "成功摘要报告"
 
 msgid "Success Value"
-msgstr ""
+msgstr "成功值"
 
 msgid "Successfully added swap device "
-msgstr ""
+msgstr "已成功添加交换设备 "
 
 msgid "Successfully added swap file "
-msgstr ""
+msgstr "已成功添加交换文件"
 
 msgid "Successfully added the rule"
-msgstr ""
+msgstr "已成功添加规则"
 
 msgid "Successfully applied setting for interface: "
-msgstr ""
+msgstr "已对接口成功应用设置："
 
 msgid "Successfully brought down the interface %1."
-msgstr ""
+msgstr "已成功关闭接口 %1。"
 
 msgid "Successfully brought up the interface %1."
-msgstr ""
+msgstr "已成功启动接口 %1。"
 
 msgid "Successfully created physical volume."
-msgstr ""
+msgstr "已成功创建物理卷。"
 
 msgid "Successfully created the interface %1."
-msgstr ""
+msgstr "已成功创建接口 %1。"
 
 msgid "Successfully created volume group  %1"
-msgstr ""
+msgstr "已成功创建卷组 %1"
 
 msgid "Successfully deleted"
-msgstr ""
+msgstr "已成功删除"
 
 msgid "Successfully deleted the interface %1."
-msgstr ""
+msgstr "已成功删除接口 %1。"
 
 msgid "Successfully deleted volume group  %1"
-msgstr ""
+msgstr "已成功删除卷组 %1"
 
 msgid "Successfully loaded"
-msgstr ""
+msgstr "已成功装入"
 
 msgid "Successfully persisted"
-msgstr ""
+msgstr "已成功保存"
 
 msgid "Successfully restarted the interface %1."
-msgstr ""
+msgstr "已成功重新启动接口 %1。"
 
 msgid "Successfully unloaded"
-msgstr ""
+msgstr "已成功卸载"
 
 msgid "Successfully unpersisted the rule (Control Rules can not be unloaded)"
-msgstr ""
+msgstr "已成功取消保存规则（无法卸载控制规则）"
 
 msgid "Successfully updated the interface %1."
-msgstr ""
+msgstr "已成功更新接口 %1。"
 
 msgid "Summary"
-msgstr ""
+msgstr "摘要"
 
 msgid "Summary : Selected Physical Volumes"
-msgstr ""
+msgstr "摘要：所选物理卷"
 
 msgid "Summary Report"
-msgstr ""
+msgstr "摘要报告"
 
 msgid ""
 "Summary report is saved in the following path <strong>/var/lib/wok/logs/"
 "audit_summary_report.txt</strong>"
 msgstr ""
+"摘要报告保存在以下路径中：<strong>/var/lib/wok/logs/audit_summary_report."
+"txt</strong>"
 
 msgid "Suspend"
-msgstr ""
+msgstr "暂挂"
 
 msgid "Swap Deletion"
-msgstr ""
+msgstr "交换删除"
 
 msgid "Swap Devices"
-msgstr ""
+msgstr "交换设备"
 
 #, python-format
 msgid "Swap device not found. %(name)s"
-msgstr ""
+msgstr "找不到交换设备。%(name)s"
 
 msgid "Symbolic Name"
 msgstr "符号名称"
 
 msgid "Sync"
-msgstr ""
+msgstr "同步"
 
 msgid "Syscall"
-msgstr ""
+msgstr "系统调用"
 
 msgid "Syscall Exit Code or Error Number"
-msgstr ""
+msgstr "系统调用退出代码或错误号"
 
 msgid "Syscall Report"
-msgstr ""
+msgstr "系统调用报告"
 
 msgid "System Call"
-msgstr ""
+msgstr "系统调用"
 
 msgid "System Call Rule"
-msgstr ""
+msgstr "系统调用规则"
 
 msgid "System Calls"
-msgstr ""
+msgstr "系统调用"
 
 #, python-format
 msgid ""
 "System Event Log %(sel_id)s is not present in System Event Log information "
 "for server %(name)s"
-msgstr ""
+msgstr "系统事件日志 %(sel_id)s 不在服务器 %(name)s 的系统事件日志信息中"
 
 msgid "System Event Log deleted successfully for event id"
-msgstr ""
+msgstr "已成功删除对应事件标识的系统事件日志"
 
 msgid "System Event Logs"
-msgstr ""
+msgstr "系统事件日志"
 
 msgid "System ID"
-msgstr ""
+msgstr "系统标识"
 
 msgid "System Modules"
 msgstr ""
 
 msgid "System Modules Management"
-msgstr ""
+msgstr "系统模块管理"
 
 msgid "System Services Management"
-msgstr ""
+msgstr "系统服务管理"
 
 msgid "System Temperature Reading"
-msgstr ""
+msgstr "系统温度读数"
 
 msgid "System hostname must be a valid string."
-msgstr "系统主机名必须是有效字符串。"
+msgstr "系统主机名必须为有效字符串。"
 
 msgid "System port number must be an integer between 1 and 65535."
-msgstr ""
+msgstr "系统端口号必须为 1 到 65535 之间的整数。"
 
 msgid "System users are not supported"
-msgstr ""
+msgstr "系统用户不受支持"
 
 msgid "Systems Platform Management"
-msgstr ""
+msgstr "系统平台管理"
 
 msgid "TCP Client Max Idle"
-msgstr ""
+msgstr "TCP 客户机最长空闲时间"
 
 msgid "TCP Client Port"
-msgstr ""
+msgstr "TCP 客户机端口"
 
 msgid "TCP Listen Port"
-msgstr ""
+msgstr "TCP 侦听端口"
 
 msgid "TCP Listen Queue"
-msgstr ""
+msgstr "TCP 侦听队列"
 
 msgid "TCP Max per Address"
-msgstr ""
+msgstr "TCP 最大值（每个地址）"
 
 msgid "TTY keystroke Report"
-msgstr ""
+msgstr "TTY 击键报告"
 
 msgid "Target"
-msgstr ""
+msgstr "目标"
 
 msgid "Target Device"
-msgstr ""
+msgstr "目标设备"
 
 msgid "Task"
-msgstr ""
+msgstr "任务"
 
 msgid "Terminal Report"
-msgstr ""
+msgstr "终端报告"
 
 msgid "Terminal Value"
-msgstr ""
+msgstr "终端值"
 
 msgid "The predefined rules files doesn't exist."
-msgstr ""
+msgstr "预定义规则文件不存在。"
 
 #, python-format
 msgid "The prefix value %(PREFIX)s is not in range 1-128."
-msgstr ""
+msgstr "前缀值 %(PREFIX)s 不在 1 到 128 之间。"
 
 #, python-format
 msgid "The prefix value %(PREFIX)s is not in range 1-32."
-msgstr ""
+msgstr "前缀值 %(PREFIX)s 不在 1 到 32 之间。"
 
 #, python-format
 msgid "The rule '%(name)s' cannot be unloaded or is already unloaded. "
-msgstr ""
+msgstr "无法卸载或已卸载规则“%(name)s”。"
+
+#, python-format
+msgid ""
+"The rule '%(name)s' has not been modified. Please update the rule before "
+"applying."
+msgstr "尚未修改规则“%(name)s”。请在应用之前更新该规则。"
 
 #, python-format
 msgid "The rule '%(name)s' is already persisted."
-msgstr ""
+msgstr "已保存规则“%(name)s”。"
 
 msgid "The two passwords entered do not match."
+msgstr "输入的两个密码不匹配。"
+
+#, python-format
+msgid ""
+"There is no DEVICE or NAME values in the slave interface configuration file "
+"('%(file)s')."
 msgstr ""
 
 #, python-format
 msgid ""
 "There was a problem while creating group '%(group)s'. Group name is an empty "
 "string."
-msgstr ""
+msgstr "创建组“%(group)s”时出现问题。组名为空字符串。"
+
+#, python-format
+msgid "There was a problem while creating group '%(group)s'. Reason: %(err)s."
+msgstr "创建组“%(group)s”时出现问题。原因：%(err)s。"
 
 #, python-format
 msgid ""
 "There was a problem while creating user '%(user)s', error: group id %(gid)s "
 "is not of integer type."
-msgstr ""
+msgstr "创建用户“%(user)s”时出现问题，错误：组标识 %(gid)s 不是整数类型。"
 
 #, python-format
 msgid ""
-"There was a problem while creating user '%(user)s', error: no_login id "
+"There was a problem while creating user '%(user)s', error: no_login "
 "%(no_login)s is not of boolean type."
 msgstr ""
+"创建用户“%(user)s”时出现问题，错误：no_login %(no_login)s 不是布尔值类型。"
 
 #, python-format
 msgid ""
 "There was a problem while creating user '%(user)s', error: user name is "
 "empty."
-msgstr ""
+msgstr "创建用户“%(user)s”时出现问题，错误：用户名为空。"
+
+#, python-format
+msgid "There was a problem while creating user '%(user)s'. Reason: %(err)s."
+msgstr "创建用户“%(user)s”时出现问题。原因：%(err)s。"
 
 #, python-format
 msgid ""
 "There was a problem while deleting group '%(group)s'. Group name is an empty "
 "string."
-msgstr ""
+msgstr "删除组“%(group)s”时出现问题。组名为空字符串。"
+
+#, python-format
+msgid "There was a problem while deleting group '%(group)s'. Reason: %(err)s."
+msgstr "删除组“%(group)s”时出现问题。原因：%(err)s。"
 
 #, python-format
 msgid ""
 "There was a problem while deleting user '%(user)s', error: user name is "
 "empty."
-msgstr ""
+msgstr "删除用户“%(user)s”时出现问题，错误：用户名为空。"
+
+#, python-format
+msgid "There was a problem while deleting user '%(user)s'. Reason: %(err)s."
+msgstr "删除用户“%(user)s”时出现问题。原因：%(err)s。"
 
 msgid "There was a problem while fetching user profile, see log for details"
-msgstr ""
+msgstr "访存用户概要文件时出现问题，请参阅日志以了解详细信息"
 
 msgid "There was a problem while reading users details, see log for details"
-msgstr ""
+msgstr "读取用户详细信息时出现问题，请参阅日志以了解详细信息"
 
 msgid "This Month"
-msgstr ""
+msgstr "本月"
 
 msgid "This Week"
-msgstr ""
+msgstr "本周"
 
 msgid "This Year"
-msgstr ""
+msgstr "今年"
 
 msgid "This module does not have any parameters."
-msgstr ""
+msgstr "此模块没有任何参数。"
 
 msgid "This will remove the bond %1. Do you want to continue?"
-msgstr ""
+msgstr "这将移除 bond %1。要继续吗？"
 
 msgid "This will remove the bridge %1. Do you want to continue?"
-msgstr ""
+msgstr "这将移除网桥 %1。要继续吗？"
 
 msgid "This will remove the interface %1 from %2. Do you want to continue?"
-msgstr ""
+msgstr "这将从 %2 中移除接口 %1。要继续吗？"
 
 msgid "This will unload the module %1. Do you want to continue?"
-msgstr ""
+msgstr "这将卸载模块 %1。要继续吗？"
 
 msgid "Timeout"
-msgstr ""
+msgstr "超时"
 
 msgid "Timestamp"
 msgstr "时间戳记"
 
 msgid "Today"
-msgstr ""
+msgstr "今天"
 
 msgid "Total PE"
-msgstr ""
+msgstr "总计 PE"
 
 msgid "Type"
-msgstr ""
+msgstr "类型"
 
 msgid "Type is missing."
-msgstr ""
+msgstr "缺少类型。"
 
 msgid "Type is unknown."
-msgstr ""
+msgstr "类型未知。"
 
 msgid "Type required for creating a swap device."
-msgstr ""
+msgstr "创建交换设备所需的类型。"
 
 #, python-format
 msgid "Unable to activate swap device. %(err)s"
-msgstr ""
+msgstr "无法激活交换设备。%(err)s"
 
 #, python-format
 msgid "Unable to activate the interface on '%(name)s', '%(error)s'."
-msgstr ""
+msgstr "无法在“%(name)s”上激活接口，“%(error)s”。"
 
 #, python-format
 msgid "Unable to bring down the interface '%(name)s', '%(error)s'."
-msgstr ""
+msgstr "无法关闭接口“%(name)s”，“%(error)s”。"
 
 #, python-format
 msgid "Unable to bring up the interface '%(name)s', '%(error)s'."
-msgstr ""
+msgstr "无法启动接口“%(name)s”，“%(error)s”。"
 
 #, python-format
 msgid "Unable to change dasd type, error: %(err)s"
-msgstr ""
+msgstr "无法更改 DASD 类型，错误：%(err)s"
 
 #, python-format
 msgid "Unable to change the partition type. Error: %(err)s"
-msgstr ""
+msgstr "无法更改分区类型。错误：%(err)s"
 
 #, python-format
 msgid "Unable to create a new network script file for the interface %(name)s."
-msgstr ""
+msgstr "无法为接口 %(name)s 创建新的网络脚本文件。"
 
 #, python-format
 msgid "Unable to create backup, file %(file)s changed as we read it"
-msgstr ""
+msgstr "无法创建备份，文件 %(file)s 在我们读取它时发生了更改"
 
 msgid "Unable to create bond with less than two interfaces."
-msgstr ""
+msgstr "无法创建所带接口少于两个的 bond。"
 
 #, python-format
 msgid "Unable to deactivate swap device. %(err)s"
-msgstr ""
+msgstr "无法取消激活交换设备。%(err)s"
 
 #, python-format
 msgid "Unable to deactivate the interface on '%(name)s', '%(error)s'."
-msgstr ""
+msgstr "无法在“%(name)s”上取消激活接口，“%(error)s”。"
 
 #, python-format
 msgid ""
 "Unable to delete System Event Log %(sel_id)s for server %(name)s. IPMI "
 "Command error %(err)s. rc =%(rc)s"
 msgstr ""
+"无法删除服务器 %(name)s 的系统事件日志 %(sel_id)s。IPMI 命令错误 %(err)s。rc "
+"=%(rc)s"
 
 #, python-format
 msgid "Unable to delete default gateway: %(err)s"
@@ -3624,29 +3784,34 @@ msgstr "无法删除缺省网关：%(err)s"
 
 #, python-format
 msgid "Unable to find device %(dev)s ."
-msgstr ""
+msgstr "找不到设备 %(dev)s。"
 
 #, python-format
 msgid "Unable to format swap device. %(err)s"
-msgstr ""
+msgstr "无法格式化交换设备。%(err)s"
 
 #, python-format
 msgid ""
 "Unable to get FRU Device information for server %(name)s. IPMI Command error "
 "%(err)s. rc = %(rc)s"
 msgstr ""
+"无法获取服务器 %(name)s 的 FRU 设备信息。IPMI 命令错误 %(err)s。返回码 = "
+"%(rc)s"
 
 #, python-format
 msgid ""
 "Unable to get SDR information for server %(name)s. IPMI Command error "
 "%(err)s , rc = %(rc)s"
 msgstr ""
+"无法获取服务器 %(name)s 的 SDR 信息。IPMI 命令错误 %(err)s，返回码 = %(rc)s"
 
 #, python-format
 msgid ""
 "Unable to get System Event Log information for server %(name)s. IPMI Command "
 "error %(err)s. rc = %(rc)s"
 msgstr ""
+"无法获取服务器 %(name)s 的系统事件日志信息。IPMI 命令错误 %(err)s。返回码 = "
+"%(rc)s"
 
 #, python-format
 msgid "Unable to get default gateway: %(err)s"
@@ -3654,165 +3819,172 @@ msgstr "无法获取缺省网关：%(err)s"
 
 #, python-format
 msgid "Unable to get details of server %(name)s"
-msgstr ""
+msgstr "无法获取服务器 %(name)s 的详细信息"
 
 #, python-format
 msgid "Unable to get iSCSI targets of host %(host)s: Connection timed out"
-msgstr ""
+msgstr "无法获取主机 %(host)s 的 iSCSI 目标：连接超时"
 
 #, python-format
 msgid "Unable to get information of device %(dev)s, error: %(err)s"
-msgstr ""
+msgstr "无法获取设备 %(dev)s 的信息，错误：%(err)s"
 
 #, python-format
 msgid "Unable to get single swap device info. %(err)s"
-msgstr ""
+msgstr "无法获取单个交换设备信息。%(err)s"
 
 msgid "Unable to get single swap device info: directory /proc/swaps not found."
-msgstr ""
+msgstr "无法获取单个交换设备信息：找不到目录 /proc/swaps。"
 
 #, python-format
 msgid "Unable to include default backup dir (%(dir)s) to a backup file"
-msgstr ""
+msgstr "无法包括备份文件的缺省备份目录 (%(dir)s)"
 
-msgid "Unable to open fstab"
-msgstr ""
+#, python-format
+msgid "Unable to open fstab. Error: %(err)s"
+msgstr "无法打开 fstab。错误：%(err)s"
 
 #, python-format
 msgid "Unable to parse 'swapon -s' output. %(err)s"
-msgstr ""
+msgstr "无法解析“swapon -s”输出。%(err)s"
 
 #, python-format
 msgid "Unable to read or update SR-IOV boot script file. Error: %(err)s"
-msgstr ""
+msgstr "无法读取或更新 SR-IOV 引导脚本文件。错误：%(err)s"
 
 #, python-format
 msgid "Unable to read or update openib.conf file. Error: %(err)s"
-msgstr ""
+msgstr "无法读取或更新 openib.conf 文件。错误：%(err)s"
+
+#, python-format
+msgid "Unable to remove swap signature. Error: %(err)s"
+msgstr "无法移除交换签名。错误：%(err)s"
 
 #, python-format
 msgid ""
 "Unable to set %(num_vf)s virtual functions for interface %(name)s. Maximum "
 "allowed in the firmware is %(max_vf)s."
 msgstr ""
+"无法为接口 %(name)s 设置 %(num_vf)s 个虚拟功能。固件中允许的最大数为 "
+"%(max_vf)s。"
 
 #, python-format
 msgid "Unable to set default gateway: %(err)s"
 msgstr "无法设置缺省网关：%(err)s"
 
 msgid "Unable to write fstab"
-msgstr ""
+msgstr "无法写入 fstab"
 
 msgid "Unload"
-msgstr ""
+msgstr "卸载"
 
 #, python-format
 msgid "Unload  the rule '%(ident)s'"
-msgstr ""
+msgstr "卸载规则“%(ident)s”"
 
 msgid "Unload Module"
-msgstr ""
+msgstr "卸载模块"
 
 #, python-format
 msgid "Unload kernel module '%(ident)s'"
-msgstr ""
+msgstr "卸载内核模块“%(ident)s”"
 
 msgid "Unmount"
-msgstr ""
+msgstr "卸载"
 
 #, python-format
 msgid "Unmount filesystem '%(ident)s'"
-msgstr ""
+msgstr "卸载文件系统“%(ident)s”"
 
 msgid "Unsaved Changes"
-msgstr ""
+msgstr "未保存的更改"
 
 msgid "Unsubscribe"
-msgstr ""
+msgstr "取消预订"
 
 #, python-format
 msgid "Unsubscribe '%(ident)s' with IBM SEP"
-msgstr ""
+msgstr "使用 IBM SEP 取消预订“%(ident)s”"
 
 msgid "Up"
-msgstr ""
+msgstr "上移"
 
 msgid "Update"
 msgstr "更新"
 
 #, python-format
 msgid "Update '%(ident)s' subscription with IBM SEP"
-msgstr ""
+msgstr "使用 IBM SEP 更新“%(ident)s”预订"
 
 msgid "Update Credentials"
-msgstr ""
+msgstr "更新凭证"
 
 #, python-format
 msgid "Update Credentials of managed server '%(ident)s'"
-msgstr ""
+msgstr "更新受管服务器“%(ident)s”的凭证"
 
 msgid "Update Progress"
-msgstr ""
+msgstr "更新进度"
 
 #, python-format
 msgid "Update configuration file for network interface '%(ident)s'"
-msgstr ""
+msgstr "更新网络接口“%(ident)s”的配置文件"
 
 #, python-format
 msgid "Update disk partition '%(ident)s' to type '%(type)s'"
-msgstr ""
+msgstr "将磁盘分区“%(ident)s”更新为类型“%(type)s”"
 
 msgid "Update host network configuration"
-msgstr ""
+msgstr "更新主机网络配置"
 
 msgid "Updated successfully"
-msgstr ""
+msgstr "已成功更新"
 
 #, python-format
 msgid "Updated the auditdisp conf file '%(ident)s'."
-msgstr ""
+msgstr "已更新 auditdisp 配置文件“%(ident)s”。"
 
 #, python-format
 msgid "Updated the auditdisp plugin conf file '%(ident)s'."
-msgstr ""
+msgstr "已更新 auditdisp 插件配置文件“%(ident)s”。"
 
 #, python-format
 msgid "Upgrade host firmware with '%(path)s'"
-msgstr ""
+msgstr "使用“%(path)s”升级主机固件"
 
 msgid "Usage"
-msgstr ""
+msgstr "使用率"
 
 msgid "Use Libwrap"
-msgstr ""
+msgstr "使用 Libwrap"
 
 msgid "Use Other"
-msgstr "使用其他组"
+msgstr "使用其他"
 
 msgid "Use%"
-msgstr ""
+msgstr "已使用百分比"
 
 msgid "Used (MB)"
-msgstr ""
+msgstr "已使用 (MB)"
 
 msgid "User"
-msgstr ""
+msgstr "用户"
 
 #, python-format
 msgid "User '%(user)s' does not exist."
 msgstr "用户“%(user)s”不存在。"
 
 msgid "User 'no_login' should be boolean."
-msgstr ""
+msgstr "用户“no_login”应为布尔值。"
 
 msgid "User Deletion"
-msgstr ""
+msgstr "用户删除"
 
 msgid "User ID"
-msgstr ""
+msgstr "用户标识"
 
 msgid "User ID Report"
-msgstr ""
+msgstr "用户标识报告"
 
 msgid "User Management"
 msgstr "用户管理"
@@ -3821,7 +3993,7 @@ msgid "User Name"
 msgstr "用户名"
 
 msgid "User group should be non-empty string."
-msgstr ""
+msgstr "用户组应该为非空字符串。"
 
 msgid "User name is a required string."
 msgstr "用户名是必需字符串。"
@@ -3830,93 +4002,96 @@ msgid "User password is a required string."
 msgstr "用户密码是必需字符串。"
 
 msgid "User profile should be one among regularuser, virtuser or admin."
-msgstr ""
+msgstr "用户概要文件应该为 regularuser、virtuser 或 admin 的其中之一。"
 
 #, python-format
 msgid "User/Login '%(user)s' already in use."
-msgstr ""
+msgstr "用户/登录“%(user)s”已在使用中。"
+
+msgid "Username"
+msgstr "用户名"
 
 #, python-format
 msgid "VG %(name)s contains logical volumes."
-msgstr ""
+msgstr "VG %(name)s 包含逻辑卷。"
 
 msgid "VG Name"
-msgstr ""
+msgstr "VG 名称"
 
 msgid "VG UUID"
-msgstr ""
+msgstr "VG UUID"
 
 msgid "VG name"
-msgstr ""
+msgstr "VG 名称"
 
 msgid "VLAN"
-msgstr ""
+msgstr "VLAN"
 
 msgid "VLAN Id"
-msgstr ""
+msgstr "VLAN 标识"
 
 msgid "VLAN Interface name"
-msgstr ""
+msgstr "VLAN 接口名称"
 
 msgid "VLAN id exceeds the ranges from '0' to '4095'."
-msgstr ""
+msgstr "VLAN 标识超过范围“0”到“4095”。"
 
 msgid "VLAN interface name is missing or provided incorrectly"
-msgstr ""
+msgstr "VLAN 接口名称缺失或以错误方式提供"
 
 msgid "VLANID mandatory in case VLAN interface do not have VLANID in it."
-msgstr ""
+msgstr "必需包含 VLANID，以免 VLAN 接口中没有包含 VLANID。"
 
 msgid "Value"
-msgstr ""
+msgstr "值"
 
 msgid "Value should be integer"
-msgstr ""
+msgstr "值应该为整数"
 
 msgid "Vermagic"
-msgstr ""
+msgstr "Vermagic"
 
 msgid "Version"
-msgstr ""
+msgstr "版本"
 
 msgid "Virt User"
-msgstr "Virt 用户"
+msgstr "虚拟用户"
 
 msgid "Virtualization Report"
-msgstr ""
+msgstr "虚拟化报告"
 
 msgid "Vlan id is missing."
-msgstr ""
+msgstr "缺少 VLAN 标识。"
 
 msgid "Vlan info is missing."
-msgstr ""
+msgstr "缺少 VLAN 信息。"
 
 msgid "Vlan is missing."
-msgstr ""
+msgstr "缺少 VLAN。"
 
 msgid "Volume Group"
-msgstr ""
+msgstr "卷组"
 
 msgid "Volume Group Name"
-msgstr ""
+msgstr "卷组名称"
 
 msgid "Volume Group Size"
-msgstr ""
+msgstr "卷组大小"
 
 msgid "Volume Group Status"
-msgstr ""
+msgstr "卷组状态"
 
 msgid "Volume Groups"
-msgstr ""
+msgstr "卷组"
 
 msgid "Volume group %1 is successfully extended"
-msgstr ""
+msgstr "已成功扩展卷组 %1"
 
 msgid "Volume group %1 is successfully reduced"
-msgstr ""
+msgstr "已成功减少卷组 %1"
 
 msgid "Volume group :  %1"
-msgstr ""
+msgstr "卷组：%1"
 
 msgid "WWNN"
 msgstr "WWNN"
@@ -3925,242 +4100,244 @@ msgid "WWPN"
 msgstr "WWPN"
 
 msgid "Warning: Recent changes has been rolled back, due to operation fail"
-msgstr ""
+msgstr "警告：最新的更改已回滚，因为操作失败"
 
 msgid "Week Ago"
-msgstr ""
+msgstr "几周之前"
 
 msgid "Word"
-msgstr ""
+msgstr "单词"
 
 msgid "Write"
-msgstr ""
+msgstr "写入"
 
 msgid "Write Logs"
-msgstr ""
+msgstr "写入日志"
 
 msgid "Yes"
-msgstr ""
+msgstr "是"
 
 msgid "Yesterday"
-msgstr ""
+msgstr "昨天"
 
 msgid ""
 "You have unsaved changes and this will discard them. Do you want to continue?"
-msgstr ""
+msgstr "您有未保存的更改，此操作会废弃这些更改。要继续吗？"
 
 msgid ""
 "You have unsaved changes with invalid data. Do you want to edit them or "
 "discard them?"
-msgstr ""
+msgstr "您有未保存的更改，这些更改中包含无效数据。您是要编辑还是废弃这些更改？"
 
 msgid "You have unsaved changes. Do you want to save them?"
-msgstr ""
+msgstr "您有未保存的更改。要保存这些更改吗？"
 
 msgid "and other %1 bonds"
-msgstr ""
+msgstr "及其他 %1 bond"
 
 msgid "and other %1 interfaces"
-msgstr ""
+msgstr "及其他 %1 接口"
 
 msgid "architecture"
-msgstr ""
+msgstr "体系结构"
 
 msgid "audit uid"
-msgstr ""
-
-msgid "backups"
-msgstr "个备份"
-
-msgid "days of backups"
-msgstr "天备份"
-
-msgid "device deleted successfully"
-msgstr ""
+msgstr "审计 UID"
 
 msgid "eg. vlan4094 or vlan.4094 or eth0.4094 or 15 characters device name"
-msgstr ""
+msgstr "例如，vlan4094、vlan.4094、eth0.4094 或 15 个字符的设备名"
 
 msgid "email"
-msgstr ""
+msgstr "电子邮件"
 
 msgid "error in filesystem get list util"
-msgstr ""
+msgstr "文件系统获取列表出错，直到"
 
 msgid "error in filesystem info fetch util"
-msgstr ""
+msgstr "文件系统信息访存出错，直到"
 
-msgid "error in unmount util"
-msgstr ""
+#, python-format
+msgid "error in unmount util %(err)s"
+msgstr "卸载出错，直到 %(err)s"
 
 msgid "exec"
-msgstr ""
+msgstr "执行"
 
 msgid "exit"
-msgstr ""
+msgstr "退出"
 
 msgid "ext3"
-msgstr ""
+msgstr "ext3"
 
 msgid "ext4"
-msgstr ""
+msgstr "ext4"
 
 msgid "failed!"
-msgstr ""
+msgstr "失败！"
 
-msgid "fdisk command failed"
-msgstr ""
+#, python-format
+msgid "fdisk command failed. Reason: %(err)s"
+msgstr "fdisk 命令失败。原因：%(err)s"
 
 msgid "formatted successfully"
-msgstr ""
+msgstr "已成功格式化"
 
 msgid "fqd"
-msgstr ""
+msgstr "fqd"
 
 msgid "iSCSI"
-msgstr ""
+msgstr "iSCSI"
 
 msgid "iSCSI Login"
-msgstr ""
+msgstr "iSCSI 登录"
 
 msgid "iSCSI Logout"
-msgstr ""
+msgstr "iSCSI 注销"
 
 msgid "iSCSI Qualifier Name (IQN)"
-msgstr ""
+msgstr "iSCSI 限定符名称 (IQN)"
 
 msgid "iSCSI Remove"
-msgstr ""
+msgstr "iSCSI 移除"
 
 msgid "iSCSI Server IP"
-msgstr ""
+msgstr "iSCSI 服务器 IP"
 
 msgid "iSCSI global settings loaded successfully"
-msgstr ""
+msgstr "已成功装入 iSCSI 全局设置"
 
 msgid "iSCSI target settings loaded successfully"
-msgstr ""
+msgstr "已成功装入 iSCSI 目标设置"
 
 msgid "iSCSI target settings updated successfully"
-msgstr ""
+msgstr "已成功更新 iSCSI 目标设置"
 
 msgid "iSCSI: Global Authentication Configuration"
-msgstr ""
+msgstr "iSCSI：全局认证配置"
 
 msgid "iSCSI: Target"
-msgstr ""
+msgstr "iSCSI：目标"
 
 msgid "iSCSI: Target Authentication Configuration"
-msgstr ""
+msgstr "iSCSI：目标认证配置"
+
+msgid "invalid field"
+msgstr "无效字段"
 
 msgid "is not logged onto the target"
-msgstr ""
+msgstr "未登录目标"
 
 msgid "keep_logs"
-msgstr ""
+msgstr "保留日志"
 
 msgid "loadvalue"
-msgstr ""
+msgstr "加载值"
 
 msgid "logged in successfully"
-msgstr ""
+msgstr "已成功登录"
 
 msgid "logged out successfully"
-msgstr ""
+msgstr "已成功注销"
 
 msgid "lvcreate command failed"
-msgstr ""
+msgstr "lvcreate 命令失败"
 
 msgid "lvdisplay command failed"
-msgstr ""
+msgstr "lvdisplay 命令失败"
 
 msgid "lvremove command failed"
-msgstr ""
+msgstr "lvremove 命令失败"
 
 msgid "lvs command failed"
-msgstr ""
+msgstr "lvs 命令失败"
 
 msgid "mkfs command failed"
-msgstr ""
+msgstr "mkfs 命令失败"
 
 msgid "msgtype"
-msgstr ""
-
-msgid "not interger."
-msgstr ""
+msgstr "msgtype"
 
 msgid "num_vfs (Number of virtual functions to enable):"
-msgstr ""
+msgstr "num_vfs（要启用的虚拟功能数）："
 
 msgid "path"
-msgstr ""
+msgstr "路径"
 
 msgid "permission"
-msgstr ""
+msgstr "许可权"
 
 msgid "pervalue"
-msgstr ""
+msgstr "pervalue"
 
 msgid "pvcreate command failed"
-msgstr ""
+msgstr "pvcreate 命令失败"
 
 msgid "pvs command failed"
-msgstr ""
+msgstr "pvs 命令失败"
 
 msgid "re-scan completed successfully"
-msgstr ""
+msgstr "已成功完成重新扫描"
 
 msgid "removed successfully"
-msgstr ""
+msgstr "已成功移除"
 
 msgid "required remote share location"
-msgstr ""
+msgstr "需要远程共享位置"
 
 msgid "required server ip addr"
-msgstr ""
+msgstr "需要服务器 IP 地址"
 
 msgid "required type as local or nfs"
-msgstr ""
+msgstr "需要类型为 local 或 nfs"
 
 msgid "success"
-msgstr ""
+msgstr "成功"
 
 msgid "successfully"
-msgstr ""
+msgstr "已成功"
 
 msgid "successfully deleted"
-msgstr ""
+msgstr "已成功删除"
 
 msgid "v3"
-msgstr ""
+msgstr "v3"
 
 msgid "v4.0"
-msgstr ""
+msgstr "v4.0"
 
 msgid "v4.1"
-msgstr ""
+msgstr "v4.1"
 
 msgid "vgcreate command failed"
-msgstr ""
+msgstr "vgcreate 命令失败"
 
 msgid "vgextend command failed"
-msgstr ""
+msgstr "vgextend 命令失败"
 
 #, python-format
 msgid "vgreduce command failed : %(err)s"
-msgstr ""
+msgstr "vgreduce 命令失败：%(err)s"
 
 msgid "vgremove command failed"
-msgstr ""
+msgstr "vgremove 命令失败"
 
 msgid "vgs command failed"
-msgstr ""
+msgstr "vgs 命令失败"
 
 msgid "vgs command for given VG failed"
-msgstr ""
+msgstr "针对给定 VG 的 vgs 命令失败"
 
 msgid "xfs"
-msgstr ""
+msgstr "xfs"
+
+#~ msgid "Preserve the latest"
+#~ msgstr "保留最新"
+
+#~ msgid "backups"
+#~ msgstr "个备份"
+
+#~ msgid "days of backups"
+#~ msgstr "天备份"
 
 #~ msgid "Error activating power saving profile %(profile)s."
 #~ msgstr "激活省电概要文件 %(profile)s 时出错。"

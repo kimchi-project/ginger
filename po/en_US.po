@@ -1,12 +1,12 @@
 # English translations for Ginger package.
-# Copyright IBM Corp, 2014-2016
+# Copyright IBM Corp, 2014-2017
 # This file is distributed under the same license as the Ginger package.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Ginger 1.2.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-11-08 10:20-0200\n"
+"POT-Creation-Date: 2017-03-02 16:12-0300\n"
 "PO-Revision-Date: 2014-06-22 14:00+0800\n"
 "Last-Translator: Zhou Zheng Sheng <zhshzhou@linux.vnet.ibm.com>\n"
 "Language-Team: Zhou Zheng Sheng <zhshzhou@linux.vnet.ibm.com>\n"
@@ -43,6 +43,9 @@ msgstr ""
 
 #, python-format
 msgid "%(sensor_type)s is not a valid sensor type"
+msgstr ""
+
+msgid "%1 device deleted successfully."
 msgstr ""
 
 msgid "&"
@@ -267,24 +270,28 @@ msgstr ""
 msgid "Apply"
 msgstr ""
 
-msgid "Architecture [b32 | b34]"
+msgid "Architecture [b32 | b64]"
 msgstr ""
 
 #, python-format
 msgid "Archive creation task failed. \"%(err)s\"."
 msgstr ""
 
+#, python-format
+msgid "Archive restore task failed. \"%(err)s\"."
+msgstr ""
+
 msgid "Are you sure you want to add the pv(s)  %1 <br>to volume group %2?"
 msgstr ""
 
 msgid ""
-"Are you sure you want to create physical volues with the selected block "
+"Are you sure you want to create physical volumes with the selected block "
 "devices?"
 msgstr ""
 
 msgid ""
-"Are you sure you want to create physical volues with the selected partitions/"
-"block devices?"
+"Are you sure you want to create physical volumes with the selected "
+"partitions/block devices?"
 msgstr ""
 
 msgid "Are you sure you want to delete interface %1?"
@@ -298,7 +305,7 @@ msgstr ""
 msgid "Are you sure you want to delete server %1?"
 msgstr ""
 
-msgid "Are you sure you want to delete the selected file/device"
+msgid "Are you sure you want to delete the selected file/device?"
 msgstr ""
 
 msgid "Are you sure you want to delete this user?"
@@ -325,6 +332,9 @@ msgstr ""
 msgid "Args"
 msgstr ""
 
+msgid "At least one permission is required for File System Rule."
+msgstr ""
+
 msgid "At least one slave is required for the bond interface"
 msgstr ""
 
@@ -349,6 +359,9 @@ msgstr ""
 msgid "Audit Log filter applied and output is rendered below"
 msgstr ""
 
+msgid "Audit Log filter must be unique"
+msgstr ""
+
 msgid "Audit Logs"
 msgstr ""
 
@@ -356,6 +369,9 @@ msgid "Audit Report"
 msgstr ""
 
 msgid "Audit Report Type"
+msgstr ""
+
+msgid "Audit Report filter must be unique"
 msgstr ""
 
 msgid "Audit Rule"
@@ -395,6 +411,11 @@ msgid "Autostart"
 msgstr ""
 
 msgid "Available (MB)"
+msgstr ""
+
+msgid ""
+"Available size on the disk can be lesser than the selectable size, due to "
+"some overhead or additional partitions available."
 msgstr ""
 
 msgid "BMP"
@@ -548,6 +569,9 @@ msgstr ""
 msgid "Config Backup has been successfully created."
 msgstr ""
 
+msgid "Config Backup has been successfully restored."
+msgstr ""
+
 msgid "Config Change Report"
 msgstr ""
 
@@ -555,6 +579,9 @@ msgid "Configuration Backup"
 msgstr ""
 
 msgid "Configuration updated successfully"
+msgstr ""
+
+msgid "Configure Audit"
 msgstr ""
 
 msgid "Configured successfully"
@@ -616,10 +643,6 @@ msgstr ""
 msgid "Create archive with description '%(description)s'"
 msgstr ""
 
-#, python-format
-msgid "Create audit rule '%(rule)s' type '%(type)s'"
-msgstr ""
-
 msgid "Create configuration file for network interface"
 msgstr ""
 
@@ -651,7 +674,7 @@ msgid "Create user '%(name)s'"
 msgstr ""
 
 #, python-format
-msgid "Created the rule '%(name)s'"
+msgid "Created the rule of type: '%(type)s'"
 msgstr ""
 
 msgid "Creating ..."
@@ -720,6 +743,9 @@ msgstr ""
 
 #, python-format
 msgid "Delete System Event Log entry '%(ident)s'"
+msgstr ""
+
+msgid "Delete all rules"
 msgstr ""
 
 #, python-format
@@ -952,6 +978,10 @@ msgstr ""
 
 #, python-format
 msgid "Enabled autostart of service '%(ident)s'"
+msgstr ""
+
+msgid ""
+"Enables(1) and disables(0) the Audit system or locks(2) its configuration"
 msgstr ""
 
 msgid "Enriched"
@@ -1196,10 +1226,11 @@ msgid "Error occurred in getting the unfiltered logs."
 msgstr ""
 
 #, python-format
-msgid "Error occurred in graph creation: '%(error)s"
+msgid "Error occurred in graph creation: '%(error)s'"
 msgstr ""
 
-msgid "Error occurred in loading predefined rules."
+#, python-format
+msgid "Error occurred in loading predefined rules: '%(Error)s'"
 msgstr ""
 
 #, python-format
@@ -1210,7 +1241,15 @@ msgid "Error occurred in rendering the graph. "
 msgstr ""
 
 #, python-format
+msgid "Error occurred in searching the audit log: '%(error)s'"
+msgstr ""
+
+#, python-format
 msgid "Error occurred in unload operation of rule '%(name)s' ."
+msgstr ""
+
+#, python-format
+msgid "Error occurred while generating report: '%(error)s'"
 msgstr ""
 
 #, python-format
@@ -1541,6 +1580,12 @@ msgid ""
 msgstr ""
 
 #, python-format
+msgid ""
+"Failed to remove user '%(user)s' from group '%(group)s'. Error: user name is "
+"an empty string."
+msgstr ""
+
+#, python-format
 msgid "Failed to remove user '%(user)s' from sudoers list"
 msgstr ""
 
@@ -1773,7 +1818,10 @@ msgstr ""
 msgid "Given vlan id is not an integer type, Error: '%(error)s'."
 msgstr ""
 
-msgid "Global DNS and Gateway applied "
+msgid "Global DNS and Gateway applied successfully"
+msgstr ""
+
+msgid "Global DNS and Gateway failed to apply"
 msgstr ""
 
 msgid "Global Network Configuration"
@@ -1878,6 +1926,9 @@ msgid "Id"
 msgstr ""
 
 msgid "Ignore"
+msgstr ""
+
+msgid "Import"
 msgstr ""
 
 msgid ""
@@ -2130,6 +2181,10 @@ msgstr ""
 msgid "Loaded"
 msgstr ""
 
+#, python-format
+msgid "Loaded pre-defined rules from the file: '%(auditrule_file)s'"
+msgstr ""
+
 msgid "Loading"
 msgstr ""
 
@@ -2265,9 +2320,6 @@ msgstr ""
 msgid "Missing ipv4 initialization key."
 msgstr ""
 
-msgid "Missing ipv6 address information."
-msgstr ""
-
 msgid "Missing ipv6 initialization key."
 msgstr ""
 
@@ -2316,6 +2368,10 @@ msgid "Module Name"
 msgstr ""
 
 msgid "Monitoring Interval"
+msgstr ""
+
+#, python-format
+msgid "Monitoring interval must be at least %(miimon)s"
 msgstr ""
 
 msgid "Mount"
@@ -2385,6 +2441,9 @@ msgstr ""
 msgid "New Config Backup creation has started."
 msgstr ""
 
+msgid "New Config Backup restore has started."
+msgstr ""
+
 msgid "New Custom Backup"
 msgstr ""
 
@@ -2431,6 +2490,9 @@ msgstr ""
 msgid "No physical volume selected"
 msgstr ""
 
+msgid "No result found"
+msgstr ""
+
 msgid "No results found"
 msgstr ""
 
@@ -2453,13 +2515,22 @@ msgstr ""
 msgid "None"
 msgstr ""
 
+msgid "Nothing selected"
+msgstr ""
+
 msgid "Now"
 msgstr ""
 
 msgid "Numeric"
 msgstr ""
 
+msgid "OFF"
+msgstr ""
+
 msgid "OK"
+msgstr ""
+
+msgid "ON"
 msgstr ""
 
 msgid "OSA Port Number"
@@ -2610,6 +2681,9 @@ msgstr ""
 msgid "Permission"
 msgstr ""
 
+msgid "Persist"
+msgstr ""
+
 #, python-format
 msgid "Persist audit rule '%(ident)s'"
 msgstr ""
@@ -2647,10 +2721,25 @@ msgstr ""
 msgid "Please enter Filename and Filesize"
 msgstr ""
 
-msgid "Please enter all fields"
+msgid "Please enter Path to File and permissions"
+msgstr ""
+
+msgid "Please enter Path to File."
+msgstr ""
+
+msgid "Please enter filter field value"
+msgstr ""
+
+msgid "Please enter the permissions"
 msgstr ""
 
 msgid "Please provide either file name or directory where the log file exists."
+msgstr ""
+
+msgid "Please provide value for the selected option."
+msgstr ""
+
+msgid "Please select Systemcall"
 msgstr ""
 
 msgid "Please select a device"
@@ -2741,7 +2830,10 @@ msgstr ""
 msgid "Prefix"
 msgstr ""
 
-msgid "Preserve the latest"
+msgid "Preserve the latest number of backups:"
+msgstr ""
+
+msgid "Preserve the latest number of days of backups:"
 msgstr ""
 
 msgid "Priority Boost"
@@ -2974,6 +3066,9 @@ msgstr ""
 msgid "Restarted service '%(ident)s'"
 msgstr ""
 
+msgid "Restore"
+msgstr ""
+
 msgid "Rotate"
 msgstr ""
 
@@ -2991,6 +3086,9 @@ msgid "Rule Information not available"
 msgstr ""
 
 msgid "Rule Type"
+msgstr ""
+
+msgid "Rules"
 msgstr ""
 
 msgid "Rules File Path"
@@ -3090,8 +3188,13 @@ msgid "Selected Control Rules can not be deleted"
 msgstr ""
 
 msgid ""
-"Selected partition is part of a volume group. Removal may hamper the volume "
+"Selected Partition is part of a Volumn group. Removal may hamper the Volumn "
 "group usage. Are you sure you want to delete this partition?"
+msgstr ""
+
+msgid ""
+"Selected device is not formatted. Please format the device to proceed with "
+"partition creation."
 msgstr ""
 
 msgid "Sensor Data Records"
@@ -3155,6 +3258,15 @@ msgstr ""
 #, python-format
 msgid ""
 "Set targets discovery session CHAP credentials in iscsid.conf '%(ident)s'"
+msgstr ""
+
+msgid "Sets the action that is performed when a critical error is detected"
+msgstr ""
+
+msgid "Sets the maximum amount of existing Audit buffers in the kernel"
+msgstr ""
+
+msgid "Sets the rate of generated messages per second"
 msgstr ""
 
 msgid "Settings"
@@ -3472,6 +3584,12 @@ msgid "The rule '%(name)s' cannot be unloaded or is already unloaded. "
 msgstr ""
 
 #, python-format
+msgid ""
+"The rule '%(name)s' has not been modified. Please update the rule before "
+"applying."
+msgstr ""
+
+#, python-format
 msgid "The rule '%(name)s' is already persisted."
 msgstr ""
 
@@ -3480,8 +3598,18 @@ msgstr ""
 
 #, python-format
 msgid ""
+"There is no DEVICE or NAME values in the slave interface configuration file "
+"('%(file)s')."
+msgstr ""
+
+#, python-format
+msgid ""
 "There was a problem while creating group '%(group)s'. Group name is an empty "
 "string."
+msgstr ""
+
+#, python-format
+msgid "There was a problem while creating group '%(group)s'. Reason: %(err)s."
 msgstr ""
 
 #, python-format
@@ -3492,7 +3620,7 @@ msgstr ""
 
 #, python-format
 msgid ""
-"There was a problem while creating user '%(user)s', error: no_login id "
+"There was a problem while creating user '%(user)s', error: no_login "
 "%(no_login)s is not of boolean type."
 msgstr ""
 
@@ -3503,15 +3631,27 @@ msgid ""
 msgstr ""
 
 #, python-format
+msgid "There was a problem while creating user '%(user)s'. Reason: %(err)s."
+msgstr ""
+
+#, python-format
 msgid ""
 "There was a problem while deleting group '%(group)s'. Group name is an empty "
 "string."
 msgstr ""
 
 #, python-format
+msgid "There was a problem while deleting group '%(group)s'. Reason: %(err)s."
+msgstr ""
+
+#, python-format
 msgid ""
 "There was a problem while deleting user '%(user)s', error: user name is "
 "empty."
+msgstr ""
+
+#, python-format
+msgid "There was a problem while deleting user '%(user)s'. Reason: %(err)s."
 msgstr ""
 
 msgid "There was a problem while fetching user profile, see log for details"
@@ -3674,7 +3814,8 @@ msgstr ""
 msgid "Unable to include default backup dir (%(dir)s) to a backup file"
 msgstr ""
 
-msgid "Unable to open fstab"
+#, python-format
+msgid "Unable to open fstab. Error: %(err)s"
 msgstr ""
 
 #, python-format
@@ -3687,6 +3828,10 @@ msgstr ""
 
 #, python-format
 msgid "Unable to read or update openib.conf file. Error: %(err)s"
+msgstr ""
+
+#, python-format
+msgid "Unable to remove swap signature. Error: %(err)s"
 msgstr ""
 
 #, python-format
@@ -3835,6 +3980,9 @@ msgstr ""
 msgid "User/Login '%(user)s' already in use."
 msgstr ""
 
+msgid "Username"
+msgstr ""
+
 #, python-format
 msgid "VG %(name)s contains logical volumes."
 msgstr ""
@@ -3968,15 +4116,6 @@ msgstr ""
 msgid "audit uid"
 msgstr ""
 
-msgid "backups"
-msgstr ""
-
-msgid "days of backups"
-msgstr ""
-
-msgid "device deleted successfully"
-msgstr ""
-
 msgid "eg. vlan4094 or vlan.4094 or eth0.4094 or 15 characters device name"
 msgstr ""
 
@@ -3989,7 +4128,8 @@ msgstr ""
 msgid "error in filesystem info fetch util"
 msgstr ""
 
-msgid "error in unmount util"
+#, python-format
+msgid "error in unmount util %(err)s"
 msgstr ""
 
 msgid "exec"
@@ -4007,7 +4147,8 @@ msgstr ""
 msgid "failed!"
 msgstr ""
 
-msgid "fdisk command failed"
+#, python-format
+msgid "fdisk command failed. Reason: %(err)s"
 msgstr ""
 
 msgid "formatted successfully"
@@ -4052,6 +4193,9 @@ msgstr ""
 msgid "iSCSI: Target Authentication Configuration"
 msgstr ""
 
+msgid "invalid field"
+msgstr ""
+
 msgid "is not logged onto the target"
 msgstr ""
 
@@ -4083,9 +4227,6 @@ msgid "mkfs command failed"
 msgstr ""
 
 msgid "msgtype"
-msgstr ""
-
-msgid "not interger."
 msgstr ""
 
 msgid "num_vfs (Number of virtual functions to enable):"
