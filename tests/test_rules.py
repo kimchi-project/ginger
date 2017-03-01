@@ -258,7 +258,6 @@ class RulesTests(unittest.TestCase):
         ruleModel.load(rule)
         mock_load.assert_called_with(rule)
 
-
     @mock.patch('wok.plugins.ginger.model.rules.get_list_of_loaded_rules')
     @mock.patch('wok.plugins.ginger.model.rules.get_list_of_persisted_rules')
     @mock.patch('wok.plugins.ginger.model.rules.RuleModel.is_rule_exists')

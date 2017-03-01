@@ -1,7 +1,7 @@
 #
 # Project Ginger
 #
-# Copyright IBM Corp, 2016
+# Copyright IBM Corp, 2016-2017
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -54,7 +54,7 @@ class ConfTests(unittest.TestCase):
                'log_file = /var/log/audit/audit.log\n' \
                'distribute_network = no\n'
         open_mock = mock.mock_open(read_data=data)
-        with mock.patch('wok.plugins.ginger.model.utils.open',
+        with mock.patch('wok.plugins.ginger.model.conf.open',
                         open_mock, create=True):
             confmodel = ConfModel()
             confmodel.get_auditd_conf()
