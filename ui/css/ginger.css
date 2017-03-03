@@ -1,6 +1,6 @@
 @charset "UTF-8";
 /*
- * Copyright IBM Corp, 2015-2016
+ * Copyright IBM Corp, 2015-2017
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -157,6 +157,99 @@
 .ginger .modal-body .nav-tabs > li.active > a:hover,
 .ginger .modal-body .nav-tabs > li.active > a:focus {
   border-color: -moz-use-text-color -moz-use-text-color #008abf;
+}
+
+.affix-top,
+.affix {
+  position: static;
+}
+
+#leftCol {
+  float: left;
+}
+
+#sidebar .list-group-item {
+  padding: 0;
+}
+
+#sidebar .list-group-item > a {
+  color: #3a393b;
+  display: block;
+  font-weight: 700;
+  padding: 10px 15px;
+}
+
+#sidebar .list-group-item > a .fa {
+  display: none;
+}
+
+#sidebar .list-group-item.active,
+#sidebar .list-group-item.active:hover,
+#sidebar .list-group-item.active:focus {
+  z-index: 2;
+  background-color: #f5f5f5;
+  border-color: #ddd;
+}
+
+#sidebar .list-group-item.active > a,
+#sidebar .list-group-item.active:hover > a,
+#sidebar .list-group-item.active:focus > a {
+  color: #008abf;
+}
+
+#sidebar .list-group-item.active > a .fa,
+#sidebar .list-group-item.active:hover > a .fa,
+#sidebar .list-group-item.active:focus > a .fa {
+  display: block;
+  float: right;
+  margin-top: 3px;
+}
+
+#sidebar {
+  width: 278px;
+  margin-top: 6px;
+}
+
+#sidebar.affix-top {
+  position: static;
+  width: 240px;
+}
+
+#sidebar.affix {
+  margin-top: 0;
+  position: fixed;
+  width: 278px;
+  bottom: 6px;
+  top: 6px;
+  overflow: hidden;
+  overflow-y: auto;
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+  border-top-right-radius: 3px;
+  border-top-left-radius: 3px;
+  margin-bottom: 0;
+  border-bottom-right-radius: 3px;
+  border-bottom-left-radius: 3px;
+}
+
+#rightCol {
+  margin-top: 6px;
+  margin-left: 297px;
+}
+
+#rightCol nav.toolbar {
+  display: none;
+}
+
+#rightCol > .wok-mask {
+  top: 0;
+  left: 380px;
+}
+
+#rightCol > .row > div > .container {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  float: left;
 }
 
 #administration-root-container .accordion {
