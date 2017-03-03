@@ -2157,62 +2157,16 @@ hr {
   background: transparent;
 }
 
-#host-sysmodules-root-container .accordion {
-  margin: 12px 20px 12px 60px;
-  padding-bottom: 18px;
-  border-bottom: 1px solid #eee;
-  overflow: visible;
-  clear: both;
+#sysmodules-body .column-depends {
+  padding-left: 5px;
 }
 
-#host-sysmodules-root-container .accordion:first-child {
-  margin-top: 24px;
-}
-
-#host-sysmodules-root-container .accordion > h3 {
-  margin: 0;
-  padding: 0;
-  font-size: 26px;
-  font-weight: 300;
-  height: 44px;
-  display: block;
-}
-
-#host-sysmodules-root-container .accordion > h3 a {
-  color: #3a393b;
-  text-decoration: none;
-  display: block;
-  padding: 6px 30px;
-  margin-left: -30px;
-  margin-right: -30px;
-}
-
-#host-sysmodules-root-container .accordion > h3 a span.accordion-icon {
-  margin-left: -52px;
-  vertical-align: middle;
-  display: inline-block;
-  font: normal normal normal 32px/1 FontAwesome;
-  text-rendering: auto;
-  -webkit-font-smoothing: antialiased;
-  color: #3a393b;
-}
-
-#host-sysmodules-root-container .accordion > h3 a[aria-expanded="false"] span.accordion-icon:before {
-  content: "\f01a";
-}
-
-#host-sysmodules-root-container .accordion > h3 a[aria-expanded="true"] span.accordion-icon:before {
-  content: "\f01b";
-}
-
-#host-sysmodules-root-container .accordion > h3 a span.accordion-text {
-  margin-left: 23px;
-  display: inline-block;
-  vertical-align: middle;
+#sysmodules-body .column-version {
+  padding-left: 10px;
 }
 
 #sysmodules-content-area {
-  padding: 0;
+  padding-bottom: 20px;
   list-style-type: none;
 }
 
@@ -2788,6 +2742,10 @@ form[name="ovsaddinterface"] {
   height: 40px;
 }
 
+#system-services-content-area {
+  padding-bottom: 20px;
+}
+
 #system-services-content-area .well {
   overflow-y: scroll;
   border: 0;
@@ -2822,9 +2780,9 @@ form[name="ovsaddinterface"] {
 
 @media (min-width: 780px) {
   #system-services-content-area span.column-service-name {
-    width: 20.2%;
-    min-width: 20.2%;
-    flex-basis: 20.2%;
+    width: 16.2%;
+    min-width: 16.2%;
+    flex-basis: 16.2%;
   }
 }
 
@@ -2879,18 +2837,18 @@ form[name="ovsaddinterface"] {
 @media (min-width: 1302px) {
   #system-services-content-area span.column-service-description {
     display: inline-block;
-    width: 28.4%;
-    min-width: 28.4%;
-    flex-basis: 28.4%;
+    width: 24.4%;
+    min-width: 24.4%;
+    flex-basis: 24.4%;
   }
 }
 
 @media (min-width: 1540px) {
   #system-services-content-area span.column-service-description {
     display: inline-block;
-    width: 33.4%;
-    min-width: 33.4%;
-    flex-basis: 33.4%;
+    width: 28.4%;
+    min-width: 28.4%;
+    flex-basis: 28.4%;
   }
 }
 

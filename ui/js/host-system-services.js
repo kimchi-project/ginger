@@ -17,41 +17,21 @@
  */
 
 ginger.initSystemServices = function() {
+    $('#rightCol > .wok-mask').show();
 
     // Set height and panel scrollbars
     var panelHeight = function() {
         var viewportHeight = $(window).height();
-        $('.well', '#sysmodules-accordion, #system-services-accordion').css({'height': viewportHeight - 400 +'px', 'overflow-y': 'scroll'});
+        $('.well', '#system-services-content-area').css({'height': viewportHeight - 300 +'px', 'overflow-y': 'scroll'});
     };
     panelHeight();
 
-    // Hide other collapses once one is clicked
-
-    $("#gingerHostAdmin >  div > h3 > a[data-toggle=collapse]").click(function(e){
-        e.preventDefault();
-        e.stopPropagation();
-        $("#gingerHostAdmin > div > .panel-collapse.collapse.in").collapse("hide");
-        $($(this).attr("href")).collapse("show");
-    });
-
-    // System modules call
-    ginger.loadSysmodules();
     ginger.loadSystemServices(ginger.buildSystemServicesUi);
     ginger.systeServicesClickHandler();
-
-    // System modules modal window
-    $('#load_sysmodules_button').on('click', function(event) {
-        wok.window.open('plugins/ginger/host-sysmodules-load.html');
-    });
 
     $(window).on('resize', function(){
         panelHeight();
     });
-
-    $('.panel-group.accordion > h3 > a', '#sysmodules-accordion, #system-services-accordion').on('click', function(){
-        panelHeight();
-    });
-
 };
 
 ginger.systeServicesClickHandler = function() {
@@ -236,7 +216,7 @@ ginger.buildSystemServicesUi = function() {
     $('#ovs_search_input').prop('disabled',false);
     $('#system-services-datagrid').dataGrid({enableSorting: false});
     $('#system-services-datagrid').removeClass('hidden');
-    $('#system-services-content-area .wok-mask').fadeOut(300, function() {});
+    $('#rightCol > .wok-mask').fadeOut(300, function() {});
 
     ginger.systemServicesOptions = {
         valueNames: ['service-name-filter', 'service-loaded-filter', 'service-status-filter', 'service-description-filter']
@@ -246,7 +226,6 @@ ginger.buildSystemServicesUi = function() {
     ginger.systemServicesFilterList.sort('service-name-filter', {
         order: "asc"
     });
-    ginger.sysmoduleSearch();
 };
 
 ginger.updateFilterList = function(){
@@ -256,17 +235,4 @@ ginger.updateFilterList = function(){
       order: "asc"
   });
   ginger.systemServicesFilterList.search($('#search_input_system_services').val());
-  ginger.sysmoduleSearch();
 };
-
-ginger.sysmoduleSearch = function(){
-  ginger.systemServicesFilterList.on('searchComplete',function(){
-    if(ginger.systemServicesFilterList.matchingItems.length == 0){
-      $('#system-services-datagrid ul').addClass('hidden');
-      $('#system-services-datagrid .no-matching-data').removeClass('hidden');
-    } else {
-      $('#system-services-datagrid ul').removeClass('hidden');
-      $('#system-services-datagrid .no-matching-data').addClass('hidden');
-    }
-  });
-}

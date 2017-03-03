@@ -1,5 +1,5 @@
 /*
- * Copyright IBM Corp, 2016
+ * Copyright IBM Corp, 2016-2017
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -17,6 +17,24 @@
  */
 
 ginger.loadSysmodules = function() {
+    $('#rightCol > .wok-mask').show();
+
+    // Set height and panel scrollbars
+    var panelHeight = function() {
+        var viewportHeight = $(window).height();
+        $('.well', '#sysmodules-content-area').css({'height': viewportHeight - 300 +'px', 'overflow-y': 'scroll'});
+    };
+    panelHeight();
+
+    $(window).on('resize', function(){
+        panelHeight();
+    });
+
+    // System modules modal window
+    $('#load_sysmodules_button').on('click', function(event) {
+        wok.window.open('plugins/ginger/host-sysmodules-load.html');
+    });
+
     ginger.getSysmodules(function(data) {
         $("#sysmodules-body").empty();
         for (var i = 0; i < data.length; i++) {
@@ -28,7 +46,7 @@ ginger.loadSysmodules = function() {
 
             $("#sysmodules-body").append(tempNode);
             $('#sysmodules-datagrid').removeClass('hidden');
-            $('#sysmodules-content-area .wok-mask').fadeOut(300, function() {});
+            $('#rightCol > .wok-mask').fadeOut(300, function() {});
 
             $(".btn-unload").on("click", function(event) {
                 event.preventDefault();
@@ -46,7 +64,7 @@ ginger.loadSysmodules = function() {
                 wok.confirm(settings, function() {
                     ginger.removeSysmodule(selectedModule, function() {
                         wok.message.success(i18n['GINSYS0013M'].replace("%1", '<strong>'+selectedModule+'</strong>'),'#sysmodules-alert-container',true);
-                        $('#sysmodules-content-area .wok-mask').fadeIn();
+                        $('#rightCol > .wok-mask').fadeIn();
                         ginger.loadSysmodules();
                         $('body').animate({ scrollTop: 0 }, 1000);
                     }, function(err) {
@@ -443,5 +461,4 @@ ginger.toggleLoadButton = function(args) {
             $("#loadButton").prop('disabled', false);
         }
     }
-
 };

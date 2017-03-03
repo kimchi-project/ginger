@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<!--
+Copyright IBM Corp, 2016
+
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+-->
+#unicode UTF-8
+#import gettext
+#silent t = gettext.translation($lang.domain, $lang.localedir, languages=$lang.lang)
+#silent _ = t.gettext
+#silent _t = t.gettext
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="plugins/ginger/css/ginger.css">
+<script type="text/javascript" src="plugins/ginger/js/util.js"></script>
+<script type="text/javascript" src="plugins/ginger/js/host-sysmodules.js"></script>
+</head>
+<body>
+    <div id="host-sysmodules-root-container" class="ginger">
+        <div class="container">
+            <div id="gingerHostSysModules" class="host-admin">
+                <div id="sysmodules-content-area">
+                    <div id="sysmodules-alert-container"></div>
+                    <div class="row grid-control">
+                        <div class="sysmodules-actions btn-group" id="sysmodules-actions-area">
+                            <button class="btn btn-primary load-modules-btn" type="button" id="load_sysmodules_button"><i class="fa fa-download"></i> $_("Load Modules")</button>
+                        </div>
+                        <div class="pull-right">
+                            <label for="search_input" class="sr-only">$_("Filter System Modules"):</label>
+                            <input type="text" class="filter form-control search" id="search_input" placeholder="$_("Filter")">
+                        </div>
+                    </div>
+                    <div class="wok-datagrid" id="sysmodules-datagrid" role="grid">
+                        <div class="wok-datagrid-header" role="row">
+                            <span role="columnheader" class="column-name">$_("Name")</span><!--
+                         --><span role="columnheader" class="column-depends">$_("Depends On")</span><!--
+                         --><span role="columnheader" class="column-version">$_("Version")</span><!--
+                         --><span role="columnheader" class="column-details">$_("Details")</span><!--
+                         --><span role="columnheader" class="column-actions">
+                            <span role="columnheader" class="sr-only">$_("Actions")</span><!--
+                        --></span>
+                        </div>
+                        <div class="well">
+                            <ul class="wok-datagrid-body list" id="sysmodules-body"></ul>
+                            <div class="no-matching-data hidden">
+                                <span role="row">$_("No result found")</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<script id="sysmodulesItem" type="html/text">
+    <li class="wok-datagrid-row" id="{name}" data-id="{name}" role="row">
+        <span role="gridcell" class="column-name name-filter" title="{name}">{name}</span><!--
+        --><span role="gridcell" class="column-depends depends-filter">{depends}</span><!--
+        --><span role="gridcell" class="column-version version-filter">{version}</span><!--
+        --><span role="gridcell" class="column-details">
+            <div class="arrow arrow-down" role="button"></div>
+        </span><!--
+        --><span role="gridcell" class="column-actions btn btn-link btn-unload"><i class="fa fa-upload"></i> $_("Unload")</span>
+        <div role="gridcell" class="sysmodules-details" style="display: none;">
+            <div role="grid" class="details-list"></div>
+        </div>
+        <div role="presentation" class="clear"></div>
+    </li>
+</script>
+<script id="detail-head" type="text/html">
+    <span role="row" class="column-{key}">
+        <span role="columnheader" class='header-{key}'>{title}</span>
+        <span role="gridcell" class='body-{key}'></span>
+    </span>
+</script>
+<script id="detail-body" type="text/html">
+    <span class="row-{index}">{object}</span>
+</script>
+<script id="detail-body-obj" type="text/html">
+    <span  class="row-{index}">
+        <span class="col-key">{key}:</span>
+        <span class="col-value">{value}</span>
+    </span>
+</script>
+<script>
+    ginger.loadSysmodules();
+</script>
+<div id="modalWindow" class="modal fade host-modal sysmodules-modal ginger" tabindex="-1" role="dialog" aria-labelledby="sysmodulesModalLabel" aria-hidden="true"></div>
+</body>
+</html>
