@@ -17,10 +17,15 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 //
+#audit-root-container,
 #administration-root-container {
     .accordion {
         @include wok-accordion();
     }
+}
+
+.filter {
+    padding-top: 5px;
 }
 
 #sanadapters-ppc-content-area,

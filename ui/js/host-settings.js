@@ -145,12 +145,22 @@ ginger.initSidebar = function() {
     var $body = $(document.body);
     var navHeight = $('.topbar').outerHeight(true) + 40;
 
-    var start = new Sidebar($leftCol, ginger.sidebarObj);
-    lastGingerPage = wok.cookie.get('lastGingerPage')
-    if (!lastGingerPage)
-        start.triggerFirstAvailableOption();
-    else
-        wok.topic('sidebarClicked').publish(lastGingerPage);
+    ginger.getCapabilities(function(result) {
+        if (result.Audit) {
+            ginger.sidebarObj.push({
+                title: i18n['Audit'],
+                url: 'plugins/ginger/host-audit.html',
+                id: 'ginger-audit'
+            });
+        }
+
+        var start = new Sidebar($leftCol, ginger.sidebarObj);
+        lastGingerPage = wok.cookie.get('lastGingerPage')
+        if (!lastGingerPage)
+            start.triggerFirstAvailableOption();
+        else
+            wok.topic('sidebarClicked').publish(lastGingerPage);
+    });
 
     var checkScrollPosition = function() {
         if ($(window).scrollTop() + $(window).height() > $(document).height() - 66) {

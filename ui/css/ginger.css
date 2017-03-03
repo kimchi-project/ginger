@@ -252,6 +252,7 @@
   float: left;
 }
 
+#audit-root-container .accordion,
 #administration-root-container .accordion {
   margin: 12px 20px 12px 60px;
   padding-bottom: 18px;
@@ -260,10 +261,12 @@
   clear: both;
 }
 
+#audit-root-container .accordion:first-child,
 #administration-root-container .accordion:first-child {
   margin-top: 24px;
 }
 
+#audit-root-container .accordion > h3,
 #administration-root-container .accordion > h3 {
   margin: 0;
   padding: 0;
@@ -273,6 +276,7 @@
   display: block;
 }
 
+#audit-root-container .accordion > h3 a,
 #administration-root-container .accordion > h3 a {
   color: #3a393b;
   text-decoration: none;
@@ -282,6 +286,7 @@
   margin-right: -30px;
 }
 
+#audit-root-container .accordion > h3 a span.accordion-icon,
 #administration-root-container .accordion > h3 a span.accordion-icon {
   margin-left: -52px;
   vertical-align: middle;
@@ -292,18 +297,25 @@
   color: #3a393b;
 }
 
+#audit-root-container .accordion > h3 a[aria-expanded="false"] span.accordion-icon:before,
 #administration-root-container .accordion > h3 a[aria-expanded="false"] span.accordion-icon:before {
   content: "\f01a";
 }
 
+#audit-root-container .accordion > h3 a[aria-expanded="true"] span.accordion-icon:before,
 #administration-root-container .accordion > h3 a[aria-expanded="true"] span.accordion-icon:before {
   content: "\f01b";
 }
 
+#audit-root-container .accordion > h3 a span.accordion-text,
 #administration-root-container .accordion > h3 a span.accordion-text {
   margin-left: 23px;
   display: inline-block;
   vertical-align: middle;
+}
+
+.filter {
+  padding-top: 5px;
 }
 
 #sanadapters-ppc-content-area,

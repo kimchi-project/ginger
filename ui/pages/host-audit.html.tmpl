@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<!--
+Copyright IBM Corp, 2015-2016
+
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+-->
+#unicode UTF-8
+#import gettext
+#silent t = gettext.translation($lang.domain, $lang.localedir, languages=$lang.lang)
+#silent _ = t.gettext
+#silent _t = t.gettext
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="plugins/ginger/css/ginger.css">
+    <script type="text/javascript" src="plugins/ginger/js/util.js"></script>
+    <script type="text/javascript" src="plugins/ginger/js/host-audit.js"></script>
+</head>
+<body>
+    <div id="audit-root-container" class="ginger">
+    <div class="container">
+        <div id="alert-container"></div>
+        <div id="gingerHostAudit" class="host-admin">
+          <!-- Audit Rules section -->
+          <div class="panel-group audit-ppc-enabled accordion" id="rules-ppc-enabled-accordion" role="tablist" aria-multiselectable="true" style="display: none;">
+              <h3>
+                  <a role="button" data-toggle="collapse" data-parent="#rules-ppc-enabled-accordion" href="#audit-rules-content-area" aria-expanded="false" aria-controls="audit-rules-content-area" class="">
+                      <span class="accordion-icon"></span><span class="accordion-text">$_("Audit Rules")</span>
+                  </a>
+              </h3>
+              <div id="modalWindow" class="modal fade host-modal guests-modal" tabindex="-1" role="dialog" aria-labelledby="guestsModalLabel" aria-hidden="true">
+              </div>
+              <div id="audit-rules-content-area" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+                  <span id='alert-modal-audit-rules-container' style='display: none;'></span>
+                  <div class='clearfix'>
+                    <span id="audit-message" style="display:none;"></span>
+                      <div class="row">
+                         <div class="col-sd-12"><span>&nbsp;</span></div>
+                         <div class="pull-left">
+                             <div class="btn-group">
+                                 <div class="btn-group">
+                                     <div class="dropdown auditmenu-action">
+                                         <button type="button" class="btn btn-primary dropdown-toggle edit-alt" data-toggle="dropdown">
+                                             <i class="fa fa-pencil-square-o">$_("Actions")</i> <span class="caret"></span></button>
+                                         <ul class="dropdown-menu" role="menu">
+                                             <li>
+                                                 <button aria-expanded="false" id="Audit-Rule-Edit-btn" class="btn btn-primary"><i class="fa fa-pencil">$_("Edit")</i></button>
+                                             </li>
+                                             <li>
+                                                 <button aria-expanded="false" id="Audit-Rule-Load-btn" class="btn btn-primary"><i class="fa fa-file">$_("Load")</i></button>
+                                             </li>
+                                             <li>
+                                                 <button aria-expanded="false" id="Audit-Rule-unload-btn" class="btn btn-primary"><i class="fa fa-upload">$_("Unload")</i></button>
+                                             </li>
+                                             <li>
+                                                 <button aria-expanded="false" id="Audit-Rule-Persist-btn" class="btn btn-primary"><i class="fa fa-floppy-o">$_("Persist")</i></button>
+                                             </li>
+                                             <li>
+                                                 <button aria-expanded="false" style="background-color:#d9182d" id="audit-rule-delete-btn" class="btn btn-primary"><i class="fa fa-minus-circle">$_("Delete")</i></button>
+                                             </li>
+                                         </ul>
+                                     </div>
+                                 </div>
+                                 <div class="btn-group">
+                                     <div class="dropdown auditmenu-action">
+                                         <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                                             <i class="fa fa-pencil-square-o">$_("Rules")</i> <span class="caret"></span></button>
+                                         <ul class="dropdown-menu" role="menu">
+                                             <li>
+                                                 <button aria-expanded="false" id="audit-rule-add-btn" class="btn btn-primary"><i class="fa fa-plus-circle">$_("Add")</i></button>
+                                             </li>
+                                             <li>
+                                                 <button aria-expanded="false" id="Audit-Rule-Import-btn" class="btn btn-primary"><i class="fa fa-download">$_("Import")</i></button>
+                                             </li>
+                                         </ul>
+                                     </div>
+                                 </div>
+                                 <button aria-expanded="false" id="Audit-Rule-Configure-btn" class="btn btn-primary"><i class="fa fa-pencil-square-o">$_("Configure Audit")</i></button>
+                                 <button aria-expanded="false" id="Audit-Rule-refresh-btn" class="btn btn-primary"><i class="fa fa-refresh">$_("Refresh")</i></button>
+                             </div>
+                         </div>
+                      </div>
+                      <div class="row" id="audit-rules">
+                        <table id="audit-rules-table" class="table table-stripped" cellspacing="0" width="100%">
+                          <thead>
+                            <tr>
+                              <th>$_("ID")</th>
+                              <th>$_("Type")</th>
+                              <th>$_("Rule")</th>
+                              <th style="text-align:center;">$_("Details")</th>
+                              <th style="text-align:center;">$_("Loaded")</th>
+                              <th style="text-align:center;">$_("Persisted")</th>
+                              <th>$_("Info")</th>
+                              <th>$_("pervalue")</th>
+                              <th>$_("loadvalue")</th>
+                            </tr>
+                          </thead>
+                          <tbody></tbody>
+                        </table>
+                      </div>
+                  </div>
+                  <div class="wok-mask rules-loader">
+                    <div class="wok-mask-loader-container">
+                      <div class="wok-mask-loading">
+                        <div class="wok-mask-loading-icon"></div>
+                        <div class="wok-mask-loading-text">$_("Loading...")</div>
+                      </div>
+                    </div>
+                  </div>
+              </div>
+          </div>
+          <!-- Audit logs section -->
+    <div class="panel-group audit-ppc-enabled accordion" id="audit-logs-ppc-enabled-accordion" role="tablist" aria-multiselectable="true" style="display: none;">
+        <h3>
+            <a role="button" data-toggle="collapse" data-parent="#audit-logs--ppc-enabled-accordion" href="#audit-logs-content-area" aria-expanded="false" aria-controls="audit-rules-content-area" class="">
+                <span class="accordion-icon"></span><span class="accordion-text">$_("Audit Logs")</span>
+            </a>
+        </h3>
+        <div id="audit-logs-content-area" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+            <span id='alert-modal-audit-logs-container' style='display: none;'></span>
+            <div class='clearfix'>
+                <div class="row">
+                   <div class="col-sd-12"><span>&nbsp;</span></div>
+                </div>
+                <div class="row" id="audit-logs">
+                  <table id="audit-logs-table" class="table table-stripped" cellspacing="0" width="100%">
+                    <thead>
+                      <tr>
+                        <th>$_("Date and Time")</th>
+                        <th>$_("Type")</th>
+                        <th>$_("Message")</th>
+                        <th style="text-align:center;">$_("Details")</th>
+                      </tr>
+                    </thead>
+                    <tbody></tbody>
+                  </table>
+                </div>
+            </div>
+            <div class="wok-mask logs-loader">
+              <div class="wok-mask-loader-container">
+                <div class="wok-mask-loading">
+                  <div class="wok-mask-loading-icon"></div>
+                  <div class="wok-mask-loading-text">$_("Loading...")</div>
+                </div>
+              </div>
+            </div>
+        </div>
+    </div>
+<!-- Audit dispatcher section -->
+  <div class="panel-group audit-ppc-enabled accordion" id="audit-dispatcher-ppc-enabled-accordion" role="tablist" aria-multiselectable="true" style="display: none;">
+    <h3>
+        <a role="button" data-toggle="collapse" data-parent="#audit-dispatcher-ppc-enabled-accordion" href="#audit-dispatcher-content-area" aria-expanded="false" aria-controls="audit-rules-content-area" class="">
+            <span class="accordion-icon"></span><span class="accordion-text">$_("Audit Dispatcher")</span>
+        </a>
+    </h3>
+    <div id="audit-dispatcher-content-area" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+        <span id='alert-modal-audit-dispatcher-container' style='display: none;'></span>
+        <div class='clearfix'>
+            <div class="row">
+               <div class="col-sd-12"><span>&nbsp;</span></div>
+            </div>
+            <div class="row" id="audit-dispatcher">
+              <table id="audit-disp-plugin-table" class="table table-stripped" cellspacing="0" width="100%">
+                <thead>
+                  <tr>
+                    <th>$_("Plugin")</th>
+                    <th>$_("Active")</th>
+                    <th style="text-align:center;">$_("Details")</th>
+                    <th>$_("Info")</th>
+                  </tr>
+                </thead>
+                <tbody></tbody>
+              </table>
+            </div>
+        </div>
+        <div class="wok-mask dispatcher-loader">
+          <div class="wok-mask-loader-container">
+            <div class="wok-mask-loading">
+              <div class="wok-mask-loading-icon"></div>
+              <div class="wok-mask-loading-text">$_("Loading...")</div>
+            </div>
+          </div>
+        </div>
+    </div>
+  </div>
+</div>
+
+<!-- Audit logs - Log Filter -->
+<div class="modal fade host-modal" id="auditlogFilter" tabindex="-1" role="dialog" labelledby="AuditLogsFilterModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" >
+          <div class="modal-header">
+            <button type="button" id="log-filter-button-close" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+            <h4 class="modal-title" id="log-filter-title"></h4>
+            <hr style="width:99%;margin-left:5px;"/>
+          </div>
+          <div class="modal-body">
+            <span id='alert-modal-audit-filter-container' style='display: none;'></span>
+            <form class="form-horizontal" id="form-log-report-filter">
+              <div class="form-group">
+               <label for="log-path-info">$_("Log File Name")</label>
+                  <div class="form-group">
+                    <input id="log-path-info" class="form-control input" name="path" style="width:50%;"/>
+                    <p class="help-block">
+                        <i class="fa fa-info-circle"></i> $_("Please provide either file name or directory where the log file exists.")
+                    </p>
+                  </div>
+              </div>
+              <div class="row">
+                <span class='add-new-filter'><a  class="add-filter btn btn-link" href="#" style="padding-left:0px;"><i class="fa fa-plus-circle"></i> $_("Add new filter")</a></span>
+              </div>
+              <span id="addfielderror-message" style="display:none;"></span>
+              <div class="row hidden" id="filterList">
+                  <div class="col-md-12">
+                      <div class="col-md-5">
+                          <label class="col-md-12">$_("Field")</label>
+                      </div>
+                      <div class="col-md-5">
+                          <label class="col-md-12">$_("Value")</label>
+                      </div>
+                      <div class="col-md-2">
+                      </div>
+                  </div>
+                  <div class="col-md-12" id="newRow">
+                  </div>
+              </div>
+              <div class="checkbox" style="margin-top:25px;">
+                  <label class="check-all">
+                      <input type="checkbox" id="interpret" style="margin-top:10px;">$_("Interpret  numeric  entities into text")
+                  </label>
+              </div>
+	      <div class="wok-mask Audit-log-loader" hidden>
+                <div class="wok-mask-loader-container">
+                  <div class="wok-mask-loading">
+                    <div class="wok-mask-loading-icon"></div>
+                    <div class="wok-mask-loading-text">$_("Please wait...")</div>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button id="log-filter-button-apply" class="btn btn-default">$_("Filter")</button>
+            <button id="log-filter-button-cancel" class="btn btn-default" data-dismiss="modal">$_("Cancel")</button>
+          </div>
+        </div>
+    </div>
+</div>
+
+<!-- Audit log report summary -->
+<div class="modal fade host-modal" id="auditlogReport" tabindex="-1" role="dialog" labelledby="AuditLogReportSummaryModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" >
+          <div class="modal-header">
+            <button type="button" id="log-report-button-close" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+            <h4 class="modal-title" id="log-summary-title">$_("Audit Report")</h4>
+            <hr style="width:99%;margin-left:5px;"/>
+          </div>
+          <div class="modal-body">
+            <span id='alert-modal-audit-report-container' style='display: none;'></span>
+            <form class="form-horizontal" id="form-log-report-filter">
+              <!-- <div class="form-group"> -->
+                <div class="form-group">
+                  <label for="reportType">$_("Audit Report Type")</label>
+                   <div class="col-md-12">
+                    <select id="reportType" class="selectpicker col-sm-6" name="reporttype">
+                      <option value="summary">$_("Summary Report")</option>
+                      <option value="detailed">$_("Detailed Report")</option>
+                    </select>
+                    <button id="log-report-button-apply" class="btn btn-primary"style="margin-left:100px;">$_("Generate Report")</button>
+                  </div>
+                 </div>
+                 <div class="form-group">
+                    <label for="log-path-info">$_("Log File Name")</label>
+                    <input id="log-path-info" class="form-control input" name="path" style="width:50%;"/>
+                    <p class="help-block">
+                        <i class="fa fa-info-circle"></i> $_("Please provide either file name or directory where the log file exists.")
+                    </p>
+                  </div>
+              <!-- </div> -->
+              <div class="row">
+                <span class='add-new-filter'><a  class="add-filter btn btn-link" href="#" style="padding-left:0px;"><i class="fa fa-plus-circle"></i> $_("Add new filter")</a></span>
+              </div>
+              <span id="Filterfielderror-message" style="display:none;"></span>
+              <div class="row hidden" id="filterList">
+                  <div class="col-md-12">
+                      <div class="col-md-5">
+                          <label class="col-md-12">$_("Field")</label>
+                      </div>
+                      <div class="col-md-5">
+                          <label class="col-md-12">$_("Value")</label>
+                      </div>
+                      <div class="col-md-2">
+                      </div>
+                  </div>
+                  <div class="col-md-12" id="newRow">
+                  </div>
+              </div>
+              <div class="checkbox" style="margin-top:25px;">
+                  <label class="check-all">
+                      <input type="checkbox" id="interpret" style="margin-top:10px;">$_("Interpret  numeric  entities into text")
+                  </label>
+              </div>
+            </form>
+           <div class="row hidden" id="report-details" style="margin-top:30px;" tabindex="-1">
+             <div class="alert alert-info hidden" id="summaryReportPathInfo"></div>
+              <div class="row">
+                <button id="report-graph-button" class="btn btn-primary" data-toggle="modal" data-target="#reportGraph">$_('Graph Preview')</button>
+                <button id="report-download-button" class="btn btn-primary" data-search="">$_('Download')</button>
+              </div>
+              <div class="clearfix">
+               <p id="summaryreport" class="report"></p>
+              </div>
+              <div class="wok-mask report-loader">
+                <div class="wok-mask-loader-container">
+                  <div class="wok-mask-loading">
+                    <div class="wok-mask-loading-icon"></div>
+                    <div class="wok-mask-loading-text">$_("Generating report...")</div>
+                  </div>
+                </div>
+              </div>
+          </div>
+          </div>
+          <div class="modal-footer">
+            <button id="log-report-button-cancel" class="btn btn-default" data-dismiss="modal">$_("Cancel")</button>
+          </div>
+        </div>
+    </div>
+</div>
+
+<!-- Audit report graph -->
+<div class="modal fade host-modal" id="reportGraph" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" >
+          <div class="modal-header">
+            <button type="button" id="report-graph-button-close" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+            <h4 class="modal-title" id="log-summary-title">$_("Report Graph")</h4>
+            <hr style="width:99%;margin-left:5px;"/>
+          </div>
+          <div class="modal-body">
+            <span id='alert-modal-audit-graph-container' style='display: none;'></span>
+            <form class="form-horizontal" id="form-log-report-filter">
+               <div class="form-group">
+                   <label for="graph-name">$_("Graph Name")</label>
+                   <input id="graph-name" class="form-control input" name="graph-name" style="width:50%;"/>
+               </div>
+               <div class="form-group">
+                  <label for="graphFormat">$_("Graph Format")</label>
+                   <div class="col-md-12">
+                    <select id="graphFormat" class="selectpicker col-sm-6" name="graphformat">
+                      <option value="png">$_("PNG")</option>
+                      <option value="jpeg">$_("JPEG")</option>
+                      <option value="bmp">$_("BMP")</option>
+                      <option value="jpg">$_("JPG")</option>
+                      <option value="pdf">$_("PDF")</option>
+                      <option value="svg">$_("SVG")</option>
+                    </select>
+                    <button id="generate-report-graph-button" class="btn btn-primary"style="margin-left:100px;">$_("Generate Graph")</button>
+                  </div>
+                 </div>
+                 <div class="form-group">
+                   <label for="graphColumns">$_("Graph Columns")</label>
+                    <div class="col-md-12">
+                     <select id="graphColumns" class="selectpicker col-sm-6" name="graphcolumn" multiple data-max-options="2" data-min-options="2">
+                     </select>
+                    </div>
+                  </div>
+            </form>
+            <div class="alert alert-info hidden" id="graphPathInfo"></div>
+           </div>
+          <div class="modal-footer">
+            <button id="log-report-button-cancel" class="btn btn-default" data-dismiss="modal">$_("Cancel")</button>
+          </div>
+        </div>
+    </div>
+ </div>
+
+ <!-- Audit Dispatcher Configuration -->
+ <div class="modal fade host-modal" id="auditDisprConf" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+     <div class="modal-dialog" role="document">
+         <div class="modal-content" >
+           <div class="modal-header">
+             <button type="button" id="log-filter-button-close" class="close" data-dismiss="modal" aria-label="Close">
+               <span aria-hidden="true">&times;</span>
+             </button>
+             <h4 class="modal-title" id="disp-conf-title">$_("Audit Dispatcher Configuration")</h4>
+             <hr style="width:99%;margin-left:5px;"/>
+           </div>
+           <div class="modal-body">
+             <span id='alert-modal-disp-conf-container' style='display: none;'></span>
+             <form class="form-horizontal" id="form-log-report-filter">
+               <div class="form-group">
+                <label for="overflowAction">$_("Overflow Action")</label>
+                   <div class="form-group">
+                     <input id="overflowAction" class="form-control input" name="overflowAction" style="width:50%;"/>
+                   </div>
+               </div>
+               <div class="form-group">
+                <label for="priorityBoost">$_("Priority Boost")</label>
+                   <div class="form-group">
+                     <input id="priorityBoost" class="form-control input" name="priorityboost" style="width:50%;"/>
+                   </div>
+               </div>
+               <div class="form-group">
+                <label for="qDepth">$_("Q Depth")</label>
+                   <div class="form-group">
+                     <input id="qDepth" class="form-control input" name="qDepth" style="width:50%;"/>
+                   </div>
+               </div>
+               <div class="form-group">
+                <label for="maxRestarts">$_("Max restarts")</label>
+                   <div class="form-group">
+                     <input id="maxRestarts" class="form-control input" name="maxrestarts" style="width:50%;"/>
+                   </div>
+               </div>
+               <div class="form-group">
+                <label for="nameFormat">$_("Name Format")</label>
+                   <div class="form-group">
+                     <input id="nameFormat" class="form-control input" name="nameFormat" style="width:50%;"/>
+                   </div>
+               </div>
+              </form>
+           </div>
+           <div class="modal-footer">
+             <button id="disp-conf-button-apply" class="btn btn-default">$_("Apply")</button>
+             <button id="disp-conf-button-cancel" class="btn btn-default" data-dismiss="modal">$_("Cancel")</button>
+           </div>
+         </div>
+     </div>
+  </div>
+
+  <!-- Audit Dispatcher Plugin Details -->
+  <div class="modal fade host-modal" id="auditPluginDetails" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+      <div class="modal-dialog" role="document">
+          <div class="modal-content" >
+            <div class="modal-header">
+              <button type="button" id="disp-plugin-button-close" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+              <h4 class="modal-title" id="disp-conf-title">$_("Dispatcher Plugin Configuration")</h4>
+              <hr style="width:99%;margin-left:5px;"/>
+            </div>
+            <div class="modal-body">
+              <span id='alert-modal-plugin-container' style='display: none;'></span>
+              <form class="form-horizontal" id="form-plugin-details">
+                <div class="form-group">
+                 <label for="direction">$_("Direction")</label>
+                    <div class="form-group">
+                      <input id="direction" class="form-control input" name="direction" style="width:50%;"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                 <label for="format">$_("Format")</label>
+                    <div class="form-group">
+                      <input id="format" class="form-control input" name="format" style="width:50%;"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                 <label for="args">$_("Args")</label>
+                    <div class="form-group">
+                      <input id="args" class="form-control input" name="args" style="width:50%;"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                 <label for="active">$_("Active")</label>
+                    <div class="form-group">
+                      <select id="active" class="selectpicker col-sm-6" name="active">
+                        <option value="yes">$_("Yes")</option>
+                        <option value="no">$_("No")</option>
+                      </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                 <label for="nameFormat">$_("Path")</label>
+                    <div class="form-group">
+                      <input id="path" class="form-control input" name="path" style="width:50%;"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                 <label for="type">$_("Type")</label>
+                    <div class="form-group">
+                      <input id="type" class="form-control input" name="type" style="width:50%;"/>
+                    </div>
+                </div>
+               </form>
+            </div>
+            <div class="modal-footer">
+              <button id="plugin-update-button-apply" class="btn btn-default">$_("Apply")</button>
+              <button id="plugin-update-button-cancel" class="btn btn-default" data-dismiss="modal">$_("Cancel")</button>
+            </div>
+          </div>
+      </div>
+   </div>
+</div>
+
+</script>
+<script>
+ginger.initAudit();
+</script>
+</body>
+</html>
