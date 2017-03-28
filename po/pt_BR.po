@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ginger 1.2.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-03-02 16:12-0300\n"
+"POT-Creation-Date: 2017-03-28 12:08-0300\n"
 "PO-Revision-Date: 2014-06-22 14:00+0800\n"
 "Last-Translator: Zhou Zheng Sheng <zhshzhou@linux.vnet.ibm.com>\n"
 "Language-Team: Zhou Zheng Sheng <zhshzhou@linux.vnet.ibm.com>\n"
@@ -336,6 +336,9 @@ msgid "At least one permission is required for File System Rule."
 msgstr ""
 
 msgid "At least one slave is required for the bond interface"
+msgstr ""
+
+msgid "Audit"
 msgstr ""
 
 msgid "Audit Dispatcher"
@@ -3525,10 +3528,7 @@ msgstr ""
 msgid "System Modules"
 msgstr ""
 
-msgid "System Modules Management"
-msgstr ""
-
-msgid "System Services Management"
+msgid "System Services"
 msgstr ""
 
 msgid "System Temperature Reading"

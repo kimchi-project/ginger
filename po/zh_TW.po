@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ginger 1.2.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-03-02 16:12-0300\n"
+"POT-Creation-Date: 2017-03-28 12:08-0300\n"
 "PO-Revision-Date: 2014-06-22 14:00+0800\n"
 "Last-Translator: Zhou Zheng Sheng <zhshzhou@linux.vnet.ibm.com>\n"
 "Language-Team: Zhou Zheng Sheng <zhshzhou@linux.vnet.ibm.com>\n"
@@ -337,6 +337,9 @@ msgstr "至少需要一種「檔案系統規則」的許可權。"
 
 msgid "At least one slave is required for the bond interface"
 msgstr "BOND 介面需要至少一個從屬項"
+
+msgid "Audit"
+msgstr ""
 
 msgid "Audit Dispatcher"
 msgstr "審核分派器"
@@ -3537,11 +3540,8 @@ msgstr "系統 ID"
 msgid "System Modules"
 msgstr ""
 
-msgid "System Modules Management"
-msgstr "系統模組管理"
-
-msgid "System Services Management"
-msgstr "系統服務管理"
+msgid "System Services"
+msgstr ""
 
 msgid "System Temperature Reading"
 msgstr "系統溫度讀數"
@@ -4334,6 +4334,12 @@ msgstr "給定 VG 的 vgs 指令失敗"
 
 msgid "xfs"
 msgstr "xfs"
+
+#~ msgid "System Modules Management"
+#~ msgstr "系統模組管理"
+
+#~ msgid "System Services Management"
+#~ msgstr "系統服務管理"
 
 #~ msgid "Preserve the latest"
 #~ msgstr "保留最新的"

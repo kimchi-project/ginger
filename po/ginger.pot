@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-03-02 16:12-0300\n"
+"POT-Creation-Date: 2017-03-28 12:08-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -338,6 +338,9 @@ msgid "At least one permission is required for File System Rule."
 msgstr ""
 
 msgid "At least one slave is required for the bond interface"
+msgstr ""
+
+msgid "Audit"
 msgstr ""
 
 msgid "Audit Dispatcher"
@@ -3516,10 +3519,7 @@ msgstr ""
 msgid "System Modules"
 msgstr ""
 
-msgid "System Modules Management"
-msgstr ""
-
-msgid "System Services Management"
+msgid "System Services"
 msgstr ""
 
 msgid "System Temperature Reading"
