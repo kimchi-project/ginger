@@ -23,7 +23,7 @@ import os
 from i18n import messages
 from model import GingerModel
 from wok import config
-from wok.config import PluginPaths
+from wok.config import PluginConfig, PluginPaths
 from wok.plugins.ginger.control import sub_nodes
 from wok.root import WokRoot
 
@@ -49,21 +49,14 @@ class Ginger(WokRoot):
         self.paths = PluginPaths('ginger')
 
     def get_custom_conf(self):
-        custom_config = {
+        custom_config = PluginConfig('ginger')
+        custom_config.update({
             '/help': {
                 'tools.staticdir.on': True,
                 'tools.nocache.on': True,
                 'tools.staticdir.dir':  os.path.join(self.paths.ui_dir,
                                                      'pages/help')
             }
-        }
-
-        for dirname in ('css', 'js', 'images'):
-            custom_config['/' + dirname] = {
-                'tools.staticdir.on': True,
-                'tools.staticdir.dir': os.path.join(self.paths.ui_dir,
-                                                    dirname),
-                'tools.wokauth.on': False,
-                'tools.nocache.on': False}
+        })
 
         return custom_config
