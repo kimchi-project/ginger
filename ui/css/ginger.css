@@ -365,7 +365,7 @@
 #sep-ppc-content-area .body > div {
   padding: 6px 2px;
   display: inline-block;
-  font-family: "Open Sans", Helvetica, Arial, "Lucida Grande", sans-serif;
+  font-family: Helvetica, Arial, "Lucida Grande", sans-serif;
 }
 
 #sanadapters-ppc-content-area .header,
@@ -478,7 +478,7 @@
   margin-left: 10px;
   padding: 2px 2px;
   vertical-align: top;
-  font-family: "Open Sans", Helvetica, Arial, "Lucida Grande", sans-serif;
+  font-family: Helvetica, Arial, "Lucida Grande", sans-serif;
   font-size: 11pt;
   cursor: pointer;
 }
@@ -870,7 +870,7 @@
 #audit-rules-content-area .details-list span[class^=header-] {
   width: 45%;
   display: table-cell;
-  font-family: "Open Sans", Helvetica, Arial, "Lucida Grande", sans-serif;
+  font-family: Helvetica, Arial, "Lucida Grande", sans-serif;
   font-weight: 300;
   font-size: 12.5pt;
   border-bottom: none;
@@ -1096,7 +1096,7 @@
 #network-content-area .body > div {
   padding: 6px 2px;
   display: inline-block;
-  font-family: "Open Sans", Helvetica, Arial, "Lucida Grande", sans-serif;
+  font-family: Helvetica, Arial, "Lucida Grande", sans-serif;
 }
 
 #network-content-area .header {
@@ -1535,7 +1535,7 @@
 #san-adapter-content-area .body > div {
   padding: 6px 2px;
   display: inline-block;
-  font-family: "Open Sans", Helvetica, Arial, "Lucida Grande", sans-serif;
+  font-family: Helvetica, Arial, "Lucida Grande", sans-serif;
 }
 
 #volume-groups-content-area .header,
@@ -1992,7 +1992,7 @@ hr {
 #volume-groups-content-area .details-list span[class^=header-] {
   width: 40%;
   display: table-cell;
-  font-family: "Open Sans", Helvetica, Arial, "Lucida Grande", sans-serif;
+  font-family: Helvetica, Arial, "Lucida Grande", sans-serif;
   font-weight: 300;
   font-size: 12.5pt;
   border-bottom: none;
@@ -2184,7 +2184,7 @@ hr {
 #sysmodules-content-area .body > div {
   padding: 6px 2px;
   display: inline-block;
-  font-family: "Open Sans", Helvetica, Arial, "Lucida Grande", sans-serif;
+  font-family: Helvetica, Arial, "Lucida Grande", sans-serif;
 }
 
 #sysmodules-content-area .header {
@@ -2275,7 +2275,7 @@ hr {
 #sysmodules-content-area .details-list span[class^=header-] {
   width: 100%;
   display: block;
-  font-family: "Open Sans", Helvetica, Arial, "Lucida Grande", sans-serif;
+  font-family: Helvetica, Arial, "Lucida Grande", sans-serif;
   font-weight: 300;
   font-size: 12.5pt;
   border-bottom: none;
@@ -3034,7 +3034,7 @@ ul.nav > li.active > span.tree-toggle:before {
 #server-content-area .body > div {
   padding: 6px 2px;
   display: inline-block;
-  font-family: "Open Sans", Helvetica, Arial, "Lucida Grande", sans-serif;
+  font-family: Helvetica, Arial, "Lucida Grande", sans-serif;
 }
 
 #server-content-area .header {
